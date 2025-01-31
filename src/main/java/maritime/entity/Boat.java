@@ -27,44 +27,40 @@ public abstract class Boat extends Entity{
     //static public Entity create(String name, int visionRadius, int maxHp, Point position, String idModel) {
     //    return new Boat(name, visionRadius, maxHp, position, idModel);
     //}
-
-
     /*
      * Méthode qui indique si le bateau se trouve actuellement sur un point du Graphe.
-     * @param GraphPoint p
+     * @param GraphPoint point
      * @return Bool
      */
-    public boolean isOn(GraphPoint p){
-        return p.getX()==((int) getPosition().getX()) && p.getY()==((int) getPosition().getY());
-     }
-
-
+    public boolean isOnPoint(GraphPoint point){
+        return point.getX()==((int) this.getPosition().getX()) && point.getY()==((int) this.getPosition().getY());
+    }
     /*
      * Méthode qui déplace le bateau selon sa vitesse en direction du point donnée.
      * Si il se trouve sur le point donnée ou sa vitesse est plus grande que le point donnée,
      * le bateau prend les coordonnées du point.
      * Utilise la trigonométrie pour fonctionner.
-     * @param GraphPoint p
+     * @param GraphPoint point
      */
-    public void approach(GraphPoint p){
-        double X, Y, x, y;
-        Point tmp=getPosition();
+    public void approachingToPoint(GraphPoint point){
+        double x1, y1, x2, y2;
         //On conserve ici les données utiles
-        X=p.getX(); Y=p.getY(); //Les coordonnées du point vers lequel on se dirige
-        x= (double) tmp.getX(); y= (double) tmp.getY(); //les coordonnées de là ou on se trouve
+        x1 =point.getX(); y1 =point.getY(); //Les coordonnées du point vers lequel on se dirige
+        x2 = this.getPosition().getX();
+        y2 = this.getPosition().getY();
 
-        this.angle = Math.atan2(Y - y, X - x); //calcul avec ArcTan la position ou on doit se déplacer
-        double distance = Math.sqrt(Math.pow(X - x, 2) + Math.pow(Y - y, 2)); //Pythagore
+        this.angle = Math.atan2(y1 - y2, x1 - x2); //calcul avec ArcTan la position ou on doit se déplacer
+        double distance = Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2)); //Pythagore
 
         if (distance < speed) {
-            // distance<speed  -> on se déplace sur le point visé
-            tmp.setLocation((int) X, (int) Y);
+//             distance<speed> on se déplace sur le point visé
+            this.setPosition(point.getPoint());
         } else {
             /* Sinon, on se déplace en direction de notre point grâce aux formules de trigo
              * x + Math.cos(angle) * speed : nous donne de combien on doit se déplacer sur l'axe x
              * y + Math.sin(angle) * speed : nous donne de combien on doit se déplacer sur l'axe y
              */
-            tmp.move((int) Math.round(x + Math.cos(angle) * speed), (int) Math.round(y + Math.sin(angle) * speed));
+            this.getPosition().move((int) Math.round(x2 + Math.cos(angle) * speed), (int) Math.round(y2 + Math.sin(angle) * speed));
         }
     }
 

@@ -87,16 +87,16 @@ public class JavaTestRandomGraphAffichage extends JPanel {
                 // S'assurer que ce n'est pas le même point et que la connexion n'existe pas déjà
                 if (!point1.equals(point2) && !connectedPoints.contains(point2)) {
                     connectedPoints.add(point2);
-                    int cost = rand.nextInt(10) + 1; // Le coût est un nombre aléatoire entre 1 et 10
-
+                    int cost = (int)point1.getPoint().distance(point2.getPoint()); // Le coût est un nombre aléatoire entre 1 et 10
                     // Ajouter des segments bidirectionnels
-                    point1.addSegment(new GraphSegment(point2, cost));
-                    point2.addSegment(new GraphSegment(point1, cost));
+                    point1.getPoint().distance(point2.getPoint());
+                    point1.addSegment(new GraphSegment(point2, (int)point1.getPoint().distance(point2.getPoint())));
+                    point2.addSegment(new GraphSegment(point1, (int)point2.getPoint().distance(point1.getPoint())));
                 }
             }
         }
 
-        lstSegmentResult = Djikstra.findPath(points.get(0),points.get(30));
+        lstSegmentResult = SearchInGraph.findPath(points.get(0),points.get(30));
         lstSegmentResult.addFirst(points.get(0));
 
         // Crée la fenêtre avec un panneau pour afficher les points

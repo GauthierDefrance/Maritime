@@ -7,15 +7,10 @@ import java.util.ArrayList;
  * Classe djikstra
  * @version 0.1
  */
-public class Djikstra {
+public class SearchInGraph {
 
     public static ArrayList<GraphPoint> findPath(GraphPoint pointStart, GraphPoint pointEnd) {
-        if (pointStart.equals(pointEnd)){
-            ArrayList<GraphPoint> Result = new ArrayList<>();
-            Result.add(pointStart);
-            return Result;
-        }
-
+        if (pointStart.equals(pointEnd)){ArrayList<GraphPoint> Result = new ArrayList<>();Result.add(pointStart);return Result;}
         ArrayList<ArrayList<GraphSegment>> lstPath = new ArrayList<>(deletePath(getPointToPath(pointStart),pointStart));;
         ArrayList<ArrayList<GraphSegment>> lstPathResult = new ArrayList<>();
         while (!lstPath.isEmpty()) {

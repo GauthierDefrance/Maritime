@@ -22,19 +22,11 @@ public class Graph_useless {
         graph.put(point.getIdPoint(), point);
     }
 
-    private void initHashMapGraph(GraphPoint[] graphPoints) {
+    private void initHashMapGraph(GraphPoint[] graphTab) {
         graph = new HashMap<String,GraphPoint>();
-        for (GraphPoint graphPoint : graphPoints) {
-            addGraphPoint(graphPoint.getIdPoint(), graphPoint);
+        for (GraphPoint point : graphTab) {
+            addGraphPoint(point.getIdPoint(), point);
         }
-    }
-
-    public GraphPoint[] getPath(GraphPoint startPoint, GraphPoint endPoint) throws PathNotFoundException{
-
-
-
-
-        return new GraphPoint[] { startPoint, endPoint };
     }
 
     public String toString() {

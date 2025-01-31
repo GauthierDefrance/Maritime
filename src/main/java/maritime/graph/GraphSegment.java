@@ -1,7 +1,7 @@
 package maritime.graph;
 
 public class GraphSegment {
-    private GraphPoint destination;
+    private final GraphPoint destination;
     private int cost;
 
     public GraphSegment(GraphPoint destination, int cost) {

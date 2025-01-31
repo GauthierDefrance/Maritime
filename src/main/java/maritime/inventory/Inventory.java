@@ -16,10 +16,11 @@ public class Inventory {
 
     public void add(String elem,int nb){ content.put(elem, checkRessourceNumber(elem) + nb); }
 
-    public void subtract(String elem, int nb){
-        if (this.checkRessourceNumber(elem) >= nb) this.add(elem, -nb);
-        else throw new ArithmeticException("Not enough elements");
-        /* Gère mieux le cas limite --> avec rem() on autorise en instance unique
-        le retrait de 12 unités de ressources même si on en possède 10 */
+    public boolean subtract(String elem, int nb){
+        if (this.checkRessourceNumber(elem) >= nb) {
+            this.add(elem, -nb);
+            return true;
+        }
+        else {return false;}
     }
 }
