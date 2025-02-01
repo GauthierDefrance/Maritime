@@ -1,3 +1,5 @@
+package maritime.test;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -13,7 +15,7 @@ public class JavaTestRandomGraphAffichage extends JPanel {
     // Constructeur pour initialiser la liste de points
     public JavaTestRandomGraphAffichage(List<GraphPoint> points) {
         this.points = points;
-        setPreferredSize(new Dimension(800, 600));
+        setPreferredSize(new Dimension(640, 360));
     }
 
     // Méthode de dessin des points et des segments
@@ -21,6 +23,10 @@ public class JavaTestRandomGraphAffichage extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
+
+        double scale = Math.min((double)getWidth()/640,(double) getHeight() /360);
+
+        g2d.scale(scale,scale);
         g2d.setStroke(new BasicStroke(1));  // Ligne plus épaisse pour les segments
         // Dessiner les segments dans l'ordre de lstSegmentResult (en bleu)
         if (lstSegmentResult != null && lstSegmentResult.size() > 1) {
@@ -62,14 +68,13 @@ public class JavaTestRandomGraphAffichage extends JPanel {
             g2d.drawString(point.getIdPoint(), p.x + 5, p.y - 5); // Affiche l'ID du point
         }
     }
-
     public static void main(String[] args) {
         List<GraphPoint> points = new ArrayList<>();
         Random rand = new Random();
 
         // Création des 30 points avec des coordonnées aléatoires
-        for (int i = 0; i < 50; i++) {
-            points.add(new GraphPoint(new Point(rand.nextInt(800), rand.nextInt(600)), String.valueOf((char)('A' + i))));
+        for (int i = 0; i < 15; i++) {
+            points.add(new GraphPoint(new Point(rand.nextInt(640), rand.nextInt(360)), String.valueOf((char)('A' + i))));
         }
 
         // Générer les connexions
@@ -77,7 +82,7 @@ public class JavaTestRandomGraphAffichage extends JPanel {
             GraphPoint point1 = points.get(i);
             // Utiliser un ArrayList pour stocker les points déjà connectés
             List<GraphPoint> connectedPoints = new ArrayList<>();
-            int numConnections = rand.nextInt(2) + 1;  // Génère un nombre aléatoire entre 3 et 4 (inclus)
+            int numConnections = rand.nextInt(5) + 1;  // Génère un nombre aléatoire entre 3 et 4 (inclus)
 
             while (connectedPoints.size() < numConnections) {
                 // Sélectionner un autre point aléatoire
@@ -96,7 +101,7 @@ public class JavaTestRandomGraphAffichage extends JPanel {
             }
         }
 
-        lstSegmentResult = SearchInGraph.findPath(points.get(0),points.get(30));
+        lstSegmentResult = SearchInGraph.findPath(points.get(0),points.get(10));
         lstSegmentResult.addFirst(points.get(0));
 
         // Crée la fenêtre avec un panneau pour afficher les points

@@ -2,21 +2,21 @@ package marine_trash.map;
 import java.util.ArrayList;
 
 public class Map {
-    private ArrayList<Point> points;
+    private ArrayList<Pointt> points;
     public Map() {
-        points = new ArrayList<Point>();
+        points = new ArrayList<Pointt>();
     }
 
     //getters
-    public void addPoint(int ID, String NAME, int x, int y){points.add(new Point(ID,NAME,x,y));}
-    public void addPoint(Point p){points.add(p);}
+    public void addPoint(int ID, String NAME, int x, int y){points.add(new Pointt(ID,NAME,x,y));}
+    public void addPoint(Pointt p){points.add(p);}
 
-    public Point getPoint(int ID){return points.get(ID);}
-    public ArrayList<Point> getPoints(){return points;}
+    public Pointt getPoint(int ID){return points.get(ID);}
+    public ArrayList<Pointt> getPoints(){return points;}
 
     //setters
     public void remPoint(int ID){points.remove(ID);}
-    public void setPoints(ArrayList<Point> points){this.points = points;}
+    public void setPoints(ArrayList<Pointt> points){this.points = points;}
 
 
 }

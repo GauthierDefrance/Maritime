@@ -50,18 +50,14 @@ public abstract class Boat extends Entity{
         y2 = this.getPosition().getY();
 
         this.angle = Math.atan2(y1 - y2, x1 - x2); //calcul avec ArcTan la position ou on doit se déplacer
-        double distance = Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2)); //Pythagore
+        double distance = this.getPosition().distance(point.getPoint());
 
-        if (distance < speed) {
-//             distance<speed> on se déplace sur le point visé
-            this.setPosition(point.getPoint());
-        } else {
-            /* Sinon, on se déplace en direction de notre point grâce aux formules de trigo
-             * x + Math.cos(angle) * speed : nous donne de combien on doit se déplacer sur l'axe x
-             * y + Math.sin(angle) * speed : nous donne de combien on doit se déplacer sur l'axe y
-             */
-            this.getPosition().move((int) Math.round(x2 + Math.cos(angle) * speed), (int) Math.round(y2 + Math.sin(angle) * speed));
-        }
+        if (distance < speed) {moveTo(point.getPoint());}//distance < speed> on se déplace sur le point visé
+        else {moveTo(new Point((int) Math.round(x2 + Math.cos(angle) * speed), (int) Math.round(y2 + Math.sin(angle) * speed)));}// Sinon, on se déplace en direction de notre point grâce aux formules de trigo
+    }
+
+    public void moveTo(Point point){
+        this.setPosition(point);
     }
 
 

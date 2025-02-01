@@ -1,7 +1,7 @@
 package marine_trash.map;
 import java.util.HashMap;
 
-public class Point extends java.awt.Point {
+public class Pointt extends java.awt.Point {
     private String Name;
 
     private Boolean Harbor;
@@ -10,7 +10,7 @@ public class Point extends java.awt.Point {
 
     HashMap<Integer,Road> roads;
 
-    public Point(int Id,String NAME,int x, int y) {
+    public Pointt(int Id, String NAME, int x, int y) {
         super(x,y);
         roads = new HashMap<Integer,Road>();
         this.Name = NAME;

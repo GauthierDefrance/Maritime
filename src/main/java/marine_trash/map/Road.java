@@ -1,16 +1,16 @@
 package marine_trash.map;
 
 public class Road {
-    private final Point connected;
+    private final Pointt connected;
     private final int length;
     private Boolean Pirate;
 
-    public Road(final Point connected, int length) {
+    public Road(final Pointt connected, int length) {
         this.connected = connected;
         this.length = length;
     }
 
-    public Point getPoint() {return connected;}
+    public Pointt getPoint() {return connected;}
     public boolean hasPirate() {return Pirate;}
     public int getLength() {return length;}
 
