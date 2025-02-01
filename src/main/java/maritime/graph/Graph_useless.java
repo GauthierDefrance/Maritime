@@ -2,6 +2,11 @@ package maritime.graph;
 
 import java.util.HashMap;
 
+/**
+ * @author @Kenan Ammad @Gauthier Defrance
+ * Classe Graph
+ * @version 0.1
+ */
 public class Graph_useless {
 
     private HashMap<String,GraphPoint> graph;

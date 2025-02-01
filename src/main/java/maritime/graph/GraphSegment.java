@@ -1,5 +1,10 @@
 package maritime.graph;
 
+/**
+ * @author @Kenan Ammad @Gauthier Defrance
+ * Classe GraphSegment
+ * @version 0.1
+ */
 public class GraphSegment {
     private final GraphPoint destination;
     private int cost;

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 
 /**
- * Classe djikstra
+ * @author @Kenan Ammad
+ * Classe SearchInGraph
  * @version 0.1
  */
 public class SearchInGraph {
