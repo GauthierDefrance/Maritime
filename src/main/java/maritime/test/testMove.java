@@ -57,6 +57,7 @@ public class testMove extends JFrame implements Runnable {
         standard.setPath(SearchInGraph.findPath(A,C));
 
         Container contentPane = getContentPane();
+        contentPane.add(dashboard);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);

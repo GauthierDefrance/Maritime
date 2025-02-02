@@ -3,6 +3,7 @@ package maritime.gui;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -16,7 +17,7 @@ public class PaintBackGround {
     public PaintBackGround(){
         try {
             for (int i = 0; i < NUMBER_OF_BACK_GROUND_FRAMES; i++) {
-                frames.add(ImageIO.read(Objects.requireNonNull(getClass().getResource("pframe-" + i + ".png"))));
+                frames.add(ImageIO.read(new File("C:\\Users\\tartinax\\Pictures\\pif\\pframe-" + i + ".png")));
             }
         } catch (Exception e) {
             System.err.println("rip");

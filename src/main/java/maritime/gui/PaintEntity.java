@@ -6,6 +6,7 @@ import maritime.engine.entity.Entity;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Objects;
 
 public class PaintEntity {
@@ -13,7 +14,7 @@ public class PaintEntity {
 
     public PaintEntity(){
         try {
-                frameBoat = (ImageIO.read(Objects.requireNonNull(getClass().getResource("..\\resources\\pixil-frame-2.png"))));
+                frameBoat = (ImageIO.read(new File("C:\\Users\\tartinax\\Pictures\\pif\\pixil-frame-2.png")));
         } catch (Exception e) {
             System.err.println("rip");
         }
