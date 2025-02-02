@@ -40,8 +40,7 @@ public abstract class Boat extends Entity{
     }
 
     public void followThePath(){
-        if (path==null){}
-        else {
+        if (path!=null){
             approachingToPoint(path.get(iPath));
         }
     }
@@ -64,14 +63,12 @@ public abstract class Boat extends Entity{
 
         if (distance < speed) {
             moveTo(point.getPoint());
-            WeAreOnPoint();
-
-
-        }//distance < speed> on se déplace sur le point visé
+            weAreOnPoint();
+        }//distance < speed on se déplace sur le point visé
         else {moveTo(new Point((int) Math.round(x2 + Math.cos(angle) * speed), (int) Math.round(y2 + Math.sin(angle) * speed)));}// Sinon, on se déplace en direction de notre point grâce aux formules de trigo
     }
 
-    public void WeAreOnPoint(){
+    public void weAreOnPoint(){
         if (path.size()>iPath+1)iPath++;
         else {
             iPath=0;
@@ -92,4 +89,5 @@ public abstract class Boat extends Entity{
     public void setPath(ArrayList<GraphPoint> path) {
         this.path = path;
     }
+    public double getAngle() { return angle; }
 }
