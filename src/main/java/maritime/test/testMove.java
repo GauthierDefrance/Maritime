@@ -22,9 +22,6 @@ public class testMove extends JFrame implements Runnable {
     }
 
     private void init() {
-
-
-
         Faction player = new Faction();
         player.addBoat(standard);
         player.addBoat(standard2);
@@ -87,13 +84,14 @@ public class testMove extends JFrame implements Runnable {
         standard2.setPosition(D.getPoint());
         standard2.setContinuePath(true);
 
-
         Container contentPane = getContentPane();
         contentPane.add(dashboard);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        pack();
+        setSize(640 + 16, 360 + 39);
+//        setExtendedState(JFrame.MAXIMIZED_BOTH);
+//        setUndecorated(true);
+
         setLocationRelativeTo(null);
-        setSize(640, 360);
         setVisible(true);
     }
 
@@ -108,8 +106,7 @@ public class testMove extends JFrame implements Runnable {
             }
                 standard.followThePath();
                 standard2.followThePath();
-
-            dashboard.repaint();
+                dashboard.repaint();
         }
     }
 

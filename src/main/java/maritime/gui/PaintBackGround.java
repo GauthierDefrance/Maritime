@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static maritime.config.GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES;
 
@@ -16,7 +17,7 @@ public class PaintBackGround {
     public PaintBackGround(){
         try {
             for (int i = 0; i < NUMBER_OF_BACK_GROUND_FRAMES; i++) {
-                frames.add(ImageIO.read(new File("D:\\github\\Maritime2\\src\\main\\resources\\pif" + i + ".png")));
+                frames.add(ImageIO.read(Objects.requireNonNull(getClass().getResource("/pif"+i+".png"))));
             }
         } catch (Exception e) {
             System.err.println("rip");

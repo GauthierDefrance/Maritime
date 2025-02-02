@@ -14,7 +14,7 @@ public class PaintEntity {
 
     public PaintEntity(){
         try {
-                frameBoat = (ImageIO.read(new File("D:\\github\\Maritime2\\src\\main\\resources\\pixil-frame-2.png")));
+            frameBoat = (ImageIO.read(Objects.requireNonNull(getClass().getResource("/pixil-frame-2.png"))));
         } catch (Exception e) {
             System.err.println("rip");
         }
