@@ -39,33 +39,24 @@ public class testMove extends JFrame implements Runnable {
         dashboard = new GameDisplay(LstFaction);
 
         GraphPoint A = new GraphPoint(new Point(100,100),"A");
-        GraphPoint B = new GraphPoint(new Point(640,100),"B");
-        GraphPoint C = new GraphPoint(new Point(300,100),"C");
-        GraphPoint D = new GraphPoint(new Point(300,200),"D");
+        GraphPoint B = new GraphPoint(new Point(100,200),"B");
+
+        GraphPoint C = new GraphPoint(new Point(200,100),"C");
+        GraphPoint D = new GraphPoint(new Point(200,200),"D");
 
         A.addSegment(new GraphSegment(B,1));
-        A.addSegment(new GraphSegment(D,1));
-
         B.addSegment(new GraphSegment(A,1));
-        B.addSegment(new GraphSegment(C,1));
 
-        C.addSegment(new GraphSegment(A,1));
         C.addSegment(new GraphSegment(D,1));
-
-        D.addSegment(new GraphSegment(A,1));
         D.addSegment(new GraphSegment(C,1));
 
         ArrayList<GraphPoint> path = new ArrayList<GraphPoint>();
         path.add(A);
         path.add(B);
-        path.add(C);
-        path.add(D);
 
         ArrayList<GraphPoint> path2 = new ArrayList<GraphPoint>();
         path2.add(D);
         path2.add(C);
-        path2.add(B);
-        path2.add(A);
 
         standard.setPath(path);
         standard.setPosition(A.getPoint());
@@ -96,6 +87,8 @@ public class testMove extends JFrame implements Runnable {
             }
                 standard.followThePath();
                 standard2.followThePath();
+                //System.out.println("A"+standard.getPosition());
+                //System.out.println("B"+standard2.getPosition());
             dashboard.repaint();
         }
     }
