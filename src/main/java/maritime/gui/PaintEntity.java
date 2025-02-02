@@ -27,7 +27,7 @@ public class PaintEntity {
     public void paint(Boat boat, Graphics2D g2d){
         g2d.rotate(boat.getAngle(),(int)(boat.getPosition().getX()),(int)(boat.getPosition().getY()));
         g2d.drawImage(frameBoat,(int)(boat.getPosition().getX())-(frameBoat.getWidth() / 2) ,(int)(boat.getPosition().getY())-(frameBoat.getHeight() / 2) , null);
-//        g2d.rotate(0);
+        g2d.rotate(0);
 
     }
 }

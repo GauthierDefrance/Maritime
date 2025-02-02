@@ -15,8 +15,9 @@ import maritime.engine.graph.SearchInGraph;
 import maritime.gui.GameDisplay;
 
 public class testMove extends JFrame implements Runnable {
-
     private Standard standard = new Standard("bob",1,20,new Point(10,10),"standard",5);
+    private Standard standard2 = new Standard("carl",1,20,new Point(10,10),"standard",5);
+
     private GameDisplay dashboard;
 
     public testMove(String title) {
@@ -26,8 +27,11 @@ public class testMove extends JFrame implements Runnable {
 
     private void init() {
 
+
+
         Faction player = new Faction();
         player.addLstBoat(standard);
+        player.addLstBoat(standard2);
 
         ArrayList<Faction> LstFaction = new ArrayList<Faction>();
         LstFaction.add(player);
@@ -35,9 +39,9 @@ public class testMove extends JFrame implements Runnable {
         dashboard = new GameDisplay(LstFaction);
 
         GraphPoint A = new GraphPoint(new Point(100,100),"A");
-        GraphPoint B = new GraphPoint(new Point(500,400),"B");
-        GraphPoint C = new GraphPoint(new Point(300,300),"C");
-        GraphPoint D = new GraphPoint(new Point(100,300),"D");
+        GraphPoint B = new GraphPoint(new Point(640,100),"B");
+        GraphPoint C = new GraphPoint(new Point(300,100),"C");
+        GraphPoint D = new GraphPoint(new Point(300,200),"D");
 
         A.addSegment(new GraphSegment(B,1));
         A.addSegment(new GraphSegment(D,1));
@@ -57,9 +61,20 @@ public class testMove extends JFrame implements Runnable {
         path.add(C);
         path.add(D);
 
+        ArrayList<GraphPoint> path2 = new ArrayList<GraphPoint>();
+        path2.add(D);
+        path2.add(C);
+        path2.add(B);
+        path2.add(A);
+
         standard.setPath(path);
         standard.setPosition(A.getPoint());
         standard.setContinuePath(true);
+
+        standard2.setPath(path2);
+        standard2.setPosition(D.getPoint());
+        standard2.setContinuePath(true);
+
 
         Container contentPane = getContentPane();
         contentPane.add(dashboard);
@@ -79,7 +94,8 @@ public class testMove extends JFrame implements Runnable {
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
-            standard.followThePath();
+                standard.followThePath();
+                standard2.followThePath();
             dashboard.repaint();
         }
     }
