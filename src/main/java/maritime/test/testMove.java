@@ -2,16 +2,12 @@ package maritime.test;
 
 import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import marine_trash.game.Player;
 import maritime.config.GameConfiguration;
 import maritime.engine.entity.Standard;
 import maritime.engine.faction.Faction;
-import maritime.engine.graph.GraphPoint;
-import maritime.engine.graph.GraphSegment;
-import maritime.engine.graph.SearchInGraph;
+import maritime.engine.graph.*;
 import maritime.gui.GameDisplay;
 
 public class testMove extends JFrame implements Runnable {
@@ -30,8 +26,8 @@ public class testMove extends JFrame implements Runnable {
 
 
         Faction player = new Faction();
-        player.addLstBoat(standard);
-        player.addLstBoat(standard2);
+        player.addBoat(standard);
+        player.addBoat(standard2);
 
         ArrayList<Faction> LstFaction = new ArrayList<Faction>();
         LstFaction.add(player);

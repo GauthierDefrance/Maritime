@@ -1,9 +1,10 @@
 package maritime.engine.entity;
 
-import maritime.engine.inventory.*;
+
+import maritime.engine.inventory.Inventory;
 import java.awt.*;
 
-public abstract class Entity {
+public abstract class Entity implements EntityInterface {
     private final String idModel;
     private String name;
     private int visionRadius;
@@ -21,43 +22,72 @@ public abstract class Entity {
         this.position = position;
         this.idModel = idModel;
     }
+
     //Getters
+
+    @Override
     public String getName() { return name; }
+
+    @Override
     public Inventory getInventory() { return inventory; }
+
+    @Override
     public int getVisionRadius() { return visionRadius; }
+
+    @Override
     public int getCurrentHp() { return currentHp; }
+
+    @Override
     public int getMaxHp() { return maxHp; }
+
+    @Override
     public Point getPosition() { return position; }
+
     public String getIDModel() { return idModel; }
 
     //Setters
+
+    @Override
     public void setVisionRadius(int visionRadius) { this.visionRadius = visionRadius; }
+
     public void setName(String name) {this.name = name; }
 
     /**
-     * Setter qui permet de modifier la position actuel du point.
+     * Setter qui permet de modifier la position actuelle du point.
      * Prend en paramètre un objet de type Point.
-     * @param position
+     * @param position position actuelle de l'entité
      */
+    @Override
     public void setPosition(Point position) {this.position = position; }
 
     /**
-     * Setter qui permet de modifier la position actuel du point.
+     * Setter qui permet de modifier la position actuelle du point.
      * Prend en paramètre deux Int, respectivement x et y.
-     * @param x
-     * @param y
+     * @param x coordonnée x
+     * @param y coordonnée y
      */
     public void setPosition(int x, int y){
         position.setLocation(x,y);
     }
 
     //Other Methods
-    public void addToInventory(String Elem, int Quantity) {}
-    public void removeFromInventory(String Elem, int Quantity) {}
-    public void transferTo(String Elem, int Quantity) {}//Prends les éléments d'un inventaire et les donne à un autre
+    public void addToInventory(String Elem, int Quantity) { this.inventory.add(Elem, Quantity); }
 
+    public void removeFromInventory(String Elem, int Quantity) {
+        try {
+            this.inventory.subtract(Elem, Quantity);
+        }  catch (ArithmeticException e) {
+            //Pop-Up d'interaction impossible
+        }
+    }
 
-    public boolean damaged(int value) {
+    public void transferTo(Entity target, String Elem, int Quantity) {
+            this.removeFromInventory(Elem, Quantity);
+            target.addToInventory(Elem, Quantity);
+    }
+
+    @Override
+    public boolean reduceHp(int value) {
         if (value < this.currentHp){
             this.currentHp -= value;
             return true;

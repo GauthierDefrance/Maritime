@@ -14,7 +14,7 @@ public abstract class Boat extends Entity{
     private int speed;
     private double angle;
     private ArrayList<GraphPoint> path;
-    private int iPath = 0;
+    private int iPath;
     private boolean continuePath;
     /**
      * Constructeur de la classe Boat.
@@ -30,6 +30,7 @@ public abstract class Boat extends Entity{
         this.speed = speed;
         this.path = null;
         this.continuePath = false;
+        this.iPath = 0;
     }
 
 
@@ -52,7 +53,7 @@ public abstract class Boat extends Entity{
 
     /*
      * Méthode qui déplace le bateau selon sa vitesse en direction du point donnée.
-     * Si il se trouve sur le point donnée ou sa vitesse est plus grande que le point donnée,
+     * S'il se trouve sur le point donné ou sa vitesse est plus grande que le point donné,
      * le bateau prend les coordonnées du point.
      * @param GraphPoint point
      */
@@ -63,16 +64,14 @@ public abstract class Boat extends Entity{
         x2 = this.getPosition().getX();
         y2 = this.getPosition().getY();
 
+        this.angle = Math.atan2(y1 - y2, x1 - x2); //calcul avec ArcTan la position cible
         double distance = this.getPosition().distance(point.getPoint());
 
         if (distance < speed) {
             moveTo(point.getPoint());
             weAreOnPoint();
-        }//distance < speed on se déplace sur le point visé
-        else {
-            this.angle = Math.atan2(y1 - y2, x1 - x2); //calcul avec ArcTan la position ou on doit se déplacer
-            moveTo(new Point((int) Math.round(x2 + Math.cos(angle) * speed), (int) Math.round(y2 + Math.sin(angle) * speed)));
-        }// Sinon, on se déplace en direction de notre point grâce aux formules de trigo
+        }//distance < speed, on se déplace sur le point visé
+        else {moveTo(new Point((int) Math.round(x2 + Math.cos(angle) * speed), (int) Math.round(y2 + Math.sin(angle) * speed)));}// Sinon, on se déplace en direction de notre point grâce aux formules de trigonometrie
                     // Remplacer le new par passer des paramètres directement à this.setLocation()
     }
 
