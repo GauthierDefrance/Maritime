@@ -66,6 +66,7 @@ public abstract class Boat extends Entity{
             weAreOnPoint();
         }//distance < speed on se déplace sur le point visé
         else {moveTo(new Point((int) Math.round(x2 + Math.cos(angle) * speed), (int) Math.round(y2 + Math.sin(angle) * speed)));}// Sinon, on se déplace en direction de notre point grâce aux formules de trigo
+                    // Remplacer le new par passer des paramètres directement à this.setLocation()
     }
 
     public void weAreOnPoint(){
@@ -85,9 +86,10 @@ public abstract class Boat extends Entity{
     public ArrayList<GraphPoint> getPath() {
         return path;
     }
+    public double getAngle() { return angle; }
 
     public void setPath(ArrayList<GraphPoint> path) {
         this.path = path;
     }
-    public double getAngle() { return angle; }
+
 }
