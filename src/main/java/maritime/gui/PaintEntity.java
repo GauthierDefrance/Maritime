@@ -6,10 +6,7 @@ import maritime.engine.entity.Entity;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.Objects;
-
-import static maritime.config.GameConfiguration.NUMBER_OF_Back_Ground_FRAMES;
 
 public class PaintEntity {
     private BufferedImage frame;

@@ -64,13 +64,14 @@ public abstract class Boat extends Entity{
 
         if (distance < speed) {
             moveTo(point.getPoint());
+            WeAreOnPoint();
 
 
         }//distance < speed> on se déplace sur le point visé
         else {moveTo(new Point((int) Math.round(x2 + Math.cos(angle) * speed), (int) Math.round(y2 + Math.sin(angle) * speed)));}// Sinon, on se déplace en direction de notre point grâce aux formules de trigo
     }
 
-    public void WeAreOnPoint(Point point){
+    public void WeAreOnPoint(){
         if (path.size()>iPath+1)iPath++;
         else {
             iPath=0;
