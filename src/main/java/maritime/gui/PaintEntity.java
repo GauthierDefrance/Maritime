@@ -13,7 +13,7 @@ public class PaintEntity {
 
     public PaintEntity(){
         try {
-                frameBoat = (ImageIO.read(Objects.requireNonNull(getClass().getResource("pixil-frame-2.png"))));
+                frameBoat = (ImageIO.read(Objects.requireNonNull(getClass().getResource("..\\resources\\pixil-frame-2.png"))));
         } catch (Exception e) {
             System.err.println("rip");
         }

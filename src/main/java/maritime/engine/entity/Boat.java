@@ -13,9 +13,9 @@ import maritime.engine.graph.GraphPoint;
 public abstract class Boat extends Entity{
     private int speed;
     private double angle;
-    private ArrayList<GraphPoint> path = null;
+    private ArrayList<GraphPoint> path;
     private int iPath = 0;
-    private boolean continuePath = false;
+    private boolean continuePath;
     /**
      * Constructeur de la classe Boat.
      * @param name
@@ -28,6 +28,8 @@ public abstract class Boat extends Entity{
     public Boat(String name, int visionRadius, int maxHp, Point position, String idModel, int speed) {
         super(name, visionRadius, maxHp, position, idModel);
         this.speed = speed;
+        this.path = null;
+        this.continuePath = false;
     }
 
     /*
