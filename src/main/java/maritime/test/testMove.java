@@ -34,11 +34,10 @@ public class testMove extends JFrame implements Runnable {
 
         dashboard = new GameDisplay(LstFaction);
 
-
-        GraphPoint A = new GraphPoint(new Point(10,10),"A");
-        GraphPoint B = new GraphPoint(new Point(210,10),"B");
-        GraphPoint C = new GraphPoint(new Point(210,210),"C");
-        GraphPoint D = new GraphPoint(new Point(10,210),"D");
+        GraphPoint A = new GraphPoint(new Point(100,100),"A");
+        GraphPoint B = new GraphPoint(new Point(500,400),"B");
+        GraphPoint C = new GraphPoint(new Point(300,300),"C");
+        GraphPoint D = new GraphPoint(new Point(100,300),"D");
 
         A.addSegment(new GraphSegment(B,1));
         A.addSegment(new GraphSegment(D,1));
@@ -52,9 +51,15 @@ public class testMove extends JFrame implements Runnable {
         D.addSegment(new GraphSegment(A,1));
         D.addSegment(new GraphSegment(C,1));
 
-        standard.setPosition(A.getPoint());
+        ArrayList<GraphPoint> path = new ArrayList<GraphPoint>();
+        path.add(A);
+        path.add(B);
+        path.add(C);
+        path.add(D);
 
-        standard.setPath(SearchInGraph.findPath(A,C));
+        standard.setPath(path);
+        standard.setPosition(A.getPoint());
+        standard.setContinuePath(true);
 
         Container contentPane = getContentPane();
         contentPane.add(dashboard);

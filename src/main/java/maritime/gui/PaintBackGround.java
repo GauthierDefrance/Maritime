@@ -17,7 +17,7 @@ public class PaintBackGround {
     public PaintBackGround(){
         try {
             for (int i = 0; i < NUMBER_OF_BACK_GROUND_FRAMES; i++) {
-                frames.add(ImageIO.read(new File("C:\\Users\\tartinax\\Pictures\\pif\\pframe-" + i + ".png")));
+                frames.add(ImageIO.read(new File("D:\\github\\Maritime2\\src\\main\\resources\\pif" + i + ".png")));
             }
         } catch (Exception e) {
             System.err.println("rip");

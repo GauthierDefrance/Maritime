@@ -32,6 +32,9 @@ public abstract class Boat extends Entity{
         this.continuePath = false;
     }
 
+
+    public void setContinuePath(boolean continuePath) {this.continuePath=continuePath;}
+
     /*
      * Méthode qui indique si le bateau se trouve actuellement sur un point du Graphe.
      * @param GraphPoint point

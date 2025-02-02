@@ -14,7 +14,7 @@ public class PaintEntity {
 
     public PaintEntity(){
         try {
-                frameBoat = (ImageIO.read(new File("C:\\Users\\tartinax\\Pictures\\pif\\pixil-frame-2.png")));
+                frameBoat = (ImageIO.read(new File("D:\\github\\Maritime2\\src\\main\\resources\\pixil-frame-2.png")));
         } catch (Exception e) {
             System.err.println("rip");
         }
@@ -25,9 +25,9 @@ public class PaintEntity {
     }
 
     public void paint(Boat boat, Graphics2D g2d){
-        g2d.rotate(boat.getAngle());
+        g2d.rotate(boat.getAngle(),(int)(boat.getPosition().getX()),(int)(boat.getPosition().getY()));
         g2d.drawImage(frameBoat,(int)(boat.getPosition().getX())-(frameBoat.getWidth() / 2) ,(int)(boat.getPosition().getY())-(frameBoat.getHeight() / 2) , null);
-        g2d.rotate(0);
+//        g2d.rotate(0);
 
     }
 }
