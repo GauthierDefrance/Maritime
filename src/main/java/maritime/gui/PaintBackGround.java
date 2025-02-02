@@ -3,11 +3,10 @@ package maritime.gui;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static maritime.config.GameConfiguration.NUMBER_OF_Back_Ground_FRAMES;
+import static maritime.config.GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES;
 
 public class PaintBackGround {
 
@@ -16,7 +15,7 @@ public class PaintBackGround {
 
     public PaintBackGround(){
         try {
-            for (int i = 0; i < NUMBER_OF_Back_Ground_FRAMES; i++) {
+            for (int i = 0; i < NUMBER_OF_BACK_GROUND_FRAMES; i++) {
                 frames.add(ImageIO.read(Objects.requireNonNull(getClass().getResource("pframe-" + i + ".png"))));
             }
         } catch (Exception e) {
