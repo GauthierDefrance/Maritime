@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Objects;
 
 import static maritime.config.GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES;
 
@@ -25,6 +24,7 @@ public class PaintBackGround {
     }
 
     public void paint(Graphics2D g2d){
+
         g2d.drawImage(frames.get(currentFrame), 0, 0,null);
         currentFrame = (currentFrame + 1) % frames.size();
     }
