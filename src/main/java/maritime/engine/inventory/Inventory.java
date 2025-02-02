@@ -1,4 +1,4 @@
-package maritime.inventory;
+package maritime.engine.inventory;
 import java.util.HashMap;
 
 public class Inventory {

@@ -1,6 +1,6 @@
-package maritime.entity;
+package maritime.engine.entity;
 
-import maritime.inventory.*;
+import maritime.engine.inventory.*;
 import java.awt.*;
 
 public abstract class Entity {

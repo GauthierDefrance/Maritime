@@ -1,4 +1,4 @@
-package maritime.graph;
+package maritime.engine.graph;
 
 import java.util.ArrayList;
 

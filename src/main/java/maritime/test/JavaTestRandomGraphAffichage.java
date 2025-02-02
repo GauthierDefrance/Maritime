@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 
-import maritime.graph.*;
+import maritime.engine.graph.*;
 
 public class JavaTestRandomGraphAffichage extends JPanel {
     private static ArrayList<GraphPoint> lstSegmentResult;

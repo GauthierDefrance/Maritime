@@ -1,4 +1,4 @@
-package maritime.graph;
+package maritime.engine.graph;
 
 /**
  * @author @Kenan Ammad @Gauthier Defrance

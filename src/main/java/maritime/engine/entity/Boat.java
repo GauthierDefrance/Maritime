@@ -1,7 +1,10 @@
-package maritime.entity;
+package maritime.engine.entity;
 
 import java.awt.*;
-import maritime.graph.GraphPoint;
+import java.util.ArrayList;
+import java.util.Collections;
+
+import maritime.engine.graph.GraphPoint;
 
 /**
  * Classe entité
@@ -10,6 +13,9 @@ import maritime.graph.GraphPoint;
 public abstract class Boat extends Entity{
     private int speed;
     private double angle;
+    private ArrayList<GraphPoint> path = null;
+    private int iPath = 0;
+    private boolean continuePath = false;
     /**
      * Constructeur de la classe Boat.
      * @param name
@@ -24,22 +30,26 @@ public abstract class Boat extends Entity{
         this.speed = speed;
     }
 
-    //static public Entity create(String name, int visionRadius, int maxHp, Point position, String idModel) {
-    //    return new Boat(name, visionRadius, maxHp, position, idModel);
-    //}
     /*
      * Méthode qui indique si le bateau se trouve actuellement sur un point du Graphe.
      * @param GraphPoint point
      * @return Bool
      */
     public boolean isOnPoint(GraphPoint point){
-        return point.getX()==((int) this.getPosition().getX()) && point.getY()==((int) this.getPosition().getY());
+        return point.getPoint()==this.getPosition();
     }
+
+    public void followThePath(){
+        if (path==null){}
+        else {
+            approachingToPoint(path.get(iPath));
+        }
+    }
+
     /*
      * Méthode qui déplace le bateau selon sa vitesse en direction du point donnée.
      * Si il se trouve sur le point donnée ou sa vitesse est plus grande que le point donnée,
      * le bateau prend les coordonnées du point.
-     * Utilise la trigonométrie pour fonctionner.
      * @param GraphPoint point
      */
     public void approachingToPoint(GraphPoint point){
@@ -52,8 +62,21 @@ public abstract class Boat extends Entity{
         this.angle = Math.atan2(y1 - y2, x1 - x2); //calcul avec ArcTan la position ou on doit se déplacer
         double distance = this.getPosition().distance(point.getPoint());
 
-        if (distance < speed) {moveTo(point.getPoint());}//distance < speed> on se déplace sur le point visé
+        if (distance < speed) {
+            moveTo(point.getPoint());
+
+
+        }//distance < speed> on se déplace sur le point visé
         else {moveTo(new Point((int) Math.round(x2 + Math.cos(angle) * speed), (int) Math.round(y2 + Math.sin(angle) * speed)));}// Sinon, on se déplace en direction de notre point grâce aux formules de trigo
+    }
+
+    public void WeAreOnPoint(Point point){
+        if (path.size()>iPath+1)iPath++;
+        else {
+            iPath=0;
+            if (continuePath) Collections.reverse(path);
+            else path = null;
+        }
     }
 
     public void moveTo(Point point){
@@ -61,4 +84,11 @@ public abstract class Boat extends Entity{
     }
 
 
+    public ArrayList<GraphPoint> getPath() {
+        return path;
+    }
+
+    public void setPath(ArrayList<GraphPoint> path) {
+        this.path = path;
+    }
 }
