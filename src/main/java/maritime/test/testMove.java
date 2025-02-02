@@ -38,25 +38,50 @@ public class testMove extends JFrame implements Runnable {
 
         dashboard = new GameDisplay(LstFaction);
 
-        GraphPoint A = new GraphPoint(new Point(100,100),"A");
-        GraphPoint B = new GraphPoint(new Point(100,200),"B");
 
-        GraphPoint C = new GraphPoint(new Point(200,100),"C");
-        GraphPoint D = new GraphPoint(new Point(200,200),"D");
+
+
+        GraphPoint A = new GraphPoint(new Point(10*2,40*2),"A");
+        GraphPoint B = new GraphPoint(new Point(80*2,80*2),"B");
+        GraphPoint C = new GraphPoint(new Point(160*2,160*2),"C");
+        GraphPoint D = new GraphPoint(new Point(220*2,140*2),"D");
+        GraphPoint F = new GraphPoint(new Point(230*2,10*2),"F");
+        GraphPoint G = new GraphPoint(new Point(260*2,120*2),"G");
+        GraphPoint E = new GraphPoint(new Point(280*2,120*2),"E");
 
         A.addSegment(new GraphSegment(B,1));
-        B.addSegment(new GraphSegment(A,1));
 
+        B.addSegment(new GraphSegment(A,1));
+        B.addSegment(new GraphSegment(C,1));
+        B.addSegment(new GraphSegment(D,1));
+        B.addSegment(new GraphSegment(F,1));
+
+        C.addSegment(new GraphSegment(B,1));
         C.addSegment(new GraphSegment(D,1));
+
+        D.addSegment(new GraphSegment(F,1));
+        D.addSegment(new GraphSegment(G,1));
+        D.addSegment(new GraphSegment(B,1));
         D.addSegment(new GraphSegment(C,1));
 
+        G.addSegment(new GraphSegment(D,1));
+        G.addSegment(new GraphSegment(F,1));
+        G.addSegment(new GraphSegment(E,1));
+
+        F.addSegment(new GraphSegment(B,1));
+        F.addSegment(new GraphSegment(D,1));
+        F.addSegment(new GraphSegment(G,1));
+
+        E.addSegment(new GraphSegment(G,1));
+
+
         ArrayList<GraphPoint> path = new ArrayList<GraphPoint>();
-        path.add(A);
-        path.add(B);
+        path = SearchInGraph.findPath(A,E);
+        path.addFirst(A);
 
         ArrayList<GraphPoint> path2 = new ArrayList<GraphPoint>();
-        path2.add(D);
-        path2.add(C);
+        path2 = SearchInGraph.findPath(C,F);
+        path2.addFirst(C);
 
         standard.setPath(path);
         standard.setPosition(A.getPoint());
@@ -87,8 +112,7 @@ public class testMove extends JFrame implements Runnable {
             }
                 standard.followThePath();
                 standard2.followThePath();
-                //System.out.println("A"+standard.getPosition());
-                //System.out.println("B"+standard2.getPosition());
+
             dashboard.repaint();
         }
     }

@@ -23,7 +23,7 @@ public class SearchInGraph {
             lstPath = new ArrayList<>(deletePath(lstPathTemp,pointStart));
             lstPathTemp.clear();
         }
-        return getLstSegmentToPoint(deletePath(lstPathResult,pointStart).getFirst());
+        return getLstSegmentToPoint(deletePath(lstPathResult,pointStart).getFirst(),pointStart);
     }
 
     private static ArrayList<ArrayList<GraphSegment>> getPointToPath(GraphPoint point) {
@@ -36,8 +36,9 @@ public class SearchInGraph {
         return lstPath;
     }
 
-    private static ArrayList<GraphPoint> getLstSegmentToPoint(ArrayList<GraphSegment> lstSegment) {
+    private static ArrayList<GraphPoint> getLstSegmentToPoint(ArrayList<GraphSegment> lstSegment,GraphPoint pointStart) {
         ArrayList<GraphPoint> lstPoint = new ArrayList<>();
+        lstPoint.add(pointStart);
         for(GraphSegment segment : lstSegment){lstPoint.add(segment.getGraphPoint());}
         return lstPoint;
     }
