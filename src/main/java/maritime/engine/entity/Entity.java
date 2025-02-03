@@ -66,7 +66,7 @@ public abstract class Entity implements EntityInterface {
      * @param x coordonnée x
      * @param y coordonnée y
      */
-    public void setPosition(int x, int y){
+    public void setPosition(double x, double y){
         position.setLocation(x,y);
     }
 

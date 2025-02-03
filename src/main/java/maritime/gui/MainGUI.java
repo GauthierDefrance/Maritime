@@ -1,9 +1,11 @@
 package maritime.gui;
 
+import maritime.config.GameConfiguration;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class MainGUI extends JFrame {
+public class MainGUI extends JFrame implements Runnable {
 
     private GameDisplay dashboard;
 
@@ -16,11 +18,25 @@ public class MainGUI extends JFrame {
     private void init() {
 
         Container contentPane = getContentPane();
-
+        contentPane.add(dashboard);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        pack();
-        setLocationRelativeTo(null);
+
         setSize(640, 360);
+        setLocationRelativeTo(null);
         setVisible(true);
     }
+
+    @Override
+    public void run() {
+        while (true) {
+            try {
+                Thread.sleep(GameConfiguration.GAME_SPEED);
+
+            } catch (InterruptedException e) {
+                System.err.println(e.getMessage());
+            }
+            dashboard.repaint();
+        }
+    }
+
 }

@@ -28,7 +28,7 @@ public abstract class Boat extends Entity{
     public Boat(String name, int visionRadius, int maxHp, Point position, String idModel, int speed) {
         super(name, visionRadius, maxHp, position, idModel);
         this.speed = speed;
-        this.path = null;
+        this.path = new ArrayList<>();
         this.continuePath = false;
         this.iPath = 0;
     }
@@ -46,7 +46,7 @@ public abstract class Boat extends Entity{
     }
 
     public void followThePath(){
-        if (path!=null){
+        if (!path.isEmpty()){
             approachingToPoint(path.get(iPath));
         }
     }
@@ -68,13 +68,12 @@ public abstract class Boat extends Entity{
         double distance = this.getPosition().distance(point.getPoint());
 
         if (distance < speed) {
-            moveTo(point.getPoint());
+            moveTo(x1,y1);
             weAreOnPoint();
         }//distance < speed, on se déplace sur le point visé
         else {
-            this.angle = Math.atan2(y1 - y2, x1 - x2); //calcul avec ArcTan la position cible
-            moveTo(new Point((int) Math.round(x2 + Math.cos(angle) * speed), (int) Math.round(y2 + Math.sin(angle) * speed)));}// Sinon, on se déplace en direction de notre point grâce aux formules de trigonometrie
-                    // Remplacer le new par passer des paramètres directement à this.setLocation()
+            angle = Math.atan2(y1 - y2, x1 - x2); //calcul avec ArcTan la position cible
+            moveTo(Math.round(x2 + Math.cos(angle) * speed),Math.round(y2 + Math.sin(angle) * speed));}// Sinon, on se déplace en direction de notre point grâce aux formules de trigonometrie
     }
 
     public void weAreOnPoint(){
@@ -82,14 +81,14 @@ public abstract class Boat extends Entity{
         else {
             iPath=0;
             if (continuePath) Collections.reverse(path);
-            else path = null;
+            else path.clear();
         }
     }
 
-    public void moveTo(Point point){
-        this.setPosition(point);
-    }
+    public void moveTo(double x,double y){
 
+        this.setPosition(x,y);
+    }
 
     public ArrayList<GraphPoint> getPath() {
         return path;

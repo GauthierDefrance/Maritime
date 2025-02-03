@@ -17,7 +17,7 @@ public class PaintBackGround {
     public PaintBackGround(){
         try {
             for (int i = 0; i < NUMBER_OF_BACK_GROUND_FRAMES; i++) {
-                frames.add(ImageIO.read(Objects.requireNonNull(getClass().getResource("/pif"+i+".png"))));
+                frames.add(ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/background/background-"+i+".png"))));
             }
         } catch (Exception e) {
             System.err.println("rip");

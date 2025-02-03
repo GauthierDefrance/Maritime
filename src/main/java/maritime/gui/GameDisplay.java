@@ -22,8 +22,6 @@ public class GameDisplay extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        System.out.println("ww"+ getWidth());
-        System.out.println("hh"+ getHeight());
         double scale = Math.min((double)getWidth()/640,(double) getHeight() /360);
         g2d.scale(scale,scale);
         paintBackGround.paint(g2d);
