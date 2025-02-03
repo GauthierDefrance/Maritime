@@ -87,7 +87,7 @@ public class testMove extends JFrame implements Runnable {
         Container contentPane = getContentPane();
         contentPane.add(dashboard);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(640 + 16, 360 + 39);
+        setSize(640 + 14, 360 + 37);
 //        setExtendedState(JFrame.MAXIMIZED_BOTH);
 //        setUndecorated(true);
 
