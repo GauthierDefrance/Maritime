@@ -1,5 +1,6 @@
 package maritime.gui;
 
+import maritime.config.GameConfiguration;
 import maritime.engine.entity.Boat;
 import maritime.engine.entity.Harbor;
 import maritime.engine.faction.Faction;
@@ -8,6 +9,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * @author @Kenan Ammad
+ * Classe GameDisplay
+ */
 public class GameDisplay extends JPanel {
 
     private final ArrayList<Faction> lstFaction ;
@@ -25,6 +30,7 @@ public class GameDisplay extends JPanel {
         double scale = Math.min((double)getWidth()/640,(double) getHeight() /360);
         g2d.scale(scale,scale);
         paintBackGround.paint(g2d);
+        g2d.scale((double) 1 /GameConfiguration.GAME_SCALE, (double) 1 /GameConfiguration.GAME_SCALE);
         for (Faction faction : lstFaction){
 
             for(Harbor harbor : faction.getLstHarbor()){
@@ -37,5 +43,6 @@ public class GameDisplay extends JPanel {
 
 
         }
+        g2d.scale(GameConfiguration.GAME_SCALE,GameConfiguration.GAME_SCALE);
     }
 }

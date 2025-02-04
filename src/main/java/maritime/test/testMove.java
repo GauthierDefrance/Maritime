@@ -8,17 +8,18 @@ import maritime.config.GameConfiguration;
 import maritime.engine.entity.*;
 import maritime.engine.faction.Faction;
 import maritime.engine.graph.*;
+import maritime.engine.process.BoatManager;
 import maritime.gui.GameDisplay;
 
 public class testMove extends JFrame implements Runnable {
-    private Military military = new Military("bob",1,20,new Point(10,10),"standard",6);
-    private Standard standard2 = new Standard("carl",1,20,new Point(10,10),"standard",3);
+    private Military military = new Military("bob",1,20,1,new Point(10,10),6);
+    private Standard standard2 = new Standard("carl",1,20,1,new Point(10,10),3);
 
-    private Standard standard = new Standard("bob",1,20,new Point(10,10),"standard",3);
-    private Military military2 = new Military("bob",1,20,new Point(10,10),"standard",6);
+    private Standard standard = new Standard("bob",1,20,1,new Point(10,10),3);
+    private Military military2 = new Military("bob",1,20,1,new Point(10,10),6);
 
-    private Merchant merchant = new Merchant("bob",1,20,new Point(10,10),"standard",2);
-    private Merchant merchant2 = new Merchant("bob",1,20,new Point(10,10),"standard",2);
+    private Merchant merchant = new Merchant("bob",1,20,1,new Point(10,10),2);
+    private Merchant merchant2 = new Merchant("bob",1,20,1,new Point(10,10),2);
 
     private GameDisplay dashboard;
 
@@ -44,15 +45,13 @@ public class testMove extends JFrame implements Runnable {
         dashboard = new GameDisplay(LstFaction);
 
 
-
-
-        GraphPoint A = new GraphPoint(new Point(10*2,40*2),"A");
-        GraphPoint B = new GraphPoint(new Point(80*2,80*2),"B");
-        GraphPoint C = new GraphPoint(new Point(160*2,160*2),"C");
-        GraphPoint D = new GraphPoint(new Point(220*2,140*2),"D");
-        GraphPoint F = new GraphPoint(new Point(230*2,10*2),"F");
-        GraphPoint G = new GraphPoint(new Point(260*2,120*2),"G");
-        GraphPoint E = new GraphPoint(new Point(280*2,120*2),"E");
+        GraphPoint A = new GraphPoint(new Point(20*GameConfiguration.GAME_SCALE,80*GameConfiguration.GAME_SCALE),"A");
+        GraphPoint B = new GraphPoint(new Point(160*GameConfiguration.GAME_SCALE,160*GameConfiguration.GAME_SCALE),"B");
+        GraphPoint C = new GraphPoint(new Point(320*GameConfiguration.GAME_SCALE,320*GameConfiguration.GAME_SCALE),"C");
+        GraphPoint D = new GraphPoint(new Point(440*GameConfiguration.GAME_SCALE,280*GameConfiguration.GAME_SCALE),"D");
+        GraphPoint F = new GraphPoint(new Point(460*GameConfiguration.GAME_SCALE,20*GameConfiguration.GAME_SCALE),"F");
+        GraphPoint G = new GraphPoint(new Point(520*GameConfiguration.GAME_SCALE,240*GameConfiguration.GAME_SCALE),"G");
+        GraphPoint E = new GraphPoint(new Point(560*GameConfiguration.GAME_SCALE,240*GameConfiguration.GAME_SCALE),"E");
 
         A.addSegment(new GraphSegment(B,1));
 
@@ -140,14 +139,14 @@ public class testMove extends JFrame implements Runnable {
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
-            military.followThePath();
-            standard2.followThePath();
+            BoatManager.followThePath(military);
+            BoatManager.followThePath(standard2);
 
-            military2.followThePath();
-            standard.followThePath();
+            BoatManager.followThePath(military2);
+            BoatManager.followThePath(standard);
 
-            merchant.followThePath();
-            merchant2.followThePath();
+            BoatManager.followThePath(merchant);
+            BoatManager.followThePath(merchant2);
 
             dashboard.repaint();
         }

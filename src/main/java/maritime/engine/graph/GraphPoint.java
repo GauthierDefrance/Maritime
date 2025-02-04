@@ -5,11 +5,12 @@ import java.util.HashMap;
 
 
 /**
+ *
  * This class is for the representation of the points of a Graph.
  * It allows to know to which point is a point connected and at what cost.
  * Each GraphPoint has his owns id.
  * @author @Kenan Ammad @Gauthier Defrance
- *  * Classe GraphPoint
+ * Classe GraphPoint
  */
 public class GraphPoint {
     private final Point point;

@@ -3,7 +3,10 @@ package maritime.engine.faction;
 import maritime.engine.entity.*;
 
 import java.util.ArrayList;
-
+/**
+ * @author @Kenan Ammad
+ * Classe Faction
+ */
 public class Faction {
     private ArrayList<Boat> lstBoat;
     private ArrayList<Harbor> lstHarbor;

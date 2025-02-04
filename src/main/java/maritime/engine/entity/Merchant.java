@@ -1,10 +1,12 @@
 package maritime.engine.entity;
 
+import maritime.config.GameConfiguration;
+
 import java.awt.*;
 
 public class Merchant extends Boat{
-    public Merchant(String name, int visionRadius, int maxHp, Point position, String idModel, int speed) {
-        super(name, visionRadius, maxHp, position, idModel, speed);
+    public Merchant(String name, int visionRadius, int maxHp,int damageSpeed, Point position, int speed) {
+        super(name, visionRadius, maxHp* GameConfiguration.MERCHANT_HP_BOOST,damageSpeed*GameConfiguration.MERCHANT_DAMAGE_SPEED_BOOST, position,speed*GameConfiguration.MERCHANT_SPEED_BOOST);
     }
 
 }

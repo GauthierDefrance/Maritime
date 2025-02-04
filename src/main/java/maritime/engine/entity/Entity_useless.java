@@ -4,8 +4,7 @@ package maritime.engine.entity;
 import maritime.engine.inventory.Inventory;
 import java.awt.*;
 
-public abstract class Entity implements EntityInterface {
-    private final String idModel;
+public abstract class Entity_useless implements EntityInterface {
     private String name;
     private int visionRadius;
     private int maxHp;
@@ -13,14 +12,13 @@ public abstract class Entity implements EntityInterface {
     private Inventory inventory;
     private Point position;
 
-    public Entity(String name, int visionRadius, int maxHp, Point position, String idModel) {
+    public Entity_useless(String name, int visionRadius, int maxHp, Point position) {
         this.name = name;
         this.visionRadius = visionRadius;
         this.inventory = new Inventory();
         this.maxHp = maxHp;
         this.currentHp = maxHp;
         this.position = position;
-        this.idModel = idModel;
     }
 
     //Getters
@@ -43,7 +41,6 @@ public abstract class Entity implements EntityInterface {
     @Override
     public Point getPosition() { return position; }
 
-    public String getIDModel() { return idModel; }
 
     //Setters
 
@@ -81,20 +78,20 @@ public abstract class Entity implements EntityInterface {
         }
     }
 
-    public void transferTo(Entity target, String Elem, int Quantity) {
+    public void transferTo(Entity_useless target, String Elem, int Quantity) {
             this.removeFromInventory(Elem, Quantity);
             target.addToInventory(Elem, Quantity);
     }
 
-    @Override
-    public boolean reduceHp(int value) {
-        if (value < this.currentHp){
-            this.currentHp -= value;
-            return true;
-        }
-        else {
-            currentHp = 0;
-            return false;
-        }
-    }
+//    @Override
+//    public boolean reduceHp(int value) {
+//        if (value < this.currentHp){
+//            this.currentHp -= value;
+//            return true;
+//        }
+//        else {
+//            currentHp = 0;
+//            return false;
+//        }
+//    }
 }

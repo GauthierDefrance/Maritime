@@ -5,9 +5,12 @@ import maritime.engine.entity.*;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.Objects;
 
+/**
+ * @author @Kenan Ammad
+ * Classe PaintEntity
+ */
 public class PaintEntity {
     private BufferedImage frameBoatStandard;
     private BufferedImage frameBoatMerchant;
@@ -21,10 +24,6 @@ public class PaintEntity {
         } catch (Exception e) {
             System.err.println("rip");
         }
-    }
-
-    public void paint(Entity entity, Graphics2D g2d){
-        System.out.println("lol-test");
     }
 
     public void paint(Harbor harbor, Graphics2D g2d){
