@@ -11,10 +11,10 @@ public class GraphSegment {
 
     public GraphSegment(GraphPoint destination, int cost) {
         this.destination = destination;
-        initCost(cost);
+        this.cost = cost;
     }
 
-    public void initCost(int cost) {
+    public void setCost(int cost) {
         this.cost = cost;
     }
 

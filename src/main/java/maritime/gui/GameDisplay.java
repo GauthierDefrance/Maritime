@@ -30,9 +30,11 @@ public class GameDisplay extends JPanel {
             for(Harbor harbor : faction.getLstHarbor()){
                 paintEntity.paint(harbor,g2d);
             }
+
             for(Boat boat : faction.getLstBoat()){
                 paintEntity.paint(boat,g2d);
             }
+
 
         }
     }

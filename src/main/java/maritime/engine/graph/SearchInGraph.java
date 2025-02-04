@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Classe SearchInGraph
  * @version 0.1
  */
-public class SearchInGraph {
+public final class SearchInGraph {
 
     public static ArrayList<GraphPoint> findPath(GraphPoint pointStart, GraphPoint pointEnd) {
         if (pointStart.equals(pointEnd)){ArrayList<GraphPoint> Result = new ArrayList<>();Result.add(pointStart);return Result;}
