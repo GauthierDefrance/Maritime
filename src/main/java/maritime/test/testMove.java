@@ -12,14 +12,14 @@ import maritime.engine.process.BoatManager;
 import maritime.gui.GameDisplay;
 
 public class testMove extends JFrame implements Runnable {
-    private Military military = new Military("bob",1,20,1,new Point(10,10),6);
-    private Standard standard2 = new Standard("carl",1,20,1,new Point(10,10),3);
+    private Military military = new Military("bob",1,20,1,new Point(10,10),5);
+    private Standard standard2 = new Standard("carl",1,20,1,new Point(10,10),5);
 
-    private Standard standard = new Standard("bob",1,20,1,new Point(10,10),3);
-    private Military military2 = new Military("bob",1,20,1,new Point(10,10),6);
+    private Standard standard = new Standard("bob",1,20,1,new Point(10,10),5);
+    private Military military2 = new Military("bob",1,20,1,new Point(10,10),5);
 
-    private Merchant merchant = new Merchant("bob",1,20,1,new Point(10,10),2);
-    private Merchant merchant2 = new Merchant("bob",1,20,1,new Point(10,10),2);
+    private Fodder merchant = new Fodder("bob",1,20,1,new Point(10,10),5);
+    private Merchant merchant2 = new Merchant("bob",1,20,1,new Point(10,10),5);
 
     private GameDisplay dashboard;
 

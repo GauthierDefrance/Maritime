@@ -12,12 +12,14 @@ import java.util.Objects;
  * Classe PaintEntity
  */
 public class PaintEntity {
+    private BufferedImage frameBoatFodder;
     private BufferedImage frameBoatStandard;
     private BufferedImage frameBoatMerchant;
     private BufferedImage frameBoatMilitary;
 
     public PaintEntity(){
         try {
+            frameBoatFodder = (ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/boat/fodder.png"))));
             frameBoatStandard = (ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/boat/standard.png"))));
             frameBoatMerchant = (ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/boat/merchant.png"))));
             frameBoatMilitary = (ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/boat/military.png"))));
@@ -34,6 +36,9 @@ public class PaintEntity {
         g2d.rotate(boat.getAngle(),(int)(boat.getPosition().getX()),(int)(boat.getPosition().getY()));
 
         switch (boat) {
+            case Fodder fodder -> {
+                g2d.drawImage(frameBoatFodder, (int) (boat.getPosition().getX()) - (frameBoatFodder.getWidth() / 2), (int) (boat.getPosition().getY()) - (frameBoatFodder.getHeight() / 2), null);
+            }
             case Standard standard ->{
                     g2d.drawImage(frameBoatStandard, (int) (boat.getPosition().getX()) - (frameBoatStandard.getWidth() / 2), (int) (boat.getPosition().getY()) - (frameBoatStandard.getHeight() / 2), null);
             }
