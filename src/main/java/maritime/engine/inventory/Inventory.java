@@ -1,14 +1,35 @@
 package maritime.engine.inventory;
-import maritime.engine.entity.Entity;
 
 import java.util.HashMap;
 
 public class Inventory {
     private HashMap<String, Integer> content;
+    private int capacity;
 
-    public Inventory() { content = new HashMap<>(); }
+    public Inventory(int capacity) {
+        this.content = new HashMap<>();
+        this.capacity = capacity;
+    }
+
+    public Inventory() {
+       this.content = new HashMap<>();
+       this.capacity = 0;
+    }
+
+    //Getters
 
     public HashMap<String, Integer> getInventoryContent(){ return this.content; }
+
+    public int getCapacity() { return this.capacity; }
+
+    //Setters
+
+    public void setCapacity( int capacity ) { this.capacity = capacity; }
+
+    public void setInventoryContent( HashMap<String, Integer> content ) {
+        if (content.size() < capacity) this.content = content;
+        else throw new IllegalArgumentException("Too many items");
+    }
 
     public int checkRessourceNumber(String elem){
         return this.content.getOrDefault(elem, 0);
