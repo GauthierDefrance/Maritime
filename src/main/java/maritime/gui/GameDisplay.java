@@ -1,13 +1,14 @@
 package maritime.gui;
 
 import maritime.config.GameConfiguration;
+import maritime.config.MapConfig;
 import maritime.engine.entity.Boat;
 import maritime.engine.entity.Harbor;
 import maritime.engine.faction.Faction;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
+import java.awt.image.BufferedImage;
 
 /**
  * @author @Kenan Ammad
@@ -15,12 +16,12 @@ import java.util.ArrayList;
  */
 public class GameDisplay extends JPanel {
 
-    private final ArrayList<Faction> lstFaction ;
+    private final MapConfig map;
     private final PaintEntity paintEntity = new PaintEntity();
     private final PaintBackGround paintBackGround = new PaintBackGround();
 
-    public GameDisplay(ArrayList<Faction> lstFaction){
-        this.lstFaction = lstFaction;
+    public GameDisplay(MapConfig map){
+        this.map = map;
     }
 
     @Override
@@ -31,7 +32,11 @@ public class GameDisplay extends JPanel {
         g2d.scale(scale,scale);
         paintBackGround.paint(g2d);
         g2d.scale((double) 1 /GameConfiguration.GAME_SCALE, (double) 1 /GameConfiguration.GAME_SCALE);
-        for (Faction faction : lstFaction){
+
+//        for(Harbor harbor : map.getPlayer().getLstHarbor()){
+//            paintEntity.paint(harbor,g2d);
+//        }
+        for (Faction faction : map.getLstBotFaction()){
 
             for(Harbor harbor : faction.getLstHarbor()){
                 paintEntity.paint(harbor,g2d);
@@ -40,9 +45,12 @@ public class GameDisplay extends JPanel {
             for(Boat boat : faction.getLstBoat()){
                 paintEntity.paint(boat,g2d);
             }
-
-
         }
+//        for(Boat boat : map.getPlayer().getLstBoat()){
+//            paintEntity.paint(boat,g2d);
+//        }
+
         g2d.scale(GameConfiguration.GAME_SCALE,GameConfiguration.GAME_SCALE);
+
     }
 }

@@ -1,5 +1,6 @@
 package maritime.gui;
 
+import maritime.config.GameConfiguration;
 import maritime.engine.entity.*;
 
 import javax.imageio.ImageIO;
@@ -35,6 +36,9 @@ public class PaintEntity {
     public void paint(Boat boat, Graphics2D g2d){
         g2d.rotate(boat.getAngle(),(int)(boat.getPosition().getX()),(int)(boat.getPosition().getY()));
 
+        g2d.setColor(new Color(255,255,255, GameConfiguration.test));
+        g2d.fillOval((int)(boat.getPosition().getX())-((int)boat.getVisionRadius()/2),(int)(boat.getPosition().getY())-((int)boat.getVisionRadius()/2), (int) boat.getVisionRadius(), (int) boat.getVisionRadius());
+        g2d.setColor(Color.black);
         switch (boat) {
             case Fodder fodder -> {
                 g2d.drawImage(frameBoatFodder, (int) (boat.getPosition().getX()) - (frameBoatFodder.getWidth() / 2), (int) (boat.getPosition().getY()) - (frameBoatFodder.getHeight() / 2), null);

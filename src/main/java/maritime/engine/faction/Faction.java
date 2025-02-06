@@ -10,10 +10,12 @@ import java.util.ArrayList;
 public class Faction {
     private ArrayList<Boat> lstBoat;
     private ArrayList<Harbor> lstHarbor;
+    private String color;
 
-    public Faction(){
+    public Faction(String color){
         lstBoat = new ArrayList<>();
         lstHarbor = new ArrayList<>();
+        this.color = color;
     }
 
     //Getters
@@ -33,4 +35,12 @@ public class Faction {
     public void addBoat(Boat Boat) {this.lstBoat.add(Boat);}
     public void removeBoat(Boat Boat) {this.lstBoat.remove(Boat);}
     public void removeHarbor(Harbor Harbor) {this.lstHarbor.remove(Harbor);}
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 }

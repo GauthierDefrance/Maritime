@@ -5,8 +5,8 @@ import maritime.config.GameConfiguration;
 import java.awt.*;
 
 public class Standard extends Boat{
-    public Standard(String name, double visionRadius, int maxHp,int damageSpeed, Point position, int speed) {
-        super(name, visionRadius, (int) (maxHp* GameConfiguration.STANDARD_HP_BOOST), (int) (damageSpeed*GameConfiguration.STANDARD_DAMAGE_SPEED_BOOST), position, (int) (speed*GameConfiguration.STANDARD_SPEED_BOOST));
+    public Standard(String name, Point position) {
+        super(name,GameConfiguration.STANDARD_VISION_RADIUS, (int) (GameConfiguration.STANDARD_HP), (int) (GameConfiguration.STANDARD_DAMAGE_SPEED), position, (int) (GameConfiguration.STANDARD_SPEED));
     }
 
 }

@@ -5,31 +5,33 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import maritime.config.GameConfiguration;
+import maritime.config.MapConfig;
+import maritime.config.MapConfig1;
 import maritime.engine.entity.*;
 import maritime.engine.faction.Faction;
 import maritime.engine.graph.*;
 import maritime.engine.process.BoatManager;
 import maritime.gui.GameDisplay;
 
-public class testMove extends JFrame implements Runnable {
-    private Military military = new Military("bob",1,20,1,new Point(10,10),5);
-    private Standard standard2 = new Standard("carl",1,20,1,new Point(10,10),5);
+public class TestMove extends JFrame implements Runnable {
+    private Military military = new Military("bob",new Point(10,10));
+    private Standard standard2 = new Standard("carl",new Point(10,10));
 
-    private Standard standard = new Standard("bob",1,20,1,new Point(10,10),5);
-    private Military military2 = new Military("bob",1,20,1,new Point(10,10),5);
+    private Standard standard = new Standard("bob",new Point(10,10));
+    private Military military2 = new Military("bob",new Point(10,10));
 
-    private Fodder merchant = new Fodder("bob",1,20,1,new Point(10,10),5);
-    private Merchant merchant2 = new Merchant("bob",1,20,1,new Point(10,10),5);
+    private Fodder merchant = new Fodder("bob",new Point(10,10));
+    private Merchant merchant2 = new Merchant("bob",new Point(10,10));
 
     private GameDisplay dashboard;
 
-    public testMove(String title) {
+    public TestMove(String title) {
         super(title);
         init();
     }
 
     private void init() {
-        Faction player = new Faction();
+        Faction player = new Faction("blue");
         player.addBoat(military);
         player.addBoat(standard2);
 
@@ -39,10 +41,10 @@ public class testMove extends JFrame implements Runnable {
         player.addBoat(merchant);
         player.addBoat(merchant2);
 
-        ArrayList<Faction> LstFaction = new ArrayList<Faction>();
-        LstFaction.add(player);
+        MapConfig1 map = new MapConfig1();
+        map.getLstBotFaction().add(player);
 
-        dashboard = new GameDisplay(LstFaction);
+        dashboard = new GameDisplay(map);
 
 
         GraphPoint A = new GraphPoint(new Point(20*GameConfiguration.GAME_SCALE,80*GameConfiguration.GAME_SCALE),"A");
@@ -155,7 +157,7 @@ public class testMove extends JFrame implements Runnable {
 
         public static void main(String[] args) {
 
-        testMove gameMainGUI = new testMove("Aircraft game");
+        TestMove gameMainGUI = new TestMove("Aircraft game");
         Thread gameThread = new Thread(gameMainGUI);
         gameThread.start();
     }

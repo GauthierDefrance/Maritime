@@ -1,6 +1,7 @@
 package maritime.engine.process;
 
 
+import maritime.config.MapConfig;
 import maritime.engine.faction.Faction;
 
 import java.util.ArrayList;
@@ -10,10 +11,10 @@ import java.util.ArrayList;
  * Classe FactionManager
  */
 public class FactionManager {
+    private final MapConfig map;
 
-    private ArrayList<Faction> lstFaction ;
 
-    public FactionManager(ArrayList<Faction> lstFaction) {
-        this.lstFaction = lstFaction;
+    public FactionManager(MapConfig map) {
+        this.map = map;
     }
 }
