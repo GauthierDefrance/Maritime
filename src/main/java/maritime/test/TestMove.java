@@ -5,14 +5,14 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import maritime.config.GameConfiguration;
-import maritime.config.MapConfig;
 import maritime.config.MapConfig1;
-import maritime.engine.entity.*;
-import maritime.engine.faction.Faction;
+import maritime.engine.entity.boats.Fodder;
+import maritime.engine.entity.boats.Merchant;
+import maritime.engine.entity.boats.Military;
+import maritime.engine.entity.boats.Standard;
 import maritime.engine.faction.Player;
 import maritime.engine.graph.*;
 import maritime.engine.process.BoatManager;
-import maritime.engine.process.PlayerManager;
 import maritime.gui.GameDisplay;
 
 public class TestMove extends JFrame implements Runnable {

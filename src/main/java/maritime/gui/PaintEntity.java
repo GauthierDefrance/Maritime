@@ -2,6 +2,7 @@ package maritime.gui;
 
 import maritime.config.GameConfiguration;
 import maritime.engine.entity.*;
+import maritime.engine.entity.boats.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

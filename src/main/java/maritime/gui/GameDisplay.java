@@ -2,13 +2,12 @@ package maritime.gui;
 
 import maritime.config.GameConfiguration;
 import maritime.config.MapConfig;
-import maritime.engine.entity.Boat;
+import maritime.engine.entity.boats.Boat;
 import maritime.engine.entity.Harbor;
 import maritime.engine.faction.Faction;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 /**
  * @author @Kenan Ammad
