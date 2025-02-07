@@ -1,5 +1,6 @@
 package maritime.config;
 
+import maritime.engine.entity.Harbor;
 import maritime.engine.faction.Faction;
 import maritime.engine.faction.Player;
 import maritime.engine.graph.GraphPoint;
@@ -15,6 +16,7 @@ public class MapConfig1 extends MapConfig{
 
     @Override
     public void init(){
+        ArrayList<Harbor> lstfarbor = new ArrayList<>();
         ArrayList<Faction> lstFaction = new ArrayList<>();
         ArrayList<Faction> lstBotFaction = new ArrayList<>();
         HashMap<String, GraphPoint> mapGraphPoint = new HashMap<>();
@@ -25,6 +27,7 @@ public class MapConfig1 extends MapConfig{
 
         lstFaction.addAll(lstBotFaction);
         lstFaction.addLast(player);
+        this.setLstHarbor(lstfarbor);
         this.setLstFaction(lstFaction);
         this.setLstBotFaction(lstBotFaction);
         this.setMapGraphPoint(mapGraphPoint);

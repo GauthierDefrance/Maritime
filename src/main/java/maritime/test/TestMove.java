@@ -9,8 +9,10 @@ import maritime.config.MapConfig;
 import maritime.config.MapConfig1;
 import maritime.engine.entity.*;
 import maritime.engine.faction.Faction;
+import maritime.engine.faction.Player;
 import maritime.engine.graph.*;
 import maritime.engine.process.BoatManager;
+import maritime.engine.process.PlayerManager;
 import maritime.gui.GameDisplay;
 
 public class TestMove extends JFrame implements Runnable {
@@ -31,7 +33,7 @@ public class TestMove extends JFrame implements Runnable {
     }
 
     private void init() {
-        Faction player = new Faction("blue");
+        Player player = new Player("blue");
         player.addBoat(military);
         player.addBoat(standard2);
 
@@ -42,7 +44,7 @@ public class TestMove extends JFrame implements Runnable {
         player.addBoat(merchant2);
 
         MapConfig1 map = new MapConfig1();
-        map.getLstBotFaction().add(player);
+        map.setPlayer(player);
 
         dashboard = new GameDisplay(map);
 
@@ -149,6 +151,7 @@ public class TestMove extends JFrame implements Runnable {
 
             BoatManager.followThePath(merchant);
             BoatManager.followThePath(merchant2);
+            
 
             dashboard.repaint();
         }
