@@ -1,12 +1,13 @@
 package maritime.engine.entity;
 
+import maritime.engine.trading.Inventory;
+import maritime.engine.trading.Ressource;
 
-import maritime.engine.inventory.Inventory;
 import java.awt.*;
 
 public abstract class Entity_useless implements EntityInterface {
     private String name;
-    private int visionRadius;
+    private double visionRadius;
     private int maxHp;
     private int currentHp;
     private Inventory inventory;
@@ -30,7 +31,7 @@ public abstract class Entity_useless implements EntityInterface {
     public Inventory getInventory() { return inventory; }
 
     @Override
-    public int getVisionRadius() { return visionRadius; }
+    public double getVisionRadius() { return visionRadius; }
 
     @Override
     public int getCurrentHp() { return currentHp; }
@@ -45,7 +46,7 @@ public abstract class Entity_useless implements EntityInterface {
     //Setters
 
     @Override
-    public void setVisionRadius(int visionRadius) { this.visionRadius = visionRadius; }
+    public void setVisionRadius(double visionRadius) { this.visionRadius = visionRadius; }
 
     public void setName(String name) {this.name = name; }
 
@@ -68,9 +69,9 @@ public abstract class Entity_useless implements EntityInterface {
     }
 
     //Other Methods
-    public void addToInventory(String Elem, int Quantity) { this.inventory.add(Elem, Quantity); }
+    public void addToInventory(Ressource Elem, int Quantity) { this.inventory.add(Elem, Quantity); }
 
-    public void removeFromInventory(String Elem, int Quantity) {
+    public void removeFromInventory(Ressource Elem, int Quantity) {
         try {
             this.inventory.subtract(Elem, Quantity);
         }  catch (ArithmeticException e) {
@@ -78,7 +79,7 @@ public abstract class Entity_useless implements EntityInterface {
         }
     }
 
-    public void transferTo(Entity_useless target, String Elem, int Quantity) {
+    public void transferTo(Entity_useless target, Ressource Elem, int Quantity) {
             this.removeFromInventory(Elem, Quantity);
             target.addToInventory(Elem, Quantity);
     }

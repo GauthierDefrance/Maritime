@@ -1,7 +1,6 @@
 package maritime.engine.process;
 
-import maritime.engine.entity.Boat;
-import maritime.engine.faction.Faction;
+import maritime.engine.entity.boats.Boat;
 import maritime.engine.graph.GraphPoint;
 
 import java.util.ArrayList;

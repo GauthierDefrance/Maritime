@@ -1,7 +1,7 @@
 package maritime.engine.entity;
 
 import maritime.engine.graph.GraphPoint;
-import maritime.engine.inventory.Inventory;
+import maritime.engine.trading.Inventory;
 
 import java.awt.*;
 

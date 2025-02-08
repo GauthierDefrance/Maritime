@@ -1,6 +1,6 @@
 package maritime.engine.faction;
 
-import maritime.engine.entity.Boat;
+import maritime.engine.entity.boats.Boat;
 
 import java.util.ArrayList;
 

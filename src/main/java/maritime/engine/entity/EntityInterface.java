@@ -1,6 +1,6 @@
 package maritime.engine.entity;
 
-import maritime.engine.inventory.Inventory;
+import maritime.engine.trading.Inventory;
 
 import java.awt.*;
 import java.io.Serializable;
@@ -19,16 +19,16 @@ public interface EntityInterface extends Serializable {
 
     public Inventory getInventory();
 
-    public int getVisionRadius();
+    public double getVisionRadius();
 
     //Setters
 
     public void setPosition(Point position);
 
-    public void setVisionRadius(int visionRadius);
+    public void setCurrentHp(int currentHp);
 
-    //Autres Méthodes
+    public void setMaxHp(int maxHp);
 
-    public boolean reduceHp(int value);
+    public void setVisionRadius(double visionRadius);
 
 }

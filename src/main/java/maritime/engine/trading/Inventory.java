@@ -1,9 +1,13 @@
-package maritime.engine.inventory;
+package maritime.engine.trading;
 
 import java.util.HashMap;
 
+/**
+ * @version 0.2
+ * @author Zue Jack-Arthur
+ */
 public class Inventory {
-    private HashMap<String, Integer> content;
+    private HashMap<Ressource, Integer> content; //La HashMap reste pertinente dans une optique de gestion
     private int capacity;
 
     public Inventory(int capacity) {
@@ -13,12 +17,12 @@ public class Inventory {
 
     public Inventory() {
        this.content = new HashMap<>();
-       this.capacity = 0;
+       this.capacity = Integer.MAX_VALUE;
     }
 
     //Getters
 
-    public HashMap<String, Integer> getInventoryContent(){ return this.content; }
+    public HashMap<Ressource, Integer> getInventoryContent(){ return this.content; }
 
     public int getCapacity() { return this.capacity; }
 
@@ -26,20 +30,32 @@ public class Inventory {
 
     public void setCapacity( int capacity ) { this.capacity = capacity; }
 
-    public void setInventoryContent( HashMap<String, Integer> content ) {
+    public void setInventoryContent( HashMap<Ressource, Integer> content ) {
         if (content.size() < capacity) this.content = content;
         else throw new IllegalArgumentException("Too many items");
     }
 
-    public int checkRessourceNumber(String elem){
+    //Logic Methods (must be moved to a future InventoryManager class)
+
+    public int checkRessourceNumber(Ressource elem){
         return this.content.getOrDefault(elem, 0);
         /* évite de renvoyer null si l'élément n'est pas présent dans l'inventaire et considère plutôt une présence
          par défaut de nb 0 */
     }
 
-    public void add(String elem,int nb){ this.content.put(elem, checkRessourceNumber(elem) + nb); }
+    public int totalUsedSpace(){
+        int total = 0;
+        for (Ressource elem : this.content.keySet()) total += this.content.get(elem);
+        return total;
+    }
 
-    public void subtract(String elem, int nb){
+    public void safeAdd(Ressource elem, int nb){
+        if ((totalUsedSpace() + nb) < capacity) this.add(elem, nb);
+    }
+
+    public void add(Ressource elem,int nb){ this.content.put(elem, checkRessourceNumber(elem) + nb); }
+
+    public void subtract(Ressource elem, int nb){
         if (this.checkRessourceNumber(elem) >= nb) {
             this.add(elem, -nb);
         } else {
