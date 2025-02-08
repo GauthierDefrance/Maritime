@@ -2,6 +2,7 @@ package maritime.engine.faction;
 
 import maritime.engine.entity.*;
 import maritime.engine.entity.boats.Boat;
+import maritime.engine.entity.boats.Fleet;
 
 import java.util.ArrayList;
 /**
@@ -11,17 +12,21 @@ import java.util.ArrayList;
 public class Faction {
     private ArrayList<Boat> lstBoat;
     private ArrayList<Harbor> lstHarbor;
+    private ArrayList<Fleet> lstFleet;
     private String color;
 
     public Faction(String color){
-        lstBoat = new ArrayList<>();
+        lstFleet = new ArrayList<>();
         lstHarbor = new ArrayList<>();
+        lstBoat = new ArrayList<>();
         this.color = color;
     }
 
     //Getters
     public ArrayList<Boat> getLstBoat() {return lstBoat;}
     public ArrayList<Harbor> getLstHarbor() {return lstHarbor;}
+    public ArrayList<Fleet> getLstFleet() {return lstFleet;}
+    public String getColor() {return color;}
 
     //Setters
     public void setLstBoat(ArrayList<Boat> lstBoat) {
@@ -30,18 +35,14 @@ public class Faction {
     public void setLstHarbor(ArrayList<Harbor> lstHarbor) {
         this.lstHarbor = lstHarbor;
     }
+    public void setColor(String color) {this.color = color;}
+    public void setLstFleet(ArrayList<Fleet> lstFleet) {this.lstFleet = lstFleet;}
 
     //Content Handler
     public void addHarbor(Harbor harbor) {this.lstHarbor.add(harbor);}
     public void addBoat(Boat boat) {this.lstBoat.add(boat);}
+    public void addFleet(Fleet fleet) {this.lstFleet.add(fleet);}
     public void removeBoat(Boat Boat) {this.lstBoat.remove(Boat);}
     public void removeHarbor(Harbor Harbor) {this.lstHarbor.remove(Harbor);}
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
+    public void removeFleet(Fleet fleet) {this.lstFleet.remove(fleet);}
 }
