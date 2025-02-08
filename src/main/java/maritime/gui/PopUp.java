@@ -1,0 +1,43 @@
+package maritime.gui;
+
+import java.awt.*;
+
+public class PopUp {
+    private String name;
+    private int iFrame;
+    private Point position;
+
+    public PopUp(String name,int iFrame,Point position){
+        this.name=name;
+        this.iFrame = iFrame;
+        this.position = position;
+    }
+
+    public int getIFrame() {
+        return iFrame;
+    }
+
+    public void setIFrame(int IFrame) {
+        this.iFrame = IFrame;
+    }
+
+    public void addIFrame(int IFrame) {
+        this.iFrame += IFrame;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Point getPosition() {
+        return position;
+    }
+
+    public void setPosition(Point position) {
+        this.position = position;
+    }
+}

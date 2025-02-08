@@ -16,11 +16,15 @@ import java.awt.*;
 public class GameDisplay extends JPanel {
 
     private final GameInitFactory map;
-    private final PaintEntity paintEntity = new PaintEntity();
-    private final PaintBackGround paintBackGround = new PaintBackGround();
+    private final PaintEntity paintEntity;
+    private final PaintBackGround paintBackGround;
+    private final PaintPopUp paintPopUp;
 
     public GameDisplay(GameInitFactory map){
         this.map = map;
+        this.paintEntity = new PaintEntity();
+        this.paintBackGround = new PaintBackGround();
+        this.paintPopUp = new PaintPopUp(map);
     }
 
     @Override
@@ -58,6 +62,9 @@ public class GameDisplay extends JPanel {
         }
         for (Harbor harbor : map.getPlayer().getLstHarbor()){
             paintEntity.paintPlayer(harbor,g2d);
+        }
+        for (PopUp popUp : map.getLstPopUp()){
+            paintPopUp.paint(popUp,g2d);
         }
 
         g2d.scale(GameConfiguration.GAME_SCALE,GameConfiguration.GAME_SCALE);

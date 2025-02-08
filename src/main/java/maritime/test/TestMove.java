@@ -45,7 +45,7 @@ public class TestMove extends JFrame implements Runnable {
 
     private void init() {
         Player player = new Player("blue");
-        Faction faction = new Faction("red");
+        Faction faction = new Faction("");
         player.addBoat(military);
         player.addBoat(standard2);
 
@@ -160,17 +160,17 @@ public class TestMove extends JFrame implements Runnable {
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
-            BoatManager.followThePath(military);
-            BoatManager.followThePath(standard2);
+            if (!map.isTimeStop()){
+                BoatManager.followThePath(military);
+                BoatManager.followThePath(standard2);
 
-            BoatManager.followThePath(military2);
-            BoatManager.followThePath(standard);
+                BoatManager.followThePath(military2);
+                BoatManager.followThePath(standard);
 
-            BoatManager.followThePath(fodder);
-            BoatManager.followThePath(merchant2);
-
-            playerManager.updatePlayerVision();
-
+                BoatManager.followThePath(fodder);
+                BoatManager.followThePath(merchant2);
+                playerManager.updatePlayerVision();
+            }
             dashboard.repaint();
         }
     }

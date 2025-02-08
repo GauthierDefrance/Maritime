@@ -4,18 +4,22 @@ import maritime.engine.entity.*;
 import maritime.engine.faction.Faction;
 import maritime.engine.faction.Player;
 import maritime.engine.graph.GraphPoint;
+import maritime.gui.PopUp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GameInitFactory {
     private HashMap<String, GraphPoint> mapGraphPoint;
-    private ArrayList<Harbor> LstHarbor;
+    private ArrayList<Harbor> lstHarbor;
     private ArrayList<Faction> lstBotFaction;
     private ArrayList<Faction> lstFaction;
     private Player player;
+    private boolean timeStop;
+    private ArrayList<PopUp> lstPopUp;
 
     public GameInitFactory(int choice){init0();
+        timeStop = false;
         switch (choice) {
             case 0 -> {
                 init0();
@@ -29,7 +33,8 @@ public class GameInitFactory {
     }
 
     public void init0(){
-        ArrayList<Harbor> lstfarbor = new ArrayList<>();
+        ArrayList<PopUp> lstPopUp =new ArrayList<>();
+        ArrayList<Harbor> lstHarbor = new ArrayList<>();
         ArrayList<Faction> lstFaction = new ArrayList<>();
         ArrayList<Faction> lstBotFaction = new ArrayList<>();
         HashMap<String, GraphPoint> mapGraphPoint = new HashMap<>();
@@ -37,10 +42,10 @@ public class GameInitFactory {
 
 //        map.put("A",new GraphPoint(new Point(0*GameConfiguration.GAME_SCALE,0*GameConfiguration.GAME_SCALE),"A"));
 
-
         lstFaction.addAll(lstBotFaction);
         lstFaction.addLast(player);
-        this.setLstHarbor(lstfarbor);
+        this.setLstPopUp(lstPopUp);
+        this.setLstHarbor(lstHarbor);
         this.setLstFaction(lstFaction);
         this.setLstBotFaction(lstBotFaction);
         this.setMapGraphPoint(mapGraphPoint);
@@ -81,10 +86,34 @@ public class GameInitFactory {
     }
 
     public ArrayList<Harbor> getLstHarbor() {
-        return LstHarbor;
+        return lstHarbor;
     }
 
     public void setLstHarbor(ArrayList<Harbor> lstHarbor) {
-        LstHarbor = lstHarbor;
+        this.lstHarbor = lstHarbor;
+    }
+
+    public boolean isTimeStop() {
+        return timeStop;
+    }
+
+    public void setTimeStop(boolean timeStop) {
+        this.timeStop = timeStop;
+    }
+
+    public ArrayList<PopUp> getLstPopUp() {
+        return lstPopUp;
+    }
+
+    public void setLstPopUp(ArrayList<PopUp> lstPopUp) {
+        this.lstPopUp = lstPopUp;
+    }
+
+    public void addPopUp(PopUp PopUp) {
+        this.lstPopUp.add(PopUp);
+    }
+
+    public void removePopUp(PopUp PopUp) {
+        this.lstPopUp.remove(PopUp);
     }
 }

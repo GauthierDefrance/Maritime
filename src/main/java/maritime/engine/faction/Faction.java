@@ -32,8 +32,8 @@ public class Faction {
     }
 
     //Content Handler
-    public void addHarbor(Harbor Harbor) {this.lstHarbor.add(Harbor);}
-    public void addBoat(Boat Boat) {this.lstBoat.add(Boat);}
+    public void addHarbor(Harbor harbor) {this.lstHarbor.add(harbor);}
+    public void addBoat(Boat boat) {this.lstBoat.add(boat);}
     public void removeBoat(Boat Boat) {this.lstBoat.remove(Boat);}
     public void removeHarbor(Harbor Harbor) {this.lstHarbor.remove(Harbor);}
 
