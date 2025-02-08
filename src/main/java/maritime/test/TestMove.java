@@ -146,9 +146,9 @@ public class TestMove extends JFrame implements Runnable {
         setSize(640, 360);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
-
         setLocationRelativeTo(null);
         setVisible(true);
+        TestDebug debug = new TestDebug("Debug",map);
     }
 
     @Override
