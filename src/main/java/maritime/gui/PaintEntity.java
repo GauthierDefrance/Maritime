@@ -98,7 +98,6 @@ public class PaintEntity {
                 j=0;
             }
         }
-        System.out.println(i+"et"+j);
         return tbSprite[i][j];
     }
     private Color colorChoice(String color){
