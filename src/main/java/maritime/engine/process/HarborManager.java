@@ -1,12 +1,11 @@
 package maritime.engine.process;
 
-import maritime.config.MapConfig;
-import maritime.engine.entity.Harbor;
+import maritime.config.GameInitFactory;
 
 public class HarborManager {
-    private final MapConfig map;
+    private final GameInitFactory map;
 
-    public HarborManager(MapConfig map){
+    public HarborManager(GameInitFactory map){
         this.map = map;
     }
 }

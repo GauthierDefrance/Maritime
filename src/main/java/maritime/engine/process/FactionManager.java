@@ -1,20 +1,17 @@
 package maritime.engine.process;
 
 
-import maritime.config.MapConfig;
-import maritime.engine.faction.Faction;
-
-import java.util.ArrayList;
+import maritime.config.GameInitFactory;
 
 /**
  * @author @Kenan Ammad
  * Classe FactionManager
  */
 public class FactionManager {
-    private final MapConfig map;
+    private final GameInitFactory map;
 
 
-    public FactionManager(MapConfig map) {
+    public FactionManager(GameInitFactory map) {
         this.map = map;
     }
 }

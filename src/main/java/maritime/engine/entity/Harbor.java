@@ -11,15 +11,19 @@ import java.awt.*;
  */
 public class Harbor {
     private String name;
+    private String color;
     private double visionRadius;
-    private int maxHp;
-    private int currentHp;
-    private Inventory inventory;
     private Point position;
     private GraphPoint graphPosition;
+    private int maxHp;
+    private int currentHp;
+    private final Inventory inventory;
 
-    public Harbor(String name, double visionRadius, int maxHp, Point position,GraphPoint graphPosition) {
+
+
+    public Harbor(String name,String color, double visionRadius, Point position,GraphPoint graphPosition, int maxHp) {
         this.name = name;
+        this.color =color;
         this.visionRadius = visionRadius;
         this.inventory = new Inventory();
         this.maxHp = maxHp;
@@ -64,10 +68,6 @@ public class Harbor {
         return inventory;
     }
 
-    public void setInventory(Inventory inventory) {
-        this.inventory = inventory;
-    }
-
     public Point getPosition() {
         return position;
     }
@@ -82,5 +82,13 @@ public class Harbor {
 
     public void setGraphPosition(GraphPoint graphPosition) {
         this.graphPosition = graphPosition;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

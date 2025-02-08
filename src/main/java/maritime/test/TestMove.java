@@ -5,8 +5,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import maritime.config.GameConfiguration;
-import maritime.config.MapConfig;
-import maritime.config.MapConfig1;
+import maritime.config.GameInitFactory;
 import maritime.engine.entity.*;
 import maritime.engine.faction.Faction;
 import maritime.engine.faction.Player;
@@ -16,14 +15,17 @@ import maritime.engine.process.PlayerManager;
 import maritime.gui.GameDisplay;
 
 public class TestMove extends JFrame implements Runnable {
-    private Military military = new Military("bob",new Point(10,10));
-    private Standard standard2 = new Standard("carl",new Point(10,10));
+    private Military military = new Military("bob","red",new Point(10,10));
+    private Standard standard2 = new Standard("carl","blue",new Point(10,10));
 
-    private Standard standard = new Standard("bob",new Point(10,10));
-    private Military military2 = new Military("bob",new Point(10,10));
+    private Standard standard = new Standard("bob","red",new Point(10,10));
+    private Military military2 = new Military("bob","blue",new Point(10,10));
 
-    private Fodder merchant = new Fodder("bob",new Point(10,10));
-    private Merchant merchant2 = new Merchant("bob",new Point(10,10));
+    private Fodder fodder = new Fodder("bob","",new Point(10,10));
+    private Merchant merchant2 = new Merchant("bob","red",new Point(10,10));
+
+    private GameInitFactory map = new GameInitFactory(0);
+    private PlayerManager playerManager = new PlayerManager(map);
 
     private GameDisplay dashboard;
 
@@ -34,16 +36,19 @@ public class TestMove extends JFrame implements Runnable {
 
     private void init() {
         Player player = new Player("blue");
+        Faction faction = new Faction("red");
         player.addBoat(military);
         player.addBoat(standard2);
 
         player.addBoat(standard);
         player.addBoat(military2);
 
-        player.addBoat(merchant);
+        faction.addBoat(fodder);
         player.addBoat(merchant2);
 
-        MapConfig1 map = new MapConfig1();
+        ArrayList<Faction> lstBotFaction = new ArrayList<>();
+        lstBotFaction.add(faction);
+        map.setLstBotFaction(lstBotFaction);
         map.setPlayer(player);
 
         dashboard = new GameDisplay(map);
@@ -114,9 +119,9 @@ public class TestMove extends JFrame implements Runnable {
         military2.setPosition(new Point(D.getPoint()));
         military2.setContinuePath(true);
 
-        merchant.setPath(path4);
-        merchant.setPosition(new Point(C.getPoint()));
-        merchant.setContinuePath(true);
+        fodder.setPath(path4);
+        fodder.setPosition(new Point(C.getPoint()));
+        fodder.setContinuePath(true);
 
         merchant2.setPath(path4);
         merchant2.setPosition(new Point(F.getPoint()));
@@ -149,9 +154,10 @@ public class TestMove extends JFrame implements Runnable {
             BoatManager.followThePath(military2);
             BoatManager.followThePath(standard);
 
-            BoatManager.followThePath(merchant);
+            BoatManager.followThePath(fodder);
             BoatManager.followThePath(merchant2);
-            
+
+            playerManager.updatePlayerVision();
 
             dashboard.repaint();
         }

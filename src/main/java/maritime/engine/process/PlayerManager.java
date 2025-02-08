@@ -1,6 +1,7 @@
 package maritime.engine.process;
 
-import maritime.config.MapConfig;
+import maritime.config.GameConfiguration;
+import maritime.config.GameInitFactory;
 import maritime.engine.entity.Boat;
 import maritime.engine.entity.Harbor;
 import maritime.engine.faction.Faction;
@@ -8,9 +9,9 @@ import maritime.engine.faction.Faction;
 import java.util.ArrayList;
 
 public class PlayerManager {
-    private final MapConfig map;
+    private final GameInitFactory map;
 
-    public PlayerManager(MapConfig map){
+    public PlayerManager(GameInitFactory map){
         this.map = map;
     }
 
@@ -19,16 +20,18 @@ public class PlayerManager {
         for (Faction faction : map.getLstBotFaction()){
             for (Boat boat : faction.getLstBoat()){
                 for (Boat playerBoat : map.getPlayer().getLstBoat()){
-                    if(playerBoat.getVisionRadius() >= (Math.sqrt(Math.pow((boat.getPosition().getX()-playerBoat.getPosition().getX()),2)+Math.pow((boat.getPosition().getY()-playerBoat.getPosition().getY()),2)))){
-                        vision.add(boat);}
+                    if(playerBoat.getVisionRadius() /2 >= Math.sqrt(Math.pow((boat.getPosition().getX()-playerBoat.getPosition().getX()),2)+Math.pow((boat.getPosition().getY()-playerBoat.getPosition().getY()),2))){
+                        if(!vision.contains(boat)){vision.add(boat);}
+                    }
                 }
             }
         }
         for (Faction faction : map.getLstBotFaction()){
             for (Boat boat : faction.getLstBoat()){
                 for (Harbor harbor : map.getPlayer().getLstHarbor()){
-                    if(harbor.getVisionRadius() >= (Math.sqrt(Math.pow((boat.getPosition().getX()-harbor.getPosition().getX()),2)+Math.pow((boat.getPosition().getY()-harbor.getPosition().getY()),2)))){
-                        vision.add(boat);}
+                    if(harbor.getVisionRadius() /2 >= Math.sqrt(Math.pow((boat.getPosition().getX()-harbor.getPosition().getX()),2)+Math.pow((boat.getPosition().getY()-harbor.getPosition().getY()),2))){
+                        if(!vision.contains(boat)){vision.add(boat);}
+                    }
                 }
             }
         }

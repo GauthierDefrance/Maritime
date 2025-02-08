@@ -12,29 +12,31 @@ import maritime.engine.inventory.Inventory;
  */
 public abstract class Boat{
     private String name;
+    private String color;
     private double visionRadius;
+    private Point position;
     private int maxHp;
     private int currentHp;
-    private final Inventory inventory;
-    private Point position;
+    private int damageSpeed;
     private int speed;
     private double angle;
     private ArrayList<GraphPoint> path;
     private int iPath;
     private boolean continuePath;
-    private int damageSpeed;
+    private final Inventory inventory;
 
-    public Boat(String name, double visionRadius, int maxHp, int damageSpeed, Point position, int speed) {
+    public Boat(String name,String color, double visionRadius, Point position, int maxHp, int damageSpeed, int speed) {
         this.name = name;
+        this.color = color;
         this.visionRadius = visionRadius;
+        this.position = position;
         this.maxHp = maxHp;
         this.currentHp = maxHp;
         this.damageSpeed = damageSpeed;
-        this.position = position;
         this.speed = speed;
         this.path = new ArrayList<>();
-        this.continuePath = false;
         this.iPath = 0;
+        this.continuePath = false;
         this.inventory = new Inventory();
     }
 
@@ -84,4 +86,12 @@ public abstract class Boat{
 
     public int getDamageSpeed() {return damageSpeed;}
     public void setDamageSpeed(int damageSpeed) {this.damageSpeed = damageSpeed;}
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 }
