@@ -1,5 +1,6 @@
 package maritime.engine.entity;
 
+import maritime.config.GameConfiguration;
 import maritime.engine.graph.GraphPoint;
 import maritime.engine.trading.Inventory;
 
@@ -21,13 +22,13 @@ public class Harbor {
 
 
 
-    public Harbor(String name,String color, double visionRadius, Point position,GraphPoint graphPosition, int maxHp) {
+    public Harbor(String name,String color, Point position,GraphPoint graphPosition) {
         this.name = name;
         this.color =color;
-        this.visionRadius = visionRadius;
+        this.visionRadius = GameConfiguration.HARBOR_VISION_RADIUS;
         this.inventory = new Inventory();
-        this.maxHp = maxHp;
-        this.currentHp = maxHp;
+        this.maxHp = (int) GameConfiguration.HARBOR_HP;
+        this.currentHp = (int) GameConfiguration.HARBOR_HP;
         this.position = position;
         this.graphPosition =graphPosition;
     }

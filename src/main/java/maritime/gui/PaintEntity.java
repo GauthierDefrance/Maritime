@@ -17,7 +17,7 @@ public class PaintEntity {
     private BufferedImage[][] tbSprite;
 
     public PaintEntity(){
-        tbSprite = new BufferedImage[4][4];
+        tbSprite = new BufferedImage[5][4];
         try {
             tbSprite[0][0] = ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/boat/standard.png")));
             tbSprite[0][1] = ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/boat/standard/red.png")));
@@ -35,17 +35,27 @@ public class PaintEntity {
             tbSprite[3][1] = ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/boat/military/red.png")));
             tbSprite[3][2] = ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/boat/military/blue.png")));
 
+            tbSprite[4][0] = ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/Harbor/Harbor.png")));
+            tbSprite[4][1] = ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/Harbor/red.png")));
+            tbSprite[4][2] = ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/Harbor/blue.png")));
+
         } catch (Exception e) {
             System.err.println(e+"error can't find image sprite");
         }
     }
 
     public void paint(Harbor harbor, Graphics2D g2d){
-        System.out.println("lol-test");
+        BufferedImage sprite = spriteChoice(harbor.getClass(),harbor.getColor());
+        if(sprite!=null){g2d.drawImage(sprite, (int) (harbor.getPosition().getX()) - (sprite.getWidth() / 2), (int) (harbor.getPosition().getY()) - (sprite.getHeight() / 2), null);}
+        else {
+            g2d.setColor(Color.MAGENTA);
+            g2d.fillOval((int)(harbor.getPosition().getX())-10,(int)(harbor.getPosition().getY())-10, 20, 20);
+            g2d.setColor(Color.black);
+        }
     }
 
     public void paint(Boat boat, Graphics2D g2d){
-        BufferedImage sprite = spriteChoice(boat,boat.getColor());
+        BufferedImage sprite = spriteChoice(boat.getClass(),boat.getColor());
         g2d.rotate(boat.getAngle(),(int)(boat.getPosition().getX()),(int)(boat.getPosition().getY()));
 
         g2d.setColor(colorChoice(boat.getColor()));
@@ -59,6 +69,7 @@ public class PaintEntity {
         }
         g2d.rotate(-boat.getAngle(),(int)(boat.getPosition().getX()),(int)(boat.getPosition().getY()));
     }
+
     public void paintPlayer(Boat boat, Graphics2D g2d){
         g2d.rotate(boat.getAngle(),(int)(boat.getPosition().getX()),(int)(boat.getPosition().getY()));
         g2d.setColor(new Color(255,255,255, GameConfiguration.Transparency_Halo));
@@ -67,22 +78,32 @@ public class PaintEntity {
         g2d.rotate(-boat.getAngle(),(int)(boat.getPosition().getX()),(int)(boat.getPosition().getY()));
         paint(boat,g2d);
     }
+    public void paintPlayer(Harbor harbor, Graphics2D g2d){
+        g2d.setColor(new Color(255,255,255, GameConfiguration.Transparency_Halo));
+        g2d.fillOval((int)(harbor.getPosition().getX())-((int)harbor.getVisionRadius()/2),(int)(harbor.getPosition().getY())-((int)harbor.getVisionRadius()/2), (int) harbor.getVisionRadius(), (int) harbor.getVisionRadius());
+        g2d.setColor(Color.black);
+        paint(harbor,g2d);
+    }
 
-    private BufferedImage spriteChoice(Boat boat,String color){
+    private BufferedImage spriteChoice(Class<?> classType, String color){
         int i = 0;
         int j = 0;
-        switch (boat) {
-            case Standard standard -> {
+
+        switch (classType.getName()) {
+            case "maritime.engine.entity.boats.Standard" -> {
                 i=0 ;
             }
-            case Fodder fodder ->{
+            case "maritime.engine.entity.boats.Fodder" ->{
                 i=1;
             }
-            case Merchant merchant ->{
+            case "maritime.engine.entity.boats.Merchant" ->{
                 i=2;
             }
-            case Military military ->{
+            case "maritime.engine.entity.boats.Military" ->{
                 i=3;
+            }
+            case "maritime.engine.entity.Harbor" ->{
+                i=4;
             }
             default -> {
             }

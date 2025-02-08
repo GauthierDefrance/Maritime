@@ -10,6 +10,9 @@ public class GameConfiguration {
 
     public static final double HITBOX_BOAT = 80;
 
+    public static final double HARBOR_VISION_RADIUS = 500;
+    public static final double HARBOR_HP = 500;
+
     public static final double STANDARD_VISION_RADIUS = 300;
     public static final double STANDARD_HP = 100;
     public static final double STANDARD_SPEED = 5;

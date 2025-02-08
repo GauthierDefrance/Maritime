@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import maritime.config.GameConfiguration;
 import maritime.config.GameInitFactory;
+import maritime.engine.entity.Harbor;
 import maritime.engine.entity.boats.Fodder;
 import maritime.engine.entity.boats.Merchant;
 import maritime.engine.entity.boats.Military;
@@ -18,6 +19,11 @@ import maritime.engine.process.PlayerManager;
 import maritime.gui.GameDisplay;
 
 public class TestMove extends JFrame implements Runnable {
+
+    private GraphPoint F = new GraphPoint(new Point(460*GameConfiguration.GAME_SCALE,20*GameConfiguration.GAME_SCALE),"F");
+
+    private Harbor harbor1 = new Harbor("bob","red",new Point(490*GameConfiguration.GAME_SCALE,20*GameConfiguration.GAME_SCALE),F);
+
     private Military military = new Military("bob","red",new Point(10,10));
     private Standard standard2 = new Standard("carl","blue",new Point(10,10));
 
@@ -51,8 +57,12 @@ public class TestMove extends JFrame implements Runnable {
 
         ArrayList<Faction> lstBotFaction = new ArrayList<>();
         lstBotFaction.add(faction);
+        ArrayList<Harbor> lstHarbor = new ArrayList<>();
+        lstHarbor.add(harbor1);
+        player.addHarbor(harbor1);
         map.setLstBotFaction(lstBotFaction);
         map.setPlayer(player);
+        map.setLstHarbor(lstHarbor);
 
         dashboard = new GameDisplay(map);
 
@@ -61,7 +71,6 @@ public class TestMove extends JFrame implements Runnable {
         GraphPoint B = new GraphPoint(new Point(160*GameConfiguration.GAME_SCALE,160*GameConfiguration.GAME_SCALE),"B");
         GraphPoint C = new GraphPoint(new Point(320*GameConfiguration.GAME_SCALE,320*GameConfiguration.GAME_SCALE),"C");
         GraphPoint D = new GraphPoint(new Point(440*GameConfiguration.GAME_SCALE,280*GameConfiguration.GAME_SCALE),"D");
-        GraphPoint F = new GraphPoint(new Point(460*GameConfiguration.GAME_SCALE,20*GameConfiguration.GAME_SCALE),"F");
         GraphPoint G = new GraphPoint(new Point(520*GameConfiguration.GAME_SCALE,240*GameConfiguration.GAME_SCALE),"G");
         GraphPoint E = new GraphPoint(new Point(560*GameConfiguration.GAME_SCALE,240*GameConfiguration.GAME_SCALE),"E");
 
