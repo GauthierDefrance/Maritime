@@ -1,10 +1,10 @@
-package maritime.engine.entity;
+package maritime.engine.entity.boats;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 import maritime.engine.graph.GraphPoint;
-import maritime.engine.inventory.Inventory;
+import maritime.engine.trading.Inventory;
 
 /**
  * @author @Kenan Ammad
@@ -40,58 +40,78 @@ public abstract class Boat{
         this.inventory = new Inventory();
     }
 
+    //Getters
+
     public Boolean getContinuePath() {return continuePath;}
-    public void setContinuePath(boolean continuePath) {this.continuePath=continuePath;}
 
     public ArrayList<GraphPoint> getPath() {
         return path;
-    }
-    public void setPath(ArrayList<GraphPoint> path) {
-        this.path = path;
     }
 
     public int getIPath() {
         return iPath;
     }
-    public void setIPath(int iPath) {this.iPath = iPath;}
-    public void addIPath(int iPath) {this.iPath += iPath;}
 
     public double getAngle() { return angle; }
-    public void setAngle(double angle) { this.angle = angle; }
 
     public int getSpeed() {
         return speed;
     }
-    public void setSpeed(int speed) {this.speed = speed;}
-
 
     public String getName() {return name;}
-    public void setName(String name) {this.name = name;}
 
     public double getVisionRadius() {return visionRadius;}
-    public void setVisionRadius(double visionRadius) {this.visionRadius = visionRadius;}
-
-    public int getMaxHp() {return maxHp;}
-    public void setMaxHp(int maxHp) {this.maxHp = maxHp;}
 
     public int getCurrentHp() {return currentHp;}
-    public void setCurrentHp(int currentHp) {this.currentHp = currentHp;}
-    public void addCurrentHp(int currentHp) {this.currentHp += currentHp;}
 
     public Point getPosition() {return position;}
-    public void setPosition(Point position) {this.position = position;}
-    public void setPosition(double x,double y) {position.setLocation(x,y);}
 
     public Inventory getInventory() {return inventory;}
 
     public int getDamageSpeed() {return damageSpeed;}
-    public void setDamageSpeed(int damageSpeed) {this.damageSpeed = damageSpeed;}
 
     public String getColor() {
         return color;
     }
 
+    //Setters
+
+
+    public void setContinuePath(boolean continuePath) {this.continuePath=continuePath;}
+
+    public void setPath(ArrayList<GraphPoint> path) {
+        this.path = path;
+    }
+
+    public void setIPath(int iPath) {this.iPath = iPath;}
+
+    public void setAngle(double angle) { this.angle = angle; }
+
+    public void setSpeed(int speed) {this.speed = speed;}
+
+    public void setName(String name) {this.name = name;}
+
+    public void setVisionRadius(double visionRadius) {this.visionRadius = visionRadius;}
+
+    public void setMaxHp(int maxHp) {this.maxHp = maxHp;}
+
+    public void setCurrentHp(int currentHp) {this.currentHp = currentHp;}
+
+    public void setPosition(Point position) {this.position = position;}
+
+    public void setPosition(double x,double y) {position.setLocation(x,y);}
+
+
+    public void setDamageSpeed(int damageSpeed) {this.damageSpeed = damageSpeed;}
+
     public void setColor(String color) {
         this.color = color;
     }
+
+    //Logic Methods (à déplacer)
+
+    public void addIPath(int iPath) {this.iPath += iPath;}
+
+    public void addCurrentHp(int currentHp) {this.currentHp += currentHp;}
 }
+

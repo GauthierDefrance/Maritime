@@ -2,7 +2,7 @@ package maritime.gui;
 
 import maritime.config.GameConfiguration;
 import maritime.config.GameInitFactory;
-import maritime.engine.entity.Boat;
+import maritime.engine.entity.boats.Boat;
 import maritime.engine.entity.Harbor;
 import maritime.engine.faction.Faction;
 

@@ -7,7 +7,6 @@ import maritime.engine.entity.boats.*;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
 import java.util.Objects;
 
 /**

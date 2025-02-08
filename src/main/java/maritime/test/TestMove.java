@@ -6,7 +6,10 @@ import java.util.ArrayList;
 
 import maritime.config.GameConfiguration;
 import maritime.config.GameInitFactory;
-import maritime.engine.entity.*;
+import maritime.engine.entity.boats.Fodder;
+import maritime.engine.entity.Merchant;
+import maritime.engine.entity.Military;
+import maritime.engine.entity.Standard;
 import maritime.engine.faction.Faction;
 import maritime.engine.faction.Player;
 import maritime.engine.graph.*;

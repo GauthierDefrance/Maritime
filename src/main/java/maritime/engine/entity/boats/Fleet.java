@@ -3,25 +3,25 @@ package maritime.engine.entity.boats;
 import java.util.ArrayList;
 
 public class Fleet {
-    private ArrayList<Boat> crew;
+    private ArrayList<Boat> fleet;
 
-    public Fleet(ArrayList<Boat> boats) { this.crew = boats; }
+    public Fleet(ArrayList<Boat> boats) { this.fleet = boats; }
 
     public Fleet() {
-        this.crew = new ArrayList<>();
+        this.fleet = new ArrayList<>();
     }
 
     //Getters
 
-    public ArrayList<Boat> getCrew() { return crew; }
+    public ArrayList<Boat> getFleet() { return fleet; }
 
     //Setters
 
-    public void setCrew(ArrayList<Boat> Crew) { this.crew = Crew; }
+    public void setFleet(ArrayList<Boat> Crew) { this.fleet = Crew; }
 
     //Modifier
 
-    public void add(Boat boat) { this.crew.add(boat); }
+    public void add(Boat boat) { this.fleet.add(boat); }
 
-    public void remove(Boat boat) { this.crew.remove(boat); }
+    public void remove(Boat boat) { this.fleet.remove(boat); }
 }
