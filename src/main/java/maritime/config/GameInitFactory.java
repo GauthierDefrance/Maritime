@@ -18,7 +18,7 @@ public class GameInitFactory {
     private boolean timeStop;
     private ArrayList<PopUp> lstPopUp;
 
-    public GameInitFactory(int choice){init0();
+    public GameInitFactory(int choice){
         timeStop = false;
         switch (choice) {
             case 0 -> {
@@ -51,6 +51,7 @@ public class GameInitFactory {
         this.setMapGraphPoint(mapGraphPoint);
         this.setPlayer(player);
     }
+
     public void init1(){}
 
     public ArrayList<Faction> getLstBotFaction() {

@@ -17,7 +17,7 @@ public class Fleet {
 
     //Setters
 
-    public void setFleet(ArrayList<Boat> Crew) { this.fleet = Crew; }
+    public void setFleet(ArrayList<Boat> fleet) { this.fleet = fleet; }
 
     //Modifier
 

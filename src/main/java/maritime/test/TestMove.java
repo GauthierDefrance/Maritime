@@ -22,7 +22,7 @@ public class TestMove extends JFrame implements Runnable {
 
     private GraphPoint F = new GraphPoint(new Point(490*GameConfiguration.GAME_SCALE,70*GameConfiguration.GAME_SCALE),"F");
 
-    private Harbor harbor1 = new Harbor("bob","red",new Point(490*GameConfiguration.GAME_SCALE,30*GameConfiguration.GAME_SCALE),F);
+    private Harbor harbor1 = new Harbor("bob","blue",new Point(490*GameConfiguration.GAME_SCALE,30*GameConfiguration.GAME_SCALE),F);
 
     private Military military = new Military("bob","red",new Point(10,10));
     private Standard standard2 = new Standard("carl","blue",new Point(10,10));
