@@ -148,7 +148,7 @@ public class TestMove extends JFrame implements Runnable {
         setUndecorated(true);
         setLocationRelativeTo(null);
         setVisible(true);
-        TestDebug debug = new TestDebug("Debug",map);
+        Debug debug = new Debug("Debug",map);
     }
 
     @Override

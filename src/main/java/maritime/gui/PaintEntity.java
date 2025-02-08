@@ -57,10 +57,10 @@ public class PaintEntity {
     public void paint(Boat boat, Graphics2D g2d){
         BufferedImage sprite = spriteChoice(boat.getClass(),boat.getColor());
         g2d.rotate(boat.getAngle(),(int)(boat.getPosition().getX()),(int)(boat.getPosition().getY()));
-
         g2d.setColor(colorChoice(boat.getColor()));
         g2d.fillOval((int)(boat.getPosition().getX())-((int)GameConfiguration.HITBOX_BOAT/2),(int)(boat.getPosition().getY())-((int)GameConfiguration.HITBOX_BOAT/2), (int) GameConfiguration.HITBOX_BOAT, (int) GameConfiguration.HITBOX_BOAT);
         g2d.setColor(Color.black);
+
         if(sprite!=null){g2d.drawImage(sprite, (int) (boat.getPosition().getX()) - (sprite.getWidth() / 2), (int) (boat.getPosition().getY()) - (sprite.getHeight() / 2), null);}
         else {
             g2d.setColor(Color.MAGENTA);
