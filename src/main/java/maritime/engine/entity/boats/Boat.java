@@ -23,6 +23,7 @@ public abstract class Boat{
     private ArrayList<GraphPoint> path;
     private int iPath;
     private boolean continuePath;
+    private Boat attack;
     private final Inventory inventory;
 
     public Boat(String name,String color, double visionRadius, Point position, int maxHp, int damageSpeed, int speed) {
@@ -37,6 +38,7 @@ public abstract class Boat{
         this.path = new ArrayList<>();
         this.iPath = 0;
         this.continuePath = false;
+        this.attack = null;
         this.inventory = new Inventory();
     }
 
@@ -113,5 +115,13 @@ public abstract class Boat{
     public void addIPath(int iPath) {this.iPath += iPath;}
 
     public void addCurrentHp(int currentHp) {this.currentHp += currentHp;}
+
+    public Boat getAttack() {
+        return attack;
+    }
+
+    public void setAttack(Boat attack) {
+        this.attack = attack;
+    }
 }
 

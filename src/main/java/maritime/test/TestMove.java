@@ -37,6 +37,7 @@ public class TestMove extends JFrame implements Runnable {
     private GameInitFactory map = new GameInitFactory(0);
     private PlayerManager playerManager = new PlayerManager(map);
     private FactionManager factionManager = new FactionManager(map);
+    private BoatManager boatManager = new BoatManager(map);
 
     private GameDisplay dashboard;
 
@@ -117,19 +118,15 @@ public class TestMove extends JFrame implements Runnable {
         ArrayList<GraphPoint> path3 = new ArrayList<GraphPoint>();
         path3 = SearchInGraph.findPath(F,C);
 
-        ArrayList<GraphPoint> path2 = new ArrayList<GraphPoint>();
-
 
         military.setPath(path);
         military.setPosition(new Point(A.getPoint()));
-        military.setContinuePath(true);
+        military.setContinuePath(false);
 
-        GraphPoint XX = new GraphPoint(military.getPosition(),"E");
-        path2.add(XX);
 
-        standard2.setPath(path2);
+        factionManager.attackBoat(standard2,military);
+
         standard2.setPosition(new Point(E.getPoint()));
-        standard2.setContinuePath(true);
 
         standard.setPath(path3);
         standard.setPosition(new Point(G.getPoint()));
@@ -169,16 +166,9 @@ public class TestMove extends JFrame implements Runnable {
                 System.out.println(e.getMessage());
             }
             if (!map.isTimeStop()){
-               factionManager.moveAllFactionBoat();
-//                BoatManager.followThePath(military);
-//                BoatManager.followThePath(standard2);
-//
-//                BoatManager.followThePath(military2);
-//                BoatManager.followThePath(standard);
-//
-//                BoatManager.followThePath(fodder);
-//                BoatManager.followThePath(merchant2);
+                factionManager.moveAllFactionBoat();
                 playerManager.updatePlayerVision();
+                factionManager.doYouAllStartFight();
             }
             dashboard.repaint();
         }

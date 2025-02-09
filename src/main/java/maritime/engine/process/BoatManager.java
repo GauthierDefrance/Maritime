@@ -66,5 +66,11 @@ public class BoatManager {
             return false;
         }
     }
+    public void attack(Boat boat, Boat attackBoat){
+        boat.setAttack(attackBoat);
+        boat.setPath(new ArrayList<>(Collections.singleton(new GraphPoint(attackBoat.getPosition(), ""))));
+        boat.setIPath(0);
+        boat.setContinuePath(false);
+    }
 
 }
