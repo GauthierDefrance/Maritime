@@ -1,5 +1,6 @@
 package maritime.engine.process;
 
+import maritime.config.GameInitFactory;
 import maritime.engine.entity.boats.Boat;
 import maritime.engine.graph.GraphPoint;
 
@@ -13,19 +14,19 @@ import java.util.Collections;
 
 public class BoatManager {
 
-    private ArrayList<Boat> lstBoat;
+    private final GameInitFactory map;
 
-    public BoatManager(ArrayList<Boat> lstBoat) {
-        this.lstBoat = lstBoat;
+    public BoatManager(GameInitFactory map) {
+        this.map = map;
     }
 
-    public static void followThePath(Boat boat){
+    public void followThePath(Boat boat){
         if (!boat.getPath().isEmpty()){
             approachingToPoint(boat,boat.getPath().get(boat.getIPath()));
         }
     }
 
-    public static void approachingToPoint(Boat boat, GraphPoint point){
+    public void approachingToPoint(Boat boat, GraphPoint point){
         double x1 = point.getX();
         double y1 = point.getY();
         double x2 = boat.getPosition().getX();
@@ -42,21 +43,20 @@ public class BoatManager {
         }
     }
 
-    public static void weAreOnPoint(Boat boat){
-        if (boat.getPath().size()>boat.getIPath()+1)boat.addIPath(1);
+    public void weAreOnPoint(Boat boat){
+        if (boat.getPath().size()>boat.getIPath()+1){boat.addIPath(1);}
         else {
             boat.setIPath(0);
-            if (boat.getContinuePath()) Collections.reverse(boat.getPath());
+            if (boat.getContinuePath()){Collections.reverse(boat.getPath());}
             else boat.getPath().clear();
         }
     }
 
-    public static void moveTo(double x,double y,Boat boat){
-
+    public void moveTo(double x,double y,Boat boat){
         boat.setPosition(x,y);
     }
 
-    public static boolean reduceHp(int value,Boat boat) {
+    public boolean reduceHp(int value,Boat boat) {
         if (value < boat.getCurrentHp()){
             boat.addCurrentHp(-value);
             return true;
