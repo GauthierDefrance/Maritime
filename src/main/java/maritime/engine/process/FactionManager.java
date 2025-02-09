@@ -12,7 +12,9 @@ import java.util.ArrayList;
 /**
  * @author @Kenan Ammad
  * Classe FactionManager
+ * @version 0.2
  */
+
 public class FactionManager {
     private final GameInitFactory map;
     private final BoatManager boatManager;
@@ -45,10 +47,10 @@ public class FactionManager {
 
     public void doYouStartFight(Boat boat){
         if(GameConfiguration.HITBOX_BOAT-5 >= Math.sqrt(Math.pow((boat.getAttack().getPosition().getX()-boat.getPosition().getX()),2)+Math.pow((boat.getAttack().getPosition().getY()-boat.getPosition().getY()),2))){
+            StartFight(boat,boat.getAttack());
             lstAttackBoat.remove(boat);
             boat.setAttack(null);
             boat.getPath().clear();
-            JOptionPane.showMessageDialog(null, "test");
         }
     }
 
@@ -57,8 +59,28 @@ public class FactionManager {
         lstAttackBoatTemp.addAll(lstAttackBoat);
         for (Boat boat : lstAttackBoatTemp){
                 doYouStartFight(boat);
-            }
+        }
     }
-
+    public void StartFight(Boat boat1,Boat boat2){
+        ArrayList<Boat> vision1 = new ArrayList<>();
+        ArrayList<Boat> vision2 = new ArrayList<>();
+        vision1.add(boat1);
+        vision2.add(boat2);
+        for (Boat boat : boatManager.getMyFaction(boat1).getLstBoat()){
+            for (Boat playerBoat : map.getPlayer().getLstBoat()){
+                if(playerBoat.getVisionRadius() /2 >= Math.sqrt(Math.pow((boat.getPosition().getX()-playerBoat.getPosition().getX()),2)+Math.pow((boat.getPosition().getY()-playerBoat.getPosition().getY()),2))){
+                    if(!vision1.contains(boat)){vision1.add(boat);}
+                }
+            }
+        }
+        for (Boat boat : boatManager.getMyFaction(boat2).getLstBoat()){
+            for (Boat playerBoat : map.getPlayer().getLstBoat()){
+                if(playerBoat.getVisionRadius() /2 >= Math.sqrt(Math.pow((boat.getPosition().getX()-playerBoat.getPosition().getX()),2)+Math.pow((boat.getPosition().getY()-playerBoat.getPosition().getY()),2))){
+                    if(!vision2.contains(boat)){vision2.add(boat);}
+                }
+            }
+        }
+        JOptionPane.showMessageDialog(null, vision1+"vs"+vision2);
+    }
 
 }

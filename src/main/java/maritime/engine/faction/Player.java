@@ -3,7 +3,10 @@ package maritime.engine.faction;
 import maritime.engine.entity.boats.Boat;
 
 import java.util.ArrayList;
-
+/**
+ * @author @Kenan Ammad
+ * @version 0.1
+ */
 public class Player extends Faction {
     private ArrayList<Boat> vision;
 

@@ -8,7 +8,9 @@ import java.util.ArrayList;
 /**
  * @author @Kenan Ammad
  * Classe Faction
+ * @version 0.2
  */
+
 public class Faction {
     private ArrayList<Boat> lstBoat;
     private ArrayList<Harbor> lstHarbor;

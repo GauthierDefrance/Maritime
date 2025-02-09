@@ -2,6 +2,7 @@ package maritime.engine.process;
 
 import maritime.config.GameInitFactory;
 import maritime.engine.entity.boats.Boat;
+import maritime.engine.faction.Faction;
 import maritime.engine.graph.GraphPoint;
 
 import java.util.ArrayList;
@@ -10,8 +11,8 @@ import java.util.Collections;
 /**
  * @author @Kenan Ammad
  * Classe BoatManager
+ * @version 0.2
  */
-
 public class BoatManager {
 
     private final GameInitFactory map;
@@ -71,6 +72,13 @@ public class BoatManager {
         boat.setPath(new ArrayList<>(Collections.singleton(new GraphPoint(attackBoat.getPosition(), ""))));
         boat.setIPath(0);
         boat.setContinuePath(false);
+    }
+
+    public Faction getMyFaction(Boat boat){
+        for (Faction faction : map.getLstFaction()){
+            if(faction.getLstBoat().contains(boat))return faction;
+        }
+        return null;
     }
 
 }

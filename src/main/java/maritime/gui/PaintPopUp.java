@@ -5,7 +5,10 @@ import maritime.config.GameInitFactory;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-
+/**
+ * @author @Kenan Ammad
+ * @version 0.1
+ */
 public class PaintPopUp {
     private BufferedImage[][] tbSprite;
     private GameInitFactory map;

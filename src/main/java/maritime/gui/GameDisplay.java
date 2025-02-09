@@ -12,6 +12,7 @@ import java.awt.*;
 /**
  * @author @Kenan Ammad
  * Classe GameDisplay
+ * @version 0.4
  */
 public class GameDisplay extends JPanel {
 

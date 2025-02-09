@@ -9,8 +9,8 @@ import java.util.ArrayList;
 /**
  * @author @Kenan Ammad
  * Classe PlayerManager
+ * @version 0.1
  */
-
 public class PlayerManager {
     private final GameInitFactory map;
 

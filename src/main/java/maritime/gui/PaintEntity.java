@@ -12,6 +12,7 @@ import java.util.Objects;
 /**
  * @author @Kenan Ammad
  * Classe PaintEntity
+ * @version 0.3
  */
 public class PaintEntity {
     private BufferedImage[][] tbSprite;
