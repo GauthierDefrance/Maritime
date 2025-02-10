@@ -12,6 +12,7 @@ import java.util.Objects;
 /**
  * @author @Kenan Ammad
  * Classe PaintBackGround
+ * @version 0.1
  */
 public class PaintBackGround {
 

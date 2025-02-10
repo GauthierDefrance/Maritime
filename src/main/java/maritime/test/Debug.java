@@ -1,19 +1,18 @@
 package maritime.test;
 
 import maritime.config.GameInitFactory;
-import maritime.gui.GameDisplay;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TestDebug extends JFrame{
+public class Debug extends JFrame{
 
     private GameInitFactory map;
 
 
-    public TestDebug(String title, GameInitFactory map) {
+    public Debug(String title, GameInitFactory map) {
         super(title);
         this.map = map;
         init();

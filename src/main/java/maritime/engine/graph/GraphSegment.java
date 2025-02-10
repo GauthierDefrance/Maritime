@@ -3,7 +3,7 @@ package maritime.engine.graph;
 /**
  * @author @Kenan Ammad @Gauthier Defrance
  * Classe GraphSegment
- * @version 0.1
+ * @version 0.2
  */
 public class GraphSegment {
     private final GraphPoint destination;

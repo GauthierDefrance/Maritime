@@ -8,7 +8,7 @@ import java.awt.*;
 
 /**
  * @author @Kenan Ammad
- * @version 0.1
+ * @version 0.2
  */
 public class Harbor {
     private String name;

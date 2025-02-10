@@ -8,6 +8,7 @@ import java.awt.*;
 /**
  * @author @Kenan Ammad
  * Classe MainGUI
+ * @version 0.0
  */
 public class MainGUI extends JFrame implements Runnable {
 

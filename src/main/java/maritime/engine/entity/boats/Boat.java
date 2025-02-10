@@ -8,7 +8,7 @@ import maritime.engine.trading.Inventory;
 
 /**
  * @author @Kenan Ammad
- * @version 0.1
+ * @version 0.2
  */
 public abstract class Boat{
     private String name;
@@ -113,5 +113,6 @@ public abstract class Boat{
     public void addIPath(int iPath) {this.iPath += iPath;}
 
     public void addCurrentHp(int currentHp) {this.currentHp += currentHp;}
+
 }
 

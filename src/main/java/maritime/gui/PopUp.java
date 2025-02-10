@@ -1,7 +1,10 @@
 package maritime.gui;
 
 import java.awt.*;
-
+/**
+ * @author @Kenan Ammad
+ * @version 0.1
+ */
 public class PopUp {
     private String name;
     private int iFrame;

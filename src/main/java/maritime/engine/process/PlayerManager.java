@@ -4,9 +4,13 @@ import maritime.config.GameInitFactory;
 import maritime.engine.entity.boats.Boat;
 import maritime.engine.entity.Harbor;
 import maritime.engine.faction.Faction;
-
 import java.util.ArrayList;
 
+/**
+ * @author @Kenan Ammad
+ * Classe PlayerManager
+ * @version 0.1
+ */
 public class PlayerManager {
     private final GameInitFactory map;
 

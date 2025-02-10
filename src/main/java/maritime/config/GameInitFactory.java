@@ -8,7 +8,10 @@ import maritime.gui.PopUp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/**
+ * @author @Kenan Ammad
+ * @version 0.3
+ */
 public class GameInitFactory {
     private HashMap<String, GraphPoint> mapGraphPoint;
     private ArrayList<Harbor> lstHarbor;

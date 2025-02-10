@@ -3,6 +3,7 @@ package maritime.test;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import maritime.config.GameConfiguration;
 import maritime.config.GameInitFactory;
@@ -15,6 +16,7 @@ import maritime.engine.faction.Faction;
 import maritime.engine.faction.Player;
 import maritime.engine.graph.*;
 import maritime.engine.process.BoatManager;
+import maritime.engine.process.FactionManager;
 import maritime.engine.process.PlayerManager;
 import maritime.gui.GameDisplay;
 
@@ -22,7 +24,7 @@ public class TestMove extends JFrame implements Runnable {
 
     private GraphPoint F = new GraphPoint(new Point(490*GameConfiguration.GAME_SCALE,70*GameConfiguration.GAME_SCALE),"F");
 
-    private Harbor harbor1 = new Harbor("bob","blue",new Point(490*GameConfiguration.GAME_SCALE,30*GameConfiguration.GAME_SCALE),F);
+    private Harbor harbor1 = new Harbor("bob","red",new Point(490*GameConfiguration.GAME_SCALE,30*GameConfiguration.GAME_SCALE),F);
 
     private Military military = new Military("bob","red",new Point(10,10));
     private Standard standard2 = new Standard("carl","blue",new Point(10,10));
@@ -35,6 +37,8 @@ public class TestMove extends JFrame implements Runnable {
 
     private GameInitFactory map = new GameInitFactory(0);
     private PlayerManager playerManager = new PlayerManager(map);
+    private FactionManager factionManager = new FactionManager(map);
+    private BoatManager boatManager = new BoatManager(map);
 
     private GameDisplay dashboard;
 
@@ -56,6 +60,7 @@ public class TestMove extends JFrame implements Runnable {
         player.addBoat(merchant2);
 
         ArrayList<Faction> lstBotFaction = new ArrayList<>();
+        ArrayList<Faction> lstFaction = new ArrayList<>();
         lstBotFaction.add(faction);
         ArrayList<Harbor> lstHarbor = new ArrayList<>();
         lstHarbor.add(harbor1);
@@ -63,6 +68,11 @@ public class TestMove extends JFrame implements Runnable {
         map.setLstBotFaction(lstBotFaction);
         map.setPlayer(player);
         map.setLstHarbor(lstHarbor);
+
+        lstFaction.addAll(lstBotFaction);
+        lstFaction.add(player);
+
+        map.setLstFaction(lstFaction);
 
         dashboard = new GameDisplay(map);
 
@@ -109,19 +119,12 @@ public class TestMove extends JFrame implements Runnable {
         ArrayList<GraphPoint> path3 = new ArrayList<GraphPoint>();
         path3 = SearchInGraph.findPath(F,C);
 
-        ArrayList<GraphPoint> path2 = new ArrayList<GraphPoint>();
-
 
         military.setPath(path);
         military.setPosition(new Point(A.getPoint()));
-        military.setContinuePath(true);
+        military.setContinuePath(false);
 
-        GraphPoint XX = new GraphPoint(military.getPosition(),"E");
-        path2.add(XX);
-
-        standard2.setPath(path2);
         standard2.setPosition(new Point(E.getPoint()));
-        standard2.setContinuePath(true);
 
         standard.setPath(path3);
         standard.setPosition(new Point(G.getPoint()));
@@ -139,6 +142,8 @@ public class TestMove extends JFrame implements Runnable {
         merchant2.setPosition(new Point(F.getPoint()));
         merchant2.setContinuePath(true);
 
+        factionManager.chaseBoat(standard2,military);
+
         Container contentPane = getContentPane();
         contentPane.add(dashboard);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -148,7 +153,7 @@ public class TestMove extends JFrame implements Runnable {
         setUndecorated(true);
         setLocationRelativeTo(null);
         setVisible(true);
-        TestDebug debug = new TestDebug("Debug",map);
+        Debug debug = new Debug("Debug",map);
     }
 
     @Override
@@ -161,15 +166,9 @@ public class TestMove extends JFrame implements Runnable {
                 System.out.println(e.getMessage());
             }
             if (!map.isTimeStop()){
-                BoatManager.followThePath(military);
-                BoatManager.followThePath(standard2);
-
-                BoatManager.followThePath(military2);
-                BoatManager.followThePath(standard);
-
-                BoatManager.followThePath(fodder);
-                BoatManager.followThePath(merchant2);
+                factionManager.moveAllFactionBoat();
                 playerManager.updatePlayerVision();
+                factionManager.AllChaseUpdate();
             }
             dashboard.repaint();
         }

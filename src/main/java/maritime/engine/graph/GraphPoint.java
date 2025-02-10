@@ -11,6 +11,7 @@ import java.util.HashMap;
  * Each GraphPoint has his owns id.
  * @author @Kenan Ammad @Gauthier Defrance
  * Classe GraphPoint
+ * @version 0.2
  */
 public class GraphPoint {
     private final Point point;

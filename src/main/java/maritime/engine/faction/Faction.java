@@ -8,7 +8,9 @@ import java.util.ArrayList;
 /**
  * @author @Kenan Ammad
  * Classe Faction
+ * @version 0.2
  */
+
 public class Faction {
     private ArrayList<Boat> lstBoat;
     private ArrayList<Harbor> lstHarbor;
@@ -39,10 +41,14 @@ public class Faction {
     public void setLstFleet(ArrayList<Fleet> lstFleet) {this.lstFleet = lstFleet;}
 
     //Content Handler
-    public void addHarbor(Harbor harbor) {this.lstHarbor.add(harbor);}
+    public void addHarbor(Harbor harbor) {
+        harbor.setColor(this.getColor());
+        this.lstHarbor.add(harbor);}
     public void addBoat(Boat boat) {this.lstBoat.add(boat);}
     public void addFleet(Fleet fleet) {this.lstFleet.add(fleet);}
     public void removeBoat(Boat Boat) {this.lstBoat.remove(Boat);}
-    public void removeHarbor(Harbor Harbor) {this.lstHarbor.remove(Harbor);}
+    public void removeHarbor(Harbor harbor) {
+        harbor.setColor("");
+        this.lstHarbor.remove(harbor);}
     public void removeFleet(Fleet fleet) {this.lstFleet.remove(fleet);}
 }
