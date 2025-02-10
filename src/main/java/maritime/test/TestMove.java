@@ -3,6 +3,7 @@ package maritime.test;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import maritime.config.GameConfiguration;
 import maritime.config.GameInitFactory;
@@ -123,9 +124,6 @@ public class TestMove extends JFrame implements Runnable {
         military.setPosition(new Point(A.getPoint()));
         military.setContinuePath(false);
 
-
-        factionManager.attackBoat(standard2,military);
-
         standard2.setPosition(new Point(E.getPoint()));
 
         standard.setPath(path3);
@@ -143,6 +141,8 @@ public class TestMove extends JFrame implements Runnable {
         merchant2.setPath(path4);
         merchant2.setPosition(new Point(F.getPoint()));
         merchant2.setContinuePath(true);
+
+        factionManager.chaseBoat(standard2,military);
 
         Container contentPane = getContentPane();
         contentPane.add(dashboard);
@@ -168,7 +168,7 @@ public class TestMove extends JFrame implements Runnable {
             if (!map.isTimeStop()){
                 factionManager.moveAllFactionBoat();
                 playerManager.updatePlayerVision();
-                factionManager.doYouAllStartFight();
+                factionManager.AllChaseUpdate();
             }
             dashboard.repaint();
         }

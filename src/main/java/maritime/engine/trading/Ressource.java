@@ -21,8 +21,6 @@ public class Ressource {
 
     //Setters
 
-    public void setName(String name) { this.name = name; }
-
     public void setValue(int value) { this.value = value; }
 
     public void setProductionRate(double productionRate) { this.productionRate = productionRate; }
