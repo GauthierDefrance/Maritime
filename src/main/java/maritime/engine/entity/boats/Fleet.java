@@ -13,7 +13,7 @@ public class Fleet {
 
     //Getters
 
-    public ArrayList<Boat> getFleet() { return fleet; }
+    public ArrayList<Boat> getArrayListFleet() { return fleet; }
 
     //Setters
 

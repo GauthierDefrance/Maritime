@@ -2,10 +2,7 @@ package maritime.engine.process;
 
 import maritime.config.GameInitFactory;
 import maritime.engine.entity.boats.Boat;
-import maritime.engine.faction.Faction;
 import maritime.engine.graph.GraphPoint;
-
-import java.util.ArrayList;
 import java.util.Collections;
 
 /**

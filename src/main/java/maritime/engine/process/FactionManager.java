@@ -6,7 +6,6 @@ import maritime.config.GameInitFactory;
 import maritime.engine.entity.boats.Boat;
 import maritime.engine.faction.Faction;
 import maritime.engine.graph.GraphPoint;
-
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +13,7 @@ import java.util.Collections;
 /**
  * @author @Kenan Ammad
  * Classe FactionManager
- * @version 0.2
+ * @version 0.3
  */
 
 public class FactionManager {
@@ -26,7 +25,7 @@ public class FactionManager {
     public FactionManager(GameInitFactory map) {
         this.map = map;
         this.boatManager = new BoatManager(map);
-        this.harborManager = new HarborManager(map);
+        this.harborManager = new HarborManager(map,new TradeManager(map));
         this.lstAttackBoat = new ArrayList<>();
     }
 
