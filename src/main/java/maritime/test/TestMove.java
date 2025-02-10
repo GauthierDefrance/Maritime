@@ -166,9 +166,7 @@ public class TestMove extends JFrame implements Runnable {
                 System.out.println(e.getMessage());
             }
             if (!map.isTimeStop()){
-                factionManager.moveAllFactionBoat();
-                playerManager.updatePlayerVision();
-                factionManager.AllChaseUpdate();
+                factionManager.nextRound();
             }
             dashboard.repaint();
         }

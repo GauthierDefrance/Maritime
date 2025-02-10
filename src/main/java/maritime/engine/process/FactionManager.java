@@ -3,6 +3,7 @@ package maritime.engine.process;
 
 import maritime.config.GameConfiguration;
 import maritime.config.GameInitFactory;
+import maritime.engine.SeaRout;
 import maritime.engine.entity.boats.Boat;
 import maritime.engine.faction.Faction;
 import maritime.engine.graph.GraphPoint;
@@ -18,20 +19,28 @@ import java.util.Collections;
 
 public class FactionManager {
     private final GameInitFactory map;
+    private final PlayerManager playerManager;
     private final BoatManager boatManager;
     private final HarborManager harborManager;
+    private final FleetManager fleetManager;
+    private final SeaRoutManager seaRoutManager;
     private ArrayList<Boat[]> lstAttackBoat;
 
     public FactionManager(GameInitFactory map) {
         this.map = map;
+        this.playerManager = new PlayerManager(map);
         this.boatManager = new BoatManager(map);
         this.harborManager = new HarborManager(map,new TradeManager(map));
+        this.fleetManager = new FleetManager(map,boatManager);
+        this.seaRoutManager = new SeaRoutManager(map,this.harborManager,new TradeManager(map));
         this.lstAttackBoat = new ArrayList<>();
     }
 
     public void nextRound(){
         moveAllFactionBoat();
-        AllChaseUpdate();
+        allSeaRoutUpdate();
+        allChaseUpdate();
+        playerManager.updatePlayerVision();
     }
 
     public void moveFactionBoat(Faction faction){
@@ -45,6 +54,19 @@ public class FactionManager {
             moveFactionBoat(faction);
         }
     }
+
+    public void SeaRoutUpdate(Faction faction){
+        for (SeaRout seaRout : faction.getLstSeaRouts()){
+            seaRoutManager.sellAndPickUpAllResources(seaRout);
+        }
+    }
+
+    public void allSeaRoutUpdate(){
+        for (Faction faction : map.getLstFaction()){
+            SeaRoutUpdate(faction);
+        }
+    }
+
 
     public void chaseBoat(Boat boat, Boat chasedBoat){
         lstAttackBoat.add(new Boat[]{boat,chasedBoat});
@@ -66,7 +88,7 @@ public class FactionManager {
         }
     }
 
-    public void AllChaseUpdate(){
+    public void allChaseUpdate(){
         ArrayList<Boat[]> lstAttackBoatTemp = new ArrayList<>();
         lstAttackBoatTemp.addAll(lstAttackBoat);
         for (Boat[] tbBoat : lstAttackBoatTemp){

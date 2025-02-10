@@ -5,6 +5,7 @@ import maritime.engine.entity.boats.Boat;
 import maritime.engine.entity.boats.Fleet;
 import maritime.engine.graph.GraphPoint;
 import maritime.engine.graph.SearchInGraph;
+import maritime.engine.process.FleetManager;
 import maritime.engine.trading.Ressource;
 
 import java.util.ArrayList;
@@ -55,7 +56,9 @@ public class SeaRout {
 
     public Fleet getFleet() {return fleet;}
 
-    public void setFleet(Fleet fleet) {this.fleet = fleet;}
+    public void setFleet(Fleet fleet) {
+        this.fleet = fleet;
+    }
     public void setFleet(Boat boat) {
         Fleet fleet = new Fleet();
         fleet.add(boat);
