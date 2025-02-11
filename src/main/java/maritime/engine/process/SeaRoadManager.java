@@ -8,13 +8,13 @@ import maritime.engine.entity.boats.Boat;
  * @author @Kenan Ammad
  * @version 0.1
  */
-public class SeaRoutManager {
+public class SeaRoadManager {
     // Cette classe-là, c'est non, overlap et conflit d'intérêt avec TradeManager en l'état, le système de déplacement et l'économie doivent être totalement déliées.
     private final MapBuilder map;
     private final HarborManager harborManager;
     private final TradeManager tradeManager;
 
-    public SeaRoutManager(MapBuilder map, HarborManager harborManager, TradeManager tradeManager) {
+    public SeaRoadManager(MapBuilder map, HarborManager harborManager, TradeManager tradeManager) {
         this.map = map;
         this.harborManager = harborManager;
         this.tradeManager = tradeManager;
