@@ -13,15 +13,10 @@ public class FleetManager {
         this.boatManager = boatManager;
     }
 
-    public void allContinuePathFalse(Fleet fleet){
+    public void setContinuePathAll(Fleet fleet, boolean continuePath) {
         for (Boat boat : fleet.getArrayListFleet()){
-            boat.setContinuePath(false);
+            boat.setContinuePath(continuePath);
         }
     }
 
-    public void allContinuePathTrue(Fleet fleet){
-        for (Boat boat : fleet.getArrayListFleet()){
-            boat.setContinuePath(true);
-        }
-    }
 }
