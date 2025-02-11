@@ -5,7 +5,6 @@ import maritime.engine.entity.boats.Boat;
 import maritime.engine.entity.boats.Fleet;
 import maritime.engine.graph.GraphPoint;
 import maritime.engine.graph.SearchInGraph;
-import maritime.engine.process.FleetManager;
 import maritime.engine.trading.Ressource;
 
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
  * @author @Kenan Ammad
  * @version 0.1
  */
-public class SeaRout {
+public class SeaRoad {
     private int time;
     private ArrayList<GraphPoint> path;
     private Fleet fleet;
@@ -24,7 +23,7 @@ public class SeaRout {
     private final Ressource sold;
     private final double ratio;
 
-    public SeaRout(int time, Harbor startSeaRout, Harbor endSeaRout, Ressource buy, Ressource sold, double ratio){
+    public SeaRoad(int time, Harbor startSeaRout, Harbor endSeaRout, Ressource buy, Ressource sold, double ratio){
         this.time = time;
         this.buy = buy;
         this.sold = sold;
@@ -35,7 +34,7 @@ public class SeaRout {
         this.endSeaRout = endSeaRout;
     }
 
-    public SeaRout(int time, Harbor startSeaRout, Harbor endSeaRout, ArrayList<GraphPoint> path, Ressource buy, Ressource sold, double ratio){
+    public SeaRoad(int time, Harbor startSeaRout, Harbor endSeaRout, ArrayList<GraphPoint> path, Ressource buy, Ressource sold, double ratio){
         this.time = time;
         this.path = path;
         this.buy = buy;

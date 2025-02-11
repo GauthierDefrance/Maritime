@@ -1,6 +1,6 @@
 package maritime.engine.faction;
 
-import maritime.engine.SeaRout;
+import maritime.engine.SeaRoad;
 import maritime.engine.entity.*;
 import maritime.engine.entity.boats.Boat;
 import maritime.engine.entity.boats.Fleet;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class Faction {
     private ArrayList<Boat> lstBoat;
     private ArrayList<Harbor> lstHarbor;
-    private ArrayList<SeaRout> lstSeaRouts;
+    private ArrayList<SeaRoad> lstSeaRouts;
     private ArrayList<Fleet> lstFleet;
     private String color;
 
@@ -30,7 +30,7 @@ public class Faction {
     //Getters
     public ArrayList<Boat> getLstBoat() {return lstBoat;}
     public ArrayList<Harbor> getLstHarbor() {return lstHarbor;}
-    public ArrayList<SeaRout> getLstSeaRouts() {return lstSeaRouts;}
+    public ArrayList<SeaRoad> getLstSeaRouts() {return lstSeaRouts;}
     public ArrayList<Fleet> getLstFleet() {return lstFleet;}
     public String getColor() {return color;}
 
@@ -41,7 +41,7 @@ public class Faction {
     public void setLstHarbor(ArrayList<Harbor> lstHarbor) {
         this.lstHarbor = lstHarbor;
     }
-    public void setLstSeaRouts(ArrayList<SeaRout> lstSeaRouts) {this.lstSeaRouts = lstSeaRouts;}
+    public void setLstSeaRouts(ArrayList<SeaRoad> lstSeaRouts) {this.lstSeaRouts = lstSeaRouts;}
     public void setLstFleet(ArrayList<Fleet> lstFleet) {this.lstFleet = lstFleet;}
     public void setColor(String color) {this.color = color;}
 

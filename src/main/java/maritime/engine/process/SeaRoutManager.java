@@ -1,7 +1,7 @@
 package maritime.engine.process;
 
 import maritime.config.MapBuilder;
-import maritime.engine.SeaRout;
+import maritime.engine.SeaRoad;
 import maritime.engine.entity.boats.Boat;
 
 /**
@@ -21,7 +21,7 @@ public class SeaRoutManager {
     }
 
 
-    public void pickUpResources(SeaRout seaRout, Boat boat) {
+    public void pickUpResources(SeaRoad seaRout, Boat boat) {
         if (boat.getPosition().equals(seaRout.getStartSeaRout().getGraphPosition().getPoint())){
             tradeManager.transfer(seaRout.getBuy(), boat.getInventory().getNbRessource(seaRout.getBuy()), boat, seaRout.getStartSeaRout());
             tradeManager.transfer(seaRout.getSold(), boat.getInventory().getNbRessource(seaRout.getSold()), boat, seaRout.getStartSeaRout());
@@ -29,7 +29,7 @@ public class SeaRoutManager {
         }
     }
 
-    public void sellResources(SeaRout seaRout,Boat boat){
+    public void sellResources(SeaRoad seaRout, Boat boat){
         if (boat.getPosition().equals(seaRout.getEndSeaRout().getGraphPosition().getPoint())){
             int nbRessource = boat.getInventory().getNbRessource(seaRout.getSold());
             tradeManager.transfer(seaRout.getSold(),nbRessource,boat,seaRout.getEndSeaRout());
@@ -38,7 +38,7 @@ public class SeaRoutManager {
             }
         }
     }
-    public void sellAndPickUpAllResources(SeaRout seaRout){
+    public void sellAndPickUpAllResources(SeaRoad seaRout){
         for (Boat boat : seaRout.getFleet().getArrayListFleet()){
             pickUpResources(seaRout, boat);
             sellResources(seaRout, boat);

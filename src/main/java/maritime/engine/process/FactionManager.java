@@ -3,7 +3,7 @@ package maritime.engine.process;
 
 import maritime.config.GameConfiguration;
 import maritime.config.MapBuilder;
-import maritime.engine.SeaRout;
+import maritime.engine.SeaRoad;
 import maritime.engine.entity.boats.Boat;
 import maritime.engine.faction.Faction;
 import maritime.engine.graph.GraphPoint;
@@ -56,8 +56,8 @@ public class FactionManager {
     }
 
     public void SeaRoutUpdate(Faction faction){
-        ArrayList<SeaRout> lstSeaRouts = new ArrayList<>();
-        for (SeaRout seaRout : faction.getLstSeaRouts()){
+        ArrayList<SeaRoad> lstSeaRouts = new ArrayList<>();
+        for (SeaRoad seaRout : faction.getLstSeaRouts()){
             //seaRoutManager.sellAndPickUpAllResources(seaRout);
             if (!seaRout.available()){lstSeaRouts.add(seaRout);}
         }
