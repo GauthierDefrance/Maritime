@@ -63,6 +63,8 @@ public abstract class Boat implements EntityInterface {
 
     public double getVisionRadius() {return visionRadius;}
 
+    public int getMaxHp() {return maxHp;}
+
     public int getCurrentHp() {return currentHp;}
 
     public Point getPosition() {return position;}
