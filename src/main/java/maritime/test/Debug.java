@@ -1,6 +1,6 @@
 package maritime.test;
 
-import maritime.config.GameInitFactory;
+import maritime.config.MapBuilder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,10 +9,10 @@ import java.awt.event.ActionListener;
 
 public class Debug extends JFrame{
 
-    private GameInitFactory map;
+    private MapBuilder map;
 
 
-    public Debug(String title, GameInitFactory map) {
+    public Debug(String title, MapBuilder map) {
         super(title);
         this.map = map;
         init();

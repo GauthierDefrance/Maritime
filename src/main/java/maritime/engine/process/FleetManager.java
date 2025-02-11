@@ -1,14 +1,14 @@
 package maritime.engine.process;
 
-import maritime.config.GameInitFactory;
+import maritime.config.MapBuilder;
 import maritime.engine.entity.boats.Boat;
 import maritime.engine.entity.boats.Fleet;
 
 public class FleetManager {
-    private final GameInitFactory map;
+    private final MapBuilder map;
     private final BoatManager boatManager;
 
-    public FleetManager(GameInitFactory map, BoatManager boatManager) {
+    public FleetManager(MapBuilder map, BoatManager boatManager) {
         this.map = map;
         this.boatManager = boatManager;
     }

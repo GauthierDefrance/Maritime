@@ -2,7 +2,7 @@ package maritime.engine.process;
 
 
 import maritime.config.GameConfiguration;
-import maritime.config.GameInitFactory;
+import maritime.config.MapBuilder;
 import maritime.engine.SeaRout;
 import maritime.engine.entity.boats.Boat;
 import maritime.engine.faction.Faction;
@@ -18,7 +18,7 @@ import java.util.Collections;
  */
 
 public class FactionManager {
-    private final GameInitFactory map;
+    private final MapBuilder map;
     private final PlayerManager playerManager;
     private final BoatManager boatManager;
     private final HarborManager harborManager;
@@ -26,7 +26,7 @@ public class FactionManager {
     private final SeaRoutManager seaRoutManager;
     private ArrayList<Boat[]> lstAttackBoat;
 
-    public FactionManager(GameInitFactory map) {
+    public FactionManager(MapBuilder map) {
         this.map = map;
         this.playerManager = new PlayerManager(map);
         this.boatManager = new BoatManager(map);
@@ -58,7 +58,7 @@ public class FactionManager {
     public void SeaRoutUpdate(Faction faction){
         ArrayList<SeaRout> lstSeaRouts = new ArrayList<>();
         for (SeaRout seaRout : faction.getLstSeaRouts()){
-            seaRoutManager.sellAndPickUpAllResources(seaRout);
+            //seaRoutManager.sellAndPickUpAllResources(seaRout);
             if (!seaRout.available()){lstSeaRouts.add(seaRout);}
         }
         faction.getLstSeaRouts().removeAll(lstSeaRouts);

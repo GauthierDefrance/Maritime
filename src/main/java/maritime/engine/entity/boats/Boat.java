@@ -3,6 +3,7 @@ package maritime.engine.entity.boats;
 import java.awt.*;
 import java.util.ArrayList;
 
+import maritime.engine.entity.EntityInterface;
 import maritime.engine.graph.GraphPoint;
 import maritime.engine.trading.Inventory;
 
@@ -10,7 +11,7 @@ import maritime.engine.trading.Inventory;
  * @author @Kenan Ammad
  * @version 0.2
  */
-public abstract class Boat{
+public abstract class Boat implements EntityInterface {
     private String name;
     private String color;
     private double visionRadius;

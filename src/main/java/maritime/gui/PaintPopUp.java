@@ -1,7 +1,7 @@
 package maritime.gui;
 
 import maritime.config.GameConfiguration;
-import maritime.config.GameInitFactory;
+import maritime.config.MapBuilder;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,9 +11,9 @@ import java.awt.image.BufferedImage;
  */
 public class PaintPopUp {
     private BufferedImage[][] tbSprite;
-    private GameInitFactory map;
+    private MapBuilder map;
 
-    public PaintPopUp(GameInitFactory map){
+    public PaintPopUp(MapBuilder map){
         this.map=map;
 
     }

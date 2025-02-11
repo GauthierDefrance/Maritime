@@ -3,10 +3,9 @@ package maritime.test;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import maritime.config.GameConfiguration;
-import maritime.config.GameInitFactory;
+import maritime.config.MapBuilder;
 import maritime.engine.entity.Harbor;
 import maritime.engine.entity.boats.Fodder;
 import maritime.engine.entity.boats.Merchant;
@@ -35,7 +34,7 @@ public class TestMove extends JFrame implements Runnable {
     private Fodder fodder = new Fodder("bob","",new Point(10,10));
     private Merchant merchant2 = new Merchant("bob","red",new Point(10,10));
 
-    private GameInitFactory map = new GameInitFactory(0);
+    private MapBuilder map = new MapBuilder(0);
     private PlayerManager playerManager = new PlayerManager(map);
     private FactionManager factionManager = new FactionManager(map);
     private BoatManager boatManager = new BoatManager(map);

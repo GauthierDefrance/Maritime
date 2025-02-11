@@ -21,6 +21,8 @@ public interface EntityInterface extends Serializable {
 
     public double getVisionRadius();
 
+    public String getColor();
+
     //Setters
 
     public void setPosition(Point position);
@@ -30,5 +32,7 @@ public interface EntityInterface extends Serializable {
     public void setMaxHp(int maxHp);
 
     public void setVisionRadius(double visionRadius);
+
+
 
 }

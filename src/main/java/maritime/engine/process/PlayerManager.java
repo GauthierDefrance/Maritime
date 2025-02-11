@@ -1,6 +1,6 @@
 package maritime.engine.process;
 
-import maritime.config.GameInitFactory;
+import maritime.config.MapBuilder;
 import maritime.engine.entity.boats.Boat;
 import maritime.engine.entity.Harbor;
 import maritime.engine.faction.Faction;
@@ -12,9 +12,9 @@ import java.util.ArrayList;
  * @version 0.1
  */
 public class PlayerManager {
-    private final GameInitFactory map;
+    private final MapBuilder map;
 
-    public PlayerManager(GameInitFactory map){
+    public PlayerManager(MapBuilder map){
         this.map = map;
     }
 

@@ -1,7 +1,7 @@
 package maritime.gui;
 
 import maritime.config.GameConfiguration;
-import maritime.config.GameInitFactory;
+import maritime.config.MapBuilder;
 import maritime.engine.entity.boats.Boat;
 import maritime.engine.entity.Harbor;
 import maritime.engine.faction.Faction;
@@ -16,12 +16,12 @@ import java.awt.*;
  */
 public class GameDisplay extends JPanel {
 
-    private final GameInitFactory map;
+    private final MapBuilder map;
     private final PaintEntity paintEntity;
     private final PaintBackGround paintBackGround;
     private final PaintPopUp paintPopUp;
 
-    public GameDisplay(GameInitFactory map){
+    public GameDisplay(MapBuilder map){
         this.map = map;
         this.paintEntity = new PaintEntity();
         this.paintBackGround = new PaintBackGround();

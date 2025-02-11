@@ -12,7 +12,7 @@ import java.util.HashMap;
  * @author @Kenan Ammad
  * @version 0.3
  */
-public class GameInitFactory {
+public class MapBuilder {
     private HashMap<String, GraphPoint> mapGraphPoint;
     private ArrayList<Harbor> lstHarbor;
     private ArrayList<Faction> lstBotFaction;
@@ -21,7 +21,7 @@ public class GameInitFactory {
     private boolean timeStop;
     private ArrayList<PopUp> lstPopUp;
 
-    public GameInitFactory(int choice){
+    public MapBuilder(int choice){
         timeStop = false;
         switch (choice) {
             case 0 -> {
