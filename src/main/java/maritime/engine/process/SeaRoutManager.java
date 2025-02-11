@@ -46,5 +46,6 @@ public class SeaRoutManager {
             pickUpResources(seaRout, boat);
             sellResources(seaRout, boat);
         }
+        seaRout.subtractTime(1);
     }
 }

@@ -56,10 +56,14 @@ public class FactionManager {
     }
 
     public void SeaRoutUpdate(Faction faction){
+        ArrayList<SeaRout> lstSeaRouts = new ArrayList<>();
         for (SeaRout seaRout : faction.getLstSeaRouts()){
             seaRoutManager.sellAndPickUpAllResources(seaRout);
+            if (!seaRout.available()){lstSeaRouts.add(seaRout);}
         }
+        faction.getLstSeaRouts().removeAll(lstSeaRouts);
     }
+
 
     public void allSeaRoutUpdate(){
         for (Faction faction : map.getLstFaction()){
