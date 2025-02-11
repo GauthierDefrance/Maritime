@@ -8,7 +8,7 @@ import maritime.engine.trading.Ressource;
 /**
  * @author @Kenan Ammad
  * @author Zue Jack-Arthur
- * @version 0.1
+ * @version 0.2
  */
 public class TradeManager {
 
@@ -46,8 +46,12 @@ public class TradeManager {
     }
 
     public boolean transfer(Ressource ressource, int nb, EntityInterface source, EntityInterface target){
-        if (safeSubtract(source.getInventory(), ressource, nb))
-            return safeAdd(target.getInventory(), ressource, nb);
+        if (safeSubtract(source.getInventory(), ressource, nb)){
+            if (safeAdd(target.getInventory(), ressource, nb)){
+                return true;
+            }
+            else {source.getInventory().add(ressource,nb);}
+        }
         return false;
     }
 

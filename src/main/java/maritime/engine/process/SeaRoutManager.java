@@ -42,6 +42,7 @@ public class SeaRoutManager {
             harborManager.giveResources(seaRout.getStartSeaRout(),boat,seaRout.getSold(),Math.min(seaRout.getStartSeaRout().getInventory().getContent().getOrDefault(seaRout.getSold(), 0),nb));
         }
     }
+    */
     public void sellAndPickUpAllResources(SeaRout seaRout){
         for (Boat boat : seaRout.getFleet().getArrayListFleet()){
             pickUpResources(seaRout, boat);
@@ -49,6 +50,5 @@ public class SeaRoutManager {
         }
         seaRout.subtractTime(1);
     }
-    */
 }
 
