@@ -46,7 +46,8 @@ public class SeaRoad {
     }
 
     public void setTime0() {this.time = 0;}
-    public void subtractTime(int nb) {this.time = nb;}
+    public void subtractTime(int nb) {this.time -= nb;}
+    public void addTime(int nb) {this.time += nb;}
     public boolean available(){return time > 0;}
 
 
