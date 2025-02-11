@@ -46,8 +46,9 @@ public class SeaRout {
         this.endSeaRout = endSeaRout;
     }
 
-    public void subtractTime(int nb) {this.time -= nb;}
-    public boolean available(){return time != 0;}
+    public void setTime0() {this.time = 0;}
+    public void subtractTime(int nb) {this.time = nb;}
+    public boolean available(){return time > 0;}
 
 
     public ArrayList<GraphPoint> getPath() {return path;}
