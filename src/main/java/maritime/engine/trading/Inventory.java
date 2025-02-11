@@ -7,7 +7,7 @@ import java.util.HashMap;
  * @author Zue Jack-Arthur
  */
 public class Inventory {
-    private final HashMap<Ressource, Integer> content; //La HashMap reste pertinente dans une optique de gestion
+    private HashMap<Ressource, Integer> content;
     private int capacity;
 
     public Inventory(int capacity) {
@@ -33,7 +33,7 @@ public class Inventory {
 //la HashMap devrait etre final ? et aussi mauvaise comparaison effectuée c'est pas la taille de la HashMap mais la Somme des quantités de la HashMap Qu'il faut calculer
 //
 //    public void setInventoryContent( HashMap<Ressource, Integer> content ) {
-//        if (content.size() < capacity) this.content = content;
+//							if (content.totalUsedSpace() <= capacity) this.content = content;
 //        else throw new IllegalArgumentException("Too many items");
 //    }
 
