@@ -1,5 +1,4 @@
 package maritime.battleengine_trash.move;
 
-public class Tower {
-
+public class Order {
 }
