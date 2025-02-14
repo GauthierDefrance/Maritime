@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * @author @Kenan Ammad
  * Classe Faction
- * @version 0.2
+ * @version 0.3
  */
 
 public class Faction {

@@ -25,7 +25,7 @@ public class PaintBackGround {
                 frames.add(ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/background/background-"+i+".png"))));
             }
         } catch (Exception e) {
-            System.err.println("rip");
+            System.err.println(e+"error can't find image BackGround");
         }
     }
 

@@ -8,6 +8,7 @@ import maritime.engine.faction.Faction;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * @author @Kenan Ammad
@@ -64,7 +65,10 @@ public class GameDisplay extends JPanel {
         for (Harbor harbor : map.getPlayer().getLstHarbor()){
             paintEntity.paintPlayer(harbor,g2d);
         }
-        for (PopUp popUp : map.getLstPopUp()){
+
+        ArrayList<PopUp> lstPopUp = new ArrayList<>();
+        lstPopUp.addAll(map.getLstPopUp());
+        for (PopUp popUp : lstPopUp){
             paintPopUp.paint(popUp,g2d);
         }
 

@@ -36,9 +36,9 @@ public class PaintEntity {
             tbSprite[3][1] = ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/boat/military/red.png")));
             tbSprite[3][2] = ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/boat/military/blue.png")));
 
-            tbSprite[4][0] = ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/Harbor/Harbor.png")));
-            tbSprite[4][1] = ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/Harbor/red.png")));
-            tbSprite[4][2] = ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/Harbor/blue.png")));
+            tbSprite[4][0] = ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/harbor/harbor.png")));
+            tbSprite[4][1] = ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/harbor/red.png")));
+            tbSprite[4][2] = ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/harbor/blue.png")));
 
         } catch (Exception e) {
             System.err.println(e+"error can't find image sprite");

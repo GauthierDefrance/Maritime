@@ -6,7 +6,9 @@ import maritime.engine.graph.GraphPoint;
 import maritime.engine.trading.SeaRoad;
 import maritime.engine.entity.boats.Boat;
 import maritime.engine.trading.Resource;
+import maritime.gui.PopUp;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -51,10 +53,14 @@ public class SeaRoadManager {
     public void sellResources(SeaRoad seaRoad, Boat boat){
         if (boat.getPosition().equals(seaRoad.getBuyerHarbor().getPreciseGraphPosition())){
             int nbRessource = boat.getInventory().getNbResource(seaRoad.getSold());
-            if(tradeManager.transfer(seaRoad.getSold(),nbRessource,boat, seaRoad.getBuyerHarbor())) seaRoad.addTime(nbRessource);
-            if(!tradeManager.transfer(seaRoad.getSellingResource(), (int) (nbRessource/ seaRoad.getRatio()), seaRoad.getBuyerHarbor(),boat)){
-                if (tradeManager.totalFreeSpace(boat.getInventory()) >= (int) (nbRessource/ seaRoad.getRatio()))
-                    seaRoad.abandonTask();
+            if(nbRessource!=0){
+                if(tradeManager.transfer(seaRoad.getSold(),nbRessource,boat, seaRoad.getBuyerHarbor())) {
+                    seaRoad.addTime(nbRessource);
+                    map.addPopUp(new PopUp("+",new Point((int) boat.getPosition().getX(), (int) boat.getPosition().getY()-10)));
+                }
+                if(!tradeManager.transfer(seaRoad.getSellingResource(), (int) (nbRessource/ seaRoad.getRatio()), seaRoad.getBuyerHarbor(),boat)){
+                    if (tradeManager.totalFreeSpace(boat.getInventory()) >= (int) (nbRessource/ seaRoad.getRatio())) seaRoad.abandonTask();
+                }
             }
         }
     }

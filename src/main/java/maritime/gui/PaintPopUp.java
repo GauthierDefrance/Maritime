@@ -3,11 +3,14 @@ package maritime.gui;
 import maritime.config.GameConfiguration;
 import maritime.config.MapBuilder;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
+
 /**
  * @author @Kenan Ammad
- * @version 0.1
+ * @version 0.2
  */
 public class PaintPopUp {
     private BufferedImage[][] tbSprite;
@@ -15,6 +18,15 @@ public class PaintPopUp {
 
     public PaintPopUp(MapBuilder map){
         this.map=map;
+        tbSprite = new BufferedImage[5][GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES];
+        try {
+            for (int i = 0; i < GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES; i++) {
+                tbSprite[0][i] = (ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/popup/popup+.png"))));
+                tbSprite[1][i] = (ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/popup/popup-.png"))));
+            }
+        } catch (Exception e) {
+            System.err.println(e+"error can't find image PopUp");
+        }
 
     }
 
@@ -24,7 +36,7 @@ public class PaintPopUp {
         if (popUp.getIFrame() < GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES) {
             BufferedImage[] sprite = spriteChoice(popUp.getName());
             if (sprite[popUp.getIFrame()] != null) {
-                g2d.drawImage(sprite[popUp.getIFrame()], (int) (popUp.getPosition().getX()) - (sprite[popUp.getIFrame()].getWidth() / 2), (int) (popUp.getPosition().getY()) - (sprite[popUp.getIFrame()].getHeight() / 2), null);
+                g2d.drawImage(sprite[popUp.getIFrame()], (int) (popUp.getPosition().getX()) - (sprite[popUp.getIFrame()].getWidth() / 2), ((int) (popUp.getPosition().getY()) - (sprite[popUp.getIFrame()].getHeight() / 2))-(popUp.getIFrame()*2), null);
             } else {
                 g2d.setColor(Color.MAGENTA);
                 g2d.fillOval((int) (popUp.getPosition().getX()) - 10, (int) (popUp.getPosition().getY()) - 10, 20, 20);
@@ -37,10 +49,10 @@ public class PaintPopUp {
 
     private BufferedImage[] spriteChoice(String name){
         switch (name) {
-            case "00" ->{
+            case "+" ->{
                 return tbSprite[0];
             }
-            case "01" ->{
+            case "-" ->{
                 return tbSprite[1];
             }
             case "02" ->{

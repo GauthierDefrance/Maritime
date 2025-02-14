@@ -29,7 +29,7 @@ public abstract class Boat implements EntityInterface {
     private boolean continuePath;
     private final Inventory inventory;
 
-    public Boat(String name,String color, double visionRadius, GraphPoint position, int maxHp, int damageSpeed, int speed) {
+    public Boat(String name,String color, double visionRadius, GraphPoint position, int maxHp, int damageSpeed, int speed,int inventorySize) {
         this.name = name;
         this.color = color;
         this.visionRadius = visionRadius;
@@ -41,7 +41,7 @@ public abstract class Boat implements EntityInterface {
         this.path = new ArrayList<>();
         this.iPath = 0;
         this.continuePath = false;
-        this.inventory = new Inventory();
+        this.inventory = new Inventory(inventorySize);
         this.graphPoint2 = position;
         this.graphPoint1 = position;
     }

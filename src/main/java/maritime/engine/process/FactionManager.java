@@ -15,7 +15,7 @@ import java.util.Collections;
 /**
  * @author @Kenan Ammad
  * Classe FactionManager
- * @version 0.3
+ * @version 0.4
  */
 
 public class FactionManager {

@@ -10,9 +10,9 @@ public class PopUp {
     private int iFrame;
     private Point position;
 
-    public PopUp(String name,int iFrame,Point position){
+    public PopUp(String name,Point position){
         this.name=name;
-        this.iFrame = iFrame;
+        this.iFrame = 0;
         this.position = position;
     }
 

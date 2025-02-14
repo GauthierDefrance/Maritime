@@ -110,10 +110,10 @@ public class MapBuilder {
         P7.addSegment(new GraphSegment(P6, (int) P7.getPoint().distance(P6.getPoint())));
 
         int temp = 30;
-        Harbor harborA = new Harbor("harborA","",new Point((65-temp)*GameConfiguration.GAME_SCALE,(80-temp)*GameConfiguration.GAME_SCALE),AHarbor);
-        Harbor harborB = new Harbor("harborA","",new Point((150-temp)*GameConfiguration.GAME_SCALE,(300-temp)*GameConfiguration.GAME_SCALE),BHarbor);
-        Harbor harborC = new Harbor("harborA","",new Point((340-temp)*GameConfiguration.GAME_SCALE,(130-temp)*GameConfiguration.GAME_SCALE),CHarbor);
-        Harbor harborD = new Harbor("harborA","",new Point((580-temp)*GameConfiguration.GAME_SCALE,(225-temp)*GameConfiguration.GAME_SCALE),DHarbor);
+        Harbor harborA = new Harbor("harborA","",new Point((65)*GameConfiguration.GAME_SCALE,(80-temp)*GameConfiguration.GAME_SCALE),AHarbor);
+        Harbor harborB = new Harbor("harborA","",new Point((150)*GameConfiguration.GAME_SCALE,(300-temp)*GameConfiguration.GAME_SCALE),BHarbor);
+        Harbor harborC = new Harbor("harborA","",new Point((340)*GameConfiguration.GAME_SCALE,(130-temp)*GameConfiguration.GAME_SCALE),CHarbor);
+        Harbor harborD = new Harbor("harborA","",new Point((580)*GameConfiguration.GAME_SCALE,(225-temp)*GameConfiguration.GAME_SCALE),DHarbor);
 
         Faction faction1 = new Faction("red");
 

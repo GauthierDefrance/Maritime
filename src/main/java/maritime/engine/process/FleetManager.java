@@ -5,9 +5,13 @@ import maritime.engine.entity.boats.Boat;
 import maritime.engine.entity.boats.Fleet;
 import maritime.engine.graph.GraphPoint;
 import maritime.engine.graph.SearchInGraph;
-
 import java.util.ArrayList;
 
+/**
+ * @author @Kenan Ammad
+ * Classe FactionManager
+ * @version 0.2
+ */
 public class FleetManager {
     private final MapBuilder map;
     private final BoatManager boatManager;
@@ -42,7 +46,6 @@ public class FleetManager {
                         boat.setContinuePath(fleet.getContinuePath());
                     }
                     else {
-                        System.out.println("iu");
                         boat.setPath(SearchInGraph.findPath(boat,fleet.getPath().getFirst()));
                     }
                 }
