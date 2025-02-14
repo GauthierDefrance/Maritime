@@ -4,12 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import maritime.config.GameConfiguration;
 import maritime.config.MapBuilder;
-import maritime.engine.entity.Harbor;
 import maritime.engine.entity.boats.*;
-import maritime.engine.faction.Faction;
 import maritime.engine.graph.SearchInGraph;
 import maritime.engine.process.FactionManager;
-import maritime.engine.process.SeaRoadManager;
 import maritime.engine.trading.Resource;
 import maritime.engine.trading.SeaRoad;
 import maritime.gui.GameDisplay;
@@ -34,9 +31,9 @@ public class TestMove extends JFrame implements Runnable {
         map.getLstFaction().getFirst().getLstFleet().add(fleet2);
 
         Military military0 = new Military("military0","blue",map.getLstHarbor().get(2).getGraphPosition());
-        Military military1 = new Military("military1","blue",map.getLstHarbor().get(2).getGraphPosition());
+        Military military1 = new Military("military1","blue",map.getLstHarbor().get(1).getGraphPosition());
         Merchant merchant0 = new Merchant("merchant0","blue",map.getLstHarbor().get(2).getGraphPosition());
-        Standard standard0 = new Standard("standard0","blue",map.getLstHarbor().get(2).getGraphPosition());
+        Standard standard0 = new Standard("standard0","blue",map.getLstHarbor().get(1).getGraphPosition());
         Standard standard1 = new Standard("standard1","blue",map.getLstHarbor().get(2).getGraphPosition());
         Fodder fodder0 = new Fodder("fodder0","blue",map.getLstHarbor().get(2).getGraphPosition());
 
@@ -55,10 +52,10 @@ public class TestMove extends JFrame implements Runnable {
         fleet1.getArrayListFleet().add(fodder0);
 
         Military military2 = new Military("military2","red",map.getLstHarbor().get(2).getGraphPosition());
-        Merchant merchant1 = new Merchant("merchant1","red",map.getLstHarbor().get(2).getGraphPosition());
+        Merchant merchant1 = new Merchant("merchant1","red",map.getLstHarbor().get(1).getGraphPosition());
         Merchant merchant2 = new Merchant("merchant2","red",map.getLstHarbor().get(2).getGraphPosition());
         Standard standard2 = new Standard("standard2","red",map.getLstHarbor().get(2).getGraphPosition());
-        Fodder fodder1 = new Fodder("fodder1","red",map.getLstHarbor().get(2).getGraphPosition());
+        Fodder fodder1 = new Fodder("fodder1","red",map.getLstHarbor().get(1).getGraphPosition());
         Fodder fodder2 = new Fodder("fodder2","red",map.getLstHarbor().get(2).getGraphPosition());
 
         map.getLstFaction().getFirst().getLstBoat().add(military2);
@@ -81,14 +78,20 @@ public class TestMove extends JFrame implements Runnable {
         map.getLstHarbor().get(0).getInventory().add(resource1,1000);
         map.getLstHarbor().get(3).getInventory().add(resource2,1000);
 
-        SeaRoad seaRoad1 = new SeaRoad(20,map.getLstHarbor().get(0),map.getLstHarbor().get(3),resource1,resource2,1);
-        SeaRoad seaRoad2 = new SeaRoad(20,map.getLstHarbor().get(3),map.getLstHarbor().get(0),resource2,resource1,1);
+        SeaRoad seaRoad1 = new SeaRoad(200000,map.getLstHarbor().get(0),map.getLstHarbor().get(3),resource1,resource2,1);
+        SeaRoad seaRoad2 = new SeaRoad(200000,map.getLstHarbor().get(3),map.getLstHarbor().get(0),resource2,resource1,1);
 
-        factionManager.getSeaRoutManager().setNewFleet(seaRoad1,fleet1);
-        factionManager.getSeaRoutManager().setNewFleet(seaRoad2,fleet2);
+        factionManager.getSeaRoadManager().setNewFleet(seaRoad1,fleet1);
+        factionManager.getSeaRoadManager().setNewFleet(seaRoad2,fleet2);
 
-        factionManager.getSeaRoutManager().setNewPath(seaRoad1, SearchInGraph.findPath(map.getLstHarbor().get(0).getGraphPosition(),map.getLstHarbor().get(3).getGraphPosition()));
-        factionManager.getSeaRoutManager().setNewPath(seaRoad2, SearchInGraph.findPath(map.getLstHarbor().get(3).getGraphPosition(),map.getLstHarbor().get(0).getGraphPosition()));
+        factionManager.getSeaRoadManager().setNewPath(seaRoad1, SearchInGraph.findPath(map.getLstHarbor().get(0).getGraphPosition(),map.getLstHarbor().get(3).getGraphPosition()));
+        factionManager.getSeaRoadManager().setNewPath(seaRoad2, SearchInGraph.findPath(map.getLstHarbor().get(3).getGraphPosition(),map.getLstHarbor().get(0).getGraphPosition()));
+
+        map.getPlayer().addFleet(fleet1);
+        map.getLstFaction().getFirst().addFleet(fleet2);
+
+        map.getPlayer().addSeaRoad(seaRoad1);
+        map.getLstFaction().getFirst().addSeaRoad(seaRoad2);
 
         Container contentPane = getContentPane();
         contentPane.add(dashboard);

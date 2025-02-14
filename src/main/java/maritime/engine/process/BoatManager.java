@@ -49,7 +49,7 @@ public class BoatManager {
         }
         else {
             boat.setIPath(0);
-            if (boat.getContinuePath()){Collections.reverse(boat.getPath());}
+            if (boat.getContinuePath())Collections.reverse(boat.getPath());
             else boat.getPath().clear();
         }
     }

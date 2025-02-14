@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class Fleet {
     private ArrayList<Boat> fleet;
     private ArrayList<GraphPoint> path;
+    private boolean continuePath;
 
     public Fleet(ArrayList<Boat> boats) {
         this.fleet = boats;
@@ -33,4 +34,11 @@ public class Fleet {
 
     public void remove(Boat boat) { this.fleet.remove(boat); }
 
+    public boolean getContinuePath() {
+        return continuePath;
+    }
+
+    public void setContinuePath(boolean continuePath) {
+        this.continuePath = continuePath;
+    }
 }

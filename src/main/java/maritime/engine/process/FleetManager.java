@@ -23,16 +23,28 @@ public class FleetManager {
         }
     }
 
-    public void pathUpdate(Fleet fleet){
+    public void removePath(Fleet fleet){
+        fleet.getPath().clear();
+        setContinuePathAll(fleet, false);
         for(Boat boat : fleet.getArrayListFleet()){
-            if(boat.getPath().isEmpty()){
-                if(boat.getPosition().equals(fleet.getPath().getFirst().getPoint())){
-                    ArrayList<GraphPoint> newPath = new ArrayList<>();
-                    newPath.addAll(fleet.getPath());
-                    boat.setPath(newPath);
-                }
-                else {
-                    boat.setPath(SearchInGraph.findPath(boat,fleet.getPath().getFirst()));
+            boat.getPath().clear();
+        }
+    }
+
+    public void pathUpdate(Fleet fleet){
+        if(!fleet.getPath().isEmpty()){
+            for(Boat boat : fleet.getArrayListFleet()){
+                if(boat.getPath().isEmpty()&&(fleet.getContinuePath()||!boat.getPosition().equals(fleet.getPath().getLast().getPoint()))){
+                    if(boat.getPosition().equals(fleet.getPath().getFirst().getPoint())){
+                        ArrayList<GraphPoint> newPath = new ArrayList<>();
+                        newPath.addAll(fleet.getPath());
+                        boat.setPath(newPath);
+                        boat.setContinuePath(fleet.getContinuePath());
+                    }
+                    else {
+                        System.out.println("iu");
+                        boat.setPath(SearchInGraph.findPath(boat,fleet.getPath().getFirst()));
+                    }
                 }
             }
         }

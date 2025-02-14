@@ -33,6 +33,7 @@ public class SeaRoadManager {
 
     public void setNewFleet(SeaRoad seaRoad, Fleet fleet) {
         seaRoad.setFleet(fleet);
+        fleet.setContinuePath(true);
         fleetManager.setNewPath(fleet,seaRoad.getPath());
     }
 
@@ -57,6 +58,7 @@ public class SeaRoadManager {
             }
         }
     }
+
     public void sellAndPickUpAllResources(SeaRoad seaRoad){
         for (Boat boat : seaRoad.getFleet().getArrayListFleet()){
             pickUpResources(seaRoad, boat);

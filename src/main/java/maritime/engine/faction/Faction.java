@@ -51,6 +51,7 @@ public class Faction {
         this.lstHarbor.add(harbor);}
     public void addBoat(Boat boat) {this.lstBoat.add(boat);}
     public void addFleet(Fleet fleet) {this.lstFleet.add(fleet);}
+    public void addSeaRoad(SeaRoad seaRoad) {this.lstSeaRouts.add(seaRoad);}
     public void removeBoat(Boat Boat) {this.lstBoat.remove(Boat);}
     public void removeHarbor(Harbor harbor) {
         harbor.setColor("");

@@ -72,9 +72,13 @@ public class FactionManager {
 
     public void seaRoutUpdate(Faction faction){
         ArrayList<SeaRoad> lstSeaRouts = new ArrayList<>();
-        for (SeaRoad seaRout : faction.getLstSeaRouts()){
-            seaRoutManager.sellAndPickUpAllResources(seaRout);
-            if (!seaRout.available()){lstSeaRouts.add(seaRout);}
+        for (SeaRoad seaRoad : faction.getLstSeaRouts()){
+            seaRoutManager.sellAndPickUpAllResources(seaRoad);
+            if (!seaRoad.available()){
+                lstSeaRouts.add(seaRoad);
+                seaRoad.getFleet().setContinuePath(false);
+                seaRoad.getFleet().setPath(new ArrayList<>());
+            }
         }
         faction.getLstSeaRouts().removeAll(lstSeaRouts);
     }
@@ -149,7 +153,7 @@ public class FactionManager {
         return new Faction("");
     }
 
-    public SeaRoadManager getSeaRoutManager() {
+    public SeaRoadManager getSeaRoadManager() {
         return seaRoutManager;
     }
 }
