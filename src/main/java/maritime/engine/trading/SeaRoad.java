@@ -18,14 +18,14 @@ public class SeaRoad {
     private Fleet fleet;
     private final Harbor sellerHarbor;
     private final Harbor buyerHarbor;
-    private final Resource sellingResource;
-    private final Resource sold;
+    private final Resource buyResource;
+    private final Resource soldResource;
     private final double ratio;
 
-    public SeaRoad(int timer, Harbor sellerHarbor, Harbor buyerHarbor, Resource sellingResource, Resource sold, double ratio){
+    public SeaRoad(int timer, Harbor sellerHarbor, Harbor buyerHarbor, Resource buyResource, Resource soldResource, double ratio){
         this.timer = timer;
-        this.sellingResource = sellingResource;
-        this.sold = sold;
+        this.buyResource = buyResource;
+        this.soldResource = soldResource;
         this.ratio = ratio;
         this.path = SearchInGraph.findPath(sellerHarbor.getGraphPosition(), buyerHarbor.getGraphPosition());
         this.fleet = new Fleet();
@@ -33,11 +33,11 @@ public class SeaRoad {
         this.buyerHarbor = buyerHarbor;
     }
 
-    public SeaRoad(int timer, Harbor sellerHarbor, Harbor buyerHarbor, ArrayList<GraphPoint> path, Resource sellingResource, Resource sold, double ratio){
+    public SeaRoad(int timer, Harbor sellerHarbor, Harbor buyerHarbor, ArrayList<GraphPoint> path, Resource buyResource, Resource soldResource, double ratio){
         this.timer = timer;
         this.path = path;
-        this.sellingResource = sellingResource;
-        this.sold = sold;
+        this.buyResource = buyResource;
+        this.soldResource = soldResource;
         this.ratio = ratio;
         this.fleet = new Fleet();
         this.sellerHarbor = sellerHarbor;
@@ -56,9 +56,9 @@ public class SeaRoad {
 
     public double getRatio() { return ratio; }
 
-    public Resource getSold() { return sold; }
+    public Resource getSoldResource() { return soldResource; }
 
-    public Resource getSellingResource() { return sellingResource; }
+    public Resource getBuyResource() { return buyResource; }
 
     public Fleet getFleet() {return fleet;}
     
@@ -83,4 +83,6 @@ public class SeaRoad {
     public void addTime(int nb) {this.timer += nb;}
     
     public boolean available(){return timer > 0;}
+
+    public String getStringTimer(){return this.timer/60+":"+this.timer%60;}
 }
