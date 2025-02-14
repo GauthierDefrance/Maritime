@@ -1,6 +1,6 @@
 package maritime.engine.faction;
 
-import maritime.engine.SeaRoad;
+import maritime.engine.trading.SeaRoad;
 import maritime.engine.entity.*;
 import maritime.engine.entity.boats.Boat;
 import maritime.engine.entity.boats.Fleet;

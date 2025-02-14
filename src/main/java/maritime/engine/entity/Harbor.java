@@ -33,63 +33,52 @@ public class Harbor implements EntityInterface {
         this.graphPosition =graphPosition;
     }
 
-    public String getName() {
-        return name;
-    }
+    //Getters
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    @Override
+    public String getName() { return name; }
 
-    public double getVisionRadius() {
-        return visionRadius;
-    }
-
-    public void setVisionRadius(double visionRadius) {
-        this.visionRadius = visionRadius;
-    }
-
+    @Override
     public int getMaxHp() {
         return maxHp;
     }
 
-    public void setMaxHp(int maxHp) {
-        this.maxHp = maxHp;
-    }
+    @Override
+    public int getCurrentHp() { return currentHp; }
 
-    public int getCurrentHp() {
-        return currentHp;
-    }
+    @Override
+    public double getVisionRadius() {return visionRadius; }
 
-    public void setCurrentHp(int currentHp) {
-        this.currentHp = currentHp;
-    }
+    @Override
+    public Inventory getInventory() { return inventory; }
 
-    public Inventory getInventory() {
-        return inventory;
-    }
+    @Override
+    public Point getPosition() { return position; }
 
-    public Point getPosition() {
-        return position;
-    }
+    public GraphPoint getGraphPosition() { return graphPosition; }
 
-    public void setPosition(Point position) {
-        this.position = position;
-    }
+    public Point getPreciseGraphPosition() { return graphPosition.getPoint(); }
 
-    public GraphPoint getGraphPosition() {
-        return graphPosition;
-    }
+    @Override
+    public String getColor() { return color; }
 
-    public void setGraphPosition(GraphPoint graphPosition) {
-        this.graphPosition = graphPosition;
-    }
+    //Setters
 
-    public String getColor() {
-        return color;
-    }
+    public void setName(String name) { this.name = name; }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
+    @Override
+    public void setMaxHp(int maxHp) { this.maxHp = maxHp; }
+
+    @Override
+    public void setCurrentHp(int currentHp) { this.currentHp = currentHp; }
+
+    @Override
+    public void setVisionRadius(double visionRadius) { this.visionRadius = visionRadius; }
+
+    @Override
+    public void setPosition(Point position) { this.position = position; }
+
+    public void setGraphPosition(GraphPoint graphPosition) { this.graphPosition = graphPosition; }
+
+    public void setColor(String color) { this.color = color; }
 }

@@ -3,7 +3,7 @@ package maritime.engine.process;
 
 import maritime.config.GameConfiguration;
 import maritime.config.MapBuilder;
-import maritime.engine.SeaRoad;
+import maritime.engine.trading.SeaRoad;
 import maritime.engine.entity.boats.Boat;
 import maritime.engine.faction.Faction;
 import maritime.engine.graph.GraphPoint;
@@ -30,9 +30,9 @@ public class FactionManager {
         this.map = map;
         this.playerManager = new PlayerManager(map);
         this.boatManager = new BoatManager(map);
-        this.harborManager = new HarborManager(map,new TradeManager(map));
+        this.harborManager = new HarborManager(map,new TradeManager());
         this.fleetManager = new FleetManager(map,boatManager);
-        this.seaRoutManager = new SeaRoadManager(map,this.harborManager,new TradeManager(map));
+        this.seaRoutManager = new SeaRoadManager(map,this.harborManager,new TradeManager());
         this.lstAttackBoat = new ArrayList<>();
     }
 

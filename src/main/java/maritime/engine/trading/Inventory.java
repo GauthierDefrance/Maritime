@@ -49,7 +49,7 @@ public class Inventory {
      */
     public int getCapacity() { return this.capacity; }
 
-    //Setters & Basic behavior
+    //Setters
 
     /**
      * Allows to assign an arbitrary number of a designated Resource element to the Inventory
@@ -63,6 +63,8 @@ public class Inventory {
      * @param capacity new maximum capacity of the Inventory
      */
     public void setCapacity( int capacity ) { this.capacity = capacity; }
+
+    //Basic ressource management behavior
 
     /**
      * Allows for a complete clear of the Inventory

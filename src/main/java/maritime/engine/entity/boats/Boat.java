@@ -87,7 +87,6 @@ public abstract class Boat implements EntityInterface {
 
     //Setters
 
-
     public void setContinuePath(boolean continuePath) {this.continuePath=continuePath;}
 
     public void setPath(ArrayList<GraphPoint> path) {
