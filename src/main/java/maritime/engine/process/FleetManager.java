@@ -27,7 +27,9 @@ public class FleetManager {
         for(Boat boat : fleet.getArrayListFleet()){
             if(boat.getPath().isEmpty()){
                 if(boat.getPosition().equals(fleet.getPath().getFirst().getPoint())){
-                    boat.setPath(fleet.getPath());
+                    ArrayList<GraphPoint> newPath = new ArrayList<>();
+                    newPath.addAll(fleet.getPath());
+                    boat.setPath(newPath);
                 }
                 else {
                     boat.setPath(SearchInGraph.findPath(boat,fleet.getPath().getFirst()));
@@ -37,7 +39,9 @@ public class FleetManager {
     }
 
     public void setNewPath(Fleet fleet, ArrayList<GraphPoint> path){
-        fleet.setPath(path);
+        ArrayList<GraphPoint> newPath = new ArrayList<>();
+        newPath.addAll(path);
+        fleet.setPath(newPath);
         for(Boat boat : fleet.getArrayListFleet()){
             boat.getPath().clear();
         }
