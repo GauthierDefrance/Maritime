@@ -6,6 +6,7 @@ import maritime.engine.faction.Player;
 import maritime.engine.graph.GraphPoint;
 import maritime.gui.PopUp;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
@@ -44,6 +45,16 @@ public class MapBuilder {
         Player player = new Player("blue");
 
 //        map.put("A",new GraphPoint(new Point(0*GameConfiguration.GAME_SCALE,0*GameConfiguration.GAME_SCALE),"A"));
+//        GraphPoint AHarbor = new GraphPoint(new Point(95*GameConfiguration.GAME_SCALE,65*GameConfiguration.GAME_SCALE),"AHarbor");
+//        GraphPoint A = new GraphPoint(new Point(130*GameConfiguration.GAME_SCALE,130*GameConfiguration.GAME_SCALE),"A");
+//        GraphPoint A = new GraphPoint(new Point(225*GameConfiguration.GAME_SCALE,125*GameConfiguration.GAME_SCALE),"A");
+//        GraphPoint A = new GraphPoint(new Point(180*GameConfiguration.GAME_SCALE,90*GameConfiguration.GAME_SCALE),"A");
+//        GraphPoint A = new GraphPoint(new Point(275*GameConfiguration.GAME_SCALE,50*GameConfiguration.GAME_SCALE),"A");
+//        GraphPoint A = new GraphPoint(new Point(65*GameConfiguration.GAME_SCALE,85*GameConfiguration.GAME_SCALE),"A");
+//        GraphPoint A = new GraphPoint(new Point(185*GameConfiguration.GAME_SCALE,235*GameConfiguration.GAME_SCALE),"A");
+//        GraphPoint A = new GraphPoint(new Point(185*GameConfiguration.GAME_SCALE,165*GameConfiguration.GAME_SCALE),"A");
+//        GraphPoint A = new GraphPoint(new Point(205*GameConfiguration.GAME_SCALE,140*GameConfiguration.GAME_SCALE),"A");
+
 
         lstFaction.addAll(lstBotFaction);
         lstFaction.addLast(player);
