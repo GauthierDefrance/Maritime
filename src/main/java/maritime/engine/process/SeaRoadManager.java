@@ -1,9 +1,13 @@
 package maritime.engine.process;
 
 import maritime.config.MapBuilder;
+import maritime.engine.entity.boats.Fleet;
+import maritime.engine.graph.GraphPoint;
 import maritime.engine.trading.SeaRoad;
 import maritime.engine.entity.boats.Boat;
 import maritime.engine.trading.Resource;
+
+import java.util.ArrayList;
 
 /**
  * @author @Kenan Ammad
@@ -13,13 +17,24 @@ public class SeaRoadManager {
     private final MapBuilder map;
     private final HarborManager harborManager;
     private final TradeManager tradeManager;
+    private final FleetManager fleetManager;
 
-    public SeaRoadManager(MapBuilder map, HarborManager harborManager, TradeManager tradeManager) {
+    public SeaRoadManager(MapBuilder map, HarborManager harborManager, TradeManager tradeManager, FleetManager fleetManager) {
         this.map = map;
         this.harborManager = harborManager;
         this.tradeManager = tradeManager;
+        this.fleetManager = fleetManager;
     }
 
+    public void setNewPath(SeaRoad seaRoad, ArrayList<GraphPoint> path) {
+        seaRoad.setPath(path);
+        fleetManager.setNewPath(seaRoad.getFleet(),path);
+    }
+
+    public void setNewFleet(SeaRoad seaRoad, Fleet fleet) {
+        seaRoad.setFleet(fleet);
+        fleetManager.setNewPath(fleet,seaRoad.getPath());
+    }
 
     public void pickUpResources(SeaRoad seaRoad, Boat boat) {
         Resource ResourceA = seaRoad.getSellingResource();
@@ -43,7 +58,7 @@ public class SeaRoadManager {
         }
     }
     public void sellAndPickUpAllResources(SeaRoad seaRoad){
-        for (Boat boat : seaRoad.getConvoy().getArrayListFleet()){
+        for (Boat boat : seaRoad.getFleet().getArrayListFleet()){
             pickUpResources(seaRoad, boat);
             sellResources(seaRoad, boat);
         }

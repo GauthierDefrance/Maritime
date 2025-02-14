@@ -20,7 +20,7 @@ public class GameConfiguration {
 
     public static final double FODDER_VISION_RADIUS_BOOST = 0.5;
     public static final double FODDER_HP_BOOST = 0.5;
-    public static final double FODDER_SPEED_BOOST = 0.75;
+    public static final double FODDER_SPEED_BOOST = 0.90;
     public static final double FODDER_DAMAGE_SPEED_BOOST = 0.75;
 
     public static final double MERCHANT_VISION_RADIUS_BOOST = 1;

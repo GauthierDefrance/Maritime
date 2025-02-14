@@ -37,20 +37,20 @@ public class GameDisplay extends JPanel {
         paintBackGround.paint(g2d);
         g2d.scale((double) 1 /GameConfiguration.GAME_SCALE, (double) 1 /GameConfiguration.GAME_SCALE);
 
-        //test
-        for (Faction faction : map.getLstBotFaction()){
-
-            for(Harbor harbor : faction.getLstHarbor()){
-                paintEntity.paint(harbor,g2d);
-            }
-            for(Boat boat : faction.getLstBoat()){
-                paintEntity.paint(boat,g2d);
-            }
-        }
-        for(Boat boat : map.getPlayer().getVision()){
-            paintEntity.paintPlayer(boat,g2d);
-        }
-        //end test
+//        //test
+//        for (Faction faction : map.getLstBotFaction()){
+//
+//            for(Harbor harbor : faction.getLstHarbor()){
+//                paintEntity.paint(harbor,g2d);
+//            }
+//            for(Boat boat : faction.getLstBoat()){
+//                paintEntity.paint(boat,g2d);
+//            }
+//        }
+//        for(Boat boat : map.getPlayer().getVision()){
+//            paintEntity.paintPlayer(boat,g2d);
+//        }
+//        //end test
 
         for (Harbor harbor : map.getLstHarbor()){
             paintEntity.paint(harbor,g2d);

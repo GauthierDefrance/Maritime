@@ -23,15 +23,17 @@ public abstract class Boat implements EntityInterface {
     private int speed;
     private double angle;
     private ArrayList<GraphPoint> path;
+    private GraphPoint graphPoint1;
+    private GraphPoint graphPoint2;
     private int iPath;
     private boolean continuePath;
     private final Inventory inventory;
 
-    public Boat(String name,String color, double visionRadius, Point position, int maxHp, int damageSpeed, int speed) {
+    public Boat(String name,String color, double visionRadius, GraphPoint position, int maxHp, int damageSpeed, int speed) {
         this.name = name;
         this.color = color;
         this.visionRadius = visionRadius;
-        this.position = position;
+        this.position = new Point(position.getPoint());
         this.maxHp = maxHp;
         this.currentHp = maxHp;
         this.damageSpeed = damageSpeed;
@@ -40,6 +42,8 @@ public abstract class Boat implements EntityInterface {
         this.iPath = 0;
         this.continuePath = false;
         this.inventory = new Inventory();
+        this.graphPoint2 = position;
+        this.graphPoint1 = position;
     }
 
     //Getters
@@ -128,5 +132,20 @@ public abstract class Boat implements EntityInterface {
 
     public void addCurrentHp(int currentHp) {this.currentHp += currentHp;}
 
+    public GraphPoint getGraphPoint1() {
+        return graphPoint1;
+    }
+
+    public void setGraphPoint1(GraphPoint graphPoint1) {
+        this.graphPoint1 = graphPoint1;
+    }
+
+    public GraphPoint getGraphPoint2() {
+        return graphPoint2;
+    }
+
+    public void setGraphPoint2(GraphPoint graphPoint2) {
+        this.graphPoint2 = graphPoint2;
+    }
 }
 

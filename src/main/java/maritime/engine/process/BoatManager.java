@@ -42,7 +42,11 @@ public class BoatManager {
     }
 
     public void weAreOnPoint(Boat boat){
-        if (boat.getPath().size()>boat.getIPath()+1){boat.addIPath(1);}
+        boat.setGraphPoint1(boat.getGraphPoint2());
+        if (boat.getPath().size()>boat.getIPath()+1){
+            boat.addIPath(1);
+            boat.setGraphPoint2(boat.getPath().get(boat.getIPath()));
+        }
         else {
             boat.setIPath(0);
             if (boat.getContinuePath()){Collections.reverse(boat.getPath());}

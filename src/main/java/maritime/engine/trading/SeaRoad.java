@@ -13,33 +13,33 @@ import java.util.ArrayList;
  * @version 0.1
  */
 public class SeaRoad {
-    private int clock;
+    private int timer;
     private ArrayList<GraphPoint> path;
-    private Fleet convoy;
+    private Fleet fleet;
     private final Harbor sellerHarbor;
     private final Harbor buyerHarbor;
     private final Resource sellingResource;
     private final Resource sold;
     private final double ratio;
 
-    public SeaRoad(int clock, Harbor sellerHarbor, Harbor buyerHarbor, Resource sellingResource, Resource sold, double ratio){
-        this.clock = clock;
+    public SeaRoad(int timer, Harbor sellerHarbor, Harbor buyerHarbor, Resource sellingResource, Resource sold, double ratio){
+        this.timer = timer;
         this.sellingResource = sellingResource;
         this.sold = sold;
         this.ratio = ratio;
         this.path = SearchInGraph.findPath(sellerHarbor.getGraphPosition(), buyerHarbor.getGraphPosition());
-        this.convoy = null;
+        this.fleet = new Fleet();
         this.sellerHarbor = sellerHarbor;
         this.buyerHarbor = buyerHarbor;
     }
 
-    public SeaRoad(int clock, Harbor sellerHarbor, Harbor buyerHarbor, ArrayList<GraphPoint> path, Resource sellingResource, Resource sold, double ratio){
-        this.clock = clock;
+    public SeaRoad(int timer, Harbor sellerHarbor, Harbor buyerHarbor, ArrayList<GraphPoint> path, Resource sellingResource, Resource sold, double ratio){
+        this.timer = timer;
         this.path = path;
         this.sellingResource = sellingResource;
         this.sold = sold;
         this.ratio = ratio;
-        this.convoy = null;
+        this.fleet = new Fleet();
         this.sellerHarbor = sellerHarbor;
         this.buyerHarbor = buyerHarbor;
     }
@@ -60,25 +60,27 @@ public class SeaRoad {
 
     public Resource getSellingResource() { return sellingResource; }
 
-    public Fleet getConvoy() {return convoy;}
+    public Fleet getFleet() {return fleet;}
     
     //Setters
 
-    public void setConvoy(Fleet convoy) { this.convoy = convoy; }
+    public void setFleet(Fleet fleet) { this.fleet = fleet; }
 
-    public void setConvoy(Boat boat) {
+    public void removeFleet() { this.fleet = new Fleet(); }
+
+    public void setFleet(Boat boat) {
         Fleet fleet = new Fleet();
         fleet.add(boat);
-        this.convoy = fleet;
+        this.fleet = fleet;
     }
 
     //Basic Time management behavior
+
+    public void abandonTask() {this.timer = 0;}
     
-    public void abandonTask() {this.clock = 0;}
+    public void subtractTime(int nb) {this.timer -= nb;}
     
-    public void subtractTime(int nb) {this.clock -= nb;}
+    public void addTime(int nb) {this.timer += nb;}
     
-    public void addTime(int nb) {this.clock += nb;}
-    
-    public boolean available(){return clock > 0;}
+    public boolean available(){return timer > 0;}
 }

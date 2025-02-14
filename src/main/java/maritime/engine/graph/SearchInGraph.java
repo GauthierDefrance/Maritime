@@ -1,5 +1,9 @@
 package maritime.engine.graph;
 
+import maritime.config.GameConfiguration;
+import maritime.engine.entity.boats.Boat;
+
+import java.awt.*;
 import java.util.ArrayList;
 
 
@@ -9,6 +13,13 @@ import java.util.ArrayList;
  * @version 0.1
  */
 public final class SearchInGraph {
+
+    public static ArrayList<GraphPoint> findPath(Boat boat, GraphPoint pointEnd) {
+        GraphPoint pointStart = new GraphPoint(boat.getPosition(),"temp");
+        pointStart.addSegment(new GraphSegment(boat.getGraphPoint1(), (int) pointStart.getPoint().distance(boat.getGraphPoint1().getPoint())));
+        pointStart.addSegment(new GraphSegment(boat.getGraphPoint2(), (int) pointStart.getPoint().distance(boat.getGraphPoint2().getPoint())));
+        return findPath(pointStart, pointEnd);
+    }
 
     public static ArrayList<GraphPoint> findPath(GraphPoint pointStart, GraphPoint pointEnd) {
         if (pointStart.equals(pointEnd)){ArrayList<GraphPoint> Result = new ArrayList<>();Result.add(pointStart);return Result;}

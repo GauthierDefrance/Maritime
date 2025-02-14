@@ -3,6 +3,7 @@ package maritime.engine.process;
 
 import maritime.config.GameConfiguration;
 import maritime.config.MapBuilder;
+import maritime.engine.entity.boats.Fleet;
 import maritime.engine.trading.SeaRoad;
 import maritime.engine.entity.boats.Boat;
 import maritime.engine.faction.Faction;
@@ -32,12 +33,13 @@ public class FactionManager {
         this.boatManager = new BoatManager(map);
         this.harborManager = new HarborManager(map,new TradeManager());
         this.fleetManager = new FleetManager(map,boatManager);
-        this.seaRoutManager = new SeaRoadManager(map,this.harborManager,new TradeManager());
+        this.seaRoutManager = new SeaRoadManager(map,this.harborManager,new TradeManager(),this.fleetManager);
         this.lstAttackBoat = new ArrayList<>();
     }
 
     public void nextRound(){
         moveAllFactionBoat();
+        allFleetUpdate();
         allSeaRoutUpdate();
         allChaseUpdate();
         playerManager.updatePlayerVision();
@@ -55,7 +57,20 @@ public class FactionManager {
         }
     }
 
-    public void SeaRoutUpdate(Faction faction){
+    public void fleetUpdate(Faction faction){
+        for (Fleet fleet : faction.getLstFleet()){
+            if(!fleet.getPath().isEmpty())fleetManager.pathUpdate(fleet);
+        }
+    }
+
+
+    public void allFleetUpdate(){
+        for (Faction faction : map.getLstFaction()){
+            fleetUpdate(faction);
+        }
+    }
+
+    public void seaRoutUpdate(Faction faction){
         ArrayList<SeaRoad> lstSeaRouts = new ArrayList<>();
         for (SeaRoad seaRout : faction.getLstSeaRouts()){
             seaRoutManager.sellAndPickUpAllResources(seaRout);
@@ -67,14 +82,14 @@ public class FactionManager {
 
     public void allSeaRoutUpdate(){
         for (Faction faction : map.getLstFaction()){
-            SeaRoutUpdate(faction);
+            seaRoutUpdate(faction);
         }
     }
 
 
     public void chaseBoat(Boat boat, Boat chasedBoat){
         lstAttackBoat.add(new Boat[]{boat,chasedBoat});
-        boat.setPath(new ArrayList<>(Collections.singleton(new GraphPoint(chasedBoat.getPosition(), ""))));
+        boat.setPath(new ArrayList<>(Collections.singleton(new GraphPoint(chasedBoat.getPosition(), "target"))));
         boat.setIPath(0);
         boat.setContinuePath(false);
     }
@@ -85,10 +100,12 @@ public class FactionManager {
             StartFight(tbBoat[0],tbBoat[1]);
             lstAttackBoat.remove(tbBoat);
             tbBoat[0].getPath().clear();
+            tbBoat[0].setGraphPoint2(tbBoat[1].getGraphPoint2());
         }
-        else if (tbBoat[0].getVisionRadius()+20000 < distance){
+        else if (tbBoat[0].getVisionRadius()+20 < distance){
             lstAttackBoat.remove(tbBoat);
             tbBoat[0].getPath().clear();
+            tbBoat[0].setGraphPoint2(tbBoat[1].getGraphPoint2());
         }
     }
 
@@ -132,4 +149,7 @@ public class FactionManager {
         return new Faction("");
     }
 
+    public SeaRoadManager getSeaRoutManager() {
+        return seaRoutManager;
+    }
 }

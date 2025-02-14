@@ -4,11 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import maritime.config.GameConfiguration;
 import maritime.config.MapBuilder;
-import maritime.engine.entity.boats.Fodder;
-import maritime.engine.entity.boats.Merchant;
-import maritime.engine.entity.boats.Military;
-import maritime.engine.entity.boats.Standard;
+import maritime.engine.entity.Harbor;
+import maritime.engine.entity.boats.*;
+import maritime.engine.faction.Faction;
+import maritime.engine.graph.SearchInGraph;
 import maritime.engine.process.FactionManager;
+import maritime.engine.process.SeaRoadManager;
+import maritime.engine.trading.Resource;
+import maritime.engine.trading.SeaRoad;
 import maritime.gui.GameDisplay;
 
 public class TestMove extends JFrame implements Runnable {
@@ -24,13 +27,18 @@ public class TestMove extends JFrame implements Runnable {
 
     private void init() {
         dashboard = new GameDisplay(map);
+        Fleet fleet1 = new Fleet();
+        Fleet fleet2 = new Fleet();
 
-        Military military0 = new Military("military0","blue",new Point(320*GameConfiguration.GAME_SCALE,180*GameConfiguration.GAME_SCALE));
-        Military military1 = new Military("military1","blue",new Point(320*GameConfiguration.GAME_SCALE,180*GameConfiguration.GAME_SCALE));
-        Merchant merchant0 = new Merchant("merchant0","blue",new Point(320*GameConfiguration.GAME_SCALE,180*GameConfiguration.GAME_SCALE));
-        Standard standard0 = new Standard("standard0","blue",new Point(320*GameConfiguration.GAME_SCALE,180*GameConfiguration.GAME_SCALE));
-        Standard standard1 = new Standard("standard1","blue",new Point(320*GameConfiguration.GAME_SCALE,180*GameConfiguration.GAME_SCALE));
-        Fodder fodder0 = new Fodder("fodder0","blue",new Point(320*GameConfiguration.GAME_SCALE,180*GameConfiguration.GAME_SCALE));
+        map.getPlayer().getLstFleet().add(fleet1);
+        map.getLstFaction().getFirst().getLstFleet().add(fleet2);
+
+        Military military0 = new Military("military0","blue",map.getLstHarbor().get(2).getGraphPosition());
+        Military military1 = new Military("military1","blue",map.getLstHarbor().get(2).getGraphPosition());
+        Merchant merchant0 = new Merchant("merchant0","blue",map.getLstHarbor().get(2).getGraphPosition());
+        Standard standard0 = new Standard("standard0","blue",map.getLstHarbor().get(2).getGraphPosition());
+        Standard standard1 = new Standard("standard1","blue",map.getLstHarbor().get(2).getGraphPosition());
+        Fodder fodder0 = new Fodder("fodder0","blue",map.getLstHarbor().get(2).getGraphPosition());
 
         map.getPlayer().getLstBoat().add(military0);
         map.getPlayer().getLstBoat().add(military1);
@@ -39,12 +47,19 @@ public class TestMove extends JFrame implements Runnable {
         map.getPlayer().getLstBoat().add(standard1);
         map.getPlayer().getLstBoat().add(fodder0);
 
-        Military military2 = new Military("military2","red",new Point(340*GameConfiguration.GAME_SCALE,180*GameConfiguration.GAME_SCALE));
-        Merchant merchant1 = new Merchant("merchant1","red",new Point(340*GameConfiguration.GAME_SCALE,180*GameConfiguration.GAME_SCALE));
-        Merchant merchant2 = new Merchant("merchant2","red",new Point(340*GameConfiguration.GAME_SCALE,180*GameConfiguration.GAME_SCALE));
-        Standard standard2 = new Standard("standard2","red",new Point(340*GameConfiguration.GAME_SCALE,180*GameConfiguration.GAME_SCALE));
-        Fodder fodder1 = new Fodder("fodder1","red",new Point(340*GameConfiguration.GAME_SCALE,180*GameConfiguration.GAME_SCALE));
-        Fodder fodder2 = new Fodder("fodder2","red",new Point(340*GameConfiguration.GAME_SCALE,180*GameConfiguration.GAME_SCALE));
+        fleet1.getArrayListFleet().add(military0);
+        fleet1.getArrayListFleet().add(military1);
+        fleet1.getArrayListFleet().add(merchant0);
+        fleet1.getArrayListFleet().add(standard0);
+        fleet1.getArrayListFleet().add(standard1);
+        fleet1.getArrayListFleet().add(fodder0);
+
+        Military military2 = new Military("military2","red",map.getLstHarbor().get(2).getGraphPosition());
+        Merchant merchant1 = new Merchant("merchant1","red",map.getLstHarbor().get(2).getGraphPosition());
+        Merchant merchant2 = new Merchant("merchant2","red",map.getLstHarbor().get(2).getGraphPosition());
+        Standard standard2 = new Standard("standard2","red",map.getLstHarbor().get(2).getGraphPosition());
+        Fodder fodder1 = new Fodder("fodder1","red",map.getLstHarbor().get(2).getGraphPosition());
+        Fodder fodder2 = new Fodder("fodder2","red",map.getLstHarbor().get(2).getGraphPosition());
 
         map.getLstFaction().getFirst().getLstBoat().add(military2);
         map.getLstFaction().getFirst().getLstBoat().add(merchant1);
@@ -52,6 +67,28 @@ public class TestMove extends JFrame implements Runnable {
         map.getLstFaction().getFirst().getLstBoat().add(standard2);
         map.getLstFaction().getFirst().getLstBoat().add(fodder1);
         map.getLstFaction().getFirst().getLstBoat().add(fodder2);
+
+        fleet2.getArrayListFleet().add(military2);
+        fleet2.getArrayListFleet().add(merchant1);
+        fleet2.getArrayListFleet().add(merchant2);
+        fleet2.getArrayListFleet().add(standard2);
+        fleet2.getArrayListFleet().add(fodder1);
+        fleet2.getArrayListFleet().add(fodder2);
+
+        Resource resource1 = new Resource("resource1",1,1);
+        Resource resource2 = new Resource("resource1",1,1);
+
+        map.getLstHarbor().get(0).getInventory().add(resource1,1000);
+        map.getLstHarbor().get(3).getInventory().add(resource2,1000);
+
+        SeaRoad seaRoad1 = new SeaRoad(20,map.getLstHarbor().get(0),map.getLstHarbor().get(3),resource1,resource2,1);
+        SeaRoad seaRoad2 = new SeaRoad(20,map.getLstHarbor().get(3),map.getLstHarbor().get(0),resource2,resource1,1);
+
+        factionManager.getSeaRoutManager().setNewFleet(seaRoad1,fleet1);
+        factionManager.getSeaRoutManager().setNewFleet(seaRoad2,fleet2);
+
+        factionManager.getSeaRoutManager().setNewPath(seaRoad1, SearchInGraph.findPath(map.getLstHarbor().get(0).getGraphPosition(),map.getLstHarbor().get(3).getGraphPosition()));
+        factionManager.getSeaRoutManager().setNewPath(seaRoad2, SearchInGraph.findPath(map.getLstHarbor().get(3).getGraphPosition(),map.getLstHarbor().get(0).getGraphPosition()));
 
         Container contentPane = getContentPane();
         contentPane.add(dashboard);
@@ -84,7 +121,7 @@ public class TestMove extends JFrame implements Runnable {
 
         public static void main(String[] args) {
 
-        TestMove gameMainGUI = new TestMove("Aircraft game");
+        TestMove gameMainGUI = new TestMove("game");
         Thread gameThread = new Thread(gameMainGUI);
         gameThread.start();
     }
