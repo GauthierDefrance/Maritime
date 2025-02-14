@@ -9,6 +9,7 @@ import maritime.engine.trading.Inventory;
 
 /**
  * @author @Kenan Ammad
+ * @author Zue Jack-Arthur
  * @version 0.2
  */
 public abstract class Boat implements EntityInterface {
@@ -59,20 +60,27 @@ public abstract class Boat implements EntityInterface {
         return speed;
     }
 
+    @Override
     public String getName() {return name;}
 
+    @Override
     public double getVisionRadius() {return visionRadius;}
 
+    @Override
     public int getMaxHp() {return maxHp;}
 
+    @Override
     public int getCurrentHp() {return currentHp;}
 
+    @Override
     public Point getPosition() {return position;}
 
+    @Override
     public Inventory getInventory() {return inventory;}
 
     public int getDamageSpeed() {return damageSpeed;}
 
+    @Override
     public String getColor() {
         return color;
     }
@@ -94,12 +102,16 @@ public abstract class Boat implements EntityInterface {
 
     public void setName(String name) {this.name = name;}
 
+    @Override
     public void setVisionRadius(double visionRadius) {this.visionRadius = visionRadius;}
 
+    @Override
     public void setMaxHp(int maxHp) {this.maxHp = maxHp;}
 
+    @Override
     public void setCurrentHp(int currentHp) {this.currentHp = currentHp;}
 
+    @Override
     public void setPosition(Point position) {this.position = position;}
 
     public void setPosition(double x,double y) {position.setLocation(x,y);}

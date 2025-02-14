@@ -23,17 +23,17 @@ public class SeaRoadManager {
 
     public void pickUpResources(SeaRoad seaRoad, Boat boat) {
         if (boat.getPosition().equals(seaRoad.getStartSeaRout().getGraphPosition().getPoint())){
-            tradeManager.transfer(seaRoad.getBuy(), boat.getInventory().getNbRessource(seaRoad.getBuy()), boat, seaRoad.getStartSeaRout());
-            tradeManager.transfer(seaRoad.getSold(), boat.getInventory().getNbRessource(seaRoad.getSold()), boat, seaRoad.getStartSeaRout());
+            tradeManager.transfer(seaRoad.getBuy(), boat.getInventory().getNbResource(seaRoad.getBuy()), boat, seaRoad.getStartSeaRout());
+            tradeManager.transfer(seaRoad.getSold(), boat.getInventory().getNbResource(seaRoad.getSold()), boat, seaRoad.getStartSeaRout());
             if(!tradeManager.transfer(seaRoad.getSold(), Math.min(tradeManager.totalFreeSpace(boat.getInventory()),(int) (tradeManager.totalFreeSpace(boat.getInventory()) * seaRoad.getRatio())), seaRoad.getStartSeaRout(),boat)){
-                tradeManager.transfer(seaRoad.getSold(), seaRoad.getStartSeaRout().getInventory().getNbRessource(seaRoad.getSold()), seaRoad.getStartSeaRout(),boat);
+                tradeManager.transfer(seaRoad.getSold(), seaRoad.getStartSeaRout().getInventory().getNbResource(seaRoad.getSold()), seaRoad.getStartSeaRout(),boat);
             }
         }
     }
 
     public void sellResources(SeaRoad seaRoad, Boat boat){
         if (boat.getPosition().equals(seaRoad.getEndSeaRout().getGraphPosition().getPoint())){
-            int nbRessource = boat.getInventory().getNbRessource(seaRoad.getSold());
+            int nbRessource = boat.getInventory().getNbResource(seaRoad.getSold());
             if(tradeManager.transfer(seaRoad.getSold(),nbRessource,boat, seaRoad.getEndSeaRout())) seaRoad.addTime(nbRessource);
             if(!tradeManager.transfer(seaRoad.getBuy(), (int) (nbRessource/ seaRoad.getRatio()), seaRoad.getEndSeaRout(),boat)){
                 if (tradeManager.totalFreeSpace(boat.getInventory()) >= (int) (nbRessource/ seaRoad.getRatio()))
