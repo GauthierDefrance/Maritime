@@ -5,10 +5,12 @@ import java.awt.*;
 public class Hitbox {
     public int width;
     public int height;
+    public int angle;
     public Point cornerTopLeft;
     public Hitbox(int w, int h, Point cornerTopLeft) {
         width = w;
         height = h;
+        this.cornerTopLeft = cornerTopLeft;
     }
 
     /**
@@ -16,7 +18,7 @@ public class Hitbox {
      * @param p
      * @return Boolean
      */
-    public boolean contains(Point p) {
+    public boolean contains(Point p) { //A modifier car les bateaux peuvent être pencher avec l'angle
         double xo =  p.getX();
         double yo =  p.getY();
 
