@@ -1,5 +1,7 @@
 package maritime.config;
 
+import java.awt.*;
+
 public class GameConfiguration {
 
     public static final int NUMBER_OF_BACK_GROUND_FRAMES = 8;
@@ -37,4 +39,7 @@ public class GameConfiguration {
     public static final double MILITARY_DAMAGE_SPEED_BOOST = 3;
     public static final double MILITARY_INVENTORY_SIZE_BOOST = 0.4;
 
+    public static final Dimension WINDOW_SIZE = new Dimension(640, 360);
+    public static final Font FONT = new Font( "Noto Sans Display", Font.BOLD, 20);
+    public static final Font CREDITS_FONT = new Font("Noto Sans Display", Font.BOLD, 10);
 }

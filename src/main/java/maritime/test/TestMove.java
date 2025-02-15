@@ -123,14 +123,4 @@ public class TestMove extends JFrame implements Runnable {
         }
     }
 
-
-        public static void main(String[] args) {
-
-        TestMove gameMainGUI = new TestMove("game");
-        Thread gameThread = new Thread(gameMainGUI);
-        gameThread.start();
-    }
-
-
-
 }
