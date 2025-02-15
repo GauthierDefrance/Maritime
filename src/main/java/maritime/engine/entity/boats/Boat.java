@@ -18,6 +18,7 @@ public abstract class Boat implements EntityInterface {
     private String color;
     private double visionRadius;
     private Point position;
+    private Point battlePosition;
     private int maxHp;
     private int currentHp;
     private int damageSpeed;
@@ -98,6 +99,8 @@ public abstract class Boat implements EntityInterface {
         return graphPoint2;
     }
 
+    public Point getBattlePosition() {return battlePosition;}
+
     //Setters
 
     public void setContinuePath(boolean continuePath) {this.continuePath = continuePath;}
@@ -143,6 +146,8 @@ public abstract class Boat implements EntityInterface {
     public void setGraphPoint2(GraphPoint graphPoint2) {
         this.graphPoint2 = graphPoint2;
     }
+
+    public void setBattlePosition(Point battlePosition) {this.battlePosition = battlePosition;}
 
     //Basic boat handling
 
