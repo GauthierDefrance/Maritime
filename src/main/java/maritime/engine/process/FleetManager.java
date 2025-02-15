@@ -28,6 +28,7 @@ public class FleetManager {
      * Take a fleet and make it continuePath true or false
      */
     public void setContinuePathAll(Fleet fleet, boolean continuePath) {
+        fleet.setContinuePath(continuePath);
         for (Boat boat : fleet.getArrayListFleet()){
             boat.setContinuePath(continuePath);
         }

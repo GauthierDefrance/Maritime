@@ -49,6 +49,9 @@ public class SeaRoadManager {
         fleetManager.setNewPath(fleet,seaRoad.getPath());
     }
 
+    /**
+     * If the boat is on the seller harbor point, proceeds the exchange
+     */
     public void pickUpResources(SeaRoad seaRoad, Boat boat) {
         if (boatManager.HarborReached(boat, seaRoad.getSellerHarbor())){
             tradeManager.transfer(seaRoad.getBuyResource(), boat.getInventory().getNbResource(seaRoad.getBuyResource()), boat, seaRoad.getSellerHarbor());
@@ -63,6 +66,9 @@ public class SeaRoadManager {
         }
     }
 
+    /**
+     * If the boat is on the buyer harbor point, pick-up the resources for the exchange
+     */
     public void sellResources(SeaRoad seaRoad, Boat boat){
         if (boatManager.HarborReached(boat, seaRoad.getBuyerHarbor())){
             int nbRessource = boat.checkNbRessource(seaRoad.getSoldResource());
@@ -77,7 +83,9 @@ public class SeaRoadManager {
             }
         }
     }
-
+    /**
+     * for all sea road boat pickUpResources and sellResources
+     */
     public void sellAndPickUpAllResources(SeaRoad seaRoad){
         for (Boat boat : seaRoad.getFleet().getArrayListFleet()){
             pickUpResources(seaRoad, boat);

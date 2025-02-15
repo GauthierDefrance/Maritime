@@ -14,6 +14,9 @@ import java.util.ArrayList;
  */
 public final class SearchInGraph {
 
+    /**
+     * Take one points one boat and return the shortest path as a list of GraphPoint
+     */
     public static ArrayList<GraphPoint> findPath(Boat boat, GraphPoint pointEnd) {
         GraphPoint pointStart = new GraphPoint(boat.getPosition(),"temp");
         pointStart.addSegment(new GraphSegment(boat.getGraphPoint1(), (int) pointStart.getPoint().distance(boat.getGraphPoint1().getPoint())));
@@ -21,6 +24,9 @@ public final class SearchInGraph {
         return findPath(pointStart, pointEnd);
     }
 
+    /**
+     * Take two points and return the shortest path as a list of GraphPoint
+     */
     public static ArrayList<GraphPoint> findPath(GraphPoint pointStart, GraphPoint pointEnd) {
         if (pointStart.equals(pointEnd)){ArrayList<GraphPoint> Result = new ArrayList<>();Result.add(pointStart);return Result;}
         ArrayList<ArrayList<GraphSegment>> lstPath = new ArrayList<>(deletePath(getPointToPath(pointStart),pointStart));;

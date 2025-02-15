@@ -5,6 +5,7 @@ import maritime.config.MapBuilder;
 import maritime.engine.entity.boats.Boat;
 import maritime.engine.entity.Harbor;
 import maritime.engine.faction.Faction;
+import maritime.engine.trading.SeaRoad;
 
 import javax.swing.*;
 import java.awt.*;
@@ -64,6 +65,9 @@ public class GameDisplay extends JPanel {
         }
         for (Harbor harbor : map.getPlayer().getLstHarbor()){
             paintEntity.paintPlayer(harbor,g2d);
+        }
+        for(SeaRoad seaRoad: map.getPlayer().getLstSeaRouts()){
+            paintEntity.paint(seaRoad,g2d);
         }
 
         ArrayList<PopUp> lstPopUp = new ArrayList<>();

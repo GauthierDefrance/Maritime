@@ -84,5 +84,5 @@ public class SeaRoad {
     
     public boolean available(){return timer > 0;}
 
-    public String getStringTimer(){return this.timer/60+":"+this.timer%60;}
+    public String getStringTimer(){return (this.timer/60)/60+":"+(this.timer/60)%60+":"+this.timer%60;}
 }

@@ -82,21 +82,25 @@ public class FactionManager {
             fleetUpdate(faction);
         }
     }
-
+    /**
+     * for all faction sea road boat pickUpResources and sellResources and remove sea road if timer < 0
+     */
     public void seaRoutUpdate(Faction faction){
         ArrayList<SeaRoad> lstSeaRouts = new ArrayList<>();
         for (SeaRoad seaRoad : faction.getLstSeaRouts()){
             seaRoutManager.sellAndPickUpAllResources(seaRoad);
             if (!seaRoad.available()){
                 lstSeaRouts.add(seaRoad);
-                seaRoad.getFleet().setContinuePath(false);
+                fleetManager.setContinuePathAll(seaRoad.getFleet(),false);
                 seaRoad.getFleet().setPath(new ArrayList<>());
             }
         }
         faction.getLstSeaRouts().removeAll(lstSeaRouts);
     }
 
-
+    /**
+     * for all map faction sea road boat pickUpResources and sellResources and remove sea road if timer < 0
+     */
     public void allSeaRoutUpdate(){
         for (Faction faction : map.getLstFaction()){
             seaRoutUpdate(faction);

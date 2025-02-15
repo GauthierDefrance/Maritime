@@ -3,6 +3,7 @@ package maritime.gui;
 import maritime.config.GameConfiguration;
 import maritime.engine.entity.*;
 import maritime.engine.entity.boats.*;
+import maritime.engine.trading.SeaRoad;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -69,6 +70,14 @@ public class PaintEntity {
             g2d.setColor(Color.black);
         }
         g2d.rotate(-boat.getAngle(),(int)(boat.getPosition().getX()),(int)(boat.getPosition().getY()));
+    }
+
+    public void paint(SeaRoad seaRoad, Graphics2D g2d){
+        BufferedImage sprite = spriteChoice(seaRoad.getBuyerHarbor().getClass(),seaRoad.getBuyerHarbor().getColor());
+        g2d.setColor(Color.darkGray);
+        g2d.setFont(new Font("a",Font.PLAIN,20));
+        g2d.drawString(seaRoad.getStringTimer(),(int) (seaRoad.getBuyerHarbor().getPosition().getX())- (g2d.getFontMetrics().stringWidth(seaRoad.getStringTimer())/2), (int) (seaRoad.getBuyerHarbor().getPosition().getY())-(sprite.getHeight() / 2)-5);
+        g2d.setColor(Color.black);
     }
 
     public void paintPlayer(Boat boat, Graphics2D g2d){
