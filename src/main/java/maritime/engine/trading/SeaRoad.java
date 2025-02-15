@@ -1,5 +1,6 @@
 package maritime.engine.trading;
 
+import maritime.config.GameConfiguration;
 import maritime.engine.entity.Harbor;
 import maritime.engine.entity.boats.Boat;
 import maritime.engine.entity.boats.Fleet;
@@ -84,5 +85,8 @@ public class SeaRoad {
     
     public boolean available(){return timer > 0;}
 
-    public String getStringTimer(){return (this.timer/60)/60+":"+(this.timer/60)%60+":"+this.timer%60;}
+    public String getStringTimer(){
+        int time = (int) (this.timer*(((double) GameConfiguration.GAME_SPEED) /1000));
+        return time/60+":"+time%60;
+    }
 }

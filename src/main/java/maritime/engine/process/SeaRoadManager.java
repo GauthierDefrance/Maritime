@@ -1,5 +1,6 @@
 package maritime.engine.process;
 
+import maritime.config.GameConfiguration;
 import maritime.config.MapBuilder;
 import maritime.engine.entity.boats.Fleet;
 import maritime.engine.graph.GraphPoint;

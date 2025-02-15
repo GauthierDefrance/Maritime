@@ -80,8 +80,8 @@ public class TestMove extends JFrame implements Runnable {
         map.getLstHarbor().get(3).getInventory().add(resource1,10000);
         map.getLstHarbor().get(0).getInventory().add(resource2,10000);
 
-        SeaRoad seaRoad1 = new SeaRoad(200000,map.getLstHarbor().get(0),map.getLstHarbor().get(3),resource1,resource2,1);
-        SeaRoad seaRoad2 = new SeaRoad(200000,map.getLstHarbor().get(3),map.getLstHarbor().get(0),resource2,resource1,1);
+        SeaRoad seaRoad1 = new SeaRoad(20000,map.getLstHarbor().get(0),map.getLstHarbor().get(3),resource1,resource2,1);
+        SeaRoad seaRoad2 = new SeaRoad(20000,map.getLstHarbor().get(3),map.getLstHarbor().get(0),resource2,resource1,1);
 
         factionManager.getSeaRoadManager().setNewFleet(seaRoad1,fleet1);
         factionManager.getSeaRoadManager().setNewFleet(seaRoad2,fleet2);
