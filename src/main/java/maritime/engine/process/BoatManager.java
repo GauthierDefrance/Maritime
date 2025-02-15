@@ -1,8 +1,10 @@
 package maritime.engine.process;
 
 import maritime.config.MapBuilder;
+import maritime.engine.entity.Harbor;
 import maritime.engine.entity.boats.Boat;
 import maritime.engine.graph.GraphPoint;
+
 import java.util.Collections;
 
 /**
@@ -67,6 +69,16 @@ public class BoatManager {
             boat.setCurrentHp(0);
             return false;
         }
+    }
+
+    /**
+     * Check if a boat reached a targeted harbor
+     * @param boat concerned boat
+     * @param harbor targeted harbor
+     * @return result of the check
+     */
+    public boolean HarborReached (Boat boat, Harbor harbor){
+        return boat.getPosition().equals(harbor.getPreciseGraphPosition());
     }
 
 }

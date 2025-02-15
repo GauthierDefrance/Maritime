@@ -33,7 +33,7 @@ public class FactionManager {
         this.boatManager = new BoatManager(map);
         this.harborManager = new HarborManager(map,new TradeManager());
         this.fleetManager = new FleetManager(map,boatManager);
-        this.seaRoutManager = new SeaRoadManager(map,this.harborManager,new TradeManager(),this.fleetManager);
+        this.seaRoutManager = new SeaRoadManager(map,this.harborManager,new TradeManager(),this.fleetManager, this.boatManager);
         this.lstAttackBoat = new ArrayList<>();
     }
 

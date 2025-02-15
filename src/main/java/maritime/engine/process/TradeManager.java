@@ -1,10 +1,12 @@
 package maritime.engine.process;
 
 import maritime.engine.entity.EntityInterface;
+import maritime.engine.entity.boats.Boat;
 import maritime.engine.trading.Inventory;
 import maritime.engine.trading.Resource;
 
 /**
+ * A class handling how trades should work between Entities (and by extension Factions)
  * @author @Kenan Ammad
  * @author Zue Jack-Arthur
  * @version 0.2
@@ -12,7 +14,7 @@ import maritime.engine.trading.Resource;
 public class TradeManager {
 
     /**
-     * Initialize the TradeManager : class handling all manners of trades between Entities (and by extension Factions)
+     * Initialize the TradeManager : class handling how trades should work between Entities (and by extension Factions)
      */
     public TradeManager() {}
 
@@ -87,8 +89,5 @@ public class TradeManager {
             if (safeAdd(target.getInventory(), resource, nb)) return true;
             else {source.getInventory().add(resource,nb);} //Compensate for the failure to safeAdd the designated number of ressource
         } return false;
-    }
-
-    public void transaction(Resource resource, int nb, EntityInterface source, EntityInterface target){
     }
 }

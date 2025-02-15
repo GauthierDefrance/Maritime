@@ -5,7 +5,6 @@ import maritime.engine.entity.boats.Fleet;
 import maritime.engine.graph.GraphPoint;
 import maritime.engine.trading.SeaRoad;
 import maritime.engine.entity.boats.Boat;
-import maritime.engine.trading.Resource;
 import maritime.gui.PopUp;
 
 import java.awt.*;
@@ -20,12 +19,14 @@ public class SeaRoadManager {
     private final HarborManager harborManager;
     private final TradeManager tradeManager;
     private final FleetManager fleetManager;
+    private final BoatManager boatManager;
 
-    public SeaRoadManager(MapBuilder map, HarborManager harborManager, TradeManager tradeManager, FleetManager fleetManager) {
+    public SeaRoadManager(MapBuilder map, HarborManager harborManager, TradeManager tradeManager, FleetManager fleetManager, BoatManager boatManager) {
         this.map = map;
         this.harborManager = harborManager;
         this.tradeManager = tradeManager;
         this.fleetManager = fleetManager;
+        this.boatManager = boatManager;
     }
 
     public void setNewPath(SeaRoad seaRoad, ArrayList<GraphPoint> path) {
@@ -40,7 +41,7 @@ public class SeaRoadManager {
     }
 
     public void pickUpResources(SeaRoad seaRoad, Boat boat) {
-        if (boat.getPosition().equals(seaRoad.getSellerHarbor().getPreciseGraphPosition())){
+        if (boatManager.HarborReached(boat, seaRoad.getSellerHarbor())){
             tradeManager.transfer(seaRoad.getBuyResource(), boat.getInventory().getNbResource(seaRoad.getBuyResource()), boat, seaRoad.getSellerHarbor());
             int totalFreeSpace = tradeManager.totalFreeSpace(boat.getInventory());
             if (totalFreeSpace!=Math.max(0,(totalFreeSpace * seaRoad.getRatio())-totalFreeSpace)){
@@ -54,8 +55,8 @@ public class SeaRoadManager {
     }
 
     public void sellResources(SeaRoad seaRoad, Boat boat){
-        if (boat.getPosition().equals(seaRoad.getBuyerHarbor().getPreciseGraphPosition())){
-            int nbRessource = boat.getInventory().getNbResource(seaRoad.getSoldResource());
+        if (boatManager.HarborReached(boat, seaRoad.getBuyerHarbor())){
+            int nbRessource = boat.checkNbRessource(seaRoad.getSoldResource());
             if(nbRessource!=0){
                 if(tradeManager.transfer(seaRoad.getSoldResource(),nbRessource,boat, seaRoad.getBuyerHarbor())) {
                     seaRoad.addTime((int) Math.max(nbRessource,nbRessource/ seaRoad.getRatio()));
@@ -75,5 +76,6 @@ public class SeaRoadManager {
         }
         seaRoad.subtractTime(1);
     }
+
 }
 

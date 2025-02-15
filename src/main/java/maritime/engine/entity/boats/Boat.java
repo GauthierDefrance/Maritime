@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import maritime.engine.entity.EntityInterface;
 import maritime.engine.graph.GraphPoint;
 import maritime.engine.trading.Inventory;
+import maritime.engine.trading.Resource;
 
 /**
  * @author @Kenan Ammad
@@ -89,6 +90,14 @@ public abstract class Boat implements EntityInterface {
         return color;
     }
 
+    public GraphPoint getGraphPoint1() {
+        return graphPoint1;
+    }
+
+    public GraphPoint getGraphPoint2() {
+        return graphPoint2;
+    }
+
     //Setters
 
     public void setContinuePath(boolean continuePath) {this.continuePath = continuePath;}
@@ -127,26 +136,28 @@ public abstract class Boat implements EntityInterface {
         this.color = color;
     }
 
-    //Logic Methods (à déplacer)
-
-    public void addIPath(int iPath) {this.iPath += iPath;}
-
-    public void addCurrentHp(int currentHp) {this.currentHp += currentHp;}
-
-    public GraphPoint getGraphPoint1() {
-        return graphPoint1;
-    }
-
     public void setGraphPoint1(GraphPoint graphPoint1) {
         this.graphPoint1 = graphPoint1;
-    }
-
-    public GraphPoint getGraphPoint2() {
-        return graphPoint2;
     }
 
     public void setGraphPoint2(GraphPoint graphPoint2) {
         this.graphPoint2 = graphPoint2;
     }
+
+    //Basic boat handling
+
+    public void addIPath(int iPath) {this.iPath += iPath;}
+
+    public void addCurrentHp(int currentHp) {this.currentHp += currentHp;}
+
+    /**
+     * check how many elements of a ressource this boat's inventory has
+     * @param resource the targeted ressource
+     * @return number of element of said ressource
+     */
+    public int checkNbRessource(Resource resource) {
+        return this.inventory.getNbResource(resource);
+    }
+
 }
 
