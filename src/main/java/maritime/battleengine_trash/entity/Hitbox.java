@@ -18,8 +18,7 @@ public class Hitbox {
     }
 
     public boolean intersects(Hitbox hitbox) {
-
-
+        return true;
     }
 
 
