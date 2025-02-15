@@ -1,56 +1,26 @@
 package maritime.battleengine_trash.entity;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
+
+/**
+ * @author @Gauthier Defrance
+ * @version 0.1
+ */
 public class Hitbox {
-    public int width;
-    public int height;
+    public Rectangle2D rect;
     public int angle;
-    public Point cornerTopLeft;
-    public Hitbox(int w, int h, Point cornerTopLeft) {
-        width = w;
-        height = h;
-        this.cornerTopLeft = cornerTopLeft;
+
+    public Hitbox(int x, int y, int width, int height, int angle) {
+        this.rect = new Rectangle2D.Double(x, y, width, height);
+        this.angle = angle;
     }
 
-    /**
-     * Méthode vérifiant si une Hitbox contient un objet point.
-     * @param p
-     * @return Boolean
-     */
-    public boolean contains(Point p) { //A modifier car les bateaux peuvent être pencher avec l'angle
-        double xo =  p.getX();
-        double yo =  p.getY();
+    public boolean intersects(Hitbox hitbox) {
 
-        double x = cornerTopLeft.getX();
-        double y = cornerTopLeft.getY();
 
-        return x< xo && xo < x+width &&
-                y< yo && yo < y+height;
     }
 
-    /**
-     * Méthode vérifiant si une Hitbox est en collision avec une autre hitbox.
-     * @param other
-     * @return Boolean
-     */
-    public boolean collide(Hitbox other) {
-        double x1 = cornerTopLeft.getX();
-        double y1 = cornerTopLeft.getY();
-        double x2 = other.cornerTopLeft.getX();
-        double y2 = other.cornerTopLeft.getY();
-
-        return (x1 + width > x2 && x2 + other.width > x1 &&
-                y1 + height > y2 && y2 + other.height > y1);
-    }
-
-    /**
-     * Méthode vérifiant si une Hitbox et une autre sont égals.
-     * @param other
-     * @return Boolean
-     */
-    public boolean equals(Hitbox other) {
-        return width == other.width && height == other.height && cornerTopLeft.equals(other.cornerTopLeft);
-    }
 
 }
