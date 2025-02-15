@@ -86,7 +86,8 @@ public class StartMenu extends JFrame {
         window.add(BorderLayout.SOUTH, creditsDisplay);
 
         setSize(GameConfiguration.WINDOW_SIZE);
-        setVisible(true); setResizable(false);
+        setLocationRelativeTo(null);
+        setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }

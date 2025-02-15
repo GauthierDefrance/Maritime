@@ -1,10 +1,7 @@
 package maritime.engine.entity.boats;
 
 import maritime.config.GameConfiguration;
-import maritime.engine.entity.boats.Boat;
 import maritime.engine.graph.GraphPoint;
-
-import java.awt.*;
 
 public class Military extends Boat {
     public Military(String name,String color, GraphPoint position) {

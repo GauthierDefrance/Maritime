@@ -1,7 +1,6 @@
 package maritime.engine.process;
 
 import maritime.engine.entity.EntityInterface;
-import maritime.engine.entity.boats.Boat;
 import maritime.engine.trading.Inventory;
 import maritime.engine.trading.Resource;
 
