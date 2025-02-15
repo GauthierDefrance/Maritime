@@ -76,7 +76,7 @@ public class PaintEntity {
         BufferedImage sprite = spriteChoice(seaRoad.getBuyerHarbor().getClass(),seaRoad.getBuyerHarbor().getColor());
         g2d.setColor(Color.darkGray);
         g2d.setFont(new Font("time20",Font.PLAIN,20));
-        g2d.drawString(seaRoad.getStringTimer(),(int) (seaRoad.getBuyerHarbor().getPosition().getX())- (g2d.getFontMetrics().stringWidth(seaRoad.getStringTimer())/2), (int) (seaRoad.getBuyerHarbor().getPosition().getY())-(sprite.getHeight() / 2)-5);
+        if(sprite!=null)g2d.drawString(seaRoad.getStringTimer(),(int) (seaRoad.getBuyerHarbor().getPosition().getX())- (g2d.getFontMetrics().stringWidth(seaRoad.getStringTimer())/2), (int) (seaRoad.getBuyerHarbor().getPosition().getY())-(sprite.getHeight() / 2)-5);
         g2d.setColor(Color.black);
     }
 
