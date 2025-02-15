@@ -6,8 +6,8 @@ import maritime.battleengine_trash.zone.SpawnZone;
 import java.util.Timer;
 
 public class Battle {
-    private Team teamA;
-    private Team teamB;
+    private final Team teamA;
+    private final Team teamB;
 
     private SpawnZone spawnZoneA;
     private SpawnZone spawnZoneB;

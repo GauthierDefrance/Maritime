@@ -42,4 +42,10 @@ public class GameConfiguration {
     public static final Dimension WINDOW_SIZE = new Dimension(640, 360);
     public static final Font FONT = new Font( "Noto Sans Display", Font.BOLD, 20);
     public static final Font CREDITS_FONT = new Font("Noto Sans Display", Font.BOLD, 10);
+
+
+    public static final double BULLET_SPEED = 100;
+    public static final double BULLET_FRICTION = 0.9;
+
+
 }

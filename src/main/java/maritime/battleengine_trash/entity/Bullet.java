@@ -4,10 +4,10 @@ import java.awt.*;
 
 public class Bullet {
     private Point position;
-    private int speed;
+    private double speed;
     private int angle;
 
-    public Bullet(Point position, int speed, int angle) {
+    public Bullet(Point position, double speed, int angle) {
         this.position = position;
         this.speed = speed;
         this.angle = angle;
@@ -17,7 +17,7 @@ public class Bullet {
     public Point getPosition() {
         return position;
     }
-    public int getSpeed() {
+    public double getSpeed() {
         return speed;
     }
     public int getAngle() {
@@ -28,7 +28,7 @@ public class Bullet {
     public void setPosition(Point position) {
         this.position = position;
     }
-    public void setSpeed(int speed) {
+    public void setSpeed(double speed) {
         this.speed = speed;
     }
 
