@@ -61,7 +61,7 @@ public class Rectangle {
 
 
     public boolean intersects(Rectangle r) {
-
+        return true;
     }
 
 
