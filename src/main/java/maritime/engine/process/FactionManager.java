@@ -27,6 +27,9 @@ public class FactionManager {
     private final SeaRoadManager seaRoutManager;
     private ArrayList<Boat[]> lstAttackBoat;
 
+    /**
+     * Typical builder generating an FactionManager
+     */
     public FactionManager(MapBuilder map) {
         this.map = map;
         this.playerManager = new PlayerManager(map);
@@ -45,25 +48,35 @@ public class FactionManager {
         playerManager.updatePlayerVision();
     }
 
+    /**
+     * Take all faction boat and make it follow its path, don't do anything if the path is empty
+     */
     public void moveFactionBoat(Faction faction){
         for (Boat boat : faction.getLstBoat()){
             boatManager.followThePath(boat);
         }
     }
 
+    /**
+     * Take all map boat and make it follow its path, don't do anything if the path is empty
+     */
     public void moveAllFactionBoat(){
         for (Faction faction : map.getLstFaction()){
             moveFactionBoat(faction);
         }
     }
-
+    /**
+     * Take a faction and for all faction fleet update all boat fleet path if is empty
+     */
     public void fleetUpdate(Faction faction){
         for (Fleet fleet : faction.getLstFleet()){
-            if(!fleet.getPath().isEmpty())fleetManager.pathUpdate(fleet);
+            fleetManager.pathUpdate(fleet);
         }
     }
 
-
+    /**
+     * Take a map and for all faction fleet update all boat fleet path if is empty
+     */
     public void allFleetUpdate(){
         for (Faction faction : map.getLstFaction()){
             fleetUpdate(faction);

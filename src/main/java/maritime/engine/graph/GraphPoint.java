@@ -29,10 +29,7 @@ public class GraphPoint {
         SegmentHashMap = new HashMap<String,GraphSegment>();
     }
 
-    public void addSegment(GraphSegment segment) {
-        SegmentHashMap.put(segment.getGraphPoint().getIdPoint(), segment);
-    }
-
+    public void addSegment(GraphSegment segment) {SegmentHashMap.put(segment.getGraphPoint().getIdPoint(), segment);}
 
     public HashMap<String,GraphSegment> getSegmentHashMap() {return SegmentHashMap;}
 

@@ -21,6 +21,9 @@ public class SeaRoadManager {
     private final TradeManager tradeManager;
     private final FleetManager fleetManager;
 
+    /**
+     * Typical builder generating an SeaRoadManager
+     */
     public SeaRoadManager(MapBuilder map, HarborManager harborManager, TradeManager tradeManager, FleetManager fleetManager) {
         this.map = map;
         this.harborManager = harborManager;
@@ -28,11 +31,17 @@ public class SeaRoadManager {
         this.fleetManager = fleetManager;
     }
 
+
+    /**
+     * Take a seaRoad set the path and set the fleet path
+     */
     public void setNewPath(SeaRoad seaRoad, ArrayList<GraphPoint> path) {
         seaRoad.setPath(path);
         fleetManager.setNewPath(seaRoad.getFleet(),path);
     }
-
+    /**
+     * Take a seaRoad set the fleet and set the continuePath of the fleet true and set the fleet path
+     */
     public void setNewFleet(SeaRoad seaRoad, Fleet fleet) {
         seaRoad.setFleet(fleet);
         fleet.setContinuePath(true);

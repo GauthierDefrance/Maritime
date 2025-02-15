@@ -16,17 +16,26 @@ public class FleetManager {
     private final MapBuilder map;
     private final BoatManager boatManager;
 
+    /**
+     * Typical builder generating an FleetManager
+     */
     public FleetManager(MapBuilder map, BoatManager boatManager) {
         this.map = map;
         this.boatManager = boatManager;
     }
 
+    /**
+     * Take a fleet and make it continuePath true or false
+     */
     public void setContinuePathAll(Fleet fleet, boolean continuePath) {
         for (Boat boat : fleet.getArrayListFleet()){
             boat.setContinuePath(continuePath);
         }
     }
 
+    /**
+     * Take a fleet and make it path empty and is continuePath false
+     */
     public void removePath(Fleet fleet){
         fleet.getPath().clear();
         setContinuePathAll(fleet, false);
@@ -35,6 +44,9 @@ public class FleetManager {
         }
     }
 
+    /**
+     * Take a fleet and update all boat fleet path if is empty
+     */
     public void pathUpdate(Fleet fleet){
         if(!fleet.getPath().isEmpty()){
             for(Boat boat : fleet.getArrayListFleet()){
@@ -53,6 +65,9 @@ public class FleetManager {
         }
     }
 
+    /**
+     * Take a fleet set the path and clear all boat fleet Path
+     */
     public void setNewPath(Fleet fleet, ArrayList<GraphPoint> path){
         ArrayList<GraphPoint> newPath = new ArrayList<>();
         newPath.addAll(path);

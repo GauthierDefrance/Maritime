@@ -14,10 +14,16 @@ import java.util.ArrayList;
 public class PlayerManager {
     private final MapBuilder map;
 
+    /**
+     * Typical builder generating an PlayerManager
+     */
     public PlayerManager(MapBuilder map){
         this.map = map;
     }
 
+    /**
+     * checks which boat should be displayed to the player
+     */
     public void updatePlayerVision(){
         ArrayList<Boat> vision = new ArrayList<>();
         for (Faction faction : map.getLstBotFaction()){
