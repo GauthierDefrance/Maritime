@@ -1,6 +1,5 @@
 package maritime.engine.process;
 
-
 import maritime.config.GameConfiguration;
 import maritime.config.MapBuilder;
 import maritime.engine.entity.boats.Fleet;
@@ -15,7 +14,7 @@ import java.util.Collections;
 /**
  * @author @Kenan Ammad
  * Classe FactionManager
- * @version 0.4
+ * @version 0.5
  */
 
 public class FactionManager {
@@ -121,12 +120,12 @@ public class FactionManager {
             StartFight(tbBoat[0],tbBoat[1]);
             lstAttackBoat.remove(tbBoat);
             tbBoat[0].getPath().clear();
-            tbBoat[0].setGraphPoint2(tbBoat[1].getGraphPoint2());
+            tbBoat[0].setNextGraphPoint(tbBoat[1].getNextGraphPoint());
         }
         else if (tbBoat[0].getVisionRadius()+20 < distance){
             lstAttackBoat.remove(tbBoat);
             tbBoat[0].getPath().clear();
-            tbBoat[0].setGraphPoint2(tbBoat[1].getGraphPoint2());
+            tbBoat[0].setNextGraphPoint(tbBoat[1].getNextGraphPoint());
         }
     }
 

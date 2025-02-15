@@ -1,6 +1,5 @@
 package maritime.engine.process;
 
-import maritime.config.GameConfiguration;
 import maritime.config.MapBuilder;
 import maritime.engine.entity.boats.Fleet;
 import maritime.engine.graph.GraphPoint;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 
 /**
  * @author @Kenan Ammad
- * @version 0.1
+ * @version 0.3
  */
 public class SeaRoadManager {
     private final MapBuilder map;
@@ -62,7 +61,7 @@ public class SeaRoadManager {
                 if (!tradeManager.transfer(seaRoad.getSoldResource(), Math.min(totalFreeSpace, (int) (totalFreeSpace * seaRoad.getRatio())), seaRoad.getSellerHarbor(), boat)) {
                     tradeManager.transfer(seaRoad.getSoldResource(), seaRoad.getSellerHarbor().getInventory().getNbResource(seaRoad.getSoldResource()), seaRoad.getSellerHarbor(), boat);
                 }
-                map.addPopUp(new PopUp("-",new Point((int) boat.getPosition().getX(), (int) boat.getPosition().getY()-10)));
+                if(map.getPlayer().getLstBoat().contains(boat))map.addPopUp(new PopUp("-",new Point((int) boat.getPosition().getX(), (int) boat.getPosition().getY()-10)));
             }
         }
     }
@@ -76,7 +75,7 @@ public class SeaRoadManager {
             if(nbRessource!=0){
                 if(tradeManager.transfer(seaRoad.getSoldResource(),nbRessource,boat, seaRoad.getBuyerHarbor())) {
                     seaRoad.addTime((int) Math.max(nbRessource,nbRessource/ seaRoad.getRatio()));
-                    map.addPopUp(new PopUp("+",new Point((int) boat.getPosition().getX(), (int) boat.getPosition().getY()-10)));
+                    if(map.getPlayer().getLstBoat().contains(boat)||map.getPlayer().getLstHarbor().contains(seaRoad.getBuyerHarbor()))map.addPopUp(new PopUp("+",new Point((int) boat.getPosition().getX(), (int) boat.getPosition().getY()-10)));
                 }
                 if(!tradeManager.transfer(seaRoad.getBuyResource(), (int) (nbRessource/ seaRoad.getRatio()), seaRoad.getBuyerHarbor(),boat)){
                     if (tradeManager.totalFreeSpace(boat.getInventory()) >= (int) (nbRessource/ seaRoad.getRatio())) seaRoad.abandonTask();

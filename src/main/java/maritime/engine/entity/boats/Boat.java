@@ -25,8 +25,8 @@ public abstract class Boat implements EntityInterface {
     private int speed;
     private double angle;
     private ArrayList<GraphPoint> path;
-    private GraphPoint graphPoint1;
-    private GraphPoint graphPoint2;
+    private GraphPoint oldGraphPoint;
+    private GraphPoint nextGraphPoint;
     private int iPath;
     private boolean continuePath;
     private final Inventory inventory;
@@ -44,8 +44,8 @@ public abstract class Boat implements EntityInterface {
         this.iPath = 0;
         this.continuePath = false;
         this.inventory = new Inventory(inventorySize);
-        this.graphPoint2 = position;
-        this.graphPoint1 = position;
+        this.nextGraphPoint = position;
+        this.oldGraphPoint = position;
     }
 
     //Getters
@@ -91,12 +91,12 @@ public abstract class Boat implements EntityInterface {
         return color;
     }
 
-    public GraphPoint getGraphPoint1() {
-        return graphPoint1;
+    public GraphPoint getOldGraphPoint() {
+        return oldGraphPoint;
     }
 
-    public GraphPoint getGraphPoint2() {
-        return graphPoint2;
+    public GraphPoint getNextGraphPoint() {
+        return nextGraphPoint;
     }
 
     public Point getBattlePosition() {return battlePosition;}
@@ -139,12 +139,12 @@ public abstract class Boat implements EntityInterface {
         this.color = color;
     }
 
-    public void setGraphPoint1(GraphPoint graphPoint1) {
-        this.graphPoint1 = graphPoint1;
+    public void setOldGraphPoint(GraphPoint oldGraphPoint) {
+        this.oldGraphPoint = oldGraphPoint;
     }
 
-    public void setGraphPoint2(GraphPoint graphPoint2) {
-        this.graphPoint2 = graphPoint2;
+    public void setNextGraphPoint(GraphPoint nextGraphPoint) {
+        this.nextGraphPoint = nextGraphPoint;
     }
 
     public void setBattlePosition(Point battlePosition) {this.battlePosition = battlePosition;}

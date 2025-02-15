@@ -4,7 +4,6 @@ import maritime.config.GameConfiguration;
 import maritime.config.MapBuilder;
 import maritime.engine.entity.boats.Boat;
 import maritime.engine.entity.Harbor;
-import maritime.engine.faction.Faction;
 import maritime.engine.trading.SeaRoad;
 
 import javax.swing.*;

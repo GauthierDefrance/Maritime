@@ -10,7 +10,7 @@ import java.util.Collections;
 /**
  * @author @Kenan Ammad
  * Classe BoatManager
- * @version 0.2
+ * @version 0.3
  */
 public class BoatManager {
 
@@ -54,10 +54,10 @@ public class BoatManager {
      * Take a boat and update its Path if we are at the end of the path returns it revers the path if continuePath is true otherwise makes it empty
      */
     private void weAreOnPoint(Boat boat){
-        boat.setGraphPoint1(boat.getGraphPoint2());
+        boat.setOldGraphPoint(boat.getNextGraphPoint());
         if (boat.getPath().size()>boat.getIPath()+1){
             boat.addIPath(1);
-            boat.setGraphPoint2(boat.getPath().get(boat.getIPath()));
+            boat.setNextGraphPoint(boat.getPath().get(boat.getIPath()));
         }
         else {
             boat.setIPath(0);

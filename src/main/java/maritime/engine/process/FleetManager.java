@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * @author @Kenan Ammad
  * Classe FactionManager
- * @version 0.2
+ * @version 0.3
  */
 public class FleetManager {
     private final MapBuilder map;
