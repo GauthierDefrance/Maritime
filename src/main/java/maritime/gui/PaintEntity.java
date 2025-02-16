@@ -19,7 +19,7 @@ public class PaintEntity {
     private BufferedImage[][] tbSprite;
 
     /**
-     * Typical builder generating an PaintEntity
+     * Typical constructor generating an PaintEntity
      */
     public PaintEntity(){
         tbSprite = new BufferedImage[5][4];

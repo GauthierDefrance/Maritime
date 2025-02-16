@@ -23,7 +23,7 @@ public class GameDisplay extends JPanel {
     private final PaintPopUp paintPopUp;
 
     /**
-     * Typical builder generating an GameDisplay
+     * Typical constructor generating an GameDisplay
      */
     public GameDisplay(MapBuilder map){
         this.map = map;
