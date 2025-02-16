@@ -16,7 +16,6 @@ import java.util.Collections;
  * Classe FactionManager
  * @version 0.5
  */
-
 public class FactionManager {
     private final MapBuilder map;
     private final PlayerManager playerManager;
@@ -64,6 +63,7 @@ public class FactionManager {
             moveFactionBoat(faction);
         }
     }
+
     /**
      * Take a faction and for all faction fleet update all boat fleet path if is empty
      */
@@ -81,6 +81,7 @@ public class FactionManager {
             fleetUpdate(faction);
         }
     }
+
     /**
      * for all faction sea road boat pickUpResources and sellResources and remove sea road if timer < 0
      */
@@ -106,7 +107,9 @@ public class FactionManager {
         }
     }
 
-
+    /**
+     * Take a boat and make it chase an another
+     */
     public void chaseBoat(Boat boat, Boat chasedBoat){
         lstAttackBoat.add(new Boat[]{boat,chasedBoat});
         boat.setPath(new ArrayList<>(Collections.singleton(new GraphPoint(chasedBoat.getPosition(), "target"))));
@@ -114,6 +117,9 @@ public class FactionManager {
         boat.setContinuePath(false);
     }
 
+    /**
+     * Take two boats starts a fight if they are in contact cancels the chase if they are too far away
+     */
     public void chaseUpdate(Boat[] tbBoat){
         double distance = Math.sqrt(Math.pow((tbBoat[1].getPosition().getX() - tbBoat[0].getPosition().getX()), 2) + Math.pow((tbBoat[1].getPosition().getY() - tbBoat[0].getPosition().getY()), 2));
         if(GameConfiguration.HITBOX_BOAT-5 >= distance){
@@ -129,6 +135,9 @@ public class FactionManager {
         }
     }
 
+    /**
+     * For all the boats that are on the chase starts a fight if they are in contact cancels the chase if they are too far away
+     */
     public void allChaseUpdate(){
         ArrayList<Boat[]> lstAttackBoatTemp = new ArrayList<>();
         lstAttackBoatTemp.addAll(lstAttackBoat);
@@ -160,6 +169,9 @@ public class FactionManager {
         JOptionPane.showMessageDialog(null, vision1+"vs"+vision2);
     }
 
+    /**
+     * Take a color and return the faction associated with that color
+     */
     public Faction getMyFaction(String color){
         for (Faction faction : map.getLstFaction()) {
             if (faction.getColor().equals(color)) {

@@ -31,6 +31,7 @@ public class BoatManager {
             approachingToPoint(boat,boat.getPath().get(boat.getIPath()));
         }
     }
+
     /**
      * Take a boat and make it follow the point
      */
@@ -50,6 +51,7 @@ public class BoatManager {
             moveTo(Math.round(x2 + Math.cos(boat.getAngle()) * boat.getSpeed()), Math.round(y2 + Math.sin(boat.getAngle()) * boat.getSpeed()), boat);// Sinon, on se déplace en direction de notre point grâce aux formules de trigonometrie
         }
     }
+
     /**
      * Take a boat and update its Path if we are at the end of the path returns it revers the path if continuePath is true otherwise makes it empty
      */
