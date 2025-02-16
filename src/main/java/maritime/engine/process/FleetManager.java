@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  * @author @Kenan Ammad
- * Classe FactionManager
+ * @see FactionManager
  * @version 0.3
  */
 public class FleetManager {
@@ -17,7 +17,7 @@ public class FleetManager {
     private final BoatManager boatManager;
 
     /**
-     * Typical builder generating an FleetManager
+     * Initialize a FleetManager : a way to handle multiple boats with the same goal
      */
     public FleetManager(MapBuilder map, BoatManager boatManager) {
         this.map = map;
@@ -25,7 +25,9 @@ public class FleetManager {
     }
 
     /**
-     * Take a fleet and make it continuePath true or false
+     * Changes a given fleet behavior by asking them keep on following a path or not according to a boolean
+     * @param fleet targeted fleet
+     * @param continuePath boolean setting the expected behavior
      */
     public void setContinuePathAll(Fleet fleet, boolean continuePath) {
         fleet.setContinuePath(continuePath);
@@ -35,7 +37,8 @@ public class FleetManager {
     }
 
     /**
-     * Take a fleet and make it path empty and is continuePath false
+     * Remove the path a fleet is supposed to be following by clearing it
+     * @param fleet targeted fleet
      */
     public void removePath(Fleet fleet){
         fleet.getPath().clear();
@@ -46,7 +49,8 @@ public class FleetManager {
     }
 
     /**
-     * Take a fleet and update all boat fleet path if is empty
+     * Update a fleet Path if necessary
+     * @param fleet targeted fleet
      */
     public void pathUpdate(Fleet fleet){
         if(!fleet.getPath().isEmpty()){
@@ -67,7 +71,7 @@ public class FleetManager {
     }
 
     /**
-     * Take a fleet set the path and clear all boat fleet Path
+     * change a fleet path to a brand new one
      */
     public void setNewPath(Fleet fleet, ArrayList<GraphPoint> path){
         ArrayList<GraphPoint> newPath = new ArrayList<>();

@@ -12,7 +12,7 @@ public class Inventory {
     private int capacity;
 
     /**
-     * Typical builder generating an Inventory
+     * Typical constructor generating an Inventory
      * @param capacity maximum capacity
      */
     public Inventory(int capacity) {
@@ -21,7 +21,7 @@ public class Inventory {
     }
 
     /**
-     * Builder generating an Inventory with unlimited capacity
+     * Constructor generating an Inventory with unlimited capacity
      */
     public Inventory() {
        this.content = new HashMap<>();

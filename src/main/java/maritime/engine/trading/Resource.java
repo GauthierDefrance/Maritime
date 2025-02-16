@@ -12,7 +12,7 @@ public class Resource {
     private double productionRate;
 
     /**
-     * A typical builder to make instances of Resources
+     * A typical constructor to make instances of Resources
      * @param name identifying String
      * @param value default selling value
      * @param productionRate default speed of generation

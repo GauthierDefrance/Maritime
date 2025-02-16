@@ -22,7 +22,7 @@ public class SeaRoadManager {
     private final BoatManager boatManager;
 
     /**
-     * Typical builder generating an SeaRoadManager
+     * Typical constructor generating a SeaRoadManager
      */
     public SeaRoadManager(MapBuilder map, HarborManager harborManager, TradeManager tradeManager, FleetManager fleetManager, BoatManager boatManager) {
         this.map = map;
@@ -32,14 +32,16 @@ public class SeaRoadManager {
         this.boatManager = boatManager;
     }
 
-
     /**
-     * Take a seaRoad set the path and set the fleet path
+     * set the path associated with a SeaRoad (and by extension the fleet that should circulate on this seaRoad)
+     * @param seaRoad targeted seaRoad
+     * @param path the new Path
      */
     public void setNewPath(SeaRoad seaRoad, ArrayList<GraphPoint> path) {
         seaRoad.setPath(path);
         fleetManager.setNewPath(seaRoad.getFleet(),path);
     }
+
     /**
      * Take a seaRoad set the fleet and set the continuePath of the fleet true and set the fleet path
      */
@@ -51,6 +53,8 @@ public class SeaRoadManager {
 
     /**
      * If the boat is on the seller harbor point, proceeds the exchange
+     * @param seaRoad targeted seaRoad
+     * @param boat targeted boat
      */
     public void pickUpResources(SeaRoad seaRoad, Boat boat) {
         if (boatManager.HarborReached(boat, seaRoad.getSellerHarbor())){
@@ -68,6 +72,8 @@ public class SeaRoadManager {
 
     /**
      * If the boat is on the buyer harbor point, pick-up the resources for the exchange
+     * @param seaRoad targeted seaRoad
+     * @param boat targeted boat
      */
     public void sellResources(SeaRoad seaRoad, Boat boat){
         if (boatManager.HarborReached(boat, seaRoad.getBuyerHarbor())){
@@ -83,8 +89,10 @@ public class SeaRoadManager {
             }
         }
     }
+
     /**
-     * for all sea road boat pickUpResources and sellResources
+     * Order all Boats associated with a designated seaRoad to do their tasks
+     * @param seaRoad targeted seaRoad
      */
     public void sellAndPickUpAllResources(SeaRoad seaRoad){
         for (Boat boat : seaRoad.getFleet().getArrayListFleet()){

@@ -15,7 +15,7 @@ public class PlayerManager {
     private final MapBuilder map;
 
     /**
-     * Typical builder generating an PlayerManager
+     * Initialize the PlayerManager
      */
     public PlayerManager(MapBuilder map){
         this.map = map;

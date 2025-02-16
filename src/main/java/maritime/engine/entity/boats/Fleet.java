@@ -1,9 +1,14 @@
 package maritime.engine.entity.boats;
 
 import maritime.engine.graph.GraphPoint;
-
 import java.util.ArrayList;
 
+/**
+ * Class representing fleets : group of boats with common goals
+ * @author Zue Jack-Arthur
+ * @author @Kenan Ammad
+ * @version 0.2
+ */
 public class Fleet {
     private ArrayList<Boat> fleet;
     private ArrayList<GraphPoint> path;

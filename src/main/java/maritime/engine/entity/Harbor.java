@@ -7,7 +7,9 @@ import maritime.engine.trading.Inventory;
 import java.awt.*;
 
 /**
+ * Class representing Harbors : pivotal elements in gameplay serving as commercial and strategic points
  * @author @Kenan Ammad
+ * @author Zue Jack-Arthur
  * @version 0.2
  */
 public class Harbor implements EntityInterface {
@@ -19,8 +21,6 @@ public class Harbor implements EntityInterface {
     private int maxHp;
     private int currentHp;
     private final Inventory inventory;
-
-
 
     public Harbor(String name,String color, Point position,GraphPoint graphPosition) {
         this.name = name;

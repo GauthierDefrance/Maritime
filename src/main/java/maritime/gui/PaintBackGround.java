@@ -20,7 +20,7 @@ public class PaintBackGround {
     private int currentFrame = 0;
 
     /**
-     * Typical builder generating an PaintBackGround
+     * Typical constructor generating an PaintBackGround
      */
     public PaintBackGround(){
         try {
@@ -33,7 +33,7 @@ public class PaintBackGround {
     }
 
     /**
-     * It paints a backGround that needs to be painted on 2D graphics
+     * Paints a backGround that needs to be painted on 2D graphics
      */
     public void paint(Graphics2D g2d){
         if (frames.size() > currentFrame){

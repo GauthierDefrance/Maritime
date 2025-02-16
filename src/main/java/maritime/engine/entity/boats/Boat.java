@@ -9,6 +9,7 @@ import maritime.engine.trading.Inventory;
 import maritime.engine.trading.Resource;
 
 /**
+ * Abstract class representing boats without specificities
  * @author @Kenan Ammad
  * @author Zue Jack-Arthur
  * @version 0.2
@@ -128,7 +129,6 @@ public abstract class Boat implements EntityInterface {
     public void setPosition(Point position) {this.position = position;}
 
     public void setPosition(double x,double y) {position.setLocation(x,y);}
-
 
     public void setDamageSpeed(int damageSpeed) {this.damageSpeed = damageSpeed;}
 

@@ -17,7 +17,7 @@ public class PaintPopUp {
     private MapBuilder map;
 
     /**
-     * Typical builder generating an PaintPopUp
+     * Typical constructor generating an PaintPopUp
      */
     public PaintPopUp(MapBuilder map){
         this.map=map;

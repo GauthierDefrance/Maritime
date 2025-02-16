@@ -108,13 +108,15 @@ public class FactionManager {
     }
 
     /**
-     * Take a boat and make it chase an another
+     * Initialize a chase between two boats
+     * @param hunter chasing boat
+     * @param prey chased boat
      */
-    public void chaseBoat(Boat boat, Boat chasedBoat){
-        lstAttackBoat.add(new Boat[]{boat,chasedBoat});
-        boat.setPath(new ArrayList<>(Collections.singleton(new GraphPoint(chasedBoat.getPosition(), "target"))));
-        boat.setIPath(0);
-        boat.setContinuePath(false);
+    public void chaseBoat(Boat hunter, Boat prey){
+        lstAttackBoat.add(new Boat[]{hunter,prey});
+        hunter.setPath(new ArrayList<>(Collections.singleton(new GraphPoint(prey.getPosition(), "target"))));
+        hunter.setIPath(0);
+        hunter.setContinuePath(false);
     }
 
     /**
@@ -170,7 +172,8 @@ public class FactionManager {
     }
 
     /**
-     * Take a color and return the faction associated with that color
+     * gives the faction associated with a color
+     * @param color a String representing a color
      */
     public Faction getMyFaction(String color){
         for (Faction faction : map.getLstFaction()) {

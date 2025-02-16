@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Simple start menu for the game
+ * Simple start menu for the game, serves as the entrypoint of the program
  * @author Zue Jack-Arthur
  * @version 0.1
  */
@@ -27,11 +27,17 @@ public class StartMenu extends JFrame {
     private JPanel creditsDisplay;
     private JPanel buttonDisplay;
 
+    /**
+     * Typical constructor to make the StartMenu appear
+     */
     public StartMenu() {
         super("Maritime");
         init();
     }
 
+    /**
+     * Allows the generation of the StartMenu GUI
+     */
     private void init() {
         Container window = getContentPane();
         window.setLayout(new BorderLayout());
@@ -91,6 +97,10 @@ public class StartMenu extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
+
+    /**
+     * An ActionListener allowing to start the game (currently starts the TestMove demo)
+     */
     private class StartGameListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -112,6 +122,9 @@ public class StartMenu extends JFrame {
         }
     }
 
+    /**
+     * An ActionListener allowing to exit the game
+     */
     private class ExitListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -130,6 +143,10 @@ public class StartMenu extends JFrame {
         }
     }
 
+    /**
+     * Point of entry of the program
+     * @param args empty (a Java Convention not relevant this far)
+     */
     public static void main(String[] args) {
         new StartMenu();
     }

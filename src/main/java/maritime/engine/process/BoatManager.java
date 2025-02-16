@@ -9,6 +9,7 @@ import java.util.Collections;
 
 /**
  * @author @Kenan Ammad
+ * @author Zue Jack-Arthur
  * Classe BoatManager
  * @version 0.3
  */
@@ -17,14 +18,15 @@ public class BoatManager {
     private final MapBuilder map;
 
     /**
-     * Typical builder generating an BoatManager
+     * Typical constructor generating an BoatManager
      */
     public BoatManager(MapBuilder map) {
         this.map = map;
     }
 
     /**
-     * Take a boat and make it follow its path, don't do anything if the path is empty
+     * If a given boat has a path to follow, make sure it does
+     * @param boat targeted boat
      */
     public void followThePath(Boat boat){
         if (!boat.getPath().isEmpty()){
@@ -34,6 +36,7 @@ public class BoatManager {
 
     /**
      * Take a boat and make it follow the point
+     * @param boat targeted boat
      */
     public void approachingToPoint(Boat boat, GraphPoint point){
         double x1 = point.getX();
@@ -53,7 +56,8 @@ public class BoatManager {
     }
 
     /**
-     * Take a boat and update its Path if we are at the end of the path returns it revers the path if continuePath is true otherwise makes it empty
+     *Update a boat path if we reached the end of the previous one, simply reverses it if continuePath is true otherwise makes it empty
+     * @param boat targeted boat
      */
     private void weAreOnPoint(Boat boat){
         boat.setOldGraphPoint(boat.getNextGraphPoint());
@@ -70,6 +74,9 @@ public class BoatManager {
 
     /**
      * Take a boat and Change its position
+     * @param x coordinate x
+     * @param y coordinate y
+     * @param boat targeted boat
      */
     public void moveTo(double x,double y,Boat boat){
         boat.setPosition(x,y);

@@ -73,14 +73,11 @@ public class GameDisplay extends JPanel {
         for(SeaRoad seaRoad: map.getPlayer().getLstSeaRouts()){
             paintEntity.paint(seaRoad,g2d);
         }
-
         ArrayList<PopUp> lstPopUp = new ArrayList<>();
         lstPopUp.addAll(map.getLstPopUp());
         for (PopUp popUp : lstPopUp){
             paintPopUp.paint(popUp,g2d);
         }
-
         g2d.scale(GameConfiguration.GAME_SCALE,GameConfiguration.GAME_SCALE);
-
     }
 }

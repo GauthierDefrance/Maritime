@@ -11,7 +11,9 @@ public class PopUp {
     private Point position;
 
     /**
-     * Typical builder generating an PopUp
+     * Typical constructor generating a PopUp
+     * @param name identifying name of the PopUP
+     * @param position expected location of the PopUp
      */
     public PopUp(String name,Point position){
         this.name=name;

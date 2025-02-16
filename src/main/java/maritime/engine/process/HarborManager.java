@@ -10,7 +10,7 @@ public class HarborManager {
     private final MapBuilder map;
 
     /**
-     * Typical builder generating an HarborManager
+     * Typical constructor generating an HarborManager
      */
     public HarborManager(MapBuilder map, TradeManager tradeManager){
         this.map = map;

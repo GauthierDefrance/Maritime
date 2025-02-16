@@ -2,6 +2,9 @@ package maritime.config;
 
 import java.awt.*;
 
+/**
+ * class containing constants necessary to the game execution
+ */
 public class GameConfiguration {
 
     public static final int NUMBER_OF_BACK_GROUND_FRAMES = 8;
