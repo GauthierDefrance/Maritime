@@ -36,8 +36,9 @@ public class PaintBackGround {
      * It paints a backGround that needs to be painted on 2D graphics
      */
     public void paint(Graphics2D g2d){
-
+        if (frames.size() > currentFrame){
         g2d.drawImage(frames.get(currentFrame), 0, 0,null);
         currentFrame = (currentFrame + 1) % frames.size();
+        }
     }
 }
