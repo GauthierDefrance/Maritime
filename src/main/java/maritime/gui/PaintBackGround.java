@@ -19,6 +19,9 @@ public class PaintBackGround {
     private final ArrayList<BufferedImage> frames = new ArrayList<>();
     private int currentFrame = 0;
 
+    /**
+     * Typical builder generating an PaintBackGround
+     */
     public PaintBackGround(){
         try {
             for (int i = 0; i < GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES; i++) {
@@ -29,6 +32,9 @@ public class PaintBackGround {
         }
     }
 
+    /**
+     * It paints a backGround that needs to be painted on 2D graphics
+     */
     public void paint(Graphics2D g2d){
 
         g2d.drawImage(frames.get(currentFrame), 0, 0,null);

@@ -22,13 +22,18 @@ public class GameDisplay extends JPanel {
     private final PaintBackGround paintBackGround;
     private final PaintPopUp paintPopUp;
 
+    /**
+     * Typical builder generating an GameDisplay
+     */
     public GameDisplay(MapBuilder map){
         this.map = map;
         this.paintEntity = new PaintEntity();
         this.paintBackGround = new PaintBackGround();
         this.paintPopUp = new PaintPopUp(map);
     }
-
+    /**
+     * It paints everything that has to be painted on graphics2D
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

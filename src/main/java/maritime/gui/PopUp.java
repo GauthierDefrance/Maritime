@@ -10,6 +10,9 @@ public class PopUp {
     private int iFrame;
     private Point position;
 
+    /**
+     * Typical builder generating an PopUp
+     */
     public PopUp(String name,Point position){
         this.name=name;
         this.iFrame = 0;

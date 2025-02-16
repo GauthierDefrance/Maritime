@@ -16,6 +16,9 @@ public class PaintPopUp {
     private BufferedImage[][] tbSprite;
     private MapBuilder map;
 
+    /**
+     * Typical builder generating an PaintPopUp
+     */
     public PaintPopUp(MapBuilder map){
         this.map=map;
         tbSprite = new BufferedImage[5][GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES];
@@ -30,7 +33,9 @@ public class PaintPopUp {
 
     }
 
-
+    /**
+     * It paints a popUp that needs to be painted on 2D graphics
+     */
     public void paint(PopUp popUp, Graphics2D g2d) {
 
         if (popUp.getIFrame() < GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES) {
@@ -47,6 +52,9 @@ public class PaintPopUp {
         else {map.removePopUp(popUp);}
     }
 
+    /**
+     * Allows you to choose the sprite to displayed
+     */
     private BufferedImage[] spriteChoice(String name){
         switch (name) {
             case "+" ->{
