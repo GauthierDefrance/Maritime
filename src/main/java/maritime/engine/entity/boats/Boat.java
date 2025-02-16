@@ -98,10 +98,6 @@ public abstract class Boat implements EntityInterface {
         return nextGraphPoint;
     }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 06feb37f8dfad231fdc8ee53c6476c75f237a0b8
     //Setters
 
     public void setContinuePath(boolean continuePath) {this.continuePath = continuePath;}
@@ -147,11 +143,6 @@ public abstract class Boat implements EntityInterface {
     public void setNextGraphPoint(GraphPoint nextGraphPoint) {
         this.nextGraphPoint = nextGraphPoint;
     }
-<<<<<<< HEAD
-
-=======
-    
->>>>>>> 06feb37f8dfad231fdc8ee53c6476c75f237a0b8
 
     //Basic boat handling
 
