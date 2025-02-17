@@ -12,8 +12,6 @@ public class Battle {
     private SpawnZone spawnZoneA;
     private SpawnZone spawnZoneB;
 
-    private Timer timer;
-
     public Battle(Team teamA, Team teamB, SpawnZone spawnZoneA, SpawnZone spawnZoneB) {
         this.teamA = teamA;
         this.teamB = teamB;
