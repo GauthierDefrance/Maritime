@@ -1,9 +1,8 @@
 package battleengine_trash.battleengine_trash.map;
 
-import maritime.battleengine_trash.team.Team;
-import maritime.battleengine_trash.zone.SpawnZone;
 
-import java.util.Timer;
+import battleengine_trash.battleengine_trash.team.Team;
+import battleengine_trash.battleengine_trash.zone.SpawnZone;
 
 public class Battle {
     private final Team teamA;

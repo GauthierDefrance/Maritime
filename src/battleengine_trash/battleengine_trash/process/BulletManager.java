@@ -1,7 +1,7 @@
 package battleengine_trash.battleengine_trash.process;
 
-import maritime.battleengine_trash.entity.Bullet;
-import maritime.config.GameConfiguration;
+import battleengine_trash.battleengine_trash.entity.Bullet;
+import config.GameConfiguration;
 
 import java.awt.*;
 

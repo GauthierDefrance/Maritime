@@ -1,6 +1,6 @@
 package battleengine_trash.battleengine_trash.team;
 
-import maritime.engine.entity.boats.Fleet;
+import engine.entity.boats.Fleet;
 
 public class Team {
     private String color;

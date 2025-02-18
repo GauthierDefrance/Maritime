@@ -1,8 +1,7 @@
 package battleengine_trash.battleengine_trash.zone;
 
-import maritime.battleengine_trash.collision.Collision;
-import maritime.battleengine_trash.collision.Rectangle;
-import maritime.engine.entity.boats.Boat;
+import battleengine_trash.battleengine_trash.collision.Collision;
+import engine.entity.boats.Boat;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -11,10 +10,10 @@ public class SpawnZone  extends Rectangle {
     private String color;
     private ArrayList<Boat> placedList;
 
-    public SpawnZone(Point topLeft, int width, int height, String color) {
-        super(topLeft, width, height);
-        this.color = color;
-    }
+//    public SpawnZone(Point topLeft, int width, int height, String color) {
+//        super(topLeft, width, height);
+//        this.color = color;
+//    }
 
     /**
      * @param boat

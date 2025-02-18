@@ -1,6 +1,6 @@
 package battleengine_trash.battleengine_trash.collision;
 
-import maritime.config.GameConfiguration;
+import config.GameConfiguration;
 
 import java.awt.*;
 
