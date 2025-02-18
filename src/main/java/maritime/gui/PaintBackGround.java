@@ -26,7 +26,7 @@ public class PaintBackGround {
     public PaintBackGround(){
         try {
             for (int i = 0; i < GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES; i++) {
-                frames.add(ImageIO.read(new File("src/main/resources/images/background/background-"+i+".png")));
+                frames.add(ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/background/background-"+i+".png")));
             }
         } catch (Exception e) {
             System.err.println(e+"error can't find image BackGround");

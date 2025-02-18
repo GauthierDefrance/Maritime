@@ -50,5 +50,7 @@ public class GameConfiguration {
     public static final double BULLET_SPEED = 100;
     public static final double BULLET_FRICTION = 0.9;
 
+    public static final String START_FILE_PATH = "src/main/java/images";
+
 
 }

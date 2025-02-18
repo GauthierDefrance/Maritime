@@ -28,7 +28,7 @@ public class TestMove extends JFrame implements Runnable {
         Fleet fleet2 = new Fleet();
 
         map.getPlayer().getLstFleet().add(fleet1);
-        map.getLstFaction().getFirst().getLstFleet().add(fleet2);
+        map.getLstFaction().get(0).getLstFleet().add(fleet2);
 
         Military military0 = new Military("military0","blue",map.getLstHarbor().get(2).getGraphPosition());
         Military military1 = new Military("military1","blue",map.getLstHarbor().get(1).getGraphPosition());
@@ -58,12 +58,12 @@ public class TestMove extends JFrame implements Runnable {
         Fodder fodder1 = new Fodder("fodder1","red",map.getLstHarbor().get(1).getGraphPosition());
         Fodder fodder2 = new Fodder("fodder2","red",map.getLstHarbor().get(2).getGraphPosition());
 
-        map.getLstFaction().getFirst().getLstBoat().add(military2);
-        map.getLstFaction().getFirst().getLstBoat().add(merchant1);
-        map.getLstFaction().getFirst().getLstBoat().add(merchant2);
-        map.getLstFaction().getFirst().getLstBoat().add(standard2);
-        map.getLstFaction().getFirst().getLstBoat().add(fodder1);
-        map.getLstFaction().getFirst().getLstBoat().add(fodder2);
+        map.getLstFaction().get(0).getLstBoat().add(military2);
+        map.getLstFaction().get(0).getLstBoat().add(merchant1);
+        map.getLstFaction().get(0).getLstBoat().add(merchant2);
+        map.getLstFaction().get(0).getLstBoat().add(standard2);
+        map.getLstFaction().get(0).getLstBoat().add(fodder1);
+        map.getLstFaction().get(0).getLstBoat().add(fodder2);
 
         fleet2.getArrayListFleet().add(military2);
         fleet2.getArrayListFleet().add(merchant1);
@@ -90,10 +90,10 @@ public class TestMove extends JFrame implements Runnable {
         factionManager.getSeaRoadManager().setNewPath(seaRoad2, SearchInGraph.findPath(map.getLstHarbor().get(3).getGraphPosition(),map.getLstHarbor().get(0).getGraphPosition()));
 
         map.getPlayer().addFleet(fleet1);
-        map.getLstFaction().getFirst().addFleet(fleet2);
+        map.getLstFaction().get(0).addFleet(fleet2);
 
         map.getPlayer().addSeaRoad(seaRoad1);
-        map.getLstFaction().getFirst().addSeaRoad(seaRoad2);
+        map.getLstFaction().get(0).addSeaRoad(seaRoad2);
 
         Container contentPane = getContentPane();
         contentPane.add(dashboard);

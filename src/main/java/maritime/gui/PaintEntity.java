@@ -25,25 +25,25 @@ public class PaintEntity {
     public PaintEntity(){
         tbSprite = new BufferedImage[5][4];
         try {
-            tbSprite[0][0] = ImageIO.read(new File("src/main/resources/images/boat/standard.png"));
-            tbSprite[0][1] = ImageIO.read(new File("src/main/resources/images/boat/standard/red.png"));
-            tbSprite[0][2] = ImageIO.read(new File("src/main/resources/images/boat/standard/blue.png"));
+            tbSprite[0][0] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/standard.png"));
+            tbSprite[0][1] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/standard/red.png"));
+            tbSprite[0][2] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/standard/blue.png"));
 
-            tbSprite[1][0] = ImageIO.read(new File("src/main/resources/images/boat/fodder.png"));
-            tbSprite[1][1] = ImageIO.read(new File("src/main/resources/images/boat/fodder/red.png"));
-            tbSprite[1][2] = ImageIO.read(new File("src/main/resources/images/boat/fodder/blue.png"));
+            tbSprite[1][0] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/fodder.png"));
+            tbSprite[1][1] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/fodder/red.png"));
+            tbSprite[1][2] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/fodder/blue.png"));
 
-            tbSprite[2][0] = ImageIO.read(new File("src/main/resources/images/boat/merchant.png"));
-            tbSprite[2][1] = ImageIO.read(new File("src/main/resources/images/boat/merchant/red.png"));
-            tbSprite[2][2] = ImageIO.read(new File("src/main/resources/images/boat/merchant/blue.png"));
+            tbSprite[2][0] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/merchant.png"));
+            tbSprite[2][1] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/merchant/red.png"));
+            tbSprite[2][2] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/merchant/blue.png"));
 
-            tbSprite[3][0] = ImageIO.read(new File("src/main/resources/images/boat/military.png"));
-            tbSprite[3][1] = ImageIO.read(new File("src/main/resources/images/boat/military/red.png"));
-            tbSprite[3][2] = ImageIO.read(new File("src/main/resources/images/boat/military/blue.png"));
+            tbSprite[3][0] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/military.png"));
+            tbSprite[3][1] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/military/red.png"));
+            tbSprite[3][2] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/military/blue.png"));
 
-            tbSprite[4][0] = ImageIO.read(new File("src/main/resources/images/harbor/harbor.png"));
-            tbSprite[4][1] = ImageIO.read(new File("src/main/resources/images/harbor/red.png"));
-            tbSprite[4][2] = ImageIO.read(new File("src/main/resources/images/harbor/blue.png"));
+            tbSprite[4][0] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/harbor/harbor.png"));
+            tbSprite[4][1] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/harbor/red.png"));
+            tbSprite[4][2] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/harbor/blue.png"));
 
         } catch (Exception e) {
             System.err.println(e+"error can't find image sprite");

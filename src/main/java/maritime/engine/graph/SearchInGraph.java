@@ -32,13 +32,13 @@ public final class SearchInGraph {
         while (!lstPath.isEmpty()) {
             ArrayList<ArrayList<GraphSegment>> lstPathTemp = new ArrayList<>();
             for (ArrayList<GraphSegment> lstSegment : lstPath) {
-                if(lstSegment.getLast().getGraphPoint().equals(pointEnd)){lstPathResult.add(lstSegment);}
+                if(lstSegment.get(lstSegment.size()-1).getGraphPoint().equals(pointEnd)){lstPathResult.add(lstSegment);}
                 else {lstPathTemp.addAll(getLstSegmentUpdate(lstSegment));}
             }
             lstPath = new ArrayList<>(deletePath(lstPathTemp,pointStart));
             lstPathTemp.clear();
         }
-        return getLstSegmentToPoint(deletePath(lstPathResult,pointStart).getFirst(),pointStart);
+        return getLstSegmentToPoint(deletePath(lstPathResult,pointStart).get(0),pointStart);
     }
 
     private static ArrayList<ArrayList<GraphSegment>> getPointToPath(GraphPoint point) {
@@ -60,7 +60,7 @@ public final class SearchInGraph {
 
     private static ArrayList<ArrayList<GraphSegment>> getLstSegmentUpdate(ArrayList<GraphSegment> lstSegment) {
         ArrayList<ArrayList<GraphSegment>> lstPath = new ArrayList<>();
-            GraphPoint point = lstSegment.getLast().getGraphPoint();
+            GraphPoint point = lstSegment.get(lstSegment.size()-1).getGraphPoint();
             for (String key : point.getSegmentHashMap().keySet()) {
                 ArrayList<GraphSegment> newLstSegment = new ArrayList<>(lstSegment);
                 newLstSegment.add(point.getSegmentHashMap().get(key));
@@ -73,15 +73,15 @@ public final class SearchInGraph {
         ArrayList<ArrayList<GraphSegment>> lstPathResult = new ArrayList<>(lstPath);
         for (ArrayList<GraphSegment> iLstSegment : lstPath){
             for (ArrayList<GraphSegment> jLstSegment : lstPath){
-                if ((lstPathResult.contains(iLstSegment)) && (HaveTwoSamePoint(iLstSegment, iLstSegment.getLast().getGraphPoint()) || haveSamePoint(iLstSegment, pointStart))){
+                if ((lstPathResult.contains(iLstSegment)) && (HaveTwoSamePoint(iLstSegment, iLstSegment.get(iLstSegment.size()-1).getGraphPoint()) || haveSamePoint(iLstSegment, pointStart))){
                     lstPathResult.remove(iLstSegment);
                 }
-                else if ((lstPathResult.contains(jLstSegment)) && (HaveTwoSamePoint(jLstSegment, iLstSegment.getLast().getGraphPoint()) || haveSamePoint(jLstSegment, pointStart))){
+                else if ((lstPathResult.contains(jLstSegment)) && (HaveTwoSamePoint(jLstSegment, iLstSegment.get(iLstSegment.size()-1).getGraphPoint()) || haveSamePoint(jLstSegment, pointStart))){
                     lstPathResult.remove(jLstSegment);
                 }
-                else if(lstPathResult.contains(iLstSegment) && lstPathResult.contains(jLstSegment) && doYouFight(jLstSegment,iLstSegment.getLast()) &&!iLstSegment.equals(jLstSegment)){
+                else if(lstPathResult.contains(iLstSegment) && lstPathResult.contains(jLstSegment) && doYouFight(jLstSegment,iLstSegment.get(iLstSegment.size()-1)) &&!iLstSegment.equals(jLstSegment)){
 
-                    if(lstPathResult.contains(iLstSegment) && lstPathResult.contains(jLstSegment) && amountCost(iLstSegment, iLstSegment.getLast().getGraphPoint()) >= amountCost(jLstSegment, iLstSegment.getLast().getGraphPoint())){
+                    if(lstPathResult.contains(iLstSegment) && lstPathResult.contains(jLstSegment) && amountCost(iLstSegment, iLstSegment.get(iLstSegment.size()-1).getGraphPoint()) >= amountCost(jLstSegment, iLstSegment.get(iLstSegment.size()-1).getGraphPoint())){
                     lstPathResult.remove(iLstSegment);
                     }
                 }
