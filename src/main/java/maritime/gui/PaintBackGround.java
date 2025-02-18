@@ -6,6 +6,7 @@ import maritime.config.GameConfiguration;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -25,7 +26,7 @@ public class PaintBackGround {
     public PaintBackGround(){
         try {
             for (int i = 0; i < GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES; i++) {
-                frames.add(ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/background/background-"+i+".png"))));
+                frames.add(ImageIO.read(new File("src/main/resources/images/background/background-"+i+".png")));
             }
         } catch (Exception e) {
             System.err.println(e+"error can't find image BackGround");

@@ -6,6 +6,7 @@ import maritime.config.MapBuilder;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Objects;
 
 /**
@@ -24,8 +25,8 @@ public class PaintPopUp {
         tbSprite = new BufferedImage[5][GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES];
         try {
             for (int i = 0; i < GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES; i++) {
-                tbSprite[0][i] = (ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/popup/popup+.png"))));
-                tbSprite[1][i] = (ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/popup/popup-.png"))));
+                tbSprite[0][i] = (ImageIO.read(new File("src/main/resources/images/popup/popup+.png")));
+                tbSprite[1][i] = (ImageIO.read(new File("src/main/resources/images/popup/popup-.png")));
             }
         } catch (Exception e) {
             System.err.println(e+"error can't find image PopUp");
