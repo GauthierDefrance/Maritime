@@ -13,12 +13,12 @@ public class TeamManager {
 
     public TeamManager(Battle battle) {
         this.battle = battle;
-        boatManager = boatManager
+        boatManager = boatManager;
     }
 
     public void moveBoats(){
         for (Boat b : battle.getTeamA().getAliveFleet().getArrayListFleet()){
-            (b,b.getNextGraphPoint());
+            //aaa
         }
     }
 

@@ -57,22 +57,22 @@ public class PaintPopUp {
      */
     private BufferedImage[] spriteChoice(String name){
         switch (name) {
-            case "+" ->{
+            case "+" :{
                 return tbSprite[0];
             }
-            case "-" ->{
+            case "-" :{
                 return tbSprite[1];
             }
-            case "02" ->{
+            case "02" :{
                 return tbSprite[2];
             }
-            case "03" ->{
+            case "03" :{
                 return tbSprite[3];
             }
-            case "04" ->{
+            case "04" :{
                 return tbSprite[4];
             }
-            default -> {
+            default : {
                 return tbSprite[0];
             }
         }

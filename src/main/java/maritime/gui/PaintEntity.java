@@ -122,33 +122,41 @@ public class PaintEntity {
         int j = 0;
 
         switch (classType.getName()) {
-            case "maritime.engine.entity.boats.Standard" -> {
+            case "maritime.engine.entity.boats.Standard" : {
                 i=0 ;
+                break;
             }
-            case "maritime.engine.entity.boats.Fodder" ->{
+            case "maritime.engine.entity.boats.Fodder" :{
                 i=1;
+                break;
             }
-            case "maritime.engine.entity.boats.Merchant" ->{
+            case "maritime.engine.entity.boats.Merchant" :{
                 i=2;
+                break;
             }
-            case "maritime.engine.entity.boats.Military" ->{
+            case "maritime.engine.entity.boats.Military" :{
                 i=3;
+                break;
             }
-            case "maritime.engine.entity.Harbor" ->{
+            case "maritime.engine.entity.Harbor" :{
                 i=4;
+                break;
             }
-            default -> {
+            default : {
             }
         }
         switch (color) {
-            case "red" ->{
+            case "red" :{
                 j=1;
+                break;
             }
-            case "blue" ->{
+            case "blue" :{
                 j=2;
+                break;
             }
-            default -> {
+            default : {
                 j=0;
+                break;
             }
         }
         return tbSprite[i][j];
@@ -159,13 +167,13 @@ public class PaintEntity {
      */
     private Color colorChoice(String color){
         switch (color) {
-            case "red" ->{
+            case "red" :{
                 return new Color(255,0,0,75);
             }
-            case "blue" ->{
+            case "blue" :{
                 return new Color(0,0,255,75);
             }
-            default -> {
+            default : {
                 return new Color(0,0,0,0);
             }
         }

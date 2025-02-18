@@ -26,13 +26,15 @@ public class MapBuilder {
     public MapBuilder(int choice){
         timeStop = false;
         switch (choice) {
-            case 0 -> {
+            case 0 : {
                 init0();
+                break;
             }
-            case 1 -> {
+            case 1 : {
                 init1();
+                break;
             }
-            default -> {
+            default : {
             }
         }
     }
@@ -129,7 +131,7 @@ public class MapBuilder {
         lstHarbor.add(harborD);
 
         lstFaction.addAll(lstBotFaction);
-        lstFaction.addLast(player);
+        lstFaction.add(player);
         this.setLstPopUp(lstPopUp);
         this.setLstHarbor(lstHarbor);
         this.setLstFaction(lstFaction);

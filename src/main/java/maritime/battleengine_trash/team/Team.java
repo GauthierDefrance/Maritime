@@ -11,9 +11,9 @@ public class Team {
         if (fleet.getArrayListFleet().isEmpty()) {
             throw new IllegalArgumentException("Fleet is empty");
         }
-        this.fleet = fleet;
+        this.alive_fleet = fleet;
         this.color = fleet.getArrayListFleet().get(0).getColor();
-        this.alive_fleet = new Fleet();
+        this.dead_fleet = new Fleet();
     }
 
     public String getColor() {
