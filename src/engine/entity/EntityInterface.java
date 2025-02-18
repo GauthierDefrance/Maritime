@@ -1,6 +1,6 @@
-package maritime.engine.entity;
+package engine.entity;
 
-import maritime.engine.trading.Inventory;
+import engine.trading.Inventory;
 
 import java.awt.*;
 import java.io.Serializable;

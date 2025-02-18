@@ -1,10 +1,10 @@
-package maritime.gui;
+package gui;
 
-import maritime.config.GameConfiguration;
-import maritime.config.MapBuilder;
-import maritime.engine.entity.Harbor;
-import maritime.engine.entity.boats.Boat;
-import maritime.engine.trading.SeaRoad;
+import config.GameConfiguration;
+import config.MapBuilder;
+import engine.entity.Harbor;
+import engine.entity.boats.Boat;
+import engine.trading.SeaRoad;
 
 import javax.swing.*;
 import java.awt.*;

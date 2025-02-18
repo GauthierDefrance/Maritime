@@ -1,9 +1,9 @@
-package maritime.engine.entity.boats;
+package engine.entity.boats;
 
-import maritime.engine.entity.EntityInterface;
-import maritime.engine.graph.GraphPoint;
-import maritime.engine.trading.Inventory;
-import maritime.engine.trading.Resource;
+import engine.entity.EntityInterface;
+import engine.graph.GraphPoint;
+import engine.trading.Inventory;
+import engine.trading.Resource;
 
 import java.awt.*;
 import java.util.ArrayList;

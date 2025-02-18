@@ -1,8 +1,8 @@
-package maritime.engine.process;
+package engine.process;
 
-import maritime.engine.entity.EntityInterface;
-import maritime.engine.trading.Inventory;
-import maritime.engine.trading.Resource;
+import engine.entity.EntityInterface;
+import engine.trading.Inventory;
+import engine.trading.Resource;
 
 /**
  * A class handling how trades should work between Entities (and by extension Factions)

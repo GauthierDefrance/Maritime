@@ -1,6 +1,6 @@
-package maritime.test;
+package test;
 
-import maritime.config.MapBuilder;
+import config.MapBuilder;
 
 import javax.swing.*;
 import java.awt.*;

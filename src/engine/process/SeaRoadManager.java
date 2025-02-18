@@ -1,11 +1,11 @@
-package maritime.engine.process;
+package engine.process;
 
-import maritime.config.MapBuilder;
-import maritime.engine.entity.boats.Boat;
-import maritime.engine.entity.boats.Fleet;
-import maritime.engine.graph.GraphPoint;
-import maritime.engine.trading.SeaRoad;
-import maritime.gui.PopUp;
+import config.MapBuilder;
+import engine.entity.boats.Boat;
+import engine.entity.boats.Fleet;
+import engine.graph.GraphPoint;
+import engine.trading.SeaRoad;
+import gui.PopUp;
 
 import java.awt.*;
 import java.util.ArrayList;

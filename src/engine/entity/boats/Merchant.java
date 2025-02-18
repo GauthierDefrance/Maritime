@@ -1,7 +1,7 @@
-package maritime.engine.entity.boats;
+package engine.entity.boats;
 
-import maritime.config.GameConfiguration;
-import maritime.engine.graph.GraphPoint;
+import config.GameConfiguration;
+import engine.graph.GraphPoint;
 
 public class Merchant extends Boat {
     public Merchant(String name,String color, GraphPoint position) {

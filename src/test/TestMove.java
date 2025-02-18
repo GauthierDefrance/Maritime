@@ -1,13 +1,13 @@
-package maritime.test;
+package test;
 
-import maritime.config.GameConfiguration;
-import maritime.config.MapBuilder;
-import maritime.engine.entity.boats.*;
-import maritime.engine.graph.SearchInGraph;
-import maritime.engine.process.FactionManager;
-import maritime.engine.trading.Resource;
-import maritime.engine.trading.SeaRoad;
-import maritime.gui.GameDisplay;
+import config.GameConfiguration;
+import config.MapBuilder;
+import engine.entity.boats.*;
+import engine.graph.SearchInGraph;
+import engine.process.FactionManager;
+import engine.trading.Resource;
+import engine.trading.SeaRoad;
+import gui.GameDisplay;
 
 import javax.swing.*;
 import java.awt.*;

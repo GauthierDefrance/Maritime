@@ -1,4 +1,4 @@
-package maritime.engine.graph;
+package engine.graph;
 
 import java.awt.*;
 import java.util.HashMap;

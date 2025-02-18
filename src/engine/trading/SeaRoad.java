@@ -1,11 +1,11 @@
-package maritime.engine.trading;
+package engine.trading;
 
-import maritime.config.GameConfiguration;
-import maritime.engine.entity.Harbor;
-import maritime.engine.entity.boats.Boat;
-import maritime.engine.entity.boats.Fleet;
-import maritime.engine.graph.GraphPoint;
-import maritime.engine.graph.SearchInGraph;
+import config.GameConfiguration;
+import engine.entity.Harbor;
+import engine.entity.boats.Boat;
+import engine.entity.boats.Fleet;
+import engine.graph.GraphPoint;
+import engine.graph.SearchInGraph;
 
 import java.util.ArrayList;
 

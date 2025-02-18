@@ -1,4 +1,4 @@
-package maritime.engine.trading;
+package engine.trading;
 
 /**
  * Class relative to the notion of Resources : tradable objects linked with the notion of inventory

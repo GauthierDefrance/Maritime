@@ -1,12 +1,12 @@
-package maritime.engine.process;
+package engine.process;
 
-import maritime.config.GameConfiguration;
-import maritime.config.MapBuilder;
-import maritime.engine.entity.boats.Boat;
-import maritime.engine.entity.boats.Fleet;
-import maritime.engine.faction.Faction;
-import maritime.engine.graph.GraphPoint;
-import maritime.engine.trading.SeaRoad;
+import config.GameConfiguration;
+import config.MapBuilder;
+import engine.entity.boats.Boat;
+import engine.entity.boats.Fleet;
+import engine.faction.Faction;
+import engine.graph.GraphPoint;
+import engine.trading.SeaRoad;
 
 import javax.swing.*;
 import java.util.ArrayList;

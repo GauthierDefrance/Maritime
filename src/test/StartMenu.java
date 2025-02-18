@@ -1,6 +1,6 @@
-package maritime.test;
+package test;
 
-import maritime.config.GameConfiguration;
+import config.GameConfiguration;
 
 import javax.swing.*;
 import java.awt.*;

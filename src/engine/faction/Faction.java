@@ -1,9 +1,9 @@
-package maritime.engine.faction;
+package engine.faction;
 
-import maritime.engine.entity.Harbor;
-import maritime.engine.entity.boats.Boat;
-import maritime.engine.entity.boats.Fleet;
-import maritime.engine.trading.SeaRoad;
+import engine.entity.Harbor;
+import engine.entity.boats.Boat;
+import engine.entity.boats.Fleet;
+import engine.trading.SeaRoad;
 
 import java.util.ArrayList;
 

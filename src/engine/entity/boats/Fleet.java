@@ -1,6 +1,6 @@
-package maritime.engine.entity.boats;
+package engine.entity.boats;
 
-import maritime.engine.graph.GraphPoint;
+import engine.graph.GraphPoint;
 
 import java.util.ArrayList;
 

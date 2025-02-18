@@ -1,9 +1,9 @@
-package maritime.engine.process;
+package engine.process;
 
-import maritime.config.MapBuilder;
-import maritime.engine.entity.Harbor;
-import maritime.engine.entity.boats.Boat;
-import maritime.engine.faction.Faction;
+import config.MapBuilder;
+import engine.entity.Harbor;
+import engine.entity.boats.Boat;
+import engine.faction.Faction;
 
 import java.util.ArrayList;
 

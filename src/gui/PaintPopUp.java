@@ -1,7 +1,7 @@
-package maritime.gui;
+package gui;
 
-import maritime.config.GameConfiguration;
-import maritime.config.MapBuilder;
+import config.GameConfiguration;
+import config.MapBuilder;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

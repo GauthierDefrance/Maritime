@@ -1,4 +1,4 @@
-package maritime.config;
+package config;
 
 import java.awt.*;
 

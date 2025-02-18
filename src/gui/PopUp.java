@@ -1,4 +1,4 @@
-package maritime.gui;
+package gui;
 
 import java.awt.*;
 /**

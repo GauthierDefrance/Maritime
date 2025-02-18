@@ -1,6 +1,6 @@
-package maritime.engine.process;
+package engine.process;
 
-import maritime.config.MapBuilder;
+import config.MapBuilder;
 
 /**
  * @author @Kenan Ammad

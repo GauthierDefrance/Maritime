@@ -1,4 +1,4 @@
-package maritime.engine.faction;
+package engine.faction;
 
 public class Regular extends Faction {
 

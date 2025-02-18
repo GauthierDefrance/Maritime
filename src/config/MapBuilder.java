@@ -1,11 +1,11 @@
-package maritime.config;
+package config;
 
-import maritime.engine.entity.Harbor;
-import maritime.engine.faction.Faction;
-import maritime.engine.faction.Player;
-import maritime.engine.graph.GraphPoint;
-import maritime.engine.graph.GraphSegment;
-import maritime.gui.PopUp;
+import engine.entity.Harbor;
+import engine.faction.Faction;
+import engine.faction.Player;
+import engine.graph.GraphPoint;
+import engine.graph.GraphSegment;
+import gui.PopUp;
 
 import java.awt.*;
 import java.util.ArrayList;

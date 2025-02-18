@@ -1,4 +1,4 @@
-package maritime.engine.trading;
+package engine.trading;
 
 import java.util.HashMap;
 

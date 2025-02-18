@@ -1,8 +1,8 @@
-package maritime.engine.entity;
+package engine.entity;
 
-import maritime.config.GameConfiguration;
-import maritime.engine.graph.GraphPoint;
-import maritime.engine.trading.Inventory;
+import config.GameConfiguration;
+import engine.graph.GraphPoint;
+import engine.trading.Inventory;
 
 import java.awt.*;
 
