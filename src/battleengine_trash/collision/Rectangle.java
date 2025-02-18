@@ -1,4 +1,4 @@
-package maritime.battleengine_trash.collision;
+package battleengine_trash.collision;
 
 import java.awt.*;
 

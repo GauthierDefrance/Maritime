@@ -1,7 +1,7 @@
-package maritime.battleengine_trash.map;
+package battleengine_trash.map;
 
-import maritime.battleengine_trash.team.Team;
-import maritime.battleengine_trash.zone.SpawnZone;
+import battleengine_trash.team.Team;
+import battleengine_trash.zone.SpawnZone;
 
 import java.util.Timer;
 

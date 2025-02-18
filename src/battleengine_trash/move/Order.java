@@ -1,4 +1,4 @@
-package maritime.battleengine_trash.move;
+package battleengine_trash.move;
 
 public class Order {
 

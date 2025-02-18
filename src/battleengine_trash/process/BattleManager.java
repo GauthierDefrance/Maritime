@@ -1,4 +1,4 @@
-package maritime.battleengine_trash.process;
+package battleengine_trash.process;
 
 public class BattleManager {
 }

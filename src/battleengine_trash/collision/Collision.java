@@ -1,6 +1,6 @@
-package maritime.battleengine_trash.collision;
+package battleengine_trash.collision;
 
-import maritime.config.GameConfiguration;
+import config.*;
 
 import java.awt.*;
 
@@ -20,7 +20,7 @@ public final class Collision {
      * @return boolean true si il y a collision false sinon
      */
     public static boolean CollisionCircle(Point p1, Point p2) {
-        return p1.distance(p2)<GameConfiguration.HITBOX_BOAT;
+        return p1.distance(p2)< maritime.config.GameConfiguration.HITBOX_BOAT;
     }
 
     /**
