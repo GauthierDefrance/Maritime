@@ -122,23 +122,23 @@ public class PaintEntity {
         int j = 0;
 
         switch (classType.getName()) {
-            case "maritime.engine.entity.boats.Standard" : {
+            case "engine.entity.boats.Standard" : {
                 i=0 ;
                 break;
             }
-            case "maritime.engine.entity.boats.Fodder" :{
+            case "engine.entity.boats.Fodder" :{
                 i=1;
                 break;
             }
-            case "maritime.engine.entity.boats.Merchant" :{
+            case "engine.entity.boats.Merchant" :{
                 i=2;
                 break;
             }
-            case "maritime.engine.entity.boats.Military" :{
+            case "engine.entity.boats.Military" :{
                 i=3;
                 break;
             }
-            case "maritime.engine.entity.Harbor" :{
+            case "engine.entity.Harbor" :{
                 i=4;
                 break;
             }
