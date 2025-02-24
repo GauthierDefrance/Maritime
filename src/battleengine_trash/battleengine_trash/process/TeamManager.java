@@ -1,28 +1,29 @@
 package battleengine_trash.battleengine_trash.process;
-import battleengine_trash.battleengine_trash.map.Battle;
-import engine.graph.GraphPoint;
-import engine.process.BoatManager;
+
+import battleengine_trash.battleengine_trash.team.Team;
+import config.MapBuilder;
 import engine.entity.boats.Boat;
+import engine.process.BoatManager;
 
 public class TeamManager {
 
-    private Battle battle;
     private BoatManager boatManager;
 
-//    public TeamManager(Battle battle) {
-//        this.battle = battle;
-//        boatManager = boatManager
-//    }
-
-//    public void moveBoats(){
-//        for (Boat b : battle.getTeamA().getAliveFleet().getArrayListFleet()){
-//            (b,b.getNextGraphPoint());
-//        }
-//    }
-
-
-    public void MoveBoat(Boat b, GraphPoint gp){
-
+    public TeamManager(MapBuilder map) {
+        boatManager = new BoatManager(map);
     }
+    public TeamManager() {
+        boatManager = new BoatManager(null);
+    }
+
+    public void move(Team team) {
+        for(Boat boat : team.getFleet().getArrayListFleet()){
+            if(boat.getPath()!=null&&boat.getPath().size()>0){
+                boatManager.approachingToPoint(boat,boat.getPath().get(boat.getIPath()));
+            }
+        }
+    }
+
+
 
 }

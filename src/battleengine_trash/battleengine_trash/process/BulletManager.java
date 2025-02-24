@@ -1,6 +1,6 @@
 package battleengine_trash.battleengine_trash.process;
 
-import battleengine_trash.battleengine_trash.entity.Bullet;
+import battleengine_trash.battleengine_trash.stuff.entity.Bullet;
 import config.GameConfiguration;
 
 import java.awt.*;
