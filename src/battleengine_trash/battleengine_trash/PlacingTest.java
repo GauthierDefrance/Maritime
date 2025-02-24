@@ -7,12 +7,9 @@ import engine.graph.GraphPoint;
 import gui.PaintBackGround;
 import gui.PaintEntity;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class PlacingTest extends JFrame {
