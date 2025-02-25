@@ -45,12 +45,12 @@ public class TestMove extends JFrame implements Runnable {
         map.getPlayer().getLstBoat().add(standard1);
         map.getPlayer().getLstBoat().add(fodder0);
 
-        fleet1.getArrayListFleet().add(military0);
-        fleet1.getArrayListFleet().add(military1);
-        fleet1.getArrayListFleet().add(merchant0);
-        fleet1.getArrayListFleet().add(standard0);
-        fleet1.getArrayListFleet().add(standard1);
-        fleet1.getArrayListFleet().add(fodder0);
+        fleet1.getArrayListBoat().add(military0);
+        fleet1.getArrayListBoat().add(military1);
+        fleet1.getArrayListBoat().add(merchant0);
+        fleet1.getArrayListBoat().add(standard0);
+        fleet1.getArrayListBoat().add(standard1);
+        fleet1.getArrayListBoat().add(fodder0);
 
         Military military2 = new Military("military2","red",map.getLstHarbor().get(2).getGraphPosition());
         Merchant merchant1 = new Merchant("merchant1","red",map.getLstHarbor().get(1).getGraphPosition());
@@ -66,12 +66,12 @@ public class TestMove extends JFrame implements Runnable {
         map.getLstFaction().get(0).getLstBoat().add(fodder1);
         map.getLstFaction().get(0).getLstBoat().add(fodder2);
 
-        fleet2.getArrayListFleet().add(military2);
-        fleet2.getArrayListFleet().add(merchant1);
-        fleet2.getArrayListFleet().add(merchant2);
-        fleet2.getArrayListFleet().add(standard2);
-        fleet2.getArrayListFleet().add(fodder1);
-        fleet2.getArrayListFleet().add(fodder2);
+        fleet2.getArrayListBoat().add(military2);
+        fleet2.getArrayListBoat().add(merchant1);
+        fleet2.getArrayListBoat().add(merchant2);
+        fleet2.getArrayListBoat().add(standard2);
+        fleet2.getArrayListBoat().add(fodder1);
+        fleet2.getArrayListBoat().add(fodder2);
 
         Resource resource1 = new Resource("resource1",1,1);
         Resource resource2 = new Resource("resource1",1,1);

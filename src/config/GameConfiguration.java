@@ -53,4 +53,10 @@ public class GameConfiguration {
     public static final String START_FILE_PATH = "src/images";
 
 
+
+    public static final int NUMBER_COLUMN_BATTLE_PLACING = 2;
+    public static final int SPAWN_ZONE_OPACITY = 15;
+
+
+
 }

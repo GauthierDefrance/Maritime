@@ -95,7 +95,7 @@ public class SeaRoadManager {
      * @param seaRoad targeted seaRoad
      */
     public void sellAndPickUpAllResources(SeaRoad seaRoad){
-        for (Boat boat : seaRoad.getFleet().getArrayListFleet()){
+        for (Boat boat : seaRoad.getFleet().getArrayListBoat()){
             pickUpResources(seaRoad, boat);
             sellResources(seaRoad, boat);
         }
