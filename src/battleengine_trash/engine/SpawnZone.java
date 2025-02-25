@@ -35,7 +35,7 @@ public class SpawnZone  extends Rectangle {
         }
         //On vérifie que le bateau n'est pas trop proche d'un autre bateau
         for (Boat placedBoat : this.placedList.getArrayListBoat()) {
-            if (boat.getPosition().distance(placedBoat.getPosition())< 2*GameConfiguration.HITBOX_BOAT ) {
+            if (boat.getPosition().distance(placedBoat.getPosition())< GameConfiguration.HITBOX_BOAT ) {
                 return false;
             }
         }

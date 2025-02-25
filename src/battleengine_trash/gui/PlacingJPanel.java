@@ -123,9 +123,17 @@ public class PlacingJPanel extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            System.out.println("Le bateau :"+boat.getName()+" a été sélectionné");
             placingManager.selectBoat(this.boat);
         }
     }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        dashBoardPlacingPanel.repaint();
+    }
+
 
 
 

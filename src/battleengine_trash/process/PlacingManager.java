@@ -56,12 +56,13 @@ public class PlacingManager {
      * @param selectedBoat Le bateau que vous essayez de sélectionner
      */
     public void selectBoat(Boat selectedBoat) {
-        if(selectedBoat!=null && selectedBoat!=currentBoat && BoatToPlace.getArrayListBoat().contains(selectedBoat)) {
-            this.currentBoat = selectedBoat;
-        }
-        else {
-            currentBoat.setPosition(GameConfiguration.DEFAULT_BOAT_POS_X,GameConfiguration.DEFAULT_BOAT_POS_Y);
-            this.currentBoat = null;
+        if(selectedBoat!=null) {
+            if (selectedBoat != currentBoat && BoatToPlace.getArrayListBoat().contains(selectedBoat)) {
+                this.currentBoat = selectedBoat;
+            } else if (currentBoat!=null){
+                currentBoat.setPosition(GameConfiguration.DEFAULT_BOAT_POS_X, GameConfiguration.DEFAULT_BOAT_POS_Y);
+                this.currentBoat = null;
+            }
         }
     }
 

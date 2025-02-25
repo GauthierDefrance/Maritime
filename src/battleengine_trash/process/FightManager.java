@@ -2,9 +2,6 @@ package battleengine_trash.process;
 
 import engine.entity.boats.Fleet;
 
-import javax.swing.*;
-
-
 /**
  *
  * @author Gauthier Defrance

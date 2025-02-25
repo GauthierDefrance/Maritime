@@ -48,8 +48,4 @@ public class BattleManager {
     public JPanel getJpanel() { if (isInPlacingMode) { return placingpanel; } else { return fightpanel; } }
 
 
-
-
-
-
 }

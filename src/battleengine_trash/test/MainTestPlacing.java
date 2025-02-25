@@ -2,6 +2,7 @@ package battleengine_trash.test;
 
 import battleengine_trash.engine.Battle;
 import battleengine_trash.process.BattleManager;
+import config.GameConfiguration;
 import engine.entity.boats.Fleet;
 import engine.entity.boats.Fodder;
 import engine.entity.boats.Military;
@@ -32,8 +33,21 @@ public class MainTestPlacing extends JFrame {
         setContentPane(battleManager.getJpanel());
         setVisible(true);
 
-
     }
+
+    private void run(){
+        while (true) {
+            try {
+                Thread.sleep(GameConfiguration.GAME_SPEED);
+
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
+            }
+            battleManager.getJpanel().repaint();
+        }
+    }
+
+
 
     public static void main(String[] args) {
         new MainTestPlacing();

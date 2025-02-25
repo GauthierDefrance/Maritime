@@ -29,6 +29,8 @@ public class DashBoardPlacingPanel extends JPanel {
         this.fightManager = fightManager;
         this.placingManager = placingManager;
         paintEntity = new PaintEntity();
+        addMouseListener(new MouseListener());
+        addMouseMotionListener(new MouseListener());
     }
 
 
@@ -67,6 +69,7 @@ public class DashBoardPlacingPanel extends JPanel {
 
         // Dessin bateau sélectionné
         if (placingManager.getCurrentBoat() != null) {
+            System.out.println(placingManager.getCurrentBoat().getPosition());
             paintEntity.paint(placingManager.getCurrentBoat(), g2d);
         }
         // -----------
@@ -93,7 +96,9 @@ public class DashBoardPlacingPanel extends JPanel {
 
         public void LeftClick(MouseEvent e) {
             if (placingManager.isPlacable()) {
+                Boat tmp = placingManager.getCurrentBoat();
                 placingManager.placeBoat();
+                placingManager.getSpawnzone().addPlacedBoat(tmp);
             }
         }
 
@@ -103,8 +108,11 @@ public class DashBoardPlacingPanel extends JPanel {
 
         @Override
         public void mouseMoved(MouseEvent e) {
+            //System.out.println("mouvement détecté");
             if (placingManager.getCurrentBoat() != null) {
                 placingManager.getCurrentBoat().setPosition(e.getX(), e.getY());
+                repaint();
+                //System.out.println(placingManager.getCurrentBoat()+" a été déplacé");
             }
         }
 
@@ -118,6 +126,7 @@ public class DashBoardPlacingPanel extends JPanel {
                 double y2 = tmp.getPosition().getY();
                 double distance = tmp.getPosition().distance(new Point(e.getX(), e.getY()));
                 tmp.setAngle(Math.atan2(y1 - y2, x1 - x2));
+                repaint();
             }
         }
     }
