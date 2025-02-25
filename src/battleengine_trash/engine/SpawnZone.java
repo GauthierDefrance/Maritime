@@ -1,6 +1,6 @@
 package battleengine_trash.engine;
 
-import battleengine_trash.stuff.collision.Collision;
+import config.GameConfiguration;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
 
@@ -35,7 +35,7 @@ public class SpawnZone  extends Rectangle {
         }
         //On vérifie que le bateau n'est pas trop proche d'un autre bateau
         for (Boat placedBoat : this.placedList.getArrayListBoat()) {
-            if (Collision.CollisionCircle(boat.getPosition(), placedBoat.getPosition())) {
+            if (boat.getPosition().distance(placedBoat.getPosition())< 2*GameConfiguration.HITBOX_BOAT ) {
                 return false;
             }
         }

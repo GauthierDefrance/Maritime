@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * class containing constants necessary to the game execution
  */
-public class GameConfiguration {
+public final class GameConfiguration {
 
     public static final int NUMBER_OF_BACK_GROUND_FRAMES = 8;
     public static final int GAME_SPEED = 100; //ms per frame
@@ -46,17 +46,23 @@ public class GameConfiguration {
     public static final Font FONT = new Font( "Noto Sans Display", Font.BOLD, 20);
     public static final Font CREDITS_FONT = new Font("Noto Sans Display", Font.BOLD, 10);
 
-
-    public static final double BULLET_SPEED = 100;
-    public static final double BULLET_FRICTION = 0.9;
-
     public static final String START_FILE_PATH = "src/images";
-
 
 
     public static final int NUMBER_COLUMN_BATTLE_PLACING = 2;
     public static final int SPAWN_ZONE_OPACITY = 15;
 
+
+    public static final String DEFAULT_SPAWN_ZONE_COLOR ="blue";
+    public static final Point DEFAULT_SPAWN_ZONE_COORDINATE= new Point(0,0);
+    public static final Point DEFAULT_ENEMY_SPAWN_ZONE_COORDINATE= new Point(600,0);
+    public static final int DEFAULT_SPAWN_ZONE_WIDTH = 200;
+    public static final int DEFAULT_SPAWN_ZONE_HEIGHT = 600;
+
+    public static final int DEFAULT_BOAT_POS_X=-1000;
+    public static final int DEFAULT_BOAT_POS_Y=-1000;
+
+    public static final Color DEFAULT_BACKGROUND_COLOR = new Color(78, 172, 233);
 
 
 }

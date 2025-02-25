@@ -1,55 +1,24 @@
 package battleengine_trash.engine;
 
-import battleengine_trash.gui.BattleFightingPanel;
-import battleengine_trash.gui.BattlePlacingPanel;
 import battleengine_trash.tools.DeepCopy;
-import engine.entity.boats.*;
-import gui.PaintEntity;
-
-import javax.swing.*;
-import java.awt.*;
+import engine.entity.boats.Fleet;
 
 public class Battle {
+    private Fleet fleetA, fleetB;
+    private Fleet originalA, originalB;
 
-    private Fleet orignalA, originalB;
-
-    private Fleet Af, Bf; //Listes des bateaux en réserves
-    private Fleet BattleA, BattleB; //Listes des bateaux sur la map
-
-    private SpawnZone zoneA, zoneB;
-
-    private PaintEntity paintEntity;
-    private JPanel current_jpanel;
-
-    public Battle(Fleet A, Fleet B) {
-
-        BattleA = new Fleet();
-        BattleB = new Fleet();
-
-        this.zoneA = new SpawnZone(new Point(0,0),200,600,"blue", BattleA);
-        this.zoneB = new SpawnZone(new Point(400,0),200,600,"red", BattleB);
-
-
-
-        //On garde en mémoire les objets originelle : Les fleet originel passé en paramètres.
-        this.orignalA = A; this.originalB = B;
-        paintEntity = new PaintEntity();
-
-        //On fait une copie de nos objets pour éviter de modifier les originaux A et B.
-        Af = DeepCopy.copyFleet(A);
-        Bf = DeepCopy.copyFleet(B);
-        this.PlaceBoats();
+    public Battle(Fleet fleetA, Fleet fleetB) {
+        this.fleetA = DeepCopy.copyFleet(fleetA);
+        this.fleetB = DeepCopy.copyFleet(fleetB);
+        this.originalA = fleetA;
+        this.originalB = fleetB;
     }
 
-    public JPanel getJPanel() {return current_jpanel;}
+    public Fleet getFleetA() { return fleetA; }
+    public Fleet getFleetB() { return fleetB; }
+    public Fleet getOriginalA() { return originalA; }
+    public Fleet getOriginalB() { return originalB; }
 
 
-    private void PlaceBoats() {
-        current_jpanel = new BattlePlacingPanel(this.Af,this.Bf,this.BattleA, this.BattleB,this.paintEntity, zoneA, zoneB); //Stocker le JPanel ?
-    }
-
-    private void BattleFight(){
-        current_jpanel = new BattleFightingPanel();
-    }
 
 }
