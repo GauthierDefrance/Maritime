@@ -6,6 +6,10 @@ import engine.entity.boats.Fleet;
 
 import java.awt.*;
 
+/**
+ * @author Gauthier Defrance
+ * @version 0.2
+ */
 public class SpawnZone  extends Rectangle {
     private String color;
     private Fleet placedList;
@@ -42,6 +46,7 @@ public class SpawnZone  extends Rectangle {
         return true;
     }
 
+    public Fleet getPlacedList() { return placedList; }
 
 
 

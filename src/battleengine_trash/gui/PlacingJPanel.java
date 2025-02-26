@@ -1,7 +1,6 @@
 package battleengine_trash.gui;
 
-import battleengine_trash.process.FightManager;
-import battleengine_trash.process.PlacingManager;
+import battleengine_trash.engine.Battle;
 import config.GameConfiguration;
 import engine.entity.boats.Boat;
 
@@ -15,36 +14,40 @@ import java.util.NoSuchElementException;
 /**
  *
  * @author Gauthier Defrance
- * @version 0.1
+ * @version 0.2
  */
 public class PlacingJPanel extends JPanel {
 
-    private PlacingManager placingManager;
-    private FightManager fightManager;
-    private HashMap<Boat,JButton> buttonHashMap;
-    private DashBoardPlacingPanel dashBoardPlacingPanel;
-    private JScrollPane scrollPane;
+    private Battle battle;
 
-    private JPanel buttonPanel;
-
-    public PlacingJPanel(PlacingManager placingManager, FightManager fightManager) {
+    public PlacingJPanel(Battle battle) {
         super(new BorderLayout());
-        this.placingManager = placingManager;
-        this.fightManager = fightManager;
+        this.battle = battle;
+        this.battle.getPlacing().setButtonHashMap(new HashMap<Boat,JButton>());
+        this.battle.getPlacing().setDashBoardPlacingPanel(new DashBoardPlacingPanel(battle));
 
-        buttonHashMap = new HashMap<Boat,JButton>();
-
-        dashBoardPlacingPanel = new DashBoardPlacingPanel(fightManager, placingManager);
-
-        buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(0, GameConfiguration.NUMBER_COLUMN_BATTLE_PLACING));
+        this.battle.getPlacing().setButtonPanel(new JPanel());
         buttonPanelFleetAdding();
 
-        scrollPane = new JScrollPane(buttonPanel);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        this.battle.getPlacing().setScrollPane(new JScrollPane(this.battle.getPlacing().getButtonPanel()));
+        this.battle.getPlacing().getScrollPane().setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        add(dashBoardPlacingPanel, BorderLayout.CENTER);
-        add(scrollPane, BorderLayout.WEST);
+        JPanel decidingButtonPanel = new JPanel();
+        decidingButtonPanel.setBackground(Color.DARK_GRAY);
+
+        JButton startingBattleButton = new JButton("Battle !");
+        startingBattleButton.setPreferredSize(new Dimension(200,100));
+        JButton CancelPlacingButton = new JButton("Cancel");
+        CancelPlacingButton.setPreferredSize(new Dimension(200,100));
+        CancelPlacingButton.addActionListener(new CancelButton());
+
+        decidingButtonPanel.add(startingBattleButton);
+        decidingButtonPanel.add(CancelPlacingButton);
+
+        add(decidingButtonPanel , BorderLayout.SOUTH);
+
+        add(this.battle.getPlacing().getDashBoardPlacingPanel(), BorderLayout.CENTER);
+        add(this.battle.getPlacing().getScrollPane(), BorderLayout.WEST);
 
     }
 
@@ -52,9 +55,11 @@ public class PlacingJPanel extends JPanel {
     /**
      * Méthode générant les boutons associés à chaque bateau
      */
-    private void buttonPanelFleetAdding(){
+    public void buttonPanelFleetAdding(){
         JButton tmpbutton;
-        for(Boat boat : placingManager.getBoatToPlace().getArrayListBoat()){
+        this.battle.getPlacing().getButtonPanel().removeAll();
+        this.battle.getPlacing().getButtonPanel().setLayout(new GridLayout(0, GameConfiguration.NUMBER_COLUMN_BATTLE_PLACING));
+        for(Boat boat : this.battle.getPlacing().getBoatToPlace().getArrayListBoat()){
             String text = "";
             switch (boat.getClass().getName()) {
                 case "engine.entity.boats.Standard": {
@@ -85,8 +90,9 @@ public class PlacingJPanel extends JPanel {
             tmpbutton.setFocusPainted(false);
             tmpbutton.setBorderPainted(false);
             tmpbutton.setIcon(new ImageIcon(GameConfiguration.START_FILE_PATH + "/boat/"+text+".png"));
-            buttonPanel.add(tmpbutton);
-            buttonHashMap.put(boat,tmpbutton);
+
+            this.battle.getPlacing().getButtonPanel().add(tmpbutton);
+            this.battle.getPlacing().getButtonHashMap().put(boat,tmpbutton);
         }
     }
 
@@ -96,16 +102,14 @@ public class PlacingJPanel extends JPanel {
      * @throws NoSuchElementException
      */
     private void removeButton(Boat boat) throws NoSuchElementException {
-        if (buttonHashMap.containsKey(boat)){
-            buttonPanel.remove(buttonHashMap.get(boat));
-            buttonHashMap.remove(boat);
+        if (this.battle.getPlacing().getButtonHashMap().containsKey(boat)){
+            this.battle.getPlacing().getButtonPanel().remove(this.battle.getPlacing().getButtonHashMap().get(boat));
+            this.battle.getPlacing().getButtonHashMap().remove(boat);
         }
         else {
             throw (new NoSuchElementException());
         }
     }
-
-
 
     /**
      * Classe de détection de cliques sur les JButton
@@ -123,18 +127,22 @@ public class PlacingJPanel extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Le bateau :"+boat.getName()+" a été sélectionné");
-            placingManager.selectBoat(this.boat);
+            battle.getPlacingManager().selectBoat(this.boat);
         }
     }
+
+    private class CancelButton implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            battle.getPlacingManager().cancelPlacing();
+        }
+    }
+
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        dashBoardPlacingPanel.repaint();
+        this.battle.getPlacing().getDashBoardPlacingPanel().repaint();
     }
-
-
-
 
 }

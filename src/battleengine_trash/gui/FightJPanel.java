@@ -1,5 +1,6 @@
 package battleengine_trash.gui;
 
+import battleengine_trash.engine.Battle;
 import battleengine_trash.process.FightManager;
 
 import javax.swing.*;
@@ -12,11 +13,11 @@ import javax.swing.*;
  */
 public class FightJPanel extends JPanel {
 
-    private FightManager fightManager;
+    private Battle battle;
 
-    public FightJPanel(FightManager fightManager) {
+    public FightJPanel(Battle battle) {
         super();
-        this.fightManager = fightManager;
+        this.battle = battle;
     }
 
 

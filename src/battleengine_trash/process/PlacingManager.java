@@ -1,53 +1,26 @@
 package battleengine_trash.process;
 
-import battleengine_trash.engine.SpawnZone;
+import battleengine_trash.engine.Battle;
 import config.GameConfiguration;
 import engine.entity.boats.Boat;
-import engine.entity.boats.Fleet;
 
 /**
  * Class that manage the placing of the boats during the battle phase.
  * @author Gauthier Defrance
- * @version 0.1
+ * @version 0.2
  */
 public class PlacingManager {
 
-    private Fleet BoatToPlace;
-    private Fleet BoatCurrentlyBeingPlaced;
-    private Fleet PlacedFleet;  //à peut être enlever
-
-    private Boat currentBoat;
-
-    private SpawnZone spawnzone;
-    private SpawnZone spawnzoneEnnemy;
+    private Battle battle;
 
     /**
      * Constructor of class that takes BoatToPlace as a parameters,
      * it's a Fleet of boats.
-     * @param BoatToPlace
+     * @param battle
      */
-    public PlacingManager(Fleet BoatToPlace) {
-
-        this.spawnzone = SpawnZoneFactory.buildDefaultSpawnZone();
-        this.spawnzoneEnnemy = SpawnZoneFactory.buildDefaultEnnemySpawnZone();
-
-        this.BoatToPlace = BoatToPlace;
-        this.BoatCurrentlyBeingPlaced = new Fleet();
-        this.PlacedFleet = new Fleet();
-
+    public PlacingManager(Battle battle) {
+        this.battle = battle;
     }
-
-    public SpawnZone getSpawnzone() { return spawnzone; }
-    public SpawnZone getSpawnzoneEnnemy() { return spawnzoneEnnemy; }
-
-    public Boat getCurrentBoat() { return currentBoat; }
-    public Fleet getBoatToPlace() { return BoatToPlace; }
-    public Fleet getPlacedFleet() { return PlacedFleet; }
-    public Fleet getBoatCurrentlyBeingPlaced() { return BoatCurrentlyBeingPlaced; }
-
-    public void setCurrentBoat(Boat currentBoat) { this.currentBoat = currentBoat; }
-    public void setBoatToPlace(Fleet BoatToPlace) { this.BoatToPlace = BoatToPlace; }
-
 
     /**
      * Méthode qui tente de sélectionner un bateau passé en paramètres.
@@ -56,12 +29,13 @@ public class PlacingManager {
      * @param selectedBoat Le bateau que vous essayez de sélectionner
      */
     public void selectBoat(Boat selectedBoat) {
+        Boat currentBoat = this.battle.getPlacing().getCurrentBoat();
         if(selectedBoat!=null) {
-            if (selectedBoat != currentBoat && BoatToPlace.getArrayListBoat().contains(selectedBoat)) {
-                this.currentBoat = selectedBoat;
+            if (selectedBoat != currentBoat && this.battle.getPlacing().getBoatToPlace().getArrayListBoat().contains(selectedBoat)) {
+                this.battle.getPlacing().setCurrentBoat(selectedBoat);
             } else if (currentBoat!=null){
                 currentBoat.setPosition(GameConfiguration.DEFAULT_BOAT_POS_X, GameConfiguration.DEFAULT_BOAT_POS_Y);
-                this.currentBoat = null;
+                this.battle.getPlacing().setCurrentBoat(null);
             }
         }
     }
@@ -73,8 +47,9 @@ public class PlacingManager {
      * @return Boolean
      */
     public boolean isPlacable() {
+        Boat currentBoat = this.battle.getPlacing().getCurrentBoat();
         if (currentBoat==null) return false;
-        return spawnzone.isPlaceable(currentBoat);
+        return this.battle.getPlacing().getSpawnzone().isPlaceable(currentBoat);
     }
 
 
@@ -82,29 +57,35 @@ public class PlacingManager {
      * Méthode ajoutant le bateau actuellement sélectionné à la liste des bateaux en cours de placement.
      */
     public void placeBoat() {
-        BoatCurrentlyBeingPlaced.add(currentBoat);
-        BoatToPlace.remove(currentBoat);
-        this.currentBoat = null;
+        Boat currentBoat = this.battle.getPlacing().getCurrentBoat();
+        this.battle.getPlacing().getBoatCurrentlyBeingPlaced().add(currentBoat);
+        this.battle.getPlacing().getButtonPanel().remove(this.battle.getPlacing().getButtonHashMap().get(currentBoat));
+        this.battle.getPlacing().getBoatToPlace().remove(currentBoat);
+        this.battle.getPlacing().setCurrentBoat(null);
+        this.battle.getPlacingJPanel().updateUI(); //update des boutons
     }
 
     /**
      * Méthode qui vide la liste des bateaux en cours de placement et les ajoute à la liste des bateaux placés.
      */
     public void confirmPlacing(){
-        for(Boat boat : BoatCurrentlyBeingPlaced.getArrayListBoat()) {
-            PlacedFleet.add(boat);
+        for(Boat boat : this.battle.getPlacing().getBoatCurrentlyBeingPlaced().getArrayListBoat()) {
+            this.battle.getPlacing().getPlacedFleet().add(boat);
         }
-        BoatCurrentlyBeingPlaced.getArrayListBoat().clear();
+        this.battle.getPlacing().getBoatCurrentlyBeingPlaced().getArrayListBoat().clear();
     }
 
     /**
      * Méthode qui vide la liste des bateaux en cours de placement et les ajoute à la liste des bateaux à placer.
      */
     public void cancelPlacing(){
-        for(Boat boat : BoatCurrentlyBeingPlaced.getArrayListBoat()) {
-            BoatToPlace.add(boat);
+        for(Boat boat : this.battle.getPlacing().getBoatCurrentlyBeingPlaced().getArrayListBoat()) {
+            this.battle.getPlacing().getBoatToPlace().add(boat);
         }
-        BoatCurrentlyBeingPlaced.getArrayListBoat().clear();
+        this.battle.getPlacing().getBoatCurrentlyBeingPlaced().getArrayListBoat().clear();
+        this.battle.getPlacingJPanel().buttonPanelFleetAdding();
+        this.battle.getPlacing().getSpawnzone().getPlacedList().getArrayListBoat().clear();
+        this.battle.getPlacingJPanel().updateUI();
     }
 
 }
