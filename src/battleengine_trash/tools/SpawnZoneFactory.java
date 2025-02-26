@@ -1,4 +1,4 @@
-package battleengine_trash.process;
+package battleengine_trash.tools;
 
 import battleengine_trash.engine.SpawnZone;
 import config.GameConfiguration;

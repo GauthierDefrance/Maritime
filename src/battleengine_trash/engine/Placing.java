@@ -2,7 +2,7 @@ package battleengine_trash.engine;
 
 
 import battleengine_trash.gui.DashBoardPlacingPanel;
-import battleengine_trash.process.SpawnZoneFactory;
+import battleengine_trash.tools.SpawnZoneFactory;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
 
