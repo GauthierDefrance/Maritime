@@ -1,7 +1,5 @@
 package experimental_gui;
 
-import config.GameConfiguration;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,21 +9,29 @@ import java.awt.event.ActionListener;
  * options menu for the game
  * @see JPanel
  * @author Zue Jack-Arthur
- * @version 0.1
+ * @version 0.3
  */
 public class optionsMenu extends simpleMenu {
 
     private int token;
-    private JButton goBackButton;
 
-    private Label soundLevel;
+    private JButton goBackButton;
+    private JPanel goBackPanel;
+
+    private JPanel optionDisplayer;
+    private JPanel suboptionDisplayer;
+
+    private JPanel soundPanel;
+    private JLabel soundLevel;
     private JButton plusButton;
     private JButton minusButton;
 
-    private Label muteLabel;
+    private JPanel mutePanel;
+    private JLabel muteLabel;
     private JButton muteButton;
 
-    private Label debugLabel;
+    private JPanel debugPanel;
+    private JLabel debugLabel;
     private JButton debugButton;
 
 
@@ -37,46 +43,38 @@ public class optionsMenu extends simpleMenu {
 
     public void init() {
 
-        goBackButton = new JButton("Go Back");
-        goBackButton.setFont(GameConfiguration.FONT);
-        goBackButton.addActionListener(new goBackButtonListener());
+        this.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        soundLevel = new Label("Sound Level");
-        soundLevel.setFont(GameConfiguration.FONT);
+        goBackButton = JComponentBuilder.menuButton("Go back", new goBackButtonListener());
+        goBackPanel = JComponentBuilder.flowMenuPanel(goBackButton);
 
+        soundLevel = JComponentBuilder.menuLabel("Sound Level");
 
-        plusButton = new JButton("+");
-        plusButton.setFont(GameConfiguration.FONT);
-        minusButton = new JButton("-");
-        minusButton.setFont(GameConfiguration.FONT);
+        plusButton = JComponentBuilder.menuButton("+", new plusButtonListener());
 
-        muteLabel = new Label("Mute");
-        muteLabel.setFont(GameConfiguration.FONT);
-        muteButton = new JButton("Mute");
-        muteButton.setFont(GameConfiguration.FONT);
-        muteButton.addActionListener(new muteButtonListener());
+        minusButton = JComponentBuilder.menuButton("-", new minusButtonListener());
 
+        soundPanel = JComponentBuilder.flowMenuPanel(plusButton, minusButton);
 
-        debugLabel = new Label("Debug");
-        debugLabel.setFont(GameConfiguration.FONT);
-        debugButton = new JButton("Debug");
-        debugButton.setFont(GameConfiguration.FONT);
+        muteLabel = JComponentBuilder.menuLabel("Mute");
+        muteButton = JComponentBuilder.menuButton("Off", new muteButtonListener());
 
-        this.add(goBackButton);
-        this.add(soundLevel);
-        this.add(plusButton);
-        this.add(minusButton);
-        this.add(muteLabel);
-        this.add(muteButton);
-        this.add(debugLabel);
-        this.add(debugButton);
+        debugLabel = JComponentBuilder.menuLabel("Debug Menu");
+        debugButton = JComponentBuilder.menuButton("Off", new debugMenuListener());
+
+        optionDisplayer = JComponentBuilder.borderMenuPanel();
+        suboptionDisplayer = JComponentBuilder.gridMenuPanel(3,2,soundLevel, soundPanel, muteLabel, muteButton, debugLabel, debugButton);
+        optionDisplayer.add(goBackPanel, BorderLayout.NORTH);
+        optionDisplayer.add(suboptionDisplayer, BorderLayout.CENTER);
+
+        this.add(optionDisplayer);
     }
 
     public class goBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (token == 0) GUILoader.loadStartMenu(window);
-            else GUILoader.loadPauseMenu(window);
+            else GUILoader.loadPauseMenu(0,window);
         }
     }
 
@@ -97,9 +95,9 @@ public class optionsMenu extends simpleMenu {
     public class muteButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (muteButton.getText().equals("Mute")) {
-                muteButton.setText("Unmute");
-            } else muteButton.setText("Mute");
+            if (muteButton.getText().equals("Off")) {
+                muteButton.setText("On");
+            } else muteButton.setText("Off");
         }
     }
 

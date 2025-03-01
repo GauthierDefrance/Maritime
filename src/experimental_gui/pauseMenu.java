@@ -1,7 +1,5 @@
 package experimental_gui;
 
-import config.GameConfiguration;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,8 +9,11 @@ import java.awt.event.ActionListener;
  * pause menu for the game
  * @see JPanel
  * @author Zue Jack-Arthur
+ * @version 0.2
  */
 public class pauseMenu extends simpleMenu {
+
+    private int token;
 
     //Elements
     private JLabel Title;
@@ -30,48 +31,32 @@ public class pauseMenu extends simpleMenu {
     private JButton backToGameButton;
     private JButton exitButton;
 
-    public pauseMenu(Container window) {
+    public pauseMenu(int token, Container window) {
         super(window);
+        this.token = token;
         init();
     }
 
     public void init() {
-        Title = new JLabel("Maritime");
-        Title.setFont(GameConfiguration.FONT);
+        Title = JComponentBuilder.title("Maritime");
 
-        credits = new JLabel("A Game by Ammad Kenan, Defrance Gauthier & Zue Jack-Arthur");
-        credits.setFont(GameConfiguration.CREDITS_FONT);
+        credits = JComponentBuilder.credits("A Game by Ammad Kenan, Defrance Gauthier & Zue Jack-Arthur");
 
-        saveButton = new JButton("Save game");
-        saveButton.setFont(GameConfiguration.FONT);
+        saveButton = JComponentBuilder.menuButton("Save game");
 
-        loadButton = new JButton("Load game");
-        loadButton.setFont(GameConfiguration.FONT);
+        loadButton = JComponentBuilder.menuButton("Load game");
 
-        optionsButton = new JButton("Options");
-        optionsButton.setFont(GameConfiguration.FONT);
-        optionsButton.addActionListener(new OptionsMenuListener());
+        optionsButton = JComponentBuilder.menuButton("Options", new OptionsMenuListener());
 
-        mainMenuButton = new JButton("Main Menu");
-        mainMenuButton.setFont(GameConfiguration.FONT);
-        mainMenuButton.addActionListener(new MainMenuListener());
+        mainMenuButton = JComponentBuilder.menuButton("Main Menu", new MainMenuListener());
 
-        backToGameButton = new JButton("Back to Game");
-        backToGameButton.setFont(GameConfiguration.FONT);
+        backToGameButton = JComponentBuilder.menuButton("Back to game", new ResumeButtonListener());
 
-        exitButton = new JButton("Exit");
-        exitButton.setFont(GameConfiguration.FONT);
-        exitButton.addActionListener(new ExitListener());
+        exitButton = JComponentBuilder.menuButton("Exit", new ExitListener());
 
-        buttonsDisplay = new JPanel();
-        buttonsDisplay.add(saveButton);
-        buttonsDisplay.add(loadButton);
-        buttonsDisplay.add(optionsButton);
-        buttonsDisplay.add(mainMenuButton);
+        buttonsDisplay = JComponentBuilder.flowMenuPanel(saveButton, loadButton, optionsButton, mainMenuButton);
 
-        bigButtonsDisplay = new JPanel();
-        bigButtonsDisplay.add(backToGameButton);
-        bigButtonsDisplay.add(exitButton);
+        bigButtonsDisplay = JComponentBuilder.flowMenuPanel(backToGameButton, exitButton);
 
         this.add(Title);
         this.add(buttonsDisplay);
@@ -91,6 +76,13 @@ public class pauseMenu extends simpleMenu {
         @Override
         public void actionPerformed(ActionEvent e) {
             GUILoader.loadOptionsMenu(1,window);
+        }
+    }
+
+    public class ResumeButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            setVisible(false);
         }
     }
 }

@@ -16,8 +16,8 @@ public class GUILoader {
         window.repaint();
     }
 
-    public static void loadPauseMenu(Container window){
-        actualise(window, new pauseMenu(window));
+    public static void loadPauseMenu(int token,Container window){
+        actualise(window, new pauseMenu(token, window));
     }
 
     public static void loadStartMenu(Container window){
@@ -26,5 +26,9 @@ public class GUILoader {
 
     public static void loadOptionsMenu(int token, Container window){
         actualise(window, new optionsMenu(token, window));
+    }
+
+    public static void loadChargeGameMenu(int token, Container window){
+        actualise(window, new chargeGameMenu(token, window));
     }
 }

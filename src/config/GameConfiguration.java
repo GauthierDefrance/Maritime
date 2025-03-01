@@ -43,11 +43,11 @@ public final class GameConfiguration {
     public static final double MILITARY_INVENTORY_SIZE_BOOST = 0.4;
 
     public static final Dimension WINDOW_SIZE = new Dimension(640, 360);
+    public static final Font TITLE_FONT = new Font( "Noto Sans Display", Font.BOLD, 50);
     public static final Font FONT = new Font( "Noto Sans Display", Font.BOLD, 20);
     public static final Font CREDITS_FONT = new Font("Noto Sans Display", Font.BOLD, 10);
 
     public static final String START_FILE_PATH = "src/images";
-
 
     public static final int NUMBER_COLUMN_BATTLE_PLACING = 2;
     public static final int SPAWN_ZONE_OPACITY = 15;

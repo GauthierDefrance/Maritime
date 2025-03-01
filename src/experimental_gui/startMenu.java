@@ -1,6 +1,5 @@
 package experimental_gui;
 
-import config.GameConfiguration;
 import test.TestMove;
 
 import javax.swing.*;
@@ -11,11 +10,11 @@ import java.awt.event.ActionListener;
 /**
  * Simple start menu for the game, serves as the entrypoint of the program
  * @author Zue Jack-Arthur
- * @version 0.2
+ * @version 0.4
  */
 public class startMenu extends simpleMenu {
 
-    private JLabel Title;
+    private JLabel title;
     private JLabel credits;
 
     private JButton newGame;
@@ -36,44 +35,25 @@ public class startMenu extends simpleMenu {
     }
     public void init() {
 
-        //Setting up elements
+        this.setLayout(new BorderLayout());
 
-        Title = new JLabel("Maritime");
-        Title.setFont(GameConfiguration.FONT);
+        title = JComponentBuilder.title("Maritime");
 
-        credits = new JLabel("A Game by Ammad Kenan, Defrance Gauthier & Zue Jack-Arthur");
-        credits.setFont(GameConfiguration.CREDITS_FONT);
+        credits = JComponentBuilder.credits("A Game by Ammad Kenan, Defrance Gauthier & Zue Jack-Arthur");
 
-        newGame = new JButton("New Game");
-        newGame.setFont(GameConfiguration.FONT);
-        newGame.addActionListener(new StartGameListener());
+        newGame = JComponentBuilder.menuButton("New Game",new StartGameListener());
 
-        loadGame = new JButton("Load Game");
-        loadGame.setFont(GameConfiguration.FONT);
-        loadGame.addActionListener(new LoadGameListener());
+        loadGame = JComponentBuilder.menuButton("Load Game",new LoadGameListener());
 
-        options = new JButton("Options");
-        options.setFont(GameConfiguration.FONT);
-        options.addActionListener(new OptionsMenuListener());
+        options = JComponentBuilder.menuButton("Options", new OptionsMenuListener());
 
-        exit = new JButton("Exit");
-        exit.setFont(GameConfiguration.FONT);
-        exit.addActionListener(new ExitListener());
+        exit = JComponentBuilder.menuButton("Exit", new ExitListener());
 
-        TitleDisplay = new JPanel();
-        TitleDisplay.setLayout(new FlowLayout(FlowLayout.CENTER));
-        TitleDisplay.add(Title);
+        TitleDisplay = JComponentBuilder.flowMenuPanel(title);
 
-        creditsDisplay = new JPanel();
-        creditsDisplay.setLayout(new FlowLayout(FlowLayout.CENTER));
-        creditsDisplay.add(credits);
+        creditsDisplay = JComponentBuilder.flowMenuPanel(credits);
 
-        buttonDisplay = new JPanel();
-        buttonDisplay.setLayout(new FlowLayout(FlowLayout.CENTER));
-        buttonDisplay.add(newGame);
-        buttonDisplay.add(loadGame);
-        buttonDisplay.add(options);
-        buttonDisplay.add(exit);
+        buttonDisplay = JComponentBuilder.flowMenuPanel(newGame, loadGame, options, exit);
 
         //Window arrangement
 
@@ -112,5 +92,4 @@ public class startMenu extends simpleMenu {
             //Work in progress
         }
     }
-
 }

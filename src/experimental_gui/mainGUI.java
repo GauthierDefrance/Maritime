@@ -8,7 +8,7 @@ import java.awt.*;
 /**
  * Starting point of the program
  * @author Zue Jack-Arthur
- * @version NOPE LOL
+ * @version 0.1
  */
 public class mainGUI extends JFrame {
     private Container window;
