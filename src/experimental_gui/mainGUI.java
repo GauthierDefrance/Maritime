@@ -23,11 +23,10 @@ public class mainGUI extends JFrame {
         window.setLayout(new BorderLayout());
         setSize(GameConfiguration.WINDOW_SIZE);
         setLocationRelativeTo(null);
-        setVisible(true);
-        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         GUILoader.loadStartMenu(window);
+//        setResizable(false);
+        setVisible(true);
     }
 
     public static void main(String[] args) {
