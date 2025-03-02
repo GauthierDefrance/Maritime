@@ -43,6 +43,9 @@ public class StartMenuTest extends SimpleMenu implements Runnable {
     public void init() {
 
         this.setLayout(new BorderLayout());
+        dashboard = new GameDisplay(map);
+        jPanel1.setLayout(new BorderLayout());
+        jPanel0.setLayout(new BorderLayout());
 
         title = JComponentBuilder.title("Maritime");
 
@@ -69,18 +72,14 @@ public class StartMenuTest extends SimpleMenu implements Runnable {
 
         //Window arrangement
         JLayeredPane jLayeredPane = new JLayeredPane();
-        jPanel1.setLayout(new BorderLayout());
-        jPanel0.setLayout(new BorderLayout());
+
+        dashboard.setBackground(new Color(78, 172, 233));
 
         jPanel1.setOpaque(false);
-        buttonDisplay.setOpaque(false);
         TitleDisplay.setOpaque(false);
         creditsDisplay.setOpaque(false);
+        buttonDisplay.setOpaque(false);
 
-        jPanel0.setBackground(Color.red);
-
-        dashboard = new GameDisplay(map);
-        dashboard.setBackground(new Color(78, 172, 233));
         jPanel0.add(dashboard,BorderLayout.CENTER);
         jPanel1.add(TitleDisplay, BorderLayout.NORTH);
         jPanel1.add( buttonDisplay, BorderLayout.CENTER);
