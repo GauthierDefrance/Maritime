@@ -2,8 +2,7 @@ package experimental_gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 /**
  * options menu for the game
@@ -67,6 +66,7 @@ public class OptionsMenu extends SimpleMenu {
         optionDisplayer.add(goBackPanel, BorderLayout.NORTH);
         optionDisplayer.add(suboptionDisplayer, BorderLayout.CENTER);
 
+        this.addKeyListener(new KeyControls());
         this.add(optionDisplayer);
     }
 
@@ -105,6 +105,27 @@ public class OptionsMenu extends SimpleMenu {
         @Override
         public void actionPerformed(ActionEvent e) {
             //WiP
+        }
+    }
+
+    private class KeyControls implements KeyListener {
+
+        @Override
+        public void keyPressed(KeyEvent event) {
+            if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
+                if (token == 0) GUILoader.loadStartMenu(getWindow());
+                else GUILoader.loadPauseMenu(0,getWindow());
+            }
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+
         }
     }
 }

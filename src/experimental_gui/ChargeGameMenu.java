@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class ChargeGameMenu extends SimpleMenu {
 
@@ -20,6 +22,7 @@ public class ChargeGameMenu extends SimpleMenu {
         init();
     }
     public void init(){
+        this.addKeyListener(new KeyControls());
     }
 
     public class goBackButtonListener implements ActionListener {
@@ -27,6 +30,27 @@ public class ChargeGameMenu extends SimpleMenu {
         public void actionPerformed(ActionEvent e) {
             if (token == 0) GUILoader.loadStartMenu(getWindow());
             else GUILoader.loadPauseMenu(1,getWindow());
+        }
+    }
+
+    private class KeyControls implements KeyListener {
+
+        @Override
+        public void keyPressed(KeyEvent event) {
+            if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
+                if (token == 0) GUILoader.loadStartMenu(getWindow());
+                else GUILoader.loadPauseMenu(0,getWindow());
+            }
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+
         }
     }
 }

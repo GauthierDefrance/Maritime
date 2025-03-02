@@ -14,6 +14,8 @@ public class GUILoader {
         window.add(menu);
         window.revalidate();
         window.repaint();
+        menu.setFocusable(true);
+        menu.requestFocusInWindow();
     }
 
     public static void loadPauseMenu(int token,Container window){

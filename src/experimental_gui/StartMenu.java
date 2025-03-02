@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  * Simple start menu for the game, serves as the entrypoint of the program
@@ -55,6 +57,8 @@ public class StartMenu extends SimpleMenu {
 
         buttonDisplay = JComponentBuilder.flowMenuPanel(newGame, loadGame, options, exit);
 
+        this.addKeyListener(new KeyControls());
+
         //Window arrangement
 
         this.add(TitleDisplay, BorderLayout.NORTH);
@@ -90,6 +94,32 @@ public class StartMenu extends SimpleMenu {
         @Override
         public void actionPerformed(ActionEvent e) {
             //Work in progress
+        }
+    }
+
+    private class KeyControls implements KeyListener {
+
+        @Override
+        public void keyPressed(KeyEvent event) {
+            if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
+                if(JOptionPane.showConfirmDialog(StartMenu.this,"Vous voulez quitter ?","confirmation",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+                    try {
+                        System.exit(0);
+                    } catch ( SecurityException e1 ) {
+                        JOptionPane.showMessageDialog(StartMenu.this, "You are not allowed to exit!", "Error", JOptionPane.ERROR_MESSAGE );
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+
         }
     }
 }

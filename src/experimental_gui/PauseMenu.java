@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  * pause menu for the game
@@ -58,6 +60,7 @@ public class PauseMenu extends SimpleMenu {
 
         bigButtonsDisplay = JComponentBuilder.flowMenuPanel(backToGameButton, exitButton);
 
+        this.addKeyListener(new KeyControls());
         this.add(Title);
         this.add(buttonsDisplay);
         this.add(bigButtonsDisplay);
@@ -83,6 +86,28 @@ public class PauseMenu extends SimpleMenu {
         @Override
         public void actionPerformed(ActionEvent e) {
             setVisible(false);
+            //WiP
+        }
+    }
+
+    private class KeyControls implements KeyListener {
+
+        @Override
+        public void keyPressed(KeyEvent event) {
+            if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
+                setVisible(false);
+                //WiP
+            }
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+
         }
     }
 }
