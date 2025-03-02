@@ -64,6 +64,8 @@ public class StartMenuTest extends SimpleMenu implements Runnable {
 
         this.addKeyListener(new KeyControls());
         this.getWindow().addComponentListener(new ComponentControls());
+        jPanel0.setBounds(getWindow().getBounds());
+        jPanel1.setBounds(getWindow().getBounds());
 
         //Window arrangement
         JLayeredPane jLayeredPane = new JLayeredPane();
@@ -78,6 +80,7 @@ public class StartMenuTest extends SimpleMenu implements Runnable {
         jPanel0.setBackground(Color.red);
 
         dashboard = new GameDisplay(map);
+        dashboard.setBackground(new Color(78, 172, 233));
         jPanel0.add(dashboard,BorderLayout.CENTER);
         jPanel1.add(TitleDisplay, BorderLayout.NORTH);
         jPanel1.add( buttonDisplay, BorderLayout.CENTER);
