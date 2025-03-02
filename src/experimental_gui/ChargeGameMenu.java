@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class chargeGameMenu extends simpleMenu{
+public class ChargeGameMenu extends SimpleMenu {
 
     private int token;
 
@@ -14,7 +14,7 @@ public class chargeGameMenu extends simpleMenu{
     private JButton loadFile2;
     private JButton loadFile3;
 
-    public chargeGameMenu(int token, Container window) {
+    public ChargeGameMenu(int token, Container window) {
         super(window);
         this.token = token;
         init();
@@ -25,8 +25,8 @@ public class chargeGameMenu extends simpleMenu{
     public class goBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (token == 0) GUILoader.loadStartMenu(window);
-            else GUILoader.loadPauseMenu(1,window);
+            if (token == 0) GUILoader.loadStartMenu(getWindow());
+            else GUILoader.loadPauseMenu(1,getWindow());
         }
     }
 }

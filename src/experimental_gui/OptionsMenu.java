@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
  * @author Zue Jack-Arthur
  * @version 0.3
  */
-public class optionsMenu extends simpleMenu {
+public class OptionsMenu extends SimpleMenu {
 
     private int token;
 
@@ -35,7 +35,7 @@ public class optionsMenu extends simpleMenu {
     private JButton debugButton;
 
 
-    public optionsMenu(int token, Container window) {
+    public OptionsMenu(int token, Container window) {
         super(window);
         this.token = token;
         init();
@@ -73,8 +73,8 @@ public class optionsMenu extends simpleMenu {
     public class goBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (token == 0) GUILoader.loadStartMenu(window);
-            else GUILoader.loadPauseMenu(0,window);
+            if (token == 0) GUILoader.loadStartMenu(getWindow());
+            else GUILoader.loadPauseMenu(0,getWindow());
         }
     }
 

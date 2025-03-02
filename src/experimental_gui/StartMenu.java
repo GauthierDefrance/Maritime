@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
  * @author Zue Jack-Arthur
  * @version 0.4
  */
-public class startMenu extends simpleMenu {
+public class StartMenu extends SimpleMenu {
 
     private JLabel title;
     private JLabel credits;
@@ -29,7 +29,7 @@ public class startMenu extends simpleMenu {
     /**
      * Typical constructor to make the startMenu appear
      */
-    public startMenu(Container window) {
+    public StartMenu(Container window) {
         super(window);
         init();
     }
@@ -74,7 +74,7 @@ public class startMenu extends simpleMenu {
                 Thread gameThread = new Thread(gameMainGUI);
                 gameThread.start();
             } catch ( IllegalThreadStateException e1 ) {
-                JOptionPane.showMessageDialog( startMenu.this, "Game is already running!", "Error", JOptionPane.ERROR_MESSAGE );
+                JOptionPane.showMessageDialog( StartMenu.this, "Game is already running!", "Error", JOptionPane.ERROR_MESSAGE );
             }
         }
     }
@@ -82,7 +82,7 @@ public class startMenu extends simpleMenu {
     public class OptionsMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadOptionsMenu(0,window);
+            GUILoader.loadOptionsMenu(0,getWindow());
         }
     }
 

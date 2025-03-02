@@ -9,7 +9,7 @@ import java.awt.*;
  */
 public class GUILoader {
 
-    public static void actualise(Container window, simpleMenu menu){
+    public static void actualise(Container window, SimpleMenu menu){
         window.removeAll();
         window.add(menu);
         window.revalidate();
@@ -17,18 +17,18 @@ public class GUILoader {
     }
 
     public static void loadPauseMenu(int token,Container window){
-        actualise(window, new pauseMenu(token, window));
+        actualise(window, new PauseMenu(token, window));
     }
 
     public static void loadStartMenu(Container window){
-        actualise(window, new startMenu(window));
+        actualise(window, new StartMenu(window));
     }
 
     public static void loadOptionsMenu(int token, Container window){
-        actualise(window, new optionsMenu(token, window));
+        actualise(window, new OptionsMenu(token, window));
     }
 
     public static void loadChargeGameMenu(int token, Container window){
-        actualise(window, new chargeGameMenu(token, window));
+        actualise(window, new ChargeGameMenu(token, window));
     }
 }

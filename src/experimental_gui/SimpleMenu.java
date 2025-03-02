@@ -11,12 +11,20 @@ import java.awt.event.ActionListener;
  * @version 0.1
  * @see JPanel
  */
-public abstract class simpleMenu extends JPanel {
+public abstract class SimpleMenu extends JPanel {
 
-    Container window;
+     private Container window;
 
-    public simpleMenu(Container window) {
+    public SimpleMenu(Container window) {
         super();
+        this.window = window;
+    }
+
+    public Container getWindow() {
+        return window;
+    }
+
+    public void setWindow(Container window) {
         this.window = window;
     }
 
@@ -29,7 +37,7 @@ public abstract class simpleMenu extends JPanel {
             try {
                 System.exit(0);
             } catch ( SecurityException e1 ) {
-                JOptionPane.showMessageDialog(simpleMenu.this, "You are not allowed to exit!", "Error", JOptionPane.ERROR_MESSAGE );
+                JOptionPane.showMessageDialog(SimpleMenu.this, "You are not allowed to exit!", "Error", JOptionPane.ERROR_MESSAGE );
             }
 
         }
