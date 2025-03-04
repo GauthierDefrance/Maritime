@@ -4,7 +4,7 @@ import engine.entity.Harbor;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
 import engine.trading.SeaRoad;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @version 0.3
  */
 
-public class Faction {
+public class Faction implements Serializable {
     private ArrayList<Boat> lstBoat;
     private ArrayList<Harbor> lstHarbor;
     private ArrayList<SeaRoad> lstSeaRouts;

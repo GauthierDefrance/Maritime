@@ -4,7 +4,6 @@ import config.MapBuilder;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
 import engine.graph.GraphPoint;
-
 import java.util.Collections;
 
 /**

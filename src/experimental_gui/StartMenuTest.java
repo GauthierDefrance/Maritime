@@ -77,7 +77,7 @@ public class StartMenuTest extends SimpleMenu implements Runnable {
 
         jPanel1.setOpaque(false);
         TitleDisplay.setOpaque(false);
-        creditsDisplay.setOpaque(false);
+        creditsDisplay.setOpaque(true);
         buttonDisplay.setOpaque(false);
 
         jPanel0.add(dashboard,BorderLayout.CENTER);
@@ -156,7 +156,7 @@ public class StartMenuTest extends SimpleMenu implements Runnable {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                if(JOptionPane.showConfirmDialog(StartMenuTest.this,"Vous voulez quitter ?","confirmation",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+                if(JOptionPane.showConfirmDialog(StartMenuTest.this,"You want to quit ?","confirmation",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
                     try {
                         System.exit(0);
                     } catch ( SecurityException e1 ) {

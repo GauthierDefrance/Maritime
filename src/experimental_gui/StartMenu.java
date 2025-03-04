@@ -102,7 +102,7 @@ public class StartMenu extends SimpleMenu {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                if(JOptionPane.showConfirmDialog(StartMenu.this,"Vous voulez quitter ?","confirmation",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+                if(JOptionPane.showConfirmDialog(StartMenu.this,"Do you want to quit ?","confirmation",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
                     try {
                         System.exit(0);
                     } catch ( SecurityException e1 ) {
