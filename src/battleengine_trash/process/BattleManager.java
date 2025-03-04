@@ -30,7 +30,13 @@ public class BattleManager {
      */
     public JPanel getJpanel() { if (this.battle.isInPlacingMode()) { return this.battle.getPlacingJPanel(); } else { return this.battle.getFightingJPanel(); } }
 
-    public void nextTick() {}
+    public void nextTick() {
+        //est-ce que la bataille est terminée ?
+        //Déplacer les bateaux
+        //Déplacer les balles
+        //détecter les collisions
+
+    }
 
 
 }

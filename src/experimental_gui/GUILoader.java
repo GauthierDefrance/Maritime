@@ -23,7 +23,7 @@ public class GUILoader {
     }
 
     public static void loadStartMenu(Container window){
-        actualise(window, new StartMenu(window));
+        actualise(window, new StartMenuTest(window));
     }
 
     public static void loadOptionsMenu(int token, Container window){
