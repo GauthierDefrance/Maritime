@@ -78,7 +78,7 @@ public class PauseMenu extends SimpleMenu {
     public class OptionsMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadOptionsMenu(1,getWindow());
+            GUILoader.loadOptionsMenu(token,getWindow());
         }
     }
 

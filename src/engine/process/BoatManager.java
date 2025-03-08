@@ -1,9 +1,14 @@
 package engine.process;
 
+import config.GameConfiguration;
 import config.MapBuilder;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
+import engine.faction.Faction;
 import engine.graph.GraphPoint;
+
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.Collections;
 
 /**
@@ -102,4 +107,69 @@ public class BoatManager {
         return boat.getPosition().equals(harbor.getPreciseGraphPosition());
     }
 
+    /**
+     * Check if a boat1 reached a targeted boat2
+     * @param boat1 concerned boat
+     * @param boat2 targeted boat
+     * @return result of the check
+     */
+    public static boolean boatCollisionToBoat (Boat boat1, Boat boat2){
+        return GameConfiguration.HITBOX_BOAT - 5 >= boat1.getPosition().distance(boat2.getPosition());
+    }
+
+    /**
+     * Check if a boat1 reached a targeted in lstBoat
+     * @param boat1 concerned boat
+     * @param lstBoat lst of targeted boat
+     * @return result of the check
+     */
+    public static boolean boatCollisionToBoat (Boat boat1, ArrayList<Boat> lstBoat){
+        for (Boat boat2 : lstBoat){
+            if (GameConfiguration.HITBOX_BOAT - 5 >= boat1.getPosition().distance(boat2.getPosition())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Check if a boat1 reached a targeted point
+     * @param boat concerned boat
+     * @param point targeted point
+     * @return result of the check
+     */
+    public static boolean boatCollisionToPoint (Boat boat, Point point){
+        return GameConfiguration.HITBOX_BOAT - 5 >= boat.getPosition().distance(point);
+    }
+
+    /**
+     * Check if a boat1 reached a point targeted in lstPoint
+     * @param boat concerned boat
+     * @param lstPoint lst of targeted point
+     * @return result of the check
+     */
+    public static boolean boatCollisionToPoint (Boat boat, ArrayList<Point> lstPoint){
+        for (Point point : lstPoint){
+            if (GameConfiguration.HITBOX_BOAT - 5 >= boat.getPosition().distance(point)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Check if a boat reached a targeted boat in map
+     * @param boat concerned boat
+     * @return result of the check
+     */
+    public boolean boatCollisionToMap (Boat boat){
+        for (Faction faction : map.getLstFaction()){
+            for (Boat boat2 : faction.getLstBoat()){
+                if (GameConfiguration.HITBOX_BOAT - 5 >= boat.getPosition().distance(boat2.getPosition())){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

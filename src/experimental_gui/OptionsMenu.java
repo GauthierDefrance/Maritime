@@ -74,7 +74,7 @@ public class OptionsMenu extends SimpleMenu {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (token == 0) GUILoader.loadStartMenu(getWindow());
-            else GUILoader.loadPauseMenu(0,getWindow());
+            else GUILoader.loadPauseMenu(token,getWindow());
         }
     }
 

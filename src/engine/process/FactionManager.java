@@ -124,7 +124,7 @@ public class FactionManager {
      * Take two boats starts a fight if they are in contact cancels the chase if they are too far away
      */
     public void chaseUpdate(Boat[] tbBoat){
-        double distance = Math.sqrt(Math.pow((tbBoat[1].getPosition().getX() - tbBoat[0].getPosition().getX()), 2) + Math.pow((tbBoat[1].getPosition().getY() - tbBoat[0].getPosition().getY()), 2));
+        double distance = tbBoat[0].getPosition().distance(tbBoat[0].getPosition());
         if(GameConfiguration.HITBOX_BOAT-5 >= distance){
             StartFight(tbBoat[0],tbBoat[1]);
             lstAttackBoat.remove(tbBoat);
