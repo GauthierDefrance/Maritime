@@ -1,5 +1,7 @@
 package experimental_gui;
 
+import config.MapBuilder;
+
 import java.awt.*;
 
 /**
@@ -16,6 +18,9 @@ public class GUILoader {
         window.repaint();
         menu.setFocusable(true);
         menu.requestFocusInWindow();
+    }
+    public static void loadMainGameMenu(Container window, MapBuilder map){
+        actualise(window, new MainGameMenu(window,map));
     }
 
     public static void loadPauseMenu(int token,Container window){

@@ -22,6 +22,8 @@ public class mainGUI extends JFrame {
         window = getContentPane();
         window.setLayout(new BorderLayout());
         setSize(GameConfiguration.WINDOW_SIZE);
+//        setExtendedState(JFrame.MAXIMIZED_BOTH);
+//        setUndecorated(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         GUILoader.loadStartMenu(window);

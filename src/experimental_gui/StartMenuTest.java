@@ -100,13 +100,7 @@ public class StartMenuTest extends SimpleMenu implements Runnable {
     public class StartGameListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            try {
-                TestMove gameMainGUI = new TestMove("game");
-                Thread gameThread = new Thread(gameMainGUI);
-                gameThread.start();
-            } catch ( IllegalThreadStateException e1 ) {
-                JOptionPane.showMessageDialog( StartMenuTest.this, "Game is already running!", "Error", JOptionPane.ERROR_MESSAGE );
-            }
+            GUILoader.loadMainGameMenu(getWindow(),map);
         }
     }
 
@@ -186,9 +180,7 @@ public class StartMenuTest extends SimpleMenu implements Runnable {
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
-            if (!map.isTimeStop()){
-                factionManager.nextRound();
-            }
+            factionManager.nextRound();
             dashboard.repaint();
         }
     }

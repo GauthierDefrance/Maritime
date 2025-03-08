@@ -121,6 +121,36 @@ public class JComponentBuilder {
     }
 
     /**
+     * Build a GridLayout JPanel accommodating game-menu Convention
+     * @param r number of rows
+     * @param c number of columns
+     * @param hgap height gap between rows
+     * @param vgap width gap between rows
+     * @see GridLayout
+     * @return built JPanel
+     */
+    public static JPanel gridMenuPanel(int r, int c,int hgap,int vgap) {
+        JPanel newPanel = new JPanel();
+        newPanel.setLayout(new GridLayout(r, c,hgap,vgap));
+        return newPanel;
+    }
+
+    /**
+     * Build a GridLayout JPanel accommodating game-menu Convention
+     * @param r number of rows
+     * @param c number of columns
+     * @param components other components that must be present within the JPanel
+     * @see GridLayout
+     * @return built JPanel
+     */
+    public static JPanel gridMenuPanel(int r, int c,int hgap,int vgap, JComponent... components) {
+        JPanel newPanel = gridMenuPanel(r,c,hgap,vgap);
+        for (JComponent component : components) {
+            newPanel.add(component);
+        } return newPanel;
+    }
+
+    /**
      * Build a BorderLayout JPanel accommodating game-menu Convention
      * @see BorderLayout
      * @return built JPanel
