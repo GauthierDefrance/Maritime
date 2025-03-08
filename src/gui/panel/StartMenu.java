@@ -1,5 +1,7 @@
-package experimental_gui;
+package gui.panel;
 
+import gui.process.GUILoader;
+import gui.process.JComponentBuilder;
 import test.TestMove;
 
 import javax.swing.*;
@@ -86,7 +88,7 @@ public class StartMenu extends SimpleMenu {
     public class OptionsMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadOptionsMenu(0,getWindow());
+            GUILoader.loadOptionsMenu(0,getWindow(), null);
         }
     }
 

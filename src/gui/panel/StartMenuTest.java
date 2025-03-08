@@ -1,10 +1,10 @@
-package experimental_gui;
+package gui.panel;
 
 import config.GameConfiguration;
 import config.MapBuilder;
 import engine.process.FactionManager;
-import gui.GameDisplay;
-import test.TestMove;
+import gui.process.GUILoader;
+import gui.process.JComponentBuilder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -107,7 +107,7 @@ public class StartMenuTest extends SimpleMenu implements Runnable {
     public class OptionsMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadOptionsMenu(0,getWindow());
+            GUILoader.loadOptionsMenu(0,getWindow(), null);
         }
     }
 

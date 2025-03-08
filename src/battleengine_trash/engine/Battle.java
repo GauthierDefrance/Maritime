@@ -6,7 +6,7 @@ import battleengine_trash.process.FightManager;
 import battleengine_trash.process.PlacingManager;
 import battleengine_trash.tools.DeepCopy;
 import engine.entity.boats.Fleet;
-import gui.PaintEntity;
+import gui.process.PaintEntity;
 
 public class Battle {
 

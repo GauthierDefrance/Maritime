@@ -5,7 +5,7 @@ import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
 import engine.graph.GraphPoint;
 import engine.trading.SeaRoad;
-import gui.PopUp;
+import gui.process.PopUp;
 
 import java.awt.*;
 import java.util.ArrayList;

@@ -7,7 +7,7 @@ import engine.graph.SearchInGraph;
 import engine.process.FactionManager;
 import engine.trading.Resource;
 import engine.trading.SeaRoad;
-import gui.GameDisplay;
+import gui.panel.GameDisplay;
 
 import javax.swing.*;
 import java.awt.*;

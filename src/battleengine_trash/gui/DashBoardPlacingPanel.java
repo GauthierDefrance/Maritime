@@ -5,7 +5,7 @@ import battleengine_trash.engine.SpawnZone;
 import battleengine_trash.process.FightManager;
 import config.GameConfiguration;
 import engine.entity.boats.Boat;
-import gui.PaintEntity;
+import gui.process.PaintEntity;
 
 import javax.swing.*;
 import java.awt.*;

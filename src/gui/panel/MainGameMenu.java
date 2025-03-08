@@ -1,15 +1,13 @@
-package experimental_gui;
+package gui.panel;
 
 import config.GameConfiguration;
 import config.MapBuilder;
 import engine.process.FactionManager;
-import gui.GameDisplay;
-import test.TestMove;
+import gui.process.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 
 /**
  * Simple test start menu for the game, serves as the entrypoint of the program
@@ -167,7 +165,7 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                GUILoader.loadPauseMenu(4,getWindow());
+                GUILoader.loadPauseMenu(4,getWindow(), map);
             }
             if(event.getKeyCode() == KeyEvent.VK_SPACE){
                 map.setTimeStop(!map.isTimeStop());

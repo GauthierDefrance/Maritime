@@ -1,4 +1,4 @@
-package gui;
+package gui.process;
 
 import config.GameConfiguration;
 import engine.entity.Harbor;

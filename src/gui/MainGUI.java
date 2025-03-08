@@ -1,47 +1,37 @@
 package gui;
 
 import config.GameConfiguration;
-
+import gui.process.GUILoader;
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * @author @Kenan Ammad
- * Classe MainGUI
- * @version 0.0
+ * Starting point of the program
+ * @author Zue Jack-Arthur
+ * @version 0.1
  */
-public class MainGUI extends JFrame implements Runnable {
+public class MainGUI extends JFrame {
+    private Container window;
 
-    private GameDisplay dashboard;
-
-
-    public MainGUI(String title) {
-        super(title);
+    public MainGUI() {
+        super("Maritime");
         init();
     }
 
-    private void init() {
-
-        Container contentPane = getContentPane();
-        contentPane.add(dashboard);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        setSize(640, 360);
+    public void init() {
+        window = getContentPane();
+        window.setLayout(new BorderLayout());
+        setSize(GameConfiguration.WINDOW_SIZE);
+//        setExtendedState(JFrame.MAXIMIZED_BOTH);
+//        setUndecorated(true);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        GUILoader.loadStartMenu(window);
+//        setResizable(false);
         setVisible(true);
     }
 
-    @Override
-    public void run() {
-        while (true) {
-            try {
-                Thread.sleep(GameConfiguration.GAME_SPEED);
-
-            } catch (InterruptedException e) {
-                System.err.println(e.getMessage());
-            }
-            dashboard.repaint();
-        }
+    public static void main(String[] args) {
+        new MainGUI();
     }
-
 }

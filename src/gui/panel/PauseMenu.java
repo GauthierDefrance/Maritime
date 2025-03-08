@@ -1,4 +1,8 @@
-package experimental_gui;
+package gui.panel;
+
+import config.MapBuilder;
+import gui.process.GUILoader;
+import gui.process.JComponentBuilder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +20,7 @@ import java.awt.event.KeyListener;
 public class PauseMenu extends SimpleMenu {
 
     private int token;
+    private MapBuilder map;
 
     //Elements
     private JLabel Title;
@@ -33,9 +38,10 @@ public class PauseMenu extends SimpleMenu {
     private JButton backToGameButton;
     private JButton exitButton;
 
-    public PauseMenu(int token, Container window) {
+    public PauseMenu(int token, Container window, MapBuilder map) {
         super(window);
         this.token = token;
+        this.map = map;
         init();
     }
 
@@ -65,7 +71,6 @@ public class PauseMenu extends SimpleMenu {
         this.add(buttonsDisplay);
         this.add(bigButtonsDisplay);
         this.add(credits);
-
     }
 
     public class MainMenuListener implements ActionListener {
@@ -78,15 +83,14 @@ public class PauseMenu extends SimpleMenu {
     public class OptionsMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadOptionsMenu(token,getWindow());
+            GUILoader.loadOptionsMenu(token,getWindow(), map);
         }
     }
 
     public class ResumeButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            setVisible(false);
-            //WiP
+            if (token == 4) GUILoader.loadMainGameMenu(getWindow(), map);
         }
     }
 
@@ -95,8 +99,7 @@ public class PauseMenu extends SimpleMenu {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                setVisible(false);
-                //WiP
+                if (token == 4) GUILoader.loadMainGameMenu(getWindow(), map);
             }
         }
 

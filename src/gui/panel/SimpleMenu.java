@@ -1,4 +1,4 @@
-package experimental_gui;
+package gui.panel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,7 +39,6 @@ public abstract class SimpleMenu extends JPanel {
             } catch ( SecurityException e1 ) {
                 JOptionPane.showMessageDialog(SimpleMenu.this, "You are not allowed to exit!", "Error", JOptionPane.ERROR_MESSAGE );
             }
-
         }
     }
 }

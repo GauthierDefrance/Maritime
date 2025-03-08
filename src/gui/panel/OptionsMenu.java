@@ -1,4 +1,8 @@
-package experimental_gui;
+package gui.panel;
+
+import config.MapBuilder;
+import gui.process.GUILoader;
+import gui.process.JComponentBuilder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +17,7 @@ import java.awt.event.*;
 public class OptionsMenu extends SimpleMenu {
 
     private int token;
+    private MapBuilder map;
 
     private JButton goBackButton;
     private JPanel goBackPanel;
@@ -34,9 +39,10 @@ public class OptionsMenu extends SimpleMenu {
     private JButton debugButton;
 
 
-    public OptionsMenu(int token, Container window) {
+    public OptionsMenu(int token, Container window, MapBuilder map) {
         super(window);
         this.token = token;
+        this.map = map;
         init();
     }
 
@@ -74,7 +80,7 @@ public class OptionsMenu extends SimpleMenu {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (token == 0) GUILoader.loadStartMenu(getWindow());
-            else GUILoader.loadPauseMenu(token,getWindow());
+            else GUILoader.loadPauseMenu(token,getWindow(),map);
         }
     }
 
@@ -114,7 +120,7 @@ public class OptionsMenu extends SimpleMenu {
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
                 if (token == 0) GUILoader.loadStartMenu(getWindow());
-                else GUILoader.loadPauseMenu(0,getWindow());
+                else GUILoader.loadPauseMenu(token,getWindow(),map);
             }
         }
 

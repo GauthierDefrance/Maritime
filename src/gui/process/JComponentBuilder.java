@@ -1,4 +1,4 @@
-package experimental_gui;
+package gui.process;
 
 import config.GameConfiguration;
 

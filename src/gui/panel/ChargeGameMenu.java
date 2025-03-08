@@ -1,4 +1,7 @@
-package experimental_gui;
+package gui.panel;
+
+import config.MapBuilder;
+import gui.process.GUILoader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,15 +13,17 @@ import java.awt.event.KeyListener;
 public class ChargeGameMenu extends SimpleMenu {
 
     private int token;
+    private MapBuilder map;
 
     private JButton goBackButton;
     private JButton loadFile1;
     private JButton loadFile2;
     private JButton loadFile3;
 
-    public ChargeGameMenu(int token, Container window) {
+    public ChargeGameMenu(int token, Container window, MapBuilder map) {
         super(window);
         this.token = token;
+        this.map = map;
         init();
     }
     public void init(){
@@ -29,7 +34,7 @@ public class ChargeGameMenu extends SimpleMenu {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (token == 0) GUILoader.loadStartMenu(getWindow());
-            else GUILoader.loadPauseMenu(1,getWindow());
+            else GUILoader.loadPauseMenu(token,getWindow(),map);
         }
     }
 
@@ -39,7 +44,7 @@ public class ChargeGameMenu extends SimpleMenu {
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
                 if (token == 0) GUILoader.loadStartMenu(getWindow());
-                else GUILoader.loadPauseMenu(0,getWindow());
+                else GUILoader.loadPauseMenu(token,getWindow(),map);
             }
         }
 

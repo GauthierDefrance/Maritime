@@ -5,7 +5,7 @@ import engine.faction.Faction;
 import engine.faction.Player;
 import engine.graph.GraphPoint;
 import engine.graph.GraphSegment;
-import gui.PopUp;
+import gui.process.PopUp;
 
 import java.awt.*;
 import java.util.ArrayList;

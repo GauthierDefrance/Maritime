@@ -1,10 +1,14 @@
-package gui;
+package gui.panel;
 
 import config.GameConfiguration;
 import config.MapBuilder;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
 import engine.trading.SeaRoad;
+import gui.process.PaintBackGround;
+import gui.process.PaintEntity;
+import gui.process.PaintPopUp;
+import gui.process.PopUp;
 
 import javax.swing.*;
 import java.awt.*;

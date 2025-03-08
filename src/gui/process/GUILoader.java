@@ -1,6 +1,7 @@
-package experimental_gui;
+package gui.process;
 
 import config.MapBuilder;
+import gui.panel.*;
 
 import java.awt.*;
 
@@ -23,19 +24,19 @@ public class GUILoader {
         actualise(window, new MainGameMenu(window,map));
     }
 
-    public static void loadPauseMenu(int token,Container window){
-        actualise(window, new PauseMenu(token, window));
+    public static void loadPauseMenu(int token,Container window, MapBuilder map){
+        actualise(window, new PauseMenu(token, window, map));
     }
 
     public static void loadStartMenu(Container window){
         actualise(window, new StartMenuTest(window));
     }
 
-    public static void loadOptionsMenu(int token, Container window){
-        actualise(window, new OptionsMenu(token, window));
+    public static void loadOptionsMenu(int token, Container window, MapBuilder map){
+        actualise(window, new OptionsMenu(token, window, map));
     }
 
-    public static void loadChargeGameMenu(int token, Container window){
-        actualise(window, new ChargeGameMenu(token, window));
+    public static void loadChargeGameMenu(int token, Container window, MapBuilder map){
+        actualise(window, new ChargeGameMenu(token, window, map));
     }
 }
