@@ -89,7 +89,7 @@ public class PlacingJPanel extends JPanel {
             tmpbutton.setBackground(GameConfiguration.DEFAULT_BACKGROUND_COLOR);
             tmpbutton.setFocusPainted(false);
             tmpbutton.setBorderPainted(false);
-            tmpbutton.setIcon(new ImageIcon(GameConfiguration.START_FILE_PATH + "/boat/"+text+".png"));
+            tmpbutton.setIcon(new ImageIcon(GameConfiguration.IMG_FILE_PATH + "/boat/"+text+".png"));
 
             this.battle.getPlacing().getButtonPanel().add(tmpbutton);
             this.battle.getPlacing().getButtonHashMap().put(boat,tmpbutton);

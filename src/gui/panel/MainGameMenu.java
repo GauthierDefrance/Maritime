@@ -13,6 +13,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import static gui.MainGUI.getWindow;
+
 /**
  * Simple test start menu for the game, serves as the entrypoint of the program
  * @author Kenan Ammad
@@ -36,8 +38,8 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
     /**
      * Typical constructor to make the startMenu appear
      */
-    public MainGameMenu(Container window,MapBuilder map) {
-        super(window);
+    public MainGameMenu(MapBuilder map) {
+        super();
         this.map = map;
         init();
     }
@@ -54,7 +56,7 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
         factionManager = new FactionManager(map);
 
         this.addKeyListener(new KeyControls());
-        this.getWindow().addComponentListener(new ComponentControls());
+        getWindow().addComponentListener(new ComponentControls());
 
         jNorthPanel.setBackground(Color.red);
         jSouthPanel.setBackground(Color.black);
@@ -185,7 +187,7 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                GUILoader.loadPauseMenu(GameConfiguration.ROOT_MAINGAME,getWindow(), map);
+                GUILoader.loadPauseMenu(GameConfiguration.ROOT_MAINGAME, map);
             }
             if(event.getKeyCode() == KeyEvent.VK_SPACE){
                 map.setTimeStop(!map.isTimeStop());

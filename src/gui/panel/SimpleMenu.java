@@ -1,5 +1,7 @@
 package gui.panel;
 
+import gui.process.ListenerBehavior;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,23 +15,8 @@ import java.awt.event.ActionListener;
  */
 public abstract class SimpleMenu extends JPanel {
 
-     private Container window;
-
-    public SimpleMenu(Container window) {
+    public SimpleMenu() {
         super();
-        this.window = window;
-    }
-
-    //Getter
-
-    public Container getWindow() {
-        return window;
-    }
-
-    //Setter
-
-    public void setWindow(Container window) {
-        this.window = window;
     }
 
     /**
@@ -38,11 +25,8 @@ public abstract class SimpleMenu extends JPanel {
     public class ExitListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            try {
-                System.exit(0);
-            } catch ( SecurityException e1 ) {
-                JOptionPane.showMessageDialog(SimpleMenu.this, "You are not allowed to exit!", "Error", JOptionPane.ERROR_MESSAGE );
-            }
+            ListenerBehavior listenerBehavior = ListenerBehavior.create();
+            listenerBehavior.exit(SimpleMenu.this);
         }
     }
 }

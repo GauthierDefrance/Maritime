@@ -12,7 +12,8 @@ import java.awt.*;
  * @version 0.1
  */
 public class MainGUI extends JFrame {
-    private Container window;
+
+    private static Container window;
 
     public MainGUI() {
         super("Maritime");
@@ -22,14 +23,15 @@ public class MainGUI extends JFrame {
     public void init() {
         window = getContentPane();
         window.setLayout(new BorderLayout());
-        setSize(GameConfiguration.WINDOW_SIZE);
-//        setExtendedState(JFrame.MAXIMIZED_BOTH);
-//        setUndecorated(true);
+        setSize(GameConfiguration.WINDOW_SIZE); /* setExtendedState(JFrame.MAXIMIZED_BOTH); setUndecorated(true);*/
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        GUILoader.loadStartMenu(window);
-//        setResizable(false);
+        GUILoader.loadStartMenu(); //setResizable(false);
         setVisible(true);
+    }
+
+    public static Container getWindow() {
+        return window;
     }
 
     public static void main(String[] args) {

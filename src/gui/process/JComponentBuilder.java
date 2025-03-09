@@ -1,9 +1,7 @@
 package gui.process;
 
-import battleengine_trash.gui.PlacingJPanel;
 import config.GameConfiguration;
 import engine.entity.boats.Boat;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -12,7 +10,7 @@ import java.awt.event.ActionListener;
  * Class containing methods to build (Components)
  * @author Zue Jack-Arthur
  * @see Component
- * @version 0.1
+ * @version 0.3
  */
 public class JComponentBuilder {
 
@@ -99,6 +97,14 @@ public class JComponentBuilder {
         JLabel newLabel = new JLabel(text);
         newLabel.setFont(GameConfiguration.TITLE_FONT);
         return newLabel;
+    }
+
+    /**
+     * Build an Empty JPanel to occupy void space
+     * @return built JPanel
+     */
+    public static JPanel voidPanel() {
+        return new JPanel();
     }
 
     /**

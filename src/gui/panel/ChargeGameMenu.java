@@ -21,8 +21,8 @@ public class ChargeGameMenu extends SimpleMenu {
     private JButton loadFile2;
     private JButton loadFile3;
 
-    public ChargeGameMenu(int token, Container window, MapBuilder map) {
-        super(window);
+    public ChargeGameMenu(int token, MapBuilder map) {
+        super();
         this.token = token;
         this.map = map;
         init();
@@ -34,8 +34,8 @@ public class ChargeGameMenu extends SimpleMenu {
     public class goBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (token == GameConfiguration.ROOT_STARTMENU) GUILoader.loadStartMenu(getWindow());
-            else GUILoader.loadPauseMenu(token,getWindow(),map);
+            if (token == GameConfiguration.ROOT_STARTMENU) GUILoader.loadStartMenu();
+            else GUILoader.loadPauseMenu(token,map);
         }
     }
 
@@ -44,19 +44,15 @@ public class ChargeGameMenu extends SimpleMenu {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                if (token == GameConfiguration.ROOT_STARTMENU) GUILoader.loadStartMenu(getWindow());
-                else GUILoader.loadPauseMenu(token,getWindow(),map);
+                if (token == GameConfiguration.ROOT_STARTMENU) GUILoader.loadStartMenu();
+                else GUILoader.loadPauseMenu(token,map);
             }
         }
 
         @Override
-        public void keyTyped(KeyEvent e) {
-
-        }
+        public void keyTyped(KeyEvent e) { }
 
         @Override
-        public void keyReleased(KeyEvent e) {
-
-        }
+        public void keyReleased(KeyEvent e) { }
     }
 }

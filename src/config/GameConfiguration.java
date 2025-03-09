@@ -46,10 +46,17 @@ public final class GameConfiguration {
     public static final Font TITLE_FONT = new Font( "Noto Sans Display", Font.BOLD, 50);
     public static final Font FONT = new Font( "Noto Sans Display", Font.BOLD, 20);
     public static final Font CREDITS_FONT = new Font("Noto Sans Display", Font.BOLD, 10);
-    public static final Color DEFAULT_BACKGROUND_COLOR = new Color(0, 0, 0,0);
+    public static final int BUTTON_SEPARATOR = 10;
+
+    public static final Color DEFAULT_BACKGROUND_COLOR = new Color(78, 172, 233);
     public static final Color WATER_BACKGROUND_COLOR = new Color(78, 172, 233);
 
-    public static final String START_FILE_PATH = "src/images";
+    public static final int ROOT_STARTMENU = 0;
+    public static final int ROOT_MAINGAME = 1;
+    public static final int ROOT_COMBAT = 2;
+
+    public static final String IMG_FILE_PATH = "src/images";
+    public static final String SAVE_FILE_PATH = "src/save";
 
     public static final int NUMBER_COLUMN_BATTLE_PLACING = 2;
     public static final int SPAWN_ZONE_OPACITY = 15;
@@ -62,9 +69,5 @@ public final class GameConfiguration {
 
     public static final int DEFAULT_BOAT_POS_X=-1000;
     public static final int DEFAULT_BOAT_POS_Y=-1000;
-
-    public static final int ROOT_STARTMENU = 0;
-    public static final int ROOT_MAINGAME = 1;
-    public static final int ROOT_COMBAT = 2;
 
 }

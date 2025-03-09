@@ -1,6 +1,7 @@
 package gui.process;
 
 import config.MapBuilder;
+import gui.MainGUI;
 import gui.panel.*;
 
 import java.awt.*;
@@ -12,7 +13,8 @@ import java.awt.*;
  */
 public class GUILoader {
 
-    public static void actualise(Container window, SimpleMenu menu){
+    public static void actualise(SimpleMenu menu){
+        Container window = MainGUI.getWindow();
         window.removeAll();
         window.add(menu);
         window.revalidate();
@@ -20,23 +22,23 @@ public class GUILoader {
         menu.setFocusable(true);
         menu.requestFocusInWindow();
     }
-    public static void loadMainGameMenu(Container window, MapBuilder map){
-        actualise(window, new MainGameMenu(window,map));
+    public static void loadMainGameMenu(MapBuilder map){
+        actualise(new MainGameMenu(map));
     }
 
-    public static void loadPauseMenu(int token,Container window, MapBuilder map){
-        actualise(window, new PauseMenu(token, window, map));
+    public static void loadPauseMenu(int token, MapBuilder map){
+        actualise(new PauseMenu(token, map));
     }
 
-    public static void loadStartMenu(Container window){
-        actualise(window, new StartMenu(window));
+    public static void loadStartMenu(){
+        actualise(new StartMenu());
     }
 
-    public static void loadOptionsMenu(int token, Container window, MapBuilder map){
-        actualise(window, new OptionsMenu(token, window, map));
+    public static void loadOptionsMenu(int token, MapBuilder map){
+        actualise(new OptionsMenu(token, map));
     }
 
-    public static void loadChargeGameMenu(int token, Container window, MapBuilder map){
-        actualise(window, new ChargeGameMenu(token, window, map));
+    public static void loadChargeGameMenu(int token, MapBuilder map){
+        actualise(new ChargeGameMenu(token, map));
     }
 }

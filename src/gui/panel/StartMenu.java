@@ -10,6 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import static gui.MainGUI.getWindow;
+
 /**
  * Simple start menu for the game, serves as the entrypoint of the program
  * @author Zue Jack-Arthur
@@ -26,7 +28,7 @@ public class StartMenu extends SimpleMenu implements Runnable {
     private JButton exit;
     private JButton options;
 
-    private JPanel TitleDisplay;
+    private JPanel titleDisplay;
     private JPanel creditsDisplay;
     private JPanel buttonDisplay;
     private JPanel jPanel0 = new JPanel();
@@ -38,8 +40,8 @@ public class StartMenu extends SimpleMenu implements Runnable {
     /**
      * Typical constructor to make the startMenu appear
      */
-    public StartMenu(Container window) {
-        super(window);
+    public StartMenu() {
+        super();
         init();
     }
     public void init() {
@@ -61,14 +63,14 @@ public class StartMenu extends SimpleMenu implements Runnable {
 
         exit = JComponentBuilder.menuButton("Exit", new ExitListener());
 
-        TitleDisplay = JComponentBuilder.flowMenuPanel(title);
+        titleDisplay = JComponentBuilder.flowMenuPanel(title);
 
         creditsDisplay = JComponentBuilder.flowMenuPanel(credits);
 
         buttonDisplay = JComponentBuilder.flowMenuPanel(newGame, loadGame, options, exit);
 
         this.addKeyListener(new KeyControls());
-        this.getWindow().addComponentListener(new ComponentControls());
+        getWindow().addComponentListener(new ComponentControls());
         jPanel0.setBounds(getWindow().getBounds());
         jPanel1.setBounds(getWindow().getBounds());
 
@@ -78,12 +80,12 @@ public class StartMenu extends SimpleMenu implements Runnable {
         dashboard.setBackground(GameConfiguration.WATER_BACKGROUND_COLOR);
 
         jPanel1.setOpaque(false);
-        TitleDisplay.setOpaque(false);
+        titleDisplay.setOpaque(false);
         creditsDisplay.setOpaque(true);
         buttonDisplay.setOpaque(false);
 
         jPanel0.add(dashboard,BorderLayout.CENTER);
-        jPanel1.add(TitleDisplay, BorderLayout.NORTH);
+        jPanel1.add(titleDisplay, BorderLayout.NORTH);
         jPanel1.add( buttonDisplay, BorderLayout.CENTER);
         jPanel1.add(creditsDisplay, BorderLayout.SOUTH);
 
@@ -102,14 +104,14 @@ public class StartMenu extends SimpleMenu implements Runnable {
     public class StartGameListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadMainGameMenu(getWindow(),map);
+            GUILoader.loadMainGameMenu(map);
         }
     }
 
     public class OptionsMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadOptionsMenu(GameConfiguration.ROOT_STARTMENU,getWindow(), null);
+            GUILoader.loadOptionsMenu(GameConfiguration.ROOT_STARTMENU, null);
         }
     }
 

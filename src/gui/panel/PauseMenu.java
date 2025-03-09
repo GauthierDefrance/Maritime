@@ -23,11 +23,15 @@ public class PauseMenu extends SimpleMenu {
     private int token;
     private MapBuilder map;
 
+    private JPanel titleDisplay;
+    private JPanel creditsDisplay;
+
     //Elements
-    private JLabel Title;
+    private JLabel title;
     private JLabel credits;
     private JPanel buttonsDisplay;
-    private JPanel bigButtonsDisplay;
+    private JPanel bigButtonDisplay;
+    private JPanel totalButtonDisplay;
 
     //Regular Button
     private JButton saveButton;
@@ -39,15 +43,18 @@ public class PauseMenu extends SimpleMenu {
     private JButton backToGameButton;
     private JButton exitButton;
 
-    public PauseMenu(int token, Container window, MapBuilder map) {
-        super(window);
+    public PauseMenu(int token, MapBuilder map) {
+        super();
         this.token = token;
         this.map = map;
         init();
     }
 
     public void init() {
-        Title = JComponentBuilder.title("Maritime");
+
+        this.setLayout(new BorderLayout());
+
+        title = JComponentBuilder.title("Maritime");
 
         credits = JComponentBuilder.credits("A Game by Ammad Kenan, Defrance Gauthier & Zue Jack-Arthur");
 
@@ -63,35 +70,40 @@ public class PauseMenu extends SimpleMenu {
 
         exitButton = JComponentBuilder.menuButton("Exit", new ExitListener());
 
-        buttonsDisplay = JComponentBuilder.flowMenuPanel(saveButton, loadButton, optionsButton, mainMenuButton);
+        buttonsDisplay = JComponentBuilder.gridMenuPanel(2,2, GameConfiguration.BUTTON_SEPARATOR,GameConfiguration.BUTTON_SEPARATOR, saveButton, loadButton, optionsButton, mainMenuButton);
+        bigButtonDisplay = JComponentBuilder.gridMenuPanel(2,1,GameConfiguration.BUTTON_SEPARATOR,GameConfiguration.BUTTON_SEPARATOR, backToGameButton, exitButton);
+        totalButtonDisplay = JComponentBuilder.gridMenuPanel(3,1,10, 10, buttonsDisplay, bigButtonDisplay);
 
-        bigButtonsDisplay = JComponentBuilder.flowMenuPanel(backToGameButton, exitButton);
+        titleDisplay = JComponentBuilder.flowMenuPanel(title);
+
+        creditsDisplay = JComponentBuilder.flowMenuPanel(credits);
 
         this.addKeyListener(new KeyControls());
-        this.add(Title);
-        this.add(buttonsDisplay);
-        this.add(bigButtonsDisplay);
-        this.add(credits);
+        this.add(titleDisplay, BorderLayout.NORTH);
+        this.add(totalButtonDisplay, BorderLayout.CENTER);
+        this.add(JComponentBuilder.voidPanel(), BorderLayout.EAST);
+        this.add(JComponentBuilder.voidPanel(), BorderLayout.WEST);
+        this.add(creditsDisplay, BorderLayout.SOUTH);
     }
 
     public class MainMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadStartMenu(getWindow());
+            GUILoader.loadStartMenu();
         }
     }
 
     public class OptionsMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadOptionsMenu(token,getWindow(), map);
+            GUILoader.loadOptionsMenu(token, map);
         }
     }
 
     public class ResumeButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (token == GameConfiguration.ROOT_MAINGAME) GUILoader.loadMainGameMenu(getWindow(), map);
+            if (token == GameConfiguration.ROOT_MAINGAME) GUILoader.loadMainGameMenu(map);
         }
     }
 
@@ -99,18 +111,14 @@ public class PauseMenu extends SimpleMenu {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                if (token == GameConfiguration.ROOT_MAINGAME) GUILoader.loadMainGameMenu(getWindow(), map);
+                if (token == GameConfiguration.ROOT_MAINGAME) GUILoader.loadMainGameMenu(map);
             }
         }
 
         @Override
-        public void keyTyped(KeyEvent e) {
-
-        }
+        public void keyTyped(KeyEvent e) { }
 
         @Override
-        public void keyReleased(KeyEvent e) {
-
-        }
+        public void keyReleased(KeyEvent e) { }
     }
 }
