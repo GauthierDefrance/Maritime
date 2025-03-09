@@ -18,16 +18,4 @@ public abstract class SimpleMenu extends JPanel {
     public SimpleMenu() {
         super();
     }
-
-    /**
-     * An ActionListener allowing to exit the game
-     */
-    public class ExitListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            ListenerBehavior listenerBehavior = ListenerBehavior.create();
-            listenerBehavior.exit(SimpleMenu.this);
-        }
-    }
 }
-

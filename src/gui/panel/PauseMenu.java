@@ -4,6 +4,7 @@ import config.GameConfiguration;
 import config.MapBuilder;
 import gui.process.GUILoader;
 import gui.process.JComponentBuilder;
+import gui.process.ListenerBehavior;
 
 import javax.swing.*;
 import java.awt.*;
@@ -93,6 +94,17 @@ public class PauseMenu extends SimpleMenu {
         }
     }
 
+    /**
+     * An ActionListener allowing to exit the game
+     */
+    public class ExitListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ListenerBehavior listenerBehavior = ListenerBehavior.create();
+            listenerBehavior.exit(PauseMenu.this);
+        }
+    }
+
     public class OptionsMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -103,16 +115,16 @@ public class PauseMenu extends SimpleMenu {
     public class ResumeButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (token == GameConfiguration.ROOT_MAINGAME) GUILoader.loadMainGameMenu(map);
+            ListenerBehavior ls = ListenerBehavior.create();
+            ls.goBack(token, map);
         }
     }
 
     private class KeyControls implements KeyListener {
         @Override
         public void keyPressed(KeyEvent event) {
-            if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                if (token == GameConfiguration.ROOT_MAINGAME) GUILoader.loadMainGameMenu(map);
-            }
+            ListenerBehavior ls = ListenerBehavior.create();
+            ls.goBack(token, map);
         }
 
         @Override

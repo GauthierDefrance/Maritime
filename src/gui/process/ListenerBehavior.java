@@ -1,6 +1,7 @@
 package gui.process;
 
 import config.GameConfiguration;
+import config.MapBuilder;
 
 import javax.swing.*;
 
@@ -43,18 +44,16 @@ public class ListenerBehavior {
             JOptionPane.showMessageDialog(panel, "You are not allowed to exit!", "Error", JOptionPane.ERROR_MESSAGE );
         }
     }
-/*
-    public void goBack(int rootToken){
+    public void goBack(int rootToken, MapBuilder map){
         switch(rootToken){
             case GameConfiguration.ROOT_STARTMENU:
                 GUILoader.loadStartMenu();
                 break;
             case GameConfiguration.ROOT_MAINGAME:
-                GUILoader.loadMainGameMenu();
+                GUILoader.loadMainGameMenu(map);
                 break;
             default:
-                GUILoader.loadPauseMenu(rootToken);
+                GUILoader.loadPauseMenu(rootToken,map);
         }
     }
- */
 }

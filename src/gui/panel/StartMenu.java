@@ -5,6 +5,7 @@ import config.MapBuilder;
 import engine.process.FactionManager;
 import gui.process.GUILoader;
 import gui.process.JComponentBuilder;
+import gui.process.ListenerBehavior;
 
 import javax.swing.*;
 import java.awt.*;
@@ -122,6 +123,17 @@ public class StartMenu extends SimpleMenu implements Runnable {
         }
     }
 
+    /**
+     * An ActionListener allowing to exit the game
+     */
+    public class ExitListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ListenerBehavior listenerBehavior = ListenerBehavior.create();
+            listenerBehavior.exit(StartMenu.this);
+        }
+    }
+
     private class ComponentControls implements ComponentListener {
 
         @Override
@@ -134,9 +146,7 @@ public class StartMenu extends SimpleMenu implements Runnable {
         }
 
         @Override
-        public void componentMoved(ComponentEvent e) {
-
-        }
+        public void componentMoved(ComponentEvent e) { }
 
         @Override
         public void componentShown(ComponentEvent e) { }
@@ -151,11 +161,8 @@ public class StartMenu extends SimpleMenu implements Runnable {
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
                 if(JOptionPane.showConfirmDialog(StartMenu.this,"Do you want to quit ?","confirmation",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
-                    try {
-                        System.exit(0);
-                    } catch ( SecurityException e1 ) {
-                        JOptionPane.showMessageDialog(StartMenu.this, "You are not allowed to quit!", "Error", JOptionPane.ERROR_MESSAGE );
-                    }
+                    ListenerBehavior ls = ListenerBehavior.create();
+                    ls.exit(StartMenu.this);
                 }
             }
         }

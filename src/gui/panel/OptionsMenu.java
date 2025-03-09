@@ -106,8 +106,8 @@ public class OptionsMenu extends SimpleMenu {
     public class goBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (token == GameConfiguration.ROOT_STARTMENU) GUILoader.loadStartMenu();
-            else GUILoader.loadPauseMenu(token,map);
+            ListenerBehavior ls = ListenerBehavior.create();
+            ls.goBack(token, map);
         }
     }
 
@@ -146,8 +146,8 @@ public class OptionsMenu extends SimpleMenu {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                if (token == GameConfiguration.ROOT_STARTMENU) GUILoader.loadStartMenu();
-                else GUILoader.loadPauseMenu(token,map);
+                ListenerBehavior ls = ListenerBehavior.create();
+                ls.goBack(token, map);
             }
         }
 

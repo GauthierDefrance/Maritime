@@ -3,6 +3,7 @@ package gui.panel;
 import config.GameConfiguration;
 import config.MapBuilder;
 import gui.process.GUILoader;
+import gui.process.ListenerBehavior;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,14 +29,17 @@ public class ChargeGameMenu extends SimpleMenu {
         init();
     }
     public void init(){
+        this.setLayout(new BorderLayout());
         this.addKeyListener(new KeyControls());
+
+
     }
 
     public class goBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (token == GameConfiguration.ROOT_STARTMENU) GUILoader.loadStartMenu();
-            else GUILoader.loadPauseMenu(token,map);
+            ListenerBehavior ls = ListenerBehavior.create();
+            ls.goBack(token, map);
         }
     }
 
@@ -44,8 +48,8 @@ public class ChargeGameMenu extends SimpleMenu {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                if (token == GameConfiguration.ROOT_STARTMENU) GUILoader.loadStartMenu();
-                else GUILoader.loadPauseMenu(token,map);
+                ListenerBehavior ls = ListenerBehavior.create();
+                ls.goBack(token, map);
             }
         }
 
