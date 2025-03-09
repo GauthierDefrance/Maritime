@@ -1,6 +1,8 @@
 package gui.process;
 
+import battleengine_trash.gui.PlacingJPanel;
 import config.GameConfiguration;
+import engine.entity.boats.Boat;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,6 +35,34 @@ public class JComponentBuilder {
      */
     public static JButton menuButton(String text, ActionListener action) {
         JButton newButton = menuButton(text);
+        newButton.addActionListener(action);
+        return newButton;
+    }
+
+    /**
+     * Build a JButton for a boat
+     * @param boat the Boat attached to JButton
+     * @return Built JButton
+     */
+    public static JButton menuButton(Boat boat) {
+        JButton newButton = menuButton(boat.getName());
+        newButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        newButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        newButton.setBackground(GameConfiguration.DEFAULT_BACKGROUND_COLOR);
+        newButton.setFocusPainted(false);
+        newButton.setBorderPainted(false);
+        newButton.setIcon(new ImageIcon(GameConfiguration.START_FILE_PATH + "/boat/"+PaintEntity.spriteType(boat.getClass())+boat.getColor()+".png"));
+        return newButton;
+    }
+
+    /**
+     * Build a JButton for a boat with its given action implemented
+     * @param boat the Boat attached to JButton
+     * @param action Button Action
+     * @return Built JButton
+     */
+    public static JButton menuButton(Boat boat, ActionListener action) {
+        JButton newButton = menuButton(boat);
         newButton.addActionListener(action);
         return newButton;
     }

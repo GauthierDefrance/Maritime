@@ -16,18 +16,18 @@ import java.awt.event.*;
  */
 public class MainGameMenu extends SimpleMenu implements Runnable {
 
-    private JPanel dashboardJPanel = new JPanel();
-    private JPanel jPanelATH = new JPanel();
+    private JPanel dashboardJPanel;
+    private JPanel jPanelATH;
     private JPanel jNorthPanel = new JPanel();
     private JPanel jSouthPanel = new JPanel();
-    private JPanel jEastPanel = new JPanel();
+    private JPanel jEastPanel;
 
     private JButton showLeftMenuButton;
     private JButton hideLeftMenuButton;
 
     private GameDisplay dashboard;
-    private MapBuilder map = new MapBuilder(0);
-    private FactionManager factionManager = new FactionManager(map);
+    private MapBuilder map;
+    private FactionManager factionManager;
 
     /**
      * Typical constructor to make the startMenu appear
@@ -41,9 +41,13 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
         this.setLayout(new BorderLayout());
         jPanelATH = JComponentBuilder.borderMenuPanel();
         dashboardJPanel = JComponentBuilder.borderMenuPanel();
-        dashboard = new GameDisplay(map);
+        jEastPanel = JComponentBuilder.borderMenuPanel();
+
         hideLeftMenuButton = JComponentBuilder.menuButton(">", new hideLeftMenu());
         showLeftMenuButton = JComponentBuilder.menuButton("<", new showLeftMenu());
+
+        dashboard = new GameDisplay(map);
+        factionManager = new FactionManager(map);
 
         this.addKeyListener(new KeyControls());
         this.getWindow().addComponentListener(new ComponentControls());
@@ -51,31 +55,46 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
         jNorthPanel.setBackground(Color.red);
         jSouthPanel.setBackground(Color.black);
         jEastPanel.setBackground(Color.DARK_GRAY);
-        dashboard.setBackground(new Color(78, 172, 233));
+        dashboard.setBackground(GameConfiguration.WATER_BACKGROUND_COLOR);
+
+        jPanelATH.setOpaque(false);
+        jEastPanel.setOpaque(false);
 
         //Window arrangement
         JLayeredPane jLayeredPane = new JLayeredPane();
         JPanel jEastWestPanel;
         JPanel jEastCenterPanel;
+        JPanel jEastCenterCenterPanel;
         JPanel jEastCenterNorthPanel;
 
-        jEastPanel = JComponentBuilder.borderMenuPanel();
         jEastCenterPanel = JComponentBuilder.borderMenuPanel();
         jEastWestPanel = JComponentBuilder.borderMenuPanel();
+        jEastCenterCenterPanel = JComponentBuilder.gridMenuPanel(0,2);
         jEastCenterNorthPanel = JComponentBuilder.gridMenuPanel(1,4,0,0);
 
         jEastCenterPanel.setBackground(Color.DARK_GRAY);
 
+        JScrollPane jScrollPane = new JScrollPane(jEastCenterCenterPanel);
+        jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        jEastCenterPanel.add(jScrollPane,BorderLayout.CENTER);
         jEastCenterPanel.add(jEastCenterNorthPanel,BorderLayout.NORTH);
         jEastWestPanel.add(hideLeftMenuButton,BorderLayout.NORTH);
+
         jEastCenterNorthPanel.add(new JButton("0"));
         jEastCenterNorthPanel.add(new JButton("1"));
         jEastCenterNorthPanel.add(new JButton("2"));
         jEastCenterNorthPanel.add(new JButton("3"));
 
-        jPanelATH.setOpaque(false);
+        jEastCenterCenterPanel.add(new JButton("a"));
+        jEastCenterCenterPanel.add(new JButton("b"));
+        jEastCenterCenterPanel.add(new JButton("c"));
+        jEastCenterCenterPanel.add(new JButton("d"));
+        jEastCenterCenterPanel.add(new JButton("e"));
+        jEastCenterCenterPanel.add(new JButton("f"));
+        jEastCenterCenterPanel.add(new JButton("g"));
+
+
         jEastWestPanel.setOpaque(false);
-        jEastPanel.setOpaque(false);
 
         dashboardJPanel.add(dashboard,BorderLayout.CENTER);
 
@@ -140,8 +159,6 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
         @Override
         public void componentResized(ComponentEvent e) {
             sizeUpdate();
-            getWindow().revalidate();
-            getWindow().repaint();
         }
 
         @Override

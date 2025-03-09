@@ -120,7 +120,6 @@ public class PaintEntity {
     private BufferedImage spriteChoice(Class<?> classType, String color){
         int i = 0;
         int j = 0;
-
         switch (classType.getName()) {
             case "engine.entity.boats.Standard" : {
                 i=0 ;
@@ -160,6 +159,29 @@ public class PaintEntity {
             }
         }
         return tbSprite[i][j];
+    }
+
+    public static String spriteType(Class<?> classType){
+        switch (classType.getName()) {
+            case "engine.entity.boats.Standard" : {
+                return "standard";
+            }
+            case "engine.entity.boats.Fodder" :{
+                return "fodder";
+            }
+            case "engine.entity.boats.Merchant" :{
+                return "merchant";
+            }
+            case "engine.entity.boats.Military" :{
+                return "military";
+            }
+            case "engine.entity.Harbor" :{
+                return "harbor";
+            }
+            default : {
+            }
+            return "standard";
+        }
     }
 
     /**

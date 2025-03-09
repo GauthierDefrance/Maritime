@@ -99,7 +99,7 @@ public class TestMove extends JFrame implements Runnable {
         Container contentPane = getContentPane();
         contentPane.add(dashboard);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        dashboard.setBackground(new Color(78, 172, 233));
+        dashboard.setBackground(GameConfiguration.WATER_BACKGROUND_COLOR);
         setSize(640, 360);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);

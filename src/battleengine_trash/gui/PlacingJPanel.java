@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
+import static gui.process.JComponentBuilder.menuButton;
+
 /**
  *
  * @author Gauthier Defrance
@@ -60,36 +62,13 @@ public class PlacingJPanel extends JPanel {
         this.battle.getPlacing().getButtonPanel().removeAll();
         this.battle.getPlacing().getButtonPanel().setLayout(new GridLayout(0, GameConfiguration.NUMBER_COLUMN_BATTLE_PLACING));
         for(Boat boat : this.battle.getPlacing().getBoatToPlace().getArrayListBoat()){
-            String text = "";
-            switch (boat.getClass().getName()) {
-                case "engine.entity.boats.Standard": {
-                    text = "standard";
-                    break;
-                }
-                case "engine.entity.boats.Fodder": {
-                    text = "fodder";
-                    break;
-                }
-                case "engine.entity.boats.Merchant": {
-                    text = "merchant";
-                    break;
-                }
-                case "engine.entity.boats.Military": {
-                    text = "military";
-                    break;
-                }
-                default: {
-                    text = "standard";
-                }
-            }
-            tmpbutton = new JButton(text);
+
+            tmpbutton = menuButton(boat,new ButtonSelected(boat));
             tmpbutton.setVerticalTextPosition(SwingConstants.BOTTOM);
             tmpbutton.setHorizontalTextPosition(SwingConstants.CENTER);
-            tmpbutton.addActionListener(new ButtonSelected(boat));
             tmpbutton.setBackground(GameConfiguration.DEFAULT_BACKGROUND_COLOR);
             tmpbutton.setFocusPainted(false);
             tmpbutton.setBorderPainted(false);
-            tmpbutton.setIcon(new ImageIcon(GameConfiguration.START_FILE_PATH + "/boat/"+text+".png"));
 
             this.battle.getPlacing().getButtonPanel().add(tmpbutton);
             this.battle.getPlacing().getButtonHashMap().put(boat,tmpbutton);

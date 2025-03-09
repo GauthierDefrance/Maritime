@@ -75,7 +75,7 @@ public class StartMenu extends SimpleMenu implements Runnable {
         //Window arrangement
         JLayeredPane jLayeredPane = new JLayeredPane();
 
-        dashboard.setBackground(new Color(78, 172, 233));
+        dashboard.setBackground(GameConfiguration.WATER_BACKGROUND_COLOR);
 
         jPanel1.setOpaque(false);
         TitleDisplay.setOpaque(false);
