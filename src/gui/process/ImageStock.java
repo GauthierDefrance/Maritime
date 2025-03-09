@@ -19,30 +19,30 @@ public class ImageStock {
         tbSprite = new BufferedImage[5][4];
         tbFramesSprite = new BufferedImage[6][GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES];
         try {
-            tbSprite[0][0] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/standard.png"));
-            tbSprite[0][1] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/standard/red.png"));
-            tbSprite[0][2] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/standard/blue.png"));
+            tbSprite[0][0] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/standard.png"));
+            tbSprite[0][1] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/standard/red.png"));
+            tbSprite[0][2] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/standard/blue.png"));
 
-            tbSprite[1][0] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/fodder.png"));
-            tbSprite[1][1] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/fodder/red.png"));
-            tbSprite[1][2] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/fodder/blue.png"));
+            tbSprite[1][0] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/fodder.png"));
+            tbSprite[1][1] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/fodder/red.png"));
+            tbSprite[1][2] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/fodder/blue.png"));
 
-            tbSprite[2][0] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/merchant.png"));
-            tbSprite[2][1] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/merchant/red.png"));
-            tbSprite[2][2] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/merchant/blue.png"));
+            tbSprite[2][0] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/merchant.png"));
+            tbSprite[2][1] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/merchant/red.png"));
+            tbSprite[2][2] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/merchant/blue.png"));
 
-            tbSprite[3][0] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/military.png"));
-            tbSprite[3][1] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/military/red.png"));
-            tbSprite[3][2] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/boat/military/blue.png"));
+            tbSprite[3][0] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/military.png"));
+            tbSprite[3][1] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/military/red.png"));
+            tbSprite[3][2] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/military/blue.png"));
 
-            tbSprite[4][0] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/harbor/harbor.png"));
-            tbSprite[4][1] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/harbor/red.png"));
-            tbSprite[4][2] = ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/harbor/blue.png"));
+            tbSprite[4][0] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/harbor/harbor.png"));
+            tbSprite[4][1] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/harbor/red.png"));
+            tbSprite[4][2] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/harbor/blue.png"));
 
             for (int i = 0; i < GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES; i++) {
-                tbFramesSprite[0][i] = (ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/background/background-"+i+".png")));
-                tbFramesSprite[1][i] = (ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/popup/popup+.png")));
-                tbFramesSprite[2][i] = (ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/popup/popup-.png")));
+                tbFramesSprite[0][i] = (ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/background/background-"+i+".png")));
+                tbFramesSprite[1][i] = (ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/popup/popup+.png")));
+                tbFramesSprite[2][i] = (ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/popup/popup-.png")));
             }
 
         } catch (Exception e) {

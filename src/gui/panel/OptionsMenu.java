@@ -129,7 +129,7 @@ public class OptionsMenu extends SimpleMenu {
         @Override
         public void actionPerformed(ActionEvent e) {
             ListenerBehavior listenerBehavior = ListenerBehavior.create();
-            listenerBehavior.toggle(muteButton, GameParameter.isMuted);
+            GameParameter.isMuted=listenerBehavior.toggle(muteButton, GameParameter.isMuted);
         }
     }
 
@@ -137,7 +137,7 @@ public class OptionsMenu extends SimpleMenu {
         @Override
         public void actionPerformed(ActionEvent e) {
             ListenerBehavior listenerBehavior = ListenerBehavior.create();
-            listenerBehavior.toggle(debugButton, GameParameter.showDebug);
+            GameParameter.showDebug=listenerBehavior.toggle(debugButton, GameParameter.showDebug);
         }
     }
 

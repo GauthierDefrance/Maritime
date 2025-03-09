@@ -19,16 +19,17 @@ public class ListenerBehavior {
     /**
      * Toggle/Actualise a JButton
      * @param button JButton to be toggled
-     * @param bool Global boolean linked with the button
+     * @param masterBoolean Global boolean linked with the button
      */
-    public void toggle(JButton button, Boolean bool){
+    public Boolean toggle(JButton button, Boolean masterBoolean){
+        boolean bool = masterBoolean;
         if (bool) {
             bool = false;
             button.setText("On");
         } else {
             bool = true;
             button.setText("Off");
-        }
+        } return bool;
     }
 
     /**
