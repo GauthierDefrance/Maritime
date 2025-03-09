@@ -2,7 +2,7 @@ package gui.process;
 
 import java.awt.*;
 /**
- * @author @Kenan Ammad
+ * @author Kenan Ammad
  * @version 0.1
  */
 public class PopUp {

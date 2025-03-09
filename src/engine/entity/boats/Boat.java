@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  * Abstract class representing boats without specificities
- * @author @Kenan Ammad
+ * @author Kenan Ammad
  * @author Zue Jack-Arthur
  * @version 0.2
  */

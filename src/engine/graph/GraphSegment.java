@@ -1,7 +1,8 @@
 package engine.graph;
 
 /**
- * @author @Kenan Ammad @Gauthier Defrance
+ * @author Kenan Ammad
+ * @author Gauthier Defrance
  * Classe GraphSegment
  * @version 0.2
  */

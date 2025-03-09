@@ -6,7 +6,7 @@ import engine.trading.Resource;
 
 /**
  * A class handling how trades should work between Entities (and by extension Factions)
- * @author @Kenan Ammad
+ * @author Kenan Ammad
  * @author Zue Jack-Arthur
  * @version 0.2
  */

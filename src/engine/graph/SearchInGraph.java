@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 
 /**
- * @author @Kenan Ammad
+ * @author Kenan Ammad
  * Classe SearchInGraph
  * @version 0.2
  */

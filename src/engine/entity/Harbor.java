@@ -8,7 +8,7 @@ import java.awt.*;
 
 /**
  * Class representing Harbors : pivotal elements in gameplay serving as commercial and strategic points
- * @author @Kenan Ammad
+ * @author Kenan Ammad
  * @author Zue Jack-Arthur
  * @version 0.2
  */

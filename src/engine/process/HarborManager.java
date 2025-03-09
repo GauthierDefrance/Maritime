@@ -3,7 +3,7 @@ package engine.process;
 import config.MapBuilder;
 
 /**
- * @author @Kenan Ammad
+ * @author Kenan Ammad
  * @version 0.1
  */
 public class HarborManager {

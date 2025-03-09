@@ -4,7 +4,7 @@ import engine.entity.boats.Boat;
 
 import java.util.ArrayList;
 /**
- * @author @Kenan Ammad
+ * @author Kenan Ammad
  * @version 0.1
  */
 public class Player extends Faction {

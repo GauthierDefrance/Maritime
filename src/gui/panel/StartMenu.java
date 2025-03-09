@@ -13,7 +13,7 @@ import java.awt.event.*;
 /**
  * Simple start menu for the game, serves as the entrypoint of the program
  * @author Zue Jack-Arthur
- * @author @Kenan Ammad
+ * @author Kenan Ammad
  * @version 0.5
  */
 public class StartMenu extends SimpleMenu implements Runnable {

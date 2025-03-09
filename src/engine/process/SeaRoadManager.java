@@ -11,7 +11,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * @author @Kenan Ammad
+ * @author Kenan Ammad
  * @version 0.3
  */
 public class SeaRoadManager {

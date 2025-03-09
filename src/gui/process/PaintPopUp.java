@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 /**
- * @author @Kenan Ammad
+ * @author Kenan Ammad
  * @version 0.2
  */
 public class PaintPopUp {

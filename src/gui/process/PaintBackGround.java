@@ -10,7 +10,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
- * @author @Kenan Ammad
+ * @author Kenan Ammad
  * Classe PaintBackGround
  * @version 0.1
  */

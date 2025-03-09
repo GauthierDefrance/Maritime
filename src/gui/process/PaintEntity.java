@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 /**
- * @author @Kenan Ammad
+ * @author Kenan Ammad
  * Classe PaintEntity
  * @version 0.3
  */

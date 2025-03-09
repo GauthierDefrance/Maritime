@@ -8,6 +8,7 @@ import java.awt.*;
 /**
  * Starting point of the program
  * @author Zue Jack-Arthur
+ * @author Kenan Ammad
  * @version 0.1
  */
 public class MainGUI extends JFrame {

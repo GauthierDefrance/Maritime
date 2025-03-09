@@ -11,7 +11,7 @@ import java.awt.event.*;
 
 /**
  * Simple test start menu for the game, serves as the entrypoint of the program
- * @author @Kenan Ammad
+ * @author Kenan Ammad
  * @version 0.1
  */
 public class MainGameMenu extends SimpleMenu implements Runnable {

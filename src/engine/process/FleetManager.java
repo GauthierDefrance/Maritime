@@ -9,7 +9,7 @@ import engine.graph.SearchInGraph;
 import java.util.ArrayList;
 
 /**
- * @author @Kenan Ammad
+ * @author Kenan Ammad
  * @see FactionManager
  * @version 0.3
  */

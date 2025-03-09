@@ -14,7 +14,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * @author @Kenan Ammad
+ * @author Kenan Ammad
  * Classe GameDisplay
  * @version 0.4
  */

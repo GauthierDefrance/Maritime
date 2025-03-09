@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * @author @Kenan Ammad
+ * @author Kenan Ammad
  * @author Zue Jack-Arthur
  * Classe BoatManager
  * @version 0.3

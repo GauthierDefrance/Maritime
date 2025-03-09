@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * @author @Kenan Ammad
+ * @author Kenan Ammad
  * Classe FactionManager
  * @version 0.5
  */

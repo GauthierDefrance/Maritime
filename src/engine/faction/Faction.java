@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * @author @Kenan Ammad
+ * @author Kenan Ammad
  * @author Zue Jack-Arthur
  * Classe Faction
  * @version 0.3

@@ -11,7 +11,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
- * @author @Kenan Ammad
+ * @author Kenan Ammad
  * @version 0.3
  */
 public class MapBuilder {

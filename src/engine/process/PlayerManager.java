@@ -8,7 +8,7 @@ import engine.faction.Faction;
 import java.util.ArrayList;
 
 /**
- * @author @Kenan Ammad
+ * @author Kenan Ammad
  * Classe PlayerManager
  * @version 0.1
  */
