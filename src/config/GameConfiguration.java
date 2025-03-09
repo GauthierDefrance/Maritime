@@ -46,7 +46,7 @@ public final class GameConfiguration {
     public static final Font TITLE_FONT = new Font( "Noto Sans Display", Font.BOLD, 50);
     public static final Font FONT = new Font( "Noto Sans Display", Font.BOLD, 20);
     public static final Font CREDITS_FONT = new Font("Noto Sans Display", Font.BOLD, 10);
-    public static final Color DEFAULT_BACKGROUND_COLOR = new Color(0, 0, 0);
+    public static final Color DEFAULT_BACKGROUND_COLOR = new Color(0, 0, 0,0);
     public static final Color WATER_BACKGROUND_COLOR = new Color(78, 172, 233);
 
     public static final String START_FILE_PATH = "src/images";

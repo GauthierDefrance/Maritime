@@ -15,30 +15,25 @@ import java.util.ArrayList;
  * @version 0.1
  */
 public class PaintBackGround {
-
-    private final ArrayList<BufferedImage> frames = new ArrayList<>();
-    private int currentFrame = 0;
+    private int iFrame;
 
     /**
      * Typical constructor generating an PaintBackGround
      */
     public PaintBackGround(){
-        try {
-            for (int i = 0; i < GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES; i++) {
-                frames.add(ImageIO.read(new File(GameConfiguration.START_FILE_PATH+"/background/background-"+i+".png")));
-            }
-        } catch (Exception e) {
-            System.err.println(e+"error can't find image BackGround");
-        }
+        this.iFrame = 0;
     }
 
     /**
      * Paints a backGround that needs to be painted on 2D graphics
      */
     public void paint(Graphics2D g2d){
-        if (frames.size() > currentFrame){
-        g2d.drawImage(frames.get(currentFrame), 0, 0,null);
-        currentFrame = (currentFrame + 1) % frames.size();
-        }
+        g2d.drawImage(ImageStock.getImage(this), 0, 0,null);
+        iFrame = (iFrame + 1) % GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES;
     }
+
+    public int getIFrame() {
+        return iFrame;
+    }
+
 }

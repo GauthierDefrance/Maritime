@@ -2,6 +2,10 @@ package gui.panel;
 
 import config.GameConfiguration;
 import config.MapBuilder;
+import engine.entity.boats.Boat;
+import engine.entity.boats.Military;
+import engine.entity.boats.Standard;
+import engine.graph.GraphPoint;
 import engine.process.FactionManager;
 import gui.process.*;
 
@@ -54,7 +58,6 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
 
         jNorthPanel.setBackground(Color.red);
         jSouthPanel.setBackground(Color.black);
-        jEastPanel.setBackground(Color.DARK_GRAY);
         dashboard.setBackground(GameConfiguration.WATER_BACKGROUND_COLOR);
 
         jPanelATH.setOpaque(false);
@@ -85,12 +88,12 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
         jEastCenterNorthPanel.add(new JButton("2"));
         jEastCenterNorthPanel.add(new JButton("3"));
 
+        jEastCenterCenterPanel.add(JComponentBuilder.menuButton(new Standard("testStandard","red",new GraphPoint(new Point(0,0),"testGraphPoint"))));
         jEastCenterCenterPanel.add(new JButton("a"));
-        jEastCenterCenterPanel.add(new JButton("b"));
         jEastCenterCenterPanel.add(new JButton("c"));
         jEastCenterCenterPanel.add(new JButton("d"));
         jEastCenterCenterPanel.add(new JButton("e"));
-        jEastCenterCenterPanel.add(new JButton("f"));
+        jEastCenterCenterPanel.add(JComponentBuilder.menuButton(new Military("testMilitary","blue",new GraphPoint(new Point(0,0),"testGraphPoint"))));
         jEastCenterCenterPanel.add(new JButton("g"));
 
 

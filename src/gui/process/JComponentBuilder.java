@@ -48,10 +48,11 @@ public class JComponentBuilder {
         JButton newButton = menuButton(boat.getName());
         newButton.setVerticalTextPosition(SwingConstants.BOTTOM);
         newButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        newButton.setBackground(GameConfiguration.DEFAULT_BACKGROUND_COLOR);
+        newButton.setBackground(Color.DARK_GRAY);
+        newButton.setForeground(Color.WHITE);
         newButton.setFocusPainted(false);
         newButton.setBorderPainted(false);
-        newButton.setIcon(new ImageIcon(GameConfiguration.START_FILE_PATH + "/boat/"+PaintEntity.spriteType(boat.getClass())+boat.getColor()+".png"));
+        newButton.setIcon( new ImageIcon(ImageStock.getImage(boat)));
         return newButton;
     }
 
