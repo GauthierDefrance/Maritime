@@ -44,6 +44,7 @@ public class ListenerBehavior {
             JOptionPane.showMessageDialog(panel, "You are not allowed to exit!", "Error", JOptionPane.ERROR_MESSAGE );
         }
     }
+
     public void goBack(int rootToken, MapBuilder map){
         switch(rootToken){
             case GameConfiguration.ROOT_STARTMENU:
@@ -54,10 +55,12 @@ public class ListenerBehavior {
                 break;
             case GameConfiguration.ROOT_PAUSE_FROM_MAIN:
                 GUILoader.loadPauseMenu(GameConfiguration.ROOT_MAINGAME, map);
+                break;
             case GameConfiguration.ROOT_PAUSE_FROM_COMBAT:
                 GUILoader.loadPauseMenu(GameConfiguration.ROOT_COMBAT, map);
+                break;
             default:
-                GUILoader.loadPauseMenu(rootToken,map);
+                GUILoader.loadStartMenu();
         }
     }
 
