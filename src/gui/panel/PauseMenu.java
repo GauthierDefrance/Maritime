@@ -91,16 +91,15 @@ public class PauseMenu extends SimpleMenu {
     public class ResumeButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (token == 4) GUILoader.loadMainGameMenu(getWindow(), map);
+            if (token == GameConfiguration.ROOT_MAINGAME) GUILoader.loadMainGameMenu(getWindow(), map);
         }
     }
 
     private class KeyControls implements KeyListener {
-
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                if (token == GameConfiguration.ROOT_GAMEPLAY) GUILoader.loadMainGameMenu(getWindow(), map);
+                if (token == GameConfiguration.ROOT_MAINGAME) GUILoader.loadMainGameMenu(getWindow(), map);
             }
         }
 

@@ -64,6 +64,7 @@ public final class GameConfiguration {
     public static final Color DEFAULT_BACKGROUND_COLOR = new Color(78, 172, 233);
 
     public static final int ROOT_STARTMENU = 0;
-    public static final int ROOT_GAMEPLAY = 1;
+    public static final int ROOT_MAINGAME = 1;
+    public static final int ROOT_COMBAT = 2;
 
 }

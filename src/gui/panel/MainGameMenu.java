@@ -165,7 +165,7 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                GUILoader.loadPauseMenu(GameConfiguration.ROOT_GAMEPLAY,getWindow(), map);
+                GUILoader.loadPauseMenu(GameConfiguration.ROOT_MAINGAME,getWindow(), map);
             }
             if(event.getKeyCode() == KeyEvent.VK_SPACE){
                 map.setTimeStop(!map.isTimeStop());
