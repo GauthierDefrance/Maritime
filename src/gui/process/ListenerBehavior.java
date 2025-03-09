@@ -2,6 +2,7 @@ package gui.process;
 
 import config.GameConfiguration;
 import config.MapBuilder;
+import gui.MainGUI;
 
 import javax.swing.*;
 
@@ -45,23 +46,38 @@ public class ListenerBehavior {
         }
     }
 
-    public void goBack(int rootToken, MapBuilder map){
-        switch(rootToken){
-            case GameConfiguration.ROOT_STARTMENU:
+    public static void goBack(){
+        switch(MainGUI.getToken()){
+            case GameConfiguration.ROOT_PAUSE_FROM_MAIN: {
+                MainGUI.setToken(GameConfiguration.ROOT_MAIN_GAME);
+                GUILoader.loadPauseMenu();
+                break;
+            }
+            case GameConfiguration.ROOT_PAUSE_FROM_COMBAT: {
+                MainGUI.setToken(GameConfiguration.ROOT_COMBAT);
+                GUILoader.loadPauseMenu();
+                break;
+            }
+
+            case GameConfiguration.ROOT_START_MENU:{
+                MainGUI.setToken(null);
                 GUILoader.loadStartMenu();
                 break;
-            case GameConfiguration.ROOT_MAINGAME:
-                GUILoader.loadMainGameMenu(map);
+            }
+            case GameConfiguration.ROOT_MAIN_GAME: {
+                MainGUI.setToken(null);
+                MainGUI.getMap().setTimeStop(true);
+                GUILoader.loadMainGameMenu(MainGUI.getMap());
                 break;
-            case GameConfiguration.ROOT_PAUSE_FROM_MAIN:
-                GUILoader.loadPauseMenu(GameConfiguration.ROOT_MAINGAME, map);
+            }
+            case GameConfiguration.ROOT_COMBAT: {
+                MainGUI.setToken(null);
+                MainGUI.getMap().setTimeStop(true);
+                GUILoader.loadPauseMenu();
                 break;
-            case GameConfiguration.ROOT_PAUSE_FROM_COMBAT:
-                GUILoader.loadPauseMenu(GameConfiguration.ROOT_COMBAT, map);
-                break;
-            default:
-                GUILoader.loadStartMenu();
+            }
+            default: {
+            }
         }
     }
-
 }

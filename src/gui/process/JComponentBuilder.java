@@ -22,6 +22,7 @@ public class JComponentBuilder {
      */
     public static JButton menuButton(String text) {
         JButton newButton = new JButton(text);
+        newButton.setFocusable(false);
         newButton.setFont(GameConfiguration.FONT);
         return newButton;
     }

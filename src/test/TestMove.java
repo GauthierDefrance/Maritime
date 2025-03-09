@@ -7,6 +7,7 @@ import engine.graph.SearchInGraph;
 import engine.process.FactionManager;
 import engine.trading.Resource;
 import engine.trading.SeaRoad;
+import gui.MainGUI;
 import gui.panel.GameDisplay;
 
 import javax.swing.*;
@@ -123,5 +124,10 @@ public class TestMove extends JFrame implements Runnable {
             dashboard.repaint();
         }
     }
-
+    public static void main(String[] args) {
+        TestMove testMove = new  TestMove("");
+        Thread gameThread = new Thread(testMove);
+        gameThread.start();
+    }
 }
+

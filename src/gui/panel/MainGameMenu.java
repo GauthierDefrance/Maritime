@@ -2,11 +2,11 @@ package gui.panel;
 
 import config.GameConfiguration;
 import config.MapBuilder;
-import engine.entity.boats.Boat;
 import engine.entity.boats.Military;
 import engine.entity.boats.Standard;
 import engine.graph.GraphPoint;
 import engine.process.FactionManager;
+import gui.MainGUI;
 import gui.process.*;
 
 import javax.swing.*;
@@ -187,7 +187,8 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                GUILoader.loadPauseMenu(GameConfiguration.ROOT_MAINGAME, map);
+                MainGUI.setToken(GameConfiguration.ROOT_MAIN_GAME);
+                GUILoader.loadPauseMenu();
             }
             if(event.getKeyCode() == KeyEvent.VK_SPACE){
                 map.setTimeStop(!map.isTimeStop());

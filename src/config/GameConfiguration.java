@@ -51,8 +51,8 @@ public final class GameConfiguration {
     public static final Color DEFAULT_BACKGROUND_COLOR = new Color(0,0,0,0);
     public static final Color WATER_BACKGROUND_COLOR = new Color(78, 172, 233);
 
-    public static final int ROOT_STARTMENU = 0;
-    public static final int ROOT_MAINGAME = 1;
+    public static final int ROOT_START_MENU = 0;
+    public static final int ROOT_MAIN_GAME = 1;
     public static final int ROOT_COMBAT = 2;
     public static final int ROOT_PAUSE_FROM_MAIN = 3;
     public static final int ROOT_PAUSE_FROM_COMBAT = 4;

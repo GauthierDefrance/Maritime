@@ -26,23 +26,23 @@ public class GUILoader {
         actualise(new MainGameMenu(map));
     }
 
-    public static void loadPauseMenu(int token, MapBuilder map){
-        actualise(new PauseMenu(token, map));
+    public static void loadPauseMenu(){
+        actualise(new PauseMenu());
     }
 
     public static void loadStartMenu(){
         actualise(new StartMenu());
     }
 
-    public static void loadOptionsMenu(int token, MapBuilder map){
-        actualise(new OptionsMenu(token, map));
+    public static void loadOptionsMenu(){
+        actualise(new OptionsMenu());
     }
 
-    public static void loadChargeGameMenu(int token, MapBuilder map){
-        actualise(new SaveFileMenu(token, map, 0));
+    public static void loadChargeGameMenu(MapBuilder map){
+        actualise(new SaveFileMenu(map, 0));
     }
 
-    public static void loadSaveGameMenu(int token, MapBuilder map){
-        actualise(new SaveFileMenu(token, map, 1));
+    public static void loadSaveGameMenu(MapBuilder map){
+        actualise(new SaveFileMenu(map, 1));
     }
 }

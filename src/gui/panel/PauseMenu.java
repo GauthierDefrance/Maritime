@@ -2,6 +2,7 @@ package gui.panel;
 
 import config.GameConfiguration;
 import config.MapBuilder;
+import gui.MainGUI;
 import gui.process.GUILoader;
 import gui.process.JComponentBuilder;
 import gui.process.ListenerBehavior;
@@ -20,9 +21,6 @@ import java.awt.event.KeyListener;
  * @version 0.2
  */
 public class PauseMenu extends SimpleMenu {
-
-    private int token;
-    private MapBuilder map;
 
     private JPanel titleDisplay;
     private JPanel creditsDisplay;
@@ -44,10 +42,8 @@ public class PauseMenu extends SimpleMenu {
     private JButton backToGameButton;
     private JButton exitButton;
 
-    public PauseMenu(int token, MapBuilder map) {
+    public PauseMenu() {
         super();
-        this.token = token;
-        this.map = map;
         init();
     }
 
@@ -97,14 +93,16 @@ public class PauseMenu extends SimpleMenu {
     public class LoadMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadChargeGameMenu(token+2, map);
+            MainGUI.setToken(MainGUI.getToken()+2);
+            GUILoader.loadChargeGameMenu(MainGUI.getMap());
         }
     }
 
     public class SaveMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadSaveGameMenu(token+2, map);
+            MainGUI.setToken(MainGUI.getToken()+2);
+            GUILoader.loadSaveGameMenu(MainGUI.getMap());
         }
     }
 
@@ -122,23 +120,22 @@ public class PauseMenu extends SimpleMenu {
     public class OptionsMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadOptionsMenu(token+2, map);
+            MainGUI.setToken(MainGUI.getToken()+2);
+            GUILoader.loadOptionsMenu();
         }
     }
 
     public class ResumeButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ListenerBehavior ls = ListenerBehavior.create();
-            ls.goBack(token, map);
+            ListenerBehavior.goBack();
         }
     }
 
     private class KeyControls implements KeyListener {
         @Override
         public void keyPressed(KeyEvent event) {
-            ListenerBehavior ls = ListenerBehavior.create();
-            ls.goBack(token, map);
+            ListenerBehavior.goBack();
         }
 
         @Override

@@ -3,6 +3,7 @@ package gui.panel;
 import config.GameConfiguration;
 import config.GameParameter;
 import config.MapBuilder;
+import gui.MainGUI;
 import gui.process.GUILoader;
 import gui.process.JComponentBuilder;
 import gui.process.ListenerBehavior;
@@ -18,9 +19,6 @@ import java.awt.event.*;
  * @version 0.4
  */
 public class OptionsMenu extends SimpleMenu {
-
-    private int token;
-    private MapBuilder map;
 
     private JButton goBackButton;
 
@@ -40,10 +38,8 @@ public class OptionsMenu extends SimpleMenu {
     private JButton debugButton;
     private JPanel debugPanel;
 
-    public OptionsMenu(int token, MapBuilder map) {
+    public OptionsMenu() {
         super();
-        this.token = token;
-        this.map = map;
         init();
     }
 
@@ -103,14 +99,6 @@ public class OptionsMenu extends SimpleMenu {
 
     //Listener
 
-    public class goBackButtonListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            ListenerBehavior ls = ListenerBehavior.create();
-            ls.goBack(token, map);
-        }
-    }
-
     public class minusButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -129,7 +117,7 @@ public class OptionsMenu extends SimpleMenu {
         @Override
         public void actionPerformed(ActionEvent e) {
             ListenerBehavior listenerBehavior = ListenerBehavior.create();
-            GameParameter.isMuted=listenerBehavior.toggle(muteButton, GameParameter.isMuted);
+            GameParameter.isMuted = listenerBehavior.toggle(muteButton, GameParameter.isMuted);
         }
     }
 
@@ -137,7 +125,14 @@ public class OptionsMenu extends SimpleMenu {
         @Override
         public void actionPerformed(ActionEvent e) {
             ListenerBehavior listenerBehavior = ListenerBehavior.create();
-            GameParameter.showDebug=listenerBehavior.toggle(debugButton, GameParameter.showDebug);
+            GameParameter.showDebug = listenerBehavior.toggle(debugButton, GameParameter.showDebug);
+        }
+    }
+
+    public class goBackButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ListenerBehavior.goBack();
         }
     }
 
@@ -146,8 +141,7 @@ public class OptionsMenu extends SimpleMenu {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                ListenerBehavior ls = ListenerBehavior.create();
-                ls.goBack(token, map);
+                ListenerBehavior.goBack();
             }
         }
 
