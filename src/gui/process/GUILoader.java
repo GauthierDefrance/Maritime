@@ -29,7 +29,7 @@ public class GUILoader {
     }
 
     public static void loadStartMenu(Container window){
-        actualise(window, new StartMenuTest(window));
+        actualise(window, new StartMenu(window));
     }
 
     public static void loadOptionsMenu(int token, Container window, MapBuilder map){

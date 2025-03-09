@@ -1,23 +1,22 @@
 package gui.panel;
 
 import config.GameConfiguration;
+import config.MapBuilder;
+import engine.process.FactionManager;
 import gui.process.GUILoader;
 import gui.process.JComponentBuilder;
-import test.TestMove;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 
 /**
  * Simple start menu for the game, serves as the entrypoint of the program
  * @author Zue Jack-Arthur
- * @version 0.4
+ * @author @Kenan Ammad
+ * @version 0.5
  */
-public class StartMenu extends SimpleMenu {
+public class StartMenu extends SimpleMenu implements Runnable {
 
     private JLabel title;
     private JLabel credits;
@@ -30,6 +29,11 @@ public class StartMenu extends SimpleMenu {
     private JPanel TitleDisplay;
     private JPanel creditsDisplay;
     private JPanel buttonDisplay;
+    private JPanel jPanel0 = new JPanel();
+    private JPanel jPanel1 = new JPanel();
+    private GameDisplay dashboard;
+    private MapBuilder map = new MapBuilder(0);
+    private FactionManager factionManager = new FactionManager(map);
 
     /**
      * Typical constructor to make the startMenu appear
@@ -41,6 +45,9 @@ public class StartMenu extends SimpleMenu {
     public void init() {
 
         this.setLayout(new BorderLayout());
+        dashboard = new GameDisplay(map);
+        jPanel1.setLayout(new BorderLayout());
+        jPanel0.setLayout(new BorderLayout());
 
         title = JComponentBuilder.title("Maritime");
 
@@ -61,13 +68,32 @@ public class StartMenu extends SimpleMenu {
         buttonDisplay = JComponentBuilder.flowMenuPanel(newGame, loadGame, options, exit);
 
         this.addKeyListener(new KeyControls());
+        this.getWindow().addComponentListener(new ComponentControls());
+        jPanel0.setBounds(getWindow().getBounds());
+        jPanel1.setBounds(getWindow().getBounds());
 
         //Window arrangement
+        JLayeredPane jLayeredPane = new JLayeredPane();
 
-        this.add(TitleDisplay, BorderLayout.NORTH);
-        this.add( buttonDisplay, BorderLayout.CENTER);
-        this.add(creditsDisplay, BorderLayout.SOUTH);
+        dashboard.setBackground(new Color(78, 172, 233));
 
+        jPanel1.setOpaque(false);
+        TitleDisplay.setOpaque(false);
+        creditsDisplay.setOpaque(true);
+        buttonDisplay.setOpaque(false);
+
+        jPanel0.add(dashboard,BorderLayout.CENTER);
+        jPanel1.add(TitleDisplay, BorderLayout.NORTH);
+        jPanel1.add( buttonDisplay, BorderLayout.CENTER);
+        jPanel1.add(creditsDisplay, BorderLayout.SOUTH);
+
+        jLayeredPane.add(jPanel0,JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane.add(jPanel1,JLayeredPane.PALETTE_LAYER);
+
+        this.add(jLayeredPane);
+
+        Thread gameThread = new Thread(this);
+        gameThread.start();
     }
 
     /**
@@ -76,13 +102,7 @@ public class StartMenu extends SimpleMenu {
     public class StartGameListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            try {
-                TestMove gameMainGUI = new TestMove("game");
-                Thread gameThread = new Thread(gameMainGUI);
-                gameThread.start();
-            } catch ( IllegalThreadStateException e1 ) {
-                JOptionPane.showMessageDialog( StartMenu.this, "Game is already running!", "Error", JOptionPane.ERROR_MESSAGE );
-            }
+            GUILoader.loadMainGameMenu(getWindow(),map);
         }
     }
 
@@ -100,6 +120,29 @@ public class StartMenu extends SimpleMenu {
         }
     }
 
+    private class ComponentControls implements ComponentListener {
+
+        @Override
+        public void componentResized(ComponentEvent e) {
+            jPanel0.setBounds(getWindow().getBounds());
+            jPanel1.setBounds(getWindow().getBounds());
+            getWindow().revalidate();
+            getWindow().repaint();
+
+        }
+
+        @Override
+        public void componentMoved(ComponentEvent e) {
+
+        }
+
+        @Override
+        public void componentShown(ComponentEvent e) { }
+
+        @Override
+        public void componentHidden(ComponentEvent e) { }
+    }
+
     private class KeyControls implements KeyListener {
 
         @Override
@@ -109,20 +152,30 @@ public class StartMenu extends SimpleMenu {
                     try {
                         System.exit(0);
                     } catch ( SecurityException e1 ) {
-                        JOptionPane.showMessageDialog(StartMenu.this, "You are not allowed to exit!", "Error", JOptionPane.ERROR_MESSAGE );
+                        JOptionPane.showMessageDialog(StartMenu.this, "You are not allowed to quit!", "Error", JOptionPane.ERROR_MESSAGE );
                     }
                 }
             }
         }
 
         @Override
-        public void keyTyped(KeyEvent e) {
-
-        }
+        public void keyTyped(KeyEvent e) { }
 
         @Override
-        public void keyReleased(KeyEvent e) {
+        public void keyReleased(KeyEvent e) { }
+    }
 
+    @Override
+    public void run() {
+        while (true) {
+            try {
+                Thread.sleep(GameConfiguration.GAME_SPEED);
+
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
+            }
+            factionManager.nextRound();
+            dashboard.repaint();
         }
     }
 }
