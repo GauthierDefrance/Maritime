@@ -39,6 +39,10 @@ public class GUILoader {
     }
 
     public static void loadChargeGameMenu(int token, MapBuilder map){
-        actualise(new ChargeGameMenu(token, map));
+        actualise(new SaveFileMenu(token, map, 0));
+    }
+
+    public static void loadSaveGameMenu(int token, MapBuilder map){
+        actualise(new SaveFileMenu(token, map, 1));
     }
 }

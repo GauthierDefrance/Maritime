@@ -52,8 +52,13 @@ public class ListenerBehavior {
             case GameConfiguration.ROOT_MAINGAME:
                 GUILoader.loadMainGameMenu(map);
                 break;
+            case GameConfiguration.ROOT_PAUSE_FROM_MAIN:
+                GUILoader.loadPauseMenu(GameConfiguration.ROOT_MAINGAME, map);
+            case GameConfiguration.ROOT_PAUSE_FROM_COMBAT:
+                GUILoader.loadPauseMenu(GameConfiguration.ROOT_COMBAT, map);
             default:
                 GUILoader.loadPauseMenu(rootToken,map);
         }
     }
+
 }

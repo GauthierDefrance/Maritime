@@ -54,6 +54,8 @@ public final class GameConfiguration {
     public static final int ROOT_STARTMENU = 0;
     public static final int ROOT_MAINGAME = 1;
     public static final int ROOT_COMBAT = 2;
+    public static final int ROOT_PAUSE_FROM_MAIN = 3;
+    public static final int ROOT_PAUSE_FROM_COMBAT = 4;
 
     public static final String IMG_FILE_PATH = "src/images";
     public static final String SAVE_FILE_PATH = "src/save";

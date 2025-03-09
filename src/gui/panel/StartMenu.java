@@ -58,7 +58,7 @@ public class StartMenu extends SimpleMenu implements Runnable {
 
         newGame = JComponentBuilder.menuButton("New Game",new StartGameListener());
 
-        loadGame = JComponentBuilder.menuButton("Load Game",new LoadGameListener());
+        loadGame = JComponentBuilder.menuButton("Load Game",new LoadMenuListener());
 
         options = JComponentBuilder.menuButton("Options", new OptionsMenuListener());
 
@@ -116,10 +116,10 @@ public class StartMenu extends SimpleMenu implements Runnable {
         }
     }
 
-    public class LoadGameListener implements ActionListener {
+    public class LoadMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            //Work in progress
+            GUILoader.loadChargeGameMenu(GameConfiguration.ROOT_STARTMENU, null);
         }
     }
 

@@ -59,9 +59,9 @@ public class PauseMenu extends SimpleMenu {
 
         credits = JComponentBuilder.credits("A Game by Ammad Kenan, Defrance Gauthier & Zue Jack-Arthur");
 
-        saveButton = JComponentBuilder.menuButton("Save game");
+        saveButton = JComponentBuilder.menuButton("Save game", new SaveMenuListener());
 
-        loadButton = JComponentBuilder.menuButton("Load game");
+        loadButton = JComponentBuilder.menuButton("Load game", new LoadMenuListener());
 
         optionsButton = JComponentBuilder.menuButton("Options", new OptionsMenuListener());
 
@@ -94,6 +94,20 @@ public class PauseMenu extends SimpleMenu {
         }
     }
 
+    public class LoadMenuListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            GUILoader.loadChargeGameMenu(token+2, map);
+        }
+    }
+
+    public class SaveMenuListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            GUILoader.loadSaveGameMenu(token+2, map);
+        }
+    }
+
     /**
      * An ActionListener allowing to exit the game
      */
@@ -108,7 +122,7 @@ public class PauseMenu extends SimpleMenu {
     public class OptionsMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadOptionsMenu(token, map);
+            GUILoader.loadOptionsMenu(token+2, map);
         }
     }
 
