@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * @author Kenan Ammad
  * Classe PaintBackGround
- * @version 0.1
+ * @version 0.2
  */
 public class PaintBackGround {
     private int iFrame;

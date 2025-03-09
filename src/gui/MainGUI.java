@@ -1,6 +1,7 @@
 package gui;
 
 import config.GameConfiguration;
+import config.MapBuilder;
 import gui.process.GUILoader;
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +15,7 @@ import java.awt.*;
 public class MainGUI extends JFrame {
 
     private static Container window;
+    private static MapBuilder map;
 
     public MainGUI() {
         super("Maritime");
@@ -32,6 +34,14 @@ public class MainGUI extends JFrame {
 
     public static Container getWindow() {
         return window;
+    }
+
+    public static MapBuilder getMap() {
+        return map;
+    }
+
+    public static void setMap(MapBuilder map) {
+        MainGUI.map = map;
     }
 
     public static void main(String[] args) {

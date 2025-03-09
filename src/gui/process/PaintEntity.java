@@ -13,7 +13,7 @@ import java.io.File;
 /**
  * @author Kenan Ammad
  * Classe PaintEntity
- * @version 0.3
+ * @version 0.4
  */
 public class PaintEntity {
     /**

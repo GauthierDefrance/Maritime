@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 /**
  * Class containing methods to build (Components)
  * @author Zue Jack-Arthur
+ * @author Kenan Ammad
  * @see Component
  * @version 0.3
  */

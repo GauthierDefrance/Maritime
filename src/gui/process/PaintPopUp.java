@@ -10,7 +10,8 @@ import java.io.File;
 
 /**
  * @author Kenan Ammad
- * @version 0.2
+ * Classe PaintPopUp
+ * @version 0.4
  */
 public class PaintPopUp {
     private MapBuilder map;

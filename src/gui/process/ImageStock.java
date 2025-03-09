@@ -9,6 +9,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
+/**
+ * @author Kenan Ammad
+ * Classe ImageStock
+ * @version 0.1
+ */
 public class ImageStock {
 
     private final BufferedImage[][] tbSprite;

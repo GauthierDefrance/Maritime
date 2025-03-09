@@ -86,7 +86,7 @@ public class PlacingJPanel extends JPanel {
             tmpbutton.setVerticalTextPosition(SwingConstants.BOTTOM);
             tmpbutton.setHorizontalTextPosition(SwingConstants.CENTER);
             tmpbutton.addActionListener(new ButtonSelected(boat));
-            tmpbutton.setBackground(GameConfiguration.DEFAULT_BACKGROUND_COLOR);
+            tmpbutton.setBackground(GameConfiguration.WATER_BACKGROUND_COLOR);
             tmpbutton.setFocusPainted(false);
             tmpbutton.setBorderPainted(false);
             tmpbutton.setIcon(new ImageIcon(GameConfiguration.IMG_FILE_PATH + "/boat/"+text+".png"));
