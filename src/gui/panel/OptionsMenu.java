@@ -1,5 +1,6 @@
 package gui.panel;
 
+import config.GameConfiguration;
 import config.MapBuilder;
 import gui.process.GUILoader;
 import gui.process.JComponentBuilder;
@@ -30,11 +31,9 @@ public class OptionsMenu extends SimpleMenu {
     private JButton plusButton;
     private JButton minusButton;
 
-    private JPanel mutePanel;
     private JLabel muteLabel;
     private JButton muteButton;
 
-    private JPanel debugPanel;
     private JLabel debugLabel;
     private JButton debugButton;
 
@@ -79,7 +78,7 @@ public class OptionsMenu extends SimpleMenu {
     public class goBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (token == 0) GUILoader.loadStartMenu(getWindow());
+            if (token == GameConfiguration.ROOT_STARTMENU) GUILoader.loadStartMenu(getWindow());
             else GUILoader.loadPauseMenu(token,getWindow(),map);
         }
     }
@@ -119,7 +118,7 @@ public class OptionsMenu extends SimpleMenu {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                if (token == 0) GUILoader.loadStartMenu(getWindow());
+                if (token == GameConfiguration.ROOT_STARTMENU) GUILoader.loadStartMenu(getWindow());
                 else GUILoader.loadPauseMenu(token,getWindow(),map);
             }
         }

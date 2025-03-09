@@ -9,7 +9,6 @@ import gui.process.PaintBackGround;
 import gui.process.PaintEntity;
 import gui.process.PaintPopUp;
 import gui.process.PopUp;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;

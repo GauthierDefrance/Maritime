@@ -1,5 +1,6 @@
 package gui.panel;
 
+import config.GameConfiguration;
 import config.MapBuilder;
 import gui.process.GUILoader;
 import gui.process.JComponentBuilder;
@@ -99,7 +100,7 @@ public class PauseMenu extends SimpleMenu {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                if (token == 4) GUILoader.loadMainGameMenu(getWindow(), map);
+                if (token == GameConfiguration.ROOT_GAMEPLAY) GUILoader.loadMainGameMenu(getWindow(), map);
             }
         }
 

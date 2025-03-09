@@ -52,7 +52,6 @@ public final class GameConfiguration {
     public static final int NUMBER_COLUMN_BATTLE_PLACING = 2;
     public static final int SPAWN_ZONE_OPACITY = 15;
 
-
     public static final String DEFAULT_SPAWN_ZONE_COLOR ="blue";
     public static final Point DEFAULT_SPAWN_ZONE_COORDINATE= new Point(0,0);
     public static final Point DEFAULT_ENEMY_SPAWN_ZONE_COORDINATE= new Point(600,0);
@@ -64,5 +63,7 @@ public final class GameConfiguration {
 
     public static final Color DEFAULT_BACKGROUND_COLOR = new Color(78, 172, 233);
 
+    public static final int ROOT_STARTMENU = 0;
+    public static final int ROOT_GAMEPLAY = 1;
 
 }

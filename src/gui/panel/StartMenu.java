@@ -1,5 +1,6 @@
 package gui.panel;
 
+import config.GameConfiguration;
 import gui.process.GUILoader;
 import gui.process.JComponentBuilder;
 import test.TestMove;
@@ -88,7 +89,7 @@ public class StartMenu extends SimpleMenu {
     public class OptionsMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadOptionsMenu(0,getWindow(), null);
+            GUILoader.loadOptionsMenu(GameConfiguration.ROOT_STARTMENU,getWindow(), null);
         }
     }
 

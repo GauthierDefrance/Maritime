@@ -107,7 +107,7 @@ public class StartMenuTest extends SimpleMenu implements Runnable {
     public class OptionsMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadOptionsMenu(0,getWindow(), null);
+            GUILoader.loadOptionsMenu(GameConfiguration.ROOT_STARTMENU,getWindow(), null);
         }
     }
 

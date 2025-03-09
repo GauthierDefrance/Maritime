@@ -20,9 +20,13 @@ public abstract class SimpleMenu extends JPanel {
         this.window = window;
     }
 
+    //Getter
+
     public Container getWindow() {
         return window;
     }
+
+    //Setter
 
     public void setWindow(Container window) {
         this.window = window;

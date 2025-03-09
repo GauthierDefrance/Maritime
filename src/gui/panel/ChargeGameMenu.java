@@ -1,5 +1,6 @@
 package gui.panel;
 
+import config.GameConfiguration;
 import config.MapBuilder;
 import gui.process.GUILoader;
 
@@ -33,7 +34,7 @@ public class ChargeGameMenu extends SimpleMenu {
     public class goBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (token == 0) GUILoader.loadStartMenu(getWindow());
+            if (token == GameConfiguration.ROOT_STARTMENU) GUILoader.loadStartMenu(getWindow());
             else GUILoader.loadPauseMenu(token,getWindow(),map);
         }
     }
@@ -43,7 +44,7 @@ public class ChargeGameMenu extends SimpleMenu {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                if (token == 0) GUILoader.loadStartMenu(getWindow());
+                if (token == GameConfiguration.ROOT_STARTMENU) GUILoader.loadStartMenu(getWindow());
                 else GUILoader.loadPauseMenu(token,getWindow(),map);
             }
         }
