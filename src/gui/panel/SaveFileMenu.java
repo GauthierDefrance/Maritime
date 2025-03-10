@@ -15,7 +15,7 @@ import static config.GameConfiguration.BUTTON_SEPARATOR;
 public class SaveFileMenu extends SimpleMenu {
 
     private int state;
-    private MapBuilder map;
+    private int token;
 
     private JButton goBackButton;
     private JButton file1;
@@ -29,9 +29,9 @@ public class SaveFileMenu extends SimpleMenu {
     private JPanel savefile2;
     private JPanel menu;
 
-    public SaveFileMenu(MapBuilder map, int state) {
+    public SaveFileMenu(int token, int state) {
         super();
-        this.map = map;
+        this.token = token;
         this.state = state;
         init();
     }
@@ -62,7 +62,8 @@ public class SaveFileMenu extends SimpleMenu {
     public class goBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ListenerBehavior.goBack();
+            ListenerBehavior ls = ListenerBehavior.create();
+            ls.goBack(token);
         }
     }
 
@@ -71,7 +72,8 @@ public class SaveFileMenu extends SimpleMenu {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                ListenerBehavior.goBack();
+                ListenerBehavior ls = ListenerBehavior.create();
+                ls.goBack(token);
             }
         }
 

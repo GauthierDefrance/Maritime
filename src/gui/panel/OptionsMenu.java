@@ -20,6 +20,8 @@ import java.awt.event.*;
  */
 public class OptionsMenu extends SimpleMenu {
 
+    private int token;
+
     private JButton goBackButton;
 
     private JPanel optionDisplayer;
@@ -38,8 +40,9 @@ public class OptionsMenu extends SimpleMenu {
     private JButton debugButton;
     private JPanel debugPanel;
 
-    public OptionsMenu() {
+    public OptionsMenu(int token) {
         super();
+        this.token = token;
         init();
     }
 
@@ -132,7 +135,8 @@ public class OptionsMenu extends SimpleMenu {
     public class goBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ListenerBehavior.goBack();
+            ListenerBehavior listenerBehavior = ListenerBehavior.create();
+            listenerBehavior.goBack(token);
         }
     }
 
@@ -141,7 +145,8 @@ public class OptionsMenu extends SimpleMenu {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                ListenerBehavior.goBack();
+                ListenerBehavior listenerBehavior = ListenerBehavior.create();
+                listenerBehavior.goBack(token);
             }
         }
 

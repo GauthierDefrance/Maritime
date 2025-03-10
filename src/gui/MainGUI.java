@@ -16,7 +16,6 @@ public class MainGUI extends JFrame {
 
     private static Container window;
     private static MapBuilder map;
-    private static Integer token;
 
     public MainGUI() {
         super("Maritime");
@@ -32,14 +31,6 @@ public class MainGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         GUILoader.loadStartMenu(); //setResizable(false);
         setVisible(true);
-    }
-
-    public static Integer getToken() {
-        return token;
-    }
-
-    public static void setToken(Integer token) {
-        MainGUI.token = token;
     }
 
     public static Container getWindow() {

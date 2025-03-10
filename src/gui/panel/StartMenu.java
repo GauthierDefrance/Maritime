@@ -3,7 +3,6 @@ package gui.panel;
 import config.GameConfiguration;
 import config.MapBuilder;
 import engine.process.FactionManager;
-import gui.MainGUI;
 import gui.process.GUILoader;
 import gui.process.JComponentBuilder;
 import gui.process.ListenerBehavior;
@@ -112,25 +111,23 @@ public class StartMenu extends SimpleMenu implements Runnable {
         @Override
         public void actionPerformed(ActionEvent e) {
             ThreadStop = true;
-            GUILoader.loadMainGameMenu(getMap());
+            GUILoader.loadMainGame(getMap());
         }
     }
 
     public class OptionsMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            MainGUI.setToken(GameConfiguration.ROOT_START_MENU);
             ThreadStop = true;
-            GUILoader.loadOptionsMenu();
+            GUILoader.loadOptionsMenu(GameConfiguration.ROOT_START_MENU);
         }
     }
 
     public class LoadMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            MainGUI.setToken(GameConfiguration.ROOT_START_MENU);
             ThreadStop = true;
-            GUILoader.loadChargeGameMenu(MainGUI.getMap());
+            GUILoader.loadChargeGameMenu(GameConfiguration.ROOT_START_MENU);
         }
     }
 

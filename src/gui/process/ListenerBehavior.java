@@ -1,7 +1,6 @@
 package gui.process;
 
 import config.GameConfiguration;
-import config.MapBuilder;
 import gui.MainGUI;
 
 import javax.swing.*;
@@ -46,37 +45,33 @@ public class ListenerBehavior {
         }
     }
 
-    public static void goBack(){
-        switch(MainGUI.getToken()){
+    public void goBack(int token){
+        switch(token){
             case GameConfiguration.ROOT_PAUSE_FROM_MAIN: {
-                MainGUI.setToken(GameConfiguration.ROOT_MAIN_GAME);
-                GUILoader.loadPauseMenu();
+                GUILoader.loadPauseMenu(GameConfiguration.ROOT_MAIN_GAME);
                 break;
             }
             case GameConfiguration.ROOT_PAUSE_FROM_COMBAT: {
-                MainGUI.setToken(GameConfiguration.ROOT_COMBAT);
-                GUILoader.loadPauseMenu();
+                GUILoader.loadPauseMenu(GameConfiguration.ROOT_COMBAT);
                 break;
             }
 
             case GameConfiguration.ROOT_START_MENU:{
-                MainGUI.setToken(null);
                 GUILoader.loadStartMenu();
                 break;
             }
             case GameConfiguration.ROOT_MAIN_GAME: {
-                MainGUI.setToken(null);
                 MainGUI.getMap().setTimeStop(true);
-                GUILoader.loadMainGameMenu(MainGUI.getMap());
+                GUILoader.loadMainGame(MainGUI.getMap());
                 break;
             }
             case GameConfiguration.ROOT_COMBAT: {
-                MainGUI.setToken(null);
                 MainGUI.getMap().setTimeStop(true);
-                GUILoader.loadPauseMenu();
+                GUILoader.loadCombat();
                 break;
             }
             default: {
+                GUILoader.loadStartMenu();
             }
         }
     }

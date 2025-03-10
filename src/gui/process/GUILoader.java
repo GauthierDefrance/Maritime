@@ -22,27 +22,32 @@ public class GUILoader {
         menu.setFocusable(true);
         menu.requestFocusInWindow();
     }
-    public static void loadMainGameMenu(MapBuilder map){
+
+    public static void loadMainGame(MapBuilder map){
         actualise(new MainGameMenu(map));
     }
 
-    public static void loadPauseMenu(){
-        actualise(new PauseMenu());
+    public static void loadPauseMenu(int token){
+        actualise(new PauseMenu(token));
     }
 
     public static void loadStartMenu(){
         actualise(new StartMenu());
     }
 
-    public static void loadOptionsMenu(){
-        actualise(new OptionsMenu());
+    public static void loadOptionsMenu(int token){
+        actualise(new OptionsMenu(token));
     }
 
-    public static void loadChargeGameMenu(MapBuilder map){
-        actualise(new SaveFileMenu(map, 0));
+    public static void loadChargeGameMenu(int token){
+        actualise(new SaveFileMenu(token, 0));
     }
 
-    public static void loadSaveGameMenu(MapBuilder map){
-        actualise(new SaveFileMenu(map, 1));
+    public static void loadSaveGameMenu(int token){
+        actualise(new SaveFileMenu(token, 1));
+    }
+
+    public static void loadCombat(){
+        //WIP
     }
 }
