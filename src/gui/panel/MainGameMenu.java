@@ -2,10 +2,12 @@ package gui.panel;
 
 import config.GameConfiguration;
 import config.MapBuilder;
-import engine.entity.boats.Military;
-import engine.entity.boats.Standard;
+import engine.entity.boats.*;
 import engine.graph.GraphPoint;
+import engine.graph.SearchInGraph;
 import engine.process.FactionManager;
+import engine.trading.Resource;
+import engine.trading.SeaRoad;
 import gui.MainGUI;
 import gui.process.*;
 
@@ -34,6 +36,7 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
     private GameDisplay dashboard;
     private MapBuilder map;
     private FactionManager factionManager;
+    private boolean ThreadStop;
 
     /**
      * Typical constructor to make the startMenu appear
@@ -115,9 +118,10 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
 
         this.add(jLayeredPane);
 
+        sizeUpdate();
+        ThreadStop = false;
         Thread gameThread = new Thread(this);
         gameThread.start();
-        sizeUpdate();
     }
 
     public void sizeUpdate() {
@@ -187,10 +191,12 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
+                MainGUI.setMap(map);
                 MainGUI.setToken(GameConfiguration.ROOT_MAIN_GAME);
+                ThreadStop = true;
                 GUILoader.loadPauseMenu();
             }
-            if(event.getKeyCode() == KeyEvent.VK_SPACE){
+            else if(event.getKeyCode() == KeyEvent.VK_SPACE){
                 map.setTimeStop(!map.isTimeStop());
             }
         }
@@ -208,7 +214,7 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (!ThreadStop) {
             try {
                 Thread.sleep(GameConfiguration.GAME_SPEED);
 
@@ -220,5 +226,6 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
             }
             dashboard.repaint();
         }
+        System.out.println("ThreadStop");
     }
 }

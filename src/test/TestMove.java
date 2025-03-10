@@ -102,8 +102,8 @@ public class TestMove extends JFrame implements Runnable {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         dashboard.setBackground(GameConfiguration.WATER_BACKGROUND_COLOR);
         setSize(640, 360);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setUndecorated(true);
+//        setExtendedState(JFrame.MAXIMIZED_BOTH);
+//        setUndecorated(true);
         setLocationRelativeTo(null);
         setVisible(true);
         Debug debug = new Debug("Debug",map);

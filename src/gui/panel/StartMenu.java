@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import static gui.MainGUI.getMap;
 import static gui.MainGUI.getWindow;
 
 /**
@@ -35,9 +36,11 @@ public class StartMenu extends SimpleMenu implements Runnable {
     private JPanel buttonDisplay;
     private JPanel jPanel0 = new JPanel();
     private JPanel jPanel1 = new JPanel();
+
     private GameDisplay dashboard;
     private MapBuilder map = new MapBuilder(0);
     private FactionManager factionManager = new FactionManager(map);
+    private boolean ThreadStop;
 
     /**
      * Typical constructor to make the startMenu appear
@@ -97,7 +100,7 @@ public class StartMenu extends SimpleMenu implements Runnable {
         this.add(jLayeredPane);
 
 
-
+        ThreadStop = false;
         Thread gameThread = new Thread(this);
         gameThread.start();
     }
@@ -108,7 +111,8 @@ public class StartMenu extends SimpleMenu implements Runnable {
     public class StartGameListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadMainGameMenu(map);
+            ThreadStop = true;
+            GUILoader.loadMainGameMenu(getMap());
         }
     }
 
@@ -116,6 +120,7 @@ public class StartMenu extends SimpleMenu implements Runnable {
         @Override
         public void actionPerformed(ActionEvent e) {
             MainGUI.setToken(GameConfiguration.ROOT_START_MENU);
+            ThreadStop = true;
             GUILoader.loadOptionsMenu();
         }
     }
@@ -124,7 +129,8 @@ public class StartMenu extends SimpleMenu implements Runnable {
         @Override
         public void actionPerformed(ActionEvent e) {
             MainGUI.setToken(GameConfiguration.ROOT_START_MENU);
-            GUILoader.loadChargeGameMenu( MainGUI.getMap());
+            ThreadStop = true;
+            GUILoader.loadChargeGameMenu(MainGUI.getMap());
         }
     }
 
@@ -181,7 +187,7 @@ public class StartMenu extends SimpleMenu implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (!ThreadStop) {
             try {
                 Thread.sleep(GameConfiguration.GAME_SPEED);
 
