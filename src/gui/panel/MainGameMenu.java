@@ -226,6 +226,5 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
             }
             dashboard.repaint();
         }
-        System.out.println("ThreadStop");
     }
 }
