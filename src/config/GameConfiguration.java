@@ -59,6 +59,7 @@ public final class GameConfiguration {
 
     public static final String IMG_FILE_PATH = "src/images";
     public static final String SAVE_FILE_PATH = "src/save";
+    public static final String HTML_LOG_CONFIG = "src/log/log4j-html.properties";
 
     public static final int NUMBER_COLUMN_BATTLE_PLACING = 2;
     public static final int SPAWN_ZONE_OPACITY = 15;
