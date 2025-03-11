@@ -1,7 +1,6 @@
 package gui.panel;
 
 import config.GameConfiguration;
-import gui.MainGUI;
 import gui.process.GUILoader;
 import gui.process.JComponentBuilder;
 import gui.process.ListenerBehavior;

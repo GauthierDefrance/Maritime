@@ -4,10 +4,7 @@ import config.GameConfiguration;
 import config.MapBuilder;
 import engine.entity.boats.*;
 import engine.graph.GraphPoint;
-import engine.graph.SearchInGraph;
 import engine.process.FactionManager;
-import engine.trading.Resource;
-import engine.trading.SeaRoad;
 import gui.MainGUI;
 import gui.process.*;
 

@@ -1,6 +1,6 @@
 package gui.panel;
 
-import config.MapBuilder;
+
 import gui.process.JComponentBuilder;
 import gui.process.ListenerBehavior;
 

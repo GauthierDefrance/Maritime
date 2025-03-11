@@ -1,22 +1,20 @@
 package gui.panel;
 
-import config.GameConfiguration;
-import config.GameParameter;
-import config.MapBuilder;
-import gui.MainGUI;
-import gui.process.GUILoader;
+
 import gui.process.JComponentBuilder;
 import gui.process.ListenerBehavior;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+
+import static config.GameParameter.getInstance;
+import static config.GameConfiguration.BUTTON_SEPARATOR;
 
 /**
  * options menu for the game
  * @see JPanel
  * @author Zue Jack-Arthur
- * @version 0.4
+ * @version 0.5
  */
 public class OptionsMenu extends SimpleMenu {
 
@@ -24,7 +22,7 @@ public class OptionsMenu extends SimpleMenu {
 
     private JButton goBackButton;
 
-    private JPanel optionDisplayer;
+    private JPanel optionDisplay;
 
     private JPanel soundOptionPanel;
     private JPanel soundPanel;
@@ -65,7 +63,7 @@ public class OptionsMenu extends SimpleMenu {
      * @return Completed line
      */
     private JPanel lineMaker(JComponent component1, JComponent component2) {
-        return JComponentBuilder.gridMenuPanel(1,2,GameConfiguration.BUTTON_SEPARATOR, GameConfiguration.BUTTON_SEPARATOR, component1, component2);
+        return JComponentBuilder.gridMenuPanel(1,2,BUTTON_SEPARATOR, BUTTON_SEPARATOR, component1, component2);
     }
 
     //Initialisation
@@ -82,17 +80,17 @@ public class OptionsMenu extends SimpleMenu {
         soundPanel = lineMaker(soundLabel, soundOptionPanel);
 
         muteLabel = JComponentBuilder.menuLabel("Mute");
-        muteButton = JComponentBuilder.menuButton(textSetter(GameParameter.isMuted), new muteButtonListener());
+        muteButton = JComponentBuilder.menuButton(textSetter(getInstance().getIsMuted()), new muteButtonListener());
         mutePanel = lineMaker(muteLabel, muteButton);
 
         debugLabel = JComponentBuilder.menuLabel("Debug Menu");
-        debugButton = JComponentBuilder.menuButton(textSetter(GameParameter.showDebug), new debugMenuListener());
+        debugButton = JComponentBuilder.menuButton(textSetter(getInstance().getShowDebug()), new debugMenuListener());
         debugPanel = lineMaker(debugLabel, debugButton);
 
-        optionDisplayer = JComponentBuilder.gridMenuPanel(4,1, GameConfiguration.BUTTON_SEPARATOR, GameConfiguration.BUTTON_SEPARATOR, goBackButton, soundPanel, mutePanel, debugPanel);
+        optionDisplay = JComponentBuilder.gridMenuPanel(4,1, BUTTON_SEPARATOR, BUTTON_SEPARATOR, goBackButton, soundPanel, mutePanel, debugPanel);
 
         this.addKeyListener(new KeyControls());
-        this.add(optionDisplayer, BorderLayout.CENTER);
+        this.add(optionDisplay, BorderLayout.CENTER);
         this.add(JComponentBuilder.voidPanel(), BorderLayout.NORTH);
         this.add(JComponentBuilder.voidPanel(), BorderLayout.SOUTH);
         this.add(JComponentBuilder.voidPanel(), BorderLayout.WEST);
@@ -120,7 +118,7 @@ public class OptionsMenu extends SimpleMenu {
         @Override
         public void actionPerformed(ActionEvent e) {
             ListenerBehavior listenerBehavior = ListenerBehavior.create();
-            GameParameter.isMuted = listenerBehavior.toggle(muteButton, GameParameter.isMuted);
+            getInstance().setIsMuted(listenerBehavior.toggle(muteButton, getInstance().getIsMuted()));
         }
     }
 
@@ -128,7 +126,7 @@ public class OptionsMenu extends SimpleMenu {
         @Override
         public void actionPerformed(ActionEvent e) {
             ListenerBehavior listenerBehavior = ListenerBehavior.create();
-            GameParameter.showDebug = listenerBehavior.toggle(debugButton, GameParameter.showDebug);
+            getInstance().setShowDebug(listenerBehavior.toggle(debugButton, getInstance().getShowDebug()));
         }
     }
 

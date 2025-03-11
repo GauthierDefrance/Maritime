@@ -58,7 +58,7 @@ public final class GameConfiguration {
     public static final int ROOT_PAUSE_FROM_COMBAT = 4;
 
     public static final String IMG_FILE_PATH = "src/images";
-    public static final String SAVE_FILE_PATH = "src/save";
+    public static final String SAVE_FILE_PATH = "src/saveFiles";
     public static final String HTML_LOG_CONFIG = "src/log/log4j-html.properties";
 
     public static final int NUMBER_COLUMN_BATTLE_PLACING = 2;
