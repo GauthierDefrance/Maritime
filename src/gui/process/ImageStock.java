@@ -3,6 +3,8 @@ package gui.process;
 import config.GameConfiguration;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
+import log.LoggerUtility;
+import org.apache.log4j.Logger;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -16,6 +18,7 @@ import java.io.File;
  */
 public class ImageStock {
 
+    private static Logger logger = LoggerUtility.getLogger(ImageStock.class);
     private final BufferedImage[][] tbSprite;
     private final BufferedImage[][] tbFramesSprite;
     private static ImageStock instance;
@@ -50,8 +53,10 @@ public class ImageStock {
                 tbFramesSprite[2][i] = (ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/popup/popup-.png")));
             }
 
+            logger.info("load image success");
         } catch (Exception e) {
             System.err.println(e+"error can't find image sprite");
+            logger.warn("load image fail : "+e);
         }
     }
 

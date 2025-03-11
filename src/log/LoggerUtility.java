@@ -5,8 +5,6 @@ import org.apache.log4j.PropertyConfigurator;
 
 /**
  * Utility class used to generate Log4j logger.
- * 
- * We can generate logs in a text or a html file.
  *
  */
 public class LoggerUtility {
