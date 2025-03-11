@@ -2,6 +2,9 @@ package gui.process;
 
 import config.GameConfiguration;
 import engine.entity.boats.Boat;
+import log.LoggerUtility;
+import org.apache.log4j.Logger;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -14,6 +17,24 @@ import java.awt.event.ActionListener;
  * @version 0.3
  */
 public class JComponentBuilder {
+    private static Logger logger = LoggerUtility.getLogger(JComponentBuilder.class);
+
+    /**
+     * Write log in a logger
+     * @param name  text
+     */
+    private static void loggerWrite(String name) {
+        logger.info("creation "+name);
+    }
+
+    /**
+     * Write log in a logger
+     * @param name  text
+     * @param param  text
+     */
+    private static void loggerWrite(String name,String param) {
+        logger.info(name+" got "+param);
+    }
 
     /**
      * Build a JButton accommodating game-menu Convention
@@ -21,6 +42,7 @@ public class JComponentBuilder {
      * @return Built JButton
      */
     public static JButton menuButton(String text) {
+        loggerWrite("menuButton name "+text);
         JButton newButton = new JButton(text);
         newButton.setFocusable(false);
         newButton.setFont(GameConfiguration.FONT);
@@ -34,6 +56,7 @@ public class JComponentBuilder {
      * @return Built JButton
      */
     public static JButton menuButton(String text, ActionListener action) {
+        loggerWrite("menuButton name "+text,"ActionListener assigned name "+action.getClass().getName());
         JButton newButton = menuButton(text);
         newButton.addActionListener(action);
         return newButton;
@@ -46,6 +69,7 @@ public class JComponentBuilder {
      */
     public static JButton menuButton(Boat boat) {
         JButton newButton = menuButton(boat.getName());
+        loggerWrite("menuButton name "+boat.getName(),"Boat Object assigned name "+boat.getName());
         newButton.setVerticalTextPosition(SwingConstants.BOTTOM);
         newButton.setHorizontalTextPosition(SwingConstants.CENTER);
         newButton.setBackground(Color.DARK_GRAY);
@@ -64,6 +88,7 @@ public class JComponentBuilder {
      */
     public static JButton menuButton(Boat boat, ActionListener action) {
         JButton newButton = menuButton(boat);
+        loggerWrite("menuButton name "+boat.getName(),"Boat Object assigned name "+boat.getName()+" and ActionListener assigned name "+action.getClass().getName());
         newButton.addActionListener(action);
         return newButton;
     }
@@ -74,6 +99,7 @@ public class JComponentBuilder {
      * @return Built JLabel
      */
     public static JLabel menuLabel(String text) {
+        loggerWrite("menuLabel name "+text);
         JLabel newLabel = new JLabel(text);
         newLabel.setFont(GameConfiguration.FONT);
         return newLabel;
@@ -85,6 +111,7 @@ public class JComponentBuilder {
      * @return Built JLabel
      */
     public static JLabel credits(String text) {
+        loggerWrite("creditsLabel name "+text);
         JLabel newLabel = new JLabel(text);
         newLabel.setFont(GameConfiguration.CREDITS_FONT);
         return newLabel;
@@ -96,6 +123,7 @@ public class JComponentBuilder {
      * @return Built JLabel
      */
     public static JLabel title(String text) {
+        loggerWrite("titleLabel  name "+text);
         JLabel newLabel = new JLabel(text);
         newLabel.setFont(GameConfiguration.TITLE_FONT);
         return newLabel;
@@ -106,6 +134,7 @@ public class JComponentBuilder {
      * @return built JPanel
      */
     public static JPanel voidPanel() {
+        loggerWrite("JPanel");
         return new JPanel();
     }
 
@@ -114,6 +143,7 @@ public class JComponentBuilder {
      * @return built JPanel
      */
     public static JPanel flowMenuPanel() {
+        loggerWrite("flowMenuPanel");
         JPanel newPanel = new JPanel();
         newPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         return newPanel;
@@ -128,7 +158,9 @@ public class JComponentBuilder {
         JPanel newPanel = flowMenuPanel();
         for (JComponent component : components) {
             newPanel.add(component);
-        } return newPanel;
+            loggerWrite("flowMenuPanel",component.getClass().getName()+" Object assigned name "+component.getName());
+        }
+        return newPanel;
     }
 
     /**
@@ -140,6 +172,7 @@ public class JComponentBuilder {
      */
     public static JPanel gridMenuPanel(int r, int c) {
         JPanel newPanel = new JPanel();
+        loggerWrite("gridMenuPanel r="+r+" c="+c);
         newPanel.setLayout(new GridLayout(r, c));
         return newPanel;
     }
@@ -156,6 +189,7 @@ public class JComponentBuilder {
         JPanel newPanel = gridMenuPanel(r,c);
         for (JComponent component : components) {
             newPanel.add(component);
+            loggerWrite("gridMenuPanel r="+r+" c="+c,component.getClass().getName()+" Object assigned name "+component.getName());
         } return newPanel;
     }
 
@@ -170,6 +204,7 @@ public class JComponentBuilder {
      */
     public static JPanel gridMenuPanel(int r, int c,int hgap,int vgap) {
         JPanel newPanel = new JPanel();
+        loggerWrite("gridMenuPanel r="+r+" c="+c+" hgap="+hgap+" vgap="+vgap);
         newPanel.setLayout(new GridLayout(r, c,hgap,vgap));
         return newPanel;
     }
@@ -186,6 +221,7 @@ public class JComponentBuilder {
         JPanel newPanel = gridMenuPanel(r,c,hgap,vgap);
         for (JComponent component : components) {
             newPanel.add(component);
+            loggerWrite("gridMenuPanel r="+r+" c="+c+" hgap="+hgap+" vgap="+vgap,component.getClass().getName()+" Object assigned name "+component.getName());
         } return newPanel;
     }
 
@@ -195,6 +231,7 @@ public class JComponentBuilder {
      * @return built JPanel
      */
     public static JPanel borderMenuPanel() {
+        loggerWrite("borderMenuPanel");
         JPanel newPanel = new JPanel();
         newPanel.setLayout(new BorderLayout());
         return newPanel;
