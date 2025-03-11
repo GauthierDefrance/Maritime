@@ -4,6 +4,7 @@ import config.GameConfiguration;
 import config.MapBuilder;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
+import engine.entity.boats.Fleet;
 import engine.faction.Faction;
 import engine.graph.GraphPoint;
 
@@ -172,4 +173,33 @@ public class BoatManager {
         }
         return false;
     }
+
+    /**
+     * Check the collision beetween a Fleet of boats and a point.
+     * @param p
+     * @param fleet
+     * @return
+     */
+    public static Fleet collideGroup(Point p, Fleet fleet){
+        Fleet result = new Fleet();
+        for(Boat boat : fleet.getArrayListBoat()){
+            if(collide(p, boat)){
+                result.add(boat);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Check the collision beetween a boat and a point.
+     * @param p
+     * @param boat
+     * @return
+     */
+    public static Boolean collide(Point p, Boat boat){
+        if (boat.getPosition().distance(p)< GameConfiguration.HITBOX_BOAT/2 ) {
+            return true;
+        } return false;
+    }
+
 }

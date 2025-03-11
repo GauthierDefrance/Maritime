@@ -16,7 +16,9 @@ public class FightManager {
         this.battle = battle;
     }
 
-    public void tick(){}
+    public void tick(){
+
+    }
 
 
 }

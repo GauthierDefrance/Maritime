@@ -84,6 +84,7 @@ public class DashBoardPlacingPanel extends JPanel {
     }
 
     private class MouseListener extends MouseAdapter {
+        private Boat boat;
         @Override
         public void mousePressed(MouseEvent e) {
             if (e.getButton() == MouseEvent.BUTTON1) {
