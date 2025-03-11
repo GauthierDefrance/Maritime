@@ -4,6 +4,7 @@ import battleengine_trash.engine.Battle;
 import battleengine_trash.process.FightManager;
 
 import javax.swing.*;
+import java.awt.*;
 
 
 /**
@@ -18,6 +19,13 @@ public class FightJPanel extends JPanel {
     public FightJPanel(Battle battle) {
         super();
         this.battle = battle;
+    }
+
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        //this.battle.getDa.getDashBoardPlacingPanel().repaint();
     }
 
 
