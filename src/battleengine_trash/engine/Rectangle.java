@@ -13,6 +13,7 @@ public class Rectangle {
     private Point br;
     private int width;
     private int height;
+    private Dimension size;
 
     /**
      * Classe permettant la représentation d'un rectangle à deux dimensions.

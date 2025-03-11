@@ -144,62 +144,36 @@ public class BoatManager {
     }
 
     /**
-     * Check if a boat1 reached a point targeted in lstPoint
-     * @param boat concerned boat
-     * @param lstPoint lst of targeted point
-     * @return result of the check
+     * Check if a lstBoat reached a point
+     * @param point concerned point
+     * @param lstBoat lst of boat
+     * @return lstBoat lst of the Collision true boat
      */
-    public static boolean boatCollisionToPoint (Boat boat, ArrayList<Point> lstPoint){
-        for (Point point : lstPoint){
+    public static ArrayList<Boat> boatCollisionToPoint (Point point, ArrayList<Boat> lstBoat){
+        ArrayList<Boat> lstBoatTemp = new ArrayList<>();
+        for (Boat boat : lstBoat){
             if (GameConfiguration.HITBOX_BOAT - 5 >= boat.getPosition().distance(point)){
-                return true;
+                lstBoatTemp.add(boat);
             }
         }
-        return false;
+        return lstBoatTemp;
     }
 
     /**
      * Check if a boat reached a targeted boat in map
      * @param boat concerned boat
-     * @return result of the check
+     * @return lstBoat lst of the Collision true boat
      */
-    public boolean boatCollisionToMap (Boat boat){
+    public ArrayList<Boat> boatCollisionToMap (Boat boat){
+        ArrayList<Boat> lstBoatTemp = new ArrayList<>();
         for (Faction faction : map.getLstFaction()){
             for (Boat boat2 : faction.getLstBoat()){
                 if (GameConfiguration.HITBOX_BOAT - 5 >= boat.getPosition().distance(boat2.getPosition())){
-                    return true;
+                    lstBoatTemp.add(boat2);
                 }
             }
         }
-        return false;
-    }
-
-    /**
-     * Check the collision beetween a Fleet of boats and a point.
-     * @param p
-     * @param fleet
-     * @return
-     */
-    public static Fleet collideGroup(Point p, Fleet fleet){
-        Fleet result = new Fleet();
-        for(Boat boat : fleet.getArrayListBoat()){
-            if(collide(p, boat)){
-                result.add(boat);
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Check the collision beetween a boat and a point.
-     * @param p
-     * @param boat
-     * @return
-     */
-    public static Boolean collide(Point p, Boat boat){
-        if (boat.getPosition().distance(p)< GameConfiguration.HITBOX_BOAT/2 ) {
-            return true;
-        } return false;
+        return lstBoatTemp;
     }
 
 }

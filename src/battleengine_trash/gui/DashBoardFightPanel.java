@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class DashBoardFightPanel extends JPanel {
 
@@ -32,11 +33,9 @@ public class DashBoardFightPanel extends JPanel {
         }
 
         public void LeftClick(MouseEvent e) {
-            Fleet tmp = BoatManager.collideGroup(e.getPoint(),battle.getBattleMap().getTeamA());
-            for(Boat boat : tmp.getArrayListBoat()){
-
+            ArrayList<Boat> tmp = BoatManager.boatCollisionToPoint(e.getPoint(),battle.getBattleMap().getTeamA().getArrayListBoat());
+            for(Boat boat : tmp){
             }
-
         }
 
         public void RightClick(MouseEvent e) {
