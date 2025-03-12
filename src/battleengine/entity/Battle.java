@@ -37,9 +37,15 @@ public class Battle {
     private boolean isInPlacingMode;
 
     /**
-     * Constructeur de la classe Battle, prend un paramètre deux Fleet
-     * @param fleetA
-     * @param fleetB
+     * Constructeur de la classe Battle, prend en paramètres deux flottes qui
+     * participeront à la bataille.
+     *
+     * @param fleetA La première flotte impliquée dans la bataille. Il s'agit
+     *               d'un objet de type {@link Fleet}, représentant l'une des
+     *               forces combattantes dans le jeu.
+     * @param fleetB La deuxième flotte impliquée dans la bataille. Il s'agit
+     *               également d'un objet de type {@link Fleet}, représentant
+     *               l'autre force combattante dans le jeu.
      */
     public Battle(Fleet fleetA, Fleet fleetB) {
         //---- Sauvegarde de la référence des flottes originales ----
