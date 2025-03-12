@@ -47,6 +47,8 @@ public final class GameConfiguration {
     public static final Font FONT = new Font( "Noto Sans Display", Font.BOLD, 20);
     public static final Font CREDITS_FONT = new Font("Noto Sans Display", Font.BOLD, 10);
     public static final int BUTTON_SEPARATOR = 10;
+    public static final int MAX_SOUND_LEVEL = 10;
+    public static final int MIN_SOUND_LEVEL = 0;
 
     public static final Color DEFAULT_BACKGROUND_COLOR = new Color(0,0,0,0);
     public static final Color WATER_BACKGROUND_COLOR = new Color(78, 172, 233);
@@ -58,7 +60,7 @@ public final class GameConfiguration {
     public static final int ROOT_PAUSE_FROM_COMBAT = 4;
 
     public static final String IMG_FILE_PATH = "src/images";
-    public static final String SAVE_FILE_PATH = "src/saveFiles";
+    public static final String SAVE_FILE_PATH = "src/saveFiles/";
     public static final String HTML_LOG_CONFIG = "src/log/log4j-html.properties";
 
     public static final int NUMBER_COLUMN_BATTLE_PLACING = 2;

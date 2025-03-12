@@ -2,16 +2,18 @@ package config;
 
 import java.io.Serializable;
 
-public class GameParameter implements Serializable {
+public class GameOptions implements Serializable {
 
-    private static GameParameter instance;
+    private static GameOptions instance;
     private boolean isMuted;
     private boolean showDebug;
+    private int volume;
 
-    private GameParameter() {
+    private GameOptions() {
         instance = this;
         isMuted = false;
         showDebug = false;
+        volume = 5;
     }
 
     //Getters
@@ -24,6 +26,10 @@ public class GameParameter implements Serializable {
         return showDebug;
     }
 
+    public int getVolume() {
+        return volume;
+    }
+
     //Setters
 
     public void setIsMuted(boolean isMuted) {
@@ -34,10 +40,18 @@ public class GameParameter implements Serializable {
         this.showDebug = showDebug;
     }
 
-    public static GameParameter getInstance() {
+    public void setVolume(int volume) { this.volume = volume; }
+
+    //Instance Management
+
+    public static synchronized GameOptions getInstance() {
         if (instance == null) {
-            instance = new GameParameter();
+            instance = new GameOptions();
         } return instance;
+    }
+
+    public static void setInstance(GameOptions instance) {
+        GameOptions.instance = instance;
     }
 
 }

@@ -5,7 +5,7 @@ import config.MapBuilder;
 import engine.process.FactionManager;
 import gui.process.GUILoader;
 import gui.process.JComponentBuilder;
-import gui.process.ListenerBehavior;
+import gui.process.ListenerBehaviorManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -137,8 +137,8 @@ public class StartMenu extends SimpleMenu implements Runnable {
     public class ExitListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ListenerBehavior listenerBehavior = ListenerBehavior.create();
-            listenerBehavior.exit(StartMenu.this);
+            ListenerBehaviorManager lbm = ListenerBehaviorManager.create();
+            lbm.exit(StartMenu.this);
         }
     }
 
@@ -169,7 +169,7 @@ public class StartMenu extends SimpleMenu implements Runnable {
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
                 if(JOptionPane.showConfirmDialog(StartMenu.this,"Do you want to quit ?","confirmation",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
-                    ListenerBehavior ls = ListenerBehavior.create();
+                    ListenerBehaviorManager ls = ListenerBehaviorManager.create();
                     ls.exit(StartMenu.this);
                 }
             }

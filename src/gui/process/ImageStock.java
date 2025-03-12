@@ -1,7 +1,6 @@
 package gui.process;
 
 import config.GameConfiguration;
-import config.GameParameter;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
 import log.LoggerUtility;

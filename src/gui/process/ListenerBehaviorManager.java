@@ -5,16 +5,20 @@ import gui.MainGUI;
 
 import javax.swing.*;
 
-public class ListenerBehavior {
+/**
+ * Store and allow the use of typical EventListener behaviors
+ * @author Zue Jack-Arthur
+ */
+public class ListenerBehaviorManager {
 
-    private ListenerBehavior() { }
+    private ListenerBehaviorManager() { }
 
     /**
      * Create a new ListenerBehavior Object
      * @return ListenerBehavior
      */
-    public static ListenerBehavior create(){
-        return new ListenerBehavior();
+    public static ListenerBehaviorManager create(){
+        return new ListenerBehaviorManager();
     }
 
     /**
@@ -34,6 +38,32 @@ public class ListenerBehavior {
     }
 
     /**
+     * Increment a value associated with a JButton
+     * @param limit value that should not be exceeded
+     * @param value current value
+     * @return updated "value"
+     */
+    public int increment(int limit, int value){
+        int localvalue = value;
+        if (localvalue < limit){
+            return ++localvalue;
+        } return localvalue;
+    }
+
+    /**
+     * Decrement a value associated with a JButton
+     * @param limit value that should not be exceeded
+     * @param value current value
+     * @return updated "value"
+     */
+    public int decrement(int limit, int value){
+        int localvalue = value;
+        if (localvalue > limit){
+            return --localvalue;
+        } return localvalue;
+    }
+
+    /**
      * Exit the program
      * @param panel current JPanel
      */
@@ -45,6 +75,10 @@ public class ListenerBehavior {
         }
     }
 
+    /**
+     * Manage the process of returning to former Menu for GUIs
+     * @param token
+     */
     public void goBack(int token){
         switch(token){
             case GameConfiguration.ROOT_PAUSE_FROM_MAIN: {

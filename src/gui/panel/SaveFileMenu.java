@@ -2,7 +2,7 @@ package gui.panel;
 
 
 import gui.process.JComponentBuilder;
-import gui.process.ListenerBehavior;
+import gui.process.ListenerBehaviorManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,7 +62,7 @@ public class SaveFileMenu extends SimpleMenu {
     public class goBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ListenerBehavior ls = ListenerBehavior.create();
+            ListenerBehaviorManager ls = ListenerBehaviorManager.create();
             ls.goBack(token);
         }
     }
@@ -72,7 +72,7 @@ public class SaveFileMenu extends SimpleMenu {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                ListenerBehavior ls = ListenerBehavior.create();
+                ListenerBehaviorManager ls = ListenerBehaviorManager.create();
                 ls.goBack(token);
             }
         }

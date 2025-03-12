@@ -3,7 +3,7 @@ package gui.panel;
 import config.GameConfiguration;
 import gui.process.GUILoader;
 import gui.process.JComponentBuilder;
-import gui.process.ListenerBehavior;
+import gui.process.ListenerBehaviorManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -111,8 +111,8 @@ public class PauseMenu extends SimpleMenu {
     public class ExitListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ListenerBehavior listenerBehavior = ListenerBehavior.create();
-            listenerBehavior.exit(PauseMenu.this);
+            ListenerBehaviorManager listenerBehaviorManager = ListenerBehaviorManager.create();
+            listenerBehaviorManager.exit(PauseMenu.this);
         }
     }
 
@@ -126,16 +126,16 @@ public class PauseMenu extends SimpleMenu {
     public class ResumeButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ListenerBehavior listenerBehavior = ListenerBehavior.create();
-            listenerBehavior.goBack(token);
+            ListenerBehaviorManager listenerBehaviorManager = ListenerBehaviorManager.create();
+            listenerBehaviorManager.goBack(token);
         }
     }
 
     private class KeyControls implements KeyListener {
         @Override
         public void keyPressed(KeyEvent event) {
-            ListenerBehavior listenerBehavior = ListenerBehavior.create();
-            listenerBehavior.goBack(token);
+            ListenerBehaviorManager listenerBehaviorManager = ListenerBehaviorManager.create();
+            listenerBehaviorManager.goBack(token);
         }
 
         @Override

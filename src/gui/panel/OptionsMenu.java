@@ -2,19 +2,20 @@ package gui.panel;
 
 
 import gui.process.JComponentBuilder;
-import gui.process.ListenerBehavior;
+import gui.process.ListenerBehaviorManager;
+import saveSystem.process.OptSaveManager;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-import static config.GameParameter.getInstance;
-import static config.GameConfiguration.BUTTON_SEPARATOR;
+import static config.GameOptions.getInstance;
+import static config.GameConfiguration.*;
 
 /**
  * options menu for the game
  * @see JPanel
  * @author Zue Jack-Arthur
- * @version 0.5
+ * @version 0.6
  */
 public class OptionsMenu extends SimpleMenu {
 
@@ -66,6 +67,13 @@ public class OptionsMenu extends SimpleMenu {
         return JComponentBuilder.gridMenuPanel(1,2,BUTTON_SEPARATOR, BUTTON_SEPARATOR, component1, component2);
     }
 
+    /**
+     * Avoid code-redundancy, by streamlining the action of writing to the "Options save file"
+     */
+    private void updateLinkedFile(){
+        OptSaveManager.create().writeParamFile();
+    }
+
     //Initialisation
     public void init() {
 
@@ -103,38 +111,44 @@ public class OptionsMenu extends SimpleMenu {
     public class minusButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            //WiP
+            ListenerBehaviorManager lbm = ListenerBehaviorManager.create();
+            getInstance().setVolume(lbm.decrement(MIN_SOUND_LEVEL, getInstance().getVolume()));
+            updateLinkedFile();
         }
     }
 
     public class plusButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            //WiP
+            ListenerBehaviorManager lbm = ListenerBehaviorManager.create();
+            getInstance().setVolume(lbm.increment(MAX_SOUND_LEVEL, getInstance().getVolume()));
+            updateLinkedFile();
         }
     }
 
     public class muteButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ListenerBehavior listenerBehavior = ListenerBehavior.create();
-            getInstance().setIsMuted(listenerBehavior.toggle(muteButton, getInstance().getIsMuted()));
+            ListenerBehaviorManager lbm = ListenerBehaviorManager.create();
+            getInstance().setIsMuted(lbm.toggle(muteButton, getInstance().getIsMuted()));
+            updateLinkedFile();
         }
     }
 
     public class debugMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ListenerBehavior listenerBehavior = ListenerBehavior.create();
-            getInstance().setShowDebug(listenerBehavior.toggle(debugButton, getInstance().getShowDebug()));
+            ListenerBehaviorManager lbm = ListenerBehaviorManager.create();
+            getInstance().setShowDebug(lbm.toggle(debugButton, getInstance().getShowDebug()));
+            updateLinkedFile();
         }
     }
 
     public class goBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ListenerBehavior listenerBehavior = ListenerBehavior.create();
-            listenerBehavior.goBack(token);
+            ListenerBehaviorManager lbm = ListenerBehaviorManager.create();
+            lbm.goBack(token);
         }
     }
 
@@ -143,8 +157,8 @@ public class OptionsMenu extends SimpleMenu {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                ListenerBehavior listenerBehavior = ListenerBehavior.create();
-                listenerBehavior.goBack(token);
+                ListenerBehaviorManager lbm = ListenerBehaviorManager.create();
+                lbm.goBack(token);
             }
         }
 

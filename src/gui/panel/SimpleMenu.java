@@ -1,11 +1,6 @@
 package gui.panel;
 
-import gui.process.ListenerBehavior;
-
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * abstract template for game menus

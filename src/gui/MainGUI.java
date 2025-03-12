@@ -1,6 +1,7 @@
 package gui;
 
 import config.GameConfiguration;
+import config.GameOptions;
 import config.MapBuilder;
 import engine.entity.boats.*;
 import engine.graph.SearchInGraph;
@@ -8,6 +9,7 @@ import engine.process.FactionManager;
 import engine.trading.Resource;
 import engine.trading.SeaRoad;
 import gui.process.GUILoader;
+import saveSystem.process.OptSaveManager;
 import test.TestMove;
 
 import javax.swing.*;
@@ -31,6 +33,7 @@ public class MainGUI extends JFrame {
 
     public void init() {
         setMap(new MapBuilder());
+        GameOptions.setInstance(OptSaveManager.create().loadParamFile());
         window = getContentPane();
         window.setLayout(new BorderLayout());
         setSize(GameConfiguration.WINDOW_SIZE); /* setExtendedState(JFrame.MAXIMIZED_BOTH); setUndecorated(true);*/
