@@ -1,6 +1,7 @@
 package gui.process;
 
 import config.GameConfiguration;
+import config.GameParameter;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
 import log.LoggerUtility;
@@ -60,6 +61,12 @@ public class ImageStock {
         }
     }
 
+    public static ImageStock getInstance() {
+        if (instance == null) {
+            instance = new ImageStock();
+        } return instance;
+    }
+
     /**
      * Allows you to choose the image to displayed
      */
@@ -100,14 +107,13 @@ public class ImageStock {
             default : {
             }
         }
-        return instance.getTbSprite(i,j);
+        return getInstance().getTbSprite(i,j);
     }
 
     /**
      * Allows you to choose the image to displayed
      */
     public static BufferedImage getImage(Harbor harbor){
-        if(instance == null)instance = new ImageStock();
         int j = 0;
         switch (harbor.getColor()) {
             case "red" :{
@@ -122,42 +128,40 @@ public class ImageStock {
             }
         }
 
-        return instance.getTbSprite(4,j);
+        return getInstance().getTbSprite(4,j);
     }
 
     /**
      * Allows you to choose the image to displayed
      */
     public static BufferedImage getImage(PopUp popUp){
-        if(instance == null)instance = new ImageStock();
         switch (popUp.getName()) {
             case "+" :{
-                return instance.getTbFramesSprite(1,popUp.getIFrame());
+                return getInstance().getTbFramesSprite(1,popUp.getIFrame());
             }
             case "-" :{
-                return instance.getTbFramesSprite(2,popUp.getIFrame());
+                return getInstance().getTbFramesSprite(2,popUp.getIFrame());
             }
             case "02" :{
-                return instance.getTbFramesSprite(3,popUp.getIFrame());
+                return getInstance().getTbFramesSprite(3,popUp.getIFrame());
             }
             case "03" :{
-                return instance.getTbFramesSprite(4,popUp.getIFrame());
+                return getInstance().getTbFramesSprite(4,popUp.getIFrame());
             }
             case "04" :{
-                return instance.getTbFramesSprite(5,popUp.getIFrame());
+                return getInstance().getTbFramesSprite(5,popUp.getIFrame());
             }
             default : {
             }
         }
-        return instance.getTbFramesSprite(1,popUp.getIFrame());
+        return getInstance().getTbFramesSprite(1,popUp.getIFrame());
     }
 
     /**
      * Allows you to choose the image to displayed
      */
     public static BufferedImage getImage(PaintBackGround backGround){
-        if(instance == null)instance = new ImageStock();
-        return instance.getTbFramesSprite(0,backGround.getIFrame());
+        return getInstance().getTbFramesSprite(0,backGround.getIFrame());
     }
 
     /**
