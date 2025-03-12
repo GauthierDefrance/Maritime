@@ -23,9 +23,9 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
 
     private JPanel dashboardJPanel;
     private JPanel jPanelATH;
-    private JPanel jNorthPanel;
-    private JPanel jSouthPanel;
-    private JPanel jEastPanel;
+    private JPanel jNorthATHPanel;
+    private JPanel jSouthATHPanel;
+    private JPanel jEastATHPanel;
     private JPanel jEastCenterChoice1CenterPanel;
     private JPanel jEastCenterChoice2CenterPanel;
 
@@ -48,10 +48,10 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
     public void init() {
         this.setLayout(new BorderLayout());
         jPanelATH = JComponentBuilder.borderMenuPanel();
+        jEastATHPanel = JComponentBuilder.borderMenuPanel();
         dashboardJPanel = JComponentBuilder.borderMenuPanel();
-        jEastPanel = JComponentBuilder.borderMenuPanel();
-        jSouthPanel = JComponentBuilder.borderMenuPanel();
-        jNorthPanel = JComponentBuilder.borderMenuPanel();
+        jSouthATHPanel = JComponentBuilder.borderMenuPanel();
+        jNorthATHPanel = JComponentBuilder.borderMenuPanel();
         jEastCenterChoice1CenterPanel = JComponentBuilder.gridMenuPanel(0,2);
         jEastCenterChoice2CenterPanel = JComponentBuilder.gridMenuPanel(0,2);
 
@@ -63,9 +63,8 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
 
         //Window arrangement
         JLayeredPane jLayeredPane = new JLayeredPane();
-        JPanel jEastATHPanel = JComponentBuilder.borderMenuPanel();
+        JPanel jEastPanel = JComponentBuilder.borderMenuPanel();
         JPanel jEastWestPanel = JComponentBuilder.borderMenuPanel();
-
         JPanel jEastButtonPanel = JComponentBuilder.borderMenuPanel();
         JPanel jEastCenterPanel = JComponentBuilder.borderMenuPanel();
         JPanel jEastCenterCenterPanel = JComponentBuilder.borderMenuPanel();
@@ -122,15 +121,15 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
         jEastCenterCenterPanel.add(jEastCenterPanelChoice1,BorderLayout.CENTER);
         jEastWestPanel.add(hideLeftMenuButton,BorderLayout.NORTH);
         jEastATHPanel.add(jEastPanel,BorderLayout.CENTER);
-        jPanelATH.add(jNorthPanel,BorderLayout.NORTH);
-        jPanelATH.add(jSouthPanel,BorderLayout.SOUTH);
+        jPanelATH.add(jNorthATHPanel,BorderLayout.NORTH);
+        jPanelATH.add(jSouthATHPanel,BorderLayout.SOUTH);
         jPanelATH.add(jEastATHPanel,BorderLayout.EAST);
         jLayeredPane.add(dashboardJPanel,JLayeredPane.DEFAULT_LAYER);
         jLayeredPane.add(jPanelATH,JLayeredPane.PALETTE_LAYER);
 
         jEastCenterPanel.setBackground(Color.DARK_GRAY);
-        jNorthPanel.setBackground(Color.red);
-        jSouthPanel.setBackground(Color.black);
+        jNorthATHPanel.setBackground(Color.red);
+        jSouthATHPanel.setBackground(Color.black);
         dashboard.setBackground(GameConfiguration.WATER_BACKGROUND_COLOR);
         jEastCenterChoice1CenterPanel.setBackground(Color.GRAY);
         jEastCenterChoice2CenterPanel.setBackground(Color.GRAY);
@@ -148,14 +147,16 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
         dashboardJPanel.setBounds(getWindow().getBounds());
         jPanelATH.setBounds(getWindow().getBounds());
 
-        jNorthPanel.setPreferredSize(new Dimension(getWindow().getWidth(),(int) (getWindow().getHeight()*0.05)));
-        jSouthPanel.setPreferredSize(new Dimension(getWindow().getWidth(),(int) (getWindow().getHeight()*0.15)));
-        jEastPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.20),getWindow().getHeight()));
+        jNorthATHPanel.setPreferredSize(new Dimension(getWindow().getWidth(),(int) (getWindow().getHeight()*0.05)));
+        jSouthATHPanel.setPreferredSize(new Dimension(getWindow().getWidth(),(int) (getWindow().getHeight()*0.15)));
+        jEastATHPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.20),getWindow().getHeight()));
+
+        if (jEastATHPanel.isAncestorOf(showLeftMenuButton))jEastATHPanel.setPreferredSize(new Dimension((int) Math.max(26,getWindow().getHeight()*0.04), (int) Math.max(26,getWindow().getHeight()*0.04)));
+
         showLeftMenuButton.setPreferredSize(new Dimension((int) Math.max(26,getWindow().getHeight()*0.04), (int) Math.max(26,getWindow().getHeight()*0.04)));
         hideLeftMenuButton.setPreferredSize(new Dimension((int) Math.max(26,getWindow().getHeight()*0.04), (int) Math.max(26,getWindow().getHeight()*0.04)));
         jEastCenterChoice1CenterPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.08*map.getPlayer().getLstBoat().size()))));
         jEastCenterChoice2CenterPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.08*map.getPlayer().getLstHarbor().size()))));
-
         getWindow().revalidate();
         getWindow().repaint();
     }
@@ -184,8 +185,7 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
         public void actionPerformed(ActionEvent e) {
             jPanel2.removeAll();
             jPanel2.add(jPanel1);
-            getWindow().revalidate();
-            getWindow().repaint();
+            sizeUpdate();
         }
     }
 
@@ -203,7 +203,6 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
 
         @Override
         public void componentShown(ComponentEvent e) {
-
         }
 
         @Override
