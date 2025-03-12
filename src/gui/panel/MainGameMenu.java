@@ -2,8 +2,8 @@ package gui.panel;
 
 import config.GameConfiguration;
 import config.MapBuilder;
+import engine.entity.Harbor;
 import engine.entity.boats.*;
-import engine.graph.GraphPoint;
 import engine.process.FactionManager;
 import gui.MainGUI;
 import gui.process.*;
@@ -17,15 +17,17 @@ import static gui.MainGUI.getWindow;
 /**
  * Simple test start menu for the game, serves as the entrypoint of the program
  * @author Kenan Ammad
- * @version 0.1
+ * @version 0.2
  */
 public class MainGameMenu extends SimpleMenu implements Runnable {
 
     private JPanel dashboardJPanel;
     private JPanel jPanelATH;
-    private JPanel jNorthPanel = new JPanel();
-    private JPanel jSouthPanel = new JPanel();
+    private JPanel jNorthPanel;
+    private JPanel jSouthPanel;
     private JPanel jEastPanel;
+    private JPanel jEastCenterChoice1CenterPanel;
+    private JPanel jEastCenterChoice2CenterPanel;
 
     private JButton showLeftMenuButton;
     private JButton hideLeftMenuButton;
@@ -48,9 +50,10 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
         jPanelATH = JComponentBuilder.borderMenuPanel();
         dashboardJPanel = JComponentBuilder.borderMenuPanel();
         jEastPanel = JComponentBuilder.borderMenuPanel();
-
-        hideLeftMenuButton = JComponentBuilder.menuButton(">", new hideLeftMenu());
-        showLeftMenuButton = JComponentBuilder.menuButton("<", new showLeftMenu());
+        jSouthPanel = JComponentBuilder.borderMenuPanel();
+        jNorthPanel = JComponentBuilder.borderMenuPanel();
+        jEastCenterChoice1CenterPanel = JComponentBuilder.gridMenuPanel(0,2);
+        jEastCenterChoice2CenterPanel = JComponentBuilder.gridMenuPanel(0,2);
 
         dashboard = new GameDisplay(map);
         factionManager = new FactionManager(map);
@@ -58,64 +61,84 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
         this.addKeyListener(new KeyControls());
         getWindow().addComponentListener(new ComponentControls());
 
-        jNorthPanel.setBackground(Color.red);
-        jSouthPanel.setBackground(Color.black);
-        dashboard.setBackground(GameConfiguration.WATER_BACKGROUND_COLOR);
+        //Window arrangement
+        JLayeredPane jLayeredPane = new JLayeredPane();
+        JPanel jEastATHPanel = JComponentBuilder.borderMenuPanel();
+        JPanel jEastWestPanel = JComponentBuilder.borderMenuPanel();
 
+        JPanel jEastButtonPanel = JComponentBuilder.borderMenuPanel();
+        JPanel jEastCenterPanel = JComponentBuilder.borderMenuPanel();
+        JPanel jEastCenterCenterPanel = JComponentBuilder.borderMenuPanel();
+        JPanel jEastCenterPanelChoice1 = JComponentBuilder.borderMenuPanel();
+        JPanel jEastCenterPanelChoice2 = JComponentBuilder.borderMenuPanel();
+        JPanel jEastCenterPanelChoice3 = JComponentBuilder.borderMenuPanel();
+        JPanel jEastCenterPanelChoice4 = JComponentBuilder.borderMenuPanel();
+        JPanel jEastCenterNorthPanel = JComponentBuilder.gridMenuPanel(1,4,0,0);
+
+
+        JScrollPane jScrollPane1 = new JScrollPane(jEastCenterChoice1CenterPanel);
+        jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        jEastCenterPanelChoice1.add(jScrollPane1);
+
+        JScrollPane jScrollPane2 = new JScrollPane(jEastCenterChoice2CenterPanel);
+        jScrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        jEastCenterPanelChoice2.add(jScrollPane2);
+
+        JButton jButtonLeftMenu1 = JComponentBuilder.menuButton("1",new showMenu(jEastCenterPanelChoice1,jEastCenterCenterPanel));
+        JButton jButtonLeftMenu2 = JComponentBuilder.menuButton("2",new showMenu(jEastCenterPanelChoice2,jEastCenterCenterPanel));
+        JButton jButtonLeftMenu3 = JComponentBuilder.menuButton("3",new showMenu(jEastCenterPanelChoice3,jEastCenterCenterPanel));
+        JButton jButtonLeftMenu4 = JComponentBuilder.menuButton("4",new showMenu(jEastCenterPanelChoice4,jEastCenterCenterPanel));
+
+        jEastCenterNorthPanel.add(jButtonLeftMenu1);
+        jEastCenterNorthPanel.add(jButtonLeftMenu2);
+        jEastCenterNorthPanel.add(jButtonLeftMenu3);
+        jEastCenterNorthPanel.add(jButtonLeftMenu4);
+
+        jEastATHPanel.setOpaque(false);
+        jEastButtonPanel.setOpaque(false);
+        jEastWestPanel.setOpaque(false);
         jPanelATH.setOpaque(false);
         jEastPanel.setOpaque(false);
 
-        //Window arrangement
-        JLayeredPane jLayeredPane = new JLayeredPane();
-        JPanel jEastWestPanel;
-        JPanel jEastCenterPanel;
-        JPanel jEastCenterCenterPanel;
-        JPanel jEastCenterNorthPanel;
+        showLeftMenuButton = JComponentBuilder.menuButton("<", new showMenu(jEastPanel,jEastATHPanel));
+        jEastButtonPanel.add(showLeftMenuButton,BorderLayout.NORTH);
+        hideLeftMenuButton = JComponentBuilder.menuButton(">", new showMenu(jEastButtonPanel,jEastATHPanel));
 
-        jEastCenterPanel = JComponentBuilder.borderMenuPanel();
-        jEastWestPanel = JComponentBuilder.borderMenuPanel();
-        jEastCenterCenterPanel = JComponentBuilder.gridMenuPanel(0,2);
-        jEastCenterNorthPanel = JComponentBuilder.gridMenuPanel(1,4,0,0);
+        jEastATHPanel.setOpaque(false);
+        jEastButtonPanel.setOpaque(false);
+        jEastWestPanel.setOpaque(false);
+        jPanelATH.setOpaque(false);
+        jEastPanel.setOpaque(false);
 
-        jEastCenterPanel.setBackground(Color.DARK_GRAY);
-
-        JScrollPane jScrollPane = new JScrollPane(jEastCenterCenterPanel);
-        jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        jEastCenterPanel.add(jScrollPane,BorderLayout.CENTER);
         jEastCenterPanel.add(jEastCenterNorthPanel,BorderLayout.NORTH);
+        jEastCenterPanel.add(jEastCenterCenterPanel,BorderLayout.CENTER);
         jEastWestPanel.add(hideLeftMenuButton,BorderLayout.NORTH);
 
-        jEastCenterNorthPanel.add(new JButton("0"));
-        jEastCenterNorthPanel.add(new JButton("1"));
-        jEastCenterNorthPanel.add(new JButton("2"));
-        jEastCenterNorthPanel.add(new JButton("3"));
-
-        jEastCenterCenterPanel.add(JComponentBuilder.menuButton(new Standard("testStandard","red",new GraphPoint(new Point(0,0),"testGraphPoint"))));
-        jEastCenterCenterPanel.add(new JButton("a"));
-        jEastCenterCenterPanel.add(new JButton("c"));
-        jEastCenterCenterPanel.add(new JButton("d"));
-        jEastCenterCenterPanel.add(new JButton("e"));
-        jEastCenterCenterPanel.add(JComponentBuilder.menuButton(new Military("testMilitary","blue",new GraphPoint(new Point(0,0),"testGraphPoint"))));
-        jEastCenterCenterPanel.add(new JButton("g"));
-
-
-        jEastWestPanel.setOpaque(false);
-
         dashboardJPanel.add(dashboard,BorderLayout.CENTER);
-
         jEastPanel.add(jEastCenterPanel,BorderLayout.CENTER);
         jEastPanel.add(jEastWestPanel,BorderLayout.WEST);
-
+        jEastCenterPanel.add(jEastCenterNorthPanel,BorderLayout.NORTH);
+        jEastCenterPanel.add(jEastCenterCenterPanel,BorderLayout.CENTER);
+        jEastCenterCenterPanel.add(jEastCenterPanelChoice1,BorderLayout.CENTER);
+        jEastWestPanel.add(hideLeftMenuButton,BorderLayout.NORTH);
+        jEastATHPanel.add(jEastPanel,BorderLayout.CENTER);
         jPanelATH.add(jNorthPanel,BorderLayout.NORTH);
         jPanelATH.add(jSouthPanel,BorderLayout.SOUTH);
-        jPanelATH.add(jEastPanel,BorderLayout.EAST);
-
+        jPanelATH.add(jEastATHPanel,BorderLayout.EAST);
         jLayeredPane.add(dashboardJPanel,JLayeredPane.DEFAULT_LAYER);
         jLayeredPane.add(jPanelATH,JLayeredPane.PALETTE_LAYER);
+
+        jEastCenterPanel.setBackground(Color.DARK_GRAY);
+        jNorthPanel.setBackground(Color.red);
+        jSouthPanel.setBackground(Color.black);
+        dashboard.setBackground(GameConfiguration.WATER_BACKGROUND_COLOR);
+        jEastCenterChoice1CenterPanel.setBackground(Color.GRAY);
+        jEastCenterChoice2CenterPanel.setBackground(Color.GRAY);
 
         this.add(jLayeredPane);
 
         sizeUpdate();
+        elementInPanelUpdate();
         ThreadStop = false;
         Thread gameThread = new Thread(this);
         gameThread.start();
@@ -130,31 +153,37 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
         jEastPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.20),getWindow().getHeight()));
         showLeftMenuButton.setPreferredSize(new Dimension((int) Math.max(26,getWindow().getHeight()*0.04), (int) Math.max(26,getWindow().getHeight()*0.04)));
         hideLeftMenuButton.setPreferredSize(new Dimension((int) Math.max(26,getWindow().getHeight()*0.04), (int) Math.max(26,getWindow().getHeight()*0.04)));
+        jEastCenterChoice1CenterPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.08*map.getPlayer().getLstBoat().size()))));
+        jEastCenterChoice2CenterPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.08*map.getPlayer().getLstHarbor().size()))));
 
         getWindow().revalidate();
         getWindow().repaint();
     }
 
-    public class showLeftMenu implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            jPanelATH.removeAll();
-            jPanelATH.add(jNorthPanel,BorderLayout.NORTH);
-            jPanelATH.add(jSouthPanel,BorderLayout.SOUTH);
-            jPanelATH.add(jEastPanel,BorderLayout.EAST);
-            getWindow().revalidate();
-            getWindow().repaint();
+    public void elementInPanelUpdate() {
+        jEastCenterChoice1CenterPanel.removeAll();
+        jEastCenterChoice2CenterPanel.removeAll();
+        for (Boat boat : map.getPlayer().getLstBoat()){
+            jEastCenterChoice1CenterPanel.add(JComponentBuilder.menuButton(boat));
+        }
+        for (Harbor harbor : map.getPlayer().getLstHarbor()){
+            jEastCenterChoice2CenterPanel.add(JComponentBuilder.menuButton(harbor));
         }
     }
 
-    public class hideLeftMenu implements ActionListener {
+    public class showMenu implements ActionListener {
+        private JPanel jPanel1;
+        private JPanel jPanel2;
+
+        public showMenu(JPanel jPanel1, JPanel jPanel2){
+            this.jPanel1 = jPanel1;
+            this.jPanel2 = jPanel2;
+        }
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            JPanel jEastButtonPanel = JComponentBuilder.borderMenuPanel();
-            jEastButtonPanel.setOpaque(false);
-            jEastButtonPanel.add(showLeftMenuButton,BorderLayout.NORTH);
-            jPanelATH.remove(jEastPanel);
-            jPanelATH.add(jEastButtonPanel,BorderLayout.EAST);
+            jPanel2.removeAll();
+            jPanel2.add(jPanel1);
             getWindow().revalidate();
             getWindow().repaint();
         }

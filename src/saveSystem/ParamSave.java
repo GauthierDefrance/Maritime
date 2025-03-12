@@ -2,12 +2,12 @@ package saveSystem;
 
 import config.GameParameter;
 
-import java.io.Serial;
+//import java.io.Serial;
 import java.io.Serializable;
 
 public class ParamSave implements Serializable {
 
-    @Serial
+//    @Serial
     private static final long serialVersionUID = 1L;
 
     private GameParameter param;

@@ -2,7 +2,14 @@ package gui;
 
 import config.GameConfiguration;
 import config.MapBuilder;
+import engine.entity.boats.*;
+import engine.graph.SearchInGraph;
+import engine.process.FactionManager;
+import engine.trading.Resource;
+import engine.trading.SeaRoad;
 import gui.process.GUILoader;
+import test.TestMove;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -29,6 +36,7 @@ public class MainGUI extends JFrame {
         setSize(GameConfiguration.WINDOW_SIZE); /* setExtendedState(JFrame.MAXIMIZED_BOTH); setUndecorated(true);*/
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        TestMove.addBaotTest(map);
         GUILoader.loadStartMenu(); //setResizable(false);
         setVisible(true);
     }

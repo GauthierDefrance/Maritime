@@ -1,6 +1,7 @@
 package gui.process;
 
 import config.GameConfiguration;
+import engine.entity.Harbor;
 import engine.entity.boats.Boat;
 import log.LoggerUtility;
 import org.apache.log4j.Logger;
@@ -89,6 +90,37 @@ public class JComponentBuilder {
     public static JButton menuButton(Boat boat, ActionListener action) {
         JButton newButton = menuButton(boat);
         loggerWrite("menuButton name "+boat.getName(),"Boat Object assigned name "+boat.getName()+" and ActionListener assigned name "+action.getClass().getName());
+        newButton.addActionListener(action);
+        return newButton;
+    }
+
+    /**
+     * Build a JButton for a harbor
+     * @param harbor the Harbor attached to JButton
+     * @return Built JButton
+     */
+    public static JButton menuButton(Harbor harbor) {
+        JButton newButton = menuButton(harbor.getName());
+        loggerWrite("menuButton name "+harbor.getName(),"Harbor Object assigned name "+harbor.getName());
+        newButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        newButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        newButton.setBackground(Color.DARK_GRAY);
+        newButton.setForeground(Color.WHITE);
+        newButton.setFocusPainted(false);
+        newButton.setBorderPainted(false);
+        newButton.setIcon( new ImageIcon(ImageStock.getImage(harbor)));
+        return newButton;
+    }
+
+    /**
+     * Build a JButton for a harbor with its given action implemented
+     * @param harbor the Harbor attached to JButton
+     * @param action Button Action
+     * @return Built JButton
+     */
+    public static JButton menuButton(Harbor harbor, ActionListener action) {
+        JButton newButton = menuButton(harbor);
+        loggerWrite("menuButton name "+harbor.getName(),"Harbor Object assigned name "+harbor.getName()+" and ActionListener assigned name "+action.getClass().getName());
         newButton.addActionListener(action);
         return newButton;
     }
