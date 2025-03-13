@@ -70,7 +70,6 @@ public class ImageStock {
      * Allows you to choose the image to displayed
      */
     public static BufferedImage getImage(Boat boat){
-        if(instance == null)instance = new ImageStock();
         int i = 0;
         int j = 0;
 
