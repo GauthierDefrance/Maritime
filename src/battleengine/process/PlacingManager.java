@@ -18,7 +18,6 @@ public class PlacingManager {
         this.battle = battle;
     }
 
-
     /**
      * Méthode qui essaye de placer un {@link Boat} stocké en mémoire dans {@link Battle}.
      * Le {@link Boat} s'il peut être placé sera placé aux coordonnées
