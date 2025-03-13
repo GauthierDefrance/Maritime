@@ -43,14 +43,14 @@ public class GameSaveManager {
     }
 
     public MapBuilder loadGame(GameSave sv) {
-        return sv.getGameState(); //can be null, should be handled
+        return sv.getGameState();
     }
 
     public GameSave fetchSaveFile(String fileName) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(GameConfiguration.SAVE_FILE_PATH + fileName))){
             return (GameSave) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            return GameSave.createSavefile(fileName, null);
+            return null;
         }
     }
 

@@ -13,8 +13,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * pause menu for the game
- * @see JPanel
+ * A pause menu for the game
  * @author Zue Jack-Arthur
  * @version 0.2
  */
@@ -42,12 +41,19 @@ public class PauseMenu extends SimpleMenu {
     private JButton backToGameButton;
     private JButton exitButton;
 
+    /**
+     * Generate the PauseMenu using a token and makes it appear
+     * @param token former GUI identifier
+     */
     public PauseMenu(int token) {
         super();
         this.token = token;
         init();
     }
 
+    /**
+     * Makes all necessary operations to initialize the panel
+     */
     public void init() {
 
         this.setLayout(new BorderLayout());
@@ -111,8 +117,7 @@ public class PauseMenu extends SimpleMenu {
     public class ExitListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ListenerBehaviorManager listenerBehaviorManager = ListenerBehaviorManager.create();
-            listenerBehaviorManager.exit(PauseMenu.this);
+            ListenerBehaviorManager.create().exit(PauseMenu.this);
         }
     }
 
@@ -126,16 +131,16 @@ public class PauseMenu extends SimpleMenu {
     public class ResumeButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ListenerBehaviorManager listenerBehaviorManager = ListenerBehaviorManager.create();
-            listenerBehaviorManager.goBack(token);
+            ListenerBehaviorManager.create().goBack(token);
         }
     }
 
     private class KeyControls implements KeyListener {
         @Override
         public void keyPressed(KeyEvent event) {
-            ListenerBehaviorManager listenerBehaviorManager = ListenerBehaviorManager.create();
-            listenerBehaviorManager.goBack(token);
+            if(event.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                ListenerBehaviorManager.create().goBack(token);
+            }
         }
 
         @Override

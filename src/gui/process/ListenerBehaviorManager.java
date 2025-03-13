@@ -1,6 +1,6 @@
 package gui.process;
 
-import config.GameConfiguration;
+import static config.GameConfiguration.*;
 import gui.MainGUI;
 
 import javax.swing.*;
@@ -8,13 +8,14 @@ import javax.swing.*;
 /**
  * Store and allow the use of typical EventListener behaviors
  * @author Zue Jack-Arthur
+ * @version 0.3
  */
 public class ListenerBehaviorManager {
 
     private ListenerBehaviorManager() { }
 
     /**
-     * Create a new ListenerBehavior Object
+     * Create a new ListenerBehaviorManager Object and allows operation on it
      * @return ListenerBehavior
      */
     public static ListenerBehaviorManager create(){
@@ -44,10 +45,10 @@ public class ListenerBehaviorManager {
      * @return updated "value"
      */
     public int increment(int limit, int value){
-        int localvalue = value;
-        if (localvalue < limit){
-            return ++localvalue;
-        } return localvalue;
+        int localValue = value;
+        if (localValue < limit){
+            return ++localValue;
+        } return localValue;
     }
 
     /**
@@ -57,14 +58,14 @@ public class ListenerBehaviorManager {
      * @return updated "value"
      */
     public int decrement(int limit, int value){
-        int localvalue = value;
-        if (localvalue > limit){
-            return --localvalue;
-        } return localvalue;
+        int localValue = value;
+        if (localValue > limit){
+            return --localValue;
+        } return localValue;
     }
 
     /**
-     * Exit the program
+     * try to exit the program and shows a MessageDialog if failed to do so
      * @param panel current JPanel
      */
     public void exit(JPanel panel){
@@ -76,31 +77,31 @@ public class ListenerBehaviorManager {
     }
 
     /**
-     * Manage the process of returning to former Menu for GUIs
-     * @param token
+     * handle the process of returning to former Menu for GUIs
+     * @param token identifier of the former GUI
      */
     public void goBack(int token){
         switch(token){
-            case GameConfiguration.ROOT_PAUSE_FROM_MAIN: {
-                GUILoader.loadPauseMenu(GameConfiguration.ROOT_MAIN_GAME);
+            case ROOT_PAUSE_FROM_MAIN: {
+                GUILoader.loadPauseMenu(ROOT_MAIN_GAME);
                 break;
             }
-            case GameConfiguration.ROOT_PAUSE_FROM_COMBAT: {
-                GUILoader.loadPauseMenu(GameConfiguration.ROOT_COMBAT);
+            case ROOT_PAUSE_FROM_COMBAT: {
+                GUILoader.loadPauseMenu(ROOT_COMBAT);
                 break;
             }
 
-            case GameConfiguration.ROOT_START_MENU:{
+            case ROOT_START_MENU:{
                 GUILoader.loadStartMenu();
                 break;
             }
-            case GameConfiguration.ROOT_MAIN_GAME: {
-                MainGUI.getMap().setTimeStop(true);
+            case ROOT_MAIN_GAME: {
+                MainGUI.getMap().setTimeStop(false);
                 GUILoader.loadMainGame(MainGUI.getMap());
                 break;
             }
-            case GameConfiguration.ROOT_COMBAT: {
-                MainGUI.getMap().setTimeStop(true);
+            case ROOT_COMBAT: {
+                MainGUI.getMap().setTimeStop(false);
                 GUILoader.loadCombat();
                 break;
             }

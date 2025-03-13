@@ -15,7 +15,7 @@ import static gui.MainGUI.getMap;
 import static gui.MainGUI.getWindow;
 
 /**
- * Simple start menu for the game, serves as the entrypoint of the program
+ * Simple start menu for the game, serves as the visual entrypoint of the program
  * @author Zue Jack-Arthur
  * @author Kenan Ammad
  * @version 0.5
@@ -42,12 +42,16 @@ public class StartMenu extends SimpleMenu implements Runnable {
     private boolean ThreadStop;
 
     /**
-     * Typical constructor to make the startMenu appear
+     * Typical constructor to make the StartMenu appear
      */
     public StartMenu() {
         super();
         init();
     }
+
+    /**
+     * Makes all necessary operations to initialize the panel
+     */
     public void init() {
 
         this.setLayout(new BorderLayout());
@@ -137,8 +141,7 @@ public class StartMenu extends SimpleMenu implements Runnable {
     public class ExitListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ListenerBehaviorManager lbm = ListenerBehaviorManager.create();
-            lbm.exit(StartMenu.this);
+            ListenerBehaviorManager.create().exit(StartMenu.this);
         }
     }
 
@@ -169,8 +172,7 @@ public class StartMenu extends SimpleMenu implements Runnable {
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
                 if(JOptionPane.showConfirmDialog(StartMenu.this,"Do you want to quit ?","confirmation",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
-                    ListenerBehaviorManager ls = ListenerBehaviorManager.create();
-                    ls.exit(StartMenu.this);
+                    ListenerBehaviorManager.create().exit(StartMenu.this);
                 }
             }
         }

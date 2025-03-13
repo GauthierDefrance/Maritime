@@ -13,6 +13,11 @@ public class GameSave implements Serializable {
         name = fileName;
         this.gameState = gameState;
     }
+    //Create
+
+    public static GameSave createSavefile(String fileName, MapBuilder gameState) {
+        return new GameSave(fileName, gameState);
+    }
 
     //Getters
 
@@ -28,11 +33,5 @@ public class GameSave implements Serializable {
 
     public void setGameState(MapBuilder gameState) {
         this.gameState = gameState;
-    }
-
-    //Create
-
-    public static GameSave createSavefile(String fileName, MapBuilder gameState) {
-        return new GameSave(fileName, gameState);
     }
 }

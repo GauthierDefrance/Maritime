@@ -13,7 +13,6 @@ import static config.GameConfiguration.*;
 
 /**
  * options menu for the game
- * @see JPanel
  * @author Zue Jack-Arthur
  * @version 0.6
  */
@@ -39,6 +38,10 @@ public class OptionsMenu extends SimpleMenu {
     private JButton debugButton;
     private JPanel debugPanel;
 
+    /**
+     * Build the OptionsMenu using a token
+     * @param token former GUI JPanel identifier
+     */
     public OptionsMenu(int token) {
         super();
         this.token = token;
@@ -75,6 +78,10 @@ public class OptionsMenu extends SimpleMenu {
     }
 
     //Initialisation
+
+    /**
+     * Makes all necessary operations to initialize the panel
+     */
     public void init() {
 
         this.setLayout(new BorderLayout());
@@ -129,8 +136,7 @@ public class OptionsMenu extends SimpleMenu {
     public class muteButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ListenerBehaviorManager lbm = ListenerBehaviorManager.create();
-            getInstance().setIsMuted(lbm.toggle(muteButton, getInstance().getIsMuted()));
+            getInstance().setIsMuted(ListenerBehaviorManager.create().toggle(muteButton, getInstance().getIsMuted()));
             updateLinkedFile();
         }
     }
@@ -147,8 +153,7 @@ public class OptionsMenu extends SimpleMenu {
     public class goBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ListenerBehaviorManager lbm = ListenerBehaviorManager.create();
-            lbm.goBack(token);
+            ListenerBehaviorManager.create().goBack(token);
         }
     }
 
@@ -157,8 +162,7 @@ public class OptionsMenu extends SimpleMenu {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                ListenerBehaviorManager lbm = ListenerBehaviorManager.create();
-                lbm.goBack(token);
+                ListenerBehaviorManager.create().goBack(token);
             }
         }
 
