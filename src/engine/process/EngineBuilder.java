@@ -99,6 +99,7 @@ public class EngineBuilder {
     }
 
     public static Map mapInit0(Map map) {
+        map.setTimeStop(false);
         ArrayList<PopUp> lstPopUp =new ArrayList<>();
         ArrayList<Harbor> lstHarbor = new ArrayList<>();
         ArrayList<Faction> lstFaction = new ArrayList<>();
