@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 
 /**
  * Class containing methods to build (Components)
@@ -64,6 +65,19 @@ public class JComponentBuilder {
     }
 
     /**
+     * Build a JButton accommodating game-menu Convention with its given action implemented
+     * @param text JButton text
+     * @param action Button Action
+     * @return Built JButton
+     */
+    public static JButton menuButton(String text, MouseListener action) {
+        loggerWrite("menuButton name "+text,"MouseListener assigned name "+action.getClass().getName());
+        JButton newButton = menuButton(text);
+        newButton.addMouseListener(action);
+        return newButton;
+    }
+
+    /**
      * Build a JButton for a boat
      * @param boat the Boat attached to JButton
      * @return Built JButton
@@ -91,6 +105,19 @@ public class JComponentBuilder {
         JButton newButton = menuButton(boat);
         loggerWrite("menuButton name "+boat.getName(),"Boat Object assigned name "+boat.getName()+" and ActionListener assigned name "+action.getClass().getName());
         newButton.addActionListener(action);
+        return newButton;
+    }
+
+    /**
+     * Build a JButton for a boat with its given action implemented
+     * @param boat the Boat attached to JButton
+     * @param action Button Action
+     * @return Built JButton
+     */
+    public static JButton menuButton(Boat boat, MouseListener action) {
+        JButton newButton = menuButton(boat);
+        loggerWrite("menuButton name "+boat.getName(),"Boat Object assigned name "+boat.getName()+" and MouseListener assigned name "+action.getClass().getName());
+        newButton.addMouseListener(action);
         return newButton;
     }
 

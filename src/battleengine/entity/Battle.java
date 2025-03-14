@@ -20,8 +20,8 @@ public class Battle {
     private Fleet BoatsInBattleA;
     private Fleet BoatsInBattleB;
 
-    private ArrayList<Boat> BoatsToPlace;
-    private ArrayList<Boat> BoatsCurrentlyBeingPlaced;
+    private ArrayList<Boat> LstBoatsToPlace;
+    private ArrayList<Boat> LstBoatsCurrentlyBeingPlaced;
 
     private Boat currentBoat;
 
@@ -35,8 +35,8 @@ public class Battle {
         this.originalB = fleetB;
         this.teamA = DeepCopy.copyFleet(fleetA);
         this.teamB = DeepCopy.copyFleet(fleetB);
-        this.BoatsToPlace = this.teamA.getArrayListBoat();
-        this.BoatsCurrentlyBeingPlaced = new ArrayList<>();
+        this.LstBoatsToPlace = this.teamA.getArrayListBoat();
+        this.LstBoatsCurrentlyBeingPlaced = new ArrayList<>();
         this.BoatsInBattleA= new Fleet();
         this.BoatsInBattleB = new Fleet();
         this.spawnzone = SpawnZoneFactory.buildDefaultSpawnZone();
@@ -60,9 +60,9 @@ public class Battle {
 
     public Fleet getBoatsInBattleB() { return BoatsInBattleB; }
 
-    public ArrayList<Boat> getBoatsToPlace() { return BoatsToPlace; }
+    public ArrayList<Boat> getLstBoatsToPlace() { return LstBoatsToPlace; }
 
-    public ArrayList<Boat> getBoatsCurrentlyBeingPlaced() { return BoatsCurrentlyBeingPlaced; }
+    public ArrayList<Boat> getLstBoatsCurrentlyBeingPlaced() { return LstBoatsCurrentlyBeingPlaced; }
 
     public Boat getCurrentBoat() { return currentBoat; }
 
@@ -84,9 +84,9 @@ public class Battle {
 
     public void setBoatsInBattleB(Fleet fleet) { this.BoatsInBattleB = fleet; }
 
-    public void setBoatsToPlace(ArrayList<Boat> lstBoat) { this.BoatsToPlace = lstBoat; }
+    public void setLstBoatsToPlace(ArrayList<Boat> lstBoat) { this.LstBoatsToPlace = lstBoat; }
 
-    public void setBoatsCurrentlyBeingPlaced(ArrayList<Boat> lstBoat) { this.BoatsCurrentlyBeingPlaced = lstBoat; }
+    public void setLstBoatsCurrentlyBeingPlaced(ArrayList<Boat> lstBoat) { this.LstBoatsCurrentlyBeingPlaced = lstBoat; }
 
     public void setCurrentBoat(Boat boat) { this.currentBoat = boat; }
 

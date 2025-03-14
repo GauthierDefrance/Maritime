@@ -19,8 +19,8 @@ public class BattleManager {
     private BulletManager bulletManager;
     private PlacingManager placingManager;
 
-    public BattleManager(Fleet fleetA, Fleet fleetB) {
-        this.battle = new Battle(fleetA, fleetB);
+    public BattleManager(Battle battle) {
+        this.battle = new Battle(battle.getTeamA(), battle.getTeamB());
         this.placingManager = new PlacingManager(battle);
         this.bulletManager = new BulletManager(battle);
     }
@@ -47,5 +47,9 @@ public class BattleManager {
         return battle;
     }
 
+
+    public PlacingManager getPlacingManager() {
+        return placingManager;
+    }
 
 }
