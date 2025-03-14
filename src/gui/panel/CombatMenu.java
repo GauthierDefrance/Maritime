@@ -11,7 +11,6 @@ import engine.process.FactionManager;
 import gui.MainGUI;
 import gui.process.GUILoader;
 import gui.process.JComponentBuilder;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -23,7 +22,7 @@ import static gui.MainGUI.getWindow;
  * @author Kenan Ammad
  * @version 0.2
  */
-public class CombatMenu extends SimpleMenu implements Runnable {
+public class CombatMenu extends JPanel implements Runnable {
 
     private JPanel dashboardJPanel;
     private JPanel jPanelATH;

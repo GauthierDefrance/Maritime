@@ -16,7 +16,7 @@ import static config.GameConfiguration.*;
  * @author Zue Jack-Arthur
  * @version 0.6
  */
-public class OptionsMenu extends SimpleMenu {
+public class OptionsMenu extends JPanel {
 
     private int token;
 
@@ -56,8 +56,8 @@ public class OptionsMenu extends SimpleMenu {
      * @return Expected text
      */
     private String textSetter(boolean active){
-        if (active) return "Off"; //if active --> user may want to turn off
-        return "On";
+        if (active) return "turn Off"; //if active --> user may want to turn off
+        return "turn On";
     }
 
     /**

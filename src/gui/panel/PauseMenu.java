@@ -20,7 +20,7 @@ import static config.GameOptions.getInstance;
  * @author Zue Jack-Arthur
  * @version 0.2
  */
-public class PauseMenu extends SimpleMenu {
+public class PauseMenu extends JPanel {
 
     private int token;
 

@@ -13,7 +13,7 @@ import java.io.*;
  */
 public class OptSaveManager {
 
-    private static final Logger logger = Logger.getLogger(OptSaveManager.class);
+    private static Logger logger = Logger.getLogger(OptSaveManager.class);
 
     private OptSaveManager(){}
 
