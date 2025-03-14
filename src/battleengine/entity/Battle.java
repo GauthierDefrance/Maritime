@@ -5,6 +5,7 @@ import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Class that represents a Battle, it contains 2 Fleet that represent
@@ -13,6 +14,9 @@ import java.util.ArrayList;
  * @version 0.3
  */
 public class Battle {
+
+    private HashMap<Boat, Boat> HunterPreyHashMap;
+
     private Fleet originalA;
     private Fleet originalB;
 
@@ -43,13 +47,25 @@ public class Battle {
         this.teamA = DeepCopy.copyFleet(fleetA);
         this.teamB = DeepCopy.copyFleet(fleetB);
         this.LstBoatsToPlace = this.teamA.getArrayListBoat();
-        this.LstBoatsCurrentlyBeingPlaced = new ArrayList<>();
+        this.LstBoatsCurrentlyBeingPlaced = new ArrayList<Boat>();
+        this.HunterPreyHashMap = new HashMap<Boat, Boat>();
+
+        for(Boat boat : this.teamA.getArrayListBoat()) {HunterPreyHashMap.put(boat, null);}
+        for(Boat boat : this.teamB.getArrayListBoat()) {HunterPreyHashMap.put(boat, null);}
+
         this.BoatsInBattleA= new Fleet();
         this.BoatsInBattleB = new Fleet();
         this.spawnzone = SpawnZoneFactory.buildDefaultSpawnZone();
         this.spawnzoneEnnemy = SpawnZoneFactory.buildDefaultEnnemySpawnZone();
         this.isInPlacingMode = true;
     }
+
+    /**
+     * Getter of the Hashmap of hunter prey,
+     * Hunters are keys and the prey are values.
+     * @return The {@link HashMap<Boat,Boat>} of Hunter & Prey
+     */
+    public HashMap<Boat, Boat> getHunterPreyHashMap() { return HunterPreyHashMap;}
 
     /**
      * Gets the original fleet A.
@@ -134,6 +150,12 @@ public class Battle {
      * @return true if in placing mode, false otherwise
      */
     public boolean isInPlacingMode() { return isInPlacingMode; }
+
+
+    /**
+     * Sets the HunterPreyHashMap
+     */
+    public void setHunterPreyHashMap(HashMap<Boat, Boat> hashMap) { this.HunterPreyHashMap=hashMap;}
 
     /**
      * Sets the original fleet A.
