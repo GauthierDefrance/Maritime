@@ -1,5 +1,6 @@
 package test;
 
+import battleengine.entity.Battle;
 import config.GameConfiguration;
 import config.MapBuilder;
 import engine.entity.boats.*;
@@ -181,6 +182,9 @@ public class TestMove extends JFrame implements Runnable {
 
         map.getPlayer().addSeaRoad(seaRoad1);
         map.getLstFaction().get(0).addSeaRoad(seaRoad2);
+
+        MainGUI.setBattle(new Battle(fleet1,fleet2));
+        map.setTimeStop(true);
     }
 
     @Override

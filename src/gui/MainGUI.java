@@ -1,5 +1,6 @@
 package gui;
 
+import battleengine.entity.Battle;
 import config.GameConfiguration;
 import config.GameOptions;
 import config.MapBuilder;
@@ -27,6 +28,7 @@ public class MainGUI extends JFrame {
     private static Container window;
     private static MapBuilder map;
     private static Debug debug;
+    private static Battle battle;
 
     public MainGUI() {
         super("Maritime");
@@ -36,16 +38,20 @@ public class MainGUI extends JFrame {
     public void init() {
         map = new MapBuilder();
         debug = new Debug("Debug",map);
-
-        GameOptions.setInstance(OptSaveManager.create().loadParamFile());
         window = getContentPane();
         window.setLayout(new BorderLayout());
+
+        TestMove.addBaotTest(map);
+
+        GameOptions.setInstance(OptSaveManager.create().loadParamFile());
         setSize(GameConfiguration.WINDOW_SIZE); /* setExtendedState(JFrame.MAXIMIZED_BOTH); setUndecorated(true);*/
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        TestMove.addBaotTest(map);
         GUILoader.loadStartMenu(); //setResizable(false);
         setVisible(true);
+    }
+    public static Battle getBattle() {
+        return battle;
     }
 
     public static Debug getDebug() {
@@ -62,6 +68,10 @@ public class MainGUI extends JFrame {
 
     public static void setMap(MapBuilder map) {
         MainGUI.map = map;
+    }
+
+    public static void setBattle(Battle battle) {
+        MainGUI.battle = battle;
     }
 
     public static void main(String[] args) {

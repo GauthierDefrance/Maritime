@@ -1,6 +1,9 @@
 package test;
 
 import config.MapBuilder;
+import gui.MainGUI;
+import gui.panel.OptionsMenu;
+import gui.process.GUILoader;
 import gui.process.JComponentBuilder;
 
 import javax.swing.*;
@@ -26,8 +29,10 @@ public class Debug extends JFrame{
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         JButton timeStop = JComponentBuilder.menuButton("timeStop",new TimeStop());
+        JButton combatMenu = JComponentBuilder.menuButton("CombatMenu",new CombatMenu());
         contentPane.add(timeStop);
-
+        contentPane.add(combatMenu);
+        setFocusable(false);
         setLocationRelativeTo(null);
         setSize(360, 360);
         setVisible(false);
@@ -35,6 +40,19 @@ public class Debug extends JFrame{
     private class TimeStop implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             map.setTimeStop(!map.isTimeStop());
+        }
+    }
+    private class CombatMenu implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
+                case "gui.panel.OptionsMenu" :
+                case "gui.panel.PauseMenu" : {
+                    GUILoader.loadCombat(MainGUI.getMap(),MainGUI.getBattle());
+                    break;
+                }
+                default : {
+                }
+            }
         }
     }
 }

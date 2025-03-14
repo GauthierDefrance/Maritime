@@ -102,7 +102,7 @@ public class ListenerBehaviorManager {
             }
             case ROOT_COMBAT: {
                 MainGUI.getMap().setTimeStop(false);
-                GUILoader.loadCombat();
+                GUILoader.loadCombat(MainGUI.getMap(),MainGUI.getBattle());
                 break;
             }
             default: {

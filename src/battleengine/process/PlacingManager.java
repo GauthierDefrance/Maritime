@@ -57,7 +57,7 @@ public class PlacingManager {
      * l'opération de placement si nécessaire.
      */
     public void cancelPlacing(){
-        for(Boat boat : this.battle.getBoatsCurrentlyBeingPlaced().getArrayListBoat() ){
+        for(Boat boat : this.battle.getBoatsCurrentlyBeingPlaced() ){
             this.battle.getBoatsToPlace().add(boat);
         }
         clearBoatsCurrentlyBeingPlaced();
@@ -69,8 +69,8 @@ public class PlacingManager {
      * placement sont retirés de la phase de placement.
      */
     public void confirmBattle(){
-        if(!this.battle.getBoatsCurrentlyBeingPlaced().getArrayListBoat().isEmpty()){
-            for(Boat boat : this.battle.getBoatsCurrentlyBeingPlaced().getArrayListBoat() ){
+        if(!this.battle.getBoatsCurrentlyBeingPlaced().isEmpty()){
+            for(Boat boat : this.battle.getBoatsCurrentlyBeingPlaced() ){
                 this.battle.getBoatsInBattleA().add(boat);
             }
             clearBoatsCurrentlyBeingPlaced();
@@ -81,7 +81,7 @@ public class PlacingManager {
      * Méthode vidant la liste des bateaux en cours de placement.
      */
     private void clearBoatsCurrentlyBeingPlaced(){
-        this.battle.getBoatsCurrentlyBeingPlaced().getArrayListBoat().clear();
+        this.battle.getBoatsCurrentlyBeingPlaced().clear();
     }
 
 

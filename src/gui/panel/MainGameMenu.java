@@ -93,12 +93,6 @@ public class MainGameMenu extends SimpleMenu implements Runnable {
         jEastCenterNorthPanel.add(jButtonLeftMenu3);
         jEastCenterNorthPanel.add(jButtonLeftMenu4);
 
-        jEastATHPanel.setOpaque(false);
-        jEastButtonPanel.setOpaque(false);
-        jEastWestPanel.setOpaque(false);
-        jPanelATH.setOpaque(false);
-        jEastPanel.setOpaque(false);
-
         showLeftMenuButton = JComponentBuilder.menuButton("<", new showMenu(jEastPanel,jEastATHPanel));
         jEastButtonPanel.add(showLeftMenuButton,BorderLayout.NORTH);
         hideLeftMenuButton = JComponentBuilder.menuButton(">", new showMenu(jEastButtonPanel,jEastATHPanel));

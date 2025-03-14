@@ -61,7 +61,7 @@ public class BoatManager {
     }
 
     /**
-     *Update a boat path if we reached the end of the previous one, simply reverses it if continuePath is true otherwise makes it empty
+     * Update a boat path if we reached the end of the previous one, simply reverses it if continuePath is true otherwise makes it empty
      * @param boat targeted boat
      */
     private void weAreOnPoint(Boat boat){

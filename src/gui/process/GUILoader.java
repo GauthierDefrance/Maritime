@@ -1,5 +1,6 @@
 package gui.process;
 
+import battleengine.entity.Battle;
 import config.MapBuilder;
 import gui.MainGUI;
 import gui.panel.*;
@@ -47,7 +48,7 @@ public class GUILoader {
         actualise(new SaveFileMenu(token, 1));
     }
 
-    public static void loadCombat(){
-        //WIP
+    public static void loadCombat(MapBuilder map,Battle battle){
+        actualise(new CombatMenu(map, battle));
     }
 }
