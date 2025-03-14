@@ -1,6 +1,7 @@
 package test;
 
 import config.MapBuilder;
+import gui.process.JComponentBuilder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,14 +23,14 @@ public class Debug extends JFrame{
 
         Container contentPane = getContentPane();
         contentPane.setLayout(new FlowLayout());
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        JButton timeStop = new JButton("timeStop");
-        timeStop.addActionListener(new TimeStop());
+        JButton timeStop = JComponentBuilder.menuButton("timeStop",new TimeStop());
         contentPane.add(timeStop);
 
-        setSize(640, 360);
-        setVisible(true);
+        setLocationRelativeTo(null);
+        setSize(360, 360);
+        setVisible(false);
     }
     private class TimeStop implements ActionListener {
         public void actionPerformed(ActionEvent e) {

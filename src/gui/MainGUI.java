@@ -10,6 +10,7 @@ import engine.trading.Resource;
 import engine.trading.SeaRoad;
 import gui.process.GUILoader;
 import saveSystem.process.OptSaveManager;
+import test.Debug;
 import test.TestMove;
 
 import javax.swing.*;
@@ -25,6 +26,7 @@ public class MainGUI extends JFrame {
 
     private static Container window;
     private static MapBuilder map;
+    private static Debug debug;
 
     public MainGUI() {
         super("Maritime");
@@ -32,7 +34,9 @@ public class MainGUI extends JFrame {
     }
 
     public void init() {
-        setMap(new MapBuilder());
+        map = new MapBuilder();
+        debug = new Debug("Debug",map);
+
         GameOptions.setInstance(OptSaveManager.create().loadParamFile());
         window = getContentPane();
         window.setLayout(new BorderLayout());
@@ -42,6 +46,10 @@ public class MainGUI extends JFrame {
         TestMove.addBaotTest(map);
         GUILoader.loadStartMenu(); //setResizable(false);
         setVisible(true);
+    }
+
+    public static Debug getDebug() {
+        return debug;
     }
 
     public static Container getWindow() {

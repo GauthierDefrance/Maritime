@@ -1,6 +1,7 @@
 package gui.panel;
 
 import config.GameConfiguration;
+import gui.MainGUI;
 import gui.process.GUILoader;
 import gui.process.JComponentBuilder;
 import gui.process.ListenerBehaviorManager;
@@ -11,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
+import static config.GameOptions.getInstance;
 
 /**
  * A pause menu for the game
@@ -40,6 +43,7 @@ public class PauseMenu extends SimpleMenu {
     //Big Button
     private JButton backToGameButton;
     private JButton exitButton;
+    private JButton debugButton;
 
     /**
      * Generate the PauseMenu using a token and makes it appear
@@ -74,9 +78,13 @@ public class PauseMenu extends SimpleMenu {
 
         exitButton = JComponentBuilder.menuButton("Exit", new ExitListener());
 
+        debugButton = JComponentBuilder.menuButton("Debug Menu", new debugListener());
+
+        debugButton.setVisible(getInstance().getShowDebug());
+
         buttonsDisplay = JComponentBuilder.gridMenuPanel(2,2, GameConfiguration.BUTTON_SEPARATOR,GameConfiguration.BUTTON_SEPARATOR, saveButton, loadButton, optionsButton, mainMenuButton);
-        bigButtonDisplay = JComponentBuilder.gridMenuPanel(2,1,GameConfiguration.BUTTON_SEPARATOR,GameConfiguration.BUTTON_SEPARATOR, backToGameButton, exitButton);
-        totalButtonDisplay = JComponentBuilder.gridMenuPanel(3,1,10, 10, buttonsDisplay, bigButtonDisplay);
+        bigButtonDisplay = JComponentBuilder.gridMenuPanel(3,1,GameConfiguration.BUTTON_SEPARATOR,GameConfiguration.BUTTON_SEPARATOR, backToGameButton, exitButton, debugButton);
+        totalButtonDisplay = JComponentBuilder.gridMenuPanel(2,1,10, 10, buttonsDisplay, bigButtonDisplay);
 
         titleDisplay = JComponentBuilder.flowMenuPanel(title);
 
@@ -108,6 +116,13 @@ public class PauseMenu extends SimpleMenu {
         @Override
         public void actionPerformed(ActionEvent e) {
             GUILoader.loadSaveGameMenu(token+2);
+        }
+    }
+
+    public class debugListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            MainGUI.getDebug().setVisible(!MainGUI.getDebug().isVisible());
         }
     }
 
