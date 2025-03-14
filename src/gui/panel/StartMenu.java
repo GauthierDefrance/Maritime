@@ -6,7 +6,6 @@ import engine.process.FactionManager;
 import gui.process.GUILoader;
 import gui.process.JComponentBuilder;
 import gui.process.ListenerBehaviorManager;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -20,7 +19,7 @@ import static gui.MainGUI.getWindow;
  * @author Kenan Ammad
  * @version 0.5
  */
-public class StartMenu extends SimpleMenu implements Runnable {
+public class StartMenu extends JPanel implements Runnable {
 
     private JLabel title;
     private JLabel credits;

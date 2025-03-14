@@ -19,7 +19,7 @@ import static gui.MainGUI.getWindow;
  * @author Kenan Ammad
  * @version 0.2
  */
-public class MainGameMenu extends SimpleMenu implements Runnable {
+public class MainGameMenu extends JPanel implements Runnable {
 
     private JPanel dashboardJPanel;
     private JPanel jPanelATH;

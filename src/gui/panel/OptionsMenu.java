@@ -16,27 +16,27 @@ import static config.GameConfiguration.*;
  * @author Zue Jack-Arthur
  * @version 0.6
  */
-public class OptionsMenu extends SimpleMenu {
+public class OptionsMenu extends JPanel {
 
     private int token;
 
     private JButton goBackButton;
 
-    private JPanel optionDisplay;
+    private javax.swing.JPanel optionDisplay;
 
-    private JPanel soundOptionPanel;
-    private JPanel soundPanel;
+    private javax.swing.JPanel soundOptionPanel;
+    private javax.swing.JPanel soundPanel;
     private JLabel soundLabel;
     private JButton plusButton;
     private JButton minusButton;
 
     private JLabel muteLabel;
     private JButton muteButton;
-    private JPanel mutePanel;
+    private javax.swing.JPanel mutePanel;
 
     private JLabel debugLabel;
     private JButton debugButton;
-    private JPanel debugPanel;
+    private javax.swing.JPanel debugPanel;
 
     /**
      * Build the OptionsMenu using a token
@@ -56,8 +56,8 @@ public class OptionsMenu extends SimpleMenu {
      * @return Expected text
      */
     private String textSetter(boolean active){
-        if (active) return "Off"; //if active --> user may want to turn off
-        return "On";
+        if (active) return "turn Off"; //if active --> user may want to turn off
+        return "turn On";
     }
 
     /**
@@ -66,7 +66,7 @@ public class OptionsMenu extends SimpleMenu {
      * @param component2 JComponent that must be put at the end of this line
      * @return Completed line
      */
-    private JPanel lineMaker(JComponent component1, JComponent component2) {
+    private javax.swing.JPanel lineMaker(JComponent component1, JComponent component2) {
         return JComponentBuilder.gridMenuPanel(1,2,BUTTON_SEPARATOR, BUTTON_SEPARATOR, component1, component2);
     }
 

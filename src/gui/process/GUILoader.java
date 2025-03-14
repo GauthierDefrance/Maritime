@@ -4,7 +4,7 @@ import battleengine.entity.Battle;
 import config.MapBuilder;
 import gui.MainGUI;
 import gui.panel.*;
-
+import javax.swing.JPanel;
 import java.awt.*;
 
 /**
@@ -14,7 +14,7 @@ import java.awt.*;
  */
 public class GUILoader {
 
-    public static void actualise(SimpleMenu menu){
+    public static void actualise(JPanel menu){
         Container window = MainGUI.getWindow();
         window.removeAll();
         window.add(menu);

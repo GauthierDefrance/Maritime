@@ -12,7 +12,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import static config.GameConfiguration.BUTTON_SEPARATOR;
 
-public class SaveFileMenu extends SimpleMenu {
+public class SaveFileMenu extends JPanel {
 
     private int state; //decide if we're in a loading or saving state
     private int token;
