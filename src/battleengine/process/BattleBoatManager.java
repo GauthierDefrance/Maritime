@@ -22,6 +22,7 @@ public class BattleBoatManager {
         this.battle = battle;
     }
 
+
     /**
      * Method that "tick" the BattleBoatManager,
      * moving the boats and actualizing the angle.
@@ -52,7 +53,7 @@ public class BattleBoatManager {
                 //Sinon, on essaye de traquer une proie si elle existe
                 prey = HunterPreyHashMap.get(hunter);
                 if(prey!=null){
-                    turnBoat(hunter, CirclePursuit.getPointToFollow(hunter,prey));
+                    turnBoat(hunter, CirclePursuit.getPointToFollow(hunter, prey));
                 }
             }
         }
@@ -68,8 +69,11 @@ public class BattleBoatManager {
         double y1 = point.getY();
         double x2 = boat.getPosition().getX();
         double y2 = boat.getPosition().getY();
+        //Angle in RADIAN
         double angle = Math.atan2(y1 - y2, x1 - x2);
-        if(angle>=0){
+        angle = angle - boat.getAngle();
+        angle = (angle + Math.PI) % (2 * Math.PI) - Math.PI;
+        if(angle>0){
             boat.setAngle(boat.getAngle() - GameConfiguration.BOAT_ROTATION_SPEED);
         } else {
             boat.setAngle(boat.getAngle() + GameConfiguration.BOAT_ROTATION_SPEED);
