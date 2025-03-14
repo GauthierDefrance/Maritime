@@ -75,4 +75,6 @@ public final class GameConfiguration {
     public static final int DEFAULT_BOAT_POS_X=-1000;
     public static final int DEFAULT_BOAT_POS_Y=-1000;
 
+    public static final double BOAT_ROTATION_SPEED=5;
+
 }
