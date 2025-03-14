@@ -22,21 +22,21 @@ public class OptionsMenu extends JPanel {
 
     private JButton goBackButton;
 
-    private javax.swing.JPanel optionDisplay;
+    private JPanel optionDisplay;
 
-    private javax.swing.JPanel soundOptionPanel;
-    private javax.swing.JPanel soundPanel;
+    private JPanel soundOptionPanel;
+    private JPanel soundPanel;
     private JLabel soundLabel;
     private JButton plusButton;
     private JButton minusButton;
 
     private JLabel muteLabel;
     private JButton muteButton;
-    private javax.swing.JPanel mutePanel;
+    private JPanel mutePanel;
 
     private JLabel debugLabel;
     private JButton debugButton;
-    private javax.swing.JPanel debugPanel;
+    private JPanel debugPanel;
 
     /**
      * Build the OptionsMenu using a token
@@ -66,7 +66,7 @@ public class OptionsMenu extends JPanel {
      * @param component2 JComponent that must be put at the end of this line
      * @return Completed line
      */
-    private javax.swing.JPanel lineMaker(JComponent component1, JComponent component2) {
+    private JPanel lineMaker(JComponent component1, JComponent component2) {
         return JComponentBuilder.gridMenuPanel(1,2,BUTTON_SEPARATOR, BUTTON_SEPARATOR, component1, component2);
     }
 
