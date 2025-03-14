@@ -1,9 +1,12 @@
 package gui.panel;
 
 import battleengine.entity.Battle;
+import battleengine.process.BattleManager;
 import config.GameConfiguration;
 import config.MapBuilder;
 import engine.entity.boats.Boat;
+import engine.entity.boats.Standard;
+import engine.graph.GraphPoint;
 import engine.process.FactionManager;
 import gui.MainGUI;
 import gui.process.GUILoader;
@@ -31,6 +34,7 @@ public class CombatMenu extends JPanel implements Runnable {
 
     private GameDisplay dashboard;
     private Battle battle;
+    private BattleManager battleManager;
     private MapBuilder map;
     private FactionManager factionManager;
     private boolean ThreadStop;
@@ -56,6 +60,7 @@ public class CombatMenu extends JPanel implements Runnable {
 
         dashboard = new GameDisplay(map);
         factionManager = new FactionManager(map);
+        battleManager = new BattleManager(battle);
 
         this.addKeyListener(new KeyControls());
         getWindow().addComponentListener(new ComponentControls());
@@ -114,9 +119,10 @@ public class CombatMenu extends JPanel implements Runnable {
 
     public void elementInPanelUpdate() {
         jWestCenterPanel.removeAll();
-        for (Boat boat : battle.getBoatsToPlace()){
-            jWestCenterPanel.add(JComponentBuilder.menuButton(boat));
+        for (Boat boat : battle.getLstBoatsToPlace()){
+            jWestCenterPanel.add(JComponentBuilder.menuButton(boat,new MouseListener(boat)));
         }
+        sizeUpdate();
     }
 
     private class ComponentControls implements ComponentListener {
@@ -138,6 +144,38 @@ public class CombatMenu extends JPanel implements Runnable {
         @Override
         public void componentHidden(ComponentEvent e) {
 
+        }
+    }
+
+    private class MouseListener extends MouseAdapter {
+        private Boat boat;
+
+        private MouseListener(Boat boat) {
+            this.boat = boat;
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            if (e.getButton() == MouseEvent.BUTTON1) {
+            } else if (e.getButton() == MouseEvent.BUTTON3) {
+            }
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            if (e.getButton() == MouseEvent.BUTTON1) {
+                battleManager.getPlacingManager().tryPlaceBoat(boat,e.getPoint());
+            }
+            elementInPanelUpdate();
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
         }
     }
 

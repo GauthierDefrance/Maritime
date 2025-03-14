@@ -26,19 +26,12 @@ public class DashBoardFightPanel extends JPanel {
         @Override
         public void mousePressed(MouseEvent e) {
             if (e.getButton() == MouseEvent.BUTTON1) {
-                LeftClick(e);
             } else if (e.getButton() == MouseEvent.BUTTON3) {
-                RightClick(e);
             }
         }
 
-        public void LeftClick(MouseEvent e) {
-            ArrayList<Boat> tmp = BoatManager.boatCollisionToPoint(e.getPoint(),battle.getBattleMap().getTeamA().getArrayListBoat());
-            for(Boat boat : tmp){
-            }
-        }
-
-        public void RightClick(MouseEvent e) {
+        @Override
+        public void mouseReleased(MouseEvent e) {
 
         }
 
