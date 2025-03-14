@@ -1,7 +1,7 @@
 package gui.panel;
 
 import config.GameConfiguration;
-import config.MapBuilder;
+import config.Map;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
 import engine.trading.SeaRoad;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 public class GameDisplay extends JPanel {
 
-    private final MapBuilder map;
+    private final Map map;
     private final PaintEntity paintEntity;
     private final PaintBackGround paintBackGround;
     private final PaintPopUp paintPopUp;
@@ -28,7 +28,7 @@ public class GameDisplay extends JPanel {
     /**
      * Typical constructor generating an GameDisplay
      */
-    public GameDisplay(MapBuilder map){
+    public GameDisplay(Map map){
         this.map = map;
         this.paintEntity = new PaintEntity();
         this.paintBackGround = new PaintBackGround();

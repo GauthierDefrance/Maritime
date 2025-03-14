@@ -1,12 +1,10 @@
 package gui.process;
 
 import config.GameConfiguration;
-import config.MapBuilder;
+import config.Map;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 /**
  * @author Kenan Ammad
@@ -14,12 +12,12 @@ import java.io.File;
  * @version 0.4
  */
 public class PaintPopUp {
-    private MapBuilder map;
+    private Map map;
 
     /**
      * Typical constructor generating an PaintPopUp
      */
-    public PaintPopUp(MapBuilder map){
+    public PaintPopUp(Map map){
         this.map=map;
     }
 

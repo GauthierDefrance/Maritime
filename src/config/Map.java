@@ -5,6 +5,7 @@ import engine.faction.Faction;
 import engine.faction.Player;
 import engine.graph.GraphPoint;
 import engine.graph.GraphSegment;
+import engine.trading.Resource;
 import gui.process.PopUp;
 
 import java.awt.*;
@@ -14,7 +15,8 @@ import java.util.HashMap;
  * @author Kenan Ammad
  * @version 0.3
  */
-public class MapBuilder {
+public class Map {
+    private static Map instance;
     private HashMap<String, GraphPoint> mapGraphPoint;
     private ArrayList<Harbor> lstHarbor;
     private ArrayList<Faction> lstBotFaction;
@@ -23,34 +25,34 @@ public class MapBuilder {
     private boolean timeStop;
     private ArrayList<PopUp> lstPopUp;
 
-    public MapBuilder(int choice){
+    private Map(){
         timeStop = false;
-        switch (choice) {
-            case 0 : {
-                init0();
-                break;
-            }
-            case 1 : {
-                init1();
-                break;
-            }
-            default : {
-            }
-        }
+        init();
     }
 
-    public MapBuilder(){
-        timeStop = false;
-        init0();
+    public static synchronized Map getInstance() {
+        if (instance == null) {
+            instance = new Map();
+        } return instance;
     }
 
-    public void init0(){
+    public static synchronized Map getNewInstance() {
+        return new Map();
+    }
+
+    public static void setInstance(Map instance) {
+        Map.instance = instance;
+    }
+
+    public void init(){
         ArrayList<PopUp> lstPopUp =new ArrayList<>();
         ArrayList<Harbor> lstHarbor = new ArrayList<>();
         ArrayList<Faction> lstFaction = new ArrayList<>();
         ArrayList<Faction> lstBotFaction = new ArrayList<>();
         HashMap<String, GraphPoint> mapGraphPoint = new HashMap<>();
         Player player = new Player("blue");
+
+
 //        map.put("A",new GraphPoint(new Point(0*GameConfiguration.GAME_SCALE,0*GameConfiguration.GAME_SCALE),"A"));
         GraphPoint AHarbor = new GraphPoint(new Point(65*GameConfiguration.GAME_SCALE,80*GameConfiguration.GAME_SCALE),"AHarbor");
         GraphPoint BHarbor = new GraphPoint(new Point(150*GameConfiguration.GAME_SCALE,300*GameConfiguration.GAME_SCALE),"BHarbor");
@@ -140,8 +142,6 @@ public class MapBuilder {
         this.setPlayer(player);
     }
 
-    public void init1(){}
-
     public ArrayList<Faction> getLstBotFaction() {
         return lstBotFaction;
     }
@@ -205,4 +205,6 @@ public class MapBuilder {
     public void removePopUp(PopUp PopUp) {
         this.lstPopUp.remove(PopUp);
     }
+
+    public void add(GraphPoint graphPoint){ mapGraphPoint.put(graphPoint.getIdPoint(),graphPoint); }
 }

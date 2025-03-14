@@ -1,7 +1,7 @@
 package engine.process;
 
 import config.GameConfiguration;
-import config.MapBuilder;
+import config.Map;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
 import engine.faction.Faction;
@@ -18,7 +18,7 @@ import java.util.Collections;
  * @version 0.5
  */
 public class FactionManager {
-    private final MapBuilder map;
+    private final Map map;
     private final PlayerManager playerManager;
     private final BoatManager boatManager;
     private final HarborManager harborManager;
@@ -29,7 +29,7 @@ public class FactionManager {
     /**
      * Typical builder generating an FactionManager
      */
-    public FactionManager(MapBuilder map) {
+    public FactionManager(Map map) {
         this.map = map;
         this.playerManager = new PlayerManager(map);
         this.boatManager = new BoatManager(map);

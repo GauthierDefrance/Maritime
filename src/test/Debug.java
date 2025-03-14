@@ -1,8 +1,7 @@
 package test;
 
-import config.MapBuilder;
+import config.Map;
 import gui.MainGUI;
-import gui.panel.OptionsMenu;
 import gui.process.GUILoader;
 import gui.process.JComponentBuilder;
 
@@ -13,10 +12,10 @@ import java.awt.event.ActionListener;
 
 public class Debug extends JFrame{
 
-    private MapBuilder map;
+    private Map map;
 
 
-    public Debug(String title, MapBuilder map) {
+    public Debug(String title, Map map) {
         super(title);
         this.map = map;
         init();

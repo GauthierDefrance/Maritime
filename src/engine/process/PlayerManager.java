@@ -1,6 +1,6 @@
 package engine.process;
 
-import config.MapBuilder;
+import config.Map;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
 import engine.faction.Faction;
@@ -13,12 +13,12 @@ import java.util.ArrayList;
  * @version 0.1
  */
 public class PlayerManager {
-    private final MapBuilder map;
+    private final Map map;
 
     /**
      * Initialize the PlayerManager
      */
-    public PlayerManager(MapBuilder map){
+    public PlayerManager(Map map){
         this.map = map;
     }
 

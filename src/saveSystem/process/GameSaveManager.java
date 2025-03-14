@@ -1,7 +1,7 @@
 package saveSystem.process;
 
 import config.GameConfiguration;
-import config.MapBuilder;
+import config.Map;
 import saveSystem.GameSave;
 
 import java.io.*;
@@ -22,7 +22,7 @@ public class GameSaveManager {
         }
     }
 
-    public String saveNewGame(String fileName, MapBuilder gameState) {
+    public String saveNewGame(String fileName, Map gameState) {
          GameSave sv = GameSave.createSavefile(fileName, gameState);
          try {
              saveProcedure(sv);
@@ -32,7 +32,7 @@ public class GameSaveManager {
          }
     }
 
-    public String overwriteGame(GameSave sv, MapBuilder gameState) {
+    public String overwriteGame(GameSave sv, Map gameState) {
         sv.setGameState(gameState);
         try {
             saveProcedure(sv);
@@ -42,7 +42,7 @@ public class GameSaveManager {
         }
     }
 
-    public MapBuilder loadGame(GameSave sv) {
+    public Map loadGame(GameSave sv) {
         return sv.getGameState();
     }
 

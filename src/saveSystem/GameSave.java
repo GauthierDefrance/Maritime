@@ -1,21 +1,21 @@
 package saveSystem;
 
-import config.MapBuilder;
+import config.Map;
 import java.io.Serializable;
 
 public class GameSave implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private String name;
-    private MapBuilder gameState;
+    private Map gameState;
 
-    private GameSave(String fileName, MapBuilder gameState) {
+    private GameSave(String fileName, Map gameState) {
         name = fileName;
         this.gameState = gameState;
     }
     //Create
 
-    public static GameSave createSavefile(String fileName, MapBuilder gameState) {
+    public static GameSave createSavefile(String fileName, Map gameState) {
         return new GameSave(fileName, gameState);
     }
 
@@ -25,13 +25,13 @@ public class GameSave implements Serializable {
         return name;
     }
 
-    public MapBuilder getGameState() {
+    public Map getGameState() {
         return gameState;
     }
 
     //Setters
 
-    public void setGameState(MapBuilder gameState) {
+    public void setGameState(Map gameState) {
         this.gameState = gameState;
     }
 }

@@ -3,12 +3,7 @@ package gui;
 import battleengine.entity.Battle;
 import config.GameConfiguration;
 import config.GameOptions;
-import config.MapBuilder;
-import engine.entity.boats.*;
-import engine.graph.SearchInGraph;
-import engine.process.FactionManager;
-import engine.trading.Resource;
-import engine.trading.SeaRoad;
+import config.Map;
 import gui.process.GUILoader;
 import saveSystem.process.OptSaveManager;
 import test.Debug;
@@ -26,7 +21,7 @@ import java.awt.*;
 public class MainGUI extends JFrame {
 
     private static Container window;
-    private static MapBuilder map;
+    private static Map map;
     private static Debug debug;
     private static Battle battle;
 
@@ -36,7 +31,7 @@ public class MainGUI extends JFrame {
     }
 
     public void init() {
-        map = new MapBuilder();
+        map = Map.getInstance();
         debug = new Debug("Debug",map);
         window = getContentPane();
         window.setLayout(new BorderLayout());
@@ -62,11 +57,11 @@ public class MainGUI extends JFrame {
         return window;
     }
 
-    public static MapBuilder getMap() {
+    public static Map getMap() {
         return map;
     }
 
-    public static void setMap(MapBuilder map) {
+    public static void setMap(Map map) {
         MainGUI.map = map;
     }
 

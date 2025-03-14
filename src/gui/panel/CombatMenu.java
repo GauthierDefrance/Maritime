@@ -3,10 +3,8 @@ package gui.panel;
 import battleengine.entity.Battle;
 import battleengine.process.BattleManager;
 import config.GameConfiguration;
-import config.MapBuilder;
+import config.Map;
 import engine.entity.boats.Boat;
-import engine.entity.boats.Standard;
-import engine.graph.GraphPoint;
 import engine.process.FactionManager;
 import gui.MainGUI;
 import gui.process.GUILoader;
@@ -35,14 +33,14 @@ public class CombatMenu extends JPanel implements Runnable {
     private GameDisplay dashboard;
     private Battle battle;
     private BattleManager battleManager;
-    private MapBuilder map;
+    private Map map;
     private FactionManager factionManager;
     private boolean ThreadStop;
 
     /**
      * Typical constructor to make the startMenu appear
      */
-    public CombatMenu(MapBuilder map, Battle battle) {
+    public CombatMenu(Map map, Battle battle) {
         super();
         this.map = map;
         this.battle = battle;

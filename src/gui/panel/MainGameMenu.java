@@ -1,7 +1,7 @@
 package gui.panel;
 
 import config.GameConfiguration;
-import config.MapBuilder;
+import config.Map;
 import engine.entity.Harbor;
 import engine.entity.boats.*;
 import engine.process.FactionManager;
@@ -33,14 +33,14 @@ public class MainGameMenu extends JPanel implements Runnable {
     private JButton hideLeftMenuButton;
 
     private GameDisplay dashboard;
-    private MapBuilder map;
+    private Map map;
     private FactionManager factionManager;
     private boolean ThreadStop;
 
     /**
      * Typical constructor to make the startMenu appear
      */
-    public MainGameMenu(MapBuilder map) {
+    public MainGameMenu(Map map) {
         super();
         this.map = map;
         init();

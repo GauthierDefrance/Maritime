@@ -1,6 +1,6 @@
 package engine.process;
 
-import config.MapBuilder;
+import config.Map;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
 import engine.graph.GraphPoint;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * @version 0.3
  */
 public class SeaRoadManager {
-    private final MapBuilder map;
+    private final Map map;
     private final HarborManager harborManager;
     private final TradeManager tradeManager;
     private final FleetManager fleetManager;
@@ -24,7 +24,7 @@ public class SeaRoadManager {
     /**
      * Typical constructor generating a SeaRoadManager
      */
-    public SeaRoadManager(MapBuilder map, HarborManager harborManager, TradeManager tradeManager, FleetManager fleetManager, BoatManager boatManager) {
+    public SeaRoadManager(Map map, HarborManager harborManager, TradeManager tradeManager, FleetManager fleetManager, BoatManager boatManager) {
         this.map = map;
         this.harborManager = harborManager;
         this.tradeManager = tradeManager;

@@ -1,7 +1,7 @@
 package gui.panel;
 
 import config.GameConfiguration;
-import config.MapBuilder;
+import config.Map;
 import engine.process.FactionManager;
 import gui.process.GUILoader;
 import gui.process.JComponentBuilder;
@@ -36,7 +36,7 @@ public class StartMenu extends JPanel implements Runnable {
     private JPanel jPanel1 = new JPanel();
 
     private GameDisplay dashboard;
-    private MapBuilder map = new MapBuilder(0);
+    private Map map = Map.getNewInstance();
     private FactionManager factionManager = new FactionManager(map);
     private boolean ThreadStop;
 

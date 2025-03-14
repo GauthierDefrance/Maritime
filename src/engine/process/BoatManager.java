@@ -1,10 +1,9 @@
 package engine.process;
 
 import config.GameConfiguration;
-import config.MapBuilder;
+import config.Map;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
-import engine.entity.boats.Fleet;
 import engine.faction.Faction;
 import engine.graph.GraphPoint;
 
@@ -20,12 +19,12 @@ import java.util.Collections;
  */
 public class BoatManager {
 
-    private final MapBuilder map;
+    private final Map map;
 
     /**
      * Typical constructor generating an BoatManager
      */
-    public BoatManager(MapBuilder map) {
+    public BoatManager(Map map) {
         this.map = map;
     }
 
