@@ -33,10 +33,10 @@ public class ListenerBehaviorManager {
         boolean bool = masterBoolean;
         if (bool) {
             bool = false;
-            button.setText("On");
+            button.setText("turn On");
         } else {
             bool = true;
-            button.setText("Off");
+            button.setText("turn Off");
         } return bool;
     }
 

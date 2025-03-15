@@ -12,7 +12,7 @@ import java.awt.*;
  * @author Zue Jack-Arthur
  * @version 0.2
  */
-public class Harbor implements EntityInterface {
+public class Harbor implements Entity {
     private String name;
     private String color;
     private double visionRadius;
