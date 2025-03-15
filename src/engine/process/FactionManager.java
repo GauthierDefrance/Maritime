@@ -1,7 +1,7 @@
 package engine.process;
 
 import config.GameConfiguration;
-import config.Map;
+import engine.Map;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
 import engine.faction.Faction;
@@ -18,24 +18,24 @@ import java.util.Collections;
  * @version 0.5
  */
 public class FactionManager {
-    private final Map map;
     private final PlayerManager playerManager;
     private final BoatManager boatManager;
     private final HarborManager harborManager;
     private final FleetManager fleetManager;
+    private final TradeManager tradeManager;
     private final SeaRoadManager seaRoutManager;
     private ArrayList<Boat[]> lstAttackBoat;
 
     /**
      * Typical builder generating an FactionManager
      */
-    public FactionManager(Map map) {
-        this.map = map;
-        this.playerManager = new PlayerManager(map);
-        this.boatManager = new BoatManager(map);
-        this.harborManager = new HarborManager(map,new TradeManager());
-        this.fleetManager = new FleetManager(map,boatManager);
-        this.seaRoutManager = new SeaRoadManager(map,this.harborManager,new TradeManager(),this.fleetManager, this.boatManager);
+    public FactionManager() {
+        this.playerManager = new PlayerManager();
+        this.boatManager = new BoatManager();
+        this.tradeManager = new TradeManager();
+        this.harborManager = new HarborManager();
+        this.fleetManager = new FleetManager(boatManager);
+        this.seaRoutManager = new SeaRoadManager(this.harborManager,tradeManager,this.fleetManager, this.boatManager);
         this.lstAttackBoat = new ArrayList<>();
     }
 
@@ -60,7 +60,7 @@ public class FactionManager {
      * Take all map boat and make it follow its path, don't do anything if the path is empty
      */
     public void moveAllFactionBoat(){
-        for (Faction faction : map.getLstFaction()){
+        for (Faction faction : Map.getInstance().getLstFaction()){
             moveFactionBoat(faction);
         }
     }
@@ -78,7 +78,7 @@ public class FactionManager {
      * Take a map and for all faction fleet update all boat fleet path if is empty
      */
     public void allFleetUpdate(){
-        for (Faction faction : map.getLstFaction()){
+        for (Faction faction : Map.getInstance().getLstFaction()){
             fleetUpdate(faction);
         }
     }
@@ -103,7 +103,7 @@ public class FactionManager {
      * for all map faction sea road boat pickUpResources and sellResources and remove sea road if timer < 0
      */
     public void allSeaRoutUpdate(){
-        for (Faction faction : map.getLstFaction()){
+        for (Faction faction : Map.getInstance().getLstFaction()){
             seaRoutUpdate(faction);
         }
     }
@@ -156,14 +156,14 @@ public class FactionManager {
         vision1.add(boat1);
         vision2.add(boat2);
         for (Boat boat : getMyFaction(boat1.getColor()).getLstBoat()){
-            for (Boat playerBoat : map.getPlayer().getLstBoat()){
+            for (Boat playerBoat : Map.getInstance().getPlayer().getLstBoat()){
                 if (playerBoat.getVisionRadius() /2 >= Math.sqrt(Math.pow((boat.getPosition().getX()-playerBoat.getPosition().getX()),2)+Math.pow((boat.getPosition().getY()-playerBoat.getPosition().getY()),2))){
                     if (!vision1.contains(boat)){vision1.add(boat);}
                 }
             }
         }
         for (Boat boat : getMyFaction(boat2.getColor()).getLstBoat()){
-            for (Boat playerBoat : map.getPlayer().getLstBoat()){
+            for (Boat playerBoat : Map.getInstance().getPlayer().getLstBoat()){
                 if(playerBoat.getVisionRadius() /2 >= Math.sqrt(Math.pow((boat.getPosition().getX()-playerBoat.getPosition().getX()),2)+Math.pow((boat.getPosition().getY()-playerBoat.getPosition().getY()),2))){
                     if(!vision2.contains(boat)){vision2.add(boat);}
                 }
@@ -177,7 +177,7 @@ public class FactionManager {
      * @param color a String representing a color
      */
     public Faction getMyFaction(String color){
-        for (Faction faction : map.getLstFaction()) {
+        for (Faction faction : Map.getInstance().getLstFaction()) {
             if (faction.getColor().equals(color)) {
                 return faction;
             }

@@ -1,7 +1,7 @@
 package gui.process;
 
 import config.GameConfiguration;
-import config.Map;
+import engine.Map;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -12,14 +12,11 @@ import java.awt.image.BufferedImage;
  * @version 0.4
  */
 public class PaintPopUp {
-    private Map map;
 
     /**
      * Typical constructor generating an PaintPopUp
      */
-    public PaintPopUp(Map map){
-        this.map=map;
-    }
+    public PaintPopUp(){}
 
     /**
      * It paints a popUp that needs to be painted on 2D graphics
@@ -37,6 +34,6 @@ public class PaintPopUp {
             }
             popUp.addIFrame(1);
         }
-        else {map.removePopUp(popUp);}
+        else {Map.getInstance().removePopUp(popUp);}
     }
 }

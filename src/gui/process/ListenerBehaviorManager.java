@@ -1,6 +1,8 @@
 package gui.process;
 
 import static config.GameConfiguration.*;
+
+import engine.Map;
 import gui.MainGUI;
 
 import javax.swing.*;
@@ -96,13 +98,13 @@ public class ListenerBehaviorManager {
                 break;
             }
             case ROOT_MAIN_GAME: {
-                MainGUI.getMap().setTimeStop(false);
-                GUILoader.loadMainGame(MainGUI.getMap());
+                Map.getInstance().setTimeStop(false);
+                GUILoader.loadMainGame();
                 break;
             }
             case ROOT_COMBAT: {
-                MainGUI.getMap().setTimeStop(false);
-                GUILoader.loadCombat(MainGUI.getMap(),MainGUI.getBattle());
+                Map.getInstance().setTimeStop(false);
+                GUILoader.loadCombat(MainGUI.getBattle());
                 break;
             }
             default: {

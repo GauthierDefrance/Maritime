@@ -1,7 +1,7 @@
 package engine.process;
 
 import config.GameConfiguration;
-import config.Map;
+import engine.Map;
 import engine.entity.Harbor;
 import engine.entity.boats.Fodder;
 import engine.entity.boats.Merchant;
@@ -94,12 +94,12 @@ public class EngineBuilder {
         return harbor;
     }
 
-    public static Map mapInit(Map map,int choice) {
-        return mapInit0(map);
+    public static void mapInit(int choice) {
+        mapInit0();
     }
 
-    public static Map mapInit0(Map map) {
-        map.setTimeStop(false);
+    public static Map mapInit0() {
+        Map.getInstance().setTimeStop(false);
         ArrayList<PopUp> lstPopUp =new ArrayList<>();
         ArrayList<Harbor> lstHarbor = new ArrayList<>();
         ArrayList<Faction> lstFaction = new ArrayList<>();
@@ -108,7 +108,7 @@ public class EngineBuilder {
         Player player = new Player("blue");
 
 
-//        map.put("A",new GraphPoint(new Point(0*GameConfiguration.GAME_SCALE,0*GameConfiguration.GAME_SCALE),"A"));
+//        Map.getInstance().put("A",new GraphPoint(new Point(0*GameConfiguration.GAME_SCALE,0*GameConfiguration.GAME_SCALE),"A"));
         GraphPoint AHarbor = new GraphPoint(new Point(65*GameConfiguration.GAME_SCALE,80*GameConfiguration.GAME_SCALE),"AHarbor");
         GraphPoint BHarbor = new GraphPoint(new Point(150*GameConfiguration.GAME_SCALE,300*GameConfiguration.GAME_SCALE),"BHarbor");
         GraphPoint CHarbor = new GraphPoint(new Point(340*GameConfiguration.GAME_SCALE,130*GameConfiguration.GAME_SCALE),"CHarbor");
@@ -189,13 +189,13 @@ public class EngineBuilder {
 
         lstFaction.addAll(lstBotFaction);
         lstFaction.add(player);
-        map.setLstPopUp(lstPopUp);
-        map.setLstHarbor(lstHarbor);
-        map.setLstFaction(lstFaction);
-        map.setLstBotFaction(lstBotFaction);
-        map.setMapGraphPoint(mapGraphPoint);
-        map.setPlayer(player);
-        return map;
+        Map.getInstance().setLstPopUp(lstPopUp);
+        Map.getInstance().setLstHarbor(lstHarbor);
+        Map.getInstance().setLstFaction(lstFaction);
+        Map.getInstance().setLstBotFaction(lstBotFaction);
+        Map.getInstance().setMapGraphPoint(mapGraphPoint);
+        Map.getInstance().setPlayer(player);
+        return Map.getInstance();
     }
 
 }

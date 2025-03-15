@@ -1,11 +1,10 @@
 package gui.panel;
 
 import config.GameConfiguration;
-import config.Map;
+import engine.Map;
 import engine.entity.Harbor;
 import engine.entity.boats.*;
 import engine.process.FactionManager;
-import gui.MainGUI;
 import gui.process.*;
 
 import javax.swing.*;
@@ -33,16 +32,14 @@ public class MainGameMenu extends JPanel implements Runnable {
     private JButton hideLeftMenuButton;
 
     private GameDisplay dashboard;
-    private Map map;
     private FactionManager factionManager;
     private boolean ThreadStop;
 
     /**
      * Typical constructor to make the startMenu appear
      */
-    public MainGameMenu(Map map) {
+    public MainGameMenu() {
         super();
-        this.map = map;
         init();
     }
     public void init() {
@@ -55,8 +52,8 @@ public class MainGameMenu extends JPanel implements Runnable {
         jEastCenterChoice1CenterPanel = JComponentBuilder.gridMenuPanel(0,2);
         jEastCenterChoice2CenterPanel = JComponentBuilder.gridMenuPanel(0,2);
 
-        dashboard = new GameDisplay(map);
-        factionManager = new FactionManager(map);
+        dashboard = new GameDisplay();
+        factionManager = new FactionManager();
 
         this.addKeyListener(new KeyControls());
         getWindow().addComponentListener(new ComponentControls());
@@ -149,8 +146,8 @@ public class MainGameMenu extends JPanel implements Runnable {
 
         showLeftMenuButton.setPreferredSize(new Dimension((int) Math.max(26,getWindow().getHeight()*0.04), (int) Math.max(26,getWindow().getHeight()*0.04)));
         hideLeftMenuButton.setPreferredSize(new Dimension((int) Math.max(26,getWindow().getHeight()*0.04), (int) Math.max(26,getWindow().getHeight()*0.04)));
-        jEastCenterChoice1CenterPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.08*map.getPlayer().getLstBoat().size()))));
-        jEastCenterChoice2CenterPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.08*map.getPlayer().getLstHarbor().size()))));
+        jEastCenterChoice1CenterPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.08*Map.getInstance().getPlayer().getLstBoat().size()))));
+        jEastCenterChoice2CenterPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.08*Map.getInstance().getPlayer().getLstHarbor().size()))));
         getWindow().revalidate();
         getWindow().repaint();
     }
@@ -158,10 +155,10 @@ public class MainGameMenu extends JPanel implements Runnable {
     public void elementInPanelUpdate() {
         jEastCenterChoice1CenterPanel.removeAll();
         jEastCenterChoice2CenterPanel.removeAll();
-        for (Boat boat : map.getPlayer().getLstBoat()){
+        for (Boat boat : Map.getInstance().getPlayer().getLstBoat()){
             jEastCenterChoice1CenterPanel.add(JComponentBuilder.menuButton(boat));
         }
-        for (Harbor harbor : map.getPlayer().getLstHarbor()){
+        for (Harbor harbor : Map.getInstance().getPlayer().getLstHarbor()){
             jEastCenterChoice2CenterPanel.add(JComponentBuilder.menuButton(harbor));
         }
     }
@@ -210,12 +207,11 @@ public class MainGameMenu extends JPanel implements Runnable {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                MainGUI.setMap(map);
                 ThreadStop = true;
                 GUILoader.loadPauseMenu(GameConfiguration.ROOT_MAIN_GAME);
             }
             else if(event.getKeyCode() == KeyEvent.VK_SPACE){
-                map.setTimeStop(!map.isTimeStop());
+                Map.getInstance().setTimeStop(!Map.getInstance().isTimeStop());
             }
         }
 
@@ -239,7 +235,7 @@ public class MainGameMenu extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
-            if (!map.isTimeStop()){
+            if (!Map.getInstance().isTimeStop()){
                 factionManager.nextRound();
             }
             dashboard.repaint();

@@ -1,7 +1,7 @@
 package engine.process;
 
 import config.GameConfiguration;
-import config.Map;
+import engine.Map;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
 import engine.faction.Faction;
@@ -19,14 +19,11 @@ import java.util.Collections;
  */
 public class BoatManager {
 
-    private final Map map;
 
     /**
      * Typical constructor generating an BoatManager
      */
-    public BoatManager(Map map) {
-        this.map = map;
-    }
+    public BoatManager() {}
 
     /**
      * If a given boat has a path to follow, make sure it does
@@ -165,7 +162,7 @@ public class BoatManager {
      */
     public ArrayList<Boat> boatCollisionToMap (Boat boat){
         ArrayList<Boat> lstBoatTemp = new ArrayList<>();
-        for (Faction faction : map.getLstFaction()){
+        for (Faction faction : Map.getInstance().getLstFaction()){
             for (Boat boat2 : faction.getLstBoat()){
                 if (GameConfiguration.HITBOX_BOAT - 5 >= boat.getPosition().distance(boat2.getPosition())){
                     lstBoatTemp.add(boat2);

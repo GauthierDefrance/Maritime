@@ -1,6 +1,6 @@
 package saveSystem;
 
-import config.Map;
+import engine.Map;
 import java.io.Serializable;
 
 public class GameSave implements Serializable {

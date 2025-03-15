@@ -3,10 +3,9 @@ package gui.panel;
 import battleengine.entity.Battle;
 import battleengine.process.BattleManager;
 import config.GameConfiguration;
-import config.Map;
+import engine.Map;
 import engine.entity.boats.Boat;
 import engine.process.FactionManager;
-import gui.MainGUI;
 import gui.process.GUILoader;
 import gui.process.JComponentBuilder;
 import javax.swing.*;
@@ -33,16 +32,14 @@ public class CombatMenu extends JPanel implements Runnable {
     private GameDisplay dashboard;
     private Battle battle;
     private BattleManager battleManager;
-    private Map map;
     private FactionManager factionManager;
     private boolean ThreadStop;
 
     /**
      * Typical constructor to make the startMenu appear
      */
-    public CombatMenu(Map map, Battle battle) {
+    public CombatMenu(Battle battle) {
         super();
-        this.map = map;
         this.battle = battle;
         init();
     }
@@ -56,8 +53,8 @@ public class CombatMenu extends JPanel implements Runnable {
         jWestCenterPanel = JComponentBuilder.gridMenuPanel(0,2);
         jWestSouthPanel = JComponentBuilder.gridMenuPanel(1,0,0,0);
 
-        dashboard = new GameDisplay(map);
-        factionManager = new FactionManager(map);
+        dashboard = new GameDisplay();
+        factionManager = new FactionManager();
         battleManager = new BattleManager(battle);
 
         this.addKeyListener(new KeyControls());
@@ -110,7 +107,7 @@ public class CombatMenu extends JPanel implements Runnable {
         jSouthATHPanel.setPreferredSize(new Dimension(getWindow().getWidth(),(int) (getWindow().getHeight()*0.15)));
         jWestSouthPanel.setPreferredSize(new Dimension(getWindow().getHeight(),(int) Math.max(26,getWindow().getHeight()*0.04)));
         jWestATHPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.20),getWindow().getHeight()));
-        jWestCenterPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.08*map.getPlayer().getLstBoat().size()))));
+        jWestCenterPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.08*Map.getInstance().getPlayer().getLstBoat().size()))));
         getWindow().revalidate();
         getWindow().repaint();
     }
@@ -182,17 +179,16 @@ public class CombatMenu extends JPanel implements Runnable {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                MainGUI.setMap(map);
                 ThreadStop = true;
                 GUILoader.loadPauseMenu(GameConfiguration.ROOT_COMBAT);
             }
             else if(event.getKeyCode() == KeyEvent.VK_SPACE){
-                if(map.isTimeStop()){
-                    map.setTimeStop(false);
+                if(Map.getInstance().isTimeStop()){
+                    Map.getInstance().setTimeStop(false);
                     jWestATHPanel.setVisible(false);
                 }
                 else {
-                    map.setTimeStop(true);
+                    Map.getInstance().setTimeStop(true);
                     jWestATHPanel.setVisible(true);
 
                 }
@@ -220,7 +216,7 @@ public class CombatMenu extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
-            if (!map.isTimeStop()){
+            if (!Map.getInstance().isTimeStop()){
                 factionManager.nextRound();
             }
             dashboard.repaint();

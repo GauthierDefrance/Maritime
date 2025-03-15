@@ -1,14 +1,11 @@
-package config;
+package engine;
 
 import engine.entity.Harbor;
 import engine.faction.Faction;
 import engine.faction.Player;
 import engine.graph.GraphPoint;
-import engine.graph.GraphSegment;
-import engine.trading.Resource;
 import gui.process.PopUp;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
@@ -31,10 +28,6 @@ public class Map {
         if (instance == null) {
             instance = new Map();
         } return instance;
-    }
-
-    public static synchronized Map getNewInstance() {
-        return new Map();
     }
 
     public static void setInstance(Map instance) {

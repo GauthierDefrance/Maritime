@@ -1,6 +1,6 @@
 package test;
 
-import config.Map;
+import engine.Map;
 import gui.MainGUI;
 import gui.process.GUILoader;
 import gui.process.JComponentBuilder;
@@ -12,12 +12,8 @@ import java.awt.event.ActionListener;
 
 public class Debug extends JFrame{
 
-    private Map map;
-
-
-    public Debug(String title, Map map) {
+    public Debug(String title) {
         super(title);
-        this.map = map;
         init();
     }
 
@@ -38,7 +34,7 @@ public class Debug extends JFrame{
     }
     private class TimeStop implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            map.setTimeStop(!map.isTimeStop());
+            Map.getInstance().setTimeStop(!Map.getInstance().isTimeStop());
         }
     }
     private class CombatMenu implements ActionListener {
@@ -46,7 +42,7 @@ public class Debug extends JFrame{
             switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
                 case "gui.panel.OptionsMenu" :
                 case "gui.panel.PauseMenu" : {
-                    GUILoader.loadCombat(MainGUI.getMap(),MainGUI.getBattle());
+                    GUILoader.loadCombat(MainGUI.getBattle());
                     break;
                 }
                 default : {

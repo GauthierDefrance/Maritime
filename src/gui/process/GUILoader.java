@@ -1,7 +1,6 @@
 package gui.process;
 
 import battleengine.entity.Battle;
-import config.Map;
 import gui.MainGUI;
 import gui.panel.*;
 import javax.swing.JPanel;
@@ -24,8 +23,8 @@ public class GUILoader {
         menu.requestFocusInWindow();
     }
 
-    public static void loadMainGame(Map map){
-        actualise(new MainGameMenu(map));
+    public static void loadMainGame(){
+        actualise(new MainGameMenu());
     }
 
     public static void loadPauseMenu(int token){
@@ -48,7 +47,7 @@ public class GUILoader {
         actualise(new SaveFileMenu(token, 1));
     }
 
-    public static void loadCombat(Map map, Battle battle){
-        actualise(new CombatMenu(map, battle));
+    public static void loadCombat(Battle battle){
+        actualise(new CombatMenu(battle));
     }
 }

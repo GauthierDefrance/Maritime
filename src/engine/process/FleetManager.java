@@ -1,6 +1,5 @@
 package engine.process;
 
-import config.Map;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
 import engine.graph.GraphPoint;
@@ -14,14 +13,12 @@ import java.util.ArrayList;
  * @version 0.3
  */
 public class FleetManager {
-    private final Map map;
     private final BoatManager boatManager;
 
     /**
      * Initialize a FleetManager : a way to handle multiple boats with the same goal
      */
-    public FleetManager(Map map, BoatManager boatManager) {
-        this.map = map;
+    public FleetManager(BoatManager boatManager) {
         this.boatManager = boatManager;
     }
 

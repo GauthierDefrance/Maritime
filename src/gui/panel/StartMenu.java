@@ -1,7 +1,8 @@
 package gui.panel;
 
 import config.GameConfiguration;
-import config.Map;
+import engine.Map;
+import engine.process.EngineBuilder;
 import engine.process.FactionManager;
 import gui.process.GUILoader;
 import gui.process.JComponentBuilder;
@@ -10,7 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-import static gui.MainGUI.getMap;
 import static gui.MainGUI.getWindow;
 
 /**
@@ -36,8 +36,7 @@ public class StartMenu extends JPanel implements Runnable {
     private JPanel jPanel1 = new JPanel();
 
     private GameDisplay dashboard;
-    private Map map = Map.getNewInstance();
-    private FactionManager factionManager = new FactionManager(map);
+    private FactionManager factionManager = new FactionManager();
     private boolean ThreadStop;
 
     /**
@@ -52,9 +51,9 @@ public class StartMenu extends JPanel implements Runnable {
      * Makes all necessary operations to initialize the panel
      */
     public void init() {
-
+        EngineBuilder.mapInit(0);
         this.setLayout(new BorderLayout());
-        dashboard = new GameDisplay(map);
+        dashboard = new GameDisplay();
         jPanel1.setLayout(new BorderLayout());
         jPanel0.setLayout(new BorderLayout());
 
@@ -114,7 +113,7 @@ public class StartMenu extends JPanel implements Runnable {
         @Override
         public void actionPerformed(ActionEvent e) {
             ThreadStop = true;
-            GUILoader.loadMainGame(getMap());
+            GUILoader.loadMainGame();
         }
     }
 

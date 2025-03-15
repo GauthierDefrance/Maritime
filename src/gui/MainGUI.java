@@ -3,7 +3,8 @@ package gui;
 import battleengine.entity.Battle;
 import config.GameConfiguration;
 import config.GameOptions;
-import config.Map;
+import engine.Map;
+import engine.process.EngineBuilder;
 import gui.process.GUILoader;
 import saveSystem.process.OptSaveManager;
 import test.Debug;
@@ -21,7 +22,6 @@ import java.awt.*;
 public class MainGUI extends JFrame {
 
     private static Container window;
-    private static Map map;
     private static Debug debug;
     private static Battle battle;
 
@@ -31,12 +31,9 @@ public class MainGUI extends JFrame {
     }
 
     public void init() {
-        map = Map.getInstance();
-        debug = new Debug("Debug",map);
+        debug = new Debug("Debug");
         window = getContentPane();
         window.setLayout(new BorderLayout());
-
-        TestMove.addBaotTest(map);
 
         GameOptions.setInstance(OptSaveManager.create().loadParamFile());
         setSize(GameConfiguration.WINDOW_SIZE); /* setExtendedState(JFrame.MAXIMIZED_BOTH); setUndecorated(true);*/
@@ -55,14 +52,6 @@ public class MainGUI extends JFrame {
 
     public static Container getWindow() {
         return window;
-    }
-
-    public static Map getMap() {
-        return map;
-    }
-
-    public static void setMap(Map map) {
-        MainGUI.map = map;
     }
 
     public static void setBattle(Battle battle) {

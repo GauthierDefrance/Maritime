@@ -1,7 +1,7 @@
 package saveSystem.process;
 
 import config.GameConfiguration;
-import config.Map;
+import engine.Map;
 import saveSystem.GameSave;
 
 import java.io.*;
