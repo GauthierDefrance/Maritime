@@ -6,10 +6,19 @@ import engine.entity.boats.Fleet;
 
 import java.awt.*;
 
+/**
+ * Manager of the hunting behavior
+ * @author Gauthier Defrance
+ * @version 0.3
+ */
 public class HunterManager {
 
     private Battle battle;
 
+    /**
+     * Constructor of the HunterManager.
+     * @param battle {@link Battle} the data class
+     */
     public HunterManager(Battle battle) {
         this.battle = battle;
     }

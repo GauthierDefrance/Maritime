@@ -19,6 +19,10 @@ public class BattleManager {
     private PlacingManager placingManager;
     private BattleBoatManager battleBoatManager;
 
+    /**
+     * Constructor of the BattleManager.
+     * @param battle {@link Battle} the data class
+     */
     public BattleManager(Battle battle) {
         this.battle = new Battle(battle.getTeamA(), battle.getTeamB());
         this.placingManager = new PlacingManager(battle);
@@ -38,6 +42,10 @@ public class BattleManager {
     }
 
 
+    /**
+     * Method that "tick" the BattleManager,
+     * it synchronizes the battle.
+     */
     public void tick(){
         if(!this.battle.isInPlacingMode()){
             this.bulletManager.tick();

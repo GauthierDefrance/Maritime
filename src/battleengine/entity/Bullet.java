@@ -9,6 +9,7 @@ import java.awt.*;
  */
 public class Bullet {
 
+    private int tickAlive=0;
     private int speed;
     private int angle;
     private Point position;
@@ -73,5 +74,11 @@ public class Bullet {
     public void setPosition(Point position) {this.position = position;}
 
 
+    public int getTickAlive() {
+        return tickAlive;
+    }
 
+    public void setTickAlive(int tickAlive) {
+        this.tickAlive = tickAlive;
+    }
 }

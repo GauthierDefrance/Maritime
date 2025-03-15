@@ -11,9 +11,11 @@ import java.util.HashMap;
  * Class that represents a Battle, it contains 2 Fleet that represent
  * the two team of enemy that will fight.
  * @author Gauthier Defrance
- * @version 0.3
+ * @version 0.4
  */
 public class Battle {
+
+    private ArrayList<Bullet> LstBullets;
 
     private HashMap<Boat, Boat> HunterPreyHashMap;
 
@@ -49,6 +51,7 @@ public class Battle {
         this.LstBoatsToPlace = this.teamA.getArrayListBoat();
         this.LstBoatsCurrentlyBeingPlaced = new ArrayList<Boat>();
         this.HunterPreyHashMap = new HashMap<Boat, Boat>();
+        LstBullets=new ArrayList<Bullet>();
 
         for(Boat boat : this.teamA.getArrayListBoat()) {HunterPreyHashMap.put(boat, null);}
         for(Boat boat : this.teamB.getArrayListBoat()) {HunterPreyHashMap.put(boat, null);}
@@ -58,6 +61,8 @@ public class Battle {
         this.spawnzone = SpawnZoneFactory.buildDefaultSpawnZone();
         this.spawnzoneEnnemy = SpawnZoneFactory.buildDefaultEnnemySpawnZone();
         this.isInPlacingMode = true;
+
+
     }
 
     /**
@@ -151,9 +156,21 @@ public class Battle {
      */
     public boolean isInPlacingMode() { return isInPlacingMode; }
 
+    /**
+     * Gets the ArrayList of Bullet
+     */
+    public ArrayList<Bullet> getLstBullets(){return this.LstBullets;}
+
+
+    /**
+     * sets the ArrayList of Bullet
+     * @param LstBullets ArrayList<Bullet>
+     */
+    public void setLstBullets(ArrayList<Bullet> LstBullets){this.LstBullets = LstBullets;}
 
     /**
      * Sets the HunterPreyHashMap
+     * @param hashMap
      */
     public void setHunterPreyHashMap(HashMap<Boat, Boat> hashMap) { this.HunterPreyHashMap=hashMap;}
 
