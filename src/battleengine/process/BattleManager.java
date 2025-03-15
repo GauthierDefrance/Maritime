@@ -14,10 +14,11 @@ import java.util.ArrayList;
  */
 public class BattleManager {
 
-    private Battle battle;
-    private BulletManager bulletManager;
-    private PlacingManager placingManager;
-    private BattleBoatManager battleBoatManager;
+    private final Battle battle;
+    private final BulletManager bulletManager;
+    private final PlacingManager placingManager;
+    private final BattleBoatManager battleBoatManager;
+    private final HunterManager hunterManager;
 
     /**
      * Constructor of the BattleManager.
@@ -28,6 +29,7 @@ public class BattleManager {
         this.placingManager = new PlacingManager(battle);
         this.bulletManager = new BulletManager(battle);
         this.battleBoatManager = new BattleBoatManager(battle);
+        this.hunterManager = new HunterManager(battle);
     }
 
     public PlacingManager getPlacingManager() {return placingManager;}
@@ -49,10 +51,12 @@ public class BattleManager {
     public void tick(){
         if(!this.battle.isInPlacingMode()){
             this.bulletManager.tick();
+            this.battleBoatManager.tick();
+            this.hunterManager.ActualizeChase(); // DANGEREUX /!\
         }
     }
 
 
-
+    
 
 }

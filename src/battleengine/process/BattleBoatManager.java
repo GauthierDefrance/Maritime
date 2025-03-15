@@ -16,7 +16,7 @@ import java.util.HashMap;
  */
 public class BattleBoatManager {
 
-    private Battle battle;
+    private final Battle battle;
 
     /**
      * Constructor of the BattleBoatManager.

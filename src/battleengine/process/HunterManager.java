@@ -13,7 +13,7 @@ import java.awt.*;
  */
 public class HunterManager {
 
-    private Battle battle;
+    private final Battle battle;
 
     /**
      * Constructor of the HunterManager.

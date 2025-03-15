@@ -13,7 +13,7 @@ import java.awt.*;
  */
 public class PlacingManager {
 
-    private Battle battle;
+    private final Battle battle;
 
 
     /**

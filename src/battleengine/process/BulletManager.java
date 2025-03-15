@@ -11,7 +11,7 @@ import config.GameConfiguration;
  */
 public class BulletManager {
 
-    private Battle battle;
+    private final Battle battle;
 
     /**
      * Constructor of the BulletManager.
