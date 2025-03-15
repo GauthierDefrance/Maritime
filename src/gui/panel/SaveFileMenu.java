@@ -19,15 +19,12 @@ import static config.GameConfiguration.BUTTON_SEPARATOR;
 public class SaveFileMenu extends JPanel {
 
     private final int state; //decide if we're in a loading (0) or saving (1) state
+
     private final int token;
-    private GameSaveManager manager = GameSaveManager.create();
 
-    private JButton goBackButton;
-    private ArrayList<JButton> fileButtons;
+    private final GameSaveManager manager = GameSaveManager.create();
 
-    private JPanel saveLine1;
-    private JPanel saveLine2;
-    private JPanel menu;
+    private final ArrayList<JButton> fileButtons;
 
     public SaveFileMenu(int token, int state) {
         super();
@@ -53,11 +50,11 @@ public class SaveFileMenu extends JPanel {
             fileButtons.add(JComponentBuilder.menuButton(textSetter(manager.fetchSaveFile(i)), new SaveListener(i)));
         }
 
-        saveLine1 = JComponentBuilder.gridMenuPanel(1,3,BUTTON_SEPARATOR, BUTTON_SEPARATOR, fileButtons.get(0), fileButtons.get(1), fileButtons.get(2));
-        saveLine2 = JComponentBuilder.gridMenuPanel(1,3,BUTTON_SEPARATOR, BUTTON_SEPARATOR, fileButtons.get(3), fileButtons.get(4), fileButtons.get(5));
+        JPanel saveLine1 = JComponentBuilder.gridMenuPanel(1, 3, BUTTON_SEPARATOR, BUTTON_SEPARATOR, fileButtons.get(0), fileButtons.get(1), fileButtons.get(2));
+        JPanel saveLine2 = JComponentBuilder.gridMenuPanel(1, 3, BUTTON_SEPARATOR, BUTTON_SEPARATOR, fileButtons.get(3), fileButtons.get(4), fileButtons.get(5));
 
-        goBackButton = JComponentBuilder.menuButton("Cancel", new goBackButtonListener());
-        menu = JComponentBuilder.gridMenuPanel(3,1,BUTTON_SEPARATOR, BUTTON_SEPARATOR, saveLine1, saveLine2, goBackButton );
+        JButton goBackButton = JComponentBuilder.menuButton("Cancel", new goBackButtonListener());
+        JPanel menu = JComponentBuilder.gridMenuPanel(3, 1, BUTTON_SEPARATOR, BUTTON_SEPARATOR, saveLine1, saveLine2, goBackButton);
 
         this.add(menu, BorderLayout.CENTER);
         for (String position : new String[]{BorderLayout.NORTH, BorderLayout.SOUTH, BorderLayout.EAST, BorderLayout.WEST}) {

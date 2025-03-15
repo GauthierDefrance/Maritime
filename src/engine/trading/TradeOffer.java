@@ -1,6 +1,7 @@
 package engine.trading;
 
 import engine.entity.Harbor;
+import engine.entity.boats.Fleet;
 import engine.faction.Faction;
 import engine.process.FactionManager;
 
@@ -10,10 +11,12 @@ import java.util.HashMap;
 public class TradeOffer implements Serializable {
     private final Harbor startingHarbor;
     private final Harbor targetedHarbor;
+    private Fleet concernedFleet;
     private final Faction interlocutor;
     private final HashMap<Resource, Integer> selection;
     private final HashMap<Resource, Integer> demand;
     private boolean validation;
+    private boolean abandoned;
 
     private TradeOffer(Harbor A, Harbor B) {
         this.interlocutor = new FactionManager().getMyFaction(B.getColor());
@@ -22,6 +25,7 @@ public class TradeOffer implements Serializable {
         this.validation = false;
         this.selection = new HashMap<>();
         this.demand = new HashMap<>();
+        this.concernedFleet = new Fleet();
     }
 
     public static TradeOffer create(Harbor A, Harbor B) {
@@ -50,14 +54,30 @@ public class TradeOffer implements Serializable {
         return demand;
     }
 
+    public Fleet getConcernedFleet() {
+        return concernedFleet;
+    }
+
     public boolean isValid() {
         return validation;
     }
 
+    public boolean isAbandoned() {
+        return abandoned;
+    }
+
     //Setters
+
+    public void setConcernedFleet(Fleet concernedFleet) {
+        this.concernedFleet = concernedFleet;
+    }
 
     public void setValid(boolean validation) {
         this.validation = validation;
+    }
+
+    public void setAbandoned(boolean abandoned) {
+        this.abandoned = abandoned;
     }
 
     //Basic Logic

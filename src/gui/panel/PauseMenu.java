@@ -22,28 +22,7 @@ import static config.GameOptions.getInstance;
  */
 public class PauseMenu extends JPanel {
 
-    private int token;
-
-    private JPanel titleDisplay;
-    private JPanel creditsDisplay;
-
-    //Elements
-    private JLabel title;
-    private JLabel credits;
-    private JPanel buttonsDisplay;
-    private JPanel bigButtonDisplay;
-    private JPanel totalButtonDisplay;
-
-    //Regular Button
-    private JButton saveButton;
-    private JButton loadButton;
-    private JButton optionsButton;
-    private JButton mainMenuButton;
-
-    //Big Button
-    private JButton backToGameButton;
-    private JButton exitButton;
-    private JButton debugButton;
+    private final int token;
 
     /**
      * Generate the PauseMenu using a token and makes it appear
@@ -62,33 +41,36 @@ public class PauseMenu extends JPanel {
 
         this.setLayout(new BorderLayout());
 
-        title = JComponentBuilder.title("Maritime");
+        //Elements
+        JLabel title = JComponentBuilder.title("Maritime");
 
-        credits = JComponentBuilder.credits("A Game by Ammad Kenan, Defrance Gauthier & Zue Jack-Arthur");
+        JLabel credits = JComponentBuilder.credits("A Game by Ammad Kenan, Defrance Gauthier & Zue Jack-Arthur");
 
-        saveButton = JComponentBuilder.menuButton("Save game", new SaveMenuListener());
+        //Regular Button
+        JButton saveButton = JComponentBuilder.menuButton("Save game", new SaveMenuListener());
 
-        loadButton = JComponentBuilder.menuButton("Load game", new LoadMenuListener());
+        JButton loadButton = JComponentBuilder.menuButton("Load game", new LoadMenuListener());
 
-        optionsButton = JComponentBuilder.menuButton("Options", new OptionsMenuListener());
+        JButton optionsButton = JComponentBuilder.menuButton("Options", new OptionsMenuListener());
 
-        mainMenuButton = JComponentBuilder.menuButton("Main Menu", new MainMenuListener());
+        JButton mainMenuButton = JComponentBuilder.menuButton("Main Menu", new MainMenuListener());
 
-        backToGameButton = JComponentBuilder.menuButton("Back to game", new ResumeButtonListener());
+        //Big Button
+        JButton backToGameButton = JComponentBuilder.menuButton("Back to game", new ResumeButtonListener());
 
-        exitButton = JComponentBuilder.menuButton("Exit", new ExitListener());
+        JButton exitButton = JComponentBuilder.menuButton("Exit", new ExitListener());
 
-        debugButton = JComponentBuilder.menuButton("Debug Menu", new debugListener());
+        JButton debugButton = JComponentBuilder.menuButton("Debug Menu", new debugListener());
 
         debugButton.setVisible(getInstance().getShowDebug());
 
-        buttonsDisplay = JComponentBuilder.gridMenuPanel(2,2, GameConfiguration.BUTTON_SEPARATOR,GameConfiguration.BUTTON_SEPARATOR, saveButton, loadButton, optionsButton, mainMenuButton);
-        bigButtonDisplay = JComponentBuilder.gridMenuPanel(3,1,GameConfiguration.BUTTON_SEPARATOR,GameConfiguration.BUTTON_SEPARATOR, backToGameButton, exitButton, debugButton);
-        totalButtonDisplay = JComponentBuilder.gridMenuPanel(2,1,10, 10, buttonsDisplay, bigButtonDisplay);
+        JPanel buttonsDisplay = JComponentBuilder.gridMenuPanel(2, 2, GameConfiguration.BUTTON_SEPARATOR, GameConfiguration.BUTTON_SEPARATOR, saveButton, loadButton, optionsButton, mainMenuButton);
+        JPanel bigButtonDisplay = JComponentBuilder.gridMenuPanel(3, 1, GameConfiguration.BUTTON_SEPARATOR, GameConfiguration.BUTTON_SEPARATOR, backToGameButton, exitButton, debugButton);
+        JPanel totalButtonDisplay = JComponentBuilder.gridMenuPanel(2, 1, 10, 10, buttonsDisplay, bigButtonDisplay);
 
-        titleDisplay = JComponentBuilder.flowMenuPanel(title);
+        JPanel titleDisplay = JComponentBuilder.flowMenuPanel(title);
 
-        creditsDisplay = JComponentBuilder.flowMenuPanel(credits);
+        JPanel creditsDisplay = JComponentBuilder.flowMenuPanel(credits);
 
         this.addKeyListener(new KeyControls());
         this.add(titleDisplay, BorderLayout.NORTH);

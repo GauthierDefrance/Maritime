@@ -18,25 +18,11 @@ import static config.GameConfiguration.*;
  */
 public class OptionsMenu extends JPanel {
 
-    private int token;
+    private final int token;
 
-    private JButton goBackButton;
-
-    private JPanel optionDisplay;
-
-    private JPanel soundOptionPanel;
-    private JPanel soundPanel;
-    private JLabel soundLabel;
-    private JButton plusButton;
-    private JButton minusButton;
-
-    private JLabel muteLabel;
     private JButton muteButton;
-    private JPanel mutePanel;
 
-    private JLabel debugLabel;
     private JButton debugButton;
-    private JPanel debugPanel;
 
     /**
      * Build the OptionsMenu using a token
@@ -86,23 +72,23 @@ public class OptionsMenu extends JPanel {
 
         this.setLayout(new BorderLayout());
 
-        goBackButton = JComponentBuilder.menuButton("Go back", new goBackButtonListener());
+        JButton goBackButton = JComponentBuilder.menuButton("Go back", new goBackButtonListener());
 
-        soundLabel = JComponentBuilder.menuLabel("Sound Level");
-        plusButton = JComponentBuilder.menuButton("+", new plusButtonListener());
-        minusButton = JComponentBuilder.menuButton("-", new minusButtonListener());
-        soundOptionPanel = lineMaker(plusButton, minusButton);
-        soundPanel = lineMaker(soundLabel, soundOptionPanel);
+        JLabel soundLabel = JComponentBuilder.menuLabel("Sound Level");
+        JButton plusButton = JComponentBuilder.menuButton("+", new plusButtonListener());
+        JButton minusButton = JComponentBuilder.menuButton("-", new minusButtonListener());
+        JPanel soundOptionPanel = lineMaker(plusButton, minusButton);
+        JPanel soundPanel = lineMaker(soundLabel, soundOptionPanel);
 
-        muteLabel = JComponentBuilder.menuLabel("Mute");
+        JLabel muteLabel = JComponentBuilder.menuLabel("Mute");
         muteButton = JComponentBuilder.menuButton(textSetter(getInstance().getIsMuted()), new muteButtonListener());
-        mutePanel = lineMaker(muteLabel, muteButton);
+        JPanel mutePanel = lineMaker(muteLabel, muteButton);
 
-        debugLabel = JComponentBuilder.menuLabel("Debug Menu");
+        JLabel debugLabel = JComponentBuilder.menuLabel("Debug Menu");
         debugButton = JComponentBuilder.menuButton(textSetter(getInstance().getShowDebug()), new debugMenuListener());
-        debugPanel = lineMaker(debugLabel, debugButton);
+        JPanel debugPanel = lineMaker(debugLabel, debugButton);
 
-        optionDisplay = JComponentBuilder.gridMenuPanel(4,1, BUTTON_SEPARATOR, BUTTON_SEPARATOR, goBackButton, soundPanel, mutePanel, debugPanel);
+        JPanel optionDisplay = JComponentBuilder.gridMenuPanel(4, 1, BUTTON_SEPARATOR, BUTTON_SEPARATOR, goBackButton, soundPanel, mutePanel, debugPanel);
 
         this.addKeyListener(new KeyControls());
         this.add(optionDisplay, BorderLayout.CENTER);

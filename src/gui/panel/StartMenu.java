@@ -20,22 +20,12 @@ import static gui.MainGUI.getWindow;
  */
 public class StartMenu extends JPanel implements Runnable {
 
-    private JLabel title;
-    private JLabel credits;
+    private final JPanel jPanel0 = new JPanel();
 
-    private JButton newGame;
-    private JButton loadGame;
-    private JButton exit;
-    private JButton options;
-
-    private JPanel titleDisplay;
-    private JPanel creditsDisplay;
-    private JPanel buttonDisplay;
-    private JPanel jPanel0 = new JPanel();
-    private JPanel jPanel1 = new JPanel();
+    private final JPanel jPanel1 = new JPanel();
 
     private GameDisplay dashboard;
-    private FactionManager factionManager = new FactionManager();
+    private final FactionManager factionManager = new FactionManager();
     private boolean ThreadStop;
 
     /**
@@ -56,23 +46,23 @@ public class StartMenu extends JPanel implements Runnable {
         jPanel1.setLayout(new BorderLayout());
         jPanel0.setLayout(new BorderLayout());
 
-        title = JComponentBuilder.title("Maritime");
+        JLabel title = JComponentBuilder.title("Maritime");
 
-        credits = JComponentBuilder.credits("A Game by Ammad Kenan, Defrance Gauthier & Zue Jack-Arthur");
+        JLabel credits = JComponentBuilder.credits("A Game by Ammad Kenan, Defrance Gauthier & Zue Jack-Arthur");
 
-        newGame = JComponentBuilder.menuButton("New Game",new StartGameListener());
+        JButton newGame = JComponentBuilder.menuButton("New Game", new StartGameListener());
 
-        loadGame = JComponentBuilder.menuButton("Load Game",new LoadMenuListener());
+        JButton loadGame = JComponentBuilder.menuButton("Load Game", new LoadMenuListener());
 
-        options = JComponentBuilder.menuButton("Options", new OptionsMenuListener());
+        JButton options = JComponentBuilder.menuButton("Options", new OptionsMenuListener());
 
-        exit = JComponentBuilder.menuButton("Exit", new ExitListener());
+        JButton exit = JComponentBuilder.menuButton("Exit", new ExitListener());
 
-        titleDisplay = JComponentBuilder.flowMenuPanel(title);
+        JPanel titleDisplay = JComponentBuilder.flowMenuPanel(title);
 
-        creditsDisplay = JComponentBuilder.flowMenuPanel(credits);
+        JPanel creditsDisplay = JComponentBuilder.flowMenuPanel(credits);
 
-        buttonDisplay = JComponentBuilder.flowMenuPanel(newGame, loadGame, options, exit);
+        JPanel buttonDisplay = JComponentBuilder.flowMenuPanel(newGame, loadGame, options, exit);
 
         this.addKeyListener(new KeyControls());
         getWindow().addComponentListener(new ComponentControls());
@@ -91,7 +81,7 @@ public class StartMenu extends JPanel implements Runnable {
 
         jPanel0.add(dashboard,BorderLayout.CENTER);
         jPanel1.add(titleDisplay, BorderLayout.NORTH);
-        jPanel1.add( buttonDisplay, BorderLayout.CENTER);
+        jPanel1.add(buttonDisplay, BorderLayout.CENTER);
         jPanel1.add(creditsDisplay, BorderLayout.SOUTH);
 
         jLayeredPane.add(jPanel0,JLayeredPane.DEFAULT_LAYER);

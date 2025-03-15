@@ -19,19 +19,23 @@ public class TradeManager {
 
     private static TradeManager instance;
 
-    //Operation on Inventory
-
     /**
      * Initialize the TradeManager : class handling how trades should work between Entities (and by extension Factions)
      */
     private TradeManager() {}
 
+    /**
+     * Allows to fetch and use the TradeManager Singleton
+     * @return Instance of TradeManager
+     */
     public static TradeManager getInstance() {
         if (instance == null) {
             instance = new TradeManager();
         }
         return instance;
     }
+
+    //Operation on Inventory
 
     /**
      * Calculate the used space in an Inventory
@@ -146,15 +150,13 @@ public class TradeManager {
         return null;
     }
 
-    public SeaRoad proceed(Harbor A, Harbor B) {
-        TradeOffer currentOffer = TradeOffer.create(A, B);
-        boolean conclusion = false;
-        while (!conclusion) {
-            if (currentOffer.isValid())
-                conclusion = true;
-            else
-                calculateSuccessChance(currentOffer);
-        } return conclude(currentOffer);
-
+    public SeaRoad proceed(TradeOffer offer) {
+        while (true) {
+            if (offer.isValid()) {
+                return conclude(offer);
+            } else if (offer.isAbandoned()) {
+                return null;
+            }
+        }
     }
 }

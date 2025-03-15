@@ -1,4 +1,6 @@
 package gui.panel;
 
-public class TradeMenu {
+import javax.swing.*;
+
+public class TradeMenu extends JPanel {
 }

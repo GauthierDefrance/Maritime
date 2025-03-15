@@ -55,7 +55,7 @@ public class SeaRoad implements Serializable {
             this.buyResource = ressource;
         this.timer = Integer.MAX_VALUE;
         this.ratio = ratio;
-        this.fleet = new Fleet();
+        this.fleet = offer.getConcernedFleet();
     }
 
     //Getters

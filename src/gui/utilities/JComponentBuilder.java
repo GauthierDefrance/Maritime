@@ -153,6 +153,23 @@ public class JComponentBuilder {
         return newButton;
     }
 
+    public static JButton ImageButton(ImageIcon image) {
+        JButton newButton = new JButton(image);
+        newButton.setFocusable(false);
+        newButton.setBorderPainted(false);
+        newButton.setFocusPainted(false);
+        newButton.setContentAreaFilled(false);
+        loggerWrite("ImageButton Created");
+        return newButton;
+    }
+
+    public static JButton ImageButton(ImageIcon image, ActionListener action) {
+        JButton newButton = new JButton(image);
+        newButton.addActionListener(action);
+        loggerWrite("ImageButton ActionListener assigned > "+image.getClass().getName());
+        return newButton;
+    }
+
     /**
      * Build a JLabel accommodating game-menu Convention
      * @param text JLabel text
@@ -257,15 +274,15 @@ public class JComponentBuilder {
      * Build a GridLayout JPanel accommodating game-menu Convention
      * @param r number of rows
      * @param c number of columns
-     * @param hgap height gap between rows
-     * @param vgap width gap between rows
+     * @param heightGap height gap between rows
+     * @param widthGap width gap between rows
      * @see GridLayout
      * @return built JPanel
      */
-    public static JPanel gridMenuPanel(int r, int c,int hgap,int vgap) {
+    public static JPanel gridMenuPanel(int r, int c,int heightGap,int widthGap) {
         JPanel newPanel = new JPanel();
-        loggerWrite("gridMenuPanel r="+r+" c="+c+" hgap="+hgap+" vgap="+vgap);
-        newPanel.setLayout(new GridLayout(r, c,hgap,vgap));
+        loggerWrite("gridMenuPanel r="+r+" c="+c+" heightGap="+heightGap+" widthGap="+widthGap);
+        newPanel.setLayout(new GridLayout(r, c,heightGap,widthGap));
         return newPanel;
     }
 
@@ -273,15 +290,17 @@ public class JComponentBuilder {
      * Build a GridLayout JPanel accommodating game-menu Convention
      * @param r number of rows
      * @param c number of columns
+     * @param heightGap height gap between rows
+     * @param widthGap width gap between rows
      * @param components other components that must be present within the JPanel
      * @see GridLayout
      * @return built JPanel
      */
-    public static JPanel gridMenuPanel(int r, int c,int hgap,int vgap, JComponent... components) {
-        JPanel newPanel = gridMenuPanel(r,c,hgap,vgap);
+    public static JPanel gridMenuPanel(int r, int c,int heightGap,int widthGap, JComponent... components) {
+        JPanel newPanel = gridMenuPanel(r,c,heightGap,widthGap);
         for (JComponent component : components) {
             newPanel.add(component);
-            loggerWrite("gridMenuPanel r="+r+" c="+c+" hgap="+hgap+" vgap="+vgap,component.getClass().getName()+" Object assigned name "+component.getName());
+            loggerWrite("gridMenuPanel r="+r+" c="+c+" heightGap="+heightGap+" widthGap="+widthGap,component.getClass().getName()+" Object assigned name "+component.getName());
         } return newPanel;
     }
 
