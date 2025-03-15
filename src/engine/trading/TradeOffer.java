@@ -1,6 +1,5 @@
 package engine.trading;
 
-import java.util.Random;
 
 public class TradeOffer {
     private Resource proposedResource;
@@ -8,9 +7,11 @@ public class TradeOffer {
     private int proposedNumber;
     private int targetedNumber;
     private int relationship;
+    private boolean successful;
 
     private TradeOffer(int relationship) {
         this.relationship = relationship;
+        this.successful = false;
     }
 
     public TradeOffer create(int relationship) {
@@ -39,6 +40,10 @@ public class TradeOffer {
         return relationship;
     }
 
+    public boolean getSuccessful() {
+        return successful;
+    }
+
     // Setters
 
     public void setProposed(Resource proposed) {
@@ -59,6 +64,10 @@ public class TradeOffer {
 
     public void setRelationship(int relationship) {
         this.relationship = relationship;
+    }
+
+    public void setSuccessful(boolean successful) {
+        this.successful = successful;
     }
 
     // Utilities

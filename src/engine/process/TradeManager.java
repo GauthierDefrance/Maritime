@@ -100,4 +100,14 @@ public class TradeManager {
 
         return successChance * 100; // Convert to percentage
     }
+
+    /**
+     * Determine if the trade is successful based on the success chance
+     * @param offer the TradeOffer to evaluate
+     */
+    public void rollForSuccessChance(TradeOffer offer) {
+        double successChance = calculateSuccessChance(offer);
+        double roll = new Random().nextDouble() * 100;
+        offer.setSuccessful(roll <= successChance);
+    }
 }
