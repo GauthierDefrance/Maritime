@@ -1,7 +1,5 @@
 package engine.trading;
 
-import engine.faction.Faction;
-
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -11,6 +9,7 @@ import java.util.HashMap;
  * @author Zue Jack-Arthur
  */
 public class Inventory implements Serializable {
+
     private HashMap<Resource, Integer> content;
     private int capacity;
 
@@ -37,20 +36,26 @@ public class Inventory implements Serializable {
      * Allows fetching of the content of the Inventory
      * @return complete content of the Inventory
      */
-    public HashMap<Resource, Integer> getContent(){ return this.content; }
+    public HashMap<Resource, Integer> getContent(){
+        return this.content;
+    }
 
     /**
      *Allows fetching of the number of elements of a targeted Resources in the Inventory
      * @param elem name of the Resource element
      * @return number of contained elements of the mentioned Resource or 0 if Resource isn't present
      */
-    public int getNbResource(Resource elem){ return this.content.getOrDefault(elem, 0); }
+    public int getNbResource(Resource elem){
+        return this.content.getOrDefault(elem, 0);
+    }
 
     /**
      * Allows fetching of the total capacity of the inventory
      * @return capacity of the inventory
      */
-    public int getCapacity() { return this.capacity; }
+    public int getCapacity() {
+        return this.capacity;
+    }
 
     //Setters
 
@@ -59,33 +64,43 @@ public class Inventory implements Serializable {
      * @param elem name of the Resource element
      * @param nbResource number of elements that must be in the inventory
      */
-    public void setNbResource(Resource elem, int nbResource) { this.content.put(elem, nbResource); }
+    public void setNbResource(Resource elem, int nbResource) {
+        this.content.put(elem, nbResource);
+    }
 
     /**
      * Allows for a modification of the capacity of the Inventory
      * @param capacity new maximum capacity of the Inventory
      */
-    public void setCapacity( int capacity ) { this.capacity = capacity; }
+    public void setCapacity( int capacity ) {
+        this.capacity = capacity;
+    }
 
     //Basic ressource management behavior
 
     /**
      * Allows for a complete clear of the Inventory
      */
-    public void clearContent() { this.content.clear(); }
+    public void clearContent() {
+        this.content.clear();
+    }
 
     /**
      * Default addition behavior
      * @param elem name of the Resource element
      * @param nb number of elements that must be added
      */
-    public void add(Resource elem, int nb){ this.content.put(elem, getNbResource(elem) + nb); }
+    public void add(Resource elem, int nb){
+        this.content.put(elem, getNbResource(elem) + nb);
+    }
 
     /**
      * Default subtraction behavior
      * @param elem name of the Resource element
      * @param nb number of elements that must be subtracted
      */
-    public void subtract(Resource elem, int nb){ this.content.put(elem, getNbResource(elem) - nb); }
+    public void subtract(Resource elem, int nb){
+        this.content.put(elem, getNbResource(elem) - nb);
+    }
     
 }

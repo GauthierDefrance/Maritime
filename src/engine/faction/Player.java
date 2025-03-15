@@ -15,7 +15,6 @@ public class Player extends Faction {
         vision = new ArrayList<>();
     }
 
-
     public ArrayList<Boat> getVision() {
         return vision;
     }

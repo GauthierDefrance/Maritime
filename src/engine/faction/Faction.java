@@ -20,6 +20,7 @@ public class Faction implements Serializable {
     private ArrayList<SeaRoad> lstSeaRouts;
     private ArrayList<Fleet> lstFleet;
     private String color;
+    private int relationship;
 
     public Faction(String color){
         this.lstBoat = new ArrayList<>();
@@ -27,19 +28,34 @@ public class Faction implements Serializable {
         this.lstSeaRouts = new ArrayList<>();
         this.lstFleet = new ArrayList<>();
         this.color = color;
+        this.relationship = 0;
     }
 
     //Getters
 
-    public ArrayList<Boat> getLstBoat() {return lstBoat;}
+    public ArrayList<Boat> getLstBoat() {
+        return lstBoat;
+    }
 
-    public ArrayList<Harbor> getLstHarbor() {return lstHarbor;}
+    public ArrayList<Harbor> getLstHarbor() {
+        return lstHarbor;
+    }
 
-    public ArrayList<SeaRoad> getLstSeaRouts() {return lstSeaRouts;}
+    public ArrayList<SeaRoad> getLstSeaRouts() {
+        return lstSeaRouts;
+    }
 
-    public ArrayList<Fleet> getLstFleet() {return lstFleet;}
+    public ArrayList<Fleet> getLstFleet() {
+        return lstFleet;
+    }
 
-    public String getColor() {return color;}
+    public String getColor() {
+        return color;
+    }
+
+    public int getRelationship() {
+        return relationship;
+    }
 
     //Setters
 
@@ -56,6 +72,10 @@ public class Faction implements Serializable {
     public void setLstFleet(ArrayList<Fleet> lstFleet) {this.lstFleet = lstFleet;}
 
     public void setColor(String color) {this.color = color;}
+
+    public void setRelationship(int relationship) {
+        this.relationship = relationship;
+    }
 
     //Content Handler
 

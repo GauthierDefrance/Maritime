@@ -20,6 +20,7 @@ public class SaveFileMenu extends JPanel {
 
     private final int state; //decide if we're in a loading (0) or saving (1) state
     private final int token;
+    private GameSaveManager manager = GameSaveManager.create();
 
     private JButton goBackButton;
     private ArrayList<JButton> fileButtons;
@@ -49,7 +50,7 @@ public class SaveFileMenu extends JPanel {
         this.setLayout(new BorderLayout());
         this.addKeyListener(new KeyControls());
         for (int i = 0; i < 6; i++) {
-            fileButtons.add(JComponentBuilder.menuButton(textSetter(GameSaveManager.getInstance().fetchSaveFile(i)), new SaveListener(i)));
+            fileButtons.add(JComponentBuilder.menuButton(textSetter(manager.fetchSaveFile(i)), new SaveListener(i)));
         }
 
         saveLine1 = JComponentBuilder.gridMenuPanel(1,3,BUTTON_SEPARATOR, BUTTON_SEPARATOR, fileButtons.get(0), fileButtons.get(1), fileButtons.get(2));
@@ -72,18 +73,18 @@ public class SaveFileMenu extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            GameSave save = GameSaveManager.getInstance().fetchSaveFile(fileID);
+            GameSave save = manager.fetchSaveFile(fileID);
             if (state == 1){
                 String msg;
                 if (save == null) {
-                    msg = GameSaveManager.getInstance().saveNewGame(fileID);
+                    msg = manager.saveNewGame(fileID);
                 } else {
-                    msg = GameSaveManager.getInstance().overwriteSaveFile(save);
+                    msg = manager.overwriteSaveFile(save);
                 } JOptionPane.showMessageDialog(SaveFileMenu.this, msg, "", JOptionPane.INFORMATION_MESSAGE);
                 fileButtons.get(fileID).setText("GameSave0"+fileID+".ser");
             } else if (state == 0) {
                 if (save != null) {
-                    GameSaveManager.getInstance().loadGame(save);
+                    manager.loadGame(save);
                 }
             }
         }

@@ -22,7 +22,6 @@ public class FactionManager {
     private final BoatManager boatManager;
     private final HarborManager harborManager;
     private final FleetManager fleetManager;
-    private final TradeManager tradeManager;
     private final SeaRoadManager seaRoutManager;
     private ArrayList<Boat[]> lstAttackBoat;
 
@@ -32,10 +31,9 @@ public class FactionManager {
     public FactionManager() {
         this.playerManager = new PlayerManager();
         this.boatManager = new BoatManager();
-        this.tradeManager = new TradeManager();
         this.harborManager = new HarborManager();
         this.fleetManager = new FleetManager(boatManager);
-        this.seaRoutManager = new SeaRoadManager(this.harborManager,tradeManager,this.fleetManager, this.boatManager);
+        this.seaRoutManager = new SeaRoadManager(this.harborManager,this.fleetManager, this.boatManager);
         this.lstAttackBoat = new ArrayList<>();
     }
 

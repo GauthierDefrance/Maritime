@@ -1,93 +1,113 @@
 package engine.trading;
 
+import engine.entity.Harbor;
+import engine.faction.Faction;
+import engine.process.FactionManager;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 public class TradeOffer implements Serializable {
-    private Resource proposedResource;
-    private Resource targetedResource;
-    private int proposedNumber;
-    private int targetedNumber;
-    private int relationship;
-    private boolean successful;
+    private final Harbor startingHarbor;
+    private final Harbor targetedHarbor;
+    private final Faction interlocutor;
+    private final HashMap<Resource, Integer> selection;
+    private final HashMap<Resource, Integer> demand;
+    private boolean validation;
 
-    private TradeOffer(int relationship) {
-        this.relationship = relationship;
-        this.successful = false;
+    private TradeOffer(Harbor A, Harbor B) {
+        this.interlocutor = new FactionManager().getMyFaction(B.getColor());
+        this.startingHarbor = A;
+        this.targetedHarbor = B;
+        this.validation = false;
+        this.selection = new HashMap<>();
+        this.demand = new HashMap<>();
     }
 
-    public TradeOffer create(int relationship) {
-        return new TradeOffer(relationship);
+    public static TradeOffer create(Harbor A, Harbor B) {
+        return new TradeOffer(A, B);
     }
 
-    // Getters
+    //Getters
 
-    public Resource getProposed() {
-        return proposedResource;
+    public Harbor getStartingHarbor() {
+        return startingHarbor;
     }
 
-    public Resource getTargetedResource() {
-        return targetedResource;
+    public Harbor getTargetedHarbor() {
+        return targetedHarbor;
     }
 
-    public int getProposedNumber() {
-        return proposedNumber;
+    public Faction getInterlocutor() {
+        return interlocutor;
     }
 
-    public int getTargetedNumber() {
-        return targetedNumber;
+    public HashMap<Resource, Integer> getSelection() {
+        return selection;
     }
 
-    public int getRelationship() {
-        return relationship;
+    public HashMap<Resource, Integer> getDemand() {
+        return demand;
     }
 
-    public boolean getSuccessful() {
-        return successful;
+    public boolean isValid() {
+        return validation;
     }
 
-    // Setters
+    //Setters
 
-    public void setProposed(Resource proposed) {
-        this.proposedResource = proposed;
+    public void setValid(boolean validation) {
+        this.validation = validation;
     }
 
-    public void setTargetedResource(Resource targetedResource) {
-        this.targetedResource = targetedResource;
+    //Basic Logic
+
+    public void defineSelection(Resource selection) {
+        if (this.selection.isEmpty()) {
+            this.selection.put(selection, 0);
+        }
     }
 
-    public void setProposedNumber(int proposedNumber) {
-        this.proposedNumber = proposedNumber;
+    public void defineDemand(Resource demand) {
+        if (this.demand.isEmpty()) {
+            this.demand.put(demand, 0);
+        }
     }
 
-    public void setTargetedNumber(int targetedNumber) {
-        this.targetedNumber = targetedNumber;
+
+    private int getNbResource(HashMap<Resource, Integer> side, Resource element) {
+        return side.getOrDefault(element, 0);
     }
 
-    public void setRelationship(int relationship) {
-        this.relationship = relationship;
+    public void addToSelection(Resource resource, int quantity) {
+        if (this.selection.containsKey(resource)) {
+            this.selection.put(resource, this.selection.get(resource) + quantity);
+        }
     }
 
-    public void setSuccessful(boolean successful) {
-        this.successful = successful;
+    public void removeFromSelection(Resource resource, int quantity) {
+        if (this.selection.containsKey(resource)) {
+            this.selection.put(resource, this.selection.get(resource) - quantity);
+        }
     }
 
-    // Utilities
-
-    /**
-     * Calculate the offered value of a side in a trade
-     * @param resource Object designated by the trade
-     * @return indicative value of the offer
-     */
-    private int offeredValue(Resource resource, int correspondingNumber) {
-        return resource.getValue() * correspondingNumber;
+    public void clearSelection() {
+        this.selection.clear();
     }
 
-    /**
-     * Calculate the ratio between the value of proposed and targeted resources
-     * @return ratio
-     */
-    public double getRatio() {
-        return (double) offeredValue(proposedResource, proposedNumber) / offeredValue(targetedResource, targetedNumber);
+    public void addToDemand(Resource resource, int quantity) {
+        if (this.demand.containsKey(resource)) {
+            this.demand.put(resource, this.demand.get(resource) + quantity);
+        }
+    }
+
+    public void removeFromDemand(Resource resource, int quantity) {
+        if (this.demand.containsKey(resource)) {
+            this.demand.put(resource, getNbResource(demand, resource) - quantity);
+        }
+    }
+
+    public void clearDemand() {
+        this.demand.clear();
     }
 }

@@ -5,10 +5,8 @@ import engine.entity.Harbor;
 import engine.entity.boats.Boat;
 import engine.trading.SeaRoad;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 /**
  * @author Kenan Ammad
@@ -57,10 +55,10 @@ public class PaintEntity {
      * It paints a timer seaRoad that needs to be painted on 2D graphics
      */
     public void paint(SeaRoad seaRoad, Graphics2D g2d){
-        BufferedImage sprite = ImageStock.getImage(seaRoad.getBuyerHarbor());
+        BufferedImage sprite = ImageStock.getImage(seaRoad.getTargetHarbor());
         g2d.setColor(Color.darkGray);
         g2d.setFont(new Font("time20",Font.PLAIN,20));
-        if(sprite!=null)g2d.drawString(seaRoad.getStringTimer(),(int) (seaRoad.getBuyerHarbor().getPosition().getX())- (g2d.getFontMetrics().stringWidth(seaRoad.getStringTimer())/2), (int) (seaRoad.getBuyerHarbor().getPosition().getY())-(sprite.getHeight() / 2)-5);
+        if(sprite!=null)g2d.drawString(seaRoad.getStringTimer(),(int) (seaRoad.getTargetHarbor().getPosition().getX())- (g2d.getFontMetrics().stringWidth(seaRoad.getStringTimer())/2), (int) (seaRoad.getTargetHarbor().getPosition().getY())-(sprite.getHeight() / 2)-5);
         g2d.setColor(Color.black);
     }
 

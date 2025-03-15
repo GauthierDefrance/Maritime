@@ -1,24 +1,37 @@
 package engine.process;
 
 import engine.entity.Entity;
+import engine.entity.Harbor;
 import engine.trading.Inventory;
 import engine.trading.Resource;
+import engine.trading.SeaRoad;
 import engine.trading.TradeOffer;
 
+import java.util.HashMap;
 import java.util.Random;
 
 /**
  * A class handling how trades should work between Entities (and by extension Factions)
- * @author Kenan Ammad
  * @author Zue Jack-Arthur
- * @version 0.2
+ * @version 0.3
  */
 public class TradeManager {
+
+    private static TradeManager instance;
+
+    //Operation on Inventory
 
     /**
      * Initialize the TradeManager : class handling how trades should work between Entities (and by extension Factions)
      */
-    public TradeManager() {}
+    private TradeManager() {}
+
+    public static TradeManager getInstance() {
+        if (instance == null) {
+            instance = new TradeManager();
+        }
+        return instance;
+    }
 
     /**
      * Calculate the used space in an Inventory
@@ -83,31 +96,65 @@ public class TradeManager {
         } return false;
     }
 
+    //Operation on TradeOffer
+
+    public int CalculateValue(HashMap<Resource, Integer> list) {
+        int sum = 0;
+        for (Resource resource : list.keySet()) {
+            sum += resource.getValue() * list.get(resource);
+        } return sum;
+    }
+
+    public double getRatio(TradeOffer offer) {
+        return (double) CalculateValue(offer.getSelection()) /CalculateValue(offer.getDemand());
+    }
+
     /**
      * Calculate the chance of success for a trade --TO BE IMPROVED--
      * @return success chance as a percentage
      */
     public double calculateSuccessChance(TradeOffer offer) {
-        double ratio = offer.getRatio();
+        double ratio = getRatio(offer);
         // Generate a random factor between 0.5 and 1.0
         double randomFactor = 0.5 + (new Random().nextDouble() * 0.5);
 
         // Normalize the relationship factor to a range between 0.5 and 1.5
-        double relationshipModifier = 1 + (offer.getRelationship() / 200.0); // -100 => 0.5, 0 => 1.0, 100 => 1.5
+        double relationshipModifier = 1 + (offer.getInterlocutor().getRelationship() / 200.0); // -100 => 0.5, 0 => 1.0, 100 => 1.5
 
         // Calculate success chance
         double successChance = Math.max(0, Math.min(1, (ratio * randomFactor * relationshipModifier)));
 
-        return successChance * 100; // Convert to percentage
+        return successChance * 100;
     }
 
     /**
      * Determine if the trade is successful based on the success chance
      * @param offer the TradeOffer to evaluate
      */
-    public void rollForSuccessChance(TradeOffer offer) {
+    public boolean rollForSuccessChance(TradeOffer offer) {
         double successChance = calculateSuccessChance(offer);
         double roll = new Random().nextDouble() * 100;
-        offer.setSuccessful(roll <= successChance);
+        return (roll <= successChance);
+    }
+
+    public SeaRoad conclude(TradeOffer offer) {
+        if (rollForSuccessChance(offer)) {
+            return new SeaRoad(offer, getRatio(offer));
+        } else {
+            offer.getInterlocutor().setRelationship(offer.getInterlocutor().getRelationship() - 20);
+        }
+        return null;
+    }
+
+    public SeaRoad proceed(Harbor A, Harbor B) {
+        TradeOffer currentOffer = TradeOffer.create(A, B);
+        boolean conclusion = false;
+        while (!conclusion) {
+            if (currentOffer.isValid())
+                conclusion = true;
+            else
+                calculateSuccessChance(currentOffer);
+        } return conclude(currentOffer);
+
     }
 }

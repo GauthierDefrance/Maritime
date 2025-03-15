@@ -19,23 +19,23 @@ public class SeaRoad implements Serializable {
     private ArrayList<GraphPoint> path;
     private Fleet fleet;
     private final Harbor sellerHarbor;
-    private final Harbor buyerHarbor;
-    private final Resource buyResource;
-    private final Resource soldResource;
+    private final Harbor targetHarbor;
+    private Resource buyResource;
+    private Resource soldResource;
     private final double ratio;
 
-    public SeaRoad(int timer, Harbor sellerHarbor, Harbor buyerHarbor, Resource buyResource, Resource soldResource, double ratio){
+    public SeaRoad(int timer, Harbor sellerHarbor, Harbor targetHarbor, Resource buyResource, Resource soldResource, double ratio){
         this.timer = timer;
         this.buyResource = buyResource;
         this.soldResource = soldResource;
         this.ratio = ratio;
-        this.path = SearchInGraph.findPath(sellerHarbor.getGraphPosition(), buyerHarbor.getGraphPosition());
+        this.path = SearchInGraph.findPath(sellerHarbor.getGraphPosition(), targetHarbor.getGraphPosition());
         this.fleet = new Fleet();
         this.sellerHarbor = sellerHarbor;
-        this.buyerHarbor = buyerHarbor;
+        this.targetHarbor = targetHarbor;
     }
 
-    public SeaRoad(int timer, Harbor sellerHarbor, Harbor buyerHarbor, ArrayList<GraphPoint> path, Resource buyResource, Resource soldResource, double ratio){
+    public SeaRoad(int timer, Harbor sellerHarbor, Harbor targetHarbor, ArrayList<GraphPoint> path, Resource buyResource, Resource soldResource, double ratio){
         this.timer = timer;
         this.path = path;
         this.buyResource = buyResource;
@@ -43,7 +43,19 @@ public class SeaRoad implements Serializable {
         this.ratio = ratio;
         this.fleet = new Fleet();
         this.sellerHarbor = sellerHarbor;
-        this.buyerHarbor = buyerHarbor;
+        this.targetHarbor = targetHarbor;
+    }
+
+    public SeaRoad(TradeOffer offer, double ratio){
+        this.sellerHarbor = offer.getStartingHarbor();
+        this.targetHarbor = offer.getTargetedHarbor();
+        for (Resource ressource : offer.getSelection().keySet())
+            this.soldResource = ressource;
+        for (Resource ressource : offer.getDemand().keySet())
+            this.buyResource = ressource;
+        this.timer = Integer.MAX_VALUE;
+        this.ratio = ratio;
+        this.fleet = new Fleet();
     }
 
     //Getters
@@ -54,7 +66,7 @@ public class SeaRoad implements Serializable {
 
     public Harbor getSellerHarbor() {return sellerHarbor;}
 
-    public Harbor getBuyerHarbor() {return buyerHarbor;}
+    public Harbor getTargetHarbor() {return targetHarbor;}
 
     public double getRatio() { return ratio; }
 
