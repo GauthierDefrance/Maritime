@@ -78,4 +78,7 @@ public final class GameConfiguration {
     public static final double BOAT_ROTATION_SPEED=5;
     public static final int DEFAULT_SHOOT_DISTANCE=150;
 
+    public static final int DEFAULT_BULLET_SPEED=150;
+    public static final double DEFAULT_BULLET_FRICTION=1.15;
+
 }

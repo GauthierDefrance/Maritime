@@ -14,7 +14,12 @@ import java.awt.*;
 public class PlacingManager {
 
     private Battle battle;
-    
+
+
+    /**
+     * Constructor of the PlacingManager.
+     * @param battle {@link Battle} the data class
+     */
     public PlacingManager(Battle battle) {
         this.battle = battle;
     }

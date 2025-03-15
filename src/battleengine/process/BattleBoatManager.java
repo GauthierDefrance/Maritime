@@ -18,6 +18,10 @@ public class BattleBoatManager {
 
     private Battle battle;
 
+    /**
+     * Constructor of the BattleBoatManager.
+     * @param battle {@link Battle} the data class
+     */
     public BattleBoatManager(Battle battle) {
         this.battle = battle;
     }
