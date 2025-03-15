@@ -25,8 +25,10 @@ public class Debug extends JFrame{
 
         JButton timeStop = JComponentBuilder.menuButton("timeStop",new TimeStop());
         JButton combatMenu = JComponentBuilder.menuButton("CombatMenu",new CombatMenu());
+        JButton RelationMenu = JComponentBuilder.menuButton("RelationMenu", new RelationMenu());
         contentPane.add(timeStop);
         contentPane.add(combatMenu);
+        contentPane.add(RelationMenu);
         setFocusable(false);
         setLocationRelativeTo(null);
         setSize(360, 360);
@@ -35,6 +37,13 @@ public class Debug extends JFrame{
     private class TimeStop implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             Map.getInstance().setTimeStop(!Map.getInstance().isTimeStop());
+        }
+    }
+
+    private class RelationMenu implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            GUILoader.loadRelationMenu();
         }
     }
     private class CombatMenu implements ActionListener {

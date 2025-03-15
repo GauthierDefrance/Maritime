@@ -47,6 +47,10 @@ public class GUILoader {
         actualise(new SaveFileMenu(token, 1));
     }
 
+    public static void loadRelationMenu(){
+        actualise(new RelationMenu());
+    }
+
     public static void loadCombat(Battle battle){
         actualise(new CombatMenu(battle));
     }

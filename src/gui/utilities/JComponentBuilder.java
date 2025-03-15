@@ -10,6 +10,8 @@ import org.apache.log4j.Logger;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 /**
@@ -159,9 +161,16 @@ public class JComponentBuilder {
         newButton.setBorderPainted(false);
         newButton.setFocusPainted(false);
         newButton.setContentAreaFilled(false);
+
+        // Log button creation
         loggerWrite("ImageButton Created");
+
+        // Set up hover effect
+        newButton.addMouseListener(new HoverEffectListener(newButton));
+
         return newButton;
     }
+
 
     public static JButton ImageButton(ImageIcon image, ActionListener action) {
         JButton newButton = new JButton(image);
@@ -204,6 +213,10 @@ public class JComponentBuilder {
         JLabel newLabel = new JLabel(text);
         newLabel.setFont(GameConfiguration.TITLE_FONT);
         return newLabel;
+    }
+
+    public static JLabel ImageLabel(ImageIcon image) {
+        return new JLabel(image);
     }
 
     /**
@@ -315,4 +328,25 @@ public class JComponentBuilder {
         newPanel.setLayout(new BorderLayout());
         return newPanel;
     }
+
+    public static class HoverEffectListener extends MouseAdapter {
+        private final JButton button;
+
+        public HoverEffectListener(JButton button) {
+            this.button = button;
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            // Enable border when hovered
+            button.setBorderPainted(true);
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            // Disable border when not hovered
+            button.setBorderPainted(false);
+        }
+    }
+
 }
