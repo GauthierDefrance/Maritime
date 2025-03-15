@@ -1,4 +1,4 @@
-package gui.process;
+package gui.utilities;
 
 import battleengine.entity.Battle;
 import gui.MainGUI;

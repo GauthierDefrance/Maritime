@@ -2,8 +2,8 @@ package gui.panel;
 
 import config.GameConfiguration;
 import gui.MainGUI;
-import gui.process.GUILoader;
-import gui.process.JComponentBuilder;
+import gui.utilities.GUILoader;
+import gui.utilities.JComponentBuilder;
 import gui.process.ListenerBehaviorManager;
 
 import javax.swing.*;
@@ -93,6 +93,7 @@ public class PauseMenu extends JPanel {
         this.addKeyListener(new KeyControls());
         this.add(titleDisplay, BorderLayout.NORTH);
         this.add(totalButtonDisplay, BorderLayout.CENTER);
+
         this.add(JComponentBuilder.voidPanel(), BorderLayout.EAST);
         this.add(JComponentBuilder.voidPanel(), BorderLayout.WEST);
         this.add(creditsDisplay, BorderLayout.SOUTH);

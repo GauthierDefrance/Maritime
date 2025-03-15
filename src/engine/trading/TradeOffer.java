@@ -1,7 +1,9 @@
 package engine.trading;
 
 
-public class TradeOffer {
+import java.io.Serializable;
+
+public class TradeOffer implements Serializable {
     private Resource proposedResource;
     private Resource targetedResource;
     private int proposedNumber;

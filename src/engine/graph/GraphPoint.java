@@ -1,6 +1,7 @@
 package engine.graph;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.HashMap;
 
 
@@ -13,7 +14,7 @@ import java.util.HashMap;
  * @see GraphPoint
  * @version 0.2
  */
-public class GraphPoint {
+public class GraphPoint implements Serializable {
     private final Point point;
     private final String idPoint;
     private HashMap<String,GraphSegment> SegmentHashMap;

@@ -1,11 +1,10 @@
 package gui.panel;
 
 import config.GameConfiguration;
-import engine.Map;
 import engine.process.EngineBuilder;
 import engine.process.FactionManager;
-import gui.process.GUILoader;
-import gui.process.JComponentBuilder;
+import gui.utilities.GUILoader;
+import gui.utilities.JComponentBuilder;
 import gui.process.ListenerBehaviorManager;
 import javax.swing.*;
 import java.awt.*;

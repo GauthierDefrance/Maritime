@@ -1,6 +1,8 @@
-package engine.graph;
+package engine.utilities;
 
 import engine.entity.boats.Boat;
+import engine.graph.GraphPoint;
+import engine.graph.GraphSegment;
 
 import java.util.ArrayList;
 

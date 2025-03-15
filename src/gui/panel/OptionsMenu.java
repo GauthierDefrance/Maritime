@@ -1,7 +1,7 @@
 package gui.panel;
 
 
-import gui.process.JComponentBuilder;
+import gui.utilities.JComponentBuilder;
 import gui.process.ListenerBehaviorManager;
 import saveSystem.process.OptSaveManager;
 import javax.swing.*;
@@ -106,10 +106,9 @@ public class OptionsMenu extends JPanel {
 
         this.addKeyListener(new KeyControls());
         this.add(optionDisplay, BorderLayout.CENTER);
-        this.add(JComponentBuilder.voidPanel(), BorderLayout.NORTH);
-        this.add(JComponentBuilder.voidPanel(), BorderLayout.SOUTH);
-        this.add(JComponentBuilder.voidPanel(), BorderLayout.WEST);
-        this.add(JComponentBuilder.voidPanel(), BorderLayout.EAST);
+        for (String position : new String[]{BorderLayout.NORTH, BorderLayout.SOUTH, BorderLayout.EAST, BorderLayout.WEST}) {
+            this.add(JComponentBuilder.voidPanel(), position);
+        }
 
     }
 

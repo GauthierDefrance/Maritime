@@ -3,7 +3,7 @@ package engine.process;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
 import engine.graph.GraphPoint;
-import engine.graph.SearchInGraph;
+import engine.utilities.SearchInGraph;
 
 import java.util.ArrayList;
 

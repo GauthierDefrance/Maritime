@@ -4,6 +4,7 @@ import static config.GameConfiguration.*;
 
 import engine.Map;
 import gui.MainGUI;
+import gui.utilities.GUILoader;
 
 import javax.swing.*;
 

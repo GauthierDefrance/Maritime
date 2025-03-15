@@ -6,13 +6,14 @@ import engine.faction.Player;
 import engine.graph.GraphPoint;
 import gui.process.PopUp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
  * @author Kenan Ammad
  * @version 0.3
  */
-public class Map {
+public class Map implements Serializable {
     private static Map instance;
     private HashMap<String, GraphPoint> mapGraphPoint;
     private ArrayList<Harbor> lstHarbor;

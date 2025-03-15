@@ -1,8 +1,10 @@
 package gui.panel;
 
 
-import gui.process.JComponentBuilder;
+import gui.utilities.JComponentBuilder;
 import gui.process.ListenerBehaviorManager;
+import saveSystem.GameSave;
+import saveSystem.process.GameSaveManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,53 +12,81 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+
 import static config.GameConfiguration.BUTTON_SEPARATOR;
 
 public class SaveFileMenu extends JPanel {
 
-    private int state; //decide if we're in a loading or saving state
-    private int token;
+    private final int state; //decide if we're in a loading (0) or saving (1) state
+    private final int token;
 
     private JButton goBackButton;
-    private JButton file1;
-    private JButton file2;
-    private JButton file3;
-    private JButton file4;
-    private JButton file5;
-    private JButton file6;
+    private ArrayList<JButton> fileButtons;
 
-    private JPanel savefile;
-    private JPanel savefile2;
+    private JPanel saveLine1;
+    private JPanel saveLine2;
     private JPanel menu;
 
     public SaveFileMenu(int token, int state) {
         super();
         this.token = token;
         this.state = state;
+        this.fileButtons = new ArrayList<>();
         init();
+    }
+
+    //Utilities
+
+    private String textSetter(GameSave save) {
+        if (save == null) {
+            return "Pas de sauvegarde";
+        }
+        return save.getName();
     }
 
     public void init(){
         this.setLayout(new BorderLayout());
         this.addKeyListener(new KeyControls());
+        for (int i = 0; i < 6; i++) {
+            fileButtons.add(JComponentBuilder.menuButton(textSetter(GameSaveManager.getInstance().fetchSaveFile(i)), new SaveListener(i)));
+        }
 
-        file1 = JComponentBuilder.menuButton("");
-        file2 = JComponentBuilder.menuButton("");
-        file3 = JComponentBuilder.menuButton("");
-        file4 = JComponentBuilder.menuButton("");
-        file5 = JComponentBuilder.menuButton("");
-        file6 = JComponentBuilder.menuButton("");
-        savefile = JComponentBuilder.gridMenuPanel(1,3,BUTTON_SEPARATOR, BUTTON_SEPARATOR, file1, file2, file3);
-        savefile2 = JComponentBuilder.gridMenuPanel(1,3,BUTTON_SEPARATOR, BUTTON_SEPARATOR, file4, file5, file6);
+        saveLine1 = JComponentBuilder.gridMenuPanel(1,3,BUTTON_SEPARATOR, BUTTON_SEPARATOR, fileButtons.get(0), fileButtons.get(1), fileButtons.get(2));
+        saveLine2 = JComponentBuilder.gridMenuPanel(1,3,BUTTON_SEPARATOR, BUTTON_SEPARATOR, fileButtons.get(3), fileButtons.get(4), fileButtons.get(5));
 
         goBackButton = JComponentBuilder.menuButton("Cancel", new goBackButtonListener());
-        menu = JComponentBuilder.gridMenuPanel(3,1,BUTTON_SEPARATOR, BUTTON_SEPARATOR,savefile,savefile2, goBackButton );
+        menu = JComponentBuilder.gridMenuPanel(3,1,BUTTON_SEPARATOR, BUTTON_SEPARATOR, saveLine1, saveLine2, goBackButton );
 
-        this.add(JComponentBuilder.voidPanel(), BorderLayout.NORTH);
         this.add(menu, BorderLayout.CENTER);
-        this.add(JComponentBuilder.voidPanel(), BorderLayout.SOUTH);
-        this.add(JComponentBuilder.voidPanel(), BorderLayout.EAST);
-        this.add(JComponentBuilder.voidPanel(), BorderLayout.WEST);
+        for (String position : new String[]{BorderLayout.NORTH, BorderLayout.SOUTH, BorderLayout.EAST, BorderLayout.WEST}) {
+            this.add(JComponentBuilder.voidPanel(), position);
+        }
+    }
+
+    public class SaveListener implements ActionListener {
+        private final int fileID;
+        public SaveListener(int fileID) {
+            this.fileID = fileID;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            GameSave save = GameSaveManager.getInstance().fetchSaveFile(fileID);
+            if (state == 1){
+                String msg;
+                if (save == null) {
+                    msg = GameSaveManager.getInstance().saveNewGame(fileID);
+                } else {
+                    msg = GameSaveManager.getInstance().overwriteSaveFile(save);
+                } JOptionPane.showMessageDialog(SaveFileMenu.this, msg, "", JOptionPane.INFORMATION_MESSAGE);
+                fileButtons.get(fileID).setText("GameSave0"+fileID+".ser");
+            } else if (state == 0) {
+                if (save != null) {
+                    GameSaveManager.getInstance().loadGame(save);
+                }
+            }
+        }
     }
 
     public class goBackButtonListener implements ActionListener {

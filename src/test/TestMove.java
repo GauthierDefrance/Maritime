@@ -3,7 +3,7 @@ package test;
 import battleengine.entity.Battle;
 import engine.Map;
 import engine.entity.boats.*;
-import engine.graph.SearchInGraph;
+import engine.utilities.SearchInGraph;
 import engine.process.FactionManager;
 import engine.trading.Resource;
 import engine.trading.SeaRoad;

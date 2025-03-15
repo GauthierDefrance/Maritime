@@ -1,12 +1,14 @@
 package engine.graph;
 
+import java.io.Serializable;
+
 /**
  * @author Kenan Ammad
  * @author Gauthier Defrance
  * Classe GraphSegment
  * @version 0.2
  */
-public class GraphSegment {
+public class GraphSegment implements Serializable {
     private final GraphPoint destination;
     private int cost;
 

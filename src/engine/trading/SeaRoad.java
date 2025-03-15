@@ -5,15 +5,16 @@ import engine.entity.Harbor;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
 import engine.graph.GraphPoint;
-import engine.graph.SearchInGraph;
+import engine.utilities.SearchInGraph;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * @author Kenan Ammad
  * @version 0.1
  */
-public class SeaRoad {
+public class SeaRoad implements Serializable {
     private int timer;
     private ArrayList<GraphPoint> path;
     private Fleet fleet;

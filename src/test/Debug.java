@@ -2,8 +2,8 @@ package test;
 
 import engine.Map;
 import gui.MainGUI;
-import gui.process.GUILoader;
-import gui.process.JComponentBuilder;
+import gui.utilities.GUILoader;
+import gui.utilities.JComponentBuilder;
 
 import javax.swing.*;
 import java.awt.*;

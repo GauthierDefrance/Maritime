@@ -1,12 +1,14 @@
 package engine.trading;
 
+import java.io.Serializable;
+
 /**
  * Class relative to the notion of Resources : tradable objects linked with the notion of inventory
  * @see Inventory
  * @author Zue Jack-Arthur
  * @version 0.1
  */
-public class Resource {
+public class Resource implements Serializable {
     private String name;
     private int value;
     private double productionRate;

@@ -1,8 +1,9 @@
-package gui.process;
+package gui.utilities;
 
 import config.GameConfiguration;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
+import gui.process.ImageStock;
 import log.LoggerUtility;
 import org.apache.log4j.Logger;
 
