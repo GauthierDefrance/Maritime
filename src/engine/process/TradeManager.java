@@ -1,8 +1,11 @@
 package engine.process;
 
-import engine.entity.EntityInterface;
+import engine.entity.Entity;
 import engine.trading.Inventory;
 import engine.trading.Resource;
+import engine.trading.TradeOffer;
+
+import java.util.Random;
 
 /**
  * A class handling how trades should work between Entities (and by extension Factions)
@@ -16,16 +19,6 @@ public class TradeManager {
      * Initialize the TradeManager : class handling how trades should work between Entities (and by extension Factions)
      */
     public TradeManager() {}
-
-    /**
-     * Calculate the offered value of a side in a trade
-     * @param resource Resource designated by the trade
-     * @param nb number of elements to trade
-     * @return indicative value of the offer
-     */
-    public int offerValue(Resource resource, int nb){
-        return resource.getValue() * nb;
-    }
 
     /**
      * Calculate the used space in an Inventory
@@ -83,10 +76,28 @@ public class TradeManager {
      * @param target receiving Entity
      * @return boolean indicating the success or failure of the operation
      */
-    public boolean transfer(Resource resource, int nb, EntityInterface source, EntityInterface target){
+    public boolean transfer(Resource resource, int nb, Entity source, Entity target){
         if (safeSubtract(source.getInventory(), resource, nb)){
             if (safeAdd(target.getInventory(), resource, nb)) return true;
             else {source.getInventory().add(resource,nb);} //Compensate for the failure to safeAdd the designated number of ressource
         } return false;
+    }
+
+    /**
+     * Calculate the chance of success for a trade --TO BE IMPROVED--
+     * @return success chance as a percentage
+     */
+    public double calculateSuccessChance(TradeOffer offer) {
+        double ratio = offer.getRatio();
+        // Generate a random factor between 0.5 and 1.0
+        double randomFactor = 0.5 + (new Random().nextDouble() * 0.5);
+
+        // Normalize the relationship factor to a range between 0.5 and 1.5
+        double relationshipModifier = 1 + (offer.getRelationship() / 200.0); // -100 => 0.5, 0 => 1.0, 100 => 1.5
+
+        // Calculate success chance
+        double successChance = Math.max(0, Math.min(1, (ratio * randomFactor * relationshipModifier)));
+
+        return successChance * 100; // Convert to percentage
     }
 }

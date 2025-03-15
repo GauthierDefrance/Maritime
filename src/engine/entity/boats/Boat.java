@@ -1,6 +1,6 @@
 package engine.entity.boats;
 
-import engine.entity.EntityInterface;
+import engine.entity.Entity;
 import engine.graph.GraphPoint;
 import engine.trading.Inventory;
 import engine.trading.Resource;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author Zue Jack-Arthur
  * @version 0.2
  */
-public abstract class Boat implements EntityInterface {
+public abstract class Boat implements Entity {
     private String name;
     private String color;
     private double visionRadius;
