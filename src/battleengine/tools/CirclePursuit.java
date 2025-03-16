@@ -14,13 +14,7 @@ public final class CirclePursuit {
      */
     public static Point getPointToFollow(Boat hunter, Boat prey){
 
-        // Streamliner ceci ??
-        double x1 = hunter.getPosition().getX();
-        double y1 = hunter.getPosition().getY();
-        double x2 = prey.getPosition().getX();
-        double y2 = prey.getPosition().getY();
-        double angle = Math.atan2(y1 - y2, x1 - x2);
-        // -----
+        double angle = AngleCalculator.calculateAngle(hunter, prey);
 
         int SHOOT_DISTANCE = config.GameConfiguration.DEFAULT_SHOOT_DISTANCE;
 

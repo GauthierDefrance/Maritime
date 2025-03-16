@@ -44,6 +44,8 @@ public final class DeepCopy {
                     continue;
                 }
             }
+            tmp.setNextGraphPoint(null);
+            tmp.setOldGraphPoint(null);
             output.add(tmp);
         }
         return output;

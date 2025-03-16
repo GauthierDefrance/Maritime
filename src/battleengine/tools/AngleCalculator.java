@@ -22,10 +22,10 @@ public final class AngleCalculator {
      * @return
      */
     public static double calculateAngle(Point origin, Point direction){
-        double x1 = direction.getX();
-        double y1 = direction.getY();
-        double x2 = origin.getX();
-        double y2 = origin.getY();
+        double x1 = origin.getX();
+        double y1 = origin.getY();
+        double x2 = direction.getX();
+        double y2 = direction.getY();
         //Angle in RADIAN
         return Math.atan2(y1 - y2, x1 - x2);
     }

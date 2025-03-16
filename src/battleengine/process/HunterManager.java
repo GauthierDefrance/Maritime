@@ -42,7 +42,7 @@ public class HunterManager {
             for(Boat hunter : hunterFleet.getArrayListBoat()){
                 prey = this.battle.getHunterPreyHashMap().get(hunter);
                 if(prey==null){
-                    searchClosestPrey(hunter, preyFleet);
+                    this.battle.getHunterPreyHashMap().put(hunter,searchClosestPrey(hunter, preyFleet));
                 } else if (prey.getCurrentHp()<1){
                     this.battle.getHunterPreyHashMap().put(hunter, null);
                 }

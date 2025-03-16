@@ -76,12 +76,16 @@ public class BattleBoatManager {
      * @param point A {@link Point} object
      */
     private static void turnBoat(Boat boat, Point point){
-        double angle = AngleCalculator.calculateAngle(point, boat);
+        double angle = AngleCalculator.calculateAngle(boat, point);
         angle = angle - boat.getAngle();
         angle = (angle + Math.PI) % (2 * Math.PI) - Math.PI;
-        if(angle>0){
+
+        if(Math.abs(angle)<GameConfiguration.BOAT_ROTATION_SPEED){
+            boat.setAngle(boat.getAngle()+angle);
+        }
+        else if(angle>0){
             boat.setAngle(boat.getAngle() - GameConfiguration.BOAT_ROTATION_SPEED);
-        } else if (angle<=0) {
+        } else {
             boat.setAngle(boat.getAngle() + GameConfiguration.BOAT_ROTATION_SPEED);
         }
 
