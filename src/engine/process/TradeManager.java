@@ -1,7 +1,6 @@
 package engine.process;
 
 import engine.entity.Entity;
-import engine.entity.Harbor;
 import engine.trading.Inventory;
 import engine.trading.Resource;
 import engine.trading.SeaRoad;
@@ -57,6 +56,13 @@ public class TradeManager {
         return inventory.getCapacity() - totalUsedSpace(inventory);
     }
 
+    public Resource identifyResource(String elem, Inventory inventory){
+        for (Resource el : inventory.getContent().keySet()){
+            if (elem.equals(el.getName()))
+                return el;
+        } return null;
+    }
+
     /**
      * Check if the conditions are met to add a number of elements to the Inventory, and if so proceed to do it
      * @param inventory targeted Inventory
@@ -102,10 +108,17 @@ public class TradeManager {
 
     //Operation on TradeOffer
 
-    public int CalculateValue(HashMap<Resource, Integer> list) {
+    public HashMap<Resource, Integer> Transform(HashMap<Resource, Integer> side, Resource resource, int quantity) {
+        HashMap<Resource, Integer> temp = side;
+        temp.clear();
+        temp.put(resource, quantity);
+        return temp;
+    }
+
+    public int CalculateValue(HashMap<Resource, Integer> side) {
         int sum = 0;
-        for (Resource resource : list.keySet()) {
-            sum += resource.getValue() * list.get(resource);
+        for (Resource resource : side.keySet()) {
+            sum += resource.getValue() * side.get(resource);
         } return sum;
     }
 

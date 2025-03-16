@@ -9,10 +9,7 @@ import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 
 /**
  * Class containing methods to build (Components)
@@ -329,7 +326,7 @@ public class JComponentBuilder {
         return newPanel;
     }
 
-    public static class HoverEffectListener extends MouseAdapter {
+    private static class HoverEffectListener extends MouseAdapter {
         private final JButton button;
 
         public HoverEffectListener(JButton button) {

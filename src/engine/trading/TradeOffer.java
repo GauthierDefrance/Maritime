@@ -11,10 +11,10 @@ import java.util.HashMap;
 public class TradeOffer implements Serializable {
     private final Harbor startingHarbor;
     private final Harbor targetedHarbor;
-    private Fleet concernedFleet;
     private final Faction interlocutor;
-    private final HashMap<Resource, Integer> selection;
-    private final HashMap<Resource, Integer> demand;
+    private Fleet concernedFleet;
+    private HashMap<Resource, Integer> selection;
+    private HashMap<Resource, Integer> demand;
     private boolean validation;
     private boolean abandoned;
 
@@ -68,6 +68,14 @@ public class TradeOffer implements Serializable {
 
     //Setters
 
+    public void setSelection(HashMap<Resource, Integer> selection) {
+        this.selection = selection;
+    }
+
+    public void setDemand(HashMap<Resource, Integer> demand) {
+        this.demand = demand;
+    }
+
     public void setConcernedFleet(Fleet concernedFleet) {
         this.concernedFleet = concernedFleet;
     }
@@ -82,52 +90,9 @@ public class TradeOffer implements Serializable {
 
     //Basic Logic
 
-    public void defineSelection(Resource selection) {
-        if (this.selection.isEmpty()) {
-            this.selection.put(selection, 0);
-        }
-    }
-
     public void defineDemand(Resource demand) {
         if (this.demand.isEmpty()) {
             this.demand.put(demand, 0);
         }
-    }
-
-
-    private int getNbResource(HashMap<Resource, Integer> side, Resource element) {
-        return side.getOrDefault(element, 0);
-    }
-
-    public void addToSelection(Resource resource, int quantity) {
-        if (this.selection.containsKey(resource)) {
-            this.selection.put(resource, this.selection.get(resource) + quantity);
-        }
-    }
-
-    public void removeFromSelection(Resource resource, int quantity) {
-        if (this.selection.containsKey(resource)) {
-            this.selection.put(resource, this.selection.get(resource) - quantity);
-        }
-    }
-
-    public void clearSelection() {
-        this.selection.clear();
-    }
-
-    public void addToDemand(Resource resource, int quantity) {
-        if (this.demand.containsKey(resource)) {
-            this.demand.put(resource, this.demand.get(resource) + quantity);
-        }
-    }
-
-    public void removeFromDemand(Resource resource, int quantity) {
-        if (this.demand.containsKey(resource)) {
-            this.demand.put(resource, getNbResource(demand, resource) - quantity);
-        }
-    }
-
-    public void clearDemand() {
-        this.demand.clear();
     }
 }

@@ -1,6 +1,7 @@
 package gui.utilities;
 
 import battleengine.entity.Battle;
+import engine.trading.TradeOffer;
 import gui.MainGUI;
 import gui.panel.*;
 import javax.swing.JPanel;
@@ -13,7 +14,7 @@ import java.awt.*;
  */
 public class GUILoader {
 
-    public static void actualise(JPanel menu){
+    private static void actualise(JPanel menu){
         Container window = MainGUI.getWindow();
         window.removeAll();
         window.add(menu);
@@ -53,5 +54,9 @@ public class GUILoader {
 
     public static void loadCombat(Battle battle){
         actualise(new CombatMenu(battle));
+    }
+
+    public static void loadFleetManagingMenu(TradeOffer offer){
+        actualise(new FleetManagingMenu());
     }
 }
