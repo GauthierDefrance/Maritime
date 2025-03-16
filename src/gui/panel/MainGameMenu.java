@@ -259,8 +259,10 @@ public class MainGameMenu extends JPanel implements Runnable {
                 factionManager.nextRound();
             }
             dashboard.repaint();
-            PaintPopUp.popUpNextFrame();
             dashboard.getPaintBackGround().setIFrame((dashboard.getPaintBackGround().getIFrame() + 1) % GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES);
+            for (PopUp popUp : Map.getInstance().getLstPopUp()) {
+                popUp.addIFrame(1);
+            }
         }
     }
 }

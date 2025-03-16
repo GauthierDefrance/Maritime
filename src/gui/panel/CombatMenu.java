@@ -10,6 +10,7 @@ import engine.graph.GraphPoint;
 import gui.MainGUI;
 import gui.process.ImageStock;
 import gui.process.PaintPopUp;
+import gui.process.PopUp;
 import gui.utilities.GUILoader;
 import gui.utilities.JComponentBuilder;
 import javax.swing.*;
@@ -237,8 +238,10 @@ public class CombatMenu extends JPanel implements Runnable {
             if (!Map.getInstance().isTimeStop()){
             }
             dashboard.repaint();
-            PaintPopUp.popUpNextFrame();
             dashboard.getPaintBackGround().setIFrame((dashboard.getPaintBackGround().getIFrame() + 1) % GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES);
+            for (PopUp popUp : Map.getInstance().getLstPopUp()) {
+                popUp.addIFrame(1);
+            }
         }
     }
 }

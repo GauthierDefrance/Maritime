@@ -1,8 +1,10 @@
 package gui.panel;
 
 import config.GameConfiguration;
+import engine.Map;
 import engine.process.EngineBuilder;
 import engine.process.FactionManager;
+import gui.process.PopUp;
 import gui.utilities.GUILoader;
 import gui.utilities.JComponentBuilder;
 import gui.process.ListenerBehaviorManager;
@@ -182,6 +184,10 @@ public class StartMenu extends JPanel implements Runnable {
             }
             factionManager.nextRound();
             dashboard.repaint();
+            dashboard.getPaintBackGround().setIFrame((dashboard.getPaintBackGround().getIFrame() + 1) % GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES);
+            for (PopUp popUp : Map.getInstance().getLstPopUp()) {
+                popUp.addIFrame(1);
+            }
         }
     }
 }

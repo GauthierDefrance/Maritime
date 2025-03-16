@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import static config.GameConfiguration.BUTTON_SEPARATOR;
-import static gui.utilities.LoreBuilder.buildLoreTextPane;
+//import static gui.utilities.LoreBuilder.buildLoreTextPane;
 
 public class RelationMenu extends JPanel {
     private JLabel factionLogo;
@@ -32,8 +32,8 @@ public class RelationMenu extends JPanel {
         declareWar = JComponentBuilder.menuButton("Declare War");
         JPanel basicInteraction = JComponentBuilder.gridMenuPanel(2, 1, BUTTON_SEPARATOR, BUTTON_SEPARATOR, proposeTrade, declareWar);
         factionLogo = JComponentBuilder.ImageLabel(new ImageIcon(GameConfiguration.IMG_FILE_PATH + "/boat/standard.png"));
-        factionLore = buildLoreTextPane();
-        factionStats = buildLoreTextPane();
+//        factionLore = buildLoreTextPane();
+//        factionStats = buildLoreTextPane();
 
         OtherRelationButtons = new ArrayList<>();
         JPanel otherRelationsPanel = new JPanel();
