@@ -37,7 +37,7 @@ public class BulletManager {
     }
 
     /**
-     *
+     * Method that move and decelerate at the same time all the bullets.
      */
     public void moveAllBullets() {
         for(Bullet bullet: this.battle.getLstBullets()) {
@@ -47,7 +47,7 @@ public class BulletManager {
     }
 
     /**
-     *
+     * Method that move a Bullet
      * @param bullet {@link Bullet}
      */
     private void moveBullet(Bullet bullet) {
@@ -59,7 +59,7 @@ public class BulletManager {
     }
 
     /**
-     *
+     * method that reduce the speed of a bullet and increase the counter of it being alive
      * @param bullet {@link Bullet}
      */
     private void decelerateBullet(Bullet bullet) {
@@ -89,7 +89,8 @@ public class BulletManager {
     }
 
     /**
-     *
+     * Method that check the collision of the bullet with
+     * all the boats in Battle.
      */
     public void collideAll(){
         for(Bullet bullet: this.battle.getLstBullets()) {
@@ -113,6 +114,7 @@ public class BulletManager {
 
     /**
      * Return an array list of boat that collide
+     * Check for friendly fire.
      * @param bullet {@link Bullet}
      * @param fleet {@link Fleet}
      * @return {@link Boat}
