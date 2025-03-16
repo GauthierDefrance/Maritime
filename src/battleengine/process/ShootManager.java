@@ -33,20 +33,11 @@ public class ShootManager {
      * Then try to make each boats shoot.
      */
     public void tick(){
-        reloadAllBoats();
         shootFleet(this.battle.getBoatsInBattleA(), this.battle.getBoatsInBattleB());
         shootFleet(this.battle.getBoatsInBattleB(), this.battle.getBoatsInBattleA());
     }
 
 
-    /**
-     * Method that make all the boats reloads the guns.
-     */
-    private void reloadAllBoats(){
-        for(Boat boat :this.battle.getReloadingHashMap().keySet()){
-            reload(boat);
-        }
-    }
 
     /**
      * Make all the boat in a fleet try to shoot another fleet.
@@ -56,15 +47,17 @@ public class ShootManager {
     private void shootFleet(Fleet fleet, Fleet preyFleet) {
         Boat tmp;
         for (Boat hunter : fleet.getArrayListBoat()) {
-            tmp = this.battle.getHunterPreyHashMap().get(hunter);
-            if (tmp != null && isShootable(hunter,tmp,AngleCalculator.calculateAngle(hunter, tmp))) {
-                //prioirité à la proie
-                tryshoot(hunter, tmp);
-            } else if (isReadyToShot(hunter)) {
-                //priorité au plus proche
-                tmp = getShootableFirstBoat(hunter, preyFleet);
-                if (tmp != null) {
-                    shoot(hunter, tmp, AngleCalculator.calculateAngle(hunter, tmp));
+            if (isReadyToShot(hunter)){
+                tmp = this.battle.getHunterPreyHashMap().get(hunter);
+                if(tmp != null && isShootable(hunter, tmp, AngleCalculator.calculateAngle(hunter, tmp))) {
+                    //prioirité à la proie
+                    tryshoot(hunter, tmp);
+                } else{
+                    //priorité au plus proche
+                    tmp = getShootableFirstBoat(hunter, preyFleet);
+                    if (tmp != null) {
+                        shoot(hunter, tmp, AngleCalculator.calculateAngle(hunter, tmp));
+                    }
                 }
             }
         }
@@ -77,7 +70,7 @@ public class ShootManager {
      */
     private void tryshoot(Boat hunter, Boat prey){
         double angle = 0;
-        if(isShootable(hunter, prey, angle)&&isReadyToShot(hunter)){
+        if(isShootable(hunter, prey, angle)){
             shoot(hunter, prey, angle);
             this.battle.getReloadingHashMap().put(hunter,0);
         }
@@ -162,24 +155,18 @@ public class ShootManager {
 
     /**
      * Method that check if a boat has reloaded his gun.
-     * @param boat {@link Boat}
-     * @return {@link Boolean}
+     * @param boat
+     * @return  Boolean
      */
     private boolean isReadyToShot(Boat boat){
-        int tmp = boat.getDamageSpeed();
-        return tmp < this.battle.getReloadingHashMap().get(boat);
-    }
-
-
-    /**
-     * Method that try to reload a gun.
-     * @param boat {@link Boat}
-     */
-    private void reload(Boat boat){
-        int tmp = boat.getDamageSpeed();
         int result = this.battle.getReloadingHashMap().get(boat);
-        if(!(tmp < result)){
-            this.battle.getReloadingHashMap().put(boat, result+1);
+        if(boat.getDamageSpeed() > result){
+            this.battle.getReloadingHashMap().put(boat, GameConfiguration.RELOAD_TIME);
+            return true;
+        }
+        else {
+            this.battle.getReloadingHashMap().put(boat, result-1);
+            return false;
         }
     }
 

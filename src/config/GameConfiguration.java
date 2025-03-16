@@ -25,6 +25,7 @@ public final class GameConfiguration {
 
 
     //-------- Boats Stats --------
+    public static final int RELOAD_TIME = 20;
         // -> Global Stat
             public static final double BOAT_ROTATION_SPEED=0.0174533;
             public static final double HITBOX_BOAT = 80;
@@ -34,7 +35,7 @@ public final class GameConfiguration {
             public static final double STANDARD_VISION_RADIUS = 300;
             public static final double STANDARD_HP = 100;
             public static final double STANDARD_SPEED = 5;
-            public static final double STANDARD_DAMAGE_SPEED = 50;
+            public static final double STANDARD_DAMAGE_SPEED = 5;
             public static final double STANDARD_INVENTORY_SIZE = 100;
 
         // -> Fodder Stat
@@ -64,7 +65,7 @@ public final class GameConfiguration {
 
     //-------- Bullets Stats --------
         //-> Global Stats
-            public static final int DEFAULT_BULLET_SPEED=150;
+            public static final int DEFAULT_BULLET_SPEED=25;
             public static final double DEFAULT_BULLET_FRICTION=1.15;
             public static final int DAMAGE_PER_BULLET = 1;
 

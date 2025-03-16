@@ -1,6 +1,7 @@
 package battleengine.entity;
 import battleengine.factory.SpawnZoneFactory;
 import battleengine.tools.DeepCopy;
+import config.GameConfiguration;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
 
@@ -60,11 +61,11 @@ public class Battle {
 
         for(Boat boat : this.teamA.getArrayListBoat()) {
             HunterPreyHashMap.put(boat, null);
-            ReloadingHashMap.put(boat, 0);
+            ReloadingHashMap.put(boat, GameConfiguration.RELOAD_TIME);
         }
         for(Boat boat : this.teamB.getArrayListBoat()) {
             HunterPreyHashMap.put(boat, null);
-            ReloadingHashMap.put(boat, 0);
+            ReloadingHashMap.put(boat, GameConfiguration.RELOAD_TIME);
         }
 
         this.BoatsInBattleA= new Fleet();
