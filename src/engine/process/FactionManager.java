@@ -190,4 +190,8 @@ public class FactionManager {
     public BoatManager getBoatManager(){
         return boatManager;
     }
+
+    public HarborManager getHarborManager(){
+        return harborManager;
+    }
 }
