@@ -22,14 +22,15 @@ public class shootManager {
 
     /**
      *
-     * @param battle
+     * @param battle {@link Battle}
      */
     public shootManager(Battle battle) {
         this.battle = battle;
     }
 
     /**
-     *
+     * Reload the gun of each boats
+     * Then try to make each boats shoot.
      */
     public void tick(){
         reloadAllBoats();
@@ -39,49 +40,53 @@ public class shootManager {
 
 
     /**
-     *
-     * @param fleet
-     * @param preyFleet
+     * Method that make all the boats reloads the guns.
      */
-    private void shootFleet(Fleet fleet, Fleet preyFleet){
-        Boat tmp;
-        for(Boat hunter : fleet.getArrayListBoat()){
-            tmp = this.battle.getHunterPreyHashMap().get(hunter);
-            if(tmp!=null){
-                //prioirité à la proie
-                tryshoot(hunter, tmp);
-            }
-            else {
-                //priorité au plus proche
-                if(isReadyToShot(hunter)){
-                    tmp = getShootableFirstBoat(hunter, preyFleet);
-                    shoot(hunter, tmp , AngleCalculator.calculateAngle(hunter, tmp));
-                }
-
-            }
-
+    private void reloadAllBoats(){
+        for(Boat boat :this.battle.getReloadingHashMap().keySet()){
+            reload(boat);
         }
-
     }
 
     /**
-     *
-     * @param hunter
-     * @param prey
+     * Make all the boat in a fleet try to shoot another fleet.
+     * @param fleet {@link Fleet}
+     * @param preyFleet {@link Fleet}
+     */
+    private void shootFleet(Fleet fleet, Fleet preyFleet) {
+        Boat tmp;
+        for (Boat hunter : fleet.getArrayListBoat()) {
+            tmp = this.battle.getHunterPreyHashMap().get(hunter);
+            if (tmp != null) {
+                //prioirité à la proie
+                tryshoot(hunter, tmp);
+            } else if (isReadyToShot(hunter)) {
+                //priorité au plus proche
+                tmp = getShootableFirstBoat(hunter, preyFleet);
+                shoot(hunter, tmp, AngleCalculator.calculateAngle(hunter, tmp));
+            }
+        }
+    }
+
+    /**
+     * Try to make a hunter shoot a prey.
+     * @param hunter {@link Boat}
+     * @param prey {@link Boat}
      */
     private void tryshoot(Boat hunter, Boat prey){
         double angle = 0;
         if(isShootable(hunter, prey, angle)&&isReadyToShot(hunter)){
             shoot(hunter, prey, angle);
+            this.battle.getReloadingHashMap().put(hunter,0);
         }
     }
 
 
     /**
-     *
-     * @param hunter
-     * @param fleet
-     * @return
+     * Get the first shootable boat in a Fleet
+     * @param hunter {@link Boat}
+     * @param fleet {@link Fleet}
+     * @return {@link Boat}
      */
     private Boat getShootableFirstBoat(Boat hunter, Fleet fleet){
         Boat result=null;
@@ -100,11 +105,12 @@ public class shootManager {
 
 
     /**
-     * Check if a hunter can shoot a prey
-     * @param hunter
-     * @param prey
-     * @parem angle
-     * @return
+     * Check if a hunter can shoot a prey.
+     * => The prey is in range and in the correct angle.
+     * @param hunter {@link Boat}
+     * @param prey {@link Boat}
+     * @param angle {@link Double}
+     * @return {@link Boolean}
      */
     private boolean isShootable(Boat hunter, Boat prey, double angle) {
         if (hunter.getPosition().distance(prey.getPosition())<GameConfiguration.DEFAULT_SHOOT_DISTANCE){
@@ -115,11 +121,9 @@ public class shootManager {
                 //Right
                 return true;
             }
-            if (GameConfiguration.DEFAULT_SHOOTING_ANGLE < angle &&
-                    angle < Math.PI - GameConfiguration.DEFAULT_SHOOTING_ANGLE) {
-                //Left
-                return true;
-            }
+            //Left
+            return GameConfiguration.DEFAULT_SHOOTING_ANGLE < angle &&
+                    angle < Math.PI - GameConfiguration.DEFAULT_SHOOTING_ANGLE;
         }
         return false;
     }
@@ -127,9 +131,9 @@ public class shootManager {
 
     /**
      *
-     * @param hunter
-     * @param prey
-     * @param angle
+     * @param hunter {@link Boat}
+     * @param prey {@link Boat}
+     * @param angle {@link Double}
      */
     private void shoot(Boat hunter, Boat prey, double angle){
         Bullet bullet;
@@ -143,47 +147,31 @@ public class shootManager {
             //Shoot on the right side of the boat
             x = Math.cos(hunter.getAngle()-Math.PI/2)*GameConfiguration.DEFAULT_WIDTH_BULLET_SPAWN;
             y = Math.sin(hunter.getAngle()-Math.PI/2)*GameConfiguration.DEFAULT_WIDTH_BULLET_SPAWN + randomNumber;
-            bullet = BulletFactory.createBullet((int) x, (int) y, angle, hunter.getColor());
         }
         else{
             //shoot on the left side of the boat
             x = Math.cos(hunter.getAngle()+Math.PI/2)*GameConfiguration.DEFAULT_WIDTH_BULLET_SPAWN;
             y = Math.sin(hunter.getAngle()+Math.PI/2)*GameConfiguration.DEFAULT_WIDTH_BULLET_SPAWN + randomNumber;
-            bullet = BulletFactory.createBullet((int) x, (int) y, angle, hunter.getColor());
         }
+        bullet = BulletFactory.createBullet((int) x, (int) y, angle, hunter.getColor());
         this.battle.getLstBullets().add(bullet);
     }
 
 
     /**
-     *
-     * @param boat
-     * @return
+     * Method that check if a boat has reloaded his gun.
+     * @param boat {@link Boat}
+     * @return {@link Boolean}
      */
     private boolean isReadyToShot(Boat boat){
         int tmp = boat.getDamageSpeed();
-        if(tmp< this.battle.getReloadingHashMap().get(boat)){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return tmp < this.battle.getReloadingHashMap().get(boat);
     }
 
 
     /**
-     *
-     */
-    private void reloadAllBoats(){
-        for(Boat boat :this.battle.getReloadingHashMap().keySet()){
-            reload(boat);
-        }
-    }
-
-
-    /**
-     * 
-     * @param boat
+     * Method that try to reload a gun.
+     * @param boat {@link Boat}
      */
     private void reload(Boat boat){
         int tmp = boat.getDamageSpeed();
