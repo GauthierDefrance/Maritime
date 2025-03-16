@@ -33,8 +33,6 @@ public class MainGUI extends JFrame {
         debug = new Debug("Debug");
         window = getContentPane();
         window.setLayout(new BorderLayout());
-        EngineBuilder.mapInit0();
-        TestMove.addBaotTest();
         GameOptions.setInstance(OptSaveManager.create().loadParamFile());
         setSize(GameConfiguration.WINDOW_SIZE); /* setExtendedState(JFrame.MAXIMIZED_BOTH); setUndecorated(true);*/
         setLocationRelativeTo(null);

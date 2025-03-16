@@ -172,4 +172,26 @@ public class BoatManager {
         return lstBoatTemp;
     }
 
+    /**
+     * Check if a boat reached a targeted boat in map
+     * @param point concerned
+     * @return Boat
+     */
+    public Boat pointCollisionToMapBoat (Point point){
+        Boat boat1 = null;
+        for (Faction faction : Map.getInstance().getLstFaction()){
+            for (Boat boat2 : faction.getLstBoat()){
+                if (GameConfiguration.HITBOX_BOAT - 5 >= point.distance(boat2.getPosition())){
+                    if(boat1 != null){
+                        if(point.distance(boat2.getPosition())<point.distance(boat1.getPosition())){
+                            boat1 = boat2;
+                        }
+                    }
+                    else boat1 = boat2;
+                }
+            }
+        }
+        return boat1;
+    }
+
 }
