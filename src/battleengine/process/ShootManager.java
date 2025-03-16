@@ -95,7 +95,7 @@ public class ShootManager {
         Boat tmp;
         ArrayList<Boat> boats = fleet.getArrayListBoat();
         int index = 0;
-        while(result==null){
+        while(result==null && index<boats.size()){
             tmp = boats.get(index);
             if(isShootable(hunter,tmp, 0)){
                 result=tmp;

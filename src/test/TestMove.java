@@ -1,6 +1,7 @@
 package test;
 
 import battleengine.entity.Battle;
+import battleengine.factory.BattleFactory;
 import engine.Map;
 import engine.entity.boats.*;
 import engine.utilities.SearchInGraph;
@@ -83,7 +84,7 @@ public class TestMove {
         Map.getInstance().getPlayer().addSeaRoad(seaRoad1);
         Map.getInstance().getLstFaction().get(0).addSeaRoad(seaRoad2);
 
-        MainGUI.setBattle(new Battle(fleet1,fleet2));
+        MainGUI.setBattle(BattleFactory.createBattle(fleet1, fleet2));
         Map.getInstance().setTimeStop(true);
     }
 }

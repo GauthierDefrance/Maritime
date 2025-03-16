@@ -73,6 +73,7 @@ public class PlacingManager {
                 battle.getBoatsInBattleA().add(boat);
             }
             clearBoatsCurrentlyBeingPlaced();
+            this.battle.setPlacingMode(false);
             return true;
         }
         else {
