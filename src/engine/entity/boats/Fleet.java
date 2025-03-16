@@ -2,6 +2,7 @@ package engine.entity.boats;
 
 import engine.graph.GraphPoint;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  * @author Kenan Ammad
  * @version 0.2
  */
-public class Fleet {
+public class Fleet implements Serializable {
     private ArrayList<Boat> lstBoats;
     private ArrayList<GraphPoint> path;
     private boolean continuePath;
