@@ -12,17 +12,17 @@ public class Bullet {
     private String color;
     private int tickAlive=0;
     private int speed;
-    private int angle;
+    private double angle;
     private Point position;
 
-    public Bullet(int x, int y, int speed, int angle, String color) {
+    public Bullet(int x, int y, int speed, double angle, String color) {
         this.speed = speed;
         this.angle = angle;
         this.position = new Point(x, y);
         this.color = color;
     }
 
-    public Bullet(Point position, int speed, int angle, String color) {
+    public Bullet(Point position, int speed, double angle, String color) {
         this.speed = speed;
         this.angle = angle;
         this.position = position;
@@ -50,7 +50,7 @@ public class Bullet {
      *
      * @return l'angle actuel
      */
-    public int getAngle() {return angle;}
+    public double getAngle() {return angle;}
 
     /**
      * Récupère la position.

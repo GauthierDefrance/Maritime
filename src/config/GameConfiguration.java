@@ -80,6 +80,9 @@ public final class GameConfiguration {
 
     public static final int DEFAULT_BULLET_SPEED=150;
     public static final double DEFAULT_BULLET_FRICTION=1.15;
-    public static final int DEFAULT_SHOOTING_ANGLE=90;
+    public static final int DEFAULT_SHOOTING_ANGLE=45;
+    public static final int DEFAULT_WIDTH_BULLET_SPAWN=10;
+    public static final int DEFAULT_HEIGHT_BULLET_SPAWN=4;
+
 
 }

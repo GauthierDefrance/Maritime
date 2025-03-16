@@ -1,6 +1,7 @@
 package battleengine.process;
 
 import battleengine.entity.Battle;
+import battleengine.tools.AngleCalculator;
 import battleengine.tools.CirclePursuit;
 import config.GameConfiguration;
 import engine.entity.boats.Boat;
@@ -69,12 +70,7 @@ public class BattleBoatManager {
      * @param point A {@link Point} object
      */
     private static void turnBoat(Boat boat, Point point){
-        double x1 = point.getX();
-        double y1 = point.getY();
-        double x2 = boat.getPosition().getX();
-        double y2 = boat.getPosition().getY();
-        //Angle in RADIAN
-        double angle = Math.atan2(y1 - y2, x1 - x2);
+        double angle = AngleCalculator.calculateAngle(point, boat);
         angle = angle - boat.getAngle();
         angle = (angle + Math.PI) % (2 * Math.PI) - Math.PI;
         if(angle>0){
