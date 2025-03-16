@@ -16,13 +16,14 @@ public class Fleet implements Serializable {
     private ArrayList<GraphPoint> path;
     private boolean continuePath;
 
-    public Fleet(ArrayList<Boat> boats) {
-        this.lstBoats = boats;
+    public Fleet(ArrayList<Boat> lstBoats) {
+        this.lstBoats = lstBoats;
         this.path = new ArrayList<>();
     }
 
     public Fleet() {
         this.lstBoats = new ArrayList<>();
+        this.path = new ArrayList<>();
     }
 
     //Getters
