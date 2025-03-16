@@ -46,7 +46,7 @@ public class Debug extends JFrame{
             switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
                 case "gui.panel.OptionsMenu" :
                 case "gui.panel.PauseMenu" : {
-                    GUILoader.loadRelationMenu();
+                    GUILoader.loadRelationMenu(Map.getInstance().getLstBotFaction().get(0));
                     break;
                 }
                 default : {

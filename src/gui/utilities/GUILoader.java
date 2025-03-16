@@ -1,6 +1,7 @@
 package gui.utilities;
 
 import battleengine.entity.Battle;
+import engine.faction.Faction;
 import engine.trading.TradeOffer;
 import gui.MainGUI;
 import gui.panel.*;
@@ -10,7 +11,7 @@ import java.awt.*;
 /**
  * Handle changes between GUIs
  * @author Zue Jack-Arthur
- * @version 0.1
+ * @version 0.4
  */
 public class GUILoader {
 
@@ -48,8 +49,8 @@ public class GUILoader {
         actualise(new SaveFileMenu(token, 1));
     }
 
-    public static void loadRelationMenu(){
-        actualise(new RelationMenu());
+    public static void loadRelationMenu(Faction faction){
+        actualise(new RelationMenu(faction));
     }
 
     public static void loadCombat(Battle battle){
@@ -58,5 +59,9 @@ public class GUILoader {
 
     public static void loadFleetManagingMenu(TradeOffer offer){
         actualise(new FleetManagingMenu());
+    }
+
+    public static void loadTradeMenu(TradeOffer offer){
+        actualise(new TradeMenu(offer));
     }
 }

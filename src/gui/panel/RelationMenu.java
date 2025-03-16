@@ -1,26 +1,33 @@
 package gui.panel;
 
 import config.GameConfiguration;
+import engine.Map;
+import engine.faction.Faction;
+import engine.trading.TradeOffer;
+import gui.utilities.GUILoader;
 import gui.utilities.JComponentBuilder;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import static config.GameConfiguration.BUTTON_SEPARATOR;
+import static config.GameConfiguration.*;
 import static gui.utilities.LoreBuilder.buildLoreTextPane;
 
 public class RelationMenu extends JPanel {
+    private final Faction activeFaction;
     private JLabel factionLogo;
     private JTextPane factionLore;
     private JTextPane factionStats;
     private JButton proposeTrade;
-    private JButton declareWar;
     private JScrollPane OtherRelation;
     private ArrayList<JButton> OtherRelationButtons;
 
-    public RelationMenu() {
+    public RelationMenu( Faction activeFaction ) {
         super();
+        this.activeFaction = activeFaction;
         init();
     }
 
@@ -28,10 +35,10 @@ public class RelationMenu extends JPanel {
 
         this.setLayout(new BorderLayout());
 
-        proposeTrade = JComponentBuilder.menuButton("Propose Trade");
-        declareWar = JComponentBuilder.menuButton("Declare War");
+        proposeTrade = JComponentBuilder.menuButton("Propose Trade", new TradeListener());
+        JButton declareWar = JComponentBuilder.menuButton("Declare War", new WarListener());
         JPanel basicInteraction = JComponentBuilder.gridMenuPanel(2, 1, BUTTON_SEPARATOR, BUTTON_SEPARATOR, proposeTrade, declareWar);
-        factionLogo = JComponentBuilder.ImageLabel(new ImageIcon(GameConfiguration.IMG_FILE_PATH + "/boat/standard.png"));
+        factionLogo = JComponentBuilder.menuLabel(activeFaction.getColor());
         factionLore = buildLoreTextPane();
         factionStats = buildLoreTextPane();
 
@@ -39,16 +46,14 @@ public class RelationMenu extends JPanel {
         JPanel otherRelationsPanel = new JPanel();
         otherRelationsPanel.setLayout(new GridLayout(0, 1, BUTTON_SEPARATOR, BUTTON_SEPARATOR));
 
-        for (int i = 1; i <= 10; i++) {
-            JButton relationButton = JComponentBuilder.ImageButton(new ImageIcon(GameConfiguration.IMG_FILE_PATH + "/boat/standard.png")); // Replace with your actual faction names
+        for (Faction elm : Map.getInstance().getLstBotFaction()) {
+            JButton relationButton = JComponentBuilder.ImageButton(new ImageIcon(IMG_FILE_PATH + "/boat/standard.png"));
             OtherRelationButtons.add(relationButton);
             otherRelationsPanel.add(relationButton);
         }
 
-        // Wrap the panel with buttons in a JScrollPane
         OtherRelation = new JScrollPane(otherRelationsPanel);
 
-        // Combine panels into layout
         JPanel centralCol = JComponentBuilder.gridMenuPanel(2, 1, BUTTON_SEPARATOR, BUTTON_SEPARATOR, factionLogo, factionLore);
         JPanel rightCol = JComponentBuilder.gridMenuPanel(2, 1, BUTTON_SEPARATOR, BUTTON_SEPARATOR, factionStats, basicInteraction);
         JPanel totalDisplay = JComponentBuilder.gridMenuPanel(1, 3, BUTTON_SEPARATOR, BUTTON_SEPARATOR, OtherRelation, centralCol, rightCol);
@@ -60,4 +65,21 @@ public class RelationMenu extends JPanel {
         }
     }
 
+    private class WarListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            activeFaction.setRelationship(activeFaction.getRelationship()-100);
+            //WiP
+            GUILoader.loadMainGame();
+        }
+    }
+
+    private class TradeListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            GUILoader.loadTradeMenu(TradeOffer.create(Map.getInstance().getPlayer().getLstHarbor().get(0), activeFaction.getLstHarbor().get(0)));
+        }
+    }
 }

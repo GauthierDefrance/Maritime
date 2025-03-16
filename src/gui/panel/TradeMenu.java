@@ -94,23 +94,6 @@ public class TradeMenu extends JPanel {
 
     //Listener
 
-    private class DemandListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-            Inventory inventory = offer.getTargetedHarbor().getInventory();
-            Resource resource = TradeManager.getInstance().identifyResource(interlocutorResource.getText(), inventory);
-
-            try {
-                offer.setDemand(TradeManager.getInstance().Transform(offer.getDemand(), resource, routine(inventory, interlocutorQuantity, resource)));
-                updateOfferInfo();
-            } catch (NoSuchElementException | IllegalArgumentException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }
-
     private class SelectionListener implements ActionListener {
 
         @Override
@@ -118,9 +101,12 @@ public class TradeMenu extends JPanel {
 
             Inventory inventory = offer.getStartingHarbor().getInventory();
             Resource resource = TradeManager.getInstance().identifyResource(myResource.getText(), inventory);
+            Inventory inventory2 = offer.getTargetedHarbor().getInventory();
+            Resource resource2 = TradeManager.getInstance().identifyResource(interlocutorResource.getText(), inventory);
 
             try {
                 offer.setSelection(TradeManager.getInstance().Transform(offer.getSelection(), resource, routine(inventory, myQuantity, resource)));
+                offer.setDemand(TradeManager.getInstance().Transform(offer.getDemand(), resource2, routine(inventory2, interlocutorQuantity, resource2)));
                 updateOfferInfo();
             } catch (NoSuchElementException | IllegalArgumentException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
