@@ -65,15 +65,6 @@ public class GameSaveManager {
     }
 
     /**
-     * Overwrite a preexisting SaveFile using a GameSave Object
-     * @param sv GameSave Object to be written
-     * @return Completed operation completed message
-     */
-    public String overwriteSaveFile(GameSave sv) {
-        return saveProcedure(sv);
-    }
-
-    /**
      * Load the game Using the GameSave Object state
      * @param sv GameSave Object
      */

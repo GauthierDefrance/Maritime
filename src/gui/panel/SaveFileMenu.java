@@ -71,14 +71,11 @@ public class SaveFileMenu extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             GameSave save = manager.fetchSaveFile(fileID);
-            if (state == 1){
+            if (state == 1) {
                 String msg;
-                if (save == null) {
-                    msg = manager.saveNewGame(fileID);
-                } else {
-                    msg = manager.overwriteSaveFile(save);
-                } JOptionPane.showMessageDialog(SaveFileMenu.this, msg, "", JOptionPane.INFORMATION_MESSAGE);
-                fileButtons.get(fileID).setText("GameSave0"+fileID+".ser");
+                msg = manager.saveNewGame(fileID);
+                JOptionPane.showMessageDialog(SaveFileMenu.this, msg, "", JOptionPane.INFORMATION_MESSAGE);
+                fileButtons.get(fileID).setText("GameSave0" + fileID + ".ser");
             } else if (state == 0) {
                 if (save != null) {
                     manager.loadGame(save);

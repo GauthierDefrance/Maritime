@@ -1,6 +1,7 @@
 package gui.utilities;
 
 import config.GameConfiguration;
+import engine.entity.Entity;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
 import gui.process.ImageStock;
@@ -16,7 +17,7 @@ import java.awt.event.*;
  * @author Zue Jack-Arthur
  * @author Kenan Ammad
  * @see Component
- * @version 0.3
+ * @version 0.4
  */
 public class JComponentBuilder {
     private static Logger logger = LoggerUtility.getLogger(JComponentBuilder.class);
@@ -65,90 +66,50 @@ public class JComponentBuilder {
     }
 
     /**
-     * Build a JButton accommodating game-menu Convention with its given action implemented
-     * @param text JButton text
-     * @param action Button Action
+     * Build a JButton for an Entity
+     * @param entity the Entity Object attached to JButton
      * @return Built JButton
      */
-    public static JButton menuButton(String text, MouseListener action) {
-        loggerWrite("menuButton name "+text,"MouseListener assigned name "+action.getClass().getName());
-        JButton newButton = menuButton(text);
-        newButton.addMouseListener(action);
-        return newButton;
-    }
-
-    /**
-     * Build a JButton for a boat
-     * @param boat the Boat attached to JButton
-     * @return Built JButton
-     */
-    public static JButton menuButton(Boat boat) {
-        JButton newButton = menuButton(boat.getName());
-        loggerWrite("menuButton name "+boat.getName(),"Boat Object assigned name "+boat.getName());
+    public static JButton menuButton(Entity entity) {
+        JButton newButton = menuButton(entity.getName());
+        loggerWrite("menuButton name "+entity.getName()," Object assigned name : "+entity.getName());
         newButton.setVerticalTextPosition(SwingConstants.BOTTOM);
         newButton.setHorizontalTextPosition(SwingConstants.CENTER);
         newButton.setBackground(Color.DARK_GRAY);
         newButton.setForeground(Color.WHITE);
         newButton.setFocusPainted(false);
         newButton.setBorderPainted(false);
-        newButton.setIcon( new ImageIcon(ImageStock.getImage(boat)));
+        if (entity instanceof Harbor) {
+            newButton.setIcon( new ImageIcon(ImageStock.getImage((Harbor) entity)));
+        } else if (entity instanceof Boat) {
+            newButton.setIcon( new ImageIcon(ImageStock.getImage((Boat) entity)));
+        }
         return newButton;
     }
 
     /**
-     * Build a JButton for a boat with its given action implemented
-     * @param boat the Boat attached to JButton
-     * @param action Button Action
+     * Build a JButton for an Entity with its given actionListener implemented
+     * @param entity the Entity Object attached to JButton
+     * @param action actionListener
      * @return Built JButton
      */
-    public static JButton menuButton(Boat boat, ActionListener action) {
-        JButton newButton = menuButton(boat);
-        loggerWrite("menuButton name "+boat.getName(),"Boat Object assigned name "+boat.getName()+" and ActionListener assigned name "+action.getClass().getName());
+    public static JButton menuButton(Entity entity, ActionListener action) {
+        JButton newButton = menuButton(entity);
+        loggerWrite("menuButton name : "+entity.getName()," --> ActionListener assigned name "+action.getClass().getName());
         newButton.addActionListener(action);
         return newButton;
     }
 
     /**
-     * Build a JButton for a boat with its given action implemented
-     * @param boat the Boat attached to JButton
-     * @param action Button Action
+     * Build a JButton for an Entity with its given MouseListener implemented
+     * @param entity the Entity Object attached to JButton
+     * @param mouseAction MouseListener
      * @return Built JButton
      */
-    public static JButton menuButton(Boat boat, MouseListener action) {
-        JButton newButton = menuButton(boat);
-        loggerWrite("menuButton name "+boat.getName(),"Boat Object assigned name "+boat.getName()+" and MouseListener assigned name "+action.getClass().getName());
-        newButton.addMouseListener(action);
-        return newButton;
-    }
-
-    /**
-     * Build a JButton for a harbor
-     * @param harbor the Harbor attached to JButton
-     * @return Built JButton
-     */
-    public static JButton menuButton(Harbor harbor) {
-        JButton newButton = menuButton(harbor.getName());
-        loggerWrite("menuButton name "+harbor.getName(),"Harbor Object assigned name "+harbor.getName());
-        newButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        newButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        newButton.setBackground(Color.DARK_GRAY);
-        newButton.setForeground(Color.WHITE);
-        newButton.setFocusPainted(false);
-        newButton.setBorderPainted(false);
-        newButton.setIcon( new ImageIcon(ImageStock.getImage(harbor)));
-        return newButton;
-    }
-
-    /**
-     * Build a JButton for a harbor with its given action implemented
-     * @param harbor the Harbor attached to JButton
-     * @param action Button Action
-     * @return Built JButton
-     */
-    public static JButton menuButton(Harbor harbor, ActionListener action) {
-        JButton newButton = menuButton(harbor);
-        loggerWrite("menuButton name "+harbor.getName(),"Harbor Object assigned name "+harbor.getName()+" and ActionListener assigned name "+action.getClass().getName());
-        newButton.addActionListener(action);
+    public static JButton menuButton(Entity entity, MouseListener mouseAction) {
+        JButton newButton = menuButton(entity);
+        loggerWrite("menuButton name "+entity.getName(),"MouseListener assigned name "+mouseAction.getClass().getName());
+        newButton.addMouseListener(mouseAction);
         return newButton;
     }
 
@@ -167,7 +128,6 @@ public class JComponentBuilder {
 
         return newButton;
     }
-
 
     public static JButton ImageButton(ImageIcon image, ActionListener action) {
         JButton newButton = new JButton(image);
@@ -268,22 +228,6 @@ public class JComponentBuilder {
      * Build a GridLayout JPanel accommodating game-menu Convention
      * @param r number of rows
      * @param c number of columns
-     * @param components other components that must be present within the JPanel
-     * @see GridLayout
-     * @return built JPanel
-     */
-    public static JPanel gridMenuPanel(int r, int c,JComponent... components) {
-        JPanel newPanel = gridMenuPanel(r,c);
-        for (JComponent component : components) {
-            newPanel.add(component);
-            loggerWrite("gridMenuPanel r="+r+" c="+c,component.getClass().getName()+" Object assigned name "+component.getName());
-        } return newPanel;
-    }
-
-    /**
-     * Build a GridLayout JPanel accommodating game-menu Convention
-     * @param r number of rows
-     * @param c number of columns
      * @param heightGap height gap between rows
      * @param widthGap width gap between rows
      * @see GridLayout
@@ -326,7 +270,14 @@ public class JComponentBuilder {
         return newPanel;
     }
 
-    private static class HoverEffectListener extends MouseAdapter {
+    public static JPanel SelectionZone(){
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+        contentPanel.setOpaque(false);
+        return contentPanel;
+    }
+
+    public static class HoverEffectListener extends MouseAdapter {
         private final JButton button;
 
         public HoverEffectListener(JButton button) {
