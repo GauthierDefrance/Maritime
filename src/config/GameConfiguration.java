@@ -83,6 +83,7 @@ public final class GameConfiguration {
     public static final double DEFAULT_SHOOTING_ANGLE=Math.PI/4;
     public static final int DEFAULT_WIDTH_BULLET_SPAWN=10;
     public static final int DEFAULT_HEIGHT_BULLET_SPAWN=4;
+    public static final int DAMAGE_PER_BULLET = 1;
 
 
 }
