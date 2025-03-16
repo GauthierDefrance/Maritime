@@ -6,6 +6,7 @@ import config.GameConfiguration;
 import engine.Map;
 import engine.entity.boats.Boat;
 import gui.MainGUI;
+import gui.PopUp;
 import gui.process.*;
 
 import javax.swing.*;

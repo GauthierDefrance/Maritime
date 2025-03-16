@@ -4,7 +4,7 @@ import config.GameConfiguration;
 import engine.Map;
 import engine.process.EngineBuilder;
 import engine.process.FactionManager;
-import gui.process.PopUp;
+import gui.PopUp;
 import gui.utilities.GUILoader;
 import gui.utilities.JComponentBuilder;
 import gui.process.ListenerBehaviorManager;

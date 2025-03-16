@@ -1,11 +1,13 @@
-package gui.process;
+package gui;
 
 import java.awt.*;
+import java.io.Serializable;
+
 /**
  * @author Kenan Ammad
  * @version 0.1
  */
-public class PopUp {
+public class PopUp implements Serializable {
     private String name;
     private int iFrame;
     private Point position;

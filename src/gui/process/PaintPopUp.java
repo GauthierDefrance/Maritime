@@ -2,6 +2,7 @@ package gui.process;
 
 import config.GameConfiguration;
 import engine.Map;
+import gui.PopUp;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

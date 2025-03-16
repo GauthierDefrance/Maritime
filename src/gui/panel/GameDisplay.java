@@ -8,7 +8,7 @@ import engine.trading.SeaRoad;
 import gui.process.PaintBackGround;
 import gui.process.PaintEntity;
 import gui.process.PaintPopUp;
-import gui.process.PopUp;
+import gui.PopUp;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;

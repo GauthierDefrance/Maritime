@@ -5,18 +5,13 @@ import battleengine.process.BattleManager;
 import config.GameConfiguration;
 import engine.Map;
 import engine.entity.boats.Boat;
-import engine.entity.boats.Standard;
-import engine.graph.GraphPoint;
 import gui.MainGUI;
-import gui.process.ImageStock;
-import gui.process.PaintPopUp;
-import gui.process.PopUp;
+import gui.PopUp;
 import gui.utilities.GUILoader;
 import gui.utilities.JComponentBuilder;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 
 import static gui.MainGUI.getWindow;
 

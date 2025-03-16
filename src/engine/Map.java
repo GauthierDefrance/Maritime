@@ -4,7 +4,7 @@ import engine.entity.Harbor;
 import engine.faction.Faction;
 import engine.faction.Player;
 import engine.graph.GraphPoint;
-import gui.process.PopUp;
+import gui.PopUp;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -3,6 +3,7 @@ package gui.process;
 import config.GameConfiguration;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
+import gui.PopUp;
 import log.LoggerUtility;
 import org.apache.log4j.Logger;
 
