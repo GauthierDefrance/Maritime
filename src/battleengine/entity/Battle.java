@@ -4,6 +4,7 @@ import battleengine.tools.DeepCopy;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -32,6 +33,7 @@ public class Battle {
     private ArrayList<Boat> LstBoatsCurrentlyBeingPlaced;
 
     private Boat currentBoat;
+    private Point currentBoatPoint;
 
     private SpawnZone spawnzone;
     private SpawnZone spawnzoneEnnemy;
@@ -61,6 +63,7 @@ public class Battle {
         this.spawnzone = SpawnZoneFactory.buildDefaultSpawnZone();
         this.spawnzoneEnnemy = SpawnZoneFactory.buildDefaultEnnemySpawnZone();
         this.isInPlacingMode = true;
+        this.currentBoatPoint = new Point(0,0);
 
 
     }
@@ -258,4 +261,11 @@ public class Battle {
      */
     public void setPlacingMode(boolean bool) { this.isInPlacingMode = bool; }
 
+    public Point getCurrentBoatPoint() {
+        return currentBoatPoint;
+    }
+
+    public void setCurrentBoatPoint(Point currentBoatPoint) {
+        this.currentBoatPoint.setLocation(currentBoatPoint);
+    }
 }

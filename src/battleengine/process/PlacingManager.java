@@ -46,13 +46,13 @@ public class PlacingManager {
      * @return {@link Boolean}
      */
     public boolean tryPlaceBoat(Boat boat, Point point) {
-        if(battle.getSpawnzone().isPlaceable(boat)){
+//        if(battle.getSpawnzone().isPlaceable(boat)){
             boat.setPosition(point);
             battle.getLstBoatsToPlace().remove(boat);
             battle.getLstBoatsCurrentlyBeingPlaced().add(boat);
             return true;
-        }
-        return false;
+//        }
+//        return false;
     }
 
     /**

@@ -5,12 +5,17 @@ import battleengine.process.BattleManager;
 import config.GameConfiguration;
 import engine.Map;
 import engine.entity.boats.Boat;
-import engine.process.FactionManager;
+import engine.entity.boats.Standard;
+import engine.graph.GraphPoint;
+import gui.MainGUI;
+import gui.process.ImageStock;
+import gui.process.PaintPopUp;
 import gui.utilities.GUILoader;
 import gui.utilities.JComponentBuilder;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 
 import static gui.MainGUI.getWindow;
 
@@ -29,10 +34,9 @@ public class CombatMenu extends JPanel implements Runnable {
     private JPanel jWestCenterPanel;
     private JPanel jWestSouthPanel;
 
-    private GameDisplay dashboard;
+    private BattleDisplay dashboard;
     private Battle battle;
     private BattleManager battleManager;
-    private FactionManager factionManager;
     private boolean ThreadStop;
 
     /**
@@ -45,16 +49,15 @@ public class CombatMenu extends JPanel implements Runnable {
     }
     public void init() {
         this.setLayout(new BorderLayout());
+        dashboardJPanel = JComponentBuilder.borderMenuPanel();
         jPanelATH = JComponentBuilder.borderMenuPanel();
         jWestATHPanel = JComponentBuilder.borderMenuPanel();
-        dashboardJPanel = JComponentBuilder.borderMenuPanel();
         jSouthATHPanel = JComponentBuilder.borderMenuPanel();
         jNorthATHPanel = JComponentBuilder.borderMenuPanel();
         jWestCenterPanel = JComponentBuilder.gridMenuPanel(0,2);
         jWestSouthPanel = JComponentBuilder.gridMenuPanel(1,0,0,0);
 
-        dashboard = new GameDisplay();
-        factionManager = new FactionManager();
+        dashboard = new BattleDisplay(battle);
         battleManager = new BattleManager(battle);
 
         this.addKeyListener(new KeyControls());
@@ -68,20 +71,20 @@ public class CombatMenu extends JPanel implements Runnable {
         jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         jWestPanel.add(jScrollPane);
 
-        jWestSouthPanel.add(JComponentBuilder.menuButton("Cancel"));
+        jWestSouthPanel.add(JComponentBuilder.menuButton("Cancel",new cancelPlacingListener()));
 
         jWestATHPanel.setOpaque(false);
         jPanelATH.setOpaque(false);
         jWestPanel.setOpaque(false);
 
         dashboardJPanel.add(dashboard,BorderLayout.CENTER);
-
         jWestATHPanel.add(jWestPanel,BorderLayout.CENTER);
         jWestATHPanel.add(jWestSouthPanel,BorderLayout.SOUTH);
 
         jPanelATH.add(jNorthATHPanel,BorderLayout.NORTH);
         jPanelATH.add(jSouthATHPanel,BorderLayout.SOUTH);
         jPanelATH.add(jWestATHPanel,BorderLayout.WEST);
+
         jLayeredPane.add(dashboardJPanel,JLayeredPane.DEFAULT_LAYER);
         jLayeredPane.add(jPanelATH,JLayeredPane.PALETTE_LAYER);
 
@@ -91,7 +94,6 @@ public class CombatMenu extends JPanel implements Runnable {
         jWestCenterPanel.setBackground(Color.GRAY);
 
         this.add(jLayeredPane);
-
         sizeUpdate();
         elementInPanelUpdate();
         ThreadStop = false;
@@ -103,6 +105,7 @@ public class CombatMenu extends JPanel implements Runnable {
         dashboardJPanel.setBounds(getWindow().getBounds());
         jPanelATH.setBounds(getWindow().getBounds());
 
+        jPanelATH.setBounds(getWindow().getBounds());
         jNorthATHPanel.setPreferredSize(new Dimension(getWindow().getWidth(),(int) (getWindow().getHeight()*0.15)));
         jSouthATHPanel.setPreferredSize(new Dimension(getWindow().getWidth(),(int) (getWindow().getHeight()*0.15)));
         jWestSouthPanel.setPreferredSize(new Dimension(getWindow().getHeight(),(int) Math.max(26,getWindow().getHeight()*0.04)));
@@ -115,9 +118,20 @@ public class CombatMenu extends JPanel implements Runnable {
     public void elementInPanelUpdate() {
         jWestCenterPanel.removeAll();
         for (Boat boat : battle.getLstBoatsToPlace()){
-            jWestCenterPanel.add(JComponentBuilder.menuButton(boat,new MouseListener(boat)));
+            JButton tmp = JComponentBuilder.menuButton(boat, new buttonMouseListener(boat));
+            tmp.addMouseMotionListener(new buttonMouseListener(boat));
+            jWestCenterPanel.add(tmp);
         }
         sizeUpdate();
+    }
+
+    public class cancelPlacingListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            battleManager.getPlacingManager().cancelPlacing();
+            elementInPanelUpdate();
+            sizeUpdate();
+        }
     }
 
     private class ComponentControls implements ComponentListener {
@@ -142,35 +156,39 @@ public class CombatMenu extends JPanel implements Runnable {
         }
     }
 
-    private class MouseListener extends MouseAdapter {
+    private class buttonMouseListener extends MouseAdapter {
         private Boat boat;
 
-        private MouseListener(Boat boat) {
+        public buttonMouseListener(Boat boat) {
             this.boat = boat;
         }
-
         @Override
         public void mousePressed(MouseEvent e) {
             if (e.getButton() == MouseEvent.BUTTON1) {
-            } else if (e.getButton() == MouseEvent.BUTTON3) {
+                battle.setCurrentBoat(boat);
+            }
+            else if (e.getButton() == MouseEvent.BUTTON3) {
             }
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            if (e.getButton() == MouseEvent.BUTTON1) {
-                battleManager.getPlacingManager().tryPlaceBoat(boat,e.getPoint());
+            if (e.getButton() == MouseEvent.BUTTON1 && battle.getCurrentBoat()!=null) {
+                double scale = Math.min((double)getWidth()/640,(double) getHeight() /360);
+                Point point0 = SwingUtilities.convertPoint((Component) e.getSource(),e.getPoint(),dashboardJPanel);
+                int x = (int) ((point0.getX()*GameConfiguration.GAME_SCALE)/scale);
+                int y = (int) ((point0.getY()*GameConfiguration.GAME_SCALE)/scale);
+                Point point = new Point(x, y);
+                battleManager.getPlacingManager().tryPlaceBoat(battle.getCurrentBoat(),point);
+                battle.setCurrentBoat(null);
+                elementInPanelUpdate();
             }
-            elementInPanelUpdate();
-        }
-
-        @Override
-        public void mouseMoved(MouseEvent e) {
-
         }
 
         @Override
         public void mouseDragged(MouseEvent e) {
+            battle.setCurrentBoatPoint(SwingUtilities.convertPoint((Component) e.getSource(),e.getPoint(),MainGUI.getWindow()));
+            dashboard.repaint();
         }
     }
 
@@ -217,9 +235,10 @@ public class CombatMenu extends JPanel implements Runnable {
                 System.out.println(e.getMessage());
             }
             if (!Map.getInstance().isTimeStop()){
-                factionManager.nextRound();
             }
             dashboard.repaint();
+            PaintPopUp.popUpNextFrame();
+            dashboard.getPaintBackGround().setIFrame((dashboard.getPaintBackGround().getIFrame() + 1) % GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES);
         }
     }
 }

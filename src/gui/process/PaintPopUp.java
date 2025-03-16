@@ -16,24 +16,29 @@ public class PaintPopUp {
     /**
      * Typical constructor generating an PaintPopUp
      */
-    public PaintPopUp(){}
+    public PaintPopUp() {
+    }
 
     /**
      * It paints a popUp that needs to be painted on 2D graphics
      */
     public void paint(PopUp popUp, Graphics2D g2d) {
-
-        if (popUp.getIFrame() < GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES) {
-            BufferedImage sprite = ImageStock.getImage(popUp);
-            if (sprite != null) {
-                g2d.drawImage(sprite, (int) (popUp.getPosition().getX()) - (sprite.getWidth() / 2), ((int) (popUp.getPosition().getY()) - (sprite.getHeight() / 2))-(popUp.getIFrame()*2), null);
-            } else {
-                g2d.setColor(Color.MAGENTA);
-                g2d.fillOval((int) (popUp.getPosition().getX()) - 10, (int) (popUp.getPosition().getY()) - 10, 20, 20);
-                g2d.setColor(Color.black);
-            }
-            popUp.addIFrame(1);
+        BufferedImage sprite = ImageStock.getImage(popUp);
+        if (sprite != null) {
+            g2d.drawImage(sprite, (int) (popUp.getPosition().getX()) - (sprite.getWidth() / 2), ((int) (popUp.getPosition().getY()) - (sprite.getHeight() / 2)) - (popUp.getIFrame() * 2), null);
+        } else {
+            g2d.setColor(Color.MAGENTA);
+            g2d.fillOval((int) (popUp.getPosition().getX()) - 10, (int) (popUp.getPosition().getY()) - 10, 20, 20);
+            g2d.setColor(Color.black);
         }
-        else {Map.getInstance().removePopUp(popUp);}
     }
+
+    public static void popUpNextFrame() {
+        for (PopUp popUp : Map.getInstance().getLstPopUp()) {
+            if (popUp.getIFrame() < GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES) popUp.addIFrame(1);
+            else Map.getInstance().removePopUp(popUp);
+        }
+    }
+
 }
+

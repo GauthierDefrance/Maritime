@@ -3,9 +3,11 @@ package gui;
 import battleengine.entity.Battle;
 import config.GameConfiguration;
 import config.GameOptions;
+import engine.process.EngineBuilder;
 import gui.utilities.GUILoader;
 import saveSystem.process.OptSaveManager;
 import test.Debug;
+import test.TestMove;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,7 +33,8 @@ public class MainGUI extends JFrame {
         debug = new Debug("Debug");
         window = getContentPane();
         window.setLayout(new BorderLayout());
-
+        EngineBuilder.mapInit0();
+        TestMove.addBaotTest();
         GameOptions.setInstance(OptSaveManager.create().loadParamFile());
         setSize(GameConfiguration.WINDOW_SIZE); /* setExtendedState(JFrame.MAXIMIZED_BOTH); setUndecorated(true);*/
         setLocationRelativeTo(null);

@@ -57,9 +57,6 @@ public class MainGameMenu extends JPanel implements Runnable {
         dashboard = new GameDisplay();
         factionManager = new FactionManager();
 
-        this.addKeyListener(new KeyControls());
-        getWindow().addComponentListener(new ComponentControls());
-
         //Window arrangement
         JLayeredPane jLayeredPane = new JLayeredPane();
         JPanel jEastPanel = JComponentBuilder.borderMenuPanel();
@@ -128,7 +125,9 @@ public class MainGameMenu extends JPanel implements Runnable {
         jEastCenterChoice2CenterPanel.setBackground(Color.GRAY);
 
         this.add(jLayeredPane);
-
+        this.addMouseMotionListener(new MouseListener());
+        this.addKeyListener(new KeyControls());
+        getWindow().addComponentListener(new ComponentControls());
         sizeUpdate();
         elementInPanelUpdate();
         ThreadStop = false;
@@ -204,6 +203,25 @@ public class MainGameMenu extends JPanel implements Runnable {
         }
     }
 
+    private class MouseListener extends MouseAdapter {
+        @Override
+        public void mousePressed(MouseEvent e) {
+            double scale = Math.min((double)getWidth()/640,(double) getHeight() /360);
+            int x = (int) ((e.getPoint().getX()*GameConfiguration.GAME_SCALE)/scale);
+            int y = (int) ((e.getPoint().getY()*GameConfiguration.GAME_SCALE)/scale);
+            Point point = new Point(x, y);
+            System.out.println(point);
+            System.out.println(Map.getInstance().getPlayer().getLstHarbor().get(0).getPosition());
+            Map.getInstance().getPlayer().getLstHarbor().get(0).getPosition().setLocation(point);
+            System.out.println("-");
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+    }
+
     private class KeyControls implements KeyListener {
 
         @Override
@@ -241,6 +259,8 @@ public class MainGameMenu extends JPanel implements Runnable {
                 factionManager.nextRound();
             }
             dashboard.repaint();
+            PaintPopUp.popUpNextFrame();
+            dashboard.getPaintBackGround().setIFrame((dashboard.getPaintBackGround().getIFrame() + 1) % GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES);
         }
     }
 }

@@ -1,33 +1,36 @@
 package gui.panel;
 
+import battleengine.entity.Battle;
 import config.GameConfiguration;
 import engine.Map;
-import engine.entity.Harbor;
 import engine.entity.boats.Boat;
-import engine.trading.SeaRoad;
+import gui.MainGUI;
 import gui.process.PaintBackGround;
 import gui.process.PaintEntity;
 import gui.process.PaintPopUp;
 import gui.process.PopUp;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
 /**
  * @author Kenan Ammad
- * Classe GameDisplay
- * @version 0.4
+ * Classe BattleDisplay
+ * @version 0.1
  */
-public class GameDisplay extends JPanel {
+public class BattleDisplay extends JPanel {
 
     private final PaintEntity paintEntity;
     private final PaintBackGround paintBackGround;
     private final PaintPopUp paintPopUp;
+    private Battle battle;
 
     /**
      * Typical constructor generating an GameDisplay
      */
-    public GameDisplay(){
+    public BattleDisplay(Battle battle){
+        this.battle = battle;
         this.paintEntity = new PaintEntity();
         this.paintBackGround = new PaintBackGround();
         this.paintPopUp = new PaintPopUp();
@@ -44,21 +47,23 @@ public class GameDisplay extends JPanel {
         paintBackGround.paint(g2d);
         g2d.scale((double) 1 /GameConfiguration.GAME_SCALE, (double) 1 /GameConfiguration.GAME_SCALE);
 
-        for (Harbor harbor : Map.getInstance().getLstHarbor()){
-            paintEntity.paint(harbor,g2d);
+        for(Boat boat : MainGUI.getBattle().getBoatsInBattleA().getArrayListBoat()){
+            paintEntity.paintBattle(boat,g2d);
         }
-        for(Boat boat : Map.getInstance().getPlayer().getVision()){
-            paintEntity.paint(boat,g2d);
+        for(Boat boat : MainGUI.getBattle().getBoatsInBattleB().getArrayListBoat()){
+            paintEntity.paintBattle(boat,g2d);
         }
-        for(Boat boat : Map.getInstance().getPlayer().getLstBoat()){
-            paintEntity.paintPlayer(boat,g2d);
+        for(Boat boat : MainGUI.getBattle().getLstBoatsCurrentlyBeingPlaced()){
+            paintEntity.paintBattle(boat,g2d);
         }
-        for (Harbor harbor : Map.getInstance().getPlayer().getLstHarbor()){
-            paintEntity.paintPlayer(harbor,g2d);
+
+        if(battle.getCurrentBoat() != null) {
+            int x = (int) ((battle.getCurrentBoatPoint().getX()*GameConfiguration.GAME_SCALE)/scale);
+            int y = (int) ((battle.getCurrentBoatPoint().getY()*GameConfiguration.GAME_SCALE)/scale);
+            Point boatPoint = new Point(x, y);
+            paintEntity.paint(battle.getCurrentBoat(), boatPoint, (Graphics2D) g);
         }
-        for(SeaRoad seaRoad: Map.getInstance().getPlayer().getLstSeaRouts()){
-            paintEntity.paint(seaRoad,g2d);
-        }
+
         ArrayList<PopUp> lstPopUp = new ArrayList<>();
         lstPopUp.addAll(Map.getInstance().getLstPopUp());
         for (PopUp popUp : lstPopUp){
@@ -66,6 +71,7 @@ public class GameDisplay extends JPanel {
         }
         g2d.scale(GameConfiguration.GAME_SCALE,GameConfiguration.GAME_SCALE);
     }
+    public PaintEntity getPaintEntity() { return paintEntity; }
 
     public PaintBackGround getPaintBackGround() { return paintBackGround; }
 

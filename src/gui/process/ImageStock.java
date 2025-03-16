@@ -1,6 +1,7 @@
 package gui.process;
 
 import config.GameConfiguration;
+import engine.entity.Entity;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
 import log.LoggerUtility;
@@ -69,11 +70,11 @@ public class ImageStock {
     /**
      * Allows you to choose the image to displayed
      */
-    public static BufferedImage getImage(Boat boat){
+    public static BufferedImage getImage(Entity entity){
         int i = 0;
         int j = 0;
 
-        switch (boat.getClass().getName()) {
+        switch (entity.getClass().getName()) {
             case "engine.entity.boats.Standard" : {
                 i=0 ;
                 break;
@@ -90,10 +91,14 @@ public class ImageStock {
                 i=3;
                 break;
             }
+            case "engine.entity.Harbor" :{
+                i=4;
+                break;
+            }
             default : {
             }
         }
-        switch (boat.getColor()) {
+        switch (entity.getColor()) {
             case "red" :{
                 j=1;
                 break;
@@ -106,27 +111,6 @@ public class ImageStock {
             }
         }
         return getInstance().getTbSprite(i,j);
-    }
-
-    /**
-     * Allows you to choose the image to displayed
-     */
-    public static BufferedImage getImage(Harbor harbor){
-        int j = 0;
-        switch (harbor.getColor()) {
-            case "red" :{
-                j=1;
-                break;
-            }
-            case "blue" :{
-                j=2;
-                break;
-            }
-            default : {
-            }
-        }
-
-        return getInstance().getTbSprite(4,j);
     }
 
     /**

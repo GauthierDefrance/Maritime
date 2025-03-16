@@ -40,7 +40,7 @@ public class StartMenu extends JPanel implements Runnable {
      * Makes all necessary operations to initialize the panel
      */
     public void init() {
-        EngineBuilder.mapInit(0);
+//        EngineBuilder.mapInit(0);
         this.setLayout(new BorderLayout());
         dashboard = new GameDisplay();
         jPanel1.setLayout(new BorderLayout());

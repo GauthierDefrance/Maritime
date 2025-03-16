@@ -29,11 +29,14 @@ public class PaintBackGround {
      */
     public void paint(Graphics2D g2d){
         g2d.drawImage(ImageStock.getImage(this), 0, 0,null);
-        iFrame = (iFrame + 1) % GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES;
     }
 
     public int getIFrame() {
         return iFrame;
+    }
+
+    public void setIFrame(int iFrame) {
+        this.iFrame = iFrame;
     }
 
 }

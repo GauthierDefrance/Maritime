@@ -25,7 +25,7 @@ public class BattleManager {
      * @param battle {@link Battle} the data class
      */
     public BattleManager(Battle battle) {
-        this.battle = new Battle(battle.getTeamA(), battle.getTeamB());
+        this.battle = battle;
         this.placingManager = new PlacingManager(battle);
         this.bulletManager = new BulletManager(battle);
         this.battleBoatManager = new BattleBoatManager(battle);

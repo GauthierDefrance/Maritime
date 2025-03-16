@@ -43,9 +43,18 @@ public class Debug extends JFrame{
     private class RelationMenu implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadRelationMenu();
+            switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
+                case "gui.panel.OptionsMenu" :
+                case "gui.panel.PauseMenu" : {
+                    GUILoader.loadRelationMenu();
+                    break;
+                }
+                default : {
+                }
+            }
         }
     }
+    
     private class CombatMenu implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
