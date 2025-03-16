@@ -6,10 +6,7 @@ import config.GameConfiguration;
 import engine.Map;
 import engine.entity.boats.Boat;
 import gui.MainGUI;
-import gui.process.PaintBackGround;
-import gui.process.PaintEntity;
-import gui.process.PaintPopUp;
-import gui.process.PopUp;
+import gui.process.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,7 +55,7 @@ public class BattleDisplay extends JPanel {
             paintEntity.paintBattle(boat,g2d);
         }
         for (Bullet bullet : MainGUI.getBattle().getLstBullets()){
-            g2d.setColor(Color.BLACK);
+            g2d.setColor(ImageStock.colorChoice(bullet.getColor()));
             g2d.fillOval((int) (bullet.getPosition().getX()-5), (int) (bullet.getPosition().getY()-5),10,10);
         }
 
