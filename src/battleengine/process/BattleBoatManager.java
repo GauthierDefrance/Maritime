@@ -34,10 +34,10 @@ public class BattleBoatManager {
      * moving the boats and actualizing the angle.
      */
     public void tick(){
-        actualizeFleetAngle(this.battle.getBoatsInBattleA());
-        actualizeFleetAngle(this.battle.getBoatsInBattleB());
         moveForwardFleet(this.battle.getBoatsInBattleA());
         moveForwardFleet(this.battle.getBoatsInBattleB());
+        actualizeFleetAngle(this.battle.getBoatsInBattleA());
+        actualizeFleetAngle(this.battle.getBoatsInBattleB());
     }
 
 
@@ -76,19 +76,16 @@ public class BattleBoatManager {
      * @param point A {@link Point} object
      */
     private static void turnBoat(Boat boat, Point point){
-        double angle = AngleCalculator.calculateAngle(boat, point);
-        angle = angle - boat.getAngle();
-        angle = (angle + Math.PI) % (2 * Math.PI) - Math.PI;
-
-        if(Math.abs(angle)<GameConfiguration.BOAT_ROTATION_SPEED){
-            boat.setAngle(boat.getAngle()+angle);
-        }
-        else if(angle>0){
-            boat.setAngle(boat.getAngle() - GameConfiguration.BOAT_ROTATION_SPEED);
-        } else {
+        double angle = AngleCalculator.calculateAngle(boat.getPosition(), point);
+        double deltaAngle = angle - boat.getAngle();
+        deltaAngle = (deltaAngle + Math.PI) % (2 * Math.PI) - Math.PI;
+        if (Math.abs(deltaAngle) < GameConfiguration.BOAT_ROTATION_SPEED) {
+            boat.setAngle(angle);
+        } else if (deltaAngle > 0) {
             boat.setAngle(boat.getAngle() + GameConfiguration.BOAT_ROTATION_SPEED);
+        } else {
+            boat.setAngle(boat.getAngle() - GameConfiguration.BOAT_ROTATION_SPEED);
         }
-
     }
 
     private static void moveForwardFleet(Fleet fleet){

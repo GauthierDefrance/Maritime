@@ -54,10 +54,10 @@ public class BattleManager {
      */
     public void tick(){
         if(!this.battle.isInPlacingMode()){
+            this.hunterManager.ActualizeChase(); // DANGEREUX /!\
             this.battleBoatManager.tick();
             this.shotManager.tick();
             this.bulletManager.tick();
-            this.hunterManager.ActualizeChase(); // DANGEREUX /!\
         }
     }
 

@@ -25,9 +25,9 @@ public final class GameConfiguration {
 
 
     //-------- Boats Stats --------
-    public static final int RELOAD_TIME = 20;
+            public static final int RELOAD_TIME = 20;
         // -> Global Stat
-            public static final double BOAT_ROTATION_SPEED=0.0174533*10;
+            public static final double BOAT_ROTATION_SPEED=0.0174533*2;
             public static final double HITBOX_BOAT = 80;
             public static final int Transparency_Halo = 25;
 
@@ -70,7 +70,7 @@ public final class GameConfiguration {
             public static final int DAMAGE_PER_BULLET = 1;
 
         //-> Bullet Math stats
-            public static final int DEFAULT_SHOOT_DISTANCE=150;
+            public static final int DEFAULT_SHOOT_DISTANCE=100*GAME_SCALE;
             public static final double DEFAULT_SHOOTING_ANGLE=Math.PI/4;
             public static final int DEFAULT_WIDTH_BULLET_SPAWN=10;
             public static final int DEFAULT_HEIGHT_BULLET_SPAWN=4;

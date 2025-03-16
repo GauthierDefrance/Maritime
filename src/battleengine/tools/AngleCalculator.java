@@ -17,8 +17,8 @@ public final class AngleCalculator {
 
     /**
      * Angle PointB to PointA
-     * @param direction
      * @param origin
+     * @param direction
      * @return
      */
     public static double calculateAngle(Point origin, Point direction){
@@ -27,7 +27,7 @@ public final class AngleCalculator {
         double x2 = direction.getX();
         double y2 = direction.getY();
         //Angle in RADIAN
-        return Math.atan2(y1 - y2, x1 - x2);
+        return Math.atan2(y2 - y1, x2 - x1);
     }
 
     public static double calculateAngle(Boat origin, Point direction) {
