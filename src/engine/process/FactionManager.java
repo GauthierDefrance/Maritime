@@ -186,4 +186,8 @@ public class FactionManager {
     public SeaRoadManager getSeaRoadManager() {
         return seaRoutManager;
     }
+
+    public BoatManager getBoatManager(){
+        return boatManager;
+    }
 }

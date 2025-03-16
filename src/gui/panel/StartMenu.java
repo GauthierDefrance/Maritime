@@ -8,6 +8,8 @@ import gui.process.PopUp;
 import gui.utilities.GUILoader;
 import gui.utilities.JComponentBuilder;
 import gui.process.ListenerBehaviorManager;
+import test.TestMove;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -42,7 +44,7 @@ public class StartMenu extends JPanel implements Runnable {
      * Makes all necessary operations to initialize the panel
      */
     public void init() {
-//        EngineBuilder.mapInit(0);
+        EngineBuilder.mapInit(0);
         this.setLayout(new BorderLayout());
         dashboard = new GameDisplay();
         jPanel1.setLayout(new BorderLayout());
@@ -104,6 +106,7 @@ public class StartMenu extends JPanel implements Runnable {
         @Override
         public void actionPerformed(ActionEvent e) {
             ThreadStop = true;
+            TestMove.addBaotTest();
             GUILoader.loadMainGame();
         }
     }

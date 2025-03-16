@@ -6,6 +6,7 @@ import battleengine.tools.CirclePursuit;
 import config.GameConfiguration;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
+import engine.graph.GraphPoint;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -51,8 +52,13 @@ public class BattleBoatManager {
         Boat prey;
         for(Boat hunter : fleet.getArrayListBoat()){
             if(hunter.getNextGraphPoint()!=null){
-                //Si un point précis a été sélectionné par le joueur
-                turnBoat(hunter, hunter.getNextGraphPoint().getPoint());
+                if(2*hunter.getSpeed()>hunter.getPosition().distance(hunter.getNextGraphPoint().getPoint())){
+                    hunter.setNextGraphPoint(null);
+                }
+                else{
+                    //Si un point précis a été sélectionné par le joueur
+                    turnBoat(hunter, hunter.getNextGraphPoint().getPoint());
+                }
             }
             else {
                 //Sinon, on essaye de traquer une proie si elle existe
@@ -93,5 +99,8 @@ public class BattleBoatManager {
         boat.setPosition(x,y);
     }
 
+    public static void setBoatDirection(Boat boat, Point point){
+        boat.setNextGraphPoint(new GraphPoint(point,null));
+    }
 
 }

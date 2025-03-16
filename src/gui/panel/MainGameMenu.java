@@ -2,6 +2,7 @@ package gui.panel;
 
 import config.GameConfiguration;
 import engine.Map;
+import engine.entity.Entity;
 import engine.entity.Harbor;
 import engine.entity.boats.*;
 import engine.process.FactionManager;
@@ -12,6 +13,7 @@ import gui.utilities.JComponentBuilder;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.HashMap;
 
 import static gui.MainGUI.getWindow;
 
@@ -22,6 +24,9 @@ import static gui.MainGUI.getWindow;
  */
 public class MainGameMenu extends JPanel implements Runnable {
 
+    private HashMap<Entity, JButton> mapEntity;
+    private JButton currentJButton;
+
     private JPanel dashboardJPanel;
     private JPanel jPanelATH;
     private JPanel jNorthATHPanel;
@@ -29,9 +34,22 @@ public class MainGameMenu extends JPanel implements Runnable {
     private JPanel jEastATHPanel;
     private JPanel jEastCenterChoice1CenterPanel;
     private JPanel jEastCenterChoice2CenterPanel;
+    private JPanel jEastPanel;
+
+    private JPanel jEastCenterCenterPanel;
+    private JPanel jEastCenterPanelChoice1;
+    private JPanel jEastCenterPanelChoice2;
+    private JPanel jEastCenterPanelChoice3;
+    private JPanel jEastCenterPanelChoice4;
+
 
     private JButton showLeftMenuButton;
     private JButton hideLeftMenuButton;
+
+    private JButton jButtonLeftMenu1;
+    private JButton jButtonLeftMenu2;
+    private JButton jButtonLeftMenu3;
+    private JButton jButtonLeftMenu4;
 
     private GameDisplay dashboard;
     private FactionManager factionManager;
@@ -53,21 +71,23 @@ public class MainGameMenu extends JPanel implements Runnable {
         jNorthATHPanel = JComponentBuilder.borderMenuPanel();
         jEastCenterChoice1CenterPanel = JComponentBuilder.gridMenuPanel(0,2);
         jEastCenterChoice2CenterPanel = JComponentBuilder.gridMenuPanel(0,2);
+        jEastCenterCenterPanel = JComponentBuilder.borderMenuPanel();
+        jEastCenterPanelChoice1 = JComponentBuilder.borderMenuPanel();
+        jEastCenterPanelChoice2 = JComponentBuilder.borderMenuPanel();
+        jEastCenterPanelChoice3 = JComponentBuilder.borderMenuPanel();
+        jEastCenterPanelChoice4 = JComponentBuilder.borderMenuPanel();
 
         dashboard = new GameDisplay();
         factionManager = new FactionManager();
+        mapEntity = new HashMap<>();
+        currentJButton = JComponentBuilder.menuButton("");
 
         //Window arrangement
         JLayeredPane jLayeredPane = new JLayeredPane();
-        JPanel jEastPanel = JComponentBuilder.borderMenuPanel();
+        jEastPanel = JComponentBuilder.borderMenuPanel();
         JPanel jEastWestPanel = JComponentBuilder.borderMenuPanel();
         JPanel jEastButtonPanel = JComponentBuilder.borderMenuPanel();
         JPanel jEastCenterPanel = JComponentBuilder.borderMenuPanel();
-        JPanel jEastCenterCenterPanel = JComponentBuilder.borderMenuPanel();
-        JPanel jEastCenterPanelChoice1 = JComponentBuilder.borderMenuPanel();
-        JPanel jEastCenterPanelChoice2 = JComponentBuilder.borderMenuPanel();
-        JPanel jEastCenterPanelChoice3 = JComponentBuilder.borderMenuPanel();
-        JPanel jEastCenterPanelChoice4 = JComponentBuilder.borderMenuPanel();
         JPanel jEastCenterNorthPanel = JComponentBuilder.gridMenuPanel(1,4,0,0);
 
 
@@ -79,10 +99,10 @@ public class MainGameMenu extends JPanel implements Runnable {
         jScrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         jEastCenterPanelChoice2.add(jScrollPane2);
 
-        JButton jButtonLeftMenu1 = JComponentBuilder.menuButton("1",new showMenu(jEastCenterPanelChoice1,jEastCenterCenterPanel));
-        JButton jButtonLeftMenu2 = JComponentBuilder.menuButton("2",new showMenu(jEastCenterPanelChoice2,jEastCenterCenterPanel));
-        JButton jButtonLeftMenu3 = JComponentBuilder.menuButton("3",new showMenu(jEastCenterPanelChoice3,jEastCenterCenterPanel));
-        JButton jButtonLeftMenu4 = JComponentBuilder.menuButton("4",new showMenu(jEastCenterPanelChoice4,jEastCenterCenterPanel));
+        jButtonLeftMenu1 = JComponentBuilder.menuButton("1",new showMenu(jEastCenterPanelChoice1,jEastCenterCenterPanel));
+        jButtonLeftMenu2 = JComponentBuilder.menuButton("2",new showMenu(jEastCenterPanelChoice2,jEastCenterCenterPanel));
+        jButtonLeftMenu3 = JComponentBuilder.menuButton("3",new showMenu(jEastCenterPanelChoice3,jEastCenterCenterPanel));
+        jButtonLeftMenu4 = JComponentBuilder.menuButton("4",new showMenu(jEastCenterPanelChoice4,jEastCenterCenterPanel));
 
         jEastCenterNorthPanel.add(jButtonLeftMenu1);
         jEastCenterNorthPanel.add(jButtonLeftMenu2);
@@ -125,7 +145,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         jEastCenterChoice2CenterPanel.setBackground(Color.GRAY);
 
         this.add(jLayeredPane);
-        this.addMouseMotionListener(new MouseListener());
+        this.addMouseListener(new MouseListener());
         this.addKeyListener(new KeyControls());
         getWindow().addComponentListener(new ComponentControls());
         sizeUpdate();
@@ -135,7 +155,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         gameThread.start();
     }
 
-    public void sizeUpdate() {
+    private void sizeUpdate() {
         dashboardJPanel.setBounds(getWindow().getBounds());
         jPanelATH.setBounds(getWindow().getBounds());
 
@@ -153,15 +173,26 @@ public class MainGameMenu extends JPanel implements Runnable {
         getWindow().repaint();
     }
 
-    public void elementInPanelUpdate() {
+    private void elementInPanelUpdate() {
         jEastCenterChoice1CenterPanel.removeAll();
         jEastCenterChoice2CenterPanel.removeAll();
+        JButton tmp;
         for (Boat boat : Map.getInstance().getPlayer().getLstBoat()){
-            jEastCenterChoice1CenterPanel.add(JComponentBuilder.menuButton(boat));
+            tmp = JComponentBuilder.menuButton(boat,new buttonEntityListener(boat));
+            mapEntity.put(boat,tmp);
+            jEastCenterChoice1CenterPanel.add(tmp);
         }
         for (Harbor harbor : Map.getInstance().getPlayer().getLstHarbor()){
-            jEastCenterChoice2CenterPanel.add(JComponentBuilder.menuButton(harbor));
+            tmp = JComponentBuilder.menuButton(harbor,new buttonEntityListener(harbor));
+            mapEntity.put(harbor,tmp);
+            jEastCenterChoice2CenterPanel.add(tmp);
         }
+    }
+
+    private void ChangeCurrentJButton(JButton jButton){
+        currentJButton.setBackground(Color.DARK_GRAY);
+        currentJButton = jButton;
+        currentJButton.setBackground(Color.GRAY);
     }
 
     public class showMenu implements ActionListener {
@@ -203,6 +234,19 @@ public class MainGameMenu extends JPanel implements Runnable {
         }
     }
 
+    public class buttonEntityListener implements ActionListener {
+        private Entity entity;
+
+        public buttonEntityListener(Entity entity) {
+            this.entity = entity;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ChangeCurrentJButton(mapEntity.get(entity));
+        }
+    }
+
     private class MouseListener extends MouseAdapter {
         @Override
         public void mousePressed(MouseEvent e) {
@@ -210,15 +254,18 @@ public class MainGameMenu extends JPanel implements Runnable {
             int x = (int) ((e.getPoint().getX()*GameConfiguration.GAME_SCALE)/scale);
             int y = (int) ((e.getPoint().getY()*GameConfiguration.GAME_SCALE)/scale);
             Point point = new Point(x, y);
-            System.out.println(point);
-            System.out.println(Map.getInstance().getPlayer().getLstHarbor().get(0).getPosition());
-            Map.getInstance().getPlayer().getLstHarbor().get(0).getPosition().setLocation(point);
-            System.out.println("-");
-        }
+            Boat boat = factionManager.getBoatManager().pointCollisionToMapBoat(point);
+            if (boat != null){
+                if(Map.getInstance().getPlayer().getLstBoat().contains(boat)){
+                    jEastATHPanel.removeAll();
+                    jEastATHPanel.add(jEastPanel);
+                    jEastCenterCenterPanel.removeAll();
+                    jEastCenterCenterPanel.add(jEastCenterPanelChoice1);
+                    ChangeCurrentJButton(mapEntity.get(boat));
+                    sizeUpdate();
+                }
 
-        @Override
-        public void mouseReleased(MouseEvent e) {
-
+            }
         }
     }
 

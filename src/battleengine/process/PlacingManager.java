@@ -66,13 +66,17 @@ public class PlacingManager {
     /**
      * Method that is used to confirm the end of the Placing phase.
      */
-    public void confirmContinueBattle(){
+    public boolean confirmContinueBattle(){
         //potentielle modification des conditions
         if(!battle.getLstBoatsCurrentlyBeingPlaced().isEmpty() || !battle.getBoatsInBattleA().getArrayListBoat().isEmpty()){
             for(Boat boat : battle.getLstBoatsCurrentlyBeingPlaced() ){
                 battle.getBoatsInBattleA().add(boat);
             }
             clearBoatsCurrentlyBeingPlaced();
+            return true;
+        }
+        else {
+            return false;
         }
     }
 

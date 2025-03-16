@@ -35,6 +35,8 @@ public class CombatMenu extends JPanel implements Runnable {
     private JPanel jWestCenterPanel;
     private JPanel jWestSouthPanel;
 
+    private JButton confirmBattle;
+
     private BattleDisplay dashboard;
     private Battle battle;
     private BattleManager battleManager;
@@ -53,10 +55,11 @@ public class CombatMenu extends JPanel implements Runnable {
         dashboardJPanel = JComponentBuilder.borderMenuPanel();
         jPanelATH = JComponentBuilder.borderMenuPanel();
         jWestATHPanel = JComponentBuilder.borderMenuPanel();
-        jSouthATHPanel = JComponentBuilder.borderMenuPanel();
+        jSouthATHPanel = JComponentBuilder.flowMenuPanel();
         jNorthATHPanel = JComponentBuilder.borderMenuPanel();
         jWestCenterPanel = JComponentBuilder.gridMenuPanel(0,2);
         jWestSouthPanel = JComponentBuilder.gridMenuPanel(1,0,0,0);
+        confirmBattle = JComponentBuilder.menuButton("Battle",new confirmContinueBattleListener());
 
         dashboard = new BattleDisplay(battle);
         battleManager = new BattleManager(battle);
@@ -81,6 +84,8 @@ public class CombatMenu extends JPanel implements Runnable {
         dashboardJPanel.add(dashboard,BorderLayout.CENTER);
         jWestATHPanel.add(jWestPanel,BorderLayout.CENTER);
         jWestATHPanel.add(jWestSouthPanel,BorderLayout.SOUTH);
+
+        jSouthATHPanel.add(confirmBattle);
 
         jPanelATH.add(jNorthATHPanel,BorderLayout.NORTH);
         jPanelATH.add(jSouthATHPanel,BorderLayout.SOUTH);
@@ -112,6 +117,7 @@ public class CombatMenu extends JPanel implements Runnable {
         jWestSouthPanel.setPreferredSize(new Dimension(getWindow().getHeight(),(int) Math.max(26,getWindow().getHeight()*0.04)));
         jWestATHPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.20),getWindow().getHeight()));
         jWestCenterPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.08*Map.getInstance().getPlayer().getLstBoat().size()))));
+        confirmBattle.setPreferredSize(new Dimension((int) Math.max(50,getWindow().getWidth()*0.2), (int) Math.max(26,getWindow().getHeight()*0.08)));
         getWindow().revalidate();
         getWindow().repaint();
     }
@@ -130,6 +136,22 @@ public class CombatMenu extends JPanel implements Runnable {
         @Override
         public void actionPerformed(ActionEvent e) {
             battleManager.getPlacingManager().cancelPlacing();
+            elementInPanelUpdate();
+            sizeUpdate();
+        }
+    }
+
+    public class confirmContinueBattleListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(!battleManager.getPlacingManager().confirmContinueBattle()){
+                JOptionPane.showMessageDialog(CombatMenu.this,"no lol");
+            }
+            else {
+                Map.getInstance().setTimeStop(false);
+                jWestATHPanel.setVisible(false);
+                confirmBattle.setVisible(false);
+            }
             elementInPanelUpdate();
             sizeUpdate();
         }
@@ -167,6 +189,7 @@ public class CombatMenu extends JPanel implements Runnable {
         public void mousePressed(MouseEvent e) {
             if (e.getButton() == MouseEvent.BUTTON1) {
                 battle.setCurrentBoat(boat);
+                jWestATHPanel.setVisible(false);
             }
             else if (e.getButton() == MouseEvent.BUTTON3) {
             }
@@ -184,6 +207,7 @@ public class CombatMenu extends JPanel implements Runnable {
                 battle.setCurrentBoat(null);
                 elementInPanelUpdate();
             }
+            jWestATHPanel.setVisible(true);
         }
 
         @Override
@@ -205,10 +229,12 @@ public class CombatMenu extends JPanel implements Runnable {
                 if(Map.getInstance().isTimeStop()){
                     Map.getInstance().setTimeStop(false);
                     jWestATHPanel.setVisible(false);
+                    confirmBattle.setVisible(false);
                 }
                 else {
                     Map.getInstance().setTimeStop(true);
                     jWestATHPanel.setVisible(true);
+                    confirmBattle.setVisible(true);
 
                 }
                 sizeUpdate();
