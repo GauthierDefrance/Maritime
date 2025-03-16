@@ -105,6 +105,7 @@ public class BulletManager {
         if (tmp != null) {
             tmp.setCurrentHp(tmp.getCurrentHp()-GameConfiguration.DAMAGE_PER_BULLET);
             this.battle.getLstBullets().remove(bullet);
+            System.out.println("Bateau touché aux coordonnées : "+bullet.getPosition().toString());
             //Afficher explosion là ou était la balle
         }
     }
