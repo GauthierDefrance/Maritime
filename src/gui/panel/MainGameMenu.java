@@ -62,6 +62,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         super();
         init();
     }
+
     public void init() {
         this.setLayout(new BorderLayout());
         jPanelATH = JComponentBuilder.borderMenuPanel();
@@ -76,6 +77,10 @@ public class MainGameMenu extends JPanel implements Runnable {
         jEastCenterPanelChoice2 = JComponentBuilder.borderMenuPanel();
         jEastCenterPanelChoice3 = JComponentBuilder.borderMenuPanel();
         jEastCenterPanelChoice4 = JComponentBuilder.borderMenuPanel();
+        jButtonLeftMenu1 = JComponentBuilder.menuButton("1",new showMenu(jEastCenterPanelChoice1,jEastCenterCenterPanel));
+        jButtonLeftMenu2 = JComponentBuilder.menuButton("2",new showMenu(jEastCenterPanelChoice2,jEastCenterCenterPanel));
+        jButtonLeftMenu3 = JComponentBuilder.menuButton("3",new showMenu(jEastCenterPanelChoice3,jEastCenterCenterPanel));
+        jButtonLeftMenu4 = JComponentBuilder.menuButton("4",new showMenu(jEastCenterPanelChoice4,jEastCenterCenterPanel));
 
         dashboard = new GameDisplay();
         factionManager = new FactionManager();
@@ -99,11 +104,6 @@ public class MainGameMenu extends JPanel implements Runnable {
         jScrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         jEastCenterPanelChoice2.add(jScrollPane2);
 
-        jButtonLeftMenu1 = JComponentBuilder.menuButton("1",new showMenu(jEastCenterPanelChoice1,jEastCenterCenterPanel));
-        jButtonLeftMenu2 = JComponentBuilder.menuButton("2",new showMenu(jEastCenterPanelChoice2,jEastCenterCenterPanel));
-        jButtonLeftMenu3 = JComponentBuilder.menuButton("3",new showMenu(jEastCenterPanelChoice3,jEastCenterCenterPanel));
-        jButtonLeftMenu4 = JComponentBuilder.menuButton("4",new showMenu(jEastCenterPanelChoice4,jEastCenterCenterPanel));
-
         jEastCenterNorthPanel.add(jButtonLeftMenu1);
         jEastCenterNorthPanel.add(jButtonLeftMenu2);
         jEastCenterNorthPanel.add(jButtonLeftMenu3);
@@ -114,10 +114,10 @@ public class MainGameMenu extends JPanel implements Runnable {
         hideLeftMenuButton = JComponentBuilder.menuButton(">", new showMenu(jEastButtonPanel,jEastATHPanel));
 
         jEastATHPanel.setOpaque(false);
-        jEastButtonPanel.setOpaque(false);
-        jEastWestPanel.setOpaque(false);
         jPanelATH.setOpaque(false);
         jEastPanel.setOpaque(false);
+        jEastButtonPanel.setOpaque(false);
+        jEastWestPanel.setOpaque(false);
 
         jEastCenterPanel.add(jEastCenterNorthPanel,BorderLayout.NORTH);
         jEastCenterPanel.add(jEastCenterCenterPanel,BorderLayout.CENTER);
@@ -137,6 +137,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         jLayeredPane.add(dashboardJPanel,JLayeredPane.DEFAULT_LAYER);
         jLayeredPane.add(jPanelATH,JLayeredPane.PALETTE_LAYER);
 
+        //color
         jEastCenterPanel.setBackground(Color.DARK_GRAY);
         jNorthATHPanel.setBackground(Color.red);
         jSouthATHPanel.setBackground(Color.black);

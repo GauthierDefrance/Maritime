@@ -61,7 +61,7 @@ public class TestMove {
         fleet2.getArrayListBoat().add(fodder2);
 
         Resource resource1 = new Resource("resource1",1,1);
-        Resource resource2 = new Resource("resource1",1,1);
+        Resource resource2 = new Resource("resource2",1,1);
 
         Map.getInstance().getLstHarbor().get(0).getInventory().add(resource1,10000);
         Map.getInstance().getLstHarbor().get(3).getInventory().add(resource2,10000);

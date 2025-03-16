@@ -99,5 +99,10 @@ public class Map implements Serializable {
         this.lstPopUp.remove(PopUp);
     }
 
+    public void removeFaction(Faction faction) {
+        this.lstFaction.remove(faction);
+        this.lstBotFaction.remove(faction);
+    }
+
     public void add(GraphPoint graphPoint){ mapGraphPoint.put(graphPoint.getIdPoint(),graphPoint); }
 }
