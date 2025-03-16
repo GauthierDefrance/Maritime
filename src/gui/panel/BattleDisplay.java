@@ -1,6 +1,7 @@
 package gui.panel;
 
 import battleengine.entity.Battle;
+import battleengine.entity.Bullet;
 import config.GameConfiguration;
 import engine.Map;
 import engine.entity.boats.Boat;
@@ -55,6 +56,10 @@ public class BattleDisplay extends JPanel {
         }
         for(Boat boat : MainGUI.getBattle().getLstBoatsCurrentlyBeingPlaced()){
             paintEntity.paintBattle(boat,g2d);
+        }
+        for (Bullet bullet : MainGUI.getBattle().getLstBullets()){
+            g2d.setColor(Color.BLACK);
+            g2d.fillOval((int) (bullet.getPosition().getX()-5), (int) (bullet.getPosition().getY()-5),10,10);
         }
 
         if(battle.getCurrentBoat() != null) {

@@ -94,8 +94,8 @@ public class BattleBoatManager {
     }
     
     private static void moveForward(Boat boat){
-        int x = (int) Math.cos(boat.getAngle())*boat.getSpeed();
-        int y = (int) Math.sin(boat.getAngle()*boat.getSpeed());
+        int x = (int) (Math.cos(boat.getAngle())*boat.getSpeed() + boat.getPosition().getX());
+        int y = (int) (Math.sin(boat.getAngle()*boat.getSpeed()) + boat.getPosition().getY());
         boat.setPosition(x,y);
     }
 

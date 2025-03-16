@@ -1,7 +1,9 @@
 package battleengine.process;
 
 import battleengine.entity.Battle;
+import config.GameConfiguration;
 import engine.entity.boats.Boat;
+import engine.entity.boats.Fleet;
 import engine.process.BoatManager;
 
 import java.awt.*;
@@ -34,6 +36,8 @@ public class BattleManager {
         this.hunterManager = new HunterManager(battle);
     }
 
+
+
     public PlacingManager getPlacingManager() {return placingManager;}
     public BattleBoatManager getBattleBoatManager() {return battleBoatManager;}
     public BulletManager getBulletManager() {return bulletManager;}
@@ -52,6 +56,7 @@ public class BattleManager {
      */
     public void tick(){
         if(!this.battle.isInPlacingMode()){
+            System.out.println("tick");
             this.battleBoatManager.tick();
             this.shotManager.tick();
             this.bulletManager.tick();
