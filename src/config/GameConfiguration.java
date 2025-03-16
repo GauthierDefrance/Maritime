@@ -82,7 +82,7 @@ public final class GameConfiguration {
         public static final int SPAWN_ZONE_OPACITY = 15;
         public static final String DEFAULT_SPAWN_ZONE_COLOR ="blue";
         public static final Point DEFAULT_SPAWN_ZONE_COORDINATE= new Point(0,0);
-        public static final Point DEFAULT_ENEMY_SPAWN_ZONE_COORDINATE= new Point(600,0);
+        public static final Point DEFAULT_ENEMY_SPAWN_ZONE_COORDINATE= new Point(300,0);
         public static final int DEFAULT_SPAWN_ZONE_WIDTH = 200;
         public static final int DEFAULT_SPAWN_ZONE_HEIGHT = 600;
 

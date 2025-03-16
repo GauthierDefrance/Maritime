@@ -72,8 +72,12 @@ public class BulletManager {
      * Methode that remove all the dead bullets from whom the speed is too slow
      */
     public void actualizeBullets() {
+        ArrayList<Bullet> bullets = new ArrayList<>();
         for(Bullet bullet: this.battle.getLstBullets()) {
-            bulletKiller(bullet);
+            bullets.add(bulletKiller(bullet));
+        }
+        for(Bullet bullet: bullets) {
+            this.battle.getLstBullets().remove(bullet);
         }
     }
 
@@ -81,11 +85,12 @@ public class BulletManager {
      * Method that kill Bullet from which the speed is too slow
      * @param bullet {@link Bullet}
      */
-    public void bulletKiller(Bullet bullet) {
+    public Bullet bulletKiller(Bullet bullet) {
         if(bullet.getSpeed()<0){
-            this.battle.getLstBullets().remove(bullet);
             //Ajouter ici Plouf pop up !!!
+            return bullet;
         }
+        return null;
     }
 
     /**

@@ -262,6 +262,7 @@ public class CombatMenu extends JPanel implements Runnable {
                 System.out.println(e.getMessage());
             }
             if (!Map.getInstance().isTimeStop()){
+                battleManager.tick();
             }
             dashboard.repaint();
             dashboard.getPaintBackGround().setIFrame((dashboard.getPaintBackGround().getIFrame() + 1) % GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES);
