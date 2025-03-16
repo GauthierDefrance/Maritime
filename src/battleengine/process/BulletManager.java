@@ -110,7 +110,7 @@ public class BulletManager {
         Boat tmp = getBulletCollideFirstBoat(bullet, fleet);
         if (tmp != null) {
             tmp.setCurrentHp(tmp.getCurrentHp()-GameConfiguration.DAMAGE_PER_BULLET);
-            tmp.setSpeed(-1);
+            bullet.setSpeed(-1);
             //Afficher explosion là ou était la balle
         }
     }
