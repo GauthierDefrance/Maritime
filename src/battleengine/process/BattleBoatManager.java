@@ -61,6 +61,7 @@ public class BattleBoatManager {
                 }
             }
             else {
+                System.out.println("assignation proie");
                 //Sinon, on essaye de traquer une proie si elle existe
                 prey = HunterPreyHashMap.get(hunter);
                 if(prey!=null){
@@ -81,7 +82,7 @@ public class BattleBoatManager {
         angle = (angle + Math.PI) % (2 * Math.PI) - Math.PI;
         if(angle>0){
             boat.setAngle(boat.getAngle() - GameConfiguration.BOAT_ROTATION_SPEED);
-        } else {
+        } else if (angle<=0) {
             boat.setAngle(boat.getAngle() + GameConfiguration.BOAT_ROTATION_SPEED);
         }
 

@@ -26,7 +26,7 @@ public final class GameConfiguration {
 
     //-------- Boats Stats --------
         // -> Global Stat
-            public static final double BOAT_ROTATION_SPEED=5;
+            public static final double BOAT_ROTATION_SPEED=0.0174533;
             public static final double HITBOX_BOAT = 80;
             public static final int Transparency_Halo = 25;
 
@@ -34,7 +34,7 @@ public final class GameConfiguration {
             public static final double STANDARD_VISION_RADIUS = 300;
             public static final double STANDARD_HP = 100;
             public static final double STANDARD_SPEED = 5;
-            public static final double STANDARD_DAMAGE_SPEED = 5;
+            public static final double STANDARD_DAMAGE_SPEED = 50;
             public static final double STANDARD_INVENTORY_SIZE = 100;
 
         // -> Fodder Stat

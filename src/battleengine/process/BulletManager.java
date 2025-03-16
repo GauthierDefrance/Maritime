@@ -53,8 +53,8 @@ public class BulletManager {
     private void moveBullet(Bullet bullet) {
         int xo = (int) bullet.getPosition().getX();
         int yo = (int) bullet.getPosition().getY();
-        int x = (int) Math.cos(bullet.getAngle())*bullet.getSpeed();
-        int y = (int) Math.sin(bullet.getAngle())*bullet.getSpeed();
+        int x = (int) (Math.cos(bullet.getAngle())*bullet.getSpeed());
+        int y = (int) (Math.sin(bullet.getAngle())*bullet.getSpeed());
         bullet.getPosition().move(x+xo, y+yo);
     }
 
@@ -110,7 +110,7 @@ public class BulletManager {
         Boat tmp = getBulletCollideFirstBoat(bullet, fleet);
         if (tmp != null) {
             tmp.setCurrentHp(tmp.getCurrentHp()-GameConfiguration.DAMAGE_PER_BULLET);
-            this.battle.getLstBullets().remove(bullet);
+            tmp.setSpeed(-1);
             System.out.println("Bateau touché aux coordonnées : "+bullet.getPosition().toString());
             //Afficher explosion là ou était la balle
         }
@@ -129,7 +129,7 @@ public class BulletManager {
         ArrayList<Boat> tmp = BoatManager.boatCollisionToPoint(bullet.getPosition(), fleet.getArrayListBoat());
         int index = 0;
         if(!tmp.isEmpty()) {
-            while(result==null) {
+            while(result==null && index<tmp.size()) {
                 if(tmp.get(index).getColor().equals(bullet.getColor())){
                     result = tmp.get(index);
                 }

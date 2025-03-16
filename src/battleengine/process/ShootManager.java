@@ -155,7 +155,7 @@ public class ShootManager {
             x = Math.cos(hunter.getAngle()+Math.PI/2)*GameConfiguration.DEFAULT_WIDTH_BULLET_SPAWN;
             y = Math.sin(hunter.getAngle()+Math.PI/2)*GameConfiguration.DEFAULT_WIDTH_BULLET_SPAWN + randomNumber;
         }
-        bullet = BulletFactory.createBullet((int) x, (int) y, angle, hunter.getColor());
+        bullet = BulletFactory.createBullet((int) (x+hunter.getPosition().getX()), (int) (y+hunter.getPosition().getY()), angle, hunter.getColor());
         this.battle.getLstBullets().add(bullet);
     }
 
