@@ -51,17 +51,19 @@ public class FleetManager {
      * @param fleet targeted fleet
      */
     public void pathUpdate(Fleet fleet){
-        if(!fleet.getPath().isEmpty()){
-            for(Boat boat : fleet.getArrayListBoat()){
-                if(boat.getPath().isEmpty()&&(fleet.getContinuePath()||!boat.getPosition().equals(fleet.getPath().get(fleet.getPath().size()-1).getPoint()))){
-                    if(boat.getPosition().equals(fleet.getPath().get(0).getPoint())){
-                        ArrayList<GraphPoint> newPath = new ArrayList<>();
-                        newPath.addAll(fleet.getPath());
-                        boat.setPath(newPath);
-                        boat.setContinuePath(fleet.getContinuePath());
-                    }
-                    else {
-                        boat.setPath(SearchInGraph.findPath(boat,fleet.getPath().get(0)));
+        if(fleet != null){
+            if(!fleet.getPath().isEmpty()){
+                for(Boat boat : fleet.getArrayListBoat()){
+                    if(boat.getPath().isEmpty()&&(fleet.getContinuePath()||!boat.getPosition().equals(fleet.getPath().get(fleet.getPath().size()-1).getPoint()))){
+                        if(boat.getPosition().equals(fleet.getPath().get(0).getPoint())){
+                            ArrayList<GraphPoint> newPath = new ArrayList<>();
+                            newPath.addAll(fleet.getPath());
+                            boat.setPath(newPath);
+                            boat.setContinuePath(fleet.getContinuePath());
+                        }
+                        else {
+                            boat.setPath(SearchInGraph.findPath(boat,fleet.getPath().get(0)));
+                        }
                     }
                 }
             }

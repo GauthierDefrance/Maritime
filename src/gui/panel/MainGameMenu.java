@@ -255,17 +255,28 @@ public class MainGameMenu extends JPanel implements Runnable {
             int y = (int) ((e.getPoint().getY()*GameConfiguration.GAME_SCALE)/scale);
             Point point = new Point(x, y);
             Boat boat = factionManager.getBoatManager().pointCollisionToMapBoat(point);
-            if (boat != null){
+            Harbor harbor = factionManager.getHarborManager().pointCollisionToMapHarbor(point);
+            if(harbor != null){
+                if(Map.getInstance().getPlayer().getLstHarbor().contains(harbor)){
+                    jEastATHPanel.removeAll();
+                    jEastATHPanel.add(jEastPanel);
+                    jEastCenterCenterPanel.removeAll();
+                    jEastCenterCenterPanel.add(jEastCenterPanelChoice2);
+                    ChangeCurrentJButton(mapEntity.get(harbor));
+                }
+                //WIP
+            }
+            else if(boat != null){
                 if(Map.getInstance().getPlayer().getLstBoat().contains(boat)){
                     jEastATHPanel.removeAll();
                     jEastATHPanel.add(jEastPanel);
                     jEastCenterCenterPanel.removeAll();
                     jEastCenterCenterPanel.add(jEastCenterPanelChoice1);
                     ChangeCurrentJButton(mapEntity.get(boat));
-                    sizeUpdate();
                 }
-
+                //WIP
             }
+            sizeUpdate();
         }
     }
 
