@@ -99,12 +99,7 @@ public class TradeMenu extends JPanel {
             int value = resource.getValue();
 
             JButton ressourceButton = new JButton(resource.getName() + " | " + quantity + " | Value: " + value);
-            ressourceButton.setFocusPainted(false);
             ressourceButton.setContentAreaFilled(false);
-            ressourceButton.setBorderPainted(false);
-            ressourceButton.setHorizontalAlignment(SwingConstants.LEFT);
-            new JComponentBuilder.HoverEffectListener(ressourceButton);
-
             ressourceButton.addActionListener(new ResourceSelectionListener(isMyInventory,resource.getName()));
 
             contentPanel.add(ressourceButton);
