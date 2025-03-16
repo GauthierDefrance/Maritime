@@ -19,6 +19,7 @@ public class BattleManager {
     private final PlacingManager placingManager;
     private final BattleBoatManager battleBoatManager;
     private final HunterManager hunterManager;
+    private final ShootManager shotManager;
 
     /**
      * Constructor of the BattleManager.
@@ -26,6 +27,7 @@ public class BattleManager {
      */
     public BattleManager(Battle battle) {
         this.battle = battle;
+        this.shotManager = new ShootManager(battle);
         this.placingManager = new PlacingManager(battle);
         this.bulletManager = new BulletManager(battle);
         this.battleBoatManager = new BattleBoatManager(battle);
@@ -50,8 +52,9 @@ public class BattleManager {
      */
     public void tick(){
         if(!this.battle.isInPlacingMode()){
-            this.bulletManager.tick();
             this.battleBoatManager.tick();
+            this.shotManager.tick();
+            this.bulletManager.tick();
             this.hunterManager.ActualizeChase(); // DANGEREUX /!\
         }
     }

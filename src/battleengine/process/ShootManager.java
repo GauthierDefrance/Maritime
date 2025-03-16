@@ -16,7 +16,7 @@ import java.util.Random;
  * @author Gauthier Defrance
  * @version 0.3
  */
-public class shootManager {
+public class ShootManager {
 
     private final Battle battle;
 
@@ -24,7 +24,7 @@ public class shootManager {
      *
      * @param battle {@link Battle}
      */
-    public shootManager(Battle battle) {
+    public ShootManager(Battle battle) {
         this.battle = battle;
     }
 
@@ -57,13 +57,15 @@ public class shootManager {
         Boat tmp;
         for (Boat hunter : fleet.getArrayListBoat()) {
             tmp = this.battle.getHunterPreyHashMap().get(hunter);
-            if (tmp != null) {
+            if (tmp != null && isShootable(hunter,tmp,AngleCalculator.calculateAngle(hunter, tmp))) {
                 //prioirité à la proie
                 tryshoot(hunter, tmp);
             } else if (isReadyToShot(hunter)) {
                 //priorité au plus proche
                 tmp = getShootableFirstBoat(hunter, preyFleet);
-                shoot(hunter, tmp, AngleCalculator.calculateAngle(hunter, tmp));
+                if (tmp != null) {
+                    shoot(hunter, tmp, AngleCalculator.calculateAngle(hunter, tmp));
+                }
             }
         }
     }
