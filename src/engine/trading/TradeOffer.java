@@ -15,14 +15,11 @@ public class TradeOffer implements Serializable {
     private Fleet concernedFleet;
     private HashMap<Resource, Integer> selection;
     private HashMap<Resource, Integer> demand;
-    private boolean validation;
-    private boolean abandoned;
 
     private TradeOffer(Harbor A, Harbor B) {
         this.interlocutor = new FactionManager().getMyFaction(B.getColor());
         this.startingHarbor = A;
         this.targetedHarbor = B;
-        this.validation = false;
         this.selection = new HashMap<>();
         this.demand = new HashMap<>();
         this.concernedFleet = new Fleet();
@@ -58,14 +55,6 @@ public class TradeOffer implements Serializable {
         return concernedFleet;
     }
 
-    public boolean isValid() {
-        return validation;
-    }
-
-    public boolean isAbandoned() {
-        return abandoned;
-    }
-
     //Setters
 
     public void setSelection(HashMap<Resource, Integer> selection) {
@@ -78,21 +67,5 @@ public class TradeOffer implements Serializable {
 
     public void setConcernedFleet(Fleet concernedFleet) {
         this.concernedFleet = concernedFleet;
-    }
-
-    public void setValid(boolean validation) {
-        this.validation = validation;
-    }
-
-    public void setAbandoned(boolean abandoned) {
-        this.abandoned = abandoned;
-    }
-
-    //Basic Logic
-
-    public void defineDemand(Resource demand) {
-        if (this.demand.isEmpty()) {
-            this.demand.put(demand, 0);
-        }
     }
 }

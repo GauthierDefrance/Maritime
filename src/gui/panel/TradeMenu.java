@@ -78,7 +78,9 @@ public class TradeMenu extends JPanel {
         JPanel interlocutorOffer = JComponentBuilder.flowMenuPanel(interlocutorResource, interlocutorQuantity);
 
         currentProposition = new JTextArea();
-        JPanel middleRow = JComponentBuilder.gridMenuPanel(1,3,BUTTON_SEPARATOR,BUTTON_SEPARATOR, myOffer,currentProposition, interlocutorOffer);
+        JButton updateOfferButton = JComponentBuilder.menuButton("Modify Offer", new SelectionListener());
+        JPanel central = JComponentBuilder.gridMenuPanel(2,1,BUTTON_SEPARATOR,BUTTON_SEPARATOR, currentProposition, updateOfferButton);
+        JPanel middleRow = JComponentBuilder.gridMenuPanel(1,3,BUTTON_SEPARATOR,BUTTON_SEPARATOR, myOffer,central, interlocutorOffer);
 
         successChanceLabel = JComponentBuilder.menuLabel(SuccessChanceLabelText());
         JButton cancelButton = JComponentBuilder.menuButton("Cancel offer", new GoBackListener());

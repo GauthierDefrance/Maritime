@@ -162,14 +162,4 @@ public class TradeManager {
         }
         return null;
     }
-
-    public SeaRoad proceed(TradeOffer offer) {
-        while (true) {
-            if (offer.isValid()) {
-                return conclude(offer);
-            } else if (offer.isAbandoned()) {
-                return null;
-            }
-        }
-    }
 }
