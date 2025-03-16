@@ -17,7 +17,8 @@ import java.util.HashMap;
  */
 public class Battle {
 
-    private ArrayList<Bullet> LstBullets;
+    private ArrayList<Bullet> LstBulletsteamA;
+    private ArrayList<Bullet> LstBulletsteamB;
 
     private HashMap<Boat, Integer> ReloadingHashMap;
 
@@ -57,7 +58,8 @@ public class Battle {
         this.LstBoatsCurrentlyBeingPlaced = new ArrayList<Boat>();
         this.HunterPreyHashMap = new HashMap<Boat, Boat>();
         this.ReloadingHashMap = new HashMap<Boat, Integer>();
-        LstBullets=new ArrayList<Bullet>();
+        LstBulletsteamA=new ArrayList<Bullet>();
+        LstBulletsteamB=new ArrayList<Bullet>();
 
         for(Boat boat : this.teamA.getArrayListBoat()) {
             HunterPreyHashMap.put(boat, null);
@@ -174,18 +176,6 @@ public class Battle {
     public boolean isInPlacingMode() { return isInPlacingMode; }
 
     /**
-     * Gets the ArrayList of Bullet
-     */
-    public ArrayList<Bullet> getLstBullets(){return this.LstBullets;}
-
-
-    /**
-     * sets the ArrayList of Bullet
-     * @param LstBullets ArrayList<Bullet>
-     */
-    public void setLstBullets(ArrayList<Bullet> LstBullets){this.LstBullets = LstBullets;}
-
-    /**
      * Sets the HunterPreyHashMap
      * @param hashMap
      */
@@ -281,5 +271,21 @@ public class Battle {
 
     public void setCurrentBoatPoint(Point currentBoatPoint) {
         this.currentBoatPoint.setLocation(currentBoatPoint);
+    }
+
+    public ArrayList<Bullet> getLstBulletsteamA() {
+        return LstBulletsteamA;
+    }
+
+    public void setLstBulletsteamA(ArrayList<Bullet> lstBulletsteamA) {
+        LstBulletsteamA = lstBulletsteamA;
+    }
+
+    public ArrayList<Bullet> getLstBulletsteamB() {
+        return LstBulletsteamB;
+    }
+
+    public void setLstBulletsteamB(ArrayList<Bullet> lstBulletsteamB) {
+        LstBulletsteamB = lstBulletsteamB;
     }
 }

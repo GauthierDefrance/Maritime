@@ -40,7 +40,11 @@ public class BulletManager {
      * Method that move and decelerate at the same time all the bullets.
      */
     public void moveAllBullets() {
-        for(Bullet bullet: this.battle.getLstBullets()) {
+        for(Bullet bullet: this.battle.getLstBulletsteamA()) {
+            moveBullet(bullet);
+            decelerateBullet(bullet);
+        }
+        for(Bullet bullet: this.battle.getLstBulletsteamB()) {
             moveBullet(bullet);
             decelerateBullet(bullet);
         }
@@ -73,11 +77,15 @@ public class BulletManager {
      */
     public void actualizeBullets() {
         ArrayList<Bullet> bullets = new ArrayList<>();
-        for(Bullet bullet: this.battle.getLstBullets()) {
+        for(Bullet bullet: this.battle.getLstBulletsteamA()) {
+            bullets.add(bulletKiller(bullet));
+        }
+        for(Bullet bullet: this.battle.getLstBulletsteamB()) {
             bullets.add(bulletKiller(bullet));
         }
         for(Bullet bullet: bullets) {
-            this.battle.getLstBullets().remove(bullet);
+            this.battle.getLstBulletsteamA().remove(bullet);
+            this.battle.getLstBulletsteamB().remove(bullet);
         }
     }
 
@@ -97,20 +105,25 @@ public class BulletManager {
      * Method that check the collision of the bullet with
      * all the boats in Battle.
      */
-    public void collideAll(){
-        for(Bullet bullet: this.battle.getLstBullets()) {
-            collide(bullet,this.battle.getBoatsInBattleA());
+    private void collideAll(){
+        ArrayList<Bullet> tmpLstBullets =  new ArrayList<>();
+        tmpLstBullets.addAll(this.battle.getLstBulletsteamA());
+        for(Bullet bullet: tmpLstBullets) {
+            collide(bullet,this.battle.getBoatsInBattleB());
         }
-        for(Bullet bullet: this.battle.getLstBullets()) {
+        tmpLstBullets.clear();
+        tmpLstBullets.addAll(this.battle.getLstBulletsteamB());
+        for(Bullet bullet: tmpLstBullets) {
             collide(bullet,this.battle.getBoatsInBattleA());
         }
     }
 
-    public void collide(Bullet bullet, Fleet fleet) {
+    private void collide(Bullet bullet, Fleet fleet) {
         Boat tmp = getBulletCollideFirstBoat(bullet, fleet);
         if (tmp != null) {
             tmp.setCurrentHp(tmp.getCurrentHp()-GameConfiguration.DAMAGE_PER_BULLET);
-            bullet.setSpeed(-1);
+            fleet.getArrayListBoat().remove(bullet);
+            fleet.getArrayListBoat().remove(bullet);
             //Afficher explosion là ou était la balle
         }
     }
@@ -123,15 +136,13 @@ public class BulletManager {
      * @param fleet {@link Fleet}
      * @return {@link Boat}
      */
-    public Boat getBulletCollideFirstBoat(Bullet bullet, Fleet fleet) {
+    private Boat getBulletCollideFirstBoat(Bullet bullet, Fleet fleet) {
         Boat result=null;
         ArrayList<Boat> tmp = BoatManager.boatCollisionToPoint(bullet.getPosition(), fleet.getArrayListBoat());
         int index = 0;
         if(!tmp.isEmpty()) {
             while(result==null && index<tmp.size()) {
-                if(tmp.get(index).getColor().equals(bullet.getColor())){
-                    result = tmp.get(index);
-                }
+                result = tmp.get(index);
                 index++;
             }
         }

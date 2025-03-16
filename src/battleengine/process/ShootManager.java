@@ -56,7 +56,7 @@ public class ShootManager {
                     //priorité au plus proche
                     tmp = getShootableFirstBoat(hunter, preyFleet);
                     if (tmp != null) {
-                        shoot(hunter, tmp, AngleCalculator.calculateAngle(hunter, tmp));
+                        shoot(hunter, tmp);
                     }
                 }
             }
@@ -71,8 +71,7 @@ public class ShootManager {
     private void tryshoot(Boat hunter, Boat prey){
         double angle = 0;
         if(isShootable(hunter, prey, angle)){
-            shoot(hunter, prey, angle);
-            this.battle.getReloadingHashMap().put(hunter,0);
+            shoot(hunter, prey);
         }
     }
 
@@ -111,14 +110,9 @@ public class ShootManager {
         if (hunter.getPosition().distance(prey.getPosition())<GameConfiguration.DEFAULT_SHOOT_DISTANCE){
             //If the enemy is at close distance
             angle = AngleCalculator.calculateAngle(hunter, prey);
-            if (-GameConfiguration.DEFAULT_SHOOTING_ANGLE > angle &&
-                    angle > GameConfiguration.DEFAULT_SHOOTING_ANGLE - Math.PI) {
-                //Right
+            if (( Math.PI/4 < angle && angle < 3*Math.PI/4 )||( -Math.PI/4 > angle && angle > -3*Math.PI/4 ) ){
                 return true;
             }
-            //Left
-            return GameConfiguration.DEFAULT_SHOOTING_ANGLE < angle &&
-                    angle < Math.PI - GameConfiguration.DEFAULT_SHOOTING_ANGLE;
         }
         return false;
     }
@@ -128,10 +122,10 @@ public class ShootManager {
      *
      * @param hunter {@link Boat}
      * @param prey {@link Boat}
-     * @param angle {@link Double}
      */
-    private void shoot(Boat hunter, Boat prey, double angle){
+    private void shoot(Boat hunter, Boat prey){
         Bullet bullet;
+        double angle = AngleCalculator.calculateAngle(hunter, prey);
         Random rand = new Random();
         int min = -GameConfiguration.DEFAULT_HEIGHT_BULLET_SPAWN;
         int max = GameConfiguration.DEFAULT_HEIGHT_BULLET_SPAWN+1;
@@ -140,16 +134,18 @@ public class ShootManager {
         double y;
         if(angle<0){
             //Shoot on the right side of the boat
-            x = Math.cos(hunter.getAngle()-Math.PI/2)*GameConfiguration.DEFAULT_WIDTH_BULLET_SPAWN;
-            y = Math.sin(hunter.getAngle()-Math.PI/2)*GameConfiguration.DEFAULT_WIDTH_BULLET_SPAWN + randomNumber;
+            x = Math.cos(hunter.getAngle()-Math.PI/2)*(GameConfiguration.DEFAULT_WIDTH_BULLET_SPAWN+ randomNumber);
+            y = Math.sin(hunter.getAngle()-Math.PI/2)*(GameConfiguration.DEFAULT_WIDTH_BULLET_SPAWN + randomNumber);
         }
         else{
             //shoot on the left side of the boat
-            x = Math.cos(hunter.getAngle()+Math.PI/2)*GameConfiguration.DEFAULT_WIDTH_BULLET_SPAWN;
-            y = Math.sin(hunter.getAngle()+Math.PI/2)*GameConfiguration.DEFAULT_WIDTH_BULLET_SPAWN + randomNumber;
+            x = Math.cos(hunter.getAngle()+Math.PI/2)*(GameConfiguration.DEFAULT_WIDTH_BULLET_SPAWN + randomNumber);
+            y = Math.sin(hunter.getAngle()+Math.PI/2)*(GameConfiguration.DEFAULT_WIDTH_BULLET_SPAWN + randomNumber);
         }
         bullet = BulletFactory.createBullet((int) (x+hunter.getPosition().getX()), (int) (y+hunter.getPosition().getY()), angle, hunter.getColor());
-        this.battle.getLstBullets().add(bullet);
+        if(this.battle.getTeamA().getArrayListBoat().contains(hunter)){
+            this.battle.getLstBulletsteamA().add(bullet);
+        } else this.battle.getLstBulletsteamB().add(bullet);
     }
 
 
