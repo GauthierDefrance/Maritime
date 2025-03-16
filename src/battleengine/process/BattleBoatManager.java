@@ -90,7 +90,7 @@ public class BattleBoatManager {
             moveForward(boat);
         }
     }
-
+    
     private static void moveForward(Boat boat){
         int x = (int) Math.cos(boat.getAngle())*boat.getSpeed();
         int y = (int) Math.sin(boat.getAngle()*boat.getSpeed());

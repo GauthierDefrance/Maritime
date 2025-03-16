@@ -1,5 +1,5 @@
 package battleengine.entity;
-import battleengine.tools.SpawnZoneFactory;
+import battleengine.factory.SpawnZoneFactory;
 import battleengine.tools.DeepCopy;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
@@ -17,6 +17,8 @@ import java.util.HashMap;
 public class Battle {
 
     private ArrayList<Bullet> LstBullets;
+
+    private HashMap<Boat, Integer> ReloadingHashMap;
 
     private HashMap<Boat, Boat> HunterPreyHashMap;
 
@@ -53,10 +55,17 @@ public class Battle {
         this.LstBoatsToPlace = this.teamA.getArrayListBoat();
         this.LstBoatsCurrentlyBeingPlaced = new ArrayList<Boat>();
         this.HunterPreyHashMap = new HashMap<Boat, Boat>();
+        this.ReloadingHashMap = new HashMap<Boat, Integer>();
         LstBullets=new ArrayList<Bullet>();
 
-        for(Boat boat : this.teamA.getArrayListBoat()) {HunterPreyHashMap.put(boat, null);}
-        for(Boat boat : this.teamB.getArrayListBoat()) {HunterPreyHashMap.put(boat, null);}
+        for(Boat boat : this.teamA.getArrayListBoat()) {
+            HunterPreyHashMap.put(boat, null);
+            ReloadingHashMap.put(boat, 0);
+        }
+        for(Boat boat : this.teamB.getArrayListBoat()) {
+            HunterPreyHashMap.put(boat, null);
+            ReloadingHashMap.put(boat, 0);
+        }
 
         this.BoatsInBattleA= new Fleet();
         this.BoatsInBattleB = new Fleet();
@@ -66,6 +75,10 @@ public class Battle {
         this.currentBoatPoint = new Point(0,0);
 
 
+    }
+
+    public HashMap<Boat, Integer> getReloadingHashMap() {
+        return ReloadingHashMap;
     }
 
     /**

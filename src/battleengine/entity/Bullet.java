@@ -9,25 +9,35 @@ import java.awt.*;
  */
 public class Bullet {
 
+    private String color;
     private int tickAlive=0;
     private int speed;
     private int angle;
     private Point position;
 
-    public Bullet(int x, int y, int speed, int angle) {
+    public Bullet(int x, int y, int speed, int angle, String color) {
         this.speed = speed;
         this.angle = angle;
         this.position = new Point(x, y);
+        this.color = color;
     }
 
-    public Bullet(Point position, int speed, int angle) {
+    public Bullet(Point position, int speed, int angle, String color) {
         this.speed = speed;
         this.angle = angle;
         this.position = position;
+        this.color = color;
     }
 
     //---- Getters ----
 
+    /**
+     *
+     * @return color {@link String} the color of the team from which the bullet belong.
+     */
+    public String getColor() {
+        return color;
+    }
     /**
      * Récupère la vitesse.
      *

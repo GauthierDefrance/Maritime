@@ -79,11 +79,11 @@ public class BoatManager {
      * @param y coordinate y
      * @param boat targeted boat
      */
-    public void moveTo(double x,double y,Boat boat){
+    public void moveTo(double x,double y, Boat boat){
         boat.setPosition(x,y);
     }
 
-    public boolean reduceHp(int value,Boat boat) {
+    public boolean reduceHp(int value, Boat boat) {
         if (value < boat.getCurrentHp()){
             boat.addCurrentHp(-value);
             return true;

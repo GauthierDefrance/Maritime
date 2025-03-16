@@ -1,4 +1,4 @@
-package battleengine.tools;
+package battleengine.factory;
 
 import battleengine.entity.SpawnZone;
 import config.GameConfiguration;
