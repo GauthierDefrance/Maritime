@@ -61,7 +61,6 @@ public class BattleBoatManager {
                 }
             }
             else {
-                System.out.println("assignation proie");
                 //Sinon, on essaye de traquer une proie si elle existe
                 prey = HunterPreyHashMap.get(hunter);
                 if(prey!=null){
