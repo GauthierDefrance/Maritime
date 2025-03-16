@@ -35,9 +35,19 @@ public class shootManager {
 
     private boolean isShootable(Boat hunter, Boat prey){
         double angle = AngleCalculator.calculateAngle(hunter, prey);
-        if(<angle<)
-
+        if(-GameConfiguration.DEFAULT_SHOOTING_ANGLE >angle &&
+            angle> GameConfiguration.DEFAULT_SHOOTING_ANGLE-Math.PI){
+            //Right
+            return true;
+        }
+        if( GameConfiguration.DEFAULT_SHOOTING_ANGLE <angle &&
+            angle< Math.PI-GameConfiguration.DEFAULT_SHOOTING_ANGLE){
+            //Left
+            return true;
+        }
+        return false;
     }
+
 
     /**
      * @param hunter
