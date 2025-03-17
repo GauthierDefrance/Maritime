@@ -136,7 +136,7 @@ public class BoatManager {
      * @return result of the check
      */
     public static boolean boatCollisionToPoint (Boat boat, Point point){
-        return GameConfiguration.HITBOX_BOAT - 5 >= boat.getPosition().distance(point);
+        return GameConfiguration.HITBOX_BOAT/2 - 5 >= boat.getPosition().distance(point);
     }
 
     /**
@@ -148,7 +148,7 @@ public class BoatManager {
     public static ArrayList<Boat> boatCollisionToPoint (Point point, ArrayList<Boat> lstBoat){
         ArrayList<Boat> lstBoatTemp = new ArrayList<>();
         for (Boat boat : lstBoat){
-            if (GameConfiguration.HITBOX_BOAT - 5 >= boat.getPosition().distance(point)){
+            if (GameConfiguration.HITBOX_BOAT/2 - 5 >= boat.getPosition().distance(point)){
                 lstBoatTemp.add(boat);
             }
         }
@@ -181,7 +181,7 @@ public class BoatManager {
         Boat boat1 = null;
         for (Faction faction : Map.getInstance().getLstFaction()){
             for (Boat boat2 : faction.getLstBoat()){
-                if (GameConfiguration.HITBOX_BOAT - 5 >= point.distance(boat2.getPosition())){
+                if (GameConfiguration.HITBOX_BOAT/2 >= point.distance(boat2.getPosition())){
                     if(boat1 != null){
                         if(point.distance(boat2.getPosition())<point.distance(boat1.getPosition())){
                             boat1 = boat2;

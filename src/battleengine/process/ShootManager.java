@@ -41,18 +41,19 @@ public class ShootManager {
 
     /**
      * Make all the boat in a fleet try to shoot another fleet.
-     * @param fleet {@link Fleet}
+     * @param hunterFleet {@link Fleet}
      * @param preyFleet {@link Fleet}
      */
-    private void shootFleet(Fleet fleet, Fleet preyFleet) {
+    private void shootFleet(Fleet hunterFleet, Fleet preyFleet) {
         Boat tmp;
-        for (Boat hunter : fleet.getArrayListBoat()) {
+        for (Boat hunter : hunterFleet.getArrayListBoat()) {
             if (isReadyToShot(hunter)){
                 tmp = this.battle.getHunterPreyHashMap().get(hunter);
-                if(tmp != null && isShootable(hunter, tmp, AngleCalculator.calculateAngle(hunter, tmp))) {
+                if(tmp != null && isShootable(hunter, tmp)) {
                     //prioirité à la proie
                     tryshoot(hunter, tmp);
-                } else{
+                }
+                else{
                     //priorité au plus proche
                     tmp = getShootableFirstBoat(hunter, preyFleet);
                     if (tmp != null) {
@@ -70,7 +71,7 @@ public class ShootManager {
      */
     private void tryshoot(Boat hunter, Boat prey){
         double angle = 0;
-        if(isShootable(hunter, prey, angle)){
+        if(isShootable(hunter, prey)){
             shoot(hunter, prey);
         }
     }
@@ -89,7 +90,7 @@ public class ShootManager {
         int index = 0;
         while(result==null && index<boats.size()){
             tmp = boats.get(index);
-            if(isShootable(hunter,tmp, 0)){
+            if(isShootable(hunter,tmp)){
                 result=tmp;
             }
             index++;
@@ -103,13 +104,12 @@ public class ShootManager {
      * => The prey is in range and in the correct angle.
      * @param hunter {@link Boat}
      * @param prey {@link Boat}
-     * @param angle {@link Double}
      * @return {@link Boolean}
      */
-    private boolean isShootable(Boat hunter, Boat prey, double angle) {
-        if (hunter.getPosition().distance(prey.getPosition())<GameConfiguration.DEFAULT_SHOOT_DISTANCE){
+    private boolean isShootable(Boat hunter, Boat prey) {
+        if (hunter.getPosition().distance(prey.getPosition()) < GameConfiguration.DEFAULT_SHOOT_DISTANCE*hunter.getVisionRadius()){
             //If the enemy is at close distance
-            angle = AngleCalculator.calculateAngle(hunter, prey);
+            double angle = AngleCalculator.calculateAngle(hunter, prey);
             if (( Math.PI/4 < angle && angle < 3*Math.PI/4 )||( -Math.PI/4 > angle && angle > -3*Math.PI/4 ) ){
                 return true;
             }
@@ -143,9 +143,12 @@ public class ShootManager {
             y = Math.sin(hunter.getAngle()+Math.PI/2)*(GameConfiguration.DEFAULT_WIDTH_BULLET_SPAWN + randomNumber);
         }
         bullet = BulletFactory.createBullet((int) (x+hunter.getPosition().getX()), (int) (y+hunter.getPosition().getY()), angle, hunter.getColor());
-        if(this.battle.getTeamA().getArrayListBoat().contains(hunter)){
+        if(this.battle.getBoatsInBattleA().getArrayListBoat().contains(hunter)){
             this.battle.getLstBulletsteamA().add(bullet);
-        } else this.battle.getLstBulletsteamB().add(bullet);
+        }
+        else {
+            this.battle.getLstBulletsteamB().add(bullet);
+        }
     }
 
 

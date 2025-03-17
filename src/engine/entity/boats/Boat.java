@@ -148,7 +148,7 @@ public abstract class Boat implements Entity {
 
     public void addIPath(int iPath) {this.iPath += iPath;}
 
-    public void addCurrentHp(int currentHp) {this.currentHp += currentHp;}
+    public void addCurrentHp(int Hp) {this.currentHp += Hp;}
 
     /**
      * check how many elements of a ressource this boat's inventory has

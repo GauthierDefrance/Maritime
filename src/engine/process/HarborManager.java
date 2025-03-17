@@ -31,7 +31,7 @@ public class HarborManager {
             for (Harbor harbor2 : faction.getLstHarbor()){
                 if (GameConfiguration.HITBOX_BOAT - 5 >= point.distance(harbor2.getPosition())){
                     if(harbor1 != null){
-                        if(point.distance(harbor2.getPosition())<point.distance(harbor1.getPosition())){
+                        if(point.distance(harbor2.getPosition()) < point.distance(harbor1.getPosition())){
                             harbor1 = harbor2;
                         }
                     }

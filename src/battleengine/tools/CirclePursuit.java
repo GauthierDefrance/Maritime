@@ -1,5 +1,6 @@
 package battleengine.tools;
 
+import config.GameConfiguration;
 import engine.entity.boats.Boat;
 
 import java.awt.*;
@@ -16,7 +17,7 @@ public final class CirclePursuit {
 
         double angle = AngleCalculator.calculateAngle(hunter, prey);
 
-        int SHOOT_DISTANCE = config.GameConfiguration.DEFAULT_SHOOT_DISTANCE;
+        int SHOOT_DISTANCE = (int) (GameConfiguration.DEFAULT_SHOOT_DISTANCE*hunter.getVisionRadius());
 
         if (0 <= angle && angle < Math.PI/2) {
             return getBoatPointLeft(prey,SHOOT_DISTANCE);

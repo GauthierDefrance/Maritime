@@ -8,6 +8,7 @@ import engine.entity.boats.Fleet;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Stack;
 
 /**
  * Class that represents a Battle, it contains 2 Fleet that represent
@@ -124,14 +125,14 @@ public class Battle {
      *
      * @return the boats in battle for team A
      */
-    public Fleet getBoatsInBattleA() { return BoatsInBattleA; }
+    public Fleet getBoatsInBattleA() {return BoatsInBattleA; }
 
     /**
      * Gets the boats currently in battle for team B.
      *
      * @return the boats in battle for team B
      */
-    public Fleet getBoatsInBattleB() { return BoatsInBattleB; }
+    public Fleet getBoatsInBattleB() {return BoatsInBattleB; }
 
     /**
      * Gets the list of boats to be placed.

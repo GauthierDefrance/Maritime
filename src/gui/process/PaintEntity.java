@@ -107,9 +107,13 @@ public class PaintEntity {
      * It paints a player boat that needs to be painted in Battle on 2D graphics
      */
     public void paintBattle(Boat boat, Graphics2D g2d){
-        g2d.setColor(new Color(255,255,255, GameConfiguration.Transparency_Halo));
-        g2d.drawOval((int)(boat.getPosition().getX())-((int)boat.getVisionRadius()/2),(int)(boat.getPosition().getY())-((int)boat.getVisionRadius()/2), (int) boat.getVisionRadius(), (int) boat.getVisionRadius());
+        g2d.rotate(boat.getAngle(),(int)(boat.getPosition().getX()),(int)(boat.getPosition().getY()));
+        g2d.setColor(new Color(64, 64, 64, GameConfiguration.Transparency_Halo));
+        g2d.setStroke(new BasicStroke(5*GameConfiguration.GAME_SCALE));
+        g2d.fillArc((int)(boat.getPosition().getX())-((int)boat.getVisionRadius()*GameConfiguration.DEFAULT_SHOOT_DISTANCE/2),(int)(boat.getPosition().getY())-((int)boat.getVisionRadius()*GameConfiguration.DEFAULT_SHOOT_DISTANCE/2), (int) boat.getVisionRadius()*GameConfiguration.DEFAULT_SHOOT_DISTANCE, (int) boat.getVisionRadius()*GameConfiguration.DEFAULT_SHOOT_DISTANCE, 45, 90);
+        g2d.drawArc((int)(boat.getPosition().getX())-((int)boat.getVisionRadius()*GameConfiguration.DEFAULT_SHOOT_DISTANCE/2),(int)(boat.getPosition().getY())-((int)boat.getVisionRadius()*GameConfiguration.DEFAULT_SHOOT_DISTANCE/2), (int) boat.getVisionRadius()*GameConfiguration.DEFAULT_SHOOT_DISTANCE, (int) boat.getVisionRadius()*GameConfiguration.DEFAULT_SHOOT_DISTANCE, -45, -90);
         g2d.setColor(Color.black);
+        g2d.rotate(-boat.getAngle(),(int)(boat.getPosition().getX()),(int)(boat.getPosition().getY()));
         paint(boat,g2d);
     }
 

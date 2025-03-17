@@ -40,11 +40,11 @@ public class BulletManager {
      * Method that move and decelerate at the same time all the bullets.
      */
     public void moveAllBullets() {
-        for(Bullet bullet: this.battle.getLstBulletsteamA()) {
+        for(Bullet bullet: battle.getLstBulletsteamA()) {
             moveBullet(bullet);
             decelerateBullet(bullet);
         }
-        for(Bullet bullet: this.battle.getLstBulletsteamB()) {
+        for(Bullet bullet: battle.getLstBulletsteamB()) {
             moveBullet(bullet);
             decelerateBullet(bullet);
         }
@@ -76,16 +76,11 @@ public class BulletManager {
      * Methode that remove all the dead bullets from whom the speed is too slow
      */
     public void actualizeBullets() {
-        ArrayList<Bullet> bullets = new ArrayList<>();
-        for(Bullet bullet: this.battle.getLstBulletsteamA()) {
-            bullets.add(bulletKiller(bullet));
-        }
-        for(Bullet bullet: this.battle.getLstBulletsteamB()) {
-            bullets.add(bulletKiller(bullet));
-        }
-        for(Bullet bullet: bullets) {
-            this.battle.getLstBulletsteamA().remove(bullet);
-            this.battle.getLstBulletsteamB().remove(bullet);
+        ArrayList<Bullet> tmpLstBullets = new ArrayList<>();
+        tmpLstBullets.addAll(battle.getLstBulletsteamA());
+        tmpLstBullets.addAll(battle.getLstBulletsteamB());
+        for(Bullet bullet: tmpLstBullets) {
+            bulletKiller(bullet);
         }
     }
 
@@ -93,12 +88,12 @@ public class BulletManager {
      * Method that kill Bullet from which the speed is too slow
      * @param bullet {@link Bullet}
      */
-    public Bullet bulletKiller(Bullet bullet) {
-        if(bullet.getSpeed()<0){
+    public void bulletKiller(Bullet bullet) {
+        if(bullet.getSpeed() <= 0.2){
             //Ajouter ici Plouf pop up !!!
-            return bullet;
+            battle.getLstBulletsteamA().remove(bullet);
+            battle.getLstBulletsteamB().remove(bullet);
         }
-        return null;
     }
 
     /**
@@ -107,47 +102,24 @@ public class BulletManager {
      */
     private void collideAll(){
         ArrayList<Bullet> tmpLstBullets =  new ArrayList<>();
-        tmpLstBullets.addAll(this.battle.getLstBulletsteamA());
-        for(Bullet bullet: tmpLstBullets) {
-            collide(bullet,this.battle.getBoatsInBattleB());
+        for(Bullet bullet: battle.getLstBulletsteamA()) {
+            tmpLstBullets.add(collide(bullet,battle.getBoatsInBattleB()));
         }
+        battle.getLstBulletsteamA().removeAll(tmpLstBullets);
         tmpLstBullets.clear();
-        tmpLstBullets.addAll(this.battle.getLstBulletsteamB());
-        for(Bullet bullet: tmpLstBullets) {
-            collide(bullet,this.battle.getBoatsInBattleA());
+
+        for(Bullet bullet: battle.getLstBulletsteamB()) {
+            tmpLstBullets.add(collide(bullet,battle.getBoatsInBattleA()));
         }
+        battle.getLstBulletsteamB().removeAll(tmpLstBullets);
     }
 
-    private void collide(Bullet bullet, Fleet fleet) {
-        Boat tmp = getBulletCollideFirstBoat(bullet, fleet);
-        if (tmp != null) {
-            tmp.setCurrentHp(tmp.getCurrentHp()-GameConfiguration.DAMAGE_PER_BULLET);
-            fleet.getArrayListBoat().remove(bullet);
-            fleet.getArrayListBoat().remove(bullet);
-            //Afficher explosion là ou était la balle
-        }
-    }
-
-
-    /**
-     * Return an array list of boat that collide
-     * Check for friendly fire.
-     * @param bullet {@link Bullet}
-     * @param fleet {@link Fleet}
-     * @return {@link Boat}
-     */
-    private Boat getBulletCollideFirstBoat(Bullet bullet, Fleet fleet) {
-        Boat result=null;
+    private Bullet collide(Bullet bullet, Fleet fleet) {
         ArrayList<Boat> tmp = BoatManager.boatCollisionToPoint(bullet.getPosition(), fleet.getArrayListBoat());
-        int index = 0;
-        if(!tmp.isEmpty()) {
-            while(result==null && index<tmp.size()) {
-                result = tmp.get(index);
-                index++;
-            }
+        if(!tmp.isEmpty()){
+            tmp.get(0).addCurrentHp(-GameConfiguration.DAMAGE_PER_BULLET);
+            return bullet;
         }
-        return result;
+        return null;
     }
-
-
 }

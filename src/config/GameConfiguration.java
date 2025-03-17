@@ -66,11 +66,11 @@ public final class GameConfiguration {
     //-------- Bullets Stats --------
         //-> Global Stats
             public static final int DEFAULT_BULLET_SPEED=10*GAME_SCALE;
-            public static final double DEFAULT_BULLET_FRICTION=1.15;
+            public static final double DEFAULT_BULLET_FRICTION=1.15*0.5;
             public static final int DAMAGE_PER_BULLET = 1;
 
         //-> Bullet Math stats
-            public static final int DEFAULT_SHOOT_DISTANCE=100*GAME_SCALE;
+            public static final int DEFAULT_SHOOT_DISTANCE=1;
             public static final double DEFAULT_SHOOTING_ANGLE=Math.PI/4;
             public static final int DEFAULT_WIDTH_BULLET_SPAWN=10;
             public static final int DEFAULT_HEIGHT_BULLET_SPAWN=4;

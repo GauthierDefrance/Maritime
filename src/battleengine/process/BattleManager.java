@@ -53,11 +53,11 @@ public class BattleManager {
      * it synchronizes the battle.
      */
     public void tick(){
-        if(!this.battle.isInPlacingMode()){
-            this.hunterManager.ActualizeChase(); // DANGEREUX /!\
-            this.battleBoatManager.tick();
-            this.bulletManager.tick();
-            this.shotManager.tick();
+        if(!battle.isInPlacingMode()){
+            hunterManager.ActualizeChase(); // DANGEREUX /!\
+            battleBoatManager.tick();
+            bulletManager.tick();
+            shotManager.tick();
         }
     }
 
