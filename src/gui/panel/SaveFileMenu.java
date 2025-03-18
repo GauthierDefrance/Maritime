@@ -38,9 +38,9 @@ public class SaveFileMenu extends JPanel {
 
     private String textSetter(GameSave save) {
         if (save == null) {
-            return "Pas de sauvegarde";
+            return "No save found";
         }
-        return save.getName();
+        return save.getName().split(".ser")[0];
     }
 
     public void init(){
@@ -75,7 +75,7 @@ public class SaveFileMenu extends JPanel {
                 String msg;
                 msg = manager.saveNewGame(fileID);
                 JOptionPane.showMessageDialog(SaveFileMenu.this, msg, "", JOptionPane.INFORMATION_MESSAGE);
-                fileButtons.get(fileID).setText("GameSave0" + fileID + ".ser");
+                fileButtons.get(fileID).setText("GameSave0" + fileID);
             } else if (state == 0) {
                 if (save != null) {
                     manager.loadGame(save);

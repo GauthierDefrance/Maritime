@@ -39,7 +39,7 @@ public class GameSaveManager {
     /**
      * Deserialize a SaveFile
      * @param fileID identifier of the file to fetch
-     * @return GameSave Object (can be null if fileID doesn't have a correspondance)
+     * @return GameSave Object (can be null if fileID doesn't have a correspondence)
      */
     public GameSave fetchSaveFile(int fileID) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(SAVE_FILE_PATH + "GameSave0"+fileID+".ser"))){

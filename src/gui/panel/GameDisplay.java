@@ -2,6 +2,7 @@ package gui.panel;
 
 import config.GameConfiguration;
 import engine.Map;
+import engine.entity.Entity;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
 import engine.trading.SeaRoad;

@@ -10,7 +10,6 @@ import java.io.Serializable;
  * @author Zue Jack-Arthur
  * @version 0.2
  */
-//public interface Entity extends Name {
 public interface Entity extends Serializable {
 
     //Getters

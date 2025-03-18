@@ -1,6 +1,5 @@
 package gui.panel;
 
-
 import gui.utilities.JComponentBuilder;
 import gui.process.ListenerBehaviorManager;
 import saveSystem.process.OptSaveManager;
