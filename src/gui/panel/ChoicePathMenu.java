@@ -57,9 +57,6 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         factionManager = new FactionManager();
         dashboard = new ChoiceDisplay(state);
 
-        this.addKeyListener(new KeyControls());
-        getWindow().addComponentListener(new ComponentControls());
-
         //Window arrangement
         JLayeredPane jLayeredPane = new JLayeredPane();
         jPanelATH.setOpaque(false);
@@ -74,6 +71,8 @@ public class ChoicePathMenu extends JPanel implements Runnable {
 
         this.add(jLayeredPane);
         this.addMouseListener(new MouseListener());
+        this.addKeyListener(new KeyControls());
+        getWindow().addComponentListener(new ComponentControls());
         sizeUpdate();
         ThreadStop = false;
         Thread gameThread = new Thread(this);
