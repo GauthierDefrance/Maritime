@@ -16,7 +16,7 @@ public final class CirclePursuit {
      */
     public static Point getPointToFollow(Boat hunter, Boat prey){
         double angle = AngleCalculator.calculateAngle(hunter, prey);
-        int SHOOT_DISTANCE = (int) (GameConfiguration.DEFAULT_SHOOT_DISTANCE * hunter.getVisionRadius());
+        int SHOOT_DISTANCE = (int) (GameConfiguration.DEFAULT_SHOOT_DISTANCE * hunter.getVisionRadius()/2);
         ArrayList<Point> PointToTest = new ArrayList<>();
         PointToTest.add(getBoatPointBehind(prey, SHOOT_DISTANCE));
         PointToTest.add(getBoatPointFront(prey, SHOOT_DISTANCE));

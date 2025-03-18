@@ -106,19 +106,18 @@ public class ShootManager {
      * @return {@link Boolean}
      */
     private boolean isShootable(Boat hunter, Boat prey) {
-        if (hunter.getPosition().distance(prey.getPosition()) < GameConfiguration.DEFAULT_SHOOT_DISTANCE * hunter.getVisionRadius()) {
+        if (hunter.getPosition().distance(prey.getPosition()) < GameConfiguration.DEFAULT_SHOOT_DISTANCE * hunter.getVisionRadius()/2) {
 
-            double angle = AngleCalculator.calculateAngle(hunter, prey) + hunter.getAngle();
+            double angle = AngleCalculator.calculateAngle(hunter, prey);
             angle = (angle + Math.PI) % (2 * Math.PI) - Math.PI;
 
-            // Définir l'intervalle de tir du hunter entre -π/4 et +π/4 par rapport à son angle
-            double minAngle = -Math.PI / 4;
-            double maxAngle =  Math.PI / 4;
+            double minAngle =    (Math.PI / 4);
+            double maxAngle =  (3*Math.PI / 4);
 
-            if(maxAngle>angle && angle > minAngle){
+            if ((maxAngle+ hunter.getAngle()>angle && angle > minAngle+ hunter.getAngle())){
                 return true;
             }
-            if (-minAngle > angle  && angle > -maxAngle) {
+            if ((-maxAngle+ hunter.getAngle() < angle  && angle < -minAngle+ hunter.getAngle())) {
                 return true;
             }
         }
