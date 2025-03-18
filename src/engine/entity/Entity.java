@@ -10,6 +10,7 @@ import java.io.Serializable;
  * @author Zue Jack-Arthur
  * @version 0.2
  */
+//public interface Entity extends Name {
 public interface Entity extends Serializable {
 
     //Getters
@@ -58,6 +59,11 @@ public interface Entity extends Serializable {
     public String getColor();
 
     //Setters
+
+    /**
+     * Allows to assign the name of the Entity
+     */
+    public void setName(String name);
 
     /**
      * Allows to assign the position of an Entity

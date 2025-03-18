@@ -12,9 +12,10 @@ import java.util.ArrayList;
 
 /**
  * @author Kenan Ammad
- * @version 0.1
+ * @version 0.2
  */
 public class SeaRoad implements Serializable {
+    private String name;
     private int timer;
     private ArrayList<GraphPoint> path;
     private Fleet fleet;
@@ -24,7 +25,7 @@ public class SeaRoad implements Serializable {
     private Resource soldResource;
     private final double ratio;
 
-    public SeaRoad(int timer, Harbor sellerHarbor, Harbor targetHarbor, Resource buyResource, Resource soldResource, double ratio){
+    public SeaRoad(int timer, Harbor sellerHarbor, Harbor targetHarbor, Resource buyResource, Resource soldResource, double ratio, String name){
         this.timer = timer;
         this.buyResource = buyResource;
         this.soldResource = soldResource;
@@ -33,9 +34,10 @@ public class SeaRoad implements Serializable {
         this.fleet = new Fleet();
         this.sellerHarbor = sellerHarbor;
         this.targetHarbor = targetHarbor;
+        this.name = name;
     }
 
-    public SeaRoad(int timer, Harbor sellerHarbor, Harbor targetHarbor, ArrayList<GraphPoint> path, Resource buyResource, Resource soldResource, double ratio){
+    public SeaRoad(int timer, Harbor sellerHarbor, Harbor targetHarbor, ArrayList<GraphPoint> path, Resource buyResource, Resource soldResource, double ratio, String name){
         this.timer = timer;
         this.path = path;
         this.buyResource = buyResource;
@@ -44,9 +46,10 @@ public class SeaRoad implements Serializable {
         this.fleet = new Fleet();
         this.sellerHarbor = sellerHarbor;
         this.targetHarbor = targetHarbor;
+        this.name = name;
     }
 
-    public SeaRoad(TradeOffer offer, double ratio){
+    public SeaRoad(TradeOffer offer, double ratio, String name){
         this.sellerHarbor = offer.getStartingHarbor();
         this.targetHarbor = offer.getTargetedHarbor();
         for (Resource ressource : offer.getSelection().keySet())
@@ -76,6 +79,10 @@ public class SeaRoad implements Serializable {
     public Resource getBuyResource() { return buyResource; }
 
     public Fleet getFleet() {return fleet;}
+
+    public String getName() {
+        return name;
+    }
     
     //Setters
 
@@ -87,6 +94,10 @@ public class SeaRoad implements Serializable {
         Fleet fleet = new Fleet();
         fleet.add(boat);
         this.fleet = fleet;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     //Basic Time management behavior
@@ -103,4 +114,5 @@ public class SeaRoad implements Serializable {
         int time = (int) (this.timer*(((double) GameConfiguration.GAME_SPEED) /1000));
         return time/60+":"+time%60;
     }
+
 }

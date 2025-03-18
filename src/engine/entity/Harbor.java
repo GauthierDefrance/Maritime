@@ -36,7 +36,9 @@ public class Harbor implements Entity {
     //Getters
 
     @Override
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
     @Override
     public int getMaxHp() {
@@ -62,12 +64,17 @@ public class Harbor implements Entity {
     @Override
     public String getColor() { return color; }
 
-    //Setters
 
-    public void setName(String name) { this.name = name; }
+
+    //Setters
 
     @Override
     public void setMaxHp(int maxHp) { this.maxHp = maxHp; }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     public void setCurrentHp(int currentHp) { this.currentHp = currentHp; }

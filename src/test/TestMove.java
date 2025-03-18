@@ -12,11 +12,8 @@ import gui.MainGUI;
 
 public class TestMove {
     public static void addBaotTest(){
-        Fleet fleet1 = new Fleet();
-        Fleet fleet2 = new Fleet();
-
-        Map.getInstance().getPlayer().getLstFleet().add(fleet1);
-        Map.getInstance().getLstFaction().get(0).getLstFleet().add(fleet2);
+        Fleet fleet1 = new Fleet("Fleet1");
+        Fleet fleet2 = new Fleet("Fleet2");
 
         Military military0 = new Military("military0","blue",Map.getInstance().getLstHarbor().get(2).getGraphPosition());
         Military military1 = new Military("military1","blue",Map.getInstance().getLstHarbor().get(1).getGraphPosition());
@@ -68,8 +65,8 @@ public class TestMove {
         Map.getInstance().getLstHarbor().get(3).getInventory().add(resource1,10000);
         Map.getInstance().getLstHarbor().get(0).getInventory().add(resource2,10000);
 
-        SeaRoad seaRoad1 = new SeaRoad(20000,Map.getInstance().getLstHarbor().get(0),Map.getInstance().getLstHarbor().get(3),resource1,resource2,1);
-        SeaRoad seaRoad2 = new SeaRoad(20000,Map.getInstance().getLstHarbor().get(3),Map.getInstance().getLstHarbor().get(0),resource2,resource1,1);
+        SeaRoad seaRoad1 = new SeaRoad(20000,Map.getInstance().getLstHarbor().get(0),Map.getInstance().getLstHarbor().get(3),resource1,resource2,1,"seaRoad1");
+        SeaRoad seaRoad2 = new SeaRoad(20000,Map.getInstance().getLstHarbor().get(3),Map.getInstance().getLstHarbor().get(0),resource2,resource1,1,"seaRoad2");
 
         FactionManager factionManager = new FactionManager();
         factionManager.getSeaRoadManager().setNewFleet(seaRoad1,fleet1);

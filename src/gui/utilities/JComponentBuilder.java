@@ -3,7 +3,10 @@ package gui.utilities;
 import config.GameConfiguration;
 import engine.entity.Entity;
 import engine.entity.Harbor;
+import engine.entity.Name;
 import engine.entity.boats.Boat;
+import engine.entity.boats.Fleet;
+import engine.trading.SeaRoad;
 import gui.process.ImageStock;
 import log.LoggerUtility;
 import org.apache.log4j.Logger;
@@ -84,6 +87,71 @@ public class JComponentBuilder {
         } else if (entity instanceof Boat) {
             newButton.setIcon( new ImageIcon(ImageStock.getImage((Boat) entity)));
         }
+        return newButton;
+    }
+
+//    /**
+//     * Build a JButton for an Entity
+//     * @param entity the Entity Object attached to JButton
+//     * @return Built JButton
+//     */
+//    public static JButton menuButton(Name entity) {
+//        JButton newButton = menuButton(entity.getName());
+//        loggerWrite("menuButton name "+entity.getName()," Object assigned name : "+entity.getName());
+//        newButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+//        newButton.setHorizontalTextPosition(SwingConstants.CENTER);
+//        newButton.setBackground(Color.DARK_GRAY);
+//        newButton.setForeground(Color.WHITE);
+//        newButton.setFocusPainted(false);
+//        newButton.setBorderPainted(false);
+//        if (entity instanceof Harbor) {
+//            newButton.setIcon( new ImageIcon(ImageStock.getImage((Harbor) entity)));
+//        }
+//        else if (entity instanceof Boat) {
+//            newButton.setIcon( new ImageIcon(ImageStock.getImage((Boat) entity)));
+//        }
+//        else if (entity instanceof Fleet) {
+//            newButton.setIcon( new ImageIcon(ImageStock.getImage((Boat) entity)));
+//        }
+//        else if (entity instanceof SeaRoad) {
+//            newButton.setIcon( new ImageIcon(ImageStock.getImage((Boat) entity)));
+//        }
+//        return newButton;
+//    }
+
+    /**
+     * Build a JButton for an Fleet
+     * @param fleet the Fleet Object attached to JButton
+     * @return Built JButton
+     */
+    public static JButton menuButton(Fleet fleet) {
+        JButton newButton = menuButton(fleet.getName());
+        loggerWrite("menuButton name " + fleet.getName(), " Object assigned name : " + fleet.getName());
+        newButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        newButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        newButton.setBackground(Color.DARK_GRAY);
+        newButton.setForeground(Color.WHITE);
+        newButton.setFocusPainted(false);
+        newButton.setBorderPainted(false);
+        newButton.setIcon( new ImageIcon(ImageStock.getImage(fleet)));
+        return newButton;
+    }
+
+    /**
+     * Build a JButton for an SeaRoad
+     * @param seaRoad the SeaRoad Object attached to JButton
+     * @return Built JButton
+     */
+    public static JButton menuButton(SeaRoad seaRoad) {
+        JButton newButton = menuButton(seaRoad.getName());
+        loggerWrite("menuButton name " + seaRoad.getName(), " Object assigned name : " + seaRoad.getName());
+        newButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        newButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        newButton.setBackground(Color.DARK_GRAY);
+        newButton.setForeground(Color.WHITE);
+        newButton.setFocusPainted(false);
+        newButton.setBorderPainted(false);
+        newButton.setIcon( new ImageIcon(ImageStock.getImage(seaRoad)));
         return newButton;
     }
 

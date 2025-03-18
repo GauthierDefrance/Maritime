@@ -6,11 +6,14 @@ import engine.entity.Entity;
 import engine.entity.Harbor;
 import engine.entity.boats.*;
 import engine.process.FactionManager;
+import engine.trading.SeaRoad;
 import gui.PopUp;
 import gui.utilities.GUILoader;
 import gui.utilities.JComponentBuilder;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.HashMap;
@@ -20,7 +23,7 @@ import static gui.MainGUI.getWindow;
 /**
  * Simple test start menu for the game, serves as the entrypoint of the program
  * @author Kenan Ammad
- * @version 0.2
+ * @version 0.3
  */
 public class MainGameMenu extends JPanel implements Runnable {
 
@@ -34,6 +37,8 @@ public class MainGameMenu extends JPanel implements Runnable {
     private JPanel jEastATHPanel;
     private JPanel jEastCenterChoice1CenterPanel;
     private JPanel jEastCenterChoice2CenterPanel;
+    private JPanel jEastCenterChoice3CenterPanel1;
+    private JPanel jEastCenterChoice3CenterPanel2;
     private JPanel jEastPanel;
 
     private JPanel jEastCenterCenterPanel;
@@ -72,6 +77,8 @@ public class MainGameMenu extends JPanel implements Runnable {
         jNorthATHPanel = JComponentBuilder.borderMenuPanel();
         jEastCenterChoice1CenterPanel = JComponentBuilder.gridMenuPanel(0,2);
         jEastCenterChoice2CenterPanel = JComponentBuilder.gridMenuPanel(0,2);
+        jEastCenterChoice3CenterPanel1 = JComponentBuilder.gridMenuPanel(0,2);
+        jEastCenterChoice3CenterPanel2 = JComponentBuilder.gridMenuPanel(0,2);
         jEastCenterCenterPanel = JComponentBuilder.borderMenuPanel();
         jEastCenterPanelChoice1 = JComponentBuilder.borderMenuPanel();
         jEastCenterPanelChoice2 = JComponentBuilder.borderMenuPanel();
@@ -96,6 +103,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         JPanel jEastCenterNorthPanel = JComponentBuilder.gridMenuPanel(1,4,0,0);
 
 
+
         JScrollPane jScrollPane1 = new JScrollPane(jEastCenterChoice1CenterPanel);
         jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         jEastCenterPanelChoice1.add(jScrollPane1);
@@ -103,6 +111,14 @@ public class MainGameMenu extends JPanel implements Runnable {
         JScrollPane jScrollPane2 = new JScrollPane(jEastCenterChoice2CenterPanel);
         jScrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         jEastCenterPanelChoice2.add(jScrollPane2);
+
+        JPanel jEastCenterChoice3CenterPanel = new JPanel();
+        jEastCenterChoice3CenterPanel.setLayout(new BoxLayout(jEastCenterChoice3CenterPanel,BoxLayout.Y_AXIS));
+        jEastCenterChoice3CenterPanel.add(jEastCenterChoice3CenterPanel1);
+        jEastCenterChoice3CenterPanel.add(jEastCenterChoice3CenterPanel2);
+        JScrollPane jScrollPane3 = new JScrollPane(jEastCenterChoice3CenterPanel);
+        jScrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        jEastCenterPanelChoice3.add(jScrollPane3);
 
         jEastCenterNorthPanel.add(jButtonLeftMenu1);
         jEastCenterNorthPanel.add(jButtonLeftMenu2);
@@ -144,6 +160,8 @@ public class MainGameMenu extends JPanel implements Runnable {
         dashboard.setBackground(GameConfiguration.WATER_BACKGROUND_COLOR);
         jEastCenterChoice1CenterPanel.setBackground(Color.GRAY);
         jEastCenterChoice2CenterPanel.setBackground(Color.GRAY);
+        jEastCenterChoice3CenterPanel1.setBackground(Color.GRAY);
+        jEastCenterChoice3CenterPanel2.setBackground(Color.GRAY);
 
         this.add(jLayeredPane);
         this.addMouseListener(new MouseListener());
@@ -170,6 +188,9 @@ public class MainGameMenu extends JPanel implements Runnable {
         hideLeftMenuButton.setPreferredSize(new Dimension((int) Math.max(26,getWindow().getHeight()*0.04), (int) Math.max(26,getWindow().getHeight()*0.04)));
         jEastCenterChoice1CenterPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.08*Map.getInstance().getPlayer().getLstBoat().size()))));
         jEastCenterChoice2CenterPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.08*Map.getInstance().getPlayer().getLstHarbor().size()))));
+        jEastCenterChoice3CenterPanel1.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.1*Map.getInstance().getPlayer().getLstFleet().size()))));
+        jEastCenterChoice3CenterPanel2.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.1*Map.getInstance().getPlayer().getLstSeaRouts().size()))));
+        jEastCenterChoice3CenterPanel1.setBorder(new EmptyBorder(0,0, (int) (getWindow().getHeight()*0.01),0));
         getWindow().revalidate();
         getWindow().repaint();
     }
@@ -182,18 +203,28 @@ public class MainGameMenu extends JPanel implements Runnable {
             tmp = JComponentBuilder.menuButton(boat,new buttonEntityListener(boat));
             mapEntity.put(boat,tmp);
             jEastCenterChoice1CenterPanel.add(tmp);
+
         }
         for (Harbor harbor : Map.getInstance().getPlayer().getLstHarbor()){
             tmp = JComponentBuilder.menuButton(harbor,new buttonEntityListener(harbor));
             mapEntity.put(harbor,tmp);
             jEastCenterChoice2CenterPanel.add(tmp);
         }
+        for (Fleet fleet : Map.getInstance().getPlayer().getLstFleet()){
+            tmp = JComponentBuilder.menuButton(fleet);
+            jEastCenterChoice3CenterPanel1.add(tmp);
+        }
+        for (SeaRoad seaRoad : Map.getInstance().getPlayer().getLstSeaRouts()){
+            tmp = JComponentBuilder.menuButton(seaRoad);
+            jEastCenterChoice3CenterPanel2.add(tmp);
+        }
+
     }
 
     private void ChangeCurrentJButton(JButton jButton){
         currentJButton.setBackground(Color.DARK_GRAY);
         currentJButton = jButton;
-        currentJButton.setBackground(Color.GRAY);
+        currentJButton.setBackground(new Color(125, 130, 200));
     }
 
     public class showMenu implements ActionListener {

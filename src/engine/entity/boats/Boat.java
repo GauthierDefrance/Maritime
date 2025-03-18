@@ -114,6 +114,7 @@ public abstract class Boat implements Entity {
 
     public void setSpeed(int speed) {this.speed = speed;}
 
+    @Override
     public void setName(String name) {this.name = name;}
 
     @Override

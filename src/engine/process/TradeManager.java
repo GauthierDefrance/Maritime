@@ -156,7 +156,8 @@ public class TradeManager {
 
     public SeaRoad conclude(TradeOffer offer) {
         if (rollForSuccessChance(offer)) {
-            return new SeaRoad(offer, getRatio(offer));
+            //SeaRoad need name
+            return new SeaRoad(offer, getRatio(offer),"");
         } else {
             offer.getInterlocutor().setRelationship(offer.getInterlocutor().getRelationship() - 20);
         }

@@ -14,33 +14,50 @@ import java.util.ArrayList;
 public class Fleet implements Serializable {
     private ArrayList<Boat> lstBoats;
     private ArrayList<GraphPoint> path;
+    private String name;
     private boolean continuePath;
 
-    public Fleet(ArrayList<Boat> lstBoats) {
+    public Fleet(ArrayList<Boat> lstBoats, String name) {
         this.lstBoats = lstBoats;
         this.path = new ArrayList<>();
+        this.name = name;
+    }
+
+    public Fleet(String name) {
+        this.lstBoats = new ArrayList<>();
+        this.path = new ArrayList<>();
+        this.name = name;
     }
 
     public Fleet() {
         this.lstBoats = new ArrayList<>();
         this.path = new ArrayList<>();
+        this.name = "";
     }
 
     //Getters
 
     public ArrayList<Boat> getArrayListBoat() { return lstBoats; }
     public ArrayList<GraphPoint> getPath() {return path;}
+    public String getName() {
+        return name;
+    }
 
     //Setters
 
     public void setFleet(ArrayList<Boat> fleet) { this.lstBoats = fleet; }
     public void setPath(ArrayList<GraphPoint> path) {this.path = path;}
+    public void setName(String name) {this.name = name;}
 
     //Modifier
 
-    public void add(Boat boat) { this.lstBoats.add(boat); }
+    public void add(Boat boat) {
+        this.lstBoats.add(boat);
+    }
 
-    public void remove(Boat boat) { this.lstBoats.remove(boat); }
+    public void remove(Boat boat) {
+        this.lstBoats.remove(boat);
+    }
 
     public boolean getContinuePath() {
         return continuePath;
@@ -49,4 +66,5 @@ public class Fleet implements Serializable {
     public void setContinuePath(boolean continuePath) {
         this.continuePath = continuePath;
     }
+
 }

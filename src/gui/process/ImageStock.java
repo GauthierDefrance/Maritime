@@ -3,6 +3,8 @@ package gui.process;
 import config.GameConfiguration;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
+import engine.entity.boats.Fleet;
+import engine.trading.SeaRoad;
 import gui.PopUp;
 import log.LoggerUtility;
 import org.apache.log4j.Logger;
@@ -15,19 +17,24 @@ import java.io.File;
 /**
  * @author Kenan Ammad
  * Classe ImageStock
- * @version 0.1
+ * @version 0.2
  */
 public class ImageStock {
 
     private static Logger logger = LoggerUtility.getLogger(ImageStock.class);
+    private final BufferedImage[] images;
     private final BufferedImage[][] tbSprite;
     private final BufferedImage[][] tbFramesSprite;
     private static ImageStock instance;
 
     private ImageStock(){
+        images = new BufferedImage[5];
         tbSprite = new BufferedImage[5][4];
         tbFramesSprite = new BufferedImage[6][GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES];
         try {
+            images[0] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/fleet.png"));
+            images[1] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/seaRoad.png"));
+
             tbSprite[0][0] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/standard.png"));
             tbSprite[0][1] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/standard/red.png"));
             tbSprite[0][2] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/standard/blue.png"));
@@ -133,6 +140,20 @@ public class ImageStock {
     /**
      * Allows you to choose the image to displayed
      */
+    public static BufferedImage getImage(Fleet fleet){
+        return getInstance().getImages(0);
+    }
+
+    /**
+     * Allows you to choose the image to displayed
+     */
+    public static BufferedImage getImage(SeaRoad seaRoad){
+        return getInstance().getImages(1);
+    }
+
+    /**
+     * Allows you to choose the image to displayed
+     */
     public static BufferedImage getImage(PopUp popUp){
         switch (popUp.getName()) {
             case "+" :{
@@ -178,6 +199,10 @@ public class ImageStock {
                 return new Color(0,0,0,0);
             }
         }
+    }
+
+    private BufferedImage getImages(int a) {
+        return images[a];
     }
 
     private BufferedImage getTbSprite(int a ,int b) {
