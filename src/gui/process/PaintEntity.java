@@ -38,16 +38,8 @@ public class PaintEntity {
     public void paint(Boat boat, Graphics2D g2d){
         BufferedImage sprite = ImageStock.getImage(boat);
         g2d.rotate(boat.getAngle(),(int)(boat.getPosition().getX()),(int)(boat.getPosition().getY()));
-        g2d.setColor(ImageStock.colorChoice(boat.getColor()));
-        g2d.fillOval((int)(boat.getPosition().getX())-((int)GameConfiguration.HITBOX_BOAT/2),(int)(boat.getPosition().getY())-((int)GameConfiguration.HITBOX_BOAT/2), (int) GameConfiguration.HITBOX_BOAT, (int) GameConfiguration.HITBOX_BOAT);
-        g2d.setColor(Color.black);
-
-        if(sprite!=null){g2d.drawImage(sprite, (int) (boat.getPosition().getX()) - (sprite.getWidth() / 2), (int) (boat.getPosition().getY()) - (sprite.getHeight() / 2), null);}
-        else {
-            g2d.setColor(Color.MAGENTA);
-            g2d.fillOval((int)(boat.getPosition().getX())-10,(int)(boat.getPosition().getY())-10, 20, 20);
-            g2d.setColor(Color.black);
-        }
+        paintHITBOX(boat.getPosition(),ImageStock.colorChoice(boat.getColor()),g2d);
+        paintSprite(boat.getPosition(),sprite,g2d);
         g2d.rotate(-boat.getAngle(),(int)(boat.getPosition().getX()),(int)(boat.getPosition().getY()));
     }
 
@@ -57,16 +49,8 @@ public class PaintEntity {
     public void paint(Boat boat, Point point, Graphics2D g2d){
         BufferedImage sprite = ImageStock.getImage(boat);
         g2d.rotate(boat.getAngle(),(int)(point.getX()),(int)(point.getY()));
-        g2d.setColor(ImageStock.colorChoice(boat.getColor()));
-        g2d.fillOval((int)(point.getX())-((int)GameConfiguration.HITBOX_BOAT/2),(int)(point.getY())-((int)GameConfiguration.HITBOX_BOAT/2), (int) GameConfiguration.HITBOX_BOAT, (int) GameConfiguration.HITBOX_BOAT);
-        g2d.setColor(Color.black);
-
-        if(sprite!=null){g2d.drawImage(sprite, (int) (point.getX()) - (sprite.getWidth() / 2), (int) (point.getY()) - (sprite.getHeight() / 2), null);}
-        else {
-            g2d.setColor(Color.MAGENTA);
-            g2d.fillOval((int)(point.getX())-10,(int)(point.getY())-10, 20, 20);
-            g2d.setColor(Color.black);
-        }
+        paintHITBOX(point,ImageStock.colorChoice(boat.getColor()),g2d);
+        paintSprite(point,sprite,g2d);
         g2d.rotate(-boat.getAngle(),(int)(point.getX()),(int)(point.getY()));
     }
 
@@ -114,6 +98,21 @@ public class PaintEntity {
         g2d.setColor(Color.black);
         g2d.rotate(-boat.getAngle(),(int)(boat.getPosition().getX()),(int)(boat.getPosition().getY()));
         paint(boat,g2d);
+    }
+
+    public void paintHITBOX(Point point,  Color color, Graphics2D g2d){
+        g2d.setColor(color);
+        g2d.fillOval((int)(point.getX())-((int)GameConfiguration.HITBOX_BOAT/2),(int)(point.getY())-((int)GameConfiguration.HITBOX_BOAT/2), (int) GameConfiguration.HITBOX_BOAT, (int) GameConfiguration.HITBOX_BOAT);
+        g2d.setColor(Color.black);
+    }
+    public void paintSprite(Point point,  BufferedImage sprite, Graphics2D g2d){
+        if(sprite!=null){
+            g2d.drawImage(sprite, (int) (point.getX()) - (sprite.getWidth() / 2), (int) (point.getY()) - (sprite.getHeight() / 2), null);}
+        else {
+            g2d.setColor(Color.MAGENTA);
+            g2d.fillOval((int)(point.getX())-10,(int)(point.getY())-10, 20, 20);
+            g2d.setColor(Color.black);
+        }
     }
 
 }

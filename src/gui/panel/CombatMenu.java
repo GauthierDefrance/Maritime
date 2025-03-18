@@ -59,9 +59,6 @@ public class CombatMenu extends JPanel implements Runnable {
         dashboard = new BattleDisplay(battle);
         battleManager = new BattleManager(battle);
 
-        this.addKeyListener(new KeyControls());
-        getWindow().addComponentListener(new ComponentControls());
-
         //Window arrangement
         JLayeredPane jLayeredPane = new JLayeredPane();
         JPanel jWestPanel = JComponentBuilder.borderMenuPanel();
@@ -95,6 +92,8 @@ public class CombatMenu extends JPanel implements Runnable {
         jWestCenterPanel.setBackground(Color.GRAY);
 
         this.add(jLayeredPane);
+        this.addKeyListener(new KeyControls());
+        getWindow().addComponentListener(new ComponentControls());
         sizeUpdate();
         elementInPanelUpdate();
         ThreadStop = false;
@@ -140,7 +139,7 @@ public class CombatMenu extends JPanel implements Runnable {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(!battleManager.getPlacingManager().confirmContinueBattle()){
-                JOptionPane.showMessageDialog(CombatMenu.this,"no lol");
+                JOptionPane.showMessageDialog(CombatMenu.this,"you need to place a boat");
             }
             else {
                 Map.getInstance().setTimeStop(false);
