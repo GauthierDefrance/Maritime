@@ -117,12 +117,13 @@ public class BattleBoatManager {
         ArrayList<Point> validPoints = new ArrayList<>();
         for (Point p : PointToTest) {
             double distance = hunter.getPosition().distance(p);
-            if (distance < minDistance) {
+            if (distance < minDistance -GameConfiguration.HITBOX_BOAT) {
                 minDistance = distance;
                 validPoints.clear();
                 validPoints.add(p);
             }
-            else if (distance == minDistance){
+            else if(distance < minDistance +GameConfiguration.HITBOX_BOAT){
+                if(distance < minDistance)minDistance = distance;
                 validPoints.add(p);
             }
         }

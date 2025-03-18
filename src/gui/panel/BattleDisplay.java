@@ -2,6 +2,7 @@ package gui.panel;
 
 import battleengine.entity.Battle;
 import battleengine.entity.Bullet;
+import battleengine.process.BattleBoatManager;
 import config.GameConfiguration;
 import engine.MapGame;
 import engine.entity.boats.Boat;
@@ -50,6 +51,15 @@ public class BattleDisplay extends JPanel {
             paintEntity.paintBattle(boat,g2d);
         }
         for(Boat boat : MainGUI.getBattle().getBoatsInBattleB().getArrayListBoat()){
+            g2d.setColor(Color.MAGENTA);
+            Point point0 = BattleBoatManager.getBoatPoint(boat, (int) (GameConfiguration.DEFAULT_SHOOT_DISTANCE * boat.getVisionRadius()/3),0);
+            Point point1 = BattleBoatManager.getBoatPoint(boat, (int) (GameConfiguration.DEFAULT_SHOOT_DISTANCE * boat.getVisionRadius()/3),Math.PI/2);
+            Point point2 = BattleBoatManager.getBoatPoint(boat, (int) (GameConfiguration.DEFAULT_SHOOT_DISTANCE * boat.getVisionRadius()/3),-Math.PI/2);
+            Point point3 = BattleBoatManager.getBoatPoint(boat, (int) (GameConfiguration.DEFAULT_SHOOT_DISTANCE * boat.getVisionRadius()/3),Math.PI);
+            g2d.fillOval((int) (point0.getX()-5), (int) (point0.getY()-5),20,20);
+            g2d.fillOval((int) (point1.getX()-5), (int) (point1.getY()-5),20,20);
+            g2d.fillOval((int) (point2.getX()-5), (int) (point2.getY()-5),20,20);
+            g2d.fillOval((int) (point3.getX()-5), (int) (point3.getY()-5),20,20);
             paintEntity.paintBattle(boat,g2d);
         }
         for(Boat boat : MainGUI.getBattle().getLstBoatsCurrentlyBeingPlaced()){
