@@ -33,21 +33,21 @@ public class TradeMenu extends JPanel {
 
     // Utilities
 
-    private String getSuccessChanceLabelText() {
-        return TradeManager.getInstance().calculateSuccessChance(offer) + "%";
+    private String successChance() {
+        return ((int) offer.getSuccessChance()) + "%";
     }
 
     private void updateOfferInfo() {
         if (mySelectedResourceName == null || interlocutorSelectedResourceName == null) {
             currentProposition.setText("Select resources to see the proposition.");
-            successChanceLabel.setText(getSuccessChanceLabelText());
+            successChanceLabel.setText(successChance());
             return;
         }
 
-        successChanceLabel.setText(getSuccessChanceLabelText());
+        successChanceLabel.setText(successChance());
         currentProposition.setText("Proposition: \n" +
-                mySelectedResourceName + " " + myQuantity.getText() +
-                " contre " + interlocutorSelectedResourceName + " " + interlocutorQuantity.getText());
+                mySelectedResourceName + " (" + myQuantity.getText() +
+                ") for " + interlocutorSelectedResourceName + " (" + interlocutorQuantity.getText() + ")");
     }
 
     private int routine(Inventory inventory, JTextField quantityField, Resource resource) {
@@ -81,9 +81,9 @@ public class TradeMenu extends JPanel {
         JPanel centralPanel = JComponentBuilder.gridMenuPanel(2, 1, BUTTON_SEPARATOR, BUTTON_SEPARATOR, currentProposition, modifyOfferButton);
         JPanel middleRow = JComponentBuilder.gridMenuPanel(1, 3, BUTTON_SEPARATOR, BUTTON_SEPARATOR, myOffer, centralPanel, interlocutorOffer);
 
-        successChanceLabel = JComponentBuilder.menuLabel(getSuccessChanceLabelText());
+        successChanceLabel = JComponentBuilder.menuLabel(successChance());
         JButton cancelButton = JComponentBuilder.menuButton("Cancel Offer", new GoBackListener());
-        JButton proceedButton = JComponentBuilder.menuButton("Assign Crew to Proposition", new ProceedListener());
+        JButton proceedButton = JComponentBuilder.menuButton("Assign Crew", new ProceedListener());
         JPanel buttonPanel = JComponentBuilder.gridMenuPanel(1, 3, BUTTON_SEPARATOR, BUTTON_SEPARATOR, cancelButton, successChanceLabel, proceedButton);
 
         JPanel totalDisplay = JComponentBuilder.gridMenuPanel(3, 1, BUTTON_SEPARATOR, BUTTON_SEPARATOR, portDisplay, middleRow, buttonPanel);
@@ -98,11 +98,11 @@ public class TradeMenu extends JPanel {
             int quantity = entry.getValue();
             int value = resource.getValue();
 
-            JButton ressourceButton = new JButton(resource.getName() + " | " + quantity + " | Value: " + value);
-            ressourceButton.setContentAreaFilled(false);
-            ressourceButton.addActionListener(new ResourceSelectionListener(isMyInventory,resource.getName()));
+            JButton resourceButton = new JButton(resource.getName() + " | " + quantity + " | Value: " + value);
+            resourceButton.setContentAreaFilled(false);
+            resourceButton.addActionListener(new ResourceSelectionListener(isMyInventory,resource.getName()));
 
-            contentPanel.add(ressourceButton);
+            contentPanel.add(resourceButton);
         }
 
         return new JScrollPane(contentPanel);
@@ -123,6 +123,7 @@ public class TradeMenu extends JPanel {
                 offer.setSelection(TradeManager.getInstance().Transform(offer.getSelection(), myResource, routine(myInventory, myQuantity, myResource)));
                 offer.setDemand(TradeManager.getInstance().Transform(offer.getDemand(), interlocutorResource, routine(interlocutorInventory, interlocutorQuantity, interlocutorResource)));
 
+                TradeManager.getInstance().calculateSuccessChance(offer);
                 updateOfferInfo();
             } catch (NoSuchElementException | IllegalArgumentException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

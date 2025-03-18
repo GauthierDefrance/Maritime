@@ -179,6 +179,7 @@ public class EngineBuilder {
 
 
         player.addHarbor(harborA);
+        player.addHarbor(harborB);
         faction1.addHarbor(harborD);
 
         lstBotFaction.add(faction1);

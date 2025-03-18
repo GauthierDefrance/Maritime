@@ -102,7 +102,7 @@ public class TradeManager {
     public boolean transfer(Resource resource, int nb, Entity source, Entity target){
         if (safeSubtract(source.getInventory(), resource, nb)){
             if (safeAdd(target.getInventory(), resource, nb)) return true;
-            else {source.getInventory().add(resource,nb);} //Compensate for the failure to safeAdd the designated number of ressource
+            else {source.getInventory().add(resource,nb);} //Compensate for the failure to safeAdd the designated number of resource
         } return false;
     }
 
@@ -127,35 +127,34 @@ public class TradeManager {
     }
 
     /**
-     * Calculate the chance of success for a trade --TO BE IMPROVED--
-     * @return success chance as a percentage
+     * Calculate the chance of success for a trade
      */
-    public double calculateSuccessChance(TradeOffer offer) {
+    public void calculateSuccessChance(TradeOffer offer) {
         double ratio = getRatio(offer);
-        // Generate a random factor between 0.5 and 1.0
-        double randomFactor = 0.5 + (new Random().nextDouble() * 0.5);
 
-        // Normalize the relationship factor to a range between 0.5 and 1.5
-        double relationshipModifier = 1 + (offer.getInterlocutor().getRelationship() / 200.0); // -100 => 0.5, 0 => 1.0, 100 => 1.5
+        double relation = offer.getInterlocutor().getRelationship();
 
-        // Calculate success chance
-        double successChance = Math.max(0, Math.min(1, (ratio * randomFactor * relationshipModifier)));
+        double relationshipModifier = (relation / 100.0);
 
-        return successChance * 100;
+        if(relationshipModifier > 0) {
+            relationshipModifier *= 0.25;
+        }
+        double successChance = Math.max(0, Math.min(1, (ratio + (relationshipModifier))));
+        offer.setSuccessChance( successChance * 100);
     }
 
     /**
      * Determine if the trade is successful based on the success chance
      * @param offer the TradeOffer to evaluate
      */
-    public boolean rollForSuccessChance(TradeOffer offer) {
-        double successChance = calculateSuccessChance(offer);
+    public boolean evaluate(TradeOffer offer) {
+        double successChance = offer.getSuccessChance();
         double roll = new Random().nextDouble() * 100;
         return (roll <= successChance);
     }
 
     public SeaRoad conclude(TradeOffer offer) {
-        if (rollForSuccessChance(offer)) {
+        if (evaluate(offer)) {
             //SeaRoad need name
             return new SeaRoad(offer, getRatio(offer),"");
         } else {

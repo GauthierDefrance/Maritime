@@ -80,5 +80,4 @@ public class GameSaveManager {
     public static GameSaveManager create() {
         return new GameSaveManager();
     }
-
 }

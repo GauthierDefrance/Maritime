@@ -18,7 +18,7 @@ import java.awt.*;
  * Starting point of the program
  * @author Zue Jack-Arthur
  * @author Kenan Ammad
- * @version 0.1
+ * @version 0.2
  */
 public class MainGUI extends JFrame {
 

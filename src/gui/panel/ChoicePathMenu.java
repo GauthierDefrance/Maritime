@@ -5,6 +5,7 @@ import engine.Map;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
 import engine.faction.Faction;
+import engine.faction.Player;
 import engine.process.FactionManager;
 import gui.PopUp;
 import gui.utilities.GUILoader;
@@ -145,7 +146,11 @@ public class ChoicePathMenu extends JPanel implements Runnable {
                             harborPlayer = null;
                             dashboard.setHarborPlayer(null);
                         }
-                        else{
+                        else if (faction instanceof Player && harborBot != null && harborBot.equals(harbor)) {
+                            harborBot = harbor;
+                            dashboard.setHarborBot(harborBot);
+                        }
+                        else {
                             harborPlayer = harbor;
                             dashboard.setHarborPlayer(harborPlayer);
                         }

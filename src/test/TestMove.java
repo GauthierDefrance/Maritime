@@ -61,6 +61,7 @@ public class TestMove {
         Resource resource2 = Resource.create("resource2",1,1);
 
         Map.getInstance().getLstHarbor().get(0).getInventory().add(resource1,10000);
+        Map.getInstance().getLstHarbor().get(0).getInventory().add(resource1,10000);
         Map.getInstance().getLstHarbor().get(3).getInventory().add(resource2,10000);
         Map.getInstance().getLstHarbor().get(3).getInventory().add(resource1,10000);
         Map.getInstance().getLstHarbor().get(0).getInventory().add(resource2,10000);
