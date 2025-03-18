@@ -8,6 +8,11 @@ import engine.process.FactionManager;
 import java.io.Serializable;
 import java.util.HashMap;
 
+/**
+ * TradeOffer Object represents commercial propositions between the player and other factions
+ * @author Zue Jack-Arthur
+ * @version 0.4
+ */
 public class TradeOffer implements Serializable {
     private final Harbor startingHarbor;
     private final Harbor targetedHarbor;
@@ -15,7 +20,13 @@ public class TradeOffer implements Serializable {
     private Fleet concernedFleet;
     private HashMap<Resource, Integer> selection;
     private HashMap<Resource, Integer> demand;
+    private double successChance;
 
+    /**
+     * Private Constructor
+     * @param A Starting Harbor
+     * @param B Targeted Harbor
+     */
     private TradeOffer(Harbor A, Harbor B) {
         this.interlocutor = new FactionManager().getMyFaction(B.getColor());
         this.startingHarbor = A;
@@ -25,6 +36,12 @@ public class TradeOffer implements Serializable {
         this.concernedFleet = new Fleet();
     }
 
+    /**
+     * Allow the generation of a TradeOffer Object
+     * @param A Starting Harbor : the one who will provide
+     * @param B Targeted Harbor : the one who will receive
+     * @return Built TradeOffer Object
+     */
     public static TradeOffer create(Harbor A, Harbor B) {
         return new TradeOffer(A, B);
     }
@@ -55,6 +72,10 @@ public class TradeOffer implements Serializable {
         return concernedFleet;
     }
 
+    public double getSuccessChance() {
+        return successChance;
+    }
+
     //Setters
 
     public void setSelection(HashMap<Resource, Integer> selection) {
@@ -67,5 +88,9 @@ public class TradeOffer implements Serializable {
 
     public void setConcernedFleet(Fleet concernedFleet) {
         this.concernedFleet = concernedFleet;
+    }
+
+    public void setSuccessChance(double successChance) {
+        this.successChance = successChance;
     }
 }

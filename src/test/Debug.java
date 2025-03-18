@@ -53,7 +53,7 @@ public class Debug extends JFrame{
                     EngineBuilder.mapInit(0);
                     TestMove.addBaotTest();
                     MainGUI.getWindow().removeAll();
-                    MainGUI.getWindow().add(new ChoicePathMenu(1,Map.getInstance().getLstFaction().get(0)));
+                    MainGUI.getWindow().add(new ChoicePathMenu(1,Map.getInstance().getPlayer()));
                     MainGUI.getWindow().revalidate();
                     MainGUI.getWindow().repaint();
                     break;
