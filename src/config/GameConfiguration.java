@@ -36,7 +36,7 @@ public final class GameConfiguration {
     //-------- Boats Stats --------
             public static final int RELOAD_TIME = 20;
         // -> Global Stat
-            public static final double BOAT_ROTATION_SPEED=0.0174533*300;
+            public static final double BOAT_ROTATION_SPEED=0.0174533*3;
             public static final double HITBOX_BOAT = 80;
             public static final int Transparency_Halo = 25;
 

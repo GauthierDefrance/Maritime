@@ -129,7 +129,8 @@ public class BattleBoatManager {
         if (!validPoints.isEmpty()) {
             double championAngle = Double.MAX_VALUE;
             for (Point p : validPoints) {
-                double tmpAngle = Math.abs(hunter.getAngle() - AngleCalculator.calculateAngle(hunter, p));
+                double tmpAngle = Math.abs((hunter.getAngle()%Math.PI) - AngleCalculator.calculateAngle(hunter, p));
+                tmpAngle = (tmpAngle + Math.PI) % (2 * Math.PI) - Math.PI;
                 if (tmpAngle < championAngle ) {
                     championAngle = tmpAngle;
                     champion = p;
@@ -139,7 +140,6 @@ public class BattleBoatManager {
         for (Point p : PointToTest) {
             if(GameConfiguration.HITBOX_BOAT > p.distance(hunter.getPosition())){
                 battle.getHunterPreyPointHashMap().put(hunter,p);
-                System.out.println("aa");
             }
         }
         return champion;
@@ -149,11 +149,6 @@ public class BattleBoatManager {
     public static Point getBoatPointRight(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,-Math.PI/2);}
     public static Point getBoatPointLeft(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,Math.PI/2);}
     public static Point getBoatPointBehind(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,Math.PI);}
-
-//    public static Point getBoatPointFront(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,0);}
-//    public static Point getBoatPointRight(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,-90);}
-//    public static Point getBoatPointLeft(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,90);}
-//    public static Point getBoatPointBehind(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,180);}
 
     /**
      *
