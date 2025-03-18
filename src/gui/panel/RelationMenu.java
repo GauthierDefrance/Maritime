@@ -1,7 +1,6 @@
 package gui.panel;
 
-import config.GameConfiguration;
-import engine.Map;
+import engine.MapGame;
 import engine.faction.Faction;
 import engine.trading.TradeOffer;
 import gui.utilities.GUILoader;
@@ -46,7 +45,7 @@ public class RelationMenu extends JPanel {
         JPanel otherRelationsPanel = new JPanel();
         otherRelationsPanel.setLayout(new GridLayout(0, 1, BUTTON_SEPARATOR, BUTTON_SEPARATOR));
 
-        for (Faction elm : Map.getInstance().getLstBotFaction()) {
+        for (Faction elm : MapGame.getInstance().getLstBotFaction()) {
             JButton relationButton = JComponentBuilder.ImageButton(new ImageIcon(IMG_FILE_PATH + "/boat/standard.png"));
             OtherRelationButtons.add(relationButton);
             otherRelationsPanel.add(relationButton);
@@ -79,7 +78,7 @@ public class RelationMenu extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadTradeMenu(TradeOffer.create(Map.getInstance().getPlayer().getLstHarbor().get(0), activeFaction.getLstHarbor().get(0)));
+            GUILoader.loadTradeMenu(TradeOffer.create(MapGame.getInstance().getPlayer().getLstHarbor().get(0), activeFaction.getLstHarbor().get(0)));
         }
     }
 }

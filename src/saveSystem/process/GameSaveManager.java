@@ -1,6 +1,6 @@
 package saveSystem.process;
 
-import engine.Map;
+import engine.MapGame;
 import gui.utilities.GUILoader;
 import org.apache.log4j.Logger;
 import saveSystem.GameSave;
@@ -69,7 +69,7 @@ public class GameSaveManager {
      * @param sv GameSave Object
      */
     public void loadGame(GameSave sv) {
-        Map.setInstance(sv.getGameState());
+        MapGame.setInstance(sv.getGameState());
         GUILoader.loadMainGame();
     }
 

@@ -1,6 +1,6 @@
 package engine.process;
 
-import engine.Map;
+import engine.MapGame;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
 import engine.faction.Faction;
@@ -25,24 +25,24 @@ public class PlayerManager {
      */
     public void updatePlayerVision(){
         ArrayList<Boat> vision = new ArrayList<>();
-        for (Faction faction : Map.getInstance().getLstBotFaction()){
+        for (Faction faction : MapGame.getInstance().getLstBotFaction()){
             for (Boat boat : faction.getLstBoat()){
-                for (Boat playerBoat : Map.getInstance().getPlayer().getLstBoat()){
+                for (Boat playerBoat : MapGame.getInstance().getPlayer().getLstBoat()){
                     if(playerBoat.getVisionRadius() /2 >= boat.getPosition().distance(playerBoat.getPosition())){
                         if(!vision.contains(boat)){vision.add(boat);}
                     }
                 }
             }
         }
-        for (Faction faction : Map.getInstance().getLstBotFaction()){
+        for (Faction faction : MapGame.getInstance().getLstBotFaction()){
             for (Boat boat : faction.getLstBoat()){
-                for (Harbor harbor : Map.getInstance().getPlayer().getLstHarbor()){
+                for (Harbor harbor : MapGame.getInstance().getPlayer().getLstHarbor()){
                     if(harbor.getVisionRadius() /2 >= boat.getPosition().distance(harbor.getPosition())){
                         if(!vision.contains(boat)){vision.add(boat);}
                     }
                 }
             }
         }
-        Map.getInstance().getPlayer().setVision(vision);
+        MapGame.getInstance().getPlayer().setVision(vision);
     }
 }

@@ -1,7 +1,7 @@
 package gui.panel;
 
 import config.GameConfiguration;
-import engine.Map;
+import engine.MapGame;
 import engine.entity.Entity;
 import engine.entity.Harbor;
 import engine.entity.boats.*;
@@ -12,7 +12,6 @@ import gui.utilities.GUILoader;
 import gui.utilities.JComponentBuilder;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
@@ -183,10 +182,10 @@ public class MainGameMenu extends JPanel implements Runnable {
 
         showLeftMenuButton.setPreferredSize(new Dimension((int) Math.max(26,getWindow().getHeight()*0.04), (int) Math.max(26,getWindow().getHeight()*0.04)));
         hideLeftMenuButton.setPreferredSize(new Dimension((int) Math.max(26,getWindow().getHeight()*0.04), (int) Math.max(26,getWindow().getHeight()*0.04)));
-        jEastCenterChoice1CenterPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.08*Map.getInstance().getPlayer().getLstBoat().size()))));
-        jEastCenterChoice2CenterPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.08*Map.getInstance().getPlayer().getLstHarbor().size()))));
-        jEastCenterChoice3CenterPanel1.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.1*Map.getInstance().getPlayer().getLstFleet().size()))));
-        jEastCenterChoice3CenterPanel2.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.1*Map.getInstance().getPlayer().getLstSeaRouts().size()))));
+        jEastCenterChoice1CenterPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.08* MapGame.getInstance().getPlayer().getLstBoat().size()))));
+        jEastCenterChoice2CenterPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.08* MapGame.getInstance().getPlayer().getLstHarbor().size()))));
+        jEastCenterChoice3CenterPanel1.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.1* MapGame.getInstance().getPlayer().getLstFleet().size()))));
+        jEastCenterChoice3CenterPanel2.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.1* MapGame.getInstance().getPlayer().getLstSeaRouts().size()))));
         jEastCenterChoice3CenterPanel1.setBorder(new EmptyBorder(0,0, (int) (getWindow().getHeight()*0.01),0));
         getWindow().revalidate();
         getWindow().repaint();
@@ -196,22 +195,22 @@ public class MainGameMenu extends JPanel implements Runnable {
         jEastCenterChoice1CenterPanel.removeAll();
         jEastCenterChoice2CenterPanel.removeAll();
         JButton tmp;
-        for (Boat boat : Map.getInstance().getPlayer().getLstBoat()){
+        for (Boat boat : MapGame.getInstance().getPlayer().getLstBoat()){
             tmp = JComponentBuilder.menuButton(boat,new buttonEntityListener(boat));
             mapEntity.put(boat,tmp);
             jEastCenterChoice1CenterPanel.add(tmp);
 
         }
-        for (Harbor harbor : Map.getInstance().getPlayer().getLstHarbor()){
+        for (Harbor harbor : MapGame.getInstance().getPlayer().getLstHarbor()){
             tmp = JComponentBuilder.menuButton(harbor,new buttonEntityListener(harbor));
             mapEntity.put(harbor,tmp);
             jEastCenterChoice2CenterPanel.add(tmp);
         }
-        for (Fleet fleet : Map.getInstance().getPlayer().getLstFleet()){
+        for (Fleet fleet : MapGame.getInstance().getPlayer().getLstFleet()){
             tmp = JComponentBuilder.menuButton(fleet);
             jEastCenterChoice3CenterPanel1.add(tmp);
         }
-        for (SeaRoad seaRoad : Map.getInstance().getPlayer().getLstSeaRouts()){
+        for (SeaRoad seaRoad : MapGame.getInstance().getPlayer().getLstSeaRouts()){
             tmp = JComponentBuilder.menuButton(seaRoad);
             jEastCenterChoice3CenterPanel2.add(tmp);
         }
@@ -286,7 +285,7 @@ public class MainGameMenu extends JPanel implements Runnable {
             Boat boat = factionManager.getBoatManager().pointCollisionToMapBoat(point);
             Harbor harbor = factionManager.getHarborManager().pointCollisionToMapHarbor(point);
             if(harbor != null){
-                if(Map.getInstance().getPlayer().getLstHarbor().contains(harbor)){
+                if(MapGame.getInstance().getPlayer().getLstHarbor().contains(harbor)){
                     jEastATHPanel.removeAll();
                     jEastATHPanel.add(jEastPanel);
                     jEastCenterCenterPanel.removeAll();
@@ -296,7 +295,7 @@ public class MainGameMenu extends JPanel implements Runnable {
                 //WIP
             }
             else if(boat != null){
-                if(Map.getInstance().getPlayer().getLstBoat().contains(boat)){
+                if(MapGame.getInstance().getPlayer().getLstBoat().contains(boat)){
                     jEastATHPanel.removeAll();
                     jEastATHPanel.add(jEastPanel);
                     jEastCenterCenterPanel.removeAll();
@@ -318,7 +317,7 @@ public class MainGameMenu extends JPanel implements Runnable {
                 GUILoader.loadPauseMenu(GameConfiguration.ROOT_MAIN_GAME);
             }
             else if(event.getKeyCode() == KeyEvent.VK_SPACE){
-                Map.getInstance().setTimeStop(!Map.getInstance().isTimeStop());
+                MapGame.getInstance().setTimeStop(!MapGame.getInstance().isTimeStop());
             }
         }
 
@@ -342,12 +341,12 @@ public class MainGameMenu extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
-            if (!Map.getInstance().isTimeStop()){
+            if (!MapGame.getInstance().isTimeStop()){
                 factionManager.nextRound();
             }
             dashboard.repaint();
             dashboard.getPaintBackGround().setIFrame((dashboard.getPaintBackGround().getIFrame() + 1) % GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES);
-            for (PopUp popUp : Map.getInstance().getLstPopUp()) {
+            for (PopUp popUp : MapGame.getInstance().getLstPopUp()) {
                 popUp.addIFrame(1);
             }
         }

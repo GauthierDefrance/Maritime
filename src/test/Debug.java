@@ -1,6 +1,6 @@
 package test;
 
-import engine.Map;
+import engine.MapGame;
 import engine.process.EngineBuilder;
 import gui.MainGUI;
 import gui.panel.ChoicePathMenu;
@@ -40,7 +40,7 @@ public class Debug extends JFrame{
     }
     private class TimeStop implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            Map.getInstance().setTimeStop(!Map.getInstance().isTimeStop());
+            MapGame.getInstance().setTimeStop(!MapGame.getInstance().isTimeStop());
         }
     }
 
@@ -53,7 +53,7 @@ public class Debug extends JFrame{
                     EngineBuilder.mapInit(0);
                     TestMove.addBaotTest();
                     MainGUI.getWindow().removeAll();
-                    MainGUI.getWindow().add(new ChoicePathMenu(1,Map.getInstance().getPlayer()));
+                    MainGUI.getWindow().add(new ChoicePathMenu(1, MapGame.getInstance().getPlayer()));
                     MainGUI.getWindow().revalidate();
                     MainGUI.getWindow().repaint();
                     break;
@@ -70,7 +70,7 @@ public class Debug extends JFrame{
             switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
                 case "gui.panel.OptionsMenu" :
                 case "gui.panel.PauseMenu" : {
-                    GUILoader.loadRelationMenu(Map.getInstance().getLstBotFaction().get(0));
+                    GUILoader.loadRelationMenu(MapGame.getInstance().getLstBotFaction().get(0));
                     break;
                 }
                 default : {

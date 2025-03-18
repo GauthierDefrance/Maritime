@@ -1,9 +1,8 @@
 package gui.panel;
 
 import config.GameConfiguration;
-import engine.Map;
+import engine.MapGame;
 import engine.entity.Harbor;
-import engine.entity.boats.Boat;
 import engine.faction.Faction;
 import engine.faction.Player;
 import engine.process.FactionManager;
@@ -141,7 +140,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
             else if(state == 1) {
                 Harbor harbor = factionManager.getHarborManager().pointCollisionToMapHarbor(point);
                 if (harbor != null) {
-                    if (Map.getInstance().getPlayer().getLstHarbor().contains(harbor)) {
+                    if (MapGame.getInstance().getPlayer().getLstHarbor().contains(harbor)) {
                         if (harborPlayer != null && harborPlayer.equals(harbor)) {
                             harborPlayer = null;
                             dashboard.setHarborPlayer(null);
@@ -202,7 +201,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
             }
             dashboard.repaint();
             dashboard.getPaintBackGround().setIFrame((dashboard.getPaintBackGround().getIFrame() + 1) % GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES);
-            for (PopUp popUp : Map.getInstance().getLstPopUp()) {
+            for (PopUp popUp : MapGame.getInstance().getLstPopUp()) {
                 popUp.addIFrame(1);
             }
         }

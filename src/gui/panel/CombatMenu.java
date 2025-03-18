@@ -3,7 +3,7 @@ package gui.panel;
 import battleengine.entity.Battle;
 import battleengine.process.BattleManager;
 import config.GameConfiguration;
-import engine.Map;
+import engine.MapGame;
 import engine.entity.boats.Boat;
 import gui.MainGUI;
 import gui.PopUp;
@@ -111,7 +111,7 @@ public class CombatMenu extends JPanel implements Runnable {
         jSouthATHPanel.setPreferredSize(new Dimension(getWindow().getWidth(),(int) (getWindow().getHeight()*0.15)));
         jWestSouthPanel.setPreferredSize(new Dimension(getWindow().getHeight(),(int) Math.max(26,getWindow().getHeight()*0.04)));
         jWestATHPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.20),getWindow().getHeight()));
-        jWestCenterPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.08*Map.getInstance().getPlayer().getLstBoat().size()))));
+        jWestCenterPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.08* MapGame.getInstance().getPlayer().getLstBoat().size()))));
         confirmBattle.setPreferredSize(new Dimension((int) Math.max(50,getWindow().getWidth()*0.2), (int) Math.max(26,getWindow().getHeight()*0.08)));
         getWindow().revalidate();
         getWindow().repaint();
@@ -143,7 +143,7 @@ public class CombatMenu extends JPanel implements Runnable {
                 JOptionPane.showMessageDialog(CombatMenu.this,"you need to place a boat");
             }
             else {
-                Map.getInstance().setTimeStop(false);
+                MapGame.getInstance().setTimeStop(false);
                 jWestATHPanel.setVisible(false);
                 confirmBattle.setVisible(false);
             }
@@ -221,13 +221,13 @@ public class CombatMenu extends JPanel implements Runnable {
                 GUILoader.loadPauseMenu(GameConfiguration.ROOT_COMBAT);
             }
             else if(event.getKeyCode() == KeyEvent.VK_SPACE){
-                if(Map.getInstance().isTimeStop()){
-                    Map.getInstance().setTimeStop(false);
+                if(MapGame.getInstance().isTimeStop()){
+                    MapGame.getInstance().setTimeStop(false);
                     jWestATHPanel.setVisible(false);
                     confirmBattle.setVisible(false);
                 }
                 else {
-                    Map.getInstance().setTimeStop(true);
+                    MapGame.getInstance().setTimeStop(true);
                     jWestATHPanel.setVisible(true);
                     confirmBattle.setVisible(true);
                     battle.setPlacingMode(true);
@@ -257,12 +257,12 @@ public class CombatMenu extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
-            if (!Map.getInstance().isTimeStop()){
+            if (!MapGame.getInstance().isTimeStop()){
                 battleManager.tick();
             }
             dashboard.repaint();
             dashboard.getPaintBackGround().setIFrame((dashboard.getPaintBackGround().getIFrame() + 1) % GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES);
-            for (PopUp popUp : Map.getInstance().getLstPopUp()) {
+            for (PopUp popUp : MapGame.getInstance().getLstPopUp()) {
                 popUp.addIFrame(1);
             }
         }

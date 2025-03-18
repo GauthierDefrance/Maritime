@@ -1,7 +1,7 @@
 package engine.process;
 
 import config.GameConfiguration;
-import engine.Map;
+import engine.MapGame;
 import engine.entity.Harbor;
 import engine.faction.Faction;
 
@@ -27,7 +27,7 @@ public class HarborManager {
      */
     public Harbor pointCollisionToMapHarbor(Point point){
         Harbor harbor1 = null;
-        for (Faction faction : Map.getInstance().getLstFaction()){
+        for (Faction faction : MapGame.getInstance().getLstFaction()){
             for (Harbor harbor2 : faction.getLstHarbor()){
                 if (GameConfiguration.HITBOX_BOAT - 5 >= point.distance(harbor2.getPosition())){
                     if(harbor1 != null){

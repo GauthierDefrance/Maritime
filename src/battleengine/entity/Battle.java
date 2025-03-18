@@ -24,6 +24,7 @@ public class Battle {
     private HashMap<Boat, Integer> ReloadingHashMap;
 
     private HashMap<Boat, Boat> HunterPreyHashMap;
+    private HashMap<Boat, Point> HunterPreyPointHashMap;
 
     private Fleet originalA;
     private Fleet originalB;
@@ -56,18 +57,21 @@ public class Battle {
         this.teamA = DeepCopy.copyFleet(fleetA);
         this.teamB = DeepCopy.copyFleet(fleetB);
         this.LstBoatsToPlace = this.teamA.getArrayListBoat();
-        this.LstBoatsCurrentlyBeingPlaced = new ArrayList<Boat>();
-        this.HunterPreyHashMap = new HashMap<Boat, Boat>();
-        this.ReloadingHashMap = new HashMap<Boat, Integer>();
-        LstBulletsteamA=new ArrayList<Bullet>();
-        LstBulletsteamB=new ArrayList<Bullet>();
+        this.LstBoatsCurrentlyBeingPlaced = new ArrayList<>();
+        this.HunterPreyHashMap = new HashMap<>();
+        this.HunterPreyPointHashMap = new HashMap<>();
+        this.ReloadingHashMap = new HashMap<>();
+        LstBulletsteamA= new ArrayList<>();
+        LstBulletsteamB= new ArrayList<>();
 
         for(Boat boat : this.teamA.getArrayListBoat()) {
             HunterPreyHashMap.put(boat, null);
+            HunterPreyPointHashMap.put(boat, null);
             ReloadingHashMap.put(boat, GameConfiguration.RELOAD_TIME);
         }
         for(Boat boat : this.teamB.getArrayListBoat()) {
             HunterPreyHashMap.put(boat, null);
+            HunterPreyPointHashMap.put(boat, null);
             ReloadingHashMap.put(boat, GameConfiguration.RELOAD_TIME);
         }
 
@@ -168,6 +172,9 @@ public class Battle {
      * @return the enemy spawn zone
      */
     public SpawnZone getSpawnzoneEnnemy() { return spawnzoneEnnemy; }
+
+
+    public HashMap<Boat, Point> getHunterPreyPointHashMap() { return HunterPreyPointHashMap;}
 
     /**
      * Checks if in placing mode.

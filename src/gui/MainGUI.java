@@ -3,13 +3,9 @@ package gui;
 import battleengine.entity.Battle;
 import config.GameConfiguration;
 import config.GameOptions;
-import engine.Map;
-import engine.process.EngineBuilder;
-import gui.panel.ChoicePathMenu;
 import gui.utilities.GUILoader;
 import saveSystem.process.OptSaveManager;
 import test.Debug;
-import test.TestMove;
 
 import javax.swing.*;
 import java.awt.*;

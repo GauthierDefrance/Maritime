@@ -1,6 +1,6 @@
 package saveSystem;
 
-import engine.Map;
+import engine.MapGame;
 import java.io.Serializable;
 
 /**
@@ -12,14 +12,14 @@ public class GameSave implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private final String name;
-    private final Map gameState;
+    private final MapGame gameState;
 
     /**
      * Private Constructor
      * @param fileName name that should be given to the file
      * @param gameState map Object, container of the associated game state
      */
-    private GameSave(String fileName, Map gameState) {
+    private GameSave(String fileName, MapGame gameState) {
         this.name = fileName;
         this.gameState = gameState;
     }
@@ -32,7 +32,7 @@ public class GameSave implements Serializable {
      * @return built GameSave
      */
     public static GameSave create(String fileName) {
-        return new GameSave(fileName, Map.getInstance());
+        return new GameSave(fileName, MapGame.getInstance());
     }
 
     //Getters
@@ -49,7 +49,7 @@ public class GameSave implements Serializable {
      * Typical getter to fetch an attribute, here it "gameState"
      * @return map Object, container of the associated game state
      */
-    public Map getGameState() {
+    public MapGame getGameState() {
         return this.gameState;
     }
 }

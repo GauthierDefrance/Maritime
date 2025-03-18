@@ -1,8 +1,7 @@
 package gui.panel;
 
 import config.GameConfiguration;
-import engine.Map;
-import engine.entity.Entity;
+import engine.MapGame;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
 import engine.trading.SeaRoad;
@@ -45,23 +44,23 @@ public class GameDisplay extends JPanel {
         paintBackGround.paint(g2d);
         g2d.scale((double) 1 /GameConfiguration.GAME_SCALE, (double) 1 /GameConfiguration.GAME_SCALE);
 
-        for (Harbor harbor : Map.getInstance().getLstHarbor()){
+        for (Harbor harbor : MapGame.getInstance().getLstHarbor()){
             paintEntity.paint(harbor,g2d);
         }
-        for(Boat boat : Map.getInstance().getPlayer().getVision()){
+        for(Boat boat : MapGame.getInstance().getPlayer().getVision()){
             paintEntity.paint(boat,g2d);
         }
-        for(Boat boat : Map.getInstance().getPlayer().getLstBoat()){
+        for(Boat boat : MapGame.getInstance().getPlayer().getLstBoat()){
             paintEntity.paintPlayer(boat,g2d);
         }
-        for (Harbor harbor : Map.getInstance().getPlayer().getLstHarbor()){
+        for (Harbor harbor : MapGame.getInstance().getPlayer().getLstHarbor()){
             paintEntity.paintPlayer(harbor,g2d);
         }
-        for(SeaRoad seaRoad: Map.getInstance().getPlayer().getLstSeaRouts()){
+        for(SeaRoad seaRoad: MapGame.getInstance().getPlayer().getLstSeaRouts()){
             paintEntity.paint(seaRoad,g2d);
         }
         ArrayList<PopUp> lstPopUp = new ArrayList<>();
-        lstPopUp.addAll(Map.getInstance().getLstPopUp());
+        lstPopUp.addAll(MapGame.getInstance().getLstPopUp());
         for (PopUp popUp : lstPopUp){
             paintPopUp.paint(popUp,g2d);
         }

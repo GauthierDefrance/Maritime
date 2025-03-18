@@ -1,5 +1,6 @@
 package battleengine.tools;
 
+import battleengine.entity.Battle;
 import config.GameConfiguration;
 import engine.entity.boats.Boat;
 
@@ -14,57 +15,65 @@ public final class CirclePursuit {
      * @param prey
      * @return
      */
-    public static Point getPointToFollow(Boat hunter, Boat prey){
-        double angle = AngleCalculator.calculateAngle(hunter, prey);
-        int SHOOT_DISTANCE = (int) (GameConfiguration.DEFAULT_SHOOT_DISTANCE * hunter.getVisionRadius()/2);
+    public static Point getPointToFollow(Boat hunter, Boat prey , Battle battle){
+        if(battle.getHunterPreyPointHashMap().get(hunter)!=null &&GameConfiguration.DEFAULT_SHOOT_DISTANCE * hunter.getVisionRadius()/2 < battle.getHunterPreyPointHashMap().get(hunter).distance(hunter.getPosition()))System.out.println("2");
+        if(battle.getHunterPreyPointHashMap().get(hunter)!=null &&GameConfiguration.HITBOX_BOAT > battle.getHunterPreyPointHashMap().get(hunter).distance(hunter.getPosition()))System.out.println("3");
+
+
+        if(battle.getHunterPreyPointHashMap().get(hunter)==null ||
+                GameConfiguration.DEFAULT_SHOOT_DISTANCE * hunter.getVisionRadius()/2 < battle.getHunterPreyPointHashMap().get(hunter).distance(hunter.getPosition()) ||
+                GameConfiguration.HITBOX_BOAT > battle.getHunterPreyPointHashMap().get(hunter).distance(hunter.getPosition())){
+        int SHOOT_DISTANCE = (int) (GameConfiguration.DEFAULT_SHOOT_DISTANCE * hunter.getVisionRadius()/4);
         ArrayList<Point> PointToTest = new ArrayList<>();
         PointToTest.add(getBoatPointBehind(prey, SHOOT_DISTANCE));
         PointToTest.add(getBoatPointFront(prey, SHOOT_DISTANCE));
         PointToTest.add(getBoatPointRight(prey, SHOOT_DISTANCE));
         PointToTest.add(getBoatPointLeft(prey, SHOOT_DISTANCE));
-
-        Point closestPoint = null;
         double minDistance = Double.MAX_VALUE;
-
+        ArrayList<Point> validPoints = new ArrayList<>();
         for (Point p : PointToTest) {
             double distance = hunter.getPosition().distance(p);
             if (distance < minDistance) {
                 minDistance = distance;
-                closestPoint = p;
+                validPoints.clear();
+                validPoints.add(p);
+            }
+            else if (distance == minDistance){
+                validPoints.add(p);
             }
         }
-        if (closestPoint != null) {
-            ArrayList<Point> validPoints = new ArrayList<>();
-            validPoints.add(closestPoint);
-            for (Point p : PointToTest) {
-                if (!p.equals(closestPoint) && hunter.getPosition().distance(p) == minDistance) {
-                    validPoints.add(p);
-                }
-            }
-
+        if (!validPoints.isEmpty()) {
             if (validPoints.size() == 1) {
                 return validPoints.get(0);
-            } else if (validPoints.size() > 1) {
+            }
+            else {
                 double championAngle = Double.MAX_VALUE;
                 Point champion = null;
                 for (Point p : validPoints) {
                     double tmpAngle = Math.abs(hunter.getAngle() - AngleCalculator.calculateAngle(hunter, p));
-                    if (tmpAngle < championAngle) {
+                    if (tmpAngle < championAngle && !battle.getHunterPreyPointHashMap().get(hunter).equals(p)) {
                         championAngle = tmpAngle;
                         champion = p;
                     }
                 }
+                battle.getHunterPreyPointHashMap().put(hunter,champion);
                 return champion;
             }
         }
-
+        }
+        else return battle.getHunterPreyPointHashMap().get(hunter);
         return null;
     }
 
     public static Point getBoatPointFront(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,0);}
-    public static Point getBoatPointRight(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,-90);}
-    public static Point getBoatPointLeft(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,90);}
-    public static Point getBoatPointBehind(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,180);}
+    public static Point getBoatPointRight(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,-Math.PI/2);}
+    public static Point getBoatPointLeft(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,Math.PI/2);}
+    public static Point getBoatPointBehind(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,Math.PI);}
+
+//    public static Point getBoatPointFront(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,0);}
+//    public static Point getBoatPointRight(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,-90);}
+//    public static Point getBoatPointLeft(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,90);}
+//    public static Point getBoatPointBehind(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,180);}
 
     /**
      *

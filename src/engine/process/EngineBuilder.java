@@ -1,7 +1,7 @@
 package engine.process;
 
 import config.GameConfiguration;
-import engine.Map;
+import engine.MapGame;
 import engine.entity.Harbor;
 import engine.entity.boats.Fodder;
 import engine.entity.boats.Merchant;
@@ -98,8 +98,8 @@ public class EngineBuilder {
         mapInit0();
     }
 
-    public static Map mapInit0() {
-        Map.getInstance().setTimeStop(false);
+    public static MapGame mapInit0() {
+        MapGame.getInstance().setTimeStop(false);
         ArrayList<PopUp> lstPopUp =new ArrayList<>();
         ArrayList<Harbor> lstHarbor = new ArrayList<>();
         ArrayList<Faction> lstFaction = new ArrayList<>();
@@ -190,13 +190,13 @@ public class EngineBuilder {
 
         lstFaction.addAll(lstBotFaction);
         lstFaction.add(player);
-        Map.getInstance().setLstPopUp(lstPopUp);
-        Map.getInstance().setLstHarbor(lstHarbor);
-        Map.getInstance().setLstFaction(lstFaction);
-        Map.getInstance().setLstBotFaction(lstBotFaction);
-        Map.getInstance().setMapGraphPoint(mapGraphPoint);
-        Map.getInstance().setPlayer(player);
-        return Map.getInstance();
+        MapGame.getInstance().setLstPopUp(lstPopUp);
+        MapGame.getInstance().setLstHarbor(lstHarbor);
+        MapGame.getInstance().setLstFaction(lstFaction);
+        MapGame.getInstance().setLstBotFaction(lstBotFaction);
+        MapGame.getInstance().setMapGraphPoint(mapGraphPoint);
+        MapGame.getInstance().setPlayer(player);
+        return MapGame.getInstance();
     }
 
 }

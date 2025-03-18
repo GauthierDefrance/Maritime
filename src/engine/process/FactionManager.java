@@ -1,7 +1,7 @@
 package engine.process;
 
 import config.GameConfiguration;
-import engine.Map;
+import engine.MapGame;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
 import engine.faction.Faction;
@@ -58,7 +58,7 @@ public class FactionManager {
      * Take all map boat and make it follow its path, don't do anything if the path is empty
      */
     public void moveAllFactionBoat(){
-        for (Faction faction : Map.getInstance().getLstFaction()){
+        for (Faction faction : MapGame.getInstance().getLstFaction()){
             moveFactionBoat(faction);
         }
     }
@@ -76,7 +76,7 @@ public class FactionManager {
      * Take a map and for all faction fleet update all boat fleet path if is empty
      */
     public void allFleetUpdate(){
-        for (Faction faction : Map.getInstance().getLstFaction()){
+        for (Faction faction : MapGame.getInstance().getLstFaction()){
             fleetUpdate(faction);
         }
     }
@@ -101,7 +101,7 @@ public class FactionManager {
      * for all map faction sea road boat pickUpResources and sellResources and remove sea road if timer < 0
      */
     public void allSeaRoutUpdate(){
-        for (Faction faction : Map.getInstance().getLstFaction()){
+        for (Faction faction : MapGame.getInstance().getLstFaction()){
             seaRoutUpdate(faction);
         }
     }
@@ -154,14 +154,14 @@ public class FactionManager {
         vision1.add(boat1);
         vision2.add(boat2);
         for (Boat boat : getMyFaction(boat1.getColor()).getLstBoat()){
-            for (Boat playerBoat : Map.getInstance().getPlayer().getLstBoat()){
+            for (Boat playerBoat : MapGame.getInstance().getPlayer().getLstBoat()){
                 if (playerBoat.getVisionRadius() /2 >= Math.sqrt(Math.pow((boat.getPosition().getX()-playerBoat.getPosition().getX()),2)+Math.pow((boat.getPosition().getY()-playerBoat.getPosition().getY()),2))){
                     if (!vision1.contains(boat)){vision1.add(boat);}
                 }
             }
         }
         for (Boat boat : getMyFaction(boat2.getColor()).getLstBoat()){
-            for (Boat playerBoat : Map.getInstance().getPlayer().getLstBoat()){
+            for (Boat playerBoat : MapGame.getInstance().getPlayer().getLstBoat()){
                 if(playerBoat.getVisionRadius() /2 >= Math.sqrt(Math.pow((boat.getPosition().getX()-playerBoat.getPosition().getX()),2)+Math.pow((boat.getPosition().getY()-playerBoat.getPosition().getY()),2))){
                     if(!vision2.contains(boat)){vision2.add(boat);}
                 }
@@ -175,7 +175,7 @@ public class FactionManager {
      * @param color a String representing a color
      */
     public Faction getMyFaction(String color){
-        for (Faction faction : Map.getInstance().getLstFaction()) {
+        for (Faction faction : MapGame.getInstance().getLstFaction()) {
             if (faction.getColor().equals(color)) {
                 return faction;
             }

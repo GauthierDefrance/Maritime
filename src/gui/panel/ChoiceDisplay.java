@@ -1,10 +1,8 @@
 package gui.panel;
 
 import config.GameConfiguration;
-import engine.Map;
+import engine.MapGame;
 import engine.entity.Harbor;
-import engine.entity.boats.Boat;
-import engine.trading.SeaRoad;
 import gui.PopUp;
 import gui.process.ImageStock;
 import gui.process.PaintBackGround;
@@ -64,13 +62,13 @@ public class ChoiceDisplay extends JPanel {
             }
         }
 
-        for (Harbor harbor : Map.getInstance().getLstHarbor()){
+        for (Harbor harbor : MapGame.getInstance().getLstHarbor()){
             paintEntity.paint(harbor,g2d);
         }
         if (state == 0){}
 
         ArrayList<PopUp> lstPopUp = new ArrayList<>();
-        lstPopUp.addAll(Map.getInstance().getLstPopUp());
+        lstPopUp.addAll(MapGame.getInstance().getLstPopUp());
         for (PopUp popUp : lstPopUp){
             paintPopUp.paint(popUp,g2d);
         }

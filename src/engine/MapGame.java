@@ -13,8 +13,8 @@ import java.util.HashMap;
  * @author Kenan Ammad
  * @version 0.3
  */
-public class Map implements Serializable {
-    private static Map instance;
+public class MapGame implements Serializable {
+    private static MapGame instance;
     private HashMap<String, GraphPoint> mapGraphPoint;
     private ArrayList<Harbor> lstHarbor;
     private ArrayList<Faction> lstBotFaction;
@@ -23,16 +23,16 @@ public class Map implements Serializable {
     private boolean timeStop;
     private ArrayList<PopUp> lstPopUp;
 
-    private Map(){}
+    private MapGame(){}
 
-    public static synchronized Map getInstance() {
+    public static synchronized MapGame getInstance() {
         if (instance == null) {
-            instance = new Map();
+            instance = new MapGame();
         } return instance;
     }
 
-    public static void setInstance(Map instance) {
-        Map.instance = instance;
+    public static void setInstance(MapGame instance) {
+        MapGame.instance = instance;
     }
 
     public ArrayList<Faction> getLstBotFaction() {

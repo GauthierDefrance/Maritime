@@ -9,6 +9,7 @@ import engine.entity.boats.Fleet;
 import engine.graph.GraphPoint;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -34,10 +35,8 @@ public class BattleBoatManager {
      * moving the boats and actualizing the angle.
      */
     public void tick(){
-        moveForwardFleet(this.battle.getBoatsInBattleA());
-        moveForwardFleet(this.battle.getBoatsInBattleB());
-        actualizeFleetAngle(this.battle.getBoatsInBattleA());
-        actualizeFleetAngle(this.battle.getBoatsInBattleB());
+        actualizeFleet(this.battle.getBoatsInBattleA());
+//        actualizeFleet(this.battle.getBoatsInBattleB());
     }
 
 
@@ -47,7 +46,7 @@ public class BattleBoatManager {
      * Else if it has a prey, it will follow the prey.
      * @param fleet A {@link Fleet} object
      */
-    public void actualizeFleetAngle(Fleet fleet){
+    public void actualizeFleet(Fleet fleet){
         HashMap<Boat,Boat> HunterPreyHashMap = this.battle.getHunterPreyHashMap();
         Boat prey;
         for(Boat hunter : fleet.getArrayListBoat()){
@@ -64,7 +63,7 @@ public class BattleBoatManager {
                 //Sinon, on essaye de traquer une proie si elle existe
                 prey = HunterPreyHashMap.get(hunter);
                 if(prey!=null){
-                    turnBoat(hunter, CirclePursuit.getPointToFollow(hunter, prey));
+                    turnBoat(hunter, getPointToFollow(hunter, prey));
                 }
             }
         }
@@ -75,33 +74,99 @@ public class BattleBoatManager {
      * @param boat A {@link Boat} object
      * @param point A {@link Point} object
      */
-    private static void turnBoat(Boat boat, Point point){
+    private void turnBoat(Boat boat, Point point){
         double angle = AngleCalculator.calculateAngle(boat.getPosition(), point);
         double deltaAngle = angle - boat.getAngle();
         deltaAngle = (deltaAngle + Math.PI) % (2 * Math.PI) - Math.PI;
-        if (Math.abs(deltaAngle) < GameConfiguration.BOAT_ROTATION_SPEED) {
+        double boost = 0;
+
+        if(deltaAngle > Math.PI/1.25 || deltaAngle < -Math.PI/1.25){
+
+//            System.out.println(deltaAngle+" BBB "+boat.getAngle());
+//            boost = GameConfiguration.BOAT_ROTATION_SPEED;
+        }
+
+        if (Math.abs(deltaAngle) < GameConfiguration.BOAT_ROTATION_SPEED+boost) {
             boat.setAngle(angle);
         } else if (deltaAngle > 0) {
-            boat.setAngle(boat.getAngle() + GameConfiguration.BOAT_ROTATION_SPEED);
+            boat.setAngle(boat.getAngle() + GameConfiguration.BOAT_ROTATION_SPEED+boost);
         } else {
-            boat.setAngle(boat.getAngle() - GameConfiguration.BOAT_ROTATION_SPEED);
+            boat.setAngle(boat.getAngle() - GameConfiguration.BOAT_ROTATION_SPEED+boost);
         }
-    }
-
-    private static void moveForwardFleet(Fleet fleet){
-        for(Boat boat : fleet.getArrayListBoat()){
-            moveForward(boat);
+        if (boost == 0){
+            int x = (int) ((Math.cos(boat.getAngle())*boat.getSpeed()) + boat.getPosition().getX());
+            int y = (int) ((Math.sin(boat.getAngle())*boat.getSpeed()) + boat.getPosition().getY());
+            boat.setPosition(x,y);
         }
-    }
-    
-    private static void moveForward(Boat boat){
-        int x = (int) ((Math.cos(boat.getAngle())*boat.getSpeed()) + boat.getPosition().getX());
-        int y = (int) ((Math.sin(boat.getAngle())*boat.getSpeed()) + boat.getPosition().getY());
-        boat.setPosition(x,y);
     }
 
     public static void setBoatDirection(Boat boat, Point point){
         boat.setNextGraphPoint(new GraphPoint(point,null));
+    }
+
+    private Point getPointToFollow(Boat hunter, Boat prey){
+        Point champion = null;
+        int SHOOT_DISTANCE = (int) (GameConfiguration.DEFAULT_SHOOT_DISTANCE * hunter.getVisionRadius()/3);
+        ArrayList<Point> PointToTest = new ArrayList<>();
+        PointToTest.add(getBoatPointBehind(prey, SHOOT_DISTANCE));
+        PointToTest.add(getBoatPointFront(prey, SHOOT_DISTANCE));
+        PointToTest.add(getBoatPointRight(prey, SHOOT_DISTANCE));
+        PointToTest.add(getBoatPointLeft(prey, SHOOT_DISTANCE));
+        if(battle.getHunterPreyPointHashMap().get(hunter)!=null)PointToTest.remove(battle.getHunterPreyPointHashMap().get(hunter));
+        double minDistance = Double.MAX_VALUE;
+        ArrayList<Point> validPoints = new ArrayList<>();
+        for (Point p : PointToTest) {
+            double distance = hunter.getPosition().distance(p);
+            if (distance < minDistance) {
+                minDistance = distance;
+                validPoints.clear();
+                validPoints.add(p);
+            }
+            else if (distance == minDistance){
+                validPoints.add(p);
+            }
+        }
+        if (!validPoints.isEmpty()) {
+            double championAngle = Double.MAX_VALUE;
+            for (Point p : validPoints) {
+                double tmpAngle = Math.abs(hunter.getAngle() - AngleCalculator.calculateAngle(hunter, p));
+                if (tmpAngle < championAngle ) {
+                    championAngle = tmpAngle;
+                    champion = p;
+                }
+            }
+        }
+        for (Point p : PointToTest) {
+            if(GameConfiguration.HITBOX_BOAT > p.distance(hunter.getPosition())){
+                battle.getHunterPreyPointHashMap().put(hunter,p);
+                System.out.println("aa");
+            }
+        }
+        return champion;
+    }
+
+    public static Point getBoatPointFront(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,0);}
+    public static Point getBoatPointRight(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,-Math.PI/2);}
+    public static Point getBoatPointLeft(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,Math.PI/2);}
+    public static Point getBoatPointBehind(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,Math.PI);}
+
+//    public static Point getBoatPointFront(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,0);}
+//    public static Point getBoatPointRight(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,-90);}
+//    public static Point getBoatPointLeft(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,90);}
+//    public static Point getBoatPointBehind(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,180);}
+
+    /**
+     *
+     * @param boat
+     * @param SHOOT_DISTANCE
+     * @param BONUS_ANGLE
+     * @return
+     */
+    public static Point getBoatPoint(Boat boat,int SHOOT_DISTANCE, double BONUS_ANGLE){
+        Point tmpPoint = boat.getPosition();
+        int x= (int) Math.round( Math.cos(boat.getAngle() + BONUS_ANGLE )*SHOOT_DISTANCE + tmpPoint.getX());
+        int y= (int) Math.round( Math.sin(boat.getAngle() + BONUS_ANGLE )*SHOOT_DISTANCE + tmpPoint.getY());
+        return new Point(x, y);
     }
 
 }

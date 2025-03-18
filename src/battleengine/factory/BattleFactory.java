@@ -18,14 +18,20 @@ public final class BattleFactory {
         int x = (int) GameConfiguration.DEFAULT_ENEMY_SPAWN_ZONE_COORDINATE.getX()*GameConfiguration.GAME_SCALE;
         int y = (int) 180*GameConfiguration.GAME_SCALE;
         int index = 0;
-        for(Boat boat: fleet.getArrayListBoat()){
-            if(!battle.getBoatsInBattleB().getArrayListBoat().contains(boat)) {
-                boat.setAngle(Math.PI);
-                boat.setPosition(x, y + (20 * index * GameConfiguration.GAME_SCALE));
-                battle.getBoatsInBattleB().add(boat);
-                index++;
-            }
-        }
+
+        fleet.getArrayListBoat().get(0).setAngle(Math.PI);
+        fleet.getArrayListBoat().get(0).setPosition(x, y + (20 * index * GameConfiguration.GAME_SCALE));
+        battle.getBoatsInBattleB().add(fleet.getArrayListBoat().get(0));
+
+//        for(Boat boat: fleet.getArrayListBoat()){
+//            if(!battle.getBoatsInBattleB().getArrayListBoat().contains(boat)) {
+//                boat.setAngle(Math.PI);
+//                boat.setPosition(x, y + (20 * index * GameConfiguration.GAME_SCALE));
+//                battle.getBoatsInBattleB().add(boat);
+//                index++;
+//            }
+//
+//        }
     }
 
 }

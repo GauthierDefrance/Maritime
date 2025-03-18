@@ -1,7 +1,7 @@
 package gui.process;
 
 import config.GameConfiguration;
-import engine.Map;
+import engine.MapGame;
 import gui.PopUp;
 
 import java.awt.*;
@@ -34,7 +34,8 @@ public class PaintPopUp {
                 g2d.setColor(Color.black);
             }
         }
-        else {Map.getInstance().removePopUp(popUp);}
+        else {
+            MapGame.getInstance().removePopUp(popUp);}
     }
 }
 
