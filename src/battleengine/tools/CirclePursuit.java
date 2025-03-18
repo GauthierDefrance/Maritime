@@ -4,6 +4,7 @@ import config.GameConfiguration;
 import engine.entity.boats.Boat;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public final class CirclePursuit {
 
@@ -14,24 +15,50 @@ public final class CirclePursuit {
      * @return
      */
     public static Point getPointToFollow(Boat hunter, Boat prey){
-
         double angle = AngleCalculator.calculateAngle(hunter, prey);
+        int SHOOT_DISTANCE = (int) (GameConfiguration.DEFAULT_SHOOT_DISTANCE * hunter.getVisionRadius());
+        ArrayList<Point> PointToTest = new ArrayList<>();
+        PointToTest.add(getBoatPointBehind(prey, SHOOT_DISTANCE));
+        PointToTest.add(getBoatPointFront(prey, SHOOT_DISTANCE));
+        PointToTest.add(getBoatPointRight(prey, SHOOT_DISTANCE));
+        PointToTest.add(getBoatPointLeft(prey, SHOOT_DISTANCE));
 
-        int SHOOT_DISTANCE = (int) (GameConfiguration.DEFAULT_SHOOT_DISTANCE*hunter.getVisionRadius());
+        Point closestPoint = null;
+        double minDistance = Double.MAX_VALUE;
 
-        if (0 <= angle && angle < Math.PI/2) {
-            return getBoatPointLeft(prey,SHOOT_DISTANCE);
+        for (Point p : PointToTest) {
+            double distance = hunter.getPosition().distance(p);
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestPoint = p;
+            }
         }
-        else if (Math.PI/2 <= angle && angle < Math.PI) {
-            return getBoatPointBehind(prey,SHOOT_DISTANCE);
+        if (closestPoint != null) {
+            ArrayList<Point> validPoints = new ArrayList<>();
+            validPoints.add(closestPoint);
+            for (Point p : PointToTest) {
+                if (!p.equals(closestPoint) && hunter.getPosition().distance(p) == minDistance) {
+                    validPoints.add(p);
+                }
+            }
+
+            if (validPoints.size() == 1) {
+                return validPoints.get(0);
+            } else if (validPoints.size() > 1) {
+                double championAngle = Double.MAX_VALUE;
+                Point champion = null;
+                for (Point p : validPoints) {
+                    double tmpAngle = Math.abs(hunter.getAngle() - AngleCalculator.calculateAngle(hunter, p));
+                    if (tmpAngle < championAngle) {
+                        championAngle = tmpAngle;
+                        champion = p;
+                    }
+                }
+                return champion;
+            }
         }
 
-        else if (-Math.PI/2 <= angle && angle < 0 ) {
-            return getBoatPointFront(prey,SHOOT_DISTANCE);
-        }
-        else {
-            return getBoatPointRight(prey,SHOOT_DISTANCE);
-        }
+        return null;
     }
 
     public static Point getBoatPointFront(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,0);}

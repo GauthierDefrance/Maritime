@@ -56,7 +56,7 @@ public class ShootManager {
                 else{
                     //priorité au plus proche
                     tmp = getShootableFirstBoat(hunter, preyFleet);
-                    if (tmp != null) {
+                    if (tmp != null && isShootable(hunter,tmp)) {
                         shoot(hunter, tmp);
                     }
                 }
@@ -70,7 +70,6 @@ public class ShootManager {
      * @param prey {@link Boat}
      */
     private void tryshoot(Boat hunter, Boat prey){
-        double angle = 0;
         if(isShootable(hunter, prey)){
             shoot(hunter, prey);
         }
@@ -107,16 +106,24 @@ public class ShootManager {
      * @return {@link Boolean}
      */
     private boolean isShootable(Boat hunter, Boat prey) {
-        if (hunter.getPosition().distance(prey.getPosition()) < GameConfiguration.DEFAULT_SHOOT_DISTANCE*hunter.getVisionRadius()){
-            //If the enemy is at close distance
-            double angle = AngleCalculator.calculateAngle(hunter, prey);
-            if (( Math.PI/4 < angle && angle < 3*Math.PI/4 )||( -Math.PI/4 > angle && angle > -3*Math.PI/4 ) ){
+        if (hunter.getPosition().distance(prey.getPosition()) < GameConfiguration.DEFAULT_SHOOT_DISTANCE * hunter.getVisionRadius()) {
+
+            double angle = AngleCalculator.calculateAngle(hunter, prey) + hunter.getAngle();
+            angle = (angle + Math.PI) % (2 * Math.PI) - Math.PI;
+
+            // Définir l'intervalle de tir du hunter entre -π/4 et +π/4 par rapport à son angle
+            double minAngle = -Math.PI / 4;
+            double maxAngle =  Math.PI / 4;
+
+            if(maxAngle>angle && angle > minAngle){
+                return true;
+            }
+            if (-minAngle > angle  && angle > -maxAngle) {
                 return true;
             }
         }
         return false;
     }
-
 
     /**
      *
@@ -126,10 +133,9 @@ public class ShootManager {
     private void shoot(Boat hunter, Boat prey){
         Bullet bullet;
         double angle = AngleCalculator.calculateAngle(hunter, prey);
-        Random rand = new Random();
         int min = -GameConfiguration.DEFAULT_HEIGHT_BULLET_SPAWN;
         int max = GameConfiguration.DEFAULT_HEIGHT_BULLET_SPAWN+1;
-        int randomNumber = rand.nextInt(max - min) + min;
+        int randomNumber = GameConfiguration.rand.nextInt(max - min) + min;
         double x;
         double y;
         if(angle<0){
