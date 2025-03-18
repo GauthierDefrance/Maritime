@@ -1,6 +1,7 @@
 package config;
 
 import java.awt.*;
+import java.util.Random;
 
 /**
  * class containing constants necessary to the game execution
@@ -23,11 +24,19 @@ public final class GameConfiguration {
     //--------------------------------
 
 
+    //-------- Battle Stats -------
+        public static final int MAX_X = 640*GAME_SCALE;
+        public static final int MAX_Y = 360*GAME_SCALE;
+        public static final int MIN_X = 0;
+        public static final int MIN_Y = 0;
+
+    //--------------------------------
+
 
     //-------- Boats Stats --------
             public static final int RELOAD_TIME = 20;
         // -> Global Stat
-            public static final double BOAT_ROTATION_SPEED=0.0174533*6;
+            public static final double BOAT_ROTATION_SPEED=0.0174533*3;
             public static final double HITBOX_BOAT = 80;
             public static final int Transparency_Halo = 25;
 
@@ -68,10 +77,11 @@ public final class GameConfiguration {
             public static final int DEFAULT_BULLET_SPEED=10*GAME_SCALE;
             public static final double DEFAULT_BULLET_FRICTION=1.15*0.5;
             public static final int DAMAGE_PER_BULLET = 1;
+            public static final Random rand = new Random();
 
         //-> Bullet Math stats
             public static final int DEFAULT_SHOOT_DISTANCE=1;
-            public static final double DEFAULT_SHOOTING_ANGLE=Math.PI/4;
+            public static final double DEFAULT_SHOOTING_ANGLE=Math.PI/2;
             public static final int DEFAULT_WIDTH_BULLET_SPAWN=10;
             public static final int DEFAULT_HEIGHT_BULLET_SPAWN=4;
 
