@@ -1,7 +1,9 @@
 package test;
 
 import engine.Map;
+import engine.process.EngineBuilder;
 import gui.MainGUI;
+import gui.panel.ChoicePathMenu;
 import gui.utilities.GUILoader;
 import gui.utilities.JComponentBuilder;
 
@@ -25,10 +27,12 @@ public class Debug extends JFrame{
 
         JButton timeStop = JComponentBuilder.menuButton("timeStop",new TimeStop());
         JButton combatMenu = JComponentBuilder.menuButton("CombatMenu",new CombatMenu());
-        JButton RelationMenu = JComponentBuilder.menuButton("RelationMenu", new RelationMenu());
+        JButton relationMenu = JComponentBuilder.menuButton("RelationMenu", new RelationMenu());
+        JButton choicePathMenu = JComponentBuilder.menuButton("ChoicePathMenu", new ChoiceMenu());
         contentPane.add(timeStop);
         contentPane.add(combatMenu);
-        contentPane.add(RelationMenu);
+        contentPane.add(relationMenu);
+        contentPane.add(choicePathMenu);
         setFocusable(false);
         setLocationRelativeTo(null);
         setSize(360, 360);
@@ -37,6 +41,26 @@ public class Debug extends JFrame{
     private class TimeStop implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             Map.getInstance().setTimeStop(!Map.getInstance().isTimeStop());
+        }
+    }
+
+    private class ChoiceMenu implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
+                case "gui.panel.OptionsMenu" :
+                case "gui.panel.PauseMenu" : {
+                    EngineBuilder.mapInit(0);
+                    TestMove.addBaotTest();
+                    MainGUI.getWindow().removeAll();
+                    MainGUI.getWindow().add(new ChoicePathMenu(1,Map.getInstance().getLstFaction().get(0)));
+                    MainGUI.getWindow().revalidate();
+                    MainGUI.getWindow().repaint();
+                    break;
+                }
+                default : {
+                }
+            }
         }
     }
 

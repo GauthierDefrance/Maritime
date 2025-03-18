@@ -52,7 +52,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         dashboardJPanel = JComponentBuilder.borderMenuPanel();
         jPanelATH = JComponentBuilder.borderMenuPanel();
         jSouthATHPanel = JComponentBuilder.flowMenuPanel();
-        confirm = JComponentBuilder.menuButton("Battle",new confirmListener());
+        confirm = JComponentBuilder.menuButton("Confirm",new confirmListener());
 
         factionManager = new FactionManager();
         dashboard = new ChoiceDisplay(state);
