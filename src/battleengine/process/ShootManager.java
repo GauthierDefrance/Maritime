@@ -111,8 +111,8 @@ public class ShootManager {
             double angle = AngleCalculator.calculateAngle(hunter, prey);
             angle = (angle + Math.PI) % (2 * Math.PI) - Math.PI;
 
-            double minAngle =    (Math.PI / 4);
-            double maxAngle =  (3*Math.PI / 4);
+            double minAngle =    (GameConfiguration.DEFAULT_SHOOTING_ANGLE);
+            double maxAngle =  (3*GameConfiguration.DEFAULT_SHOOTING_ANGLE);
 
             if ((maxAngle+ hunter.getAngle()>angle && angle > minAngle+ hunter.getAngle())){
                 return true;

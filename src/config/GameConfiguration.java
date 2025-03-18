@@ -81,7 +81,7 @@ public final class GameConfiguration {
 
         //-> Bullet Math stats
             public static final int DEFAULT_SHOOT_DISTANCE=2;
-            public static final double DEFAULT_SHOOTING_ANGLE=Math.PI/2;
+            public static final double DEFAULT_SHOOTING_ANGLE=Math.PI/4;
             public static final int DEFAULT_WIDTH_BULLET_SPAWN=10;
             public static final int DEFAULT_HEIGHT_BULLET_SPAWN=4;
 

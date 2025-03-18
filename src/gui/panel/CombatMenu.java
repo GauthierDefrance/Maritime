@@ -56,6 +56,7 @@ public class CombatMenu extends JPanel implements Runnable {
         jWestSouthPanel = JComponentBuilder.gridMenuPanel(1,0,0,0);
         confirmBattle = JComponentBuilder.menuButton("Battle",new confirmContinueBattleListener());
 
+        battle.setPlacingMode(true);
         dashboard = new BattleDisplay(battle);
         battleManager = new BattleManager(battle);
 
