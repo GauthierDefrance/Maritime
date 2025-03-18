@@ -109,15 +109,16 @@ public class ShootManager {
         if (hunter.getPosition().distance(prey.getPosition()) < GameConfiguration.DEFAULT_SHOOT_DISTANCE * hunter.getVisionRadius()/2) {
 
             double angle = AngleCalculator.calculateAngle(hunter, prey);
-            angle = (angle + Math.PI) % (2 * Math.PI) - Math.PI;
+            double deltaAngle = angle - hunter.getAngle();
+            deltaAngle = (deltaAngle + Math.PI) % (2 * Math.PI) - Math.PI;
 
             double minAngle =    (GameConfiguration.DEFAULT_SHOOTING_ANGLE);
             double maxAngle =  (3*GameConfiguration.DEFAULT_SHOOTING_ANGLE);
 
-            if ((maxAngle+ hunter.getAngle()>angle && angle > minAngle+ hunter.getAngle())){
+            if ((maxAngle>deltaAngle && deltaAngle > minAngle)){
                 return true;
             }
-            if ((-maxAngle+ hunter.getAngle() < angle  && angle < -minAngle+ hunter.getAngle())) {
+            if ((-maxAngle < deltaAngle  && deltaAngle < -minAngle)) {
                 return true;
             }
         }
@@ -132,6 +133,9 @@ public class ShootManager {
     private void shoot(Boat hunter, Boat prey){
         Bullet bullet;
         double angle = AngleCalculator.calculateAngle(hunter, prey);
+        double deltaAngle = angle - hunter.getAngle();
+        deltaAngle = (deltaAngle + Math.PI) % (2 * Math.PI) - Math.PI;
+
         int min = -GameConfiguration.DEFAULT_HEIGHT_BULLET_SPAWN;
         int max = GameConfiguration.DEFAULT_HEIGHT_BULLET_SPAWN+1;
         int randomNumber = GameConfiguration.rand.nextInt(max - min) + min;

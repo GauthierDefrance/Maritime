@@ -78,26 +78,17 @@ public class BattleBoatManager {
         double angle = AngleCalculator.calculateAngle(boat.getPosition(), point);
         double deltaAngle = angle - boat.getAngle();
         deltaAngle = (deltaAngle + Math.PI) % (2 * Math.PI) - Math.PI;
-        double boost = 0;
 
-        if(deltaAngle > Math.PI/1.25 || deltaAngle < -Math.PI/1.25){
-
-//            System.out.println(deltaAngle+" BBB "+boat.getAngle());
-//            boost = GameConfiguration.BOAT_ROTATION_SPEED;
-        }
-
-        if (Math.abs(deltaAngle) < GameConfiguration.BOAT_ROTATION_SPEED+boost) {
+        if (Math.abs(deltaAngle) < GameConfiguration.BOAT_ROTATION_SPEED) {
             boat.setAngle(angle);
         } else if (deltaAngle > 0) {
-            boat.setAngle(boat.getAngle() + GameConfiguration.BOAT_ROTATION_SPEED+boost);
+            boat.setAngle(boat.getAngle() + GameConfiguration.BOAT_ROTATION_SPEED);
         } else {
-            boat.setAngle(boat.getAngle() - GameConfiguration.BOAT_ROTATION_SPEED+boost);
+            boat.setAngle(boat.getAngle() - GameConfiguration.BOAT_ROTATION_SPEED);
         }
-        if (boost == 0){
-            int x = (int) ((Math.cos(boat.getAngle())*boat.getSpeed()) + boat.getPosition().getX());
-            int y = (int) ((Math.sin(boat.getAngle())*boat.getSpeed()) + boat.getPosition().getY());
-            boat.setPosition(x,y);
-        }
+        int x = (int) ((Math.cos(boat.getAngle())*boat.getSpeed()) + boat.getPosition().getX());
+        int y = (int) ((Math.sin(boat.getAngle())*boat.getSpeed()) + boat.getPosition().getY());
+        boat.setPosition(x,y);
     }
 
     public static void setBoatDirection(Boat boat, Point point){
