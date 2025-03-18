@@ -3,7 +3,6 @@ package gui.utilities;
 import config.GameConfiguration;
 import engine.entity.Entity;
 import engine.entity.Harbor;
-import engine.entity.Name;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
 import engine.trading.SeaRoad;
@@ -111,10 +110,10 @@ public class JComponentBuilder {
 //            newButton.setIcon( new ImageIcon(ImageStock.getImage((Boat) entity)));
 //        }
 //        else if (entity instanceof Fleet) {
-//            newButton.setIcon( new ImageIcon(ImageStock.getImage((Boat) entity)));
+//            newButton.setIcon( new ImageIcon(ImageStock.getImage((Fleet) entity)));
 //        }
 //        else if (entity instanceof SeaRoad) {
-//            newButton.setIcon( new ImageIcon(ImageStock.getImage((Boat) entity)));
+//            newButton.setIcon( new ImageIcon(ImageStock.getImage((SeaRoad) entity)));
 //        }
 //        return newButton;
 //    }
@@ -248,6 +247,17 @@ public class JComponentBuilder {
     }
 
     /**
+     * Build a JScrollPane accommodating game-menu Convention
+     * @see JScrollPane
+     * @return built JPanel
+     */
+    public static JScrollPane ScrollPaneMenuPanel(JComponent jComponent) {
+        loggerWrite("jScrollPane");
+        JScrollPane jScrollPane = new JScrollPane(jComponent);
+        return jScrollPane;
+    }
+
+    /**
      * Build a default JPanel accommodating game-menu Convention
      * @return built JPanel
      */
@@ -329,6 +339,19 @@ public class JComponentBuilder {
         loggerWrite("borderMenuPanel");
         JPanel newPanel = new JPanel();
         newPanel.setLayout(new BorderLayout());
+        return newPanel;
+    }
+
+    /**
+     * Build a BoxLayout JPanel accommodating game-menu Convention
+     * @see BoxLayout
+     * @param axis BoxLayout.Y_AXIS or BoxLayout.X_AXIS  0 for X and 1 for Y
+     * @return built JPanel
+     */
+    public static JPanel boxMenuPanel(int axis) {
+        loggerWrite("boxMenuPanel");
+        JPanel newPanel = new JPanel();
+        newPanel.setLayout(new BoxLayout(newPanel, axis));
         return newPanel;
     }
 

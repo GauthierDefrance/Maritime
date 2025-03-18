@@ -75,6 +75,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         dashboardJPanel = JComponentBuilder.borderMenuPanel();
         jSouthATHPanel = JComponentBuilder.borderMenuPanel();
         jNorthATHPanel = JComponentBuilder.borderMenuPanel();
+        jEastPanel = JComponentBuilder.borderMenuPanel();
         jEastCenterChoice1CenterPanel = JComponentBuilder.gridMenuPanel(0,2);
         jEastCenterChoice2CenterPanel = JComponentBuilder.gridMenuPanel(0,2);
         jEastCenterChoice3CenterPanel1 = JComponentBuilder.gridMenuPanel(0,2);
@@ -96,27 +97,23 @@ public class MainGameMenu extends JPanel implements Runnable {
 
         //Window arrangement
         JLayeredPane jLayeredPane = new JLayeredPane();
-        jEastPanel = JComponentBuilder.borderMenuPanel();
         JPanel jEastWestPanel = JComponentBuilder.borderMenuPanel();
         JPanel jEastButtonPanel = JComponentBuilder.borderMenuPanel();
         JPanel jEastCenterPanel = JComponentBuilder.borderMenuPanel();
         JPanel jEastCenterNorthPanel = JComponentBuilder.gridMenuPanel(1,4,0,0);
 
-
-
-        JScrollPane jScrollPane1 = new JScrollPane(jEastCenterChoice1CenterPanel);
+        JScrollPane jScrollPane1 = JComponentBuilder.ScrollPaneMenuPanel(jEastCenterChoice1CenterPanel);
         jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         jEastCenterPanelChoice1.add(jScrollPane1);
 
-        JScrollPane jScrollPane2 = new JScrollPane(jEastCenterChoice2CenterPanel);
+        JScrollPane jScrollPane2 = JComponentBuilder.ScrollPaneMenuPanel(jEastCenterChoice2CenterPanel);
         jScrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         jEastCenterPanelChoice2.add(jScrollPane2);
 
-        JPanel jEastCenterChoice3CenterPanel = new JPanel();
-        jEastCenterChoice3CenterPanel.setLayout(new BoxLayout(jEastCenterChoice3CenterPanel,BoxLayout.Y_AXIS));
+        JPanel jEastCenterChoice3CenterPanel = JComponentBuilder.boxMenuPanel(BoxLayout.Y_AXIS);
         jEastCenterChoice3CenterPanel.add(jEastCenterChoice3CenterPanel1);
         jEastCenterChoice3CenterPanel.add(jEastCenterChoice3CenterPanel2);
-        JScrollPane jScrollPane3 = new JScrollPane(jEastCenterChoice3CenterPanel);
+        JScrollPane jScrollPane3 = JComponentBuilder.ScrollPaneMenuPanel(jEastCenterChoice3CenterPanel);
         jScrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         jEastCenterPanelChoice3.add(jScrollPane3);
 
