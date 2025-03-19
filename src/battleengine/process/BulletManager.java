@@ -8,6 +8,7 @@ import engine.entity.boats.Fleet;
 import engine.process.BoatManager;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Manager de classe utile pour gérer la partie déplacement et collisions des {@link Bullet}.
@@ -96,29 +97,36 @@ public class BulletManager {
         }
     }
 
+
+
     /**
      * Method that check the collision of the bullet with
      * all the boats in Battle.
      */
     private void collideAll(){
-        ArrayList<Bullet> tmpLstBullets =  new ArrayList<>();
-        tmpLstBullets.addAll(battle.getLstBulletsteamA());
-        for(Bullet bullet: tmpLstBullets) {
-            battle.getLstBulletsteamA().remove(collide(bullet,battle.getBoatsInBattleB()));
-        }
-        tmpLstBullets =  new ArrayList<>();
-        tmpLstBullets.addAll(battle.getLstBulletsteamB());
-        for(Bullet bullet: tmpLstBullets) {
-            battle.getLstBulletsteamB().remove(collide(bullet,battle.getBoatsInBattleA()));
+        collideLst(this.battle.getLstBulletsteamA(),this.battle.getBoatsInBattleB());
+        collideLst(this.battle.getLstBulletsteamB(),this.battle.getBoatsInBattleA());
+    }
+
+    private void collideLst(ArrayList<Bullet> bullets, Fleet fleet) {
+        Iterator<Bullet> bulletsIt = bullets.iterator();
+        Bullet tmp;
+        Boat boat;
+        while(bulletsIt.hasNext()) {
+            tmp = bulletsIt.next();
+            if(collide(tmp, fleet)){
+                bullets.remove(tmp);
+            }
         }
     }
 
-    private Bullet collide(Bullet bullet, Fleet fleet) {
+
+    private Boolean collide(Bullet bullet, Fleet fleet) {
         Boat tmp = BoatManager.boatCollisionToPoint(bullet.getPosition(), fleet.getArrayListBoat());
         if(tmp != null){
             tmp.addCurrentHp(-GameConfiguration.DAMAGE_PER_BULLET);
-            return bullet;
+            return true;
         }
-        return null;
+        return false;
     }
 }

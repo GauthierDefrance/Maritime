@@ -36,7 +36,7 @@ public class BattleBoatManager {
      */
     public void tick(){
         actualizeFleet(this.battle.getBoatsInBattleA());
-//        actualizeFleet(this.battle.getBoatsInBattleB());
+//      actualizeFleet(this.battle.getBoatsInBattleB());
     }
 
 
