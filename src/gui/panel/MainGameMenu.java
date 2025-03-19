@@ -8,6 +8,7 @@ import engine.entity.boats.*;
 import engine.process.FactionManager;
 import engine.trading.SeaRoad;
 import gui.PopUp;
+import gui.panel.Display.GameDisplay;
 import gui.process.ListenerBehaviorManager;
 import gui.utilities.GUILoader;
 import gui.utilities.JComponentBuilder;
@@ -279,7 +280,7 @@ public class MainGameMenu extends JPanel implements Runnable {
     private class MouseListener extends MouseAdapter {
         @Override
         public void mousePressed(MouseEvent e) {
-            Point point = ListenerBehaviorManager.create().clickLogic(MainGameMenu.this, e);
+            Point point = ListenerBehaviorManager.create().clickLogic(MainGameMenu.this, e.getPoint());
             Boat boat = factionManager.getBoatManager().pointCollisionToMapBoat(point);
             Harbor harbor = factionManager.getHarborManager().pointCollisionToMapHarbor(point);
             if(harbor != null){

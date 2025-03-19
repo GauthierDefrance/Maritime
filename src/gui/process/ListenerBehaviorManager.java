@@ -85,13 +85,13 @@ public class ListenerBehaviorManager {
     /**
      * Ensure that the action of clicking in a JPanel remain relevant relative to scaling
      * @param panel current Panel
-     * @param e MouseEvent in which this is used
+     * @param point Point which is clicked
      * @return a Point indicating the zone which was clicked
      */
-    public Point clickLogic(JPanel panel, MouseEvent e){
+    public Point clickLogic(JPanel panel, Point point){
         double scale = Math.min((double)panel.getWidth()/640,(double) panel.getHeight() /360);
-        int x = (int) ((e.getPoint().getX()* GameConfiguration.GAME_SCALE)/scale);
-        int y = (int) ((e.getPoint().getY()*GameConfiguration.GAME_SCALE)/scale);
+        int x = (int) ((point.getX()* GameConfiguration.GAME_SCALE)/scale);
+        int y = (int) ((point.getY()*GameConfiguration.GAME_SCALE)/scale);
         return new Point(x, y);
     }
 

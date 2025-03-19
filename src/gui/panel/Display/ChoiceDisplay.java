@@ -1,4 +1,4 @@
-package gui.panel;
+package gui.panel.Display;
 
 import config.GameConfiguration;
 import engine.MapGame;

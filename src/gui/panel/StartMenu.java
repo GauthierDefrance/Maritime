@@ -5,6 +5,7 @@ import engine.MapGame;
 import engine.utilities.EngineBuilder;
 import engine.process.FactionManager;
 import gui.PopUp;
+import gui.panel.Display.GameDisplay;
 import gui.utilities.GUILoader;
 import gui.utilities.JComponentBuilder;
 import gui.process.ListenerBehaviorManager;

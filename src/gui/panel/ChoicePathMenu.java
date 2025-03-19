@@ -10,6 +10,7 @@ import engine.process.FactionManager;
 import engine.trading.TradeOffer;
 import engine.utilities.SearchInGraph;
 import gui.PopUp;
+import gui.panel.Display.ChoiceDisplay;
 import gui.process.ListenerBehaviorManager;
 import gui.utilities.GUILoader;
 import gui.utilities.JComponentBuilder;
@@ -196,7 +197,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
     private class MouseListener extends MouseAdapter {
         @Override
         public void mousePressed(MouseEvent e) {
-            Point point = ListenerBehaviorManager.create().clickLogic(ChoicePathMenu.this, e);
+            Point point = ListenerBehaviorManager.create().clickLogic(ChoicePathMenu.this, e.getPoint());
 
             switch (state){
                 case 0: //We're tracing a Path

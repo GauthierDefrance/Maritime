@@ -7,6 +7,8 @@ import engine.MapGame;
 import engine.entity.boats.Boat;
 import gui.MainGUI;
 import gui.PopUp;
+import gui.panel.Display.BattleDisplay;
+import gui.process.ListenerBehaviorManager;
 import gui.utilities.GUILoader;
 import gui.utilities.JComponentBuilder;
 import javax.swing.*;
@@ -193,11 +195,8 @@ public class CombatMenu extends JPanel implements Runnable {
         @Override
         public void mouseReleased(MouseEvent e) {
             if (e.getButton() == MouseEvent.BUTTON1 && battle.getCurrentBoat()!=null) {
-                double scale = Math.min((double)getWidth()/640,(double) getHeight() /360);
                 Point point0 = SwingUtilities.convertPoint((Component) e.getSource(),e.getPoint(),dashboardJPanel);
-                int x = (int) ((point0.getX()*GameConfiguration.GAME_SCALE)/scale);
-                int y = (int) ((point0.getY()*GameConfiguration.GAME_SCALE)/scale);
-                Point point = new Point(x, y);
+                Point point = ListenerBehaviorManager.create().clickLogic(CombatMenu.this, point0);
                 battleManager.getPlacingManager().tryPlaceBoat(battle.getCurrentBoat(),point);
                 battle.setCurrentBoat(null);
                 elementInPanelUpdate();

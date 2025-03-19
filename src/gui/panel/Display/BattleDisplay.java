@@ -1,8 +1,7 @@
-package gui.panel;
+package gui.panel.Display;
 
 import battleengine.entity.Battle;
 import battleengine.entity.Bullet;
-import battleengine.process.BattleBoatManager;
 import config.GameConfiguration;
 import engine.MapGame;
 import engine.entity.boats.Boat;
