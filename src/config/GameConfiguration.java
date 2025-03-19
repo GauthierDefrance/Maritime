@@ -56,7 +56,7 @@ public final class GameConfiguration {
 
         // -> Merchant Stat
             public static final double MERCHANT_VISION_RADIUS_BOOST = 1;
-            public static final double MERCHANT_HP_BOOST = 1.25;
+            public static final double MERCHANT_HP_BOOST = 2;
             public static final double MERCHANT_SPEED_BOOST = 0.75;
             public static final double MERCHANT_DAMAGE_SPEED_BOOST = 1.25;
             public static final double MERCHANT_INVENTORY_SIZE_BOOST = 3;
@@ -82,7 +82,7 @@ public final class GameConfiguration {
         //-> Bullet Math stats
             public static final int DEFAULT_SHOOT_DISTANCE=2;
             public static final double DEFAULT_MIN_SHOOTING_ANGLE=Math.PI/4;
-            public static final double DEFAULT_MAX_SHOOTING_ANGLE=3*Math.PI/4;
+            public static final double DEFAULT_MAX_SHOOTING_ANGLE=Math.PI*3/4;
             public static final int DEFAULT_WIDTH_BULLET_SPAWN=10;
             public static final int DEFAULT_HEIGHT_BULLET_SPAWN=4;
 

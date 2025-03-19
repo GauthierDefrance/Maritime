@@ -106,19 +106,12 @@ public class ShootManager {
      * @return {@link Boolean}
      */
     private boolean isShootable(Boat hunter, Boat prey) {
-        if (hunter.getPosition().distance(prey.getPosition()) < GameConfiguration.DEFAULT_SHOOT_DISTANCE * hunter.getVisionRadius()/2) {
-
-            double angle = AngleCalculator.calculateAngle(hunter, prey);
-            double deltaAngle = angle - hunter.getAngle();
-            deltaAngle = (deltaAngle + Math.PI) % (2 * Math.PI) - Math.PI;
-
-            double minAngle = (GameConfiguration.DEFAULT_MIN_SHOOTING_ANGLE);
-            double maxAngle = (GameConfiguration.DEFAULT_MAX_SHOOTING_ANGLE);
-
-            if ((maxAngle>deltaAngle && deltaAngle > minAngle)){
+        if (hunter.getPosition().distance(prey.getPosition())-(GameConfiguration.HITBOX_BOAT/2) < GameConfiguration.DEFAULT_SHOOT_DISTANCE * hunter.getVisionRadius()/2) {
+            double deltaAngle = AngleCalculator.calculateDeltaAngle(hunter,prey.getPosition());
+            if ((GameConfiguration.DEFAULT_MAX_SHOOTING_ANGLE>deltaAngle && deltaAngle > GameConfiguration.DEFAULT_MIN_SHOOTING_ANGLE)){
                 return true;
             }
-            if ((-maxAngle < deltaAngle  && deltaAngle < -minAngle)) {
+            if ((-GameConfiguration.DEFAULT_MAX_SHOOTING_ANGLE < deltaAngle  && deltaAngle < -GameConfiguration.DEFAULT_MIN_SHOOTING_ANGLE)) {
                 return true;
             }
         }
@@ -132,26 +125,8 @@ public class ShootManager {
      */
     private void shoot(Boat hunter, Boat prey){
         Bullet bullet;
-        double angle = AngleCalculator.calculateAngle(hunter, prey);
-        double deltaAngle = angle - hunter.getAngle();
-        deltaAngle = (deltaAngle + Math.PI) % (2 * Math.PI) - Math.PI;
-
-        int min = -GameConfiguration.DEFAULT_HEIGHT_BULLET_SPAWN;
-        int max = GameConfiguration.DEFAULT_HEIGHT_BULLET_SPAWN+1;
-        int randomNumber = GameConfiguration.rand.nextInt(max - min) + min;
-        double x;
-        double y;
-        if(angle<0){
-            //Shoot on the right side of the boat
-            x = Math.cos(hunter.getAngle()-Math.PI/2)*(GameConfiguration.DEFAULT_WIDTH_BULLET_SPAWN+ randomNumber);
-            y = Math.sin(hunter.getAngle()-Math.PI/2)*(GameConfiguration.DEFAULT_WIDTH_BULLET_SPAWN + randomNumber);
-        }
-        else{
-            //shoot on the left side of the boat
-            x = Math.cos(hunter.getAngle()+Math.PI/2)*(GameConfiguration.DEFAULT_WIDTH_BULLET_SPAWN + randomNumber);
-            y = Math.sin(hunter.getAngle()+Math.PI/2)*(GameConfiguration.DEFAULT_WIDTH_BULLET_SPAWN + randomNumber);
-        }
-        bullet = BulletFactory.createBullet((int) (x+hunter.getPosition().getX()), (int) (y+hunter.getPosition().getY()), angle, hunter.getColor());
+        double angle = AngleCalculator.calculateAngle(hunter.getPosition(), prey.getPosition());
+        bullet = BulletFactory.createBullet((int) (hunter.getPosition().getX()), (int) (hunter.getPosition().getY()), angle, hunter.getColor());
         if(this.battle.getBoatsInBattleA().getArrayListBoat().contains(hunter)){
             this.battle.getLstBulletsteamA().add(bullet);
         }

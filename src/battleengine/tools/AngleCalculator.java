@@ -5,16 +5,6 @@ import java.awt.Point;
 
 public final class AngleCalculator {
 
-
-    /**
-     * Take the boat Origin and rotate it in the point of the point Direction
-     * @param origin
-     * @param direction
-     */
-    public static void rotateBoatCalculatedAngle(Boat origin, Point direction){
-        origin.setAngle(calculateAngle(origin, direction));
-    }
-
     /**
      * Angle PointB to PointA
      * @param origin
@@ -30,16 +20,10 @@ public final class AngleCalculator {
         return Math.atan2(y2 - y1, x2 - x1);
     }
 
-    public static double calculateAngle(Boat origin, Point direction) {
-        return calculateAngle(origin.getPosition(), direction);
-    }
-
-    public static double calculateAngle(Point origin, Boat direction) {
-        return calculateAngle(origin, direction.getPosition());
-    }
-
-    public static double calculateAngle(Boat origin, Boat direction) {
-        return calculateAngle(origin.getPosition(), direction.getPosition());
+    public static double calculateDeltaAngle(Boat boat, Point direction){
+        double angle = AngleCalculator.calculateAngle(boat.getPosition(), direction);
+        double deltaAngle = angle - boat.getAngle();
+        return Math.atan2(Math.sin(deltaAngle),Math.cos(deltaAngle));
     }
 
 }

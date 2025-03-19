@@ -35,7 +35,7 @@ public class BattleBoatManager {
      */
     public void tick(){
         actualizeFleet(this.battle.getBoatsInBattleA());
-        //actualizeFleet(this.battle.getBoatsInBattleB());
+        actualizeFleet(this.battle.getBoatsInBattleB());
         deadBoatsCleaner(this.battle.getBoatsInBattleA(),this.battle.getDeadBoatsA());
         deadBoatsCleaner(this.battle.getBoatsInBattleB(),this.battle.getDeadBoatsB());
     }
@@ -88,6 +88,7 @@ public class BattleBoatManager {
      */
     private void moveBoat(Boat boat, Point point){
         double angle = AngleCalculator.calculateAngle(boat.getPosition(), point);
+        double boatAngle = (boat.getAngle() + Math.PI) % (2 * Math.PI) - Math.PI;
         double deltaAngle = angle - boat.getAngle();
         deltaAngle = (deltaAngle + Math.PI) % (2 * Math.PI) - Math.PI;
 
@@ -103,18 +104,15 @@ public class BattleBoatManager {
         boat.setPosition(x,y);
     }
 
-    public static void setBoatDirection(Boat boat, Point point){
-        boat.setNextGraphPoint(new GraphPoint(point,null));
-    }
-
     private Point getPointToFollow(Boat hunter, Boat prey){
         Point champion = null;
-        int SHOOT_DISTANCE = (int) (GameConfiguration.DEFAULT_SHOOT_DISTANCE * hunter.getVisionRadius()/3);
+        int SHOOT_DISTANCE = (int) (GameConfiguration.DEFAULT_SHOOT_DISTANCE * hunter.getVisionRadius()/2.5);
         ArrayList<Point> PointToTest = new ArrayList<>();
         PointToTest.add(getBoatPointBehind(prey, SHOOT_DISTANCE));
         PointToTest.add(getBoatPointFront(prey, SHOOT_DISTANCE));
         PointToTest.add(getBoatPointRight(prey, SHOOT_DISTANCE));
         PointToTest.add(getBoatPointLeft(prey, SHOOT_DISTANCE));
+        if(hunter.getPosition().distance(prey.getPosition()) > GameConfiguration.DEFAULT_SHOOT_DISTANCE * hunter.getVisionRadius()/2*1.2)return prey.getPosition();
         if(battle.getHunterPreyPointHashMap().get(hunter)!=null)PointToTest.remove(battle.getHunterPreyPointHashMap().get(hunter));
         double minDistance = Double.MAX_VALUE;
         ArrayList<Point> validPoints = new ArrayList<>();
@@ -133,10 +131,9 @@ public class BattleBoatManager {
         if (!validPoints.isEmpty()) {
             double championAngle = Double.MAX_VALUE;
             for (Point p : validPoints) {
-                double tmpAngle = Math.abs((hunter.getAngle()%Math.PI) - AngleCalculator.calculateAngle(hunter, p));
-                tmpAngle = (tmpAngle + Math.PI) % (2 * Math.PI) - Math.PI;
-                if (tmpAngle < championAngle ) {
-                    championAngle = tmpAngle;
+                double deltaAngle = Math.abs(AngleCalculator.calculateDeltaAngle(hunter,p));
+                if (deltaAngle < championAngle ) {
+                    championAngle = deltaAngle;
                     champion = p;
                 }
             }
