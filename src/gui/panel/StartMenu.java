@@ -2,7 +2,7 @@ package gui.panel;
 
 import config.GameConfiguration;
 import engine.MapGame;
-import engine.process.EngineBuilder;
+import engine.utilities.EngineBuilder;
 import engine.process.FactionManager;
 import gui.PopUp;
 import gui.utilities.GUILoader;

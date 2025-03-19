@@ -104,5 +104,5 @@ public class MapGame implements Serializable {
         this.lstBotFaction.remove(faction);
     }
 
-    public void add(GraphPoint graphPoint){ mapGraphPoint.put(graphPoint.getIdPoint(),graphPoint); }
+    public void addGraphPoint(GraphPoint graphPoint){ mapGraphPoint.put(graphPoint.getIdPoint(),graphPoint); }
 }

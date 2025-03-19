@@ -14,6 +14,10 @@ public class TestMove {
         Fleet fleet1 = new Fleet("Fleet1");
         Fleet fleet2 = new Fleet("Fleet2");
 
+        MapGame.getInstance().getPlayer().addHarbor(MapGame.getInstance().getLstHarbor().get(0));
+        MapGame.getInstance().getPlayer().addHarbor(MapGame.getInstance().getLstHarbor().get(1));
+        MapGame.getInstance().getLstFaction().get(0).addHarbor(MapGame.getInstance().getLstHarbor().get(3));
+
         Military military0 = new Military("military0","blue", MapGame.getInstance().getLstHarbor().get(2).getGraphPosition());
         Military military1 = new Military("military1","blue", MapGame.getInstance().getLstHarbor().get(1).getGraphPosition());
         Merchant merchant0 = new Merchant("merchant0","blue", MapGame.getInstance().getLstHarbor().get(2).getGraphPosition());

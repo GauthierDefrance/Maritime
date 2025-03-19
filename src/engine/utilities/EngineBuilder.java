@@ -1,4 +1,4 @@
-package engine.process;
+package engine.utilities;
 
 import config.GameConfiguration;
 import engine.MapGame;
@@ -105,6 +105,7 @@ public class EngineBuilder {
         ArrayList<Faction> lstFaction = new ArrayList<>();
         ArrayList<Faction> lstBotFaction = new ArrayList<>();
         HashMap<String, GraphPoint> mapGraphPoint = new HashMap<>();
+        MapGame.getInstance().setMapGraphPoint(mapGraphPoint);
         Player player = new Player("blue");
 
 
@@ -121,6 +122,19 @@ public class EngineBuilder {
         GraphPoint P5 = new GraphPoint(new Point(340*GameConfiguration.GAME_SCALE,215*GameConfiguration.GAME_SCALE),"P5");
         GraphPoint P6 = new GraphPoint(new Point(420*GameConfiguration.GAME_SCALE,160*GameConfiguration.GAME_SCALE),"P6");
         GraphPoint P7 = new GraphPoint(new Point(490*GameConfiguration.GAME_SCALE,205*GameConfiguration.GAME_SCALE),"P7");
+
+        MapGame.getInstance().addGraphPoint(AHarbor);
+        MapGame.getInstance().addGraphPoint(BHarbor);
+        MapGame.getInstance().addGraphPoint(CHarbor);
+        MapGame.getInstance().addGraphPoint(DHarbor);
+
+        MapGame.getInstance().addGraphPoint(P1);
+        MapGame.getInstance().addGraphPoint(P2);
+        MapGame.getInstance().addGraphPoint(P3);
+        MapGame.getInstance().addGraphPoint(P4);
+        MapGame.getInstance().addGraphPoint(P5);
+        MapGame.getInstance().addGraphPoint(P6);
+        MapGame.getInstance().addGraphPoint(P7);
 
         AHarbor.addSegment(new GraphSegment(P1, (int) AHarbor.getPoint().distance(P1.getPoint())));
 
@@ -176,11 +190,7 @@ public class EngineBuilder {
         Harbor harborD = new Harbor("harborA","",new Point((580)*GameConfiguration.GAME_SCALE,(225-temp)*GameConfiguration.GAME_SCALE),DHarbor);
 
         Faction faction1 = new Faction("red");
-
-
-        player.addHarbor(harborA);
-        player.addHarbor(harborB);
-        faction1.addHarbor(harborD);
+        
 
         lstBotFaction.add(faction1);
         lstHarbor.add(harborA);
@@ -194,7 +204,6 @@ public class EngineBuilder {
         MapGame.getInstance().setLstHarbor(lstHarbor);
         MapGame.getInstance().setLstFaction(lstFaction);
         MapGame.getInstance().setLstBotFaction(lstBotFaction);
-        MapGame.getInstance().setMapGraphPoint(mapGraphPoint);
         MapGame.getInstance().setPlayer(player);
         return MapGame.getInstance();
     }

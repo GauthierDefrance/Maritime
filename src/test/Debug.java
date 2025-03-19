@@ -1,7 +1,7 @@
 package test;
 
 import engine.MapGame;
-import engine.process.EngineBuilder;
+import engine.utilities.EngineBuilder;
 import gui.MainGUI;
 import gui.panel.ChoicePathMenu;
 import gui.utilities.GUILoader;
@@ -28,11 +28,13 @@ public class Debug extends JFrame{
         JButton timeStop = JComponentBuilder.menuButton("timeStop",new TimeStop());
         JButton combatMenu = JComponentBuilder.menuButton("CombatMenu",new CombatMenu());
         JButton relationMenu = JComponentBuilder.menuButton("RelationMenu", new RelationMenu());
-        JButton choicePathMenu = JComponentBuilder.menuButton("ChoicePathMenu", new ChoiceMenu());
+        JButton choicePathMenu0 = JComponentBuilder.menuButton("ChoicePathMenu0", new ChoiceMenu0());
+        JButton choicePathMenu1 = JComponentBuilder.menuButton("ChoicePathMenu1", new ChoiceMenu1());
         contentPane.add(timeStop);
         contentPane.add(combatMenu);
         contentPane.add(relationMenu);
-        contentPane.add(choicePathMenu);
+        contentPane.add(choicePathMenu0);
+        contentPane.add(choicePathMenu1);
         setFocusable(false);
         setLocationRelativeTo(null);
         setSize(360, 360);
@@ -44,7 +46,7 @@ public class Debug extends JFrame{
         }
     }
 
-    private class ChoiceMenu implements ActionListener {
+    private class ChoiceMenu0 implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
@@ -53,7 +55,27 @@ public class Debug extends JFrame{
                     EngineBuilder.mapInit(0);
                     TestMove.addBaotTest();
                     MainGUI.getWindow().removeAll();
-                    MainGUI.getWindow().add(new ChoicePathMenu(1, MapGame.getInstance().getPlayer()));
+                    MainGUI.getWindow().add(new ChoicePathMenu( MapGame.getInstance().getPlayer().getLstHarbor().get(0),MapGame.getInstance().getLstBotFaction().get(0).getLstHarbor().get(0)));
+                    MainGUI.getWindow().revalidate();
+                    MainGUI.getWindow().repaint();
+                    break;
+                }
+                default : {
+                }
+            }
+        }
+    }
+
+    private class ChoiceMenu1 implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
+                case "gui.panel.OptionsMenu" :
+                case "gui.panel.PauseMenu" : {
+                    EngineBuilder.mapInit(0);
+                    TestMove.addBaotTest();
+                    MainGUI.getWindow().removeAll();
+                    MainGUI.getWindow().add(new ChoicePathMenu( MapGame.getInstance().getPlayer()));
                     MainGUI.getWindow().revalidate();
                     MainGUI.getWindow().repaint();
                     break;

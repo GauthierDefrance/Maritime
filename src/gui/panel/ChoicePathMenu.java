@@ -4,8 +4,10 @@ import config.GameConfiguration;
 import engine.MapGame;
 import engine.entity.Harbor;
 import engine.faction.Faction;
-import engine.faction.Player;
+import engine.graph.GraphPoint;
+import engine.graph.GraphSegment;
 import engine.process.FactionManager;
+import engine.utilities.SearchInGraph;
 import gui.PopUp;
 import gui.utilities.GUILoader;
 import gui.utilities.JComponentBuilder;
@@ -13,6 +15,8 @@ import gui.utilities.JComponentBuilder;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Map;
 
 import static gui.MainGUI.getWindow;
 
@@ -25,8 +29,9 @@ public class ChoicePathMenu extends JPanel implements Runnable {
 
     private final int state;
     private final Faction faction;
-    private Harbor harborPlayer;
-    private Harbor harborBot;
+    private Harbor harbor1;
+    private Harbor harbor2;
+    private ArrayList<GraphPoint> path;
 
     private JPanel dashboardJPanel;
     private JPanel jPanelATH;
@@ -34,6 +39,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
 
     private JButton confirm;
     private JButton cancel;
+    private JButton automatic;
 
     private FactionManager factionManager;
     private ChoiceDisplay dashboard;
@@ -42,10 +48,24 @@ public class ChoicePathMenu extends JPanel implements Runnable {
     /**
      * Typical constructor to make the startMenu appear
      */
-    public ChoicePathMenu(int state, Faction faction) {
+    public ChoicePathMenu(Faction faction) {
         super();
-        this.state = state;
+        this.state = 1;
+        this.harbor1 = null;
+        this.harbor2 = null;
         this.faction = faction;
+        init();
+    }
+
+    /**
+     * Typical constructor to make the startMenu appear
+     */
+    public ChoicePathMenu(Harbor harbor1 , Harbor harbor2) {
+        super();
+        this.state = 0;
+        this.harbor1 = harbor1;
+        this.harbor2 = harbor2;
+        this.faction = null;
         init();
     }
     public void init() {
@@ -55,6 +75,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         jSouthATHPanel = JComponentBuilder.flowMenuPanel();
         confirm = JComponentBuilder.menuButton("Confirm",new confirmListener());
         cancel = JComponentBuilder.menuButton("Cancel",new cancelListener());
+        automatic = JComponentBuilder.menuButton("automatic",new automaticListener());
 
         factionManager = new FactionManager();
         dashboard = new ChoiceDisplay(state);
@@ -64,6 +85,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         jPanelATH.setOpaque(false);
         dashboardJPanel.add(dashboard,BorderLayout.CENTER);
         jSouthATHPanel.add(cancel);
+        if(state == 0)jSouthATHPanel.add(automatic);
         jSouthATHPanel.add(confirm);
         jPanelATH.add(jSouthATHPanel,BorderLayout.SOUTH);
 
@@ -72,6 +94,13 @@ public class ChoicePathMenu extends JPanel implements Runnable {
 
         dashboard.setBackground(GameConfiguration.WATER_BACKGROUND_COLOR);
 
+        if (state == 0){
+            path = new ArrayList<>();
+            dashboard.setHarbor1(harbor1);
+            dashboard.setHarbor2(harbor2);
+            dashboard.setPath(path);
+            path.add(harbor1.getGraphPosition());
+        }
         this.add(jLayeredPane);
         this.addMouseListener(new MouseListener());
         this.addKeyListener(new KeyControls());
@@ -90,6 +119,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         jSouthATHPanel.setPreferredSize(new Dimension(getWindow().getWidth(),(int) (getWindow().getHeight()*0.15)));
         confirm.setPreferredSize(new Dimension((int) Math.max(50,getWindow().getWidth()*0.2), (int) Math.max(26,getWindow().getHeight()*0.08)));
         cancel.setPreferredSize(new Dimension((int) Math.max(50,getWindow().getWidth()*0.2), (int) Math.max(26,getWindow().getHeight()*0.08)));
+        automatic.setPreferredSize(new Dimension((int) Math.max(50,getWindow().getWidth()*0.25), (int) Math.max(26,getWindow().getHeight()*0.08)));
         getWindow().revalidate();
         getWindow().repaint();
     }
@@ -98,10 +128,13 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(state == 0) {
-                //WIP
+                if (path.get(path.size()-1).equals(harbor2.getGraphPosition())){
+                    //WIP
+                }
+                else JOptionPane.showMessageDialog(ChoicePathMenu.this,"where do you want to go ??");
             }
             else if(state == 1){
-                if (harborBot != null && harborPlayer != null){
+                if (harbor2 != null && harbor1 != null){
                     //WIP
                 }
                 else JOptionPane.showMessageDialog(ChoicePathMenu.this,"you need to Choice");
@@ -113,14 +146,25 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(state == 0) {
-                //WIP
+                if(!path.isEmpty()&&path.size()>1)path.remove(path.size()-1);
+                dashboard.setPath(path);
             }
             else if(state == 1){
-                harborBot = null;
-                harborPlayer = null;
-                dashboard.setHarborBot(null);
-                dashboard.setHarborPlayer(null);
+                harbor2 = null;
+                harbor1 = null;
+                dashboard.setHarbor2(null);
+                dashboard.setHarbor1(null);
 
+            }
+        }
+    }
+
+    public class automaticListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(state == 0) {
+                path = SearchInGraph.findPath(harbor1.getGraphPosition(),harbor2.getGraphPosition());
+                dashboard.setPath(path);
             }
         }
     }
@@ -155,27 +199,41 @@ public class ChoicePathMenu extends JPanel implements Runnable {
             int y = (int) ((e.getPoint().getY()*GameConfiguration.GAME_SCALE)/scale);
             Point point = new Point(x, y);
             if(state == 0) {
-                //WIP
+                GraphPoint graphPoint = SearchInGraph.pointCollisionToMapGraphPoint(point);
+                if (graphPoint != null && !path.isEmpty()) {
+                    if (path.get(path.size()-1).equals(graphPoint)&&path.size()>1){
+                        path.remove(graphPoint);
+                        dashboard.setPath(path);
+                    }
+                    else if (!path.get(path.size()-1).equals(harbor2.getGraphPosition())){
+                        for(Map.Entry<String, GraphSegment> entry : path.get(path.size()-1).getSegmentHashMap().entrySet()){
+                            if(entry.getValue().getGraphPoint().equals(graphPoint)&& !path.contains(entry.getValue().getGraphPoint())){
+                                path.add(graphPoint);
+                                dashboard.setPath(path);
+                            }
+                        }
+                    }
+                }
             }
             else if(state == 1) {
                 Harbor harbor = factionManager.getHarborManager().pointCollisionToMapHarbor(point);
                 if (harbor != null) {
                     if(e.getButton() == MouseEvent.BUTTON1) {
-                        if (MapGame.getInstance().getPlayer().getLstHarbor().contains(harbor) && harborPlayer == null) {
-                            harborPlayer = harbor;
-                            dashboard.setHarborPlayer(harborPlayer);
-                        } else if (faction.getLstHarbor().contains(harbor) && harborBot == null) {
-                            harborBot = harbor;
-                            dashboard.setHarborBot(harborBot);
+                        if (MapGame.getInstance().getPlayer().getLstHarbor().contains(harbor) && harbor1 == null) {
+                            harbor1 = harbor;
+                            dashboard.setHarbor1(harbor1);
+                        } else if (faction.getLstHarbor().contains(harbor) && harbor2 == null) {
+                            harbor2 = harbor;
+                            dashboard.setHarbor2(harbor2);
                         }
                     }
                     else if (e.getButton() == MouseEvent.BUTTON3){
-                        if (MapGame.getInstance().getPlayer().getLstHarbor().contains(harbor) && MapGame.getInstance().getPlayer().getLstHarbor().contains(harborPlayer)) {
-                            harborPlayer = null;
-                            dashboard.setHarborPlayer(null);
-                        } else if (faction.getLstHarbor().contains(harbor) && faction.getLstHarbor().contains(harborBot)) {
-                            harborBot = null;
-                            dashboard.setHarborBot(null);
+                        if (MapGame.getInstance().getPlayer().getLstHarbor().contains(harbor1)) {
+                            harbor1 = null;
+                            dashboard.setHarbor1(null);
+                        } else if (faction.getLstHarbor().contains(harbor2)) {
+                            harbor2 = null;
+                            dashboard.setHarbor2(null);
                         }
                     }
                 }

@@ -1,16 +1,22 @@
 package engine.utilities;
 
+import config.GameConfiguration;
+import engine.MapGame;
+import engine.entity.Harbor;
 import engine.entity.boats.Boat;
+import engine.faction.Faction;
 import engine.graph.GraphPoint;
 import engine.graph.GraphSegment;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Map;
 
 
 /**
  * @author Kenan Ammad
  * Classe SearchInGraph
- * @version 0.2
+ * @version 0.3
  */
 public final class SearchInGraph {
 
@@ -122,6 +128,26 @@ public final class SearchInGraph {
             if (segment.getGraphPoint().equals(point)) return amount;
         }
         return -1;
+    }
+
+    /**
+     * Check if a GraphPoint reached a targeted point in map
+     * @param point concerned
+     * @return Harbor
+     */
+    public static GraphPoint pointCollisionToMapGraphPoint(Point point){
+        GraphPoint graphPoint = null;
+        for (Map.Entry<String, GraphPoint> entry : MapGame.getInstance().getMapGraphPoint().entrySet()){
+            if (GameConfiguration.HITBOX_BOAT - 5 >= point.distance(entry.getValue().getPoint())){
+                if(graphPoint != null){
+                    if(point.distance(entry.getValue().getPoint()) < point.distance(graphPoint.getPoint())){
+                        graphPoint = entry.getValue();
+                    }
+                }
+                else graphPoint = entry.getValue();
+            }
+        }
+        return graphPoint;
     }
 
 }
