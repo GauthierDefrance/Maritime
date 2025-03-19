@@ -2,7 +2,6 @@ package battleengine.process;
 
 import battleengine.entity.Battle;
 import battleengine.tools.AngleCalculator;
-import battleengine.tools.CirclePursuit;
 import config.GameConfiguration;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
