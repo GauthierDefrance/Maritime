@@ -111,11 +111,10 @@ public class BulletManager {
     private void collideLst(ArrayList<Bullet> bullets, Fleet fleet) {
         Iterator<Bullet> bulletsIt = bullets.iterator();
         Bullet tmp;
-        Boat boat;
         while(bulletsIt.hasNext()) {
             tmp = bulletsIt.next();
             if(collide(tmp, fleet)){
-                bullets.remove(tmp);
+                bulletsIt.remove();
             }
         }
     }
