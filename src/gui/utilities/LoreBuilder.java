@@ -1,5 +1,7 @@
 package gui.utilities;
 
+import engine.faction.Faction;
+
 import javax.swing.*;
 import javax.swing.text.*;
 
@@ -13,6 +15,7 @@ public class LoreBuilder {
             // Create a JTextPane
             JTextPane textPane = new JTextPane();
             textPane.setEditable(false); // Make it read-only
+            textPane.setFocusable(false);
 
             // Get the styled document
             StyledDocument doc = textPane.getStyledDocument();

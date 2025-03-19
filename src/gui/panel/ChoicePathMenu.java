@@ -260,7 +260,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
                 ThreadStop = true;
-                GUILoader.loadPauseMenu(GameConfiguration.ROOT_COMBAT);
+                GUILoader.loadMainGame();
             }
         }
 
