@@ -25,7 +25,7 @@ import java.util.Map;
 import static gui.MainGUI.getWindow;
 
 /**
- * Simple test start menu for the game, serves as the entrypoint of the program
+ * Thread based Menu allowing to select a Path or a couple of Harbor based on it's state
  * @author Kenan Ammad
  * @version 0.2
  */
@@ -219,7 +219,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
                         }
                     } break;
 
-                case 1: //We're designating Harbor
+                case 1: //We're designating Harbor Object
 
                     if (faction == null) {
                         log.error("Could not proceed --> faction is null");
@@ -230,7 +230,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
                         break;
                     }
 
-                    if (e.getButton() == MouseEvent.BUTTON1) {
+                    if (e.getButton() == MouseEvent.BUTTON1) /*Clic Gauche*/ {
                         if (MapGame.getInstance().getPlayer().getLstHarbor().contains(clickedHarbor) && harbor1 == null) {
                             harbor1 = clickedHarbor;
                             dashboard.setHarbor1(harbor1);
@@ -239,7 +239,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
                             dashboard.setHarbor2(harbor2);
                         }
                     }
-                    else if (e.getButton() == MouseEvent.BUTTON3){
+                    else if (e.getButton() == MouseEvent.BUTTON3)  /*Clic Droit*/ {
                         if (MapGame.getInstance().getPlayer().getLstHarbor().contains(harbor1)) {
                             harbor1 = null;
                             dashboard.setHarbor1(null);
