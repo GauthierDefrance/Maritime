@@ -185,9 +185,9 @@ public class EngineBuilder {
 
         int temp = 30;
         Harbor harborA = new Harbor("harborA","",new Point((65)*GameConfiguration.GAME_SCALE,(80-temp)*GameConfiguration.GAME_SCALE),AHarbor);
-        Harbor harborB = new Harbor("harborA","",new Point((150)*GameConfiguration.GAME_SCALE,(300-temp)*GameConfiguration.GAME_SCALE),BHarbor);
-        Harbor harborC = new Harbor("harborA","",new Point((340)*GameConfiguration.GAME_SCALE,(130-temp)*GameConfiguration.GAME_SCALE),CHarbor);
-        Harbor harborD = new Harbor("harborA","",new Point((580)*GameConfiguration.GAME_SCALE,(225-temp)*GameConfiguration.GAME_SCALE),DHarbor);
+        Harbor harborB = new Harbor("harborB","",new Point((150)*GameConfiguration.GAME_SCALE,(300-temp)*GameConfiguration.GAME_SCALE),BHarbor);
+        Harbor harborC = new Harbor("harborC","",new Point((340)*GameConfiguration.GAME_SCALE,(130-temp)*GameConfiguration.GAME_SCALE),CHarbor);
+        Harbor harborD = new Harbor("harborD","",new Point((580)*GameConfiguration.GAME_SCALE,(225-temp)*GameConfiguration.GAME_SCALE),DHarbor);
 
         Faction faction1 = new Faction("red");
         

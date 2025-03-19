@@ -40,13 +40,6 @@ public class BattleManager {
     public BattleBoatManager getBattleBoatManager() {return battleBoatManager;}
     public BulletManager getBulletManager() {return bulletManager;}
 
-    public ArrayList<Boat> getBoatsAOnPoint(Point point){
-        return BoatManager.boatCollisionToPoint(point,this.battle.getBoatsInBattleA().getArrayListBoat());
-    }
-    public ArrayList<Boat> getBoatsBOnPoint(Point point){
-        return BoatManager.boatCollisionToPoint(point,this.battle.getBoatsInBattleB().getArrayListBoat());
-    }
-
 
     /**
      * Method that "tick" the BattleManager,

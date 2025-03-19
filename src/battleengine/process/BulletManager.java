@@ -102,22 +102,21 @@ public class BulletManager {
      */
     private void collideAll(){
         ArrayList<Bullet> tmpLstBullets =  new ArrayList<>();
-        for(Bullet bullet: battle.getLstBulletsteamA()) {
-            tmpLstBullets.add(collide(bullet,battle.getBoatsInBattleB()));
+        tmpLstBullets.addAll(battle.getLstBulletsteamA());
+        for(Bullet bullet: tmpLstBullets) {
+            battle.getLstBulletsteamA().remove(collide(bullet,battle.getBoatsInBattleB()));
         }
-        battle.getLstBulletsteamA().removeAll(tmpLstBullets);
-        tmpLstBullets.clear();
-
-        for(Bullet bullet: battle.getLstBulletsteamB()) {
-            tmpLstBullets.add(collide(bullet,battle.getBoatsInBattleA()));
+        tmpLstBullets =  new ArrayList<>();
+        tmpLstBullets.addAll(battle.getLstBulletsteamB());
+        for(Bullet bullet: tmpLstBullets) {
+            battle.getLstBulletsteamB().remove(collide(bullet,battle.getBoatsInBattleA()));
         }
-        battle.getLstBulletsteamB().removeAll(tmpLstBullets);
     }
 
     private Bullet collide(Bullet bullet, Fleet fleet) {
-        ArrayList<Boat> tmp = BoatManager.boatCollisionToPoint(bullet.getPosition(), fleet.getArrayListBoat());
-        if(!tmp.isEmpty()){
-            tmp.get(0).addCurrentHp(-GameConfiguration.DAMAGE_PER_BULLET);
+        Boat tmp = BoatManager.boatCollisionToPoint(bullet.getPosition(), fleet.getArrayListBoat());
+        if(tmp != null){
+            tmp.addCurrentHp(-GameConfiguration.DAMAGE_PER_BULLET);
             return bullet;
         }
         return null;

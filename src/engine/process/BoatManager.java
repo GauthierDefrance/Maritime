@@ -145,14 +145,13 @@ public class BoatManager {
      * @param lstBoat lst of boat
      * @return lstBoat lst of the Collision true boat
      */
-    public static ArrayList<Boat> boatCollisionToPoint (Point point, ArrayList<Boat> lstBoat){
-        ArrayList<Boat> lstBoatTemp = new ArrayList<>();
+    public static Boat boatCollisionToPoint (Point point, ArrayList<Boat> lstBoat){
         for (Boat boat : lstBoat){
             if (GameConfiguration.HITBOX_BOAT/2 - 5 >= boat.getPosition().distance(point)){
-                lstBoatTemp.add(boat);
+                return boat;
             }
         }
-        return lstBoatTemp;
+        return null;
     }
 
     /**
