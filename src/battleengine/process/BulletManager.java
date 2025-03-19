@@ -108,8 +108,8 @@ public class BulletManager {
         collideLst(this.battle.getLstBulletsteamB(),this.battle.getBoatsInBattleA());
     }
 
-    private void collideLst(ArrayList<Bullet> bullets, Fleet fleet) {
-        Iterator<Bullet> bulletsIt = bullets.iterator();
+    private void collideLst(ArrayList<Bullet> lstBullets, Fleet fleet) {
+        Iterator<Bullet> bulletsIt = lstBullets.iterator();
         Bullet tmp;
         while(bulletsIt.hasNext()) {
             tmp = bulletsIt.next();
@@ -118,7 +118,6 @@ public class BulletManager {
             }
         }
     }
-
 
     private Boolean collide(Bullet bullet, Fleet fleet) {
         Boat tmp = BoatManager.boatCollisionToPoint(bullet.getPosition(), fleet.getArrayListBoat());
