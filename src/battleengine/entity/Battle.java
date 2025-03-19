@@ -35,6 +35,9 @@ public class Battle {
     private Fleet BoatsInBattleA;
     private Fleet BoatsInBattleB;
 
+    private Fleet DeadBoatsA;
+    private Fleet DeadBoatsB;
+
     private ArrayList<Boat> LstBoatsToPlace;
     private ArrayList<Boat> LstBoatsCurrentlyBeingPlaced;
 
@@ -77,6 +80,10 @@ public class Battle {
 
         this.BoatsInBattleA= new Fleet();
         this.BoatsInBattleB = new Fleet();
+
+        this.DeadBoatsA= new Fleet();
+        this.DeadBoatsB = new Fleet();
+
         this.spawnzone = SpawnZoneFactory.buildDefaultSpawnZone();
         this.spawnzoneEnnemy = SpawnZoneFactory.buildDefaultEnnemySpawnZone();
         this.isInPlacingMode = true;
@@ -84,6 +91,15 @@ public class Battle {
 
 
     }
+
+    public Fleet getDeadBoatsA(){
+        return this.DeadBoatsA;
+    }
+
+    public Fleet getDeadBoatsB(){
+        return this.DeadBoatsB;
+    }
+
 
     public HashMap<Boat, Integer> getReloadingHashMap() {
         return ReloadingHashMap;

@@ -35,7 +35,20 @@ public class BattleBoatManager {
      */
     public void tick(){
         actualizeFleet(this.battle.getBoatsInBattleA());
-//      actualizeFleet(this.battle.getBoatsInBattleB());
+        //actualizeFleet(this.battle.getBoatsInBattleB());
+        deadBoatsCleaner(this.battle.getBoatsInBattleA(),this.battle.getDeadBoatsA());
+        deadBoatsCleaner(this.battle.getBoatsInBattleB(),this.battle.getDeadBoatsB());
+    }
+
+    public void deadBoatsCleaner(Fleet fleet, Fleet deadFleet){
+        ArrayList<Boat> toRemove = new ArrayList<>();
+        for (Boat boat : fleet.getArrayListBoat()) {
+            if (boat.getCurrentHp() < 1) {
+                deadFleet.add(boat);
+                toRemove.add(boat);
+            }
+        }
+        fleet.getArrayListBoat().removeAll(toRemove);
     }
 
 
@@ -55,14 +68,14 @@ public class BattleBoatManager {
                 }
                 else{
                     //Si un point précis a été sélectionné par le joueur
-                    turnBoat(hunter, hunter.getNextGraphPoint().getPoint());
+                    moveBoat(hunter, hunter.getNextGraphPoint().getPoint());
                 }
             }
             else {
                 //Sinon, on essaye de traquer une proie si elle existe
                 prey = HunterPreyHashMap.get(hunter);
                 if(prey!=null){
-                    turnBoat(hunter, getPointToFollow(hunter, prey));
+                    moveBoat(hunter, getPointToFollow(hunter, prey));
                 }
             }
         }
@@ -73,7 +86,7 @@ public class BattleBoatManager {
      * @param boat A {@link Boat} object
      * @param point A {@link Point} object
      */
-    private void turnBoat(Boat boat, Point point){
+    private void moveBoat(Boat boat, Point point){
         double angle = AngleCalculator.calculateAngle(boat.getPosition(), point);
         double deltaAngle = angle - boat.getAngle();
         deltaAngle = (deltaAngle + Math.PI) % (2 * Math.PI) - Math.PI;

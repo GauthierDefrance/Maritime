@@ -49,14 +49,14 @@ public class ShootManager {
         for (Boat hunter : hunterFleet.getArrayListBoat()) {
             if (isReadyToShot(hunter)){
                 tmp = this.battle.getHunterPreyHashMap().get(hunter);
-                if(tmp != null && isShootable(hunter, tmp)) {
+                if(tmp != null) {
                     //prioirité à la proie
                     tryshoot(hunter, tmp);
                 }
                 else{
                     //priorité au plus proche
                     tmp = getShootableFirstBoat(hunter, preyFleet);
-                    if (tmp != null && isShootable(hunter,tmp)) {
+                    if (tmp != null) {
                         shoot(hunter, tmp);
                     }
                 }
@@ -112,8 +112,8 @@ public class ShootManager {
             double deltaAngle = angle - hunter.getAngle();
             deltaAngle = (deltaAngle + Math.PI) % (2 * Math.PI) - Math.PI;
 
-            double minAngle =    (GameConfiguration.DEFAULT_SHOOTING_ANGLE);
-            double maxAngle =  (3*GameConfiguration.DEFAULT_SHOOTING_ANGLE);
+            double minAngle = (GameConfiguration.DEFAULT_MIN_SHOOTING_ANGLE);
+            double maxAngle = (GameConfiguration.DEFAULT_MAX_SHOOTING_ANGLE);
 
             if ((maxAngle>deltaAngle && deltaAngle > minAngle)){
                 return true;
