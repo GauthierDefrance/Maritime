@@ -68,7 +68,7 @@ public class RelationMenu extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            activeFaction.setRelationship(activeFaction.getRelationship()-100);
+            activeFaction.setRelationship(-100);
             //WiP
             GUILoader.loadMainGame();
         }
@@ -78,7 +78,8 @@ public class RelationMenu extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadTradeMenu(TradeOffer.create(MapGame.getInstance().getPlayer().getLstHarbor().get(0), activeFaction.getLstHarbor().get(0)));
+            GUILoader.loadChoicePathMenu(activeFaction);
+            //GUILoader.loadTradeMenu(TradeOffer.create(MapGame.getInstance().getPlayer().getLstHarbor().get(0), activeFaction.getLstHarbor().get(0)));
         }
     }
 }

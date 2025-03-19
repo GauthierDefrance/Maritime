@@ -64,4 +64,8 @@ public class GUILoader {
     public static void loadTradeMenu(TradeOffer offer){
         actualise(new TradeMenu(offer));
     }
+
+    public static void loadChoicePathMenu(Faction faction){
+        actualise(new ChoicePathMenu(faction));
+    }
 }

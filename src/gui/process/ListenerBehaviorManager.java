@@ -2,11 +2,14 @@ package gui.process;
 
 import static config.GameConfiguration.*;
 
+import config.GameConfiguration;
 import engine.MapGame;
 import gui.MainGUI;
 import gui.utilities.GUILoader;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
 
 /**
  * Store and allow the use of typical EventListener behaviors
@@ -77,6 +80,19 @@ public class ListenerBehaviorManager {
         } catch ( SecurityException e1 ) {
             JOptionPane.showMessageDialog(panel, "You are not allowed to exit!", "Error", JOptionPane.ERROR_MESSAGE );
         }
+    }
+
+    /**
+     * Ensure that the action of clicking in a JPanel remain relevant relative to scaling
+     * @param panel current Panel
+     * @param e MouseEvent in which this is used
+     * @return a Point indicating the zone which was clicked
+     */
+    public Point clickLogic(JPanel panel, MouseEvent e){
+        double scale = Math.min((double)panel.getWidth()/640,(double) panel.getHeight() /360);
+        int x = (int) ((e.getPoint().getX()* GameConfiguration.GAME_SCALE)/scale);
+        int y = (int) ((e.getPoint().getY()*GameConfiguration.GAME_SCALE)/scale);
+        return new Point(x, y);
     }
 
     /**
