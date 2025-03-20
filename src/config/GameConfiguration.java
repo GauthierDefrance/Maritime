@@ -26,9 +26,9 @@ public final class GameConfiguration {
 
     //-------- Battle Stats -------
         public static final int MAX_X = 640*GAME_SCALE;
-        public static final int MAX_Y = 360*GAME_SCALE;
+        public static final int MAX_Y = 360*GAME_SCALE-57*GAME_SCALE;
         public static final int MIN_X = 0;
-        public static final int MIN_Y = 0;
+        public static final int MIN_Y = 57*GAME_SCALE;
 
     //--------------------------------
 
@@ -74,7 +74,7 @@ public final class GameConfiguration {
 
     //-------- Bullets Stats --------
         //-> Global Stats
-            public static final int DEFAULT_BULLET_SPEED=10*GAME_SCALE;
+            public static final int DEFAULT_BULLET_SPEED=30;
             public static final double DEFAULT_BULLET_FRICTION=1.15*0.5;
             public static final int DAMAGE_PER_BULLET = 1;
             public static final Random rand = new Random();

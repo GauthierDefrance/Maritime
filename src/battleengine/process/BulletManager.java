@@ -114,6 +114,7 @@ public class BulletManager {
         while(bulletsIt.hasNext()) {
             tmp = bulletsIt.next();
             if(collide(tmp, fleet)){
+                //RAJOUTER POP UP ICI EXPLOSION
                 bulletsIt.remove();
             }
         }

@@ -49,7 +49,7 @@ public class ShootManager {
         for (Boat hunter : hunterFleet.getArrayListBoat()) {
             if (isReadyToShot(hunter)){
                 tmp = this.battle.getHunterPreyHashMap().get(hunter);
-                if(tmp != null) {
+                if(tmp != null&&isShootable(hunter,tmp)) {
                     //prioirité à la proie
                     tryshoot(hunter, tmp);
                 }

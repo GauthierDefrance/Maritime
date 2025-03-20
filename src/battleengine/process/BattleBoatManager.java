@@ -44,6 +44,7 @@ public class BattleBoatManager {
         ArrayList<Boat> toRemove = new ArrayList<>();
         for (Boat boat : fleet.getArrayListBoat()) {
             if (boat.getCurrentHp() < 1) {
+                //RAJOUTER POP UP MORT BATEAU
                 deadFleet.add(boat);
                 toRemove.add(boat);
             }
@@ -102,11 +103,16 @@ public class BattleBoatManager {
         int x = (int) ((Math.cos(boat.getAngle())*boat.getSpeed()) + boat.getPosition().getX());
         int y = (int) ((Math.sin(boat.getAngle())*boat.getSpeed()) + boat.getPosition().getY());
 
-        if(!(GameConfiguration.MIN_X<x && x<GameConfiguration.MAX_X)){
+        if(!(GameConfiguration.MIN_X<x && x<GameConfiguration.MAX_X)&&!(GameConfiguration.MIN_Y<y && y<GameConfiguration.MAX_Y)){
             x= (int) boat.getPosition().getX();
-        }
-        if(!(GameConfiguration.MIN_Y<y && y<GameConfiguration.MAX_Y)){
             y= (int) boat.getPosition().getY();
+            boat.setAngle(Math.atan2(Math.sin(boat.getAngle()+Math.PI),Math.cos(boat.getAngle()+Math.PI)));
+        } else if (!(GameConfiguration.MIN_X<x && x<GameConfiguration.MAX_X)) {
+            x= (int) boat.getPosition().getX();
+            boat.setAngle(Math.atan2(Math.sin(boat.getAngle()+Math.PI),Math.cos(boat.getAngle()+Math.PI)));
+        } else if(!(GameConfiguration.MIN_Y<y && y<GameConfiguration.MAX_Y)){
+            y= (int) boat.getPosition().getY();
+            boat.setAngle(Math.atan2(Math.sin(boat.getAngle()+Math.PI),Math.cos(boat.getAngle()+Math.PI)));
         }
 
         boat.setPosition(x,y);
