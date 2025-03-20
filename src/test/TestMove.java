@@ -40,11 +40,13 @@ public class TestMove {
         fleet1.getArrayListBoat().add(fodder0);
 
         Military military2 = new Military("military2","red", MapGame.getInstance().getLstHarbor().get(2).getGraphPosition());
+        Military military3 = new Military("military3","red", MapGame.getInstance().getLstHarbor().get(2).getGraphPosition());
         Merchant merchant1 = new Merchant("merchant1","red", MapGame.getInstance().getLstHarbor().get(1).getGraphPosition());
         Merchant merchant2 = new Merchant("merchant2","red", MapGame.getInstance().getLstHarbor().get(2).getGraphPosition());
         Standard standard2 = new Standard("standard2","red", MapGame.getInstance().getLstHarbor().get(2).getGraphPosition());
         Fodder fodder1 = new Fodder("fodder1","red", MapGame.getInstance().getLstHarbor().get(1).getGraphPosition());
         Fodder fodder2 = new Fodder("fodder2","red", MapGame.getInstance().getLstHarbor().get(2).getGraphPosition());
+        Fodder fodder3 = new Fodder("fodder3","red", MapGame.getInstance().getLstHarbor().get(2).getGraphPosition());
 
         MapGame.getInstance().getLstFaction().get(0).getLstBoat().add(military2);
         MapGame.getInstance().getLstFaction().get(0).getLstBoat().add(merchant1);
@@ -59,6 +61,9 @@ public class TestMove {
         fleet2.getArrayListBoat().add(standard2);
         fleet2.getArrayListBoat().add(fodder1);
         fleet2.getArrayListBoat().add(fodder2);
+        fleet2.getArrayListBoat().add(fodder3);
+        fleet2.getArrayListBoat().add(military3);
+
 
         Resource resource1 = Resource.create("resource1",1,1);
         Resource resource2 = Resource.create("resource2",1,1);
