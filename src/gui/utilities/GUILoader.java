@@ -1,6 +1,7 @@
 package gui.utilities;
 
 import battleengine.entity.Battle;
+import engine.entity.Harbor;
 import engine.faction.Faction;
 import engine.trading.TradeOffer;
 import gui.MainGUI;
@@ -67,5 +68,8 @@ public class GUILoader {
 
     public static void loadChoicePathMenu(Faction faction){
         actualise(new ChoicePathMenu(faction));
+    }
+    public static void loadChoicePathMenu(Harbor harbor1,Harbor harbor2){
+        actualise(new ChoicePathMenu(harbor1,harbor2));
     }
 }

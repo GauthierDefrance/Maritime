@@ -60,6 +60,9 @@ public class ChoiceDisplay extends JPanel {
                 g2d.fillOval(entry.getValue().getX()-15, entry.getValue().getY()-15,30,30);
             }
             g2d.setColor(new Color(10, 35, 160));
+            if(path.get(path.size()-1).equals(harbor2.getGraphPosition())){
+                g2d.setColor(new Color(10, 255, 51));
+            }
             g2d.setStroke(new BasicStroke(6));
             for(int i = 0; i < path.size();i++){
                 g2d.fillOval((path.get(i).getX()-15), (path.get(i).getY()-15),30,30);

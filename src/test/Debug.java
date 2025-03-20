@@ -54,10 +54,7 @@ public class Debug extends JFrame{
                 case "gui.panel.PauseMenu" : {
                     EngineBuilder.mapInit(0);
                     TestMove.addBaotTest();
-                    MainGUI.getWindow().removeAll();
-                    MainGUI.getWindow().add(new ChoicePathMenu( MapGame.getInstance().getPlayer().getLstHarbor().get(0),MapGame.getInstance().getLstBotFaction().get(0).getLstHarbor().get(0)));
-                    MainGUI.getWindow().revalidate();
-                    MainGUI.getWindow().repaint();
+                    GUILoader.loadChoicePathMenu(MapGame.getInstance().getPlayer().getLstHarbor().get(0),MapGame.getInstance().getLstBotFaction().get(0).getLstHarbor().get(0));
                     break;
                 }
                 default : {
@@ -74,10 +71,7 @@ public class Debug extends JFrame{
                 case "gui.panel.PauseMenu" : {
                     EngineBuilder.mapInit(0);
                     TestMove.addBaotTest();
-                    MainGUI.getWindow().removeAll();
-                    MainGUI.getWindow().add(new ChoicePathMenu( MapGame.getInstance().getPlayer()));
-                    MainGUI.getWindow().revalidate();
-                    MainGUI.getWindow().repaint();
+                    GUILoader.loadChoicePathMenu( MapGame.getInstance().getPlayer());
                     break;
                 }
                 default : {

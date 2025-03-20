@@ -44,6 +44,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
 
     private JButton confirm;
     private JButton cancel;
+    private JButton reset;
     private JButton automatic;
 
     private FactionManager factionManager;
@@ -81,6 +82,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         jSouthATHPanel = JComponentBuilder.flowMenuPanel();
         confirm = JComponentBuilder.menuButton("Confirm",new confirmListener());
         cancel = JComponentBuilder.menuButton("Cancel",new cancelListener());
+        reset = JComponentBuilder.menuButton("reset",new resetListener());
         automatic = JComponentBuilder.menuButton("automatic",new automaticListener());
 
         factionManager = new FactionManager();
@@ -90,6 +92,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         JLayeredPane jLayeredPane = new JLayeredPane();
         jPanelATH.setOpaque(false);
         dashboardJPanel.add(dashboard,BorderLayout.CENTER);
+        if(state == 0)jSouthATHPanel.add(reset);
         jSouthATHPanel.add(cancel);
         if(state == 0)jSouthATHPanel.add(automatic);
         jSouthATHPanel.add(confirm);
@@ -125,6 +128,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         jSouthATHPanel.setPreferredSize(new Dimension(getWindow().getWidth(),(int) (getWindow().getHeight()*0.15)));
         confirm.setPreferredSize(new Dimension((int) Math.max(50,getWindow().getWidth()*0.2), (int) Math.max(26,getWindow().getHeight()*0.08)));
         cancel.setPreferredSize(new Dimension((int) Math.max(50,getWindow().getWidth()*0.2), (int) Math.max(26,getWindow().getHeight()*0.08)));
+        reset.setPreferredSize(new Dimension((int) Math.max(50,getWindow().getWidth()*0.2), (int) Math.max(26,getWindow().getHeight()*0.08)));
         automatic.setPreferredSize(new Dimension((int) Math.max(50,getWindow().getWidth()*0.25), (int) Math.max(26,getWindow().getHeight()*0.08)));
         getWindow().revalidate();
         getWindow().repaint();
@@ -146,6 +150,18 @@ public class ChoicePathMenu extends JPanel implements Runnable {
                     break;
                 default:
                     log.error("ChoicePathMenu : Unknown state --> could not proceed with confirmation");
+            }
+        }
+    }
+
+    public class resetListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(state == 0) {
+                GraphPoint graphPoint = path.get(0);
+                path.clear();
+                path.add(graphPoint);
+                dashboard.setPath(path);
             }
         }
     }
