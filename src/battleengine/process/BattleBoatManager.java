@@ -89,20 +89,20 @@ public class BattleBoatManager {
      */
     private void moveBoat(Boat boat, Point point){
         double angle = AngleCalculator.calculateAngle(boat.getPosition(), point);
-        double boatAngle = (boat.getAngle() + Math.PI) % (2 * Math.PI) - Math.PI;
-        double deltaAngle = angle - boat.getAngle();
-        deltaAngle = (deltaAngle + Math.PI) % (2 * Math.PI) - Math.PI;
-
-        if (Math.abs(deltaAngle) < GameConfiguration.BOAT_ROTATION_SPEED) {
+        double deltaAngle = AngleCalculator.calculateDeltaAngle(boat, point);
+        double boost = 0;
+        if(boat.getPosition().distance(point) > GameConfiguration.DEFAULT_SHOOT_DISTANCE * boat.getVisionRadius()/2*GameConfiguration.GO_BACK_BOOST){
+            boost = 1;
+        }
+        if (Math.abs(deltaAngle) < GameConfiguration.BOAT_ROTATION_SPEED || boost == 1) {
             boat.setAngle(angle);
         } else if (deltaAngle > 0) {
-            boat.setAngle(boat.getAngle() + GameConfiguration.BOAT_ROTATION_SPEED);
+            boat.setAngle(boat.getAngle() + GameConfiguration.BOAT_ROTATION_SPEED+boost);
         } else {
-            boat.setAngle(boat.getAngle() - GameConfiguration.BOAT_ROTATION_SPEED);
+            boat.setAngle(boat.getAngle() - GameConfiguration.BOAT_ROTATION_SPEED+boost);
         }
         int x = (int) ((Math.cos(boat.getAngle())*boat.getSpeed()) + boat.getPosition().getX());
         int y = (int) ((Math.sin(boat.getAngle())*boat.getSpeed()) + boat.getPosition().getY());
-
         if(!(GameConfiguration.MIN_X<x && x<GameConfiguration.MAX_X)&&!(GameConfiguration.MIN_Y<y && y<GameConfiguration.MAX_Y)){
             x= (int) boat.getPosition().getX();
             y= (int) boat.getPosition().getY();
@@ -126,7 +126,7 @@ public class BattleBoatManager {
         PointToTest.add(getBoatPointFront(prey, SHOOT_DISTANCE));
         PointToTest.add(getBoatPointRight(prey, SHOOT_DISTANCE));
         PointToTest.add(getBoatPointLeft(prey, SHOOT_DISTANCE));
-        if(hunter.getPosition().distance(prey.getPosition()) > GameConfiguration.DEFAULT_SHOOT_DISTANCE * hunter.getVisionRadius()/2*1.2)return prey.getPosition();
+        if(hunter.getPosition().distance(prey.getPosition()) > GameConfiguration.DEFAULT_SHOOT_DISTANCE * hunter.getVisionRadius()/2*GameConfiguration.GO_BACK_BOOST)return prey.getPosition();
         if(battle.getHunterPreyPointHashMap().get(hunter)!=null)PointToTest.remove(battle.getHunterPreyPointHashMap().get(hunter));
         double minDistance = Double.MAX_VALUE;
         ArrayList<Point> validPoints = new ArrayList<>();
