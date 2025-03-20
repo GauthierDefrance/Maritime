@@ -101,6 +101,14 @@ public class BattleBoatManager {
         }
         int x = (int) ((Math.cos(boat.getAngle())*boat.getSpeed()) + boat.getPosition().getX());
         int y = (int) ((Math.sin(boat.getAngle())*boat.getSpeed()) + boat.getPosition().getY());
+
+        if(!(GameConfiguration.MIN_X<x && x<GameConfiguration.MAX_X)){
+            x= (int) boat.getPosition().getX();
+        }
+        if(!(GameConfiguration.MIN_Y<y && y<GameConfiguration.MAX_Y)){
+            y= (int) boat.getPosition().getY();
+        }
+
         boat.setPosition(x,y);
     }
 
