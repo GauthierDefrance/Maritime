@@ -7,9 +7,10 @@ public class Currency implements TradeObject {
     private int value;
     private int amount;
 
-    public Currency(String name, int value){
+    public Currency(String name, int value, int amount) {
         this.name = name;
         this.value = value;
+        this.amount = amount;
     }
 
     //Getters

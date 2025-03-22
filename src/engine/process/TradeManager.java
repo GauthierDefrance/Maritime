@@ -160,9 +160,9 @@ public class TradeManager {
      * Calculate the chance of success for a trade
      */
     public void calculateSuccessChance(TradeOffer offer) {
-        if (offer.getDemand().get("Gold") != null && offer.getSelection().get("Gold") != null) {
+        if (offer.getDemand().keySet().equals(offer.getSelection().keySet())) {
             offer.setSuccessChance(0);
-            return; //Cannot trade Gold for Gold
+            return; //Cannot trade a resource for the same one
         }
 
         double ratio = getRatio(offer);

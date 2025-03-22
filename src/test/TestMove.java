@@ -3,6 +3,7 @@ package test;
 import battleengine.factory.BattleFactory;
 import engine.MapGame;
 import engine.entity.boats.*;
+import engine.faction.Faction;
 import engine.process.builder.TradeObjectBuilder;
 import engine.trading.Currency;
 import engine.utilities.SearchInGraph;
@@ -67,15 +68,19 @@ public class TestMove {
         fleet2.getArrayListBoat().add(military3);
 
         TradeObjectBuilder builder = new TradeObjectBuilder();
-        Resource metal = builder.name("Metal").value(10).productionRate(1).BuildResource();
-        Resource wood = builder.name("Wood").value(2).productionRate(3).BuildResource();
-        Currency gold = builder.name("Gold").value(1).BuildCurrency();
+        Resource metal = builder.name("Metal").value(10).productionRate(1).buildResource();
+        Resource wood = builder.name("Wood").value(2).productionRate(3).buildResource();
+        Currency gold = builder.name("Gold").value(1).amount(0).buildCurrency();
 
         MapGame.getInstance().getLstHarbor().get(0).getInventory().add(metal,10000);
         MapGame.getInstance().getLstHarbor().get(0).getInventory().add(metal,10000);
         MapGame.getInstance().getLstHarbor().get(3).getInventory().add(wood,10000);
         MapGame.getInstance().getLstHarbor().get(3).getInventory().add(metal,10000);
         MapGame.getInstance().getLstHarbor().get(0).getInventory().add(wood,10000);
+        for (Faction f : MapGame.getInstance().getLstFaction()) {
+            f.setCurrency(gold);
+            f.getCurrency().setAmount(200);
+        }
 
         SeaRoad seaRoad1 = new SeaRoad(20000, MapGame.getInstance().getLstHarbor().get(0), MapGame.getInstance().getLstHarbor().get(3),metal,wood,1,"seaRoad1");
         SeaRoad seaRoad2 = new SeaRoad(20000, MapGame.getInstance().getLstHarbor().get(3), MapGame.getInstance().getLstHarbor().get(0),wood,metal,1,"seaRoad2");

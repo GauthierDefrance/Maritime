@@ -6,6 +6,7 @@ public class TradeObjectBuilder {
     private String name;
     private int value;
     private double productionRate;
+    private int amount;
 
     public TradeObjectBuilder(){}
 
@@ -24,11 +25,16 @@ public class TradeObjectBuilder {
         return this;
     }
 
-    public Resource BuildResource(){
+    public TradeObjectBuilder amount(int amount){
+        this.amount = amount;
+        return this;
+    }
+
+    public Resource buildResource(){
         return new Resource(name, value, productionRate);
     }
 
-    public Currency BuildCurrency(){
-        return new Currency(name, value);
+    public Currency buildCurrency(){
+        return new Currency(name, value, amount);
     }
 }

@@ -1,10 +1,10 @@
 package gui.panel;
 
+import engine.entity.Harbor;
 import engine.faction.Faction;
+import engine.process.FactionManager;
 import engine.process.TradeManager;
-import engine.trading.Inventory;
-import engine.trading.Resource;
-import engine.trading.TradeOffer;
+import engine.trading.*;
 import gui.utilities.GUILoader;
 import gui.process.JComponentBuilder;
 
@@ -51,13 +51,16 @@ public class TradeMenu extends JPanel {
                 ") for " + interlocutorSelectedResourceName + " (" + interlocutorQuantity.getText() + ")");
     }
 
-    private int routine(Inventory inventory, JTextField quantityField, Resource resource) {
+    private int validateEntry(Inventory inventory, JTextField quantityField, TradeObject object) {
         int answer = Integer.parseInt(quantityField.getText());
-        if (answer < 0) {
-            answer = 0;
+        answer = Math.max(answer, 0);
+        if (object instanceof Resource) {
+            Resource r = (Resource) object;
+            answer = Math.min(answer, inventory.getNbResource(r));
         }
-        if (answer > inventory.getNbResource(resource)) {
-            answer = inventory.getNbResource(resource);
+        if (object instanceof Currency) {
+            Currency c = (Currency) object;
+            answer = Math.min(answer, c.getAmount());
         }
         quantityField.setText("" + answer);
         return answer;
@@ -68,8 +71,8 @@ public class TradeMenu extends JPanel {
     private void init() {
         this.setLayout(new BorderLayout());
 
-        JScrollPane myInventoryPanel = createInventoryPane(offer.getStartingHarbor().getInventory(), true);
-        JScrollPane interlocutorInventoryPanel = createInventoryPane(offer.getTargetedHarbor().getInventory(), false);
+        JScrollPane myInventoryPanel = createInventoryPane(offer.getStartingHarbor());
+        JScrollPane interlocutorInventoryPanel = createInventoryPane(offer.getTargetedHarbor());
         JPanel portDisplay = JComponentBuilder.gridMenuPanel(1, 2, BUTTON_SEPARATOR, BUTTON_SEPARATOR, myInventoryPanel, interlocutorInventoryPanel);
 
         myQuantity = new JTextField(20);
@@ -78,7 +81,7 @@ public class TradeMenu extends JPanel {
         JPanel interlocutorOffer = JComponentBuilder.flowMenuPanel(new JLabel("Their Resource:"), interlocutorQuantity);
 
         currentProposition = new JTextArea("Proposition will appear here.");
-        JButton modifyOfferButton = JComponentBuilder.menuButton("Modify Offer", new SelectionListener());
+        JButton modifyOfferButton = JComponentBuilder.menuButton("Modify Offer", new UpdateOfferListener());
         JPanel centralPanel = JComponentBuilder.gridMenuPanel(2, 1, BUTTON_SEPARATOR, BUTTON_SEPARATOR, currentProposition, modifyOfferButton);
         JPanel middleRow = JComponentBuilder.gridMenuPanel(1, 3, BUTTON_SEPARATOR, BUTTON_SEPARATOR, myOffer, centralPanel, interlocutorOffer);
 
@@ -91,10 +94,19 @@ public class TradeMenu extends JPanel {
         this.add(totalDisplay, BorderLayout.CENTER);
     }
 
-    private JScrollPane createInventoryPane(Inventory inventory, boolean isMyInventory) {
+    private JScrollPane createInventoryPane(Harbor harbor) {
         JPanel contentPanel = JComponentBuilder.SelectionZone();
+        FactionManager fm = new FactionManager();
+        Faction side = fm.getMyFaction(harbor.getColor());
+        boolean isMe = side != offer.getInterlocutor();
 
-        for (Map.Entry<Resource, Integer> entry : inventory.getContent().entrySet()) {
+        Currency money = side.getCurrency();
+        JButton moneyButton = new JButton(money.getName() + " | " + money.getAmount() + " | Value : " + money.getValue());
+        moneyButton.setContentAreaFilled(false);
+        moneyButton.addActionListener(new ResourceSelectionListener(isMe,money.getName()));
+        contentPanel.add(moneyButton);
+
+        for (Map.Entry<Resource, Integer> entry : harbor.getInventory().getContent().entrySet()) {
             Resource resource = entry.getKey();
             int quantity = entry.getValue();
             int value = resource.getValue();
@@ -102,8 +114,7 @@ public class TradeMenu extends JPanel {
 
             JButton resourceButton = new JButton(resourceName + " | " + quantity + " | Value: " + value);
             resourceButton.setContentAreaFilled(false);
-            resourceButton.addActionListener(new ResourceSelectionListener(isMyInventory,resourceName));
-
+            resourceButton.addActionListener(new ResourceSelectionListener(isMe, resourceName));
             contentPanel.add(resourceButton);
         }
 
@@ -112,18 +123,25 @@ public class TradeMenu extends JPanel {
 
     // Listeners
 
-    private class SelectionListener implements ActionListener {
+    private class UpdateOfferListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
                 Inventory myInventory = offer.getStartingHarbor().getInventory();
                 Inventory interlocutorInventory = offer.getTargetedHarbor().getInventory();
 
-                Resource myResource = TradeManager.getInstance().identifyResource(mySelectedResourceName, myInventory);
-                Resource interlocutorResource = TradeManager.getInstance().identifyResource(interlocutorSelectedResourceName, interlocutorInventory);
+                TradeObject myResource = TradeManager.getInstance().identifyResource(mySelectedResourceName, myInventory);
+                if (myResource == null) {
+                    myResource = new FactionManager().getMyFaction(offer.getStartingHarbor().getColor()).getCurrency();
+                }
 
-                offer.setSelection(TradeManager.getInstance().Update(offer.getSelection(), myResource, routine(myInventory, myQuantity, myResource)));
-                offer.setDemand(TradeManager.getInstance().Update(offer.getDemand(), interlocutorResource, routine(interlocutorInventory, interlocutorQuantity, interlocutorResource)));
+                TradeObject interlocutorResource = TradeManager.getInstance().identifyResource(interlocutorSelectedResourceName, interlocutorInventory);
+                if (interlocutorResource == null) {
+                    interlocutorResource = new FactionManager().getMyFaction(offer.getInterlocutor().getColor()).getCurrency();
+                }
+
+                offer.setSelection(TradeManager.getInstance().Update(offer.getSelection(), myResource, validateEntry(myInventory, myQuantity, myResource)));
+                offer.setDemand(TradeManager.getInstance().Update(offer.getDemand(), interlocutorResource, validateEntry(interlocutorInventory, interlocutorQuantity, interlocutorResource)));
 
                 TradeManager.getInstance().calculateSuccessChance(offer);
                 updateOfferInfo();
@@ -133,7 +151,7 @@ public class TradeMenu extends JPanel {
         }
     }
 
-    public class ResourceSelectionListener implements ActionListener {
+    private class ResourceSelectionListener implements ActionListener {
         private final boolean isMyInventory;
         private final String resourceName;
 

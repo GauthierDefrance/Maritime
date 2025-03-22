@@ -31,6 +31,7 @@ public class Faction implements Serializable {
         this.lstFleet = new ArrayList<>();
         this.color = color;
         this.relationship = 0;
+        this.currency = new Currency("",0,0);
     }
 
     //Getters
