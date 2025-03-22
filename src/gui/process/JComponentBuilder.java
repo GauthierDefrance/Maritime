@@ -81,13 +81,21 @@ public class JComponentBuilder {
         newButton.setFocusPainted(false);
         newButton.setBorderPainted(false);
         if (o instanceof Harbor) {
-            newButton.setIcon(new ImageIcon(ImageStock.getImage((Harbor) o)));
+            Harbor harbor = (Harbor) o;
+            newButton.setText(harbor.getName());
+            newButton.setIcon(new ImageIcon(ImageStock.getImage(harbor)));
         } else if (o instanceof Boat) {
-            newButton.setIcon(new ImageIcon(ImageStock.getImage((Boat) o)));
+            Boat boat = (Boat) o;
+            newButton.setText(boat.getName());
+            newButton.setIcon(new ImageIcon(ImageStock.getImage(boat)));
         } else if (o instanceof Fleet) {
-            newButton.setIcon(new ImageIcon(ImageStock.getImage((Fleet) o)));
+            Fleet fleet = (Fleet) o;
+            newButton.setText(fleet.getName());
+            newButton.setIcon(new ImageIcon(ImageStock.getImage(fleet)));
         } else if (o instanceof SeaRoad) {
-            newButton.setIcon(new ImageIcon(ImageStock.getImage((SeaRoad) o)));
+            SeaRoad seaRoad = (SeaRoad) o;
+            newButton.setText(seaRoad.getName());
+            newButton.setIcon(new ImageIcon(ImageStock.getImage(seaRoad)));
         } else {
             newButton.setText(o.getClass().getName());
         }
