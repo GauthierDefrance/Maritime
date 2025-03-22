@@ -152,11 +152,11 @@ public abstract class Boat implements Entity {
     public void addCurrentHp(int Hp) {this.currentHp += Hp;}
 
     /**
-     * check how many elements of a ressource this boat's inventory has
-     * @param resource the targeted ressource
-     * @return number of element of said ressource
+     * check how many elements of a resource this boat's inventory has
+     * @param resource the targeted resource
+     * @return number of element of said resource
      */
-    public int checkNbRessource(Resource resource) {
+    public int checkNbResource(Resource resource) {
         return this.inventory.getNbResource(resource);
     }
 

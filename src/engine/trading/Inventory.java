@@ -76,7 +76,7 @@ public class Inventory implements Serializable {
         this.capacity = capacity;
     }
 
-    //Basic ressource management behavior
+    //Basic resource management behavior
 
     /**
      * Allows for a complete clear of the Inventory

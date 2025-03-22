@@ -13,7 +13,7 @@ import gui.PopUp;
 import gui.panel.Display.ChoiceDisplay;
 import gui.process.ListenerBehaviorManager;
 import gui.utilities.GUILoader;
-import gui.utilities.JComponentBuilder;
+import gui.process.JComponentBuilder;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -145,7 +145,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
                     break;
                 case 1:
                     if(harbor1 != null && harbor2 != null){
-                        GUILoader.loadTradeMenu(TradeOffer.create(harbor1, harbor2));
+                        GUILoader.loadTradeMenu(new TradeOffer(harbor1, harbor2));
                     } else JOptionPane.showMessageDialog(ChoicePathMenu.this,"No proper selection");
                     break;
                 default:
@@ -246,7 +246,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
                         break;
                     }
 
-                    if (e.getButton() == MouseEvent.BUTTON1) /*Clic Gauche*/ {
+                    if (e.getButton() == MouseEvent.BUTTON1) /*Left Click*/ {
                         if (MapGame.getInstance().getPlayer().getLstHarbor().contains(clickedHarbor) && harbor1 == null) {
                             harbor1 = clickedHarbor;
                             dashboard.setHarbor1(harbor1);
@@ -255,7 +255,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
                             dashboard.setHarbor2(harbor2);
                         }
                     }
-                    else if (e.getButton() == MouseEvent.BUTTON3)  /*Clic Droit*/ {
+                    else if (e.getButton() == MouseEvent.BUTTON3)  /*Right Click*/ {
                         if (MapGame.getInstance().getPlayer().getLstHarbor().contains(harbor1)) {
                             harbor1 = null;
                             dashboard.setHarbor1(null);

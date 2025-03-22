@@ -69,6 +69,7 @@ public class GUILoader {
     public static void loadChoicePathMenu(Faction faction){
         actualise(new ChoicePathMenu(faction));
     }
+
     public static void loadChoicePathMenu(Harbor harbor1,Harbor harbor2){
         actualise(new ChoicePathMenu(harbor1,harbor2));
     }

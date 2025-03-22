@@ -179,8 +179,7 @@ public class FactionManager {
             if (faction.getColor().equals(color)) {
                 return faction;
             }
-        }
-        return new Faction("");
+        } return new Faction("");
     }
 
     public SeaRoadManager getSeaRoadManager() {

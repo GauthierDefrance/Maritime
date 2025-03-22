@@ -1,4 +1,4 @@
-package gui.utilities;
+package gui.process;
 
 import config.GameConfiguration;
 import engine.entity.Entity;
@@ -6,7 +6,6 @@ import engine.entity.Harbor;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
 import engine.trading.SeaRoad;
-import gui.process.ImageStock;
 import log.LoggerUtility;
 import org.apache.log4j.Logger;
 
@@ -19,7 +18,7 @@ import java.awt.event.*;
  * @author Zue Jack-Arthur
  * @author Kenan Ammad
  * @see Component
- * @version 0.4
+ * @version 0.5
  */
 public class JComponentBuilder {
     private static Logger logger = LoggerUtility.getLogger(JComponentBuilder.class);
@@ -29,7 +28,7 @@ public class JComponentBuilder {
      * @param name  text
      */
     private static void loggerWrite(String name) {
-        logger.info("creation "+name);
+        logger.info("creation : "+name);
     }
 
     /**
@@ -69,89 +68,36 @@ public class JComponentBuilder {
 
     /**
      * Build a JButton for an Entity
-     * @param entity the Entity Object attached to JButton
+     * @param o the Object attached to JButton
      * @return Built JButton
      */
-    public static JButton menuButton(Entity entity) {
-        JButton newButton = menuButton(entity.getName());
-        loggerWrite("menuButton name "+entity.getName()," Object assigned name : "+entity.getName());
+    public static JButton menuButton(Object o) {
+        JButton newButton = menuButton(o.getClass().getName());
+        loggerWrite("menuButton name "+o.getClass().getName()," Object assigned name : "+o.getClass().getName());
         newButton.setVerticalTextPosition(SwingConstants.BOTTOM);
         newButton.setHorizontalTextPosition(SwingConstants.CENTER);
         newButton.setBackground(Color.DARK_GRAY);
         newButton.setForeground(Color.WHITE);
         newButton.setFocusPainted(false);
         newButton.setBorderPainted(false);
-        if (entity instanceof Harbor) {
-            newButton.setIcon( new ImageIcon(ImageStock.getImage((Harbor) entity)));
-        } else if (entity instanceof Boat) {
-            newButton.setIcon( new ImageIcon(ImageStock.getImage((Boat) entity)));
-        }
-        return newButton;
-    }
-
-//    /**
-//     * Build a JButton for an Entity
-//     * @param entity the Entity Object attached to JButton
-//     * @return Built JButton
-//     */
-//    public static JButton menuButton(Name entity) {
-//        JButton newButton = menuButton(entity.getName());
-//        loggerWrite("menuButton name "+entity.getName()," Object assigned name : "+entity.getName());
-//        newButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-//        newButton.setHorizontalTextPosition(SwingConstants.CENTER);
-//        newButton.setBackground(Color.DARK_GRAY);
-//        newButton.setForeground(Color.WHITE);
-//        newButton.setFocusPainted(false);
-//        newButton.setBorderPainted(false);
-//        if (entity instanceof Harbor) {
-//            newButton.setIcon( new ImageIcon(ImageStock.getImage((Harbor) entity)));
-//        }
-//        else if (entity instanceof Boat) {
-//            newButton.setIcon( new ImageIcon(ImageStock.getImage((Boat) entity)));
-//        }
-//        else if (entity instanceof Fleet) {
-//            newButton.setIcon( new ImageIcon(ImageStock.getImage((Fleet) entity)));
-//        }
-//        else if (entity instanceof SeaRoad) {
-//            newButton.setIcon( new ImageIcon(ImageStock.getImage((SeaRoad) entity)));
-//        }
-//        return newButton;
-//    }
-
-    /**
-     * Build a JButton for an Fleet
-     * @param fleet the Fleet Object attached to JButton
-     * @return Built JButton
-     */
-    public static JButton menuButton(Fleet fleet) {
-        JButton newButton = menuButton(fleet.getName());
-        loggerWrite("menuButton name " + fleet.getName(), " Object assigned name : " + fleet.getName());
-        newButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        newButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        newButton.setBackground(Color.DARK_GRAY);
-        newButton.setForeground(Color.WHITE);
-        newButton.setFocusPainted(false);
-        newButton.setBorderPainted(false);
-        newButton.setIcon( new ImageIcon(ImageStock.getImage(fleet)));
-        return newButton;
-    }
-
-    /**
-     * Build a JButton for an SeaRoad
-     * @param seaRoad the SeaRoad Object attached to JButton
-     * @return Built JButton
-     */
-    public static JButton menuButton(SeaRoad seaRoad) {
-        JButton newButton = menuButton(seaRoad.getName());
-        loggerWrite("menuButton name " + seaRoad.getName(), " Object assigned name : " + seaRoad.getName());
-        newButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        newButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        newButton.setBackground(Color.DARK_GRAY);
-        newButton.setForeground(Color.WHITE);
-        newButton.setFocusPainted(false);
-        newButton.setBorderPainted(false);
-        newButton.setIcon( new ImageIcon(ImageStock.getImage(seaRoad)));
-        return newButton;
+        switch (o) {
+            case Harbor harbor :
+                newButton.setIcon(new ImageIcon(ImageStock.getImage(harbor)));
+                break;
+            case Boat boat :
+                newButton.setIcon(new ImageIcon(ImageStock.getImage(boat)));
+                break;
+            case Fleet fleet :
+                newButton.setIcon(new ImageIcon(ImageStock.getImage(fleet)));
+                break;
+            case SeaRoad seaRoad :
+                newButton.setIcon(new ImageIcon(ImageStock.getImage(seaRoad)));
+                break;
+            default : {
+                newButton.setText(o.getClass().getName());
+                break;
+            }
+        } return newButton;
     }
 
     /**
@@ -253,8 +199,7 @@ public class JComponentBuilder {
      */
     public static JScrollPane ScrollPaneMenuPanel(JComponent jComponent) {
         loggerWrite("jScrollPane");
-        JScrollPane jScrollPane = new JScrollPane(jComponent);
-        return jScrollPane;
+        return new JScrollPane(jComponent);
     }
 
     /**
@@ -349,9 +294,11 @@ public class JComponentBuilder {
      * @return built JPanel
      */
     public static JPanel boxMenuPanel(int axis) {
-        loggerWrite("boxMenuPanel");
         JPanel newPanel = new JPanel();
-        newPanel.setLayout(new BoxLayout(newPanel, axis));
+        if (axis >= 0 && axis <= 4) {
+            newPanel.setLayout(new BoxLayout(newPanel, axis));
+        }
+        loggerWrite("boxMenuPanel generated");
         return newPanel;
     }
 

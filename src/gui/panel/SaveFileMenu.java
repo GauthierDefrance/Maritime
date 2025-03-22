@@ -1,7 +1,7 @@
 package gui.panel;
 
 
-import gui.utilities.JComponentBuilder;
+import gui.process.JComponentBuilder;
 import gui.process.ListenerBehaviorManager;
 import saveSystem.GameSave;
 import saveSystem.process.GameSaveManager;

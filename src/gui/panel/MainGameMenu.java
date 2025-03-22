@@ -11,7 +11,7 @@ import gui.PopUp;
 import gui.panel.Display.GameDisplay;
 import gui.process.ListenerBehaviorManager;
 import gui.utilities.GUILoader;
-import gui.utilities.JComponentBuilder;
+import gui.process.JComponentBuilder;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

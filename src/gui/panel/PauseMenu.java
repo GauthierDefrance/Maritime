@@ -3,7 +3,7 @@ package gui.panel;
 import config.GameConfiguration;
 import gui.MainGUI;
 import gui.utilities.GUILoader;
-import gui.utilities.JComponentBuilder;
+import gui.process.JComponentBuilder;
 import gui.process.ListenerBehaviorManager;
 
 import javax.swing.*;

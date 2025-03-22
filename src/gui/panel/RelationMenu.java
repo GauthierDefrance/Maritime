@@ -2,10 +2,8 @@ package gui.panel;
 
 import engine.MapGame;
 import engine.faction.Faction;
-import engine.trading.TradeOffer;
-import gui.process.ListenerBehaviorManager;
 import gui.utilities.GUILoader;
-import gui.utilities.JComponentBuilder;
+import gui.process.JComponentBuilder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +21,6 @@ public class RelationMenu extends JPanel {
     private JLabel factionLogo;
     private JTextPane factionLore;
     private JTextPane factionStats;
-    private JButton proposeTrade;
     private JScrollPane OtherRelation;
     private ArrayList<JButton> OtherRelationButtons;
 
@@ -37,7 +34,7 @@ public class RelationMenu extends JPanel {
 
         this.setLayout(new BorderLayout());
 
-        proposeTrade = JComponentBuilder.menuButton("Propose Trade", new TradeListener());
+        JButton proposeTrade = JComponentBuilder.menuButton("Propose Trade", new TradeListener());
         JButton declareWar = JComponentBuilder.menuButton("Declare War", new WarListener());
         JPanel basicInteraction = JComponentBuilder.gridMenuPanel(2, 1, BUTTON_SEPARATOR, BUTTON_SEPARATOR, proposeTrade, declareWar);
         factionLogo = JComponentBuilder.menuLabel(activeFaction.getColor());

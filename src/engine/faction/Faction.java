@@ -3,6 +3,7 @@ package engine.faction;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
+import engine.trading.Currency;
 import engine.trading.SeaRoad;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class Faction implements Serializable {
     private ArrayList<Fleet> lstFleet;
     private String color;
     private int relationship;
+    private Currency currency;
 
     public Faction(String color){
         this.lstBoat = new ArrayList<>();
@@ -57,6 +59,10 @@ public class Faction implements Serializable {
         return relationship;
     }
 
+    public Currency getCurrency() {
+        return currency;
+    }
+
     //Setters
 
     public void setLstBoat(ArrayList<Boat> lstBoat) {
@@ -75,6 +81,10 @@ public class Faction implements Serializable {
 
     public void setRelationship(int relationship) {
         this.relationship = relationship;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
     }
 
     //Content Handler

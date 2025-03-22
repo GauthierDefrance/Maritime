@@ -46,30 +46,44 @@ public class Harbor implements Entity {
     }
 
     @Override
-    public int getCurrentHp() { return currentHp; }
+    public int getCurrentHp() {
+        return currentHp;
+    }
 
     @Override
-    public double getVisionRadius() {return visionRadius; }
+    public double getVisionRadius() {
+        return visionRadius;
+    }
 
     @Override
-    public Inventory getInventory() { return inventory; }
+    public Inventory getInventory() {
+        return inventory;
+    }
 
     @Override
-    public Point getPosition() { return position; }
+    public Point getPosition() {
+        return position;
+    }
 
-    public GraphPoint getGraphPosition() { return graphPosition; }
+    public GraphPoint getGraphPosition() {
+        return graphPosition;
+    }
 
-    public Point getPreciseGraphPosition() { return graphPosition.getPoint(); }
+    public Point getPreciseGraphPosition() {
+        return graphPosition.getPoint();
+    }
 
     @Override
-    public String getColor() { return color; }
-
-
+    public String getColor() {
+        return color;
+    }
 
     //Setters
 
     @Override
-    public void setMaxHp(int maxHp) { this.maxHp = maxHp; }
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
+    }
 
     @Override
     public void setName(String name) {
@@ -77,15 +91,25 @@ public class Harbor implements Entity {
     }
 
     @Override
-    public void setCurrentHp(int currentHp) { this.currentHp = currentHp; }
+    public void setCurrentHp(int currentHp) {
+        this.currentHp = currentHp;
+    }
 
     @Override
-    public void setVisionRadius(double visionRadius) { this.visionRadius = visionRadius; }
+    public void setVisionRadius(double visionRadius) {
+        this.visionRadius = visionRadius;
+    }
 
     @Override
-    public void setPosition(Point position) { this.position = position; }
+    public void setPosition(Point position) {
+        this.position = position;
+    }
 
-    public void setGraphPosition(GraphPoint graphPosition) { this.graphPosition = graphPosition; }
+    public void setGraphPosition(GraphPoint graphPosition) {
+        this.graphPosition = graphPosition;
+    }
 
-    public void setColor(String color) { this.color = color; }
+    public void setColor(String color) {
+        this.color = color;
+    }
 }

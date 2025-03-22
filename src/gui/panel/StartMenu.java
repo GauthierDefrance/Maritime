@@ -7,7 +7,7 @@ import engine.process.FactionManager;
 import gui.PopUp;
 import gui.panel.Display.GameDisplay;
 import gui.utilities.GUILoader;
-import gui.utilities.JComponentBuilder;
+import gui.process.JComponentBuilder;
 import gui.process.ListenerBehaviorManager;
 import test.TestMove;
 
@@ -107,7 +107,7 @@ public class StartMenu extends JPanel implements Runnable {
         @Override
         public void actionPerformed(ActionEvent e) {
             ThreadStop = true;
-            TestMove.addBaotTest();
+            TestMove.addBoatTest();
             GUILoader.loadMainGame();
         }
     }

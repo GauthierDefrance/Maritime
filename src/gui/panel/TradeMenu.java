@@ -1,11 +1,12 @@
 package gui.panel;
 
+import engine.faction.Faction;
 import engine.process.TradeManager;
 import engine.trading.Inventory;
 import engine.trading.Resource;
 import engine.trading.TradeOffer;
 import gui.utilities.GUILoader;
-import gui.utilities.JComponentBuilder;
+import gui.process.JComponentBuilder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -97,10 +98,11 @@ public class TradeMenu extends JPanel {
             Resource resource = entry.getKey();
             int quantity = entry.getValue();
             int value = resource.getValue();
+            String resourceName = resource.getName();
 
-            JButton resourceButton = new JButton(resource.getName() + " | " + quantity + " | Value: " + value);
+            JButton resourceButton = new JButton(resourceName + " | " + quantity + " | Value: " + value);
             resourceButton.setContentAreaFilled(false);
-            resourceButton.addActionListener(new ResourceSelectionListener(isMyInventory,resource.getName()));
+            resourceButton.addActionListener(new ResourceSelectionListener(isMyInventory,resourceName));
 
             contentPanel.add(resourceButton);
         }
@@ -120,13 +122,13 @@ public class TradeMenu extends JPanel {
                 Resource myResource = TradeManager.getInstance().identifyResource(mySelectedResourceName, myInventory);
                 Resource interlocutorResource = TradeManager.getInstance().identifyResource(interlocutorSelectedResourceName, interlocutorInventory);
 
-                offer.setSelection(TradeManager.getInstance().Transform(offer.getSelection(), myResource, routine(myInventory, myQuantity, myResource)));
-                offer.setDemand(TradeManager.getInstance().Transform(offer.getDemand(), interlocutorResource, routine(interlocutorInventory, interlocutorQuantity, interlocutorResource)));
+                offer.setSelection(TradeManager.getInstance().Update(offer.getSelection(), myResource, routine(myInventory, myQuantity, myResource)));
+                offer.setDemand(TradeManager.getInstance().Update(offer.getDemand(), interlocutorResource, routine(interlocutorInventory, interlocutorQuantity, interlocutorResource)));
 
                 TradeManager.getInstance().calculateSuccessChance(offer);
                 updateOfferInfo();
             } catch (NoSuchElementException | IllegalArgumentException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Offer condition aren't filled", "Can't proceed", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }

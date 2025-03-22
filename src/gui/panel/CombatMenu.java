@@ -10,7 +10,7 @@ import gui.PopUp;
 import gui.panel.Display.BattleDisplay;
 import gui.process.ListenerBehaviorManager;
 import gui.utilities.GUILoader;
-import gui.utilities.JComponentBuilder;
+import gui.process.JComponentBuilder;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

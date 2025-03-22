@@ -190,7 +190,6 @@ public class EngineBuilder {
         Harbor harborD = new Harbor("harborD","",new Point((580)*GameConfiguration.GAME_SCALE,(225-temp)*GameConfiguration.GAME_SCALE),DHarbor);
 
         Faction faction1 = new Faction("red");
-        
 
         lstBotFaction.add(faction1);
         lstHarbor.add(harborA);

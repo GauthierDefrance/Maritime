@@ -1,10 +1,8 @@
 package engine.process;
 
 import engine.entity.Entity;
-import engine.trading.Inventory;
-import engine.trading.Resource;
-import engine.trading.SeaRoad;
-import engine.trading.TradeOffer;
+import engine.faction.Faction;
+import engine.trading.*;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -12,7 +10,7 @@ import java.util.Random;
 /**
  * A class handling how trades should work between Entities (and by extension Factions)
  * @author Zue Jack-Arthur
- * @version 0.3
+ * @version 0.4
  */
 public class TradeManager {
 
@@ -56,10 +54,18 @@ public class TradeManager {
         return inventory.getCapacity() - totalUsedSpace(inventory);
     }
 
+    /**
+     * Identify the resource behind a String in a given Inventory
+     * @param elem String representing the resource to seek
+     * @param inventory inventory targeted for identification
+     * @return correct element or null if not found
+     */
     public Resource identifyResource(String elem, Inventory inventory){
-        for (Resource el : inventory.getContent().keySet()){
-            if (elem.equals(el.getName()))
-                return el;
+        if (elem != null){
+            for (Resource el : inventory.getContent().keySet()){
+                if (elem.equals(el.getName()))
+                    return el;
+            }
         } return null;
     }
 
@@ -106,19 +112,43 @@ public class TradeManager {
         } return false;
     }
 
+    /**
+     * Handle the transfer of currency between Faction
+     * @param nb amount to transfer
+     * @param source Faction that will give
+     * @param target Faction that will receive
+     * @return boolean indicating the success or failure of the operation
+     */
+    public boolean transfer(int nb, Faction source, Faction target){
+        int swing = source.getCurrency().getAmount();
+        if ( swing >= nb) {
+            source.getCurrency().setAmount(swing - nb);
+            target.getCurrency().setAmount(target.getCurrency().getAmount() + nb);
+            return true;
+        } return false;
+    }
+
     //Operation on TradeOffer
 
-    public HashMap<Resource, Integer> Transform(HashMap<Resource, Integer> side, Resource resource, int quantity) {
-        HashMap<Resource, Integer> temp = side;
+
+    /**
+     * Update one side of the offer to fit what is currently asked
+     * @param side side of the offer that need to be updated
+     * @param elem TradeObject that fits the update
+     * @param quantity Quantity befitting the update
+     * @return Updated offer
+     */
+    public HashMap<TradeObject, Integer> Update(HashMap<TradeObject, Integer> side, TradeObject elem, int quantity) {
+        HashMap<TradeObject, Integer> temp = side;
         temp.clear();
-        temp.put(resource, quantity);
+        temp.put(elem, quantity);
         return temp;
     }
 
-    public int CalculateValue(HashMap<Resource, Integer> side) {
+    public int CalculateValue(HashMap<TradeObject, Integer> side) {
         int sum = 0;
-        for (Resource resource : side.keySet()) {
-            sum += resource.getValue() * side.get(resource);
+        for (TradeObject element : side.keySet()) {
+            sum += element.getValue() * side.get(element);
         } return sum;
     }
 
@@ -130,8 +160,12 @@ public class TradeManager {
      * Calculate the chance of success for a trade
      */
     public void calculateSuccessChance(TradeOffer offer) {
-        double ratio = getRatio(offer);
+        if (offer.getDemand().get("Gold") != null && offer.getSelection().get("Gold") != null) {
+            offer.setSuccessChance(0);
+            return; //Cannot trade Gold for Gold
+        }
 
+        double ratio = getRatio(offer);
         double relation = offer.getInterlocutor().getRelationship();
 
         double relationshipModifier = (relation / 100.0);

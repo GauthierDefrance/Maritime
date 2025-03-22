@@ -3,9 +3,8 @@ package test;
 import engine.MapGame;
 import engine.utilities.EngineBuilder;
 import gui.MainGUI;
-import gui.panel.ChoicePathMenu;
 import gui.utilities.GUILoader;
-import gui.utilities.JComponentBuilder;
+import gui.process.JComponentBuilder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,7 +52,7 @@ public class Debug extends JFrame{
                 case "gui.panel.OptionsMenu" :
                 case "gui.panel.PauseMenu" : {
                     EngineBuilder.mapInit(0);
-                    TestMove.addBaotTest();
+                    TestMove.addBoatTest();
                     GUILoader.loadChoicePathMenu(MapGame.getInstance().getPlayer().getLstHarbor().get(0),MapGame.getInstance().getLstBotFaction().get(0).getLstHarbor().get(0));
                     break;
                 }
@@ -70,7 +69,7 @@ public class Debug extends JFrame{
                 case "gui.panel.OptionsMenu" :
                 case "gui.panel.PauseMenu" : {
                     EngineBuilder.mapInit(0);
-                    TestMove.addBaotTest();
+                    TestMove.addBoatTest();
                     GUILoader.loadChoicePathMenu( MapGame.getInstance().getPlayer());
                     break;
                 }
