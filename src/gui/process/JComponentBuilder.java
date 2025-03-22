@@ -80,24 +80,18 @@ public class JComponentBuilder {
         newButton.setForeground(Color.WHITE);
         newButton.setFocusPainted(false);
         newButton.setBorderPainted(false);
-        switch (o) {
-            case Harbor harbor :
-                newButton.setIcon(new ImageIcon(ImageStock.getImage(harbor)));
-                break;
-            case Boat boat :
-                newButton.setIcon(new ImageIcon(ImageStock.getImage(boat)));
-                break;
-            case Fleet fleet :
-                newButton.setIcon(new ImageIcon(ImageStock.getImage(fleet)));
-                break;
-            case SeaRoad seaRoad :
-                newButton.setIcon(new ImageIcon(ImageStock.getImage(seaRoad)));
-                break;
-            default : {
-                newButton.setText(o.getClass().getName());
-                break;
-            }
-        } return newButton;
+        if (o instanceof Harbor) {
+            newButton.setIcon(new ImageIcon(ImageStock.getImage((Harbor) o)));
+        } else if (o instanceof Boat) {
+            newButton.setIcon(new ImageIcon(ImageStock.getImage((Boat) o)));
+        } else if (o instanceof Fleet) {
+            newButton.setIcon(new ImageIcon(ImageStock.getImage((Fleet) o)));
+        } else if (o instanceof SeaRoad) {
+            newButton.setIcon(new ImageIcon(ImageStock.getImage((SeaRoad) o)));
+        } else {
+            newButton.setText(o.getClass().getName());
+        }
+        return newButton;
     }
 
     /**
