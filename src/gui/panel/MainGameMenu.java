@@ -130,6 +130,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         jEastATHPanel.setOpaque(false);
         jPanelATH.setOpaque(false);
         jEastPanel.setOpaque(false);
+        jSouthATHPanel.setOpaque(false);
         jEastButtonPanel.setOpaque(false);
         jEastWestPanel.setOpaque(false);
 
@@ -153,8 +154,7 @@ public class MainGameMenu extends JPanel implements Runnable {
 
         //color
         jEastCenterPanel.setBackground(Color.DARK_GRAY);
-        jNorthATHPanel.setBackground(Color.red);
-        jSouthATHPanel.setBackground(Color.black);
+        jNorthATHPanel.setBackground(new Color(64, 64, 64,100));
         dashboard.setBackground(GameConfiguration.WATER_BACKGROUND_COLOR);
         jEastCenterChoice1CenterPanel.setBackground(Color.GRAY);
         jEastCenterChoice2CenterPanel.setBackground(Color.GRAY);
