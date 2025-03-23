@@ -1,5 +1,7 @@
-package battleengine.tools;
+package engine.battleengine.utilities;
 
+import config.GameConfiguration;
+import engine.battleengine.data.Battle;
 import engine.entity.boats.*;
 import engine.graph.GraphPoint;
 

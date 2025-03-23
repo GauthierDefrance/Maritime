@@ -1,7 +1,7 @@
 package gui.panel;
 
-import battleengine.entity.Battle;
-import battleengine.process.BattleManager;
+import engine.battleengine.data.Battle;
+import engine.battleengine.process.BattleManager;
 import config.GameConfiguration;
 import engine.MapGame;
 import engine.entity.boats.Boat;
@@ -263,6 +263,12 @@ public class CombatMenu extends JPanel implements Runnable {
             dashboard.getPaintBackGround().setIFrame((dashboard.getPaintBackGround().getIFrame() + 1) % GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES);
             for (PopUp popUp : MapGame.getInstance().getLstPopUp()) {
                 popUp.addIFrame(1);
+            }
+            if(battleManager.battleEnded()){
+                ThreadStop = true;
+                battleManager.battleEnd();
+                MapGame.getInstance().setTimeStop(true);
+                GUILoader.loadMainGame();
             }
         }
     }

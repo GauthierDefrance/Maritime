@@ -1,4 +1,4 @@
-package battleengine.entity;
+package engine.battleengine.data;
 
 import java.awt.*;
 
@@ -68,13 +68,6 @@ public class Bullet {
      * @param speed la nouvelle valeur de la vitesse
      */
     public void setSpeed(int speed) {this.speed = speed;}
-
-    /**
-     * Définit l'angle.
-     *
-     * @param angle la nouvelle valeur de l'angle
-     */
-    public void setAngle(int angle) {this.angle = angle;}
 
     /**
      * Définit la position.

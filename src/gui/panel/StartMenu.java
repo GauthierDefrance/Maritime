@@ -2,7 +2,7 @@ package gui.panel;
 
 import config.GameConfiguration;
 import engine.MapGame;
-import engine.utilities.EngineBuilder;
+import engine.process.builder.EngineBuilder;
 import engine.process.FactionManager;
 import gui.PopUp;
 import gui.panel.Display.GameDisplay;
@@ -12,7 +12,6 @@ import gui.process.ListenerBehaviorManager;
 import test.TestMove;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 

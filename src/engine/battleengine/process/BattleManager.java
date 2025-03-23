@@ -1,13 +1,7 @@
-package battleengine.process;
+package engine.battleengine.process;
 
-import battleengine.entity.Battle;
-import config.GameConfiguration;
+import engine.battleengine.data.Battle;
 import engine.entity.boats.Boat;
-import engine.entity.boats.Fleet;
-import engine.process.BoatManager;
-
-import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * Manager of the Battle class, manage how the battle go
@@ -47,7 +41,7 @@ public class BattleManager {
      */
     public void tick(){
         if(!battle.isInPlacingMode()){
-            hunterManager.ActualizeChase(); // DANGEREUX /!\
+            hunterManager.ActualizeChase();
             battleBoatManager.tick();
             bulletManager.tick();
             shotManager.tick();
@@ -71,8 +65,12 @@ public class BattleManager {
         return battle.getBoatsInBattleB().getArrayListBoat().isEmpty();
     }
 
-    public boolean battleLost(){
-        return battle.getBoatsInBattleA().getArrayListBoat().isEmpty()&&battle.getLstBoatsToPlace().isEmpty()&&!battle.isInPlacingMode();
+    public void battleEnd(){
+        for(Boat boat : battle.getTeamA().getArrayListBoat()) {
+        }
+
+        for(Boat boat : battle.getTeamB().getArrayListBoat()) {
+        }
     }
 
 }

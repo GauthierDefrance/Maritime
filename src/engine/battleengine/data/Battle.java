@@ -1,14 +1,13 @@
-package battleengine.entity;
-import battleengine.factory.SpawnZoneFactory;
-import battleengine.tools.DeepCopy;
+package engine.battleengine.data;
 import config.GameConfiguration;
+import engine.battleengine.utilities.DeepCopy;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
+import engine.graph.GraphPoint;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Stack;
 
 /**
  * Class that represents a Battle, it contains 2 Fleet that represent
@@ -26,9 +25,6 @@ public class Battle {
     private HashMap<Boat, Boat> HunterPreyHashMap;
     private HashMap<Boat, Point> HunterPreyPointHashMap;
 
-    private Fleet originalA;
-    private Fleet originalB;
-
     private Fleet teamA;
     private Fleet teamB;
 
@@ -44,9 +40,6 @@ public class Battle {
     private Boat currentBoat;
     private Point currentBoatPoint;
 
-    private SpawnZone spawnzone;
-    private SpawnZone spawnzoneEnnemy;
-
     private boolean isInPlacingMode;
 
     /**
@@ -55,8 +48,6 @@ public class Battle {
      * @param fleetB
      */
     public Battle(Fleet fleetA, Fleet fleetB) {
-        this.originalA = fleetA;
-        this.originalB = fleetB;
         this.teamA = DeepCopy.copyFleet(fleetA);
         this.teamB = DeepCopy.copyFleet(fleetB);
         this.LstBoatsToPlace = this.teamA.getArrayListBoat();
@@ -64,8 +55,8 @@ public class Battle {
         this.HunterPreyHashMap = new HashMap<>();
         this.HunterPreyPointHashMap = new HashMap<>();
         this.ReloadingHashMap = new HashMap<>();
-        LstBulletsteamA= new ArrayList<>();
-        LstBulletsteamB= new ArrayList<>();
+        this.LstBulletsteamA= new ArrayList<>();
+        this.LstBulletsteamB= new ArrayList<>();
 
         for(Boat boat : this.teamA.getArrayListBoat()) {
             HunterPreyHashMap.put(boat, null);
@@ -84,8 +75,6 @@ public class Battle {
         this.DeadBoatsA= new Fleet();
         this.DeadBoatsB = new Fleet();
 
-        this.spawnzone = SpawnZoneFactory.buildDefaultSpawnZone();
-        this.spawnzoneEnnemy = SpawnZoneFactory.buildDefaultEnnemySpawnZone();
         this.isInPlacingMode = true;
         this.currentBoatPoint = new Point(0,0);
 
@@ -111,20 +100,6 @@ public class Battle {
      * @return The {@link HashMap<Boat,Boat>} of Hunter & Prey
      */
     public HashMap<Boat, Boat> getHunterPreyHashMap() { return HunterPreyHashMap;}
-
-    /**
-     * Gets the original fleet A.
-     *
-     * @return the original fleet A
-     */
-    public Fleet getOriginalA() { return originalA; }
-
-    /**
-     * Gets the original fleet B.
-     *
-     * @return the original fleet B
-     */
-    public Fleet getOriginalB() { return originalB; }
 
     /**
      * Gets team A's fleet.
@@ -175,20 +150,6 @@ public class Battle {
      */
     public Boat getCurrentBoat() { return currentBoat; }
 
-    /**
-     * Gets the spawn zone.
-     *
-     * @return the spawn zone
-     */
-    public SpawnZone getSpawnzone() { return spawnzone; }
-
-    /**
-     * Gets the enemy spawn zone.
-     *
-     * @return the enemy spawn zone
-     */
-    public SpawnZone getSpawnzoneEnnemy() { return spawnzoneEnnemy; }
-
 
     public HashMap<Boat, Point> getHunterPreyPointHashMap() { return HunterPreyPointHashMap;}
 
@@ -204,20 +165,6 @@ public class Battle {
      * @param hashMap
      */
     public void setHunterPreyHashMap(HashMap<Boat, Boat> hashMap) { this.HunterPreyHashMap=hashMap;}
-
-    /**
-     * Sets the original fleet A.
-     *
-     * @param fleet the new original fleet A
-     */
-    public void setOriginalA(Fleet fleet) { this.originalA = fleet; }
-
-    /**
-     * Sets the original fleet B.
-     *
-     * @param fleet the new original fleet B
-     */
-    public void setOriginalB(Fleet fleet) { this.originalB = fleet; }
 
     /**
      * Sets team A's fleet.
@@ -268,19 +215,6 @@ public class Battle {
      */
     public void setCurrentBoat(Boat boat) { this.currentBoat = boat; }
 
-    /**
-     * Sets the spawn zone.
-     *
-     * @param spawnzone the new spawn zone
-     */
-    public void setSpawnzone(SpawnZone spawnzone) { this.spawnzone = spawnzone; }
-
-    /**
-     * Sets the enemy spawn zone.
-     *
-     * @param spawnzoneEnnemy the new enemy spawn zone
-     */
-    public void setSpawnzoneEnnemy(SpawnZone spawnzoneEnnemy) { this.spawnzoneEnnemy = spawnzoneEnnemy; }
 
     /**
      * Sets the placing mode.

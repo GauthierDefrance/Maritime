@@ -1,4 +1,4 @@
-package battleengine.tools;
+package engine.battleengine.utilities;
 
 import engine.entity.boats.Boat;
 import java.awt.Point;
