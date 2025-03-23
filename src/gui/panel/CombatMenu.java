@@ -264,6 +264,12 @@ public class CombatMenu extends JPanel implements Runnable {
             for (PopUp popUp : MapGame.getInstance().getLstPopUp()) {
                 popUp.addIFrame(1);
             }
+            if(battleManager.battleEnded()){
+                ThreadStop = true;
+                battleManager.battleEnd();
+                MapGame.getInstance().setTimeStop(true);
+                GUILoader.loadMainGame();
+            }
         }
     }
 }

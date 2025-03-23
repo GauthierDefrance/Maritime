@@ -179,13 +179,6 @@ public class BattleBoatManager {
         return new Point(x, y);
     }
 
-    public static void giveBoatMoveOrder(Boat boat, Point point){
-        boat.setNextGraphPoint(new GraphPoint(point,null));
-    }
-
-    public static void cancelBoatMoveOrder(Boat boat){
-        boat.setNextGraphPoint(null);
-    }
 
 
 }

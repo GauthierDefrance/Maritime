@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
 
 public class Debug extends JFrame{
 
@@ -99,6 +100,7 @@ public class Debug extends JFrame{
             switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
                 case "gui.panel.OptionsMenu" :
                 case "gui.panel.PauseMenu" : {
+                    MainGUI.setBattle(EngineBuilder.createBattle(MapGame.getInstance().getPlayer().getLstFleet().get(0), MapGame.getInstance().getLstBotFaction().get(0).getLstFleet().get(0)));
                     GUILoader.loadCombat(MainGUI.getBattle());
                     break;
                 }

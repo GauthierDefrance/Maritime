@@ -98,7 +98,6 @@ public class TestMove {
         MapGame.getInstance().getPlayer().addSeaRoad(seaRoad1);
         MapGame.getInstance().getLstFaction().get(0).addSeaRoad(seaRoad2);
 
-        MainGUI.setBattle(EngineBuilder.createBattle(fleet1, fleet2));
         MapGame.getInstance().setTimeStop(true);
     }
 }
