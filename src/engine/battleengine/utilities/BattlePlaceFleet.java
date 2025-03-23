@@ -1,6 +1,6 @@
-package battleengine.factory;
+package engine.battleengine.utilities;
 
-import battleengine.entity.Battle;
+import engine.battleengine.data.Battle;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
 import static config.GameConfiguration.*;
@@ -9,18 +9,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 
-public final class BattleFactory {
+public final class BattlePlaceFleet {
 
-    public static Battle createBattle(Fleet fleetA, Fleet fleetB) {
-        Battle battle = new Battle(fleetA, fleetB);
-        placeEnemyFleet(battle);
-        return battle;
-    }
-
-    private static void placeEnemyFleet(Battle battle) {
+    public static void placeEnemyFleet(Battle battle) {
         Fleet fleet = battle.getTeamB();
-        Boat tmp;
-        ArrayList<Boat> group = new ArrayList<Boat>();
+        ArrayList<Boat> group = new ArrayList<>();
         Iterator<Boat> fleetIterator = fleet.getArrayListBoat().iterator();
 
         int index=0;

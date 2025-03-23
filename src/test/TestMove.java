@@ -1,11 +1,11 @@
 package test;
 
-import battleengine.factory.BattleFactory;
 import engine.MapGame;
 import engine.entity.boats.*;
 import engine.faction.Faction;
 import engine.process.builder.TradeObjectBuilder;
 import engine.trading.Currency;
+import engine.process.builder.EngineBuilder;
 import engine.utilities.SearchInGraph;
 import engine.process.FactionManager;
 import engine.trading.Resource;
@@ -98,7 +98,7 @@ public class TestMove {
         MapGame.getInstance().getPlayer().addSeaRoad(seaRoad1);
         MapGame.getInstance().getLstFaction().get(0).addSeaRoad(seaRoad2);
 
-        MainGUI.setBattle(BattleFactory.createBattle(fleet1, fleet2));
+        MainGUI.setBattle(EngineBuilder.createBattle(fleet1, fleet2));
         MapGame.getInstance().setTimeStop(true);
     }
 }

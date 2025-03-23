@@ -1,15 +1,14 @@
-package battleengine.process;
+package engine.battleengine.process;
 
-import battleengine.entity.Battle;
-import battleengine.entity.Bullet;
-import battleengine.factory.BulletFactory;
-import battleengine.tools.AngleCalculator;
+import engine.battleengine.data.Battle;
+import engine.battleengine.data.Bullet;
+import engine.battleengine.utilities.AngleCalculator;
 import config.GameConfiguration;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
+import engine.process.builder.EngineBuilder;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Class that manage the shoots of the {@link Boat}
@@ -126,7 +125,7 @@ public class ShootManager {
     private void shoot(Boat hunter, Boat prey){
         Bullet bullet;
         double angle = AngleCalculator.calculateAngle(hunter.getPosition(), prey.getPosition());
-        bullet = BulletFactory.createBullet((int) (hunter.getPosition().getX()), (int) (hunter.getPosition().getY()), angle, hunter.getColor());
+        bullet = EngineBuilder.createBullet((int) (hunter.getPosition().getX()), (int) (hunter.getPosition().getY()), angle, hunter.getColor());
         if(this.battle.getBoatsInBattleA().getArrayListBoat().contains(hunter)){
             this.battle.getLstBulletsteamA().add(bullet);
         }

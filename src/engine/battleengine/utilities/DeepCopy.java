@@ -1,4 +1,4 @@
-package battleengine.tools;
+package engine.battleengine.utilities;
 
 import engine.entity.boats.*;
 import engine.graph.GraphPoint;

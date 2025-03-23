@@ -1,7 +1,7 @@
 package gui.panel;
 
-import battleengine.entity.Battle;
-import battleengine.process.BattleManager;
+import engine.battleengine.data.Battle;
+import engine.battleengine.process.BattleManager;
 import config.GameConfiguration;
 import engine.MapGame;
 import engine.entity.boats.Boat;

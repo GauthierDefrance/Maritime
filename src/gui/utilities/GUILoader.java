@@ -1,6 +1,6 @@
 package gui.utilities;
 
-import battleengine.entity.Battle;
+import engine.battleengine.data.Battle;
 import engine.entity.Harbor;
 import engine.faction.Faction;
 import engine.trading.TradeOffer;

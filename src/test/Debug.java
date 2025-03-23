@@ -1,7 +1,7 @@
 package test;
 
 import engine.MapGame;
-import engine.utilities.EngineBuilder;
+import engine.process.builder.EngineBuilder;
 import gui.MainGUI;
 import gui.utilities.GUILoader;
 import gui.process.JComponentBuilder;

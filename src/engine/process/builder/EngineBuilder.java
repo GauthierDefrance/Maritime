@@ -1,12 +1,12 @@
-package engine.utilities;
+package engine.process.builder;
 
+import engine.battleengine.data.Battle;
+import engine.battleengine.data.Bullet;
+import engine.battleengine.utilities.BattlePlaceFleet;
 import config.GameConfiguration;
 import engine.MapGame;
 import engine.entity.Harbor;
-import engine.entity.boats.Fodder;
-import engine.entity.boats.Merchant;
-import engine.entity.boats.Military;
-import engine.entity.boats.Standard;
+import engine.entity.boats.*;
 import engine.faction.Faction;
 import engine.faction.Player;
 import engine.graph.GraphPoint;
@@ -44,6 +44,16 @@ public class EngineBuilder {
      */
     private static void loggerWrite(String name,String param) {
         logger.info(name+" got "+param);
+    }
+
+    public static Bullet createBullet(int x, int y, double angle, String color){
+        return new Bullet(x, y, GameConfiguration.DEFAULT_BULLET_SPEED, angle, color);
+    }
+
+    public static Battle createBattle(Fleet fleetA, Fleet fleetB) {
+        Battle battle = new Battle(fleetA, fleetB);
+        BattlePlaceFleet.placeEnemyFleet(battle);
+        return battle;
     }
 
     public static Standard Standard(String name,GraphPoint graphPoint){

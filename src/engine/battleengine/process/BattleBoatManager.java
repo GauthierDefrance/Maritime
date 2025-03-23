@@ -1,7 +1,7 @@
-package battleengine.process;
+package engine.battleengine.process;
 
-import battleengine.entity.Battle;
-import battleengine.tools.AngleCalculator;
+import engine.battleengine.data.Battle;
+import engine.battleengine.utilities.AngleCalculator;
 import config.GameConfiguration;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;

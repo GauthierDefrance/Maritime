@@ -1,6 +1,5 @@
-package battleengine.entity;
-import battleengine.factory.SpawnZoneFactory;
-import battleengine.tools.DeepCopy;
+package engine.battleengine.data;
+import engine.battleengine.utilities.DeepCopy;
 import config.GameConfiguration;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
@@ -8,7 +7,6 @@ import engine.entity.boats.Fleet;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Stack;
 
 /**
  * Class that represents a Battle, it contains 2 Fleet that represent
@@ -43,9 +41,6 @@ public class Battle {
 
     private Boat currentBoat;
     private Point currentBoatPoint;
-
-    private SpawnZone spawnzone;
-    private SpawnZone spawnzoneEnnemy;
 
     private boolean isInPlacingMode;
 
@@ -84,8 +79,6 @@ public class Battle {
         this.DeadBoatsA= new Fleet();
         this.DeadBoatsB = new Fleet();
 
-        this.spawnzone = SpawnZoneFactory.buildDefaultSpawnZone();
-        this.spawnzoneEnnemy = SpawnZoneFactory.buildDefaultEnnemySpawnZone();
         this.isInPlacingMode = true;
         this.currentBoatPoint = new Point(0,0);
 
@@ -175,20 +168,6 @@ public class Battle {
      */
     public Boat getCurrentBoat() { return currentBoat; }
 
-    /**
-     * Gets the spawn zone.
-     *
-     * @return the spawn zone
-     */
-    public SpawnZone getSpawnzone() { return spawnzone; }
-
-    /**
-     * Gets the enemy spawn zone.
-     *
-     * @return the enemy spawn zone
-     */
-    public SpawnZone getSpawnzoneEnnemy() { return spawnzoneEnnemy; }
-
 
     public HashMap<Boat, Point> getHunterPreyPointHashMap() { return HunterPreyPointHashMap;}
 
@@ -268,19 +247,6 @@ public class Battle {
      */
     public void setCurrentBoat(Boat boat) { this.currentBoat = boat; }
 
-    /**
-     * Sets the spawn zone.
-     *
-     * @param spawnzone the new spawn zone
-     */
-    public void setSpawnzone(SpawnZone spawnzone) { this.spawnzone = spawnzone; }
-
-    /**
-     * Sets the enemy spawn zone.
-     *
-     * @param spawnzoneEnnemy the new enemy spawn zone
-     */
-    public void setSpawnzoneEnnemy(SpawnZone spawnzoneEnnemy) { this.spawnzoneEnnemy = spawnzoneEnnemy; }
 
     /**
      * Sets the placing mode.

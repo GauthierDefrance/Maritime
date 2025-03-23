@@ -1,13 +1,6 @@
-package battleengine.process;
+package engine.battleengine.process;
 
-import battleengine.entity.Battle;
-import config.GameConfiguration;
-import engine.entity.boats.Boat;
-import engine.entity.boats.Fleet;
-import engine.process.BoatManager;
-
-import java.awt.*;
-import java.util.ArrayList;
+import engine.battleengine.data.Battle;
 
 /**
  * Manager of the Battle class, manage how the battle go

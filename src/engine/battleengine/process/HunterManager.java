@@ -1,6 +1,6 @@
-package battleengine.process;
+package engine.battleengine.process;
 
-import battleengine.entity.Battle;
+import engine.battleengine.data.Battle;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
 
