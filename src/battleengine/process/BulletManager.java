@@ -6,7 +6,10 @@ import config.GameConfiguration;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
 import engine.process.BoatManager;
+import engine.MapGame;
+import gui.PopUp;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -114,7 +117,7 @@ public class BulletManager {
         while(bulletsIt.hasNext()) {
             tmp = bulletsIt.next();
             if(collide(tmp, fleet)){
-                //RAJOUTER POP UP ICI EXPLOSION
+                MapGame.getInstance().getLstPopUp().add(new PopUp("explosion", tmp.getPosition()));
                 bulletsIt.remove();
             }
         }

@@ -50,4 +50,5 @@ public class PopUp implements Serializable {
     public void setPosition(Point position) {
         this.position = position;
     }
+
 }
