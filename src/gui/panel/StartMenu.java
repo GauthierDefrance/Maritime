@@ -12,6 +12,7 @@ import gui.process.ListenerBehaviorManager;
 import test.TestMove;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -28,6 +29,9 @@ public class StartMenu extends JPanel implements Runnable {
     private JPanel dashboardJPanel;
 
     private JPanel jPanelATH;
+    private JPanel jNorthATHPanel;
+    private JPanel NorthVoidpanel;
+    private JPanel buttonDisplay;
 
     private GameDisplay dashboard;
     private final FactionManager factionManager = new FactionManager();
@@ -49,9 +53,14 @@ public class StartMenu extends JPanel implements Runnable {
         this.setLayout(new BorderLayout());
         jPanelATH = JComponentBuilder.borderMenuPanel();
         dashboardJPanel = JComponentBuilder.borderMenuPanel();
+        jNorthATHPanel = JComponentBuilder.borderMenuPanel();
+        NorthVoidpanel = JComponentBuilder.voidPanel();
         dashboard = new GameDisplay();
 
-        JLabel title = JComponentBuilder.title("Maritime");
+        JLabel title = JComponentBuilder.title(" Maritime ");
+        title.setOpaque(true);
+        title.setForeground(Color.black);
+        title.setBackground(Color.lightGray);
 
         JLabel credits = JComponentBuilder.credits("A Game by Ammad Kenan, Defrance Gauthier & Zue Jack-Arthur");
 
@@ -67,7 +76,8 @@ public class StartMenu extends JPanel implements Runnable {
 
         JPanel creditsDisplay = JComponentBuilder.flowMenuPanel(credits);
 
-        JPanel buttonDisplay = JComponentBuilder.flowMenuPanel(newGame, loadGame, options, exit);
+        buttonDisplay = JComponentBuilder.gridMenuPanel(1,0,10,0,newGame, loadGame, options, exit);
+        JPanel tmpButtonDisplay = JComponentBuilder.flowMenuPanel(buttonDisplay);
 
         this.addKeyListener(new KeyControls());
         getWindow().addComponentListener(new ComponentControls());
@@ -80,24 +90,39 @@ public class StartMenu extends JPanel implements Runnable {
         dashboard.setBackground(GameConfiguration.WATER_BACKGROUND_COLOR);
 
         jPanelATH.setOpaque(false);
+        jNorthATHPanel.setOpaque(false);
+        tmpButtonDisplay.setOpaque(false);
         titleDisplay.setOpaque(false);
         creditsDisplay.setOpaque(true);
         buttonDisplay.setOpaque(false);
+        jNorthATHPanel.add(NorthVoidpanel,BorderLayout.NORTH);
+        jNorthATHPanel.add(titleDisplay,BorderLayout.CENTER);
 
         dashboardJPanel.add(dashboard,BorderLayout.CENTER);
-        jPanelATH.add(titleDisplay, BorderLayout.NORTH);
-        jPanelATH.add(buttonDisplay, BorderLayout.CENTER);
+        jPanelATH.add(jNorthATHPanel, BorderLayout.NORTH);
+        jPanelATH.add(tmpButtonDisplay, BorderLayout.CENTER);
         jPanelATH.add(creditsDisplay, BorderLayout.SOUTH);
 
         jLayeredPane.add(dashboardJPanel,JLayeredPane.DEFAULT_LAYER);
         jLayeredPane.add(jPanelATH,JLayeredPane.PALETTE_LAYER);
 
         this.add(jLayeredPane);
-
+        sizeUpdate();
 
         ThreadStop = false;
         Thread gameThread = new Thread(this);
         gameThread.start();
+    }
+    private void sizeUpdate() {
+        dashboardJPanel.setBounds(getWindow().getBounds());
+        jPanelATH.setBounds(getWindow().getBounds());
+        NorthVoidpanel.setPreferredSize(new Dimension(getWindow().getWidth(),(int) (getWindow().getHeight()*0.025)));
+        jNorthATHPanel.setPreferredSize(new Dimension(getWindow().getWidth(),(int) (getWindow().getHeight()*0.10)));
+        buttonDisplay.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.6),(int) (getWindow().getHeight()*0.08)));
+
+
+        getWindow().revalidate();
+        getWindow().repaint();
     }
 
     /**
@@ -142,11 +167,7 @@ public class StartMenu extends JPanel implements Runnable {
 
         @Override
         public void componentResized(ComponentEvent e) {
-            dashboardJPanel.setBounds(getWindow().getBounds());
-            jPanelATH.setBounds(getWindow().getBounds());
-            getWindow().revalidate();
-            getWindow().repaint();
-
+            sizeUpdate();
         }
 
         @Override

@@ -10,8 +10,12 @@ import log.LoggerUtility;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
+
+import static gui.MainGUI.getWindow;
 
 /**
  * Class containing methods to build (Components)
@@ -263,6 +267,22 @@ public class JComponentBuilder {
      * Build a GridLayout JPanel accommodating game-menu Convention
      * @param r number of rows
      * @param c number of columns
+     * @param components other components that must be present within the JPanel
+     * @see GridLayout
+     * @return built JPanel
+     */
+    public static JPanel gridMenuPanel(int r, int c, JComponent... components) {
+        JPanel newPanel = gridMenuPanel(r,c);
+        for (JComponent component : components) {
+            newPanel.add(component);
+            loggerWrite("gridMenuPanel r="+r+" c="+c,component.getClass().getName()+" Object assigned name "+component.getName());
+        } return newPanel;
+    }
+
+    /**
+     * Build a GridLayout JPanel accommodating game-menu Convention
+     * @param r number of rows
+     * @param c number of columns
      * @param heightGap height gap between rows
      * @param widthGap width gap between rows
      * @param components other components that must be present within the JPanel
@@ -309,6 +329,16 @@ public class JComponentBuilder {
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         contentPanel.setOpaque(false);
         return contentPanel;
+    }
+
+    /**
+     */
+    public static void setBorderIn(JComponent jComponent, Border border) {
+        loggerWrite("jComponent"+jComponent.getName(),"setBorder");
+        for(Component ComponentIn : jComponent.getComponents()){
+            JComponent jComponentIn = (JComponent) ComponentIn;
+            jComponentIn.setBorder(border);
+        }
     }
 
 }
