@@ -27,8 +27,9 @@ public class PaintBackGround {
     /**
      * Paints a backGround that needs to be painted on 2D graphics
      */
-    public void paint(Graphics2D g2d){
+    public void paint(Graphics2D g2d,boolean map){
         g2d.drawImage(ImageStock.getImage(this), 0, 0,null);
+        if (map) g2d.drawImage(ImageStock.getImageMap(this), 0, 0,null);
     }
 
     public int getIFrame() {

@@ -25,9 +25,9 @@ import static gui.MainGUI.getWindow;
  */
 public class StartMenu extends JPanel implements Runnable {
 
-    private final JPanel jPanel0 = new JPanel();
+    private JPanel dashboardJPanel;
 
-    private final JPanel jPanel1 = new JPanel();
+    private JPanel jPanelATH;
 
     private GameDisplay dashboard;
     private final FactionManager factionManager = new FactionManager();
@@ -47,9 +47,9 @@ public class StartMenu extends JPanel implements Runnable {
     public void init() {
         EngineBuilder.mapInit(0);
         this.setLayout(new BorderLayout());
+        jPanelATH = JComponentBuilder.borderMenuPanel();
+        dashboardJPanel = JComponentBuilder.borderMenuPanel();
         dashboard = new GameDisplay();
-        jPanel1.setLayout(new BorderLayout());
-        jPanel0.setLayout(new BorderLayout());
 
         JLabel title = JComponentBuilder.title("Maritime");
 
@@ -71,26 +71,26 @@ public class StartMenu extends JPanel implements Runnable {
 
         this.addKeyListener(new KeyControls());
         getWindow().addComponentListener(new ComponentControls());
-        jPanel0.setBounds(getWindow().getBounds());
-        jPanel1.setBounds(getWindow().getBounds());
+        dashboardJPanel.setBounds(getWindow().getBounds());
+        jPanelATH.setBounds(getWindow().getBounds());
 
         //Window arrangement
         JLayeredPane jLayeredPane = new JLayeredPane();
 
         dashboard.setBackground(GameConfiguration.WATER_BACKGROUND_COLOR);
 
-        jPanel1.setOpaque(false);
+        jPanelATH.setOpaque(false);
         titleDisplay.setOpaque(false);
         creditsDisplay.setOpaque(true);
         buttonDisplay.setOpaque(false);
 
-        jPanel0.add(dashboard,BorderLayout.CENTER);
-        jPanel1.add(titleDisplay, BorderLayout.NORTH);
-        jPanel1.add(buttonDisplay, BorderLayout.CENTER);
-        jPanel1.add(creditsDisplay, BorderLayout.SOUTH);
+        dashboardJPanel.add(dashboard,BorderLayout.CENTER);
+        jPanelATH.add(titleDisplay, BorderLayout.NORTH);
+        jPanelATH.add(buttonDisplay, BorderLayout.CENTER);
+        jPanelATH.add(creditsDisplay, BorderLayout.SOUTH);
 
-        jLayeredPane.add(jPanel0,JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane.add(jPanel1,JLayeredPane.PALETTE_LAYER);
+        jLayeredPane.add(dashboardJPanel,JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane.add(jPanelATH,JLayeredPane.PALETTE_LAYER);
 
         this.add(jLayeredPane);
 
@@ -142,8 +142,8 @@ public class StartMenu extends JPanel implements Runnable {
 
         @Override
         public void componentResized(ComponentEvent e) {
-            jPanel0.setBounds(getWindow().getBounds());
-            jPanel1.setBounds(getWindow().getBounds());
+            dashboardJPanel.setBounds(getWindow().getBounds());
+            jPanelATH.setBounds(getWindow().getBounds());
             getWindow().revalidate();
             getWindow().repaint();
 

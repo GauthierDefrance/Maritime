@@ -51,7 +51,7 @@ public class ChoiceDisplay extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
         double scale = Math.min((double)getWidth()/640,(double) getHeight() /360);
         g2d.scale(scale,scale);
-        paintBackGround.paint(g2d);
+        paintBackGround.paint(g2d,true);
         g2d.scale((double) 1 /GameConfiguration.GAME_SCALE, (double) 1 /GameConfiguration.GAME_SCALE);
 
         if (state == 0){

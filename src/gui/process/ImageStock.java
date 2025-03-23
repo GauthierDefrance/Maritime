@@ -57,13 +57,13 @@ public class ImageStock {
 
             for (int i = 0; i < GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES; i++) {
                 tbFramesSprite[0][i] = (ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/background/background-"+i+".png")));
-                tbFramesSprite[1][i] = (ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/popup/popup+.png")));
-                tbFramesSprite[2][i] = (ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/popup/popup-.png")));
+                tbFramesSprite[1][i] = (ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/background/map.png")));
+                tbFramesSprite[2][i] = (ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/popup/popup+.png")));
+                tbFramesSprite[3][i] = (ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/popup/popup-.png")));
             }
 
             logger.info("load image success");
         } catch (Exception e) {
-            System.err.println(e+"error can't find image sprite");
             logger.warn("load image fail : "+e);
         }
     }
@@ -157,24 +157,24 @@ public class ImageStock {
     public static BufferedImage getImage(PopUp popUp){
         switch (popUp.getName()) {
             case "+" :{
-                return getInstance().getTbFramesSprite(1,popUp.getIFrame());
-            }
-            case "-" :{
                 return getInstance().getTbFramesSprite(2,popUp.getIFrame());
             }
-            case "02" :{
+            case "-" :{
                 return getInstance().getTbFramesSprite(3,popUp.getIFrame());
             }
-            case "03" :{
+            case "02" :{
                 return getInstance().getTbFramesSprite(4,popUp.getIFrame());
             }
-            case "04" :{
+            case "03" :{
                 return getInstance().getTbFramesSprite(5,popUp.getIFrame());
+            }
+            case "04" :{
+                return getInstance().getTbFramesSprite(6,popUp.getIFrame());
             }
             default : {
             }
         }
-        return getInstance().getTbFramesSprite(1,popUp.getIFrame());
+        return getInstance().getTbFramesSprite(2,popUp.getIFrame());
     }
 
     /**
@@ -182,6 +182,13 @@ public class ImageStock {
      */
     public static BufferedImage getImage(PaintBackGround backGround){
         return getInstance().getTbFramesSprite(0,backGround.getIFrame());
+    }
+
+    /**
+     * Allows you to choose the image to displayed
+     */
+    public static BufferedImage getImageMap(PaintBackGround backGround){
+        return getInstance().getTbFramesSprite(1,backGround.getIFrame());
     }
 
     /**

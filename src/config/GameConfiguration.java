@@ -11,7 +11,7 @@ public final class GameConfiguration {
     //-------- Game Stats --------
         public static final int NUMBER_OF_BACK_GROUND_FRAMES = 8;
         public static final int GAME_SPEED = 100; //ms per frame
-        public static final int GAME_SCALE = 3;
+        public static final int GAME_SCALE = 5;
 
     //--------------------------------
 
