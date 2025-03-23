@@ -67,13 +67,9 @@ public class BattleManager {
 
     public void battleEnd(){
         for(Boat boat : battle.getTeamA().getArrayListBoat()) {
-            boat.setPosition(battle.getsavePositionHashMap().get(boat));
-            boat.setNextGraphPoint(battle.getsaveNextPointHashMap().get(boat));
         }
 
         for(Boat boat : battle.getTeamB().getArrayListBoat()) {
-            boat.setPosition(battle.getsavePositionHashMap().get(boat));
-            boat.setNextGraphPoint(battle.getsaveNextPointHashMap().get(boat));
         }
     }
 

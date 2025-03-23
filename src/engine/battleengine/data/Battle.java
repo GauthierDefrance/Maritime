@@ -1,5 +1,6 @@
 package engine.battleengine.data;
 import config.GameConfiguration;
+import engine.battleengine.utilities.DeepCopy;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
 import engine.graph.GraphPoint;
@@ -23,8 +24,6 @@ public class Battle {
 
     private HashMap<Boat, Boat> HunterPreyHashMap;
     private HashMap<Boat, Point> HunterPreyPointHashMap;
-    private HashMap<Boat, Point> savePositionHashMap;
-    private HashMap<Boat, GraphPoint> saveNextPointHashMap;
 
     private Fleet teamA;
     private Fleet teamB;
@@ -49,13 +48,11 @@ public class Battle {
      * @param fleetB
      */
     public Battle(Fleet fleetA, Fleet fleetB) {
-        this.teamA = fleetA;
-        this.teamB = fleetB;
+        this.teamA = DeepCopy.copyFleet(fleetA);
+        this.teamB = DeepCopy.copyFleet(fleetB);
         this.LstBoatsToPlace = this.teamA.getArrayListBoat();
         this.LstBoatsCurrentlyBeingPlaced = new ArrayList<>();
         this.HunterPreyHashMap = new HashMap<>();
-        this.savePositionHashMap = new HashMap<>();
-        this.saveNextPointHashMap = new HashMap<>();
         this.HunterPreyPointHashMap = new HashMap<>();
         this.ReloadingHashMap = new HashMap<>();
         this.LstBulletsteamA= new ArrayList<>();
@@ -65,17 +62,11 @@ public class Battle {
             HunterPreyHashMap.put(boat, null);
             HunterPreyPointHashMap.put(boat, null);
             ReloadingHashMap.put(boat, GameConfiguration.RELOAD_TIME);
-            boat.setNextGraphPoint(null);
-            boat.setOldGraphPoint(null);
         }
         for(Boat boat : this.teamB.getArrayListBoat()) {
             HunterPreyHashMap.put(boat, null);
             HunterPreyPointHashMap.put(boat, null);
-            savePositionHashMap.put(boat, boat.getPosition());
-            saveNextPointHashMap.put(boat, boat.getNextGraphPoint());
             ReloadingHashMap.put(boat, GameConfiguration.RELOAD_TIME);
-            boat.setNextGraphPoint(null);
-            boat.setOldGraphPoint(null);
         }
 
         this.BoatsInBattleA= new Fleet();
@@ -161,9 +152,6 @@ public class Battle {
 
 
     public HashMap<Boat, Point> getHunterPreyPointHashMap() { return HunterPreyPointHashMap;}
-
-    public HashMap<Boat, Point> getsavePositionHashMap() { return savePositionHashMap;}
-    public HashMap<Boat, GraphPoint> getsaveNextPointHashMap() { return saveNextPointHashMap;}
 
     /**
      * Checks if in placing mode.

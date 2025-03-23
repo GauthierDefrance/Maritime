@@ -25,20 +25,6 @@ public class PlacingManager {
     }
 
     /**
-     * Method that try to place the current Boat, return True if
-     * the Boat has been placed. Else return False.
-     * @param point object of type {@link Point}
-     * @return {@link Boolean}
-     */
-    public boolean tryPlaceCurrentBoat(Point point) {
-        if(tryPlaceBoat(battle.getCurrentBoat(),point)){
-            battle.setCurrentBoat(null);
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Method that try to place a given Boat, return True if the Boat has been placed.
      * Else return False.
      * @param boat object of type {@link Boat}
@@ -46,13 +32,10 @@ public class PlacingManager {
      * @return {@link Boolean}
      */
     public boolean tryPlaceBoat(Boat boat, Point point) {
-//        if(battle.getSpawnzone().isPlaceable(boat)){
-            boat.setPosition(point);
-            battle.getLstBoatsToPlace().remove(boat);
-            battle.getLstBoatsCurrentlyBeingPlaced().add(boat);
-            return true;
-//        }
-//        return false;
+        boat.setPosition(point);
+        battle.getLstBoatsToPlace().remove(boat);
+        battle.getLstBoatsCurrentlyBeingPlaced().add(boat);
+        return true;
     }
 
     /**
