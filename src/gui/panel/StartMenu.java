@@ -32,6 +32,7 @@ public class StartMenu extends JPanel implements Runnable {
     private JPanel jNorthATHPanel;
     private JPanel NorthVoidpanel;
     private JPanel buttonDisplay;
+    private JLabel title;
 
     private GameDisplay dashboard;
     private final FactionManager factionManager = new FactionManager();
@@ -55,9 +56,9 @@ public class StartMenu extends JPanel implements Runnable {
         dashboardJPanel = JComponentBuilder.borderMenuPanel();
         jNorthATHPanel = JComponentBuilder.borderMenuPanel();
         NorthVoidpanel = JComponentBuilder.voidPanel();
+        title = JComponentBuilder.title(" Maritime ");
         dashboard = new GameDisplay();
 
-        JLabel title = JComponentBuilder.title(" Maritime ");
         title.setOpaque(true);
         title.setForeground(Color.black);
         title.setBackground(Color.lightGray);
@@ -117,8 +118,9 @@ public class StartMenu extends JPanel implements Runnable {
         dashboardJPanel.setBounds(getWindow().getBounds());
         jPanelATH.setBounds(getWindow().getBounds());
         NorthVoidpanel.setPreferredSize(new Dimension(getWindow().getWidth(),(int) (getWindow().getHeight()*0.025)));
-        jNorthATHPanel.setPreferredSize(new Dimension(getWindow().getWidth(),(int) (getWindow().getHeight()*0.10)));
-        buttonDisplay.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.6),(int) (getWindow().getHeight()*0.08)));
+        jNorthATHPanel.setPreferredSize(new Dimension(getWindow().getWidth(),(int) Math.max(75,(getWindow().getHeight()*0.10))));
+        buttonDisplay.setPreferredSize(new Dimension((int) Math.max(600,getWindow().getWidth()*0.6),(int) (getWindow().getHeight()*0.08)));
+        title.setFont(new Font( "Noto Sans Display", Font.BOLD, Math.max(30,(int) (getWindow().getHeight()*0.05))));
 
 
         getWindow().revalidate();
