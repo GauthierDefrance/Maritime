@@ -49,28 +49,4 @@ public class BattleManager {
     }
 
 
-    public boolean battleEnded(){
-        if(battle.getBoatsInBattleA().getArrayListBoat().isEmpty()&&battle.getLstBoatsToPlace().isEmpty()&&!battle.isInPlacingMode()){
-            //Lose
-            return true;
-        }
-        else if(battle.getBoatsInBattleB().getArrayListBoat().isEmpty()){
-            //win
-            return true;
-        }
-        return false;
-    }
-
-    public boolean battleWon(){
-        return battle.getBoatsInBattleB().getArrayListBoat().isEmpty();
-    }
-
-    public void battleEnd(){
-        for(Boat boat : battle.getTeamA().getArrayListBoat()) {
-        }
-
-        for(Boat boat : battle.getTeamB().getArrayListBoat()) {
-        }
-    }
-
 }
