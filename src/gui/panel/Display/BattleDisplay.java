@@ -46,10 +46,10 @@ public class BattleDisplay extends JPanel {
         paintBackGround.paint(g2d,false);
         g2d.scale((double) 1 /GameConfiguration.GAME_SCALE, (double) 1 /GameConfiguration.GAME_SCALE);
 
-        for(Boat boat : MainGUI.getBattle().getBoatsInBattleA().getArrayListBoat()){
+        for(Boat boat : MainGUI.getBattle().getBoatsInBattleB().getArrayListBoat()){
             paintEntity.paintBattle(boat,g2d);
         }
-        for(Boat boat : MainGUI.getBattle().getBoatsInBattleB().getArrayListBoat()){
+        for(Boat boat : MainGUI.getBattle().getBoatsInBattleA().getArrayListBoat()){
             paintEntity.paintBattle(boat,g2d);
         }
         for(Boat boat : MainGUI.getBattle().getLstBoatsCurrentlyBeingPlaced()){
@@ -64,6 +64,16 @@ public class BattleDisplay extends JPanel {
         for (Bullet bullet : MainGUI.getBattle().getLstBulletsteamB()){
             g2d.setColor(ImageStock.colorChoice(bullet.getColor()));
             g2d.fillOval((int) (bullet.getPosition().getX()-5), (int) (bullet.getPosition().getY()-5),10,10);
+        }
+
+        for(Boat boat : MainGUI.getBattle().getBoatsInBattleB().getArrayListBoat()){
+            paintEntity.paintHP(boat,g2d);
+        }
+        for(Boat boat : MainGUI.getBattle().getBoatsInBattleA().getArrayListBoat()){
+            paintEntity.paintHP(boat,g2d);
+        }
+        for(Boat boat : MainGUI.getBattle().getLstBoatsCurrentlyBeingPlaced()){
+            paintEntity.paintHP(boat,g2d);
         }
 
         if(battle.getCurrentBoat() != null) {

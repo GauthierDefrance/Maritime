@@ -98,16 +98,18 @@ public class PaintEntity {
         g2d.rotate(-boat.getAngle(),(int)(boat.getPosition().getX()),(int)(boat.getPosition().getY()));
         g2d.setColor(Color.black);
         paint(boat,g2d);
+    }
+
+    public void paintHP(Boat boat, Graphics2D g2d){
         g2d.setColor(Color.DARK_GRAY);
         g2d.fillRect((int) (boat.getPosition().getX()- (double) 50 /2), (int) (boat.getPosition().getY()-((double) 10)+GameConfiguration.HITBOX_BOAT/2),50,10);
-
         if (boat.getCurrentHp()/(double)boat.getMaxHp()>0.75)g2d.setColor(Color.GREEN);
         else if (boat.getCurrentHp()/(double)boat.getMaxHp()>0.50)g2d.setColor(Color.YELLOW);
         else if (boat.getCurrentHp()/(double)boat.getMaxHp()>0.25)g2d.setColor(Color.ORANGE);
         else g2d.setColor(Color.RED);
-
         int width = (int) ((50*boat.getCurrentHp())/(double)boat.getMaxHp());
         g2d.fillRect((int) (boat.getPosition().getX()- (double) 50 /2), (int) (boat.getPosition().getY()-((double) 10)+GameConfiguration.HITBOX_BOAT/2),width,10);
+        g2d.setColor(Color.black);
     }
 
     public void paintHITBOX(Point point,  Color color, Graphics2D g2d){
