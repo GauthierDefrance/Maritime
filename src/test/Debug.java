@@ -54,7 +54,7 @@ public class Debug extends JFrame{
                 case "gui.panel.PauseMenu" : {
                     EngineBuilder.mapInit(0);
                     TestMove.addBoatTest();
-                    GUILoader.loadChoicePathMenu(MapGame.getInstance().getPlayer().getLstHarbor().get(0),MapGame.getInstance().getPlayer().getLstHarbor().get(1));
+                    GUILoader.loadChoicePathMenu(MapGame.getInstance().getPlayer().getLstHarbor().get(0),MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1));
                     break;
                 }
                 default : {

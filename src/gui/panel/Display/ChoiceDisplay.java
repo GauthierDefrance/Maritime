@@ -72,7 +72,7 @@ public class ChoiceDisplay extends JPanel {
             }
 
             if(!path.isEmpty()&&!path.get(path.size()-1).equals(harbor2.getGraphPosition())){
-                g2d.setColor(new Color(10, 160, 108));
+                g2d.setColor(new Color(10, 160, 70));
                 for(Map.Entry<String, GraphSegment> entry : path.get(path.size()-1).getSegmentHashMap().entrySet()){
                     if(!path.contains(entry.getValue().getGraphPoint())){
                         g2d.fillOval(entry.getValue().getGraphPoint().getX()-20, entry.getValue().getGraphPoint().getY()-20,40,40);
