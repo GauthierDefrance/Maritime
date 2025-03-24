@@ -44,12 +44,15 @@ public class BattleDisplay extends JPanel {
         double scale = Math.min((double)getWidth()/640,(double) getHeight() /360);
         g2d.scale(scale,scale);
         paintBackGround.paint(g2d,false);
+        g2d.setColor(ImageStock.colorChoice(MapGame.getInstance().getPlayer().getColor()));
+        g2d.fillRect(0,0, (int) (GameConfiguration.SPAWN_ZONE.getWidth()/GameConfiguration.GAME_SCALE), (int) (GameConfiguration.SPAWN_ZONE.getHeight()/GameConfiguration.GAME_SCALE));
+        g2d.setColor(Color.black);
         g2d.scale((double) 1 /GameConfiguration.GAME_SCALE, (double) 1 /GameConfiguration.GAME_SCALE);
 
-        for(Boat boat : MainGUI.getBattle().getBoatsInBattleA().getArrayListBoat()){
+        for(Boat boat : MainGUI.getBattle().getBoatsInBattleB().getArrayListBoat()){
             paintEntity.paintBattle(boat,g2d);
         }
-        for(Boat boat : MainGUI.getBattle().getBoatsInBattleB().getArrayListBoat()){
+        for(Boat boat : MainGUI.getBattle().getBoatsInBattleA().getArrayListBoat()){
             paintEntity.paintBattle(boat,g2d);
         }
         for(Boat boat : MainGUI.getBattle().getLstBoatsCurrentlyBeingPlaced()){
@@ -66,7 +69,17 @@ public class BattleDisplay extends JPanel {
             g2d.fillOval((int) (bullet.getPosition().getX()-5), (int) (bullet.getPosition().getY()-5),10,10);
         }
 
-        if(battle.getCurrentBoat() != null) {
+        for(Boat boat : MainGUI.getBattle().getBoatsInBattleB().getArrayListBoat()){
+            paintEntity.paintHP(boat,g2d);
+        }
+        for(Boat boat : MainGUI.getBattle().getBoatsInBattleA().getArrayListBoat()){
+            paintEntity.paintHP(boat,g2d);
+        }
+        for(Boat boat : MainGUI.getBattle().getLstBoatsCurrentlyBeingPlaced()){
+            paintEntity.paintHP(boat,g2d);
+        }
+
+        if(battle.getCurrentBoat() != null && battle.isInPlacingMode()) {
             int x = (int) ((battle.getCurrentBoatPoint().getX()*GameConfiguration.GAME_SCALE)/scale);
             int y = (int) ((battle.getCurrentBoatPoint().getY()*GameConfiguration.GAME_SCALE)/scale);
             Point boatPoint = new Point(x, y);

@@ -4,7 +4,10 @@ import engine.battleengine.data.Battle;
 import engine.battleengine.process.BattleManager;
 import config.GameConfiguration;
 import engine.MapGame;
+import engine.battleengine.utilities.AngleCalculator;
+import engine.entity.Harbor;
 import engine.entity.boats.Boat;
+import engine.process.BoatManager;
 import gui.MainGUI;
 import gui.PopUp;
 import gui.panel.Display.BattleDisplay;
@@ -197,9 +200,13 @@ public class CombatMenu extends JPanel implements Runnable {
             if (e.getButton() == MouseEvent.BUTTON1 && battle.getCurrentBoat()!=null) {
                 Point point0 = SwingUtilities.convertPoint((Component) e.getSource(),e.getPoint(),dashboardJPanel);
                 Point point = ListenerBehaviorManager.create().clickLogic(CombatMenu.this, point0);
-                battleManager.getPlacingManager().tryPlaceBoat(battle.getCurrentBoat(),point);
+                if(GameConfiguration.SPAWN_ZONE.contains(point)) {
+                    battleManager.getPlacingManager().tryPlaceBoat(battle.getCurrentBoat(), point);
+                }
                 battle.setCurrentBoat(null);
+                battle.setCurrentBoatPoint(new Point(-100,-100));
                 elementInPanelUpdate();
+
             }
             jWestATHPanel.setVisible(true);
         }
