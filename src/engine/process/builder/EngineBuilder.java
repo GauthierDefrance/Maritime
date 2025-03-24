@@ -105,7 +105,7 @@ public class EngineBuilder {
     }
 
     public static void mapInit(int choice) {
-        mapInit0();
+        mapInit1();
     }
 
     public static MapGame mapInit0() {
@@ -206,6 +206,130 @@ public class EngineBuilder {
         lstHarbor.add(harborB);
         lstHarbor.add(harborC);
         lstHarbor.add(harborD);
+
+        lstFaction.addAll(lstBotFaction);
+        lstFaction.add(player);
+        MapGame.getInstance().setLstPopUp(lstPopUp);
+        MapGame.getInstance().setLstHarbor(lstHarbor);
+        MapGame.getInstance().setLstFaction(lstFaction);
+        MapGame.getInstance().setLstBotFaction(lstBotFaction);
+        MapGame.getInstance().setPlayer(player);
+        return MapGame.getInstance();
+    }
+    public static MapGame mapInit1() {
+        MapGame.getInstance().setTimeStop(false);
+        ArrayList<PopUp> lstPopUp =new ArrayList<>();
+        ArrayList<Harbor> lstHarbor = new ArrayList<>();
+        ArrayList<Faction> lstFaction = new ArrayList<>();
+        ArrayList<Faction> lstBotFaction = new ArrayList<>();
+        HashMap<String, GraphPoint> mapGraphPoint = new HashMap<>();
+        MapGame.getInstance().setMapGraphPoint(mapGraphPoint);
+        Player player = new Player("blue");
+
+        //Harbor init
+        GraphPoint AHarbor = new GraphPoint(new Point(100*GameConfiguration.GAME_SCALE,61*GameConfiguration.GAME_SCALE),"AHarbor");
+        GraphPoint BHarbor = new GraphPoint(new Point(276*GameConfiguration.GAME_SCALE,47*GameConfiguration.GAME_SCALE),"BHarbor");
+        GraphPoint CHarbor = new GraphPoint(new Point(279*GameConfiguration.GAME_SCALE,143*GameConfiguration.GAME_SCALE),"CHarbor");
+        GraphPoint DHarbor = new GraphPoint(new Point(379*GameConfiguration.GAME_SCALE,72*GameConfiguration.GAME_SCALE),"DHarbor");
+        GraphPoint EHarbor = new GraphPoint(new Point(76*GameConfiguration.GAME_SCALE,229*GameConfiguration.GAME_SCALE),"EHarbor");
+        GraphPoint FHarbor = new GraphPoint(new Point(152*GameConfiguration.GAME_SCALE,267*GameConfiguration.GAME_SCALE),"FHarbor");
+        GraphPoint GHarbor = new GraphPoint(new Point(347*GameConfiguration.GAME_SCALE,256*GameConfiguration.GAME_SCALE),"GHarbor");
+        GraphPoint HHarbor = new GraphPoint(new Point(466*GameConfiguration.GAME_SCALE,281*GameConfiguration.GAME_SCALE),"HHarbor");
+        GraphPoint IHarbor = new GraphPoint(new Point(519*GameConfiguration.GAME_SCALE,86*GameConfiguration.GAME_SCALE),"IHarbor");
+        GraphPoint JHarbor = new GraphPoint(new Point(627*GameConfiguration.GAME_SCALE,167*GameConfiguration.GAME_SCALE),"JHarbor");
+        GraphPoint KHarbor = new GraphPoint(new Point(573*GameConfiguration.GAME_SCALE,218*GameConfiguration.GAME_SCALE),"KHarbor");
+
+        Harbor harborA = new Harbor("harbor-A","",new Point(68*GameConfiguration.GAME_SCALE,48*GameConfiguration.GAME_SCALE),AHarbor);
+        Harbor harborB = new Harbor("harbor-B","",new Point(255*GameConfiguration.GAME_SCALE,17*GameConfiguration.GAME_SCALE),BHarbor);
+        Harbor harborC = new Harbor("harbor-C","",new Point(315*GameConfiguration.GAME_SCALE,148*GameConfiguration.GAME_SCALE),CHarbor);
+        Harbor harborD = new Harbor("harbor-D","",new Point(350*GameConfiguration.GAME_SCALE,30*GameConfiguration.GAME_SCALE),DHarbor);
+        Harbor harborE = new Harbor("harbor-E","",new Point(110*GameConfiguration.GAME_SCALE,215*GameConfiguration.GAME_SCALE),EHarbor);
+        Harbor harborF = new Harbor("harbor-F","",new Point(122*GameConfiguration.GAME_SCALE,260*GameConfiguration.GAME_SCALE),FHarbor);
+        Harbor harborG = new Harbor("harbor-G","",new Point(320*GameConfiguration.GAME_SCALE,275*GameConfiguration.GAME_SCALE),GHarbor);
+        Harbor harborH = new Harbor("harbor-H","",new Point(478*GameConfiguration.GAME_SCALE,296*GameConfiguration.GAME_SCALE),HHarbor);
+        Harbor harborI = new Harbor("harbor-I","",new Point(502*GameConfiguration.GAME_SCALE,44*GameConfiguration.GAME_SCALE),IHarbor);
+        Harbor harborJ = new Harbor("harbor-J","",new Point(597*GameConfiguration.GAME_SCALE,160*GameConfiguration.GAME_SCALE),JHarbor);
+        Harbor harborK = new Harbor("harbor-K","",new Point(609*GameConfiguration.GAME_SCALE,229*GameConfiguration.GAME_SCALE),KHarbor);
+
+        MapGame.getInstance().addGraphPoint(AHarbor);
+        MapGame.getInstance().addGraphPoint(BHarbor);
+        MapGame.getInstance().addGraphPoint(CHarbor);
+        MapGame.getInstance().addGraphPoint(DHarbor);
+        MapGame.getInstance().addGraphPoint(EHarbor);
+        MapGame.getInstance().addGraphPoint(FHarbor);
+        MapGame.getInstance().addGraphPoint(GHarbor);
+        MapGame.getInstance().addGraphPoint(HHarbor);
+        MapGame.getInstance().addGraphPoint(IHarbor);
+        MapGame.getInstance().addGraphPoint(JHarbor);
+        MapGame.getInstance().addGraphPoint(KHarbor);
+
+        lstHarbor.add(harborA);
+        lstHarbor.add(harborB);
+        lstHarbor.add(harborC);
+        lstHarbor.add(harborD);
+        lstHarbor.add(harborE);
+        lstHarbor.add(harborF);
+        lstHarbor.add(harborG);
+        lstHarbor.add(harborH);
+        lstHarbor.add(harborI);
+        lstHarbor.add(harborJ);
+        lstHarbor.add(harborK);
+
+        //GraphPoint init
+        GraphPoint P1 = new GraphPoint(new Point(40*GameConfiguration.GAME_SCALE,230*GameConfiguration.GAME_SCALE),"P1");
+        GraphPoint P2 = new GraphPoint(new Point(64*GameConfiguration.GAME_SCALE,170*GameConfiguration.GAME_SCALE),"P2");
+        GraphPoint P3 = new GraphPoint(new Point(70*GameConfiguration.GAME_SCALE,310*GameConfiguration.GAME_SCALE),"P3");
+        GraphPoint P4 = new GraphPoint(new Point(120*GameConfiguration.GAME_SCALE,170*GameConfiguration.GAME_SCALE),"P4");
+        GraphPoint P5 = new GraphPoint(new Point(140*GameConfiguration.GAME_SCALE,310*GameConfiguration.GAME_SCALE),"P5");
+        GraphPoint P6 = new GraphPoint(new Point(142*GameConfiguration.GAME_SCALE,96*GameConfiguration.GAME_SCALE),"P6");
+        GraphPoint P7 = new GraphPoint(new Point(150*GameConfiguration.GAME_SCALE,163*GameConfiguration.GAME_SCALE),"P7");
+        GraphPoint P8 = new GraphPoint(new Point(185*GameConfiguration.GAME_SCALE,150*GameConfiguration.GAME_SCALE),"P8");
+        GraphPoint P9 = new GraphPoint(new Point(190*GameConfiguration.GAME_SCALE,220*GameConfiguration.GAME_SCALE),"P9");
+        GraphPoint P10 = new GraphPoint(new Point(215*GameConfiguration.GAME_SCALE,120*GameConfiguration.GAME_SCALE),"P10");
+        GraphPoint P11 = new GraphPoint(new Point(275*GameConfiguration.GAME_SCALE,238*GameConfiguration.GAME_SCALE),"P11");
+        GraphPoint P12 = new GraphPoint(new Point(278*GameConfiguration.GAME_SCALE,85*GameConfiguration.GAME_SCALE),"P12");
+        GraphPoint P13 = new GraphPoint(new Point(325*GameConfiguration.GAME_SCALE,90*GameConfiguration.GAME_SCALE),"P13");
+        GraphPoint P14 = new GraphPoint(new Point(365*GameConfiguration.GAME_SCALE,122*GameConfiguration.GAME_SCALE),"P14");
+        GraphPoint P15 = new GraphPoint(new Point(382*GameConfiguration.GAME_SCALE,190*GameConfiguration.GAME_SCALE),"P15");
+        GraphPoint P16 = new GraphPoint(new Point(390*GameConfiguration.GAME_SCALE,104*GameConfiguration.GAME_SCALE),"P16");
+        GraphPoint P17 = new GraphPoint(new Point(397*GameConfiguration.GAME_SCALE,150*GameConfiguration.GAME_SCALE),"P17");
+        GraphPoint P18 = new GraphPoint(new Point(425*GameConfiguration.GAME_SCALE,190*GameConfiguration.GAME_SCALE),"P18");
+        GraphPoint P19 = new GraphPoint(new Point(440*GameConfiguration.GAME_SCALE,227*GameConfiguration.GAME_SCALE),"P19");
+        GraphPoint P20 = new GraphPoint(new Point(456*GameConfiguration.GAME_SCALE,127*GameConfiguration.GAME_SCALE),"P20");
+        GraphPoint P21 = new GraphPoint(new Point(475*GameConfiguration.GAME_SCALE,105*GameConfiguration.GAME_SCALE),"P21");
+        GraphPoint P22 = new GraphPoint(new Point(495*GameConfiguration.GAME_SCALE,175*GameConfiguration.GAME_SCALE),"P22");
+        GraphPoint P23 = new GraphPoint(new Point(505*GameConfiguration.GAME_SCALE,222*GameConfiguration.GAME_SCALE),"P23");
+        GraphPoint P24 = new GraphPoint(new Point(530*GameConfiguration.GAME_SCALE,130*GameConfiguration.GAME_SCALE),"P24");
+        GraphPoint P25 = new GraphPoint(new Point(555*GameConfiguration.GAME_SCALE,170*GameConfiguration.GAME_SCALE),"P25");
+        GraphPoint P26 = new GraphPoint(new Point(595*GameConfiguration.GAME_SCALE,140*GameConfiguration.GAME_SCALE),"P26");
+
+        MapGame.getInstance().addGraphPoint(P1);
+        MapGame.getInstance().addGraphPoint(P2);
+        MapGame.getInstance().addGraphPoint(P3);
+        MapGame.getInstance().addGraphPoint(P4);
+        MapGame.getInstance().addGraphPoint(P5);
+        MapGame.getInstance().addGraphPoint(P6);
+        MapGame.getInstance().addGraphPoint(P7);
+        MapGame.getInstance().addGraphPoint(P8);
+        MapGame.getInstance().addGraphPoint(P9);
+        MapGame.getInstance().addGraphPoint(P10);
+        MapGame.getInstance().addGraphPoint(P11);
+        MapGame.getInstance().addGraphPoint(P12);
+        MapGame.getInstance().addGraphPoint(P13);
+        MapGame.getInstance().addGraphPoint(P14);
+        MapGame.getInstance().addGraphPoint(P15);
+        MapGame.getInstance().addGraphPoint(P16);
+        MapGame.getInstance().addGraphPoint(P17);
+        MapGame.getInstance().addGraphPoint(P18);
+        MapGame.getInstance().addGraphPoint(P19);
+        MapGame.getInstance().addGraphPoint(P20);
+        MapGame.getInstance().addGraphPoint(P21);
+        MapGame.getInstance().addGraphPoint(P22);
+        MapGame.getInstance().addGraphPoint(P23);
+        MapGame.getInstance().addGraphPoint(P24);
+        MapGame.getInstance().addGraphPoint(P25);
+        MapGame.getInstance().addGraphPoint(P26);
+
 
         lstFaction.addAll(lstBotFaction);
         lstFaction.add(player);

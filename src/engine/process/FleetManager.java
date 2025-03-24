@@ -72,11 +72,13 @@ public class FleetManager {
      * change a fleet path to a brand new one
      */
     public void setNewPath(Fleet fleet, ArrayList<GraphPoint> path){
-        ArrayList<GraphPoint> newPath = new ArrayList<>();
-        newPath.addAll(path);
-        fleet.setPath(newPath);
-        for(Boat boat : fleet.getArrayListBoat()){
-            boat.getPath().clear();
+        if(path!=null){
+            ArrayList<GraphPoint> newPath = new ArrayList<>();
+            newPath.addAll(path);
+            fleet.setPath(newPath);
+            for(Boat boat : fleet.getArrayListBoat()){
+                boat.getPath().clear();
+            }
         }
     }
 }
