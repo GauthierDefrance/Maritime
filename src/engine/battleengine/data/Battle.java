@@ -16,6 +16,8 @@ import java.util.HashMap;
  * @version 0.4
  */
 public class Battle {
+    private Fleet teamAOriginal;
+    private Fleet teamBOriginal;
 
     private ArrayList<Bullet> LstBulletsteamA;
     private ArrayList<Bullet> LstBulletsteamB;
@@ -48,6 +50,8 @@ public class Battle {
      * @param fleetB
      */
     public Battle(Fleet fleetA, Fleet fleetB) {
+        this.teamAOriginal= fleetA;
+        this.teamBOriginal= fleetB;
         this.teamA = DeepCopy.copyFleet(fleetA);
         this.teamB = DeepCopy.copyFleet(fleetB);
         this.LstBoatsToPlace = this.teamA.getArrayListBoat();
@@ -100,6 +104,21 @@ public class Battle {
      * @return The {@link HashMap<Boat,Boat>} of Hunter & Prey
      */
     public HashMap<Boat, Boat> getHunterPreyHashMap() { return HunterPreyHashMap;}
+
+    /**
+     * Gets team A's original fleet.
+     *
+     * @return team A's fleet
+     */
+    public Fleet getTeamAOriginal() { return teamAOriginal; }
+
+    /**
+     * Gets team B's original fleet.
+     *
+     * @return team B's fleet
+     */
+    public Fleet getTeamBOriginal() { return teamBOriginal; }
+
 
     /**
      * Gets team A's fleet.
