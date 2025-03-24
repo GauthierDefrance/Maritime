@@ -91,20 +91,14 @@ public final class GameConfiguration {
 
 
 
-    //-------- SpawnZone Stats --------
-        public static final int SPAWN_ZONE_OPACITY = 15;
-        public static final String DEFAULT_SPAWN_ZONE_COLOR ="blue";
-        public static final Point DEFAULT_SPAWN_ZONE_COORDINATE= new Point(0,0);
-        public static final Point DEFAULT_ENEMY_SPAWN_ZONE_COORDINATE= new Point(600*GAME_SCALE, 280*GameConfiguration.GAME_SCALE);
+    //-------- SpawnZone --------
+        public static final Rectangle SPAWN_ZONE = new Rectangle(0,0,160*GAME_SCALE,360*GAME_SCALE);
 
         public static final int SPAWN_ZONE_MIN_Y = 60*GameConfiguration.GAME_SCALE;
         public static final int SPAWN_ZONE_MAX_Y = 300*GameConfiguration.GAME_SCALE;
         public static final int SPAWN_ZONE_STARTING_X = 600*GameConfiguration.GAME_SCALE;
         public static final int SPAWN_ZONE_SPAWN_WIDTH = (int) HITBOX_BOAT;
         public static final int SPAWN_ZONE_MAX_BOATS_PER_COLUMN = 6;
-
-        public static final int DEFAULT_SPAWN_ZONE_WIDTH = 200;
-        public static final int DEFAULT_SPAWN_ZONE_HEIGHT = 600;
 
     //--------------------------------
 

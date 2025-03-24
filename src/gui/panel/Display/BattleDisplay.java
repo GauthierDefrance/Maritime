@@ -44,6 +44,9 @@ public class BattleDisplay extends JPanel {
         double scale = Math.min((double)getWidth()/640,(double) getHeight() /360);
         g2d.scale(scale,scale);
         paintBackGround.paint(g2d,false);
+        g2d.setColor(ImageStock.colorChoice(MapGame.getInstance().getPlayer().getColor()));
+        g2d.fillRect(0,0, (int) (GameConfiguration.SPAWN_ZONE.getWidth()/GameConfiguration.GAME_SCALE), (int) (GameConfiguration.SPAWN_ZONE.getHeight()/GameConfiguration.GAME_SCALE));
+        g2d.setColor(Color.black);
         g2d.scale((double) 1 /GameConfiguration.GAME_SCALE, (double) 1 /GameConfiguration.GAME_SCALE);
 
         for(Boat boat : MainGUI.getBattle().getBoatsInBattleB().getArrayListBoat()){
@@ -76,7 +79,7 @@ public class BattleDisplay extends JPanel {
             paintEntity.paintHP(boat,g2d);
         }
 
-        if(battle.getCurrentBoat() != null) {
+        if(battle.getCurrentBoat() != null && battle.isInPlacingMode()) {
             int x = (int) ((battle.getCurrentBoatPoint().getX()*GameConfiguration.GAME_SCALE)/scale);
             int y = (int) ((battle.getCurrentBoatPoint().getY()*GameConfiguration.GAME_SCALE)/scale);
             Point boatPoint = new Point(x, y);
