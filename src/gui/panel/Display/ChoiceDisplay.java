@@ -84,6 +84,8 @@ public class ChoiceDisplay extends JPanel {
         if (harbor2 != null){
             g2d.setColor(ImageStock.colorChoice(harbor2.getColor()));
             g2d.fillOval((int)(harbor2.getPosition().getX())-((int)GameConfiguration.HITBOX_BOAT/2),(int)(harbor2.getPosition().getY()), (int) GameConfiguration.HITBOX_BOAT, (int) GameConfiguration.HITBOX_BOAT);
+            g2d.setColor(new Color(10, 255, 51));
+            g2d.fillOval((harbor2.getGraphPosition().getX()-15), (harbor2.getGraphPosition().getY()-15),30,30);
             g2d.setColor(Color.black);
         }
         if (harbor1 != null){
