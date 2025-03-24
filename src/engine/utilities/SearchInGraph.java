@@ -51,7 +51,7 @@ public final class SearchInGraph {
             return getLstSegmentToPoint(result.get(0),pointStart);
         }
         else {
-        return null;
+        return new ArrayList<>();
         }
     }
 

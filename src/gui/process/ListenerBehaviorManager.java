@@ -115,12 +115,10 @@ public class ListenerBehaviorManager {
                 break;
             }
             case ROOT_MAIN_GAME: {
-                MapGame.getInstance().setTimeStop(false);
                 GUILoader.loadMainGame();
                 break;
             }
             case ROOT_COMBAT: {
-                MapGame.getInstance().setTimeStop(false);
                 GUILoader.loadCombat(MainGUI.getBattle());
                 break;
             }

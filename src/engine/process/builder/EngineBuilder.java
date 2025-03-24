@@ -226,6 +226,10 @@ public class EngineBuilder {
         MapGame.getInstance().setMapGraphPoint(mapGraphPoint);
         Player player = new Player("blue");
 
+        //faction init
+        Faction faction1 = new Faction("red");
+        lstBotFaction.add(faction1);
+
         //Harbor init
         GraphPoint AHarbor = new GraphPoint(new Point(100*GameConfiguration.GAME_SCALE,61*GameConfiguration.GAME_SCALE),"AHarbor");
         GraphPoint BHarbor = new GraphPoint(new Point(276*GameConfiguration.GAME_SCALE,47*GameConfiguration.GAME_SCALE),"BHarbor");
@@ -288,7 +292,7 @@ public class EngineBuilder {
         GraphPoint P10 = new GraphPoint(new Point(215*GameConfiguration.GAME_SCALE,120*GameConfiguration.GAME_SCALE),"P10");
         GraphPoint P11 = new GraphPoint(new Point(275*GameConfiguration.GAME_SCALE,238*GameConfiguration.GAME_SCALE),"P11");
         GraphPoint P12 = new GraphPoint(new Point(278*GameConfiguration.GAME_SCALE,85*GameConfiguration.GAME_SCALE),"P12");
-        GraphPoint P13 = new GraphPoint(new Point(325*GameConfiguration.GAME_SCALE,90*GameConfiguration.GAME_SCALE),"P13");
+        GraphPoint P13 = new GraphPoint(new Point(335*GameConfiguration.GAME_SCALE,95*GameConfiguration.GAME_SCALE),"P13");
         GraphPoint P14 = new GraphPoint(new Point(365*GameConfiguration.GAME_SCALE,122*GameConfiguration.GAME_SCALE),"P14");
         GraphPoint P15 = new GraphPoint(new Point(382*GameConfiguration.GAME_SCALE,190*GameConfiguration.GAME_SCALE),"P15");
         GraphPoint P16 = new GraphPoint(new Point(390*GameConfiguration.GAME_SCALE,104*GameConfiguration.GAME_SCALE),"P16");
@@ -330,6 +334,195 @@ public class EngineBuilder {
         MapGame.getInstance().addGraphPoint(P25);
         MapGame.getInstance().addGraphPoint(P26);
 
+        //GraphSegment init
+        AHarbor.addSegment(new GraphSegment(P6, (int) AHarbor.getPoint().distance(P6.getPoint())));
+        AHarbor.addSegment(new GraphSegment(P10, (int) AHarbor.getPoint().distance(P10.getPoint())));
+        AHarbor.addSegment(new GraphSegment(P12, (int) AHarbor.getPoint().distance(P12.getPoint())));
+        AHarbor.addSegment(new GraphSegment(BHarbor, (int) AHarbor.getPoint().distance(BHarbor.getPoint())));
+
+        BHarbor.addSegment(new GraphSegment(AHarbor, (int) BHarbor.getPoint().distance(AHarbor.getPoint())));
+        BHarbor.addSegment(new GraphSegment(P12, (int) BHarbor.getPoint().distance(P12.getPoint())));
+        BHarbor.addSegment(new GraphSegment(P13, (int) BHarbor.getPoint().distance(P13.getPoint())));
+
+        CHarbor.addSegment(new GraphSegment(P10, (int) CHarbor.getPoint().distance(P10.getPoint())));
+        CHarbor.addSegment(new GraphSegment(P12, (int) CHarbor.getPoint().distance(P12.getPoint())));
+        CHarbor.addSegment(new GraphSegment(P13, (int) CHarbor.getPoint().distance(P13.getPoint())));
+        CHarbor.addSegment(new GraphSegment(P13, (int) CHarbor.getPoint().distance(P14.getPoint())));
+
+        DHarbor.addSegment(new GraphSegment(P13, (int) DHarbor.getPoint().distance(P13.getPoint())));
+        DHarbor.addSegment(new GraphSegment(P16, (int) DHarbor.getPoint().distance(P16.getPoint())));
+        DHarbor.addSegment(new GraphSegment(P21, (int) DHarbor.getPoint().distance(P21.getPoint())));
+
+        EHarbor.addSegment(new GraphSegment(P1, (int) EHarbor.getPoint().distance(P1.getPoint())));
+
+        FHarbor.addSegment(new GraphSegment(P9, (int) FHarbor.getPoint().distance(P9.getPoint())));
+        FHarbor.addSegment(new GraphSegment(P11, (int) FHarbor.getPoint().distance(P11.getPoint())));
+        FHarbor.addSegment(new GraphSegment(P5, (int) FHarbor.getPoint().distance(P5.getPoint())));
+
+        GHarbor.addSegment(new GraphSegment(P11, (int) GHarbor.getPoint().distance(P11.getPoint())));
+        GHarbor.addSegment(new GraphSegment(P15, (int) GHarbor.getPoint().distance(P15.getPoint())));
+        GHarbor.addSegment(new GraphSegment(P19, (int) GHarbor.getPoint().distance(P19.getPoint())));
+
+        HHarbor.addSegment(new GraphSegment(P19, (int) HHarbor.getPoint().distance(P19.getPoint())));
+        HHarbor.addSegment(new GraphSegment(P23, (int) HHarbor.getPoint().distance(P23.getPoint())));
+        HHarbor.addSegment(new GraphSegment(KHarbor, (int) HHarbor.getPoint().distance(KHarbor.getPoint())));
+
+        IHarbor.addSegment(new GraphSegment(P26, (int) IHarbor.getPoint().distance(P26.getPoint())));
+        IHarbor.addSegment(new GraphSegment(P24, (int) IHarbor.getPoint().distance(P24.getPoint())));
+        IHarbor.addSegment(new GraphSegment(P21, (int) IHarbor.getPoint().distance(P21.getPoint())));
+
+        JHarbor.addSegment(new GraphSegment(P26, (int) JHarbor.getPoint().distance(P26.getPoint())));
+
+        KHarbor.addSegment(new GraphSegment(P23, (int) KHarbor.getPoint().distance(P23.getPoint())));
+        KHarbor.addSegment(new GraphSegment(P22, (int) KHarbor.getPoint().distance(P22.getPoint())));
+        KHarbor.addSegment(new GraphSegment(P25, (int) KHarbor.getPoint().distance(P25.getPoint())));
+        KHarbor.addSegment(new GraphSegment(HHarbor, (int) KHarbor.getPoint().distance(HHarbor.getPoint())));
+
+        P1.addSegment(new GraphSegment(P2, (int) P1.getPoint().distance(P2.getPoint())));
+        P1.addSegment(new GraphSegment(P3, (int) P1.getPoint().distance(P3.getPoint())));
+        P1.addSegment(new GraphSegment(EHarbor, (int) P1.getPoint().distance(EHarbor.getPoint())));
+
+        P2.addSegment(new GraphSegment(P1, (int) P2.getPoint().distance(P1.getPoint())));
+        P2.addSegment(new GraphSegment(P4, (int) P2.getPoint().distance(P4.getPoint())));
+        P2.addSegment(new GraphSegment(P6, (int) P2.getPoint().distance(P6.getPoint())));
+
+        P3.addSegment(new GraphSegment(P1, (int) P3.getPoint().distance(P1.getPoint())));
+        P3.addSegment(new GraphSegment(P5, (int) P3.getPoint().distance(P5.getPoint())));
+
+        P4.addSegment(new GraphSegment(P2, (int) P4.getPoint().distance(P2.getPoint())));
+        P4.addSegment(new GraphSegment(P6, (int) P4.getPoint().distance(P6.getPoint())));
+        P4.addSegment(new GraphSegment(P7, (int) P4.getPoint().distance(P7.getPoint())));
+        P4.addSegment(new GraphSegment(P9, (int) P4.getPoint().distance(P9.getPoint())));
+
+        P5.addSegment(new GraphSegment(P3, (int) P5.getPoint().distance(P3.getPoint())));
+        P5.addSegment(new GraphSegment(FHarbor, (int) P5.getPoint().distance(FHarbor.getPoint())));
+
+        P6.addSegment(new GraphSegment(AHarbor, (int) P6.getPoint().distance(AHarbor.getPoint())));
+        P6.addSegment(new GraphSegment(P2, (int) P6.getPoint().distance(P2.getPoint())));
+        P6.addSegment(new GraphSegment(P4, (int) P6.getPoint().distance(P4.getPoint())));
+        P6.addSegment(new GraphSegment(P7, (int) P6.getPoint().distance(P7.getPoint())));
+        P6.addSegment(new GraphSegment(P8, (int) P6.getPoint().distance(P8.getPoint())));
+        P6.addSegment(new GraphSegment(P10, (int) P6.getPoint().distance(P10.getPoint())));
+
+        P7.addSegment(new GraphSegment(P4, (int) P7.getPoint().distance(P4.getPoint())));
+        P7.addSegment(new GraphSegment(P6, (int) P7.getPoint().distance(P6.getPoint())));
+        P7.addSegment(new GraphSegment(P8, (int) P7.getPoint().distance(P8.getPoint())));
+        P7.addSegment(new GraphSegment(P9, (int) P7.getPoint().distance(P9.getPoint())));
+
+        P8.addSegment(new GraphSegment(P7, (int) P8.getPoint().distance(P7.getPoint())));
+        P8.addSegment(new GraphSegment(P6, (int) P8.getPoint().distance(P6.getPoint())));
+        P8.addSegment(new GraphSegment(P10, (int) P8.getPoint().distance(P10.getPoint())));
+        P8.addSegment(new GraphSegment(P9, (int) P8.getPoint().distance(P9.getPoint())));
+
+        P9.addSegment(new GraphSegment(P4, (int) P9.getPoint().distance(P4.getPoint())));
+        P9.addSegment(new GraphSegment(P7, (int) P9.getPoint().distance(P7.getPoint())));
+        P9.addSegment(new GraphSegment(P8, (int) P9.getPoint().distance(P8.getPoint())));
+        P9.addSegment(new GraphSegment(P11, (int) P9.getPoint().distance(P11.getPoint())));
+        P9.addSegment(new GraphSegment(FHarbor, (int) P9.getPoint().distance(FHarbor.getPoint())));
+
+        P10.addSegment(new GraphSegment(P6, (int) P10.getPoint().distance(P6.getPoint())));
+        P10.addSegment(new GraphSegment(AHarbor, (int) P10.getPoint().distance(AHarbor.getPoint())));
+        P10.addSegment(new GraphSegment(P12, (int) P10.getPoint().distance(P12.getPoint())));
+        P10.addSegment(new GraphSegment(CHarbor, (int) P10.getPoint().distance(CHarbor.getPoint())));
+        P10.addSegment(new GraphSegment(P8, (int) P10.getPoint().distance(P8.getPoint())));
+
+        P11.addSegment(new GraphSegment(P9, (int) P11.getPoint().distance(P9.getPoint())));
+        P11.addSegment(new GraphSegment(P15, (int) P11.getPoint().distance(P15.getPoint())));
+        P11.addSegment(new GraphSegment(GHarbor, (int) P11.getPoint().distance(GHarbor.getPoint())));
+        P11.addSegment(new GraphSegment(FHarbor, (int) P11.getPoint().distance(FHarbor.getPoint())));
+
+        P12.addSegment(new GraphSegment(AHarbor, (int) P12.getPoint().distance(AHarbor.getPoint())));
+        P12.addSegment(new GraphSegment(BHarbor, (int) P12.getPoint().distance(BHarbor.getPoint())));
+        P12.addSegment(new GraphSegment(P13, (int) P12.getPoint().distance(P13.getPoint())));
+        P12.addSegment(new GraphSegment(CHarbor, (int) P12.getPoint().distance(CHarbor.getPoint())));
+        P12.addSegment(new GraphSegment(P10, (int) P12.getPoint().distance(P10.getPoint())));
+
+        P13.addSegment(new GraphSegment(P12, (int) P13.getPoint().distance(P12.getPoint())));
+        P13.addSegment(new GraphSegment(BHarbor, (int) P13.getPoint().distance(BHarbor.getPoint())));
+        P13.addSegment(new GraphSegment(DHarbor, (int) P13.getPoint().distance(DHarbor.getPoint())));
+        P13.addSegment(new GraphSegment(P16, (int) P13.getPoint().distance(P16.getPoint())));
+        P13.addSegment(new GraphSegment(P14, (int) P13.getPoint().distance(P14.getPoint())));
+        P13.addSegment(new GraphSegment(CHarbor, (int) P13.getPoint().distance(CHarbor.getPoint())));
+
+        P14.addSegment(new GraphSegment(P13, (int) P14.getPoint().distance(P13.getPoint())));
+        P14.addSegment(new GraphSegment(P16, (int) P14.getPoint().distance(P16.getPoint())));
+        P14.addSegment(new GraphSegment(P17, (int) P14.getPoint().distance(P17.getPoint())));
+        P14.addSegment(new GraphSegment(CHarbor, (int) P14.getPoint().distance(CHarbor.getPoint())));
+
+        P15.addSegment(new GraphSegment(P17, (int) P15.getPoint().distance(P17.getPoint())));
+        P15.addSegment(new GraphSegment(P18, (int) P15.getPoint().distance(P18.getPoint())));
+        P15.addSegment(new GraphSegment(P19, (int) P15.getPoint().distance(P19.getPoint())));
+        P15.addSegment(new GraphSegment(GHarbor, (int) P15.getPoint().distance(GHarbor.getPoint())));
+        P15.addSegment(new GraphSegment(P11, (int) P15.getPoint().distance(P11.getPoint())));
+
+        P16.addSegment(new GraphSegment(P13, (int) P16.getPoint().distance(P13.getPoint())));
+        P16.addSegment(new GraphSegment(DHarbor, (int) P16.getPoint().distance(DHarbor.getPoint())));
+        P16.addSegment(new GraphSegment(P21, (int) P16.getPoint().distance(P21.getPoint())));
+        P16.addSegment(new GraphSegment(P20, (int) P16.getPoint().distance(P20.getPoint())));
+        P16.addSegment(new GraphSegment(P17, (int) P16.getPoint().distance(P17.getPoint())));
+        P16.addSegment(new GraphSegment(P14, (int) P16.getPoint().distance(P14.getPoint())));
+
+        P17.addSegment(new GraphSegment(P14, (int) P17.getPoint().distance(P14.getPoint())));
+        P17.addSegment(new GraphSegment(P16, (int) P17.getPoint().distance(P16.getPoint())));
+        P17.addSegment(new GraphSegment(P20, (int) P17.getPoint().distance(P20.getPoint())));
+        P17.addSegment(new GraphSegment(P22, (int) P17.getPoint().distance(P22.getPoint())));
+        P17.addSegment(new GraphSegment(P18, (int) P17.getPoint().distance(P18.getPoint())));
+        P17.addSegment(new GraphSegment(P15, (int) P17.getPoint().distance(P15.getPoint())));
+
+        P18.addSegment(new GraphSegment(P15, (int) P18.getPoint().distance(P15.getPoint())));
+        P18.addSegment(new GraphSegment(P17, (int) P18.getPoint().distance(P17.getPoint())));
+        P18.addSegment(new GraphSegment(P22, (int) P18.getPoint().distance(P22.getPoint())));
+        P18.addSegment(new GraphSegment(P19, (int) P18.getPoint().distance(P19.getPoint())));
+
+        P19.addSegment(new GraphSegment(P15, (int) P19.getPoint().distance(P15.getPoint())));
+        P19.addSegment(new GraphSegment(P18, (int) P19.getPoint().distance(P18.getPoint())));
+        P19.addSegment(new GraphSegment(P22, (int) P19.getPoint().distance(P22.getPoint())));
+        P19.addSegment(new GraphSegment(P23, (int) P19.getPoint().distance(P23.getPoint())));
+        P19.addSegment(new GraphSegment(GHarbor, (int) P19.getPoint().distance(GHarbor.getPoint())));
+        P19.addSegment(new GraphSegment(HHarbor, (int) P19.getPoint().distance(HHarbor.getPoint())));
+
+        P20.addSegment(new GraphSegment(P16, (int) P20.getPoint().distance(P16.getPoint())));
+        P20.addSegment(new GraphSegment(P21, (int) P20.getPoint().distance(P21.getPoint())));
+        P20.addSegment(new GraphSegment(P24, (int) P20.getPoint().distance(P24.getPoint())));
+        P20.addSegment(new GraphSegment(P22, (int) P20.getPoint().distance(P22.getPoint())));
+        P20.addSegment(new GraphSegment(P17, (int) P20.getPoint().distance(P17.getPoint())));
+
+        P21.addSegment(new GraphSegment(P14, (int) P21.getPoint().distance(P14.getPoint())));
+        P21.addSegment(new GraphSegment(DHarbor, (int) P21.getPoint().distance(DHarbor.getPoint())));
+        P21.addSegment(new GraphSegment(IHarbor, (int) P21.getPoint().distance(IHarbor.getPoint())));
+        P21.addSegment(new GraphSegment(P24, (int) P21.getPoint().distance(P24.getPoint())));
+        P21.addSegment(new GraphSegment(P20, (int) P21.getPoint().distance(P20.getPoint())));
+
+        P22.addSegment(new GraphSegment(P17, (int) P22.getPoint().distance(P17.getPoint())));
+        P22.addSegment(new GraphSegment(P20, (int) P22.getPoint().distance(P20.getPoint())));
+        P22.addSegment(new GraphSegment(P24, (int) P22.getPoint().distance(P24.getPoint())));
+        P22.addSegment(new GraphSegment(P25, (int) P22.getPoint().distance(P25.getPoint())));
+        P22.addSegment(new GraphSegment(KHarbor, (int) P22.getPoint().distance(KHarbor.getPoint())));
+        P22.addSegment(new GraphSegment(P23, (int) P22.getPoint().distance(P23.getPoint())));
+        P22.addSegment(new GraphSegment(P19, (int) P22.getPoint().distance(P19.getPoint())));
+        P22.addSegment(new GraphSegment(P18, (int) P22.getPoint().distance(P18.getPoint())));
+
+        P23.addSegment(new GraphSegment(P19, (int) P23.getPoint().distance(P19.getPoint())));
+        P23.addSegment(new GraphSegment(P22, (int) P23.getPoint().distance(P22.getPoint())));
+        P23.addSegment(new GraphSegment(KHarbor, (int) P23.getPoint().distance(KHarbor.getPoint())));
+        P23.addSegment(new GraphSegment(HHarbor, (int) P23.getPoint().distance(HHarbor.getPoint())));
+
+        P24.addSegment(new GraphSegment(P20, (int) P24.getPoint().distance(P20.getPoint())));
+        P24.addSegment(new GraphSegment(P21, (int) P24.getPoint().distance(P21.getPoint())));
+        P24.addSegment(new GraphSegment(IHarbor, (int) P24.getPoint().distance(IHarbor.getPoint())));
+        P24.addSegment(new GraphSegment(P26, (int) P24.getPoint().distance(P26.getPoint())));
+        P24.addSegment(new GraphSegment(P25, (int) P24.getPoint().distance(P25.getPoint())));
+        P24.addSegment(new GraphSegment(P22, (int) P24.getPoint().distance(P22.getPoint())));
+
+        P25.addSegment(new GraphSegment(P22, (int) P25.getPoint().distance(P22.getPoint())));
+        P25.addSegment(new GraphSegment(P24, (int) P25.getPoint().distance(P24.getPoint())));
+        P25.addSegment(new GraphSegment(P26, (int) P25.getPoint().distance(P26.getPoint())));
+        P25.addSegment(new GraphSegment(KHarbor, (int) P25.getPoint().distance(KHarbor.getPoint())));
+
+        P26.addSegment(new GraphSegment(P24, (int) P26.getPoint().distance(P24.getPoint())));
+        P26.addSegment(new GraphSegment(IHarbor, (int) P26.getPoint().distance(IHarbor.getPoint())));
+        P26.addSegment(new GraphSegment(JHarbor, (int) P26.getPoint().distance(JHarbor.getPoint())));
+        P26.addSegment(new GraphSegment(P25, (int) P26.getPoint().distance(P25.getPoint())));
 
         lstFaction.addAll(lstBotFaction);
         lstFaction.add(player);

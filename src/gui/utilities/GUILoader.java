@@ -1,5 +1,6 @@
 package gui.utilities;
 
+import engine.MapGame;
 import engine.battleengine.data.Battle;
 import engine.entity.Harbor;
 import engine.faction.Faction;
@@ -55,6 +56,7 @@ public class GUILoader {
     }
 
     public static void loadCombat(Battle battle){
+        MapGame.getInstance().setTimeStop(true);
         actualise(new CombatMenu(battle));
     }
 

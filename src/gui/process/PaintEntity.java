@@ -59,10 +59,9 @@ public class PaintEntity {
      */
     public void paint(SeaRoad seaRoad, Graphics2D g2d){
         BufferedImage sprite = ImageStock.getImage(seaRoad.getTargetHarbor());
-        g2d.setColor(Color.darkGray);
-        g2d.setFont(new Font("time20",Font.PLAIN,7*GameConfiguration.GAME_SCALE));
-        if(sprite!=null)g2d.drawString(seaRoad.getStringTimer(),(int) (seaRoad.getTargetHarbor().getPosition().getX())- (g2d.getFontMetrics().stringWidth(seaRoad.getStringTimer())/2), (int) (seaRoad.getTargetHarbor().getPosition().getY())-(sprite.getHeight() / 2)-5);
         g2d.setColor(Color.black);
+        g2d.setFont(new Font("time20",Font.PLAIN, (int) (7.5*GameConfiguration.GAME_SCALE)));
+        if(sprite!=null)g2d.drawString(seaRoad.getStringTimer(),(int) (seaRoad.getTargetHarbor().getPosition().getX())- (g2d.getFontMetrics().stringWidth(seaRoad.getStringTimer())/2), (int) (seaRoad.getTargetHarbor().getPosition().getY())-(sprite.getHeight() / 2)-5);
     }
 
     /**

@@ -48,5 +48,21 @@ public class BattleManager {
         }
     }
 
+    public boolean battleEnded(){
+        if(battle.getBoatsInBattleA().getArrayListBoat().isEmpty()&&battle.getLstBoatsToPlace().isEmpty()&&!battle.isInPlacingMode()){
+            //Lose
+            return true;
+        }
+        else if(battle.getBoatsInBattleB().getArrayListBoat().isEmpty()){
+            //win
+            return true;
+        }
+        return false;
+    }
+
+    public void battleEnd(){
+
+    }
+
 
 }
