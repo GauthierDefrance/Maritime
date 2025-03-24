@@ -200,9 +200,13 @@ public class CombatMenu extends JPanel implements Runnable {
             if (e.getButton() == MouseEvent.BUTTON1 && battle.getCurrentBoat()!=null) {
                 Point point0 = SwingUtilities.convertPoint((Component) e.getSource(),e.getPoint(),dashboardJPanel);
                 Point point = ListenerBehaviorManager.create().clickLogic(CombatMenu.this, point0);
-                battleManager.getPlacingManager().tryPlaceBoat(battle.getCurrentBoat(),point);
+                if(GameConfiguration.SPAWN_ZONE.contains(point)) {
+                    battleManager.getPlacingManager().tryPlaceBoat(battle.getCurrentBoat(), point);
+                }
                 battle.setCurrentBoat(null);
+                battle.setCurrentBoatPoint(new Point(-100,-100));
                 elementInPanelUpdate();
+
             }
             jWestATHPanel.setVisible(true);
         }
