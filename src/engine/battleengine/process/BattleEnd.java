@@ -36,12 +36,9 @@ public class BattleEnd {
         ArrayList<Boat> teamA = this.battle.getTeamAOriginal().getArrayListBoat();
         ArrayList<Boat> teamB = this.battle.getTeamBOriginal().getArrayListBoat();
 
-        for(Boat boat : this.battle.getDeadBoatsA().getArrayListBoat()){
-            teamA.remove(this.battle.getCopyToOrignalHashMap().get(boat));
-        }
-        for(Boat boat : this.battle.getDeadBoatsB().getArrayListBoat()){
-            teamB.remove(this.battle.getCopyToOrignalHashMap().get(boat));
-        }
+        // Yo, ici on va supprimer les bateaux qui sont morts durant la partie
+        for(Boat boat : this.battle.getDeadBoatsA().getArrayListBoat()){teamA.remove(this.battle.getCopyToOrignalHashMap().get(boat));}
+        for(Boat boat : this.battle.getDeadBoatsB().getArrayListBoat()){teamB.remove(this.battle.getCopyToOrignalHashMap().get(boat));}
 
         
     }
