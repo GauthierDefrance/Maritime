@@ -119,7 +119,7 @@ public class BulletManager {
         while(bulletsIt.hasNext()) {
             tmp = bulletsIt.next();
             if(collide(tmp, fleet)){
-                MapGame.getInstance().getLstPopUp().add(new PopUp("Explosion", tmp.getPosition(),5));
+                MapGame.getInstance().addPopUp(new PopUp("explosion", tmp.getPosition(),5));
                 bulletsIt.remove();
             }
         }

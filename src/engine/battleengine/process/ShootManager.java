@@ -137,7 +137,7 @@ public class ShootManager {
     /**
      * Method that check if a boat has reloaded his gun.
      * @param boat
-     * @return  Boolean
+     * @return Boolean
      */
     private boolean isReadyToShot(Boat boat){
         int result = this.battle.getReloadingHashMap().get(boat);

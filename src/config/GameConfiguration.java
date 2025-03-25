@@ -10,7 +10,7 @@ public final class GameConfiguration {
 
     //-------- Game Stats --------
         public static final int NUMBER_OF_BACK_GROUND_FRAMES = 8;
-        public static final int GAME_SPEED = 100; //ms per frame
+        public static final int GAME_SPEED = 1; //ms per frame
         public static final int GAME_SCALE = 5;
 
     //--------------------------------
@@ -18,7 +18,7 @@ public final class GameConfiguration {
 
 
     //-------- Harbor Stats --------
-        public static final double HARBOR_VISION_RADIUS = 500;
+        public static final double HARBOR_VISION_RADIUS = 700;
         public static final double HARBOR_HP = 500;
 
     //--------------------------------
@@ -94,7 +94,6 @@ public final class GameConfiguration {
         public static final int SPAWN_ZONE_MIN_Y = 60*GameConfiguration.GAME_SCALE;
         public static final int SPAWN_ZONE_MAX_Y = 300*GameConfiguration.GAME_SCALE;
         public static final int SPAWN_ZONE_STARTING_X = 600*GameConfiguration.GAME_SCALE;
-        public static final int SPAWN_ZONE_SPAWN_WIDTH = (int) HITBOX_BOAT;
         public static final int SPAWN_ZONE_MAX_BOATS_PER_COLUMN = 6;
 
     //--------------------------------

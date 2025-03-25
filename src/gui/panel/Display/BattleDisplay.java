@@ -51,6 +51,14 @@ public class BattleDisplay extends JPanel {
 
         g2d.scale((double) 1 /GameConfiguration.GAME_SCALE, (double) 1 /GameConfiguration.GAME_SCALE);
 
+        for(Boat boat : battle.getDeadBoatsA().getArrayListBoat()){
+            paintEntity.paintBattleDeadBoat(boat,g2d);
+        }
+        for(Boat boat : battle.getDeadBoatsB().getArrayListBoat()){
+            paintEntity.paintBattleDeadBoat(boat,g2d);
+        }
+
+
         for(Boat boat : battle.getBoatsInBattleB().getArrayListBoat()){
             paintEntity.paintBattle(boat,g2d);
         }

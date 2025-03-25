@@ -87,6 +87,10 @@ public class PaintEntity {
         g2d.setColor(Color.black);
         paint(boat,g2d);
     }
+    public void paintBattleDeadBoat(Boat boat, Graphics2D g2d){
+        BufferedImage sprite = ImageStock.getImageDeadBoat(boat);
+        paintSprite(boat.getPosition(),sprite,g2d,0);
+    }
 
     public void paintHP(Boat boat, Graphics2D g2d){
         g2d.setColor(Color.DARK_GRAY);

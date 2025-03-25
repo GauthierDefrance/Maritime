@@ -19,7 +19,7 @@ public final class BattlePlaceFleet {
         int index=0;
         while (fleetIterator.hasNext()) {
             if(group.size()==SPAWN_ZONE_MAX_BOATS_PER_COLUMN){
-                boatPlacerColumn(SPAWN_ZONE_MIN_Y, SPAWN_ZONE_MAX_Y, SPAWN_ZONE_STARTING_X + SPAWN_ZONE_SPAWN_WIDTH*index, group);
+                boatPlacerColumn(SPAWN_ZONE_MIN_Y, SPAWN_ZONE_MAX_Y, SPAWN_ZONE_STARTING_X + (int)HITBOX_BOAT*index, group);
                 group.clear();
                 index++;
             }
@@ -29,7 +29,7 @@ public final class BattlePlaceFleet {
         }
 
         if(!group.isEmpty()){
-            boatPlacerColumn(SPAWN_ZONE_MIN_Y, SPAWN_ZONE_MAX_Y, SPAWN_ZONE_STARTING_X+SPAWN_ZONE_SPAWN_WIDTH*index, group);
+            boatPlacerColumn(SPAWN_ZONE_MIN_Y, SPAWN_ZONE_MAX_Y, SPAWN_ZONE_STARTING_X+(int)HITBOX_BOAT*index, group);
         }
 
         battle.getBoatsInBattleB().getArrayListBoat().addAll(fleet.getArrayListBoat());

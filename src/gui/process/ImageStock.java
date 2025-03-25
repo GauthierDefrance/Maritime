@@ -29,7 +29,7 @@ public class ImageStock {
 
     private ImageStock(){
         images = new BufferedImage[5];
-        tbSprite = new BufferedImage[5][4];
+        tbSprite = new BufferedImage[6][4];
         tbFramesSprite = new BufferedImage[6][GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES];
         try {
             images[0] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/fleet.png"));
@@ -55,11 +55,17 @@ public class ImageStock {
             tbSprite[4][1] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/harbor/red.png"));
             tbSprite[4][2] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/harbor/blue.png"));
 
+            tbSprite[5][0] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/destroy/standard.png"));
+            tbSprite[5][1] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/destroy/fodder.png"));
+            tbSprite[5][2] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/destroy/merchant.png"));
+            tbSprite[5][3] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/destroy/military.png"));
+
             for (int i = 0; i < GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES; i++) {
                 tbFramesSprite[0][i] = (ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/background/background-"+i+".png")));
                 tbFramesSprite[1][i] = (ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/background/map.png")));
                 tbFramesSprite[2][i] = (ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/popup/popup+.png")));
                 tbFramesSprite[3][i] = (ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/popup/popup-.png")));
+                tbFramesSprite[4][i] = (ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/popup/explosion-"+Math.min(4,i)+".png")));
             }
 
             logger.info("load image success");
@@ -162,7 +168,7 @@ public class ImageStock {
             case "-" :{
                 return getInstance().getTbFramesSprite(3,popUp.getIFrame());
             }
-            case "02" :{
+            case "explosion" :{
                 return getInstance().getTbFramesSprite(4,popUp.getIFrame());
             }
             case "03" :{
@@ -189,6 +195,29 @@ public class ImageStock {
      */
     public static BufferedImage getImageMap(PaintBackGround backGround){
         return getInstance().getTbFramesSprite(1,backGround.getIFrame());
+    }
+
+    /**
+     * Allows you to choose the image to displayed
+     */
+    public static BufferedImage getImageDeadBoat(Boat boat){
+        switch (boat.getClass().getName()) {
+            case "engine.entity.boats.Standard" : {
+                return  getInstance().getTbSprite(5,0);
+            }
+            case "engine.entity.boats.Fodder" :{
+                return getInstance().getTbSprite(5,1);
+            }
+            case "engine.entity.boats.Merchant" :{
+                return getInstance().getTbSprite(5,2);
+            }
+            case "engine.entity.boats.Military" :{
+                return getInstance().getTbSprite(5,3);
+            }
+            default : {
+            }
+        }
+        return getInstance().getTbFramesSprite(5,0);
     }
 
     /**
