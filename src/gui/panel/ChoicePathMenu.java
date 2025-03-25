@@ -22,6 +22,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Map;
 
+import static config.GameConfiguration.WAR_THRESHOLD;
 import static gui.MainGUI.getWindow;
 
 /**
@@ -144,12 +145,21 @@ public class ChoicePathMenu extends JPanel implements Runnable {
                     } else JOptionPane.showMessageDialog(ChoicePathMenu.this,"where do you want to go ??");
                     break;
                 case 1:
+                    if (faction == null){
+                        log.error("faction is null, cannot proceed");
+                        return;
+                    }
                     if(harbor1 != null && harbor2 != null){
+                        if (faction.getRelationship() == WAR_THRESHOLD) {
+                            GUILoader.loadChoicePathMenu(faction);
+                            return;
+                        }
                         GUILoader.loadTradeMenu(new TradeOffer(harbor1, harbor2));
                     } else JOptionPane.showMessageDialog(ChoicePathMenu.this,"No proper selection");
                     break;
                 default:
                     log.error("ChoicePathMenu : Unknown state --> could not proceed with confirmation");
+                    break;
             }
         }
     }
