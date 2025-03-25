@@ -319,7 +319,6 @@ public class CombatMenu extends JPanel implements Runnable {
                 battleManager.battleEnd(); //Cette ligne est supposé actualiser l'inventaire des bateaux.
 
                 ThreadStop = true;
-                battleManager.battleEnd();
                 MapGame.getInstance().setTimeStop(true);
                 GUILoader.loadMainGame();
             }
