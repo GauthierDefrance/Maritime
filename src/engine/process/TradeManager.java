@@ -4,6 +4,7 @@ import engine.entity.Entity;
 import engine.faction.Faction;
 import engine.trading.*;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -111,6 +112,40 @@ public class TradeManager {
             else {source.getInventory().add(resource,nb);} //Compensate for the failure to safeAdd the designated number of resource
         } return false;
     }
+
+    /**
+     * Transfer everything when possible between two Inventory
+     * @param source source Inventory Object
+     * @param target target Inventory Object
+     * @return success of the global transfer (everything is gone)
+     */
+    public boolean transferAll(Inventory source, Inventory target) {
+        HashMap<Resource, Integer> ref = source.getContent();
+        int targetNb = totalFreeSpace(target);
+        if (targetNb >= totalUsedSpace(source)) {
+            for (Resource elem : ref.keySet()) {
+                target.add(elem, ref.get(elem));
+            }
+            ref.clear();
+            return true;
+        } else {
+            for (Resource elem : ref.keySet()) {
+                int exist = ref.get(elem);
+
+                if (targetNb >= exist) {
+                    target.add(elem, exist);
+                    ref.put(elem, 0);
+                    targetNb -= exist;
+                } else {
+                    target.add(elem, targetNb);
+                    ref.put(elem, exist - targetNb);
+                    return false;
+                }
+            }
+            return false;
+        }
+    }
+
 
     /**
      * Handle the transfer of currency between Faction
