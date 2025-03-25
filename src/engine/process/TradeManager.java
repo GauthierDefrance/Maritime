@@ -126,29 +126,31 @@ public class TradeManager {
      * @return success of the global transfer (everything is gone)
      */
     public boolean transferAll(Inventory source, Inventory target) {
-        HashMap<Resource, Integer> ref = source.getContent();
-        int targetNb = totalFreeSpace(target);
-        if (targetNb >= totalUsedSpace(source)) {
-            for (Resource elem : ref.keySet()) {
-                target.add(elem, ref.get(elem));
-            }
-            ref.clear();
-            return true;
-        } else {
-            for (Resource elem : ref.keySet()) {
-                int exist = ref.get(elem);
+        HashMap<Resource, Integer> sourceContent = source.getContent();
+        int targetFreeSpace = totalFreeSpace(target);
 
-                if (targetNb >= exist) {
-                    target.add(elem, exist);
-                    ref.put(elem, 0);
-                    targetNb -= exist;
+        if (targetFreeSpace >= totalUsedSpace(source)) {
+            for (Resource elem : sourceContent.keySet()) {
+                target.add(elem, sourceContent.get(elem));
+            }
+            sourceContent.clear();
+            return true;
+        }
+
+        else {
+            for (Resource resource : sourceContent.keySet()) {
+                int nbResource = sourceContent.get(resource);
+
+                if (targetFreeSpace >= nbResource) {
+                    target.add(resource, nbResource);
+                    sourceContent.put(resource, 0);
+                    targetFreeSpace -= nbResource;
                 } else {
-                    target.add(elem, targetNb);
-                    ref.put(elem, exist - targetNb);
+                    target.add(resource, targetFreeSpace);
+                    sourceContent.put(resource, nbResource - targetFreeSpace);
                     return false;
                 }
-            }
-            return false;
+            } return false;
         }
     }
 
