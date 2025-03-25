@@ -10,6 +10,7 @@ import java.io.Serializable;
 public class PopUp implements Serializable {
     private String name;
     private int iFrame;
+    private int maxFrame;
     private Point position;
 
     /**
@@ -17,8 +18,9 @@ public class PopUp implements Serializable {
      * @param name identifying name of the PopUP
      * @param position expected location of the PopUp
      */
-    public PopUp(String name,Point position){
+    public PopUp(String name,Point position,int maxFrame) {
         this.name=name;
+        this.maxFrame = maxFrame;
         this.iFrame = 0;
         this.position = position;
     }
@@ -51,4 +53,7 @@ public class PopUp implements Serializable {
         this.position = position;
     }
 
+    public int getMaxFrame() {
+        return maxFrame;
+    }
 }

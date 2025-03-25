@@ -24,7 +24,7 @@ public class PaintPopUp {
      */
     public void paint(PopUp popUp, Graphics2D g2d) {
 
-        if (popUp.getIFrame() < GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES) {
+        if (popUp.getIFrame() < popUp.getMaxFrame()) {
             BufferedImage sprite = ImageStock.getImage(popUp);
             if (sprite != null) {
                 g2d.drawImage(sprite, (int) (popUp.getPosition().getX()) - (sprite.getWidth() / 2), ((int) (popUp.getPosition().getY()) - (sprite.getHeight() / 2))-(popUp.getIFrame()*2), null);

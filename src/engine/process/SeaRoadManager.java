@@ -1,5 +1,6 @@
 package engine.process;
 
+import config.GameConfiguration;
 import engine.MapGame;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
@@ -65,7 +66,7 @@ public class SeaRoadManager {
                     if (!TradeManager.getInstance().transfer(proposedRes, Math.min(totalFreeSpace, (int) (totalFreeSpace * seaRoad.getRatio())), seaRoad.getSellerHarbor(), boat)) {
                         TradeManager.getInstance().transfer(proposedRes, seaRoad.getSellerHarbor().getInventory().getNbResource(proposedRes), seaRoad.getSellerHarbor(), boat);
                     }
-                    if(MapGame.getInstance().getPlayer().getLstBoat().contains(boat)) MapGame.getInstance().addPopUp(new PopUp("-",new Point((int) boat.getPosition().getX(), (int) boat.getPosition().getY()-10)));
+                    if(MapGame.getInstance().getPlayer().getLstBoat().contains(boat)) MapGame.getInstance().addPopUp(new PopUp("-",new Point((int) boat.getPosition().getX(), (int) boat.getPosition().getY()-10), GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES));
                 }
             }
         }
@@ -86,7 +87,7 @@ public class SeaRoadManager {
                     if(TradeManager.getInstance().transfer(proposedRes,NbResource,boat, seaRoad.getTargetHarbor())) {
                         seaRoad.addTime((int) Math.max(NbResource,NbResource/ seaRoad.getRatio()));
                         if(MapGame.getInstance().getPlayer().getLstBoat().contains(boat)|| MapGame.getInstance().getPlayer().getLstHarbor().contains(seaRoad.getTargetHarbor()))
-                            MapGame.getInstance().addPopUp(new PopUp("+",new Point((int) boat.getPosition().getX(), (int) boat.getPosition().getY()-10)));
+                            MapGame.getInstance().addPopUp(new PopUp("+",new Point((int) boat.getPosition().getX(), (int) boat.getPosition().getY()-10),GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES));
                     }
                     if(!TradeManager.getInstance().transfer(interlocutorRes, (int) (NbResource/ seaRoad.getRatio()), seaRoad.getTargetHarbor(),boat)){
                         if (TradeManager.getInstance().totalFreeSpace(boat.getInventory()) >= (int) (NbResource/ seaRoad.getRatio())) seaRoad.abandonTask();

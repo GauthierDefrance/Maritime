@@ -75,10 +75,9 @@ public final class GameConfiguration {
 
     //-------- Bullets Stats --------
         //-> Global Stats
-            public static final int DEFAULT_BULLET_SPEED=30;
+            public static final int DEFAULT_BULLET_SPEED=40;
             public static final double DEFAULT_BULLET_FRICTION=1.15*0.5;
-            public static final int DAMAGE_PER_BULLET = 1;
-            public static final Random rand = new Random();
+            public static final int DAMAGE_PER_BULLET = 5;
 
         //-> Bullet Math stats
             public static final int DEFAULT_SHOOT_DISTANCE=2;
