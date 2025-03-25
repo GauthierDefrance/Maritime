@@ -94,7 +94,6 @@ public class BulletManager {
      */
     public void bulletKiller(Bullet bullet) {
         if(bullet.getSpeed() <= 0.2){
-            //Ajouter ici Plouf pop up !!!
             battle.getLstBulletsteamA().remove(bullet);
             battle.getLstBulletsteamB().remove(bullet);
         }
@@ -117,7 +116,7 @@ public class BulletManager {
         while(bulletsIt.hasNext()) {
             tmp = bulletsIt.next();
             if(collide(tmp, fleet)){
-                MapGame.getInstance().getLstPopUp().add(new PopUp("explosion", tmp.getPosition()));
+                MapGame.getInstance().getLstPopUp().add(new PopUp("Explosion", tmp.getPosition()));
                 bulletsIt.remove();
             }
         }
