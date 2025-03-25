@@ -4,7 +4,6 @@ import engine.entity.Entity;
 import engine.faction.Faction;
 import engine.trading.*;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -82,6 +81,13 @@ public class TradeManager {
             inventory.add(elem, nb);
             return true;
         } else return false;
+    }
+
+    public boolean safeAddAll(Inventory source,Inventory target){
+        for(Resource resource : source.getContent().keySet()){
+            if (!safeAdd(target, resource, source.getContent().get(resource)))return false;
+        }
+        return true;
     }
 
     /**
