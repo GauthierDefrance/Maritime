@@ -1,7 +1,6 @@
 package config;
 
 import java.awt.*;
-import java.util.Random;
 
 /**
  * class containing constants necessary to the game execution
@@ -71,7 +70,11 @@ public final class GameConfiguration {
 
     //--------------------------------
 
+    //-------- Faction Stats --------
+        //-> Global Stats
+            public static final int WAR_THRESHOLD = -100;
 
+    //--------------------------------
 
     //-------- Bullets Stats --------
         //-> Global Stats
