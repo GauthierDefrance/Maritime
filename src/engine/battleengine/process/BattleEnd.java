@@ -3,12 +3,11 @@ package engine.battleengine.process;
 import engine.battleengine.data.Battle;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
+import engine.process.TradeManager;
 import engine.trading.Inventory;
 import engine.trading.Resource;
 
-import java.time.format.ResolverStyle;
 import java.util.ArrayList;
-import java.util.Set;
 
 public class BattleEnd {
 
@@ -36,6 +35,14 @@ public class BattleEnd {
     public void actualizeOriginalFleet(){
         ArrayList<Boat> teamA = this.battle.getTeamAOriginal().getArrayListBoat();
         ArrayList<Boat> teamB = this.battle.getTeamBOriginal().getArrayListBoat();
+
+        for(Boat boat : this.battle.getDeadBoatsA().getArrayListBoat()){
+            teamA.remove(this.battle.getCopyToOrignalHashMap().get(boat));
+        }
+        for(Boat boat : this.battle.getDeadBoatsB().getArrayListBoat()){
+            teamB.remove(this.battle.getCopyToOrignalHashMap().get(boat));
+        }
+
         
     }
 

@@ -19,6 +19,8 @@ public class Battle {
     private Fleet teamAOriginal;
     private Fleet teamBOriginal;
 
+    private HashMap<Boat,Boat> CopyToOrignalHashMap;
+
     private ArrayList<Bullet> LstBulletsteamA;
     private ArrayList<Bullet> LstBulletsteamB;
 
@@ -52,8 +54,9 @@ public class Battle {
     public Battle(Fleet fleetA, Fleet fleetB) {
         this.teamAOriginal= fleetA;
         this.teamBOriginal= fleetB;
-        this.teamA = DeepCopy.copyFleet(fleetA);
-        this.teamB = DeepCopy.copyFleet(fleetB);
+        this.CopyToOrignalHashMap = new HashMap<>();
+        this.teamA = DeepCopy.copyFleet(fleetA, CopyToOrignalHashMap);
+        this.teamB = DeepCopy.copyFleet(fleetB, CopyToOrignalHashMap);
         this.LstBoatsToPlace = this.teamA.getArrayListBoat();
         this.LstBoatsCurrentlyBeingPlaced = new ArrayList<>();
         this.HunterPreyHashMap = new HashMap<>();
@@ -93,6 +96,10 @@ public class Battle {
         return this.DeadBoatsB;
     }
 
+
+    public HashMap<Boat, Boat> getCopyToOrignalHashMap() {
+        return CopyToOrignalHashMap;
+    }
 
     public HashMap<Boat, Integer> getReloadingHashMap() {
         return ReloadingHashMap;

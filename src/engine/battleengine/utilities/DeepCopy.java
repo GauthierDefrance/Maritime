@@ -6,6 +6,7 @@ import engine.entity.boats.*;
 import engine.graph.GraphPoint;
 
 import java.awt.*;
+import java.util.HashMap;
 
 /**
  * @author Gauthier Defrance
@@ -17,7 +18,7 @@ public final class DeepCopy {
      * @param input une fleet remplies d'élements.
      * @return Fleet une fleet qui est une copie de celle passée en paramètres.
      */
-    public static Fleet copyFleet(Fleet input) {
+    public static Fleet copyFleet(Fleet input, HashMap<Boat,Boat> OriginalToCopyMap) {
         if (input==null|| input.getArrayListBoat().isEmpty()) return null;
         Fleet output = new Fleet();
         Boat tmp = new Standard("init","none", new GraphPoint(new Point(-1000,-1000),null));
@@ -49,6 +50,7 @@ public final class DeepCopy {
             tmp.setNextGraphPoint(null);
             tmp.setOldGraphPoint(null);
             output.add(tmp);
+            OriginalToCopyMap.put(tmp,boat);
         }
         return output;
     }
