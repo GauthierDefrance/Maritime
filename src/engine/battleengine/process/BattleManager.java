@@ -16,6 +16,7 @@ public class BattleManager {
     private final BattleBoatManager battleBoatManager;
     private final HunterManager hunterManager;
     private final ShootManager shotManager;
+    private final BattleEndManager battleEndManager;
 
     /**
      * Constructor of the BattleManager.
@@ -28,6 +29,7 @@ public class BattleManager {
         this.bulletManager = new BulletManager(battle);
         this.battleBoatManager = new BattleBoatManager(battle);
         this.hunterManager = new HunterManager(battle);
+        this.battleEndManager = new BattleEndManager(battle);
     }
 
     public PlacingManager getPlacingManager() {return placingManager;}
@@ -40,7 +42,7 @@ public class BattleManager {
      * it synchronizes the battle.
      */
     public void tick(){
-        if(!battle.isInPlacingMode()){
+        if(!battle.isInPlacingMode() && !battleEnded() ){
             hunterManager.ActualizeChase();
             battleBoatManager.tick();
             bulletManager.tick();
@@ -49,19 +51,20 @@ public class BattleManager {
     }
 
     public boolean battleEnded(){
-        if(battle.getBoatsInBattleA().getArrayListBoat().isEmpty()&&battle.getLstBoatsToPlace().isEmpty()&&!battle.isInPlacingMode()){
+        if(battleEndManager.playerLose()){
             //Lose
             return true;
         }
-        else if(battle.getBoatsInBattleB().getArrayListBoat().isEmpty()){
+        else if(battleEndManager.playerWin()){
             //win
             return true;
         }
         return false;
     }
 
-    public void battleEnd(){
 
+    public void battleEnd(){
+        battleEndManager.actualizeOriginalFleet();
     }
 
 
