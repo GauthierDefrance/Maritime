@@ -82,9 +82,13 @@ public class BulletManager {
     public void actualizeBullets() {
         ArrayList<Bullet> tmpLstBullets = new ArrayList<>();
         tmpLstBullets.addAll(battle.getLstBulletsteamA());
+        for(Bullet bullet: tmpLstBullets) {
+            bulletKiller(bullet,battle.getLstBulletsteamA());
+        }
+        tmpLstBullets = new ArrayList<>();
         tmpLstBullets.addAll(battle.getLstBulletsteamB());
         for(Bullet bullet: tmpLstBullets) {
-            bulletKiller(bullet);
+            bulletKiller(bullet,battle.getLstBulletsteamB());
         }
     }
 
@@ -92,10 +96,9 @@ public class BulletManager {
      * Method that kill Bullet from which the speed is too slow
      * @param bullet {@link Bullet}
      */
-    public void bulletKiller(Bullet bullet) {
+    public void bulletKiller(Bullet bullet,ArrayList<Bullet> lstBullet) {
         if(bullet.getSpeed() <= 0.2){
-            battle.getLstBulletsteamA().remove(bullet);
-            battle.getLstBulletsteamB().remove(bullet);
+            lstBullet.remove(bullet);
         }
     }
 

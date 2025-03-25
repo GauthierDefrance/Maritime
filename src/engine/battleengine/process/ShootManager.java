@@ -123,9 +123,8 @@ public class ShootManager {
      * @param prey {@link Boat}
      */
     private void shoot(Boat hunter, Boat prey){
-        Bullet bullet;
         double angle = AngleCalculator.calculateAngle(hunter.getPosition(), prey.getPosition());
-        bullet = EngineBuilder.createBullet((int) (hunter.getPosition().getX()), (int) (hunter.getPosition().getY()), angle, hunter.getColor());
+        Bullet bullet = EngineBuilder.createBullet((int) (hunter.getPosition().getX()), (int) (hunter.getPosition().getY()), angle, hunter.getColor());
         if(this.battle.getBoatsInBattleA().getArrayListBoat().contains(hunter)){
             this.battle.getLstBulletsteamA().add(bullet);
         }

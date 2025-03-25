@@ -24,12 +24,7 @@ public class PaintEntity {
      */
     public void paint(Harbor harbor, Graphics2D g2d){
         BufferedImage sprite = ImageStock.getImage(harbor);
-        if(sprite!=null){g2d.drawImage(sprite, (int) (harbor.getPosition().getX()) - (sprite.getWidth() / 2), (int) (harbor.getPosition().getY()) - (sprite.getHeight() / 2), null);}
-        else {
-            g2d.setColor(Color.MAGENTA);
-            g2d.fillOval((int)(harbor.getPosition().getX())-10,(int)(harbor.getPosition().getY())-10, 20, 20);
-            g2d.setColor(Color.black);
-        }
+        paintSprite(harbor.getPosition(),sprite,g2d,0);
     }
 
     /**
@@ -37,10 +32,8 @@ public class PaintEntity {
      */
     public void paint(Boat boat, Graphics2D g2d){
         BufferedImage sprite = ImageStock.getImage(boat);
-        g2d.rotate(boat.getAngle(),(int)(boat.getPosition().getX()),(int)(boat.getPosition().getY()));
         paintHITBOX(boat.getPosition(),ImageStock.colorChoice(boat.getColor()),g2d);
-        paintSprite(boat.getPosition(),sprite,g2d);
-        g2d.rotate(-boat.getAngle(),(int)(boat.getPosition().getX()),(int)(boat.getPosition().getY()));
+        paintSprite(boat.getPosition(),sprite,g2d,boat.getAngle());
     }
 
     /**
@@ -48,10 +41,8 @@ public class PaintEntity {
      */
     public void paint(Boat boat, Point point, Graphics2D g2d){
         BufferedImage sprite = ImageStock.getImage(boat);
-        g2d.rotate(boat.getAngle(),(int)(point.getX()),(int)(point.getY()));
         paintHITBOX(point,ImageStock.colorChoice(boat.getColor()),g2d);
-        paintSprite(point,sprite,g2d);
-        g2d.rotate(-boat.getAngle(),(int)(point.getX()),(int)(point.getY()));
+        paintSprite(point,sprite,g2d,boat.getAngle());
     }
 
     /**
@@ -114,7 +105,9 @@ public class PaintEntity {
         g2d.fillOval((int)(point.getX())-((int)GameConfiguration.HITBOX_BOAT/2),(int)(point.getY())-((int)GameConfiguration.HITBOX_BOAT/2), (int) GameConfiguration.HITBOX_BOAT, (int) GameConfiguration.HITBOX_BOAT);
         g2d.setColor(Color.black);
     }
-    public void paintSprite(Point point,  BufferedImage sprite, Graphics2D g2d){
+
+    public void paintSprite(Point point,  BufferedImage sprite, Graphics2D g2d,double angle){
+        if (angle!=0)g2d.rotate(angle,point.getX(),point.getY());
         if(sprite!=null){
             g2d.drawImage(sprite, (int) (point.getX()) - (sprite.getWidth() / 2), (int) (point.getY()) - (sprite.getHeight() / 2), null);}
         else {
@@ -122,6 +115,7 @@ public class PaintEntity {
             g2d.fillOval((int)(point.getX())-10,(int)(point.getY())-10, 20, 20);
             g2d.setColor(Color.black);
         }
+        if (angle!=0)g2d.rotate(-angle,point.getX(),point.getY());
     }
 
 }

@@ -44,38 +44,46 @@ public class BattleDisplay extends JPanel {
         double scale = Math.min((double)getWidth()/640,(double) getHeight() /360);
         g2d.scale(scale,scale);
         paintBackGround.paint(g2d,false);
+
         g2d.setColor(ImageStock.colorChoice(MapGame.getInstance().getPlayer().getColor()));
         g2d.fillRect(0,0, (int) (GameConfiguration.SPAWN_ZONE.getWidth()/GameConfiguration.GAME_SCALE), (int) (GameConfiguration.SPAWN_ZONE.getHeight()/GameConfiguration.GAME_SCALE));
         g2d.setColor(Color.black);
+
         g2d.scale((double) 1 /GameConfiguration.GAME_SCALE, (double) 1 /GameConfiguration.GAME_SCALE);
 
-        for(Boat boat : MainGUI.getBattle().getBoatsInBattleB().getArrayListBoat()){
+        for(Boat boat : battle.getBoatsInBattleB().getArrayListBoat()){
             paintEntity.paintBattle(boat,g2d);
         }
-        for(Boat boat : MainGUI.getBattle().getBoatsInBattleA().getArrayListBoat()){
+        for(Boat boat : battle.getBoatsInBattleA().getArrayListBoat()){
             paintEntity.paintBattle(boat,g2d);
         }
-        for(Boat boat : MainGUI.getBattle().getLstBoatsCurrentlyBeingPlaced()){
+        for(Boat boat : battle.getLstBoatsCurrentlyBeingPlaced()){
             paintEntity.paintBattle(boat,g2d);
         }
 
-        for (Bullet bullet : MainGUI.getBattle().getLstBulletsteamA()){
+        ArrayList<Bullet> tmp = new ArrayList<>();
+        tmp.addAll(battle.getLstBulletsteamA());
+        for (Bullet bullet : tmp){
             g2d.setColor(ImageStock.colorChoice(bullet.getColor()));
             g2d.fillOval((int) (bullet.getPosition().getX()-5), (int) (bullet.getPosition().getY()-5),10,10);
+            g2d.setColor(Color.black);
         }
 
-        for (Bullet bullet : MainGUI.getBattle().getLstBulletsteamB()){
+        tmp = new ArrayList<>();
+        tmp.addAll(battle.getLstBulletsteamB());
+        for (Bullet bullet : tmp){
             g2d.setColor(ImageStock.colorChoice(bullet.getColor()));
             g2d.fillOval((int) (bullet.getPosition().getX()-5), (int) (bullet.getPosition().getY()-5),10,10);
+            g2d.setColor(Color.black);
         }
 
-        for(Boat boat : MainGUI.getBattle().getBoatsInBattleB().getArrayListBoat()){
+        for(Boat boat : battle.getBoatsInBattleB().getArrayListBoat()){
             paintEntity.paintHP(boat,g2d);
         }
-        for(Boat boat : MainGUI.getBattle().getBoatsInBattleA().getArrayListBoat()){
+        for(Boat boat : battle.getBoatsInBattleA().getArrayListBoat()){
             paintEntity.paintHP(boat,g2d);
         }
-        for(Boat boat : MainGUI.getBattle().getLstBoatsCurrentlyBeingPlaced()){
+        for(Boat boat : battle.getLstBoatsCurrentlyBeingPlaced()){
             paintEntity.paintHP(boat,g2d);
         }
 
