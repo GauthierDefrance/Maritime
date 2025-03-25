@@ -151,10 +151,9 @@ public class ChoicePathMenu extends JPanel implements Runnable {
                     }
                     if(harbor1 != null && harbor2 != null){
                         if (faction.getRelationship() == WAR_THRESHOLD) {
-                            GUILoader.loadChoicePathMenu(faction);
+                            GUILoader.loadFleetManagingMenu(harbor1, harbor2);
                             return;
-                        }
-                        GUILoader.loadTradeMenu(new TradeOffer(harbor1, harbor2));
+                        } GUILoader.loadTradeMenu(new TradeOffer(harbor1, harbor2));
                     } else JOptionPane.showMessageDialog(ChoicePathMenu.this,"No proper selection");
                     break;
                 default:

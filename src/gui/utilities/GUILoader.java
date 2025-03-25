@@ -61,11 +61,15 @@ public class GUILoader {
     }
 
     public static void loadFleetManagingMenu(TradeOffer offer){
-        actualise(new FleetManagingMenu());
+        actualise(new FleetManagingMenu(offer));
     }
 
     public static void loadTradeMenu(TradeOffer offer){
         actualise(new TradeMenu(offer));
+    }
+
+    public static void loadFleetManagingMenu(Harbor startingHarbor, Harbor targetedHarbor){
+        actualise(new FleetManagingMenu(startingHarbor, targetedHarbor));
     }
 
     public static void loadChoicePathMenu(Faction faction){
