@@ -27,9 +27,11 @@ import static gui.MainGUI.getWindow;
  */
 public class CombatMenu extends JPanel implements Runnable {
 
+    private int speedBoost;
     private JPanel dashboardJPanel;
     private JPanel jPanelATH;
     private JPanel jNorthATHPanel;
+    private JPanel jNorthEastPanel;
     private JPanel jSouthATHPanel;
     private JPanel jWestATHPanel;
     private JPanel jWestCenterPanel;
@@ -57,6 +59,7 @@ public class CombatMenu extends JPanel implements Runnable {
         jWestATHPanel = JComponentBuilder.borderMenuPanel();
         jSouthATHPanel = JComponentBuilder.flowMenuPanel();
         jNorthATHPanel = JComponentBuilder.borderMenuPanel();
+        jNorthEastPanel = JComponentBuilder.gridMenuPanel(1,4,0,0);
         jWestCenterPanel = JComponentBuilder.gridMenuPanel(0,2);
         jWestSouthPanel = JComponentBuilder.gridMenuPanel(1,0,0,0);
         confirmBattle = JComponentBuilder.menuButton("Battle",new confirmContinueBattleListener());
@@ -64,6 +67,7 @@ public class CombatMenu extends JPanel implements Runnable {
         battle.setPlacingMode(true);
         dashboard = new BattleDisplay(battle);
         battleManager = new BattleManager(battle);
+        speedBoost = 1;
 
         //Window arrangement
         JLayeredPane jLayeredPane = new JLayeredPane();
@@ -75,11 +79,25 @@ public class CombatMenu extends JPanel implements Runnable {
 
         jWestSouthPanel.add(JComponentBuilder.menuButton("Cancel",new cancelPlacingListener()));
 
+        JButton jButtonNorthMenu1 = JComponentBuilder.menuButton("⏯",new flipTimeListener());
+        JButton jButtonNorthMenu2 = JComponentBuilder.menuButton(">",new setSpeedBoostListener(1));
+        JButton jButtonNorthMenu3 = JComponentBuilder.menuButton(">>",new setSpeedBoostListener(4));
+        JButton jButtonNorthMenu4 = JComponentBuilder.menuButton(">>>",new setSpeedBoostListener(8));
+
+        jNorthEastPanel.add(jButtonNorthMenu1);
+        jNorthEastPanel.add(jButtonNorthMenu2);
+        jNorthEastPanel.add(jButtonNorthMenu3);
+        jNorthEastPanel.add(jButtonNorthMenu4);
+
         jWestATHPanel.setOpaque(false);
         jPanelATH.setOpaque(false);
         jWestPanel.setOpaque(false);
 
         dashboardJPanel.add(dashboard,BorderLayout.CENTER);
+        JPanel jNorthPanel = JComponentBuilder.borderMenuPanel();
+        jNorthPanel.add(jNorthEastPanel,BorderLayout.NORTH);
+        jNorthATHPanel.add(jNorthPanel,BorderLayout.EAST);
+
         jWestATHPanel.add(jWestPanel,BorderLayout.CENTER);
         jWestATHPanel.add(jWestSouthPanel,BorderLayout.SOUTH);
 
@@ -92,6 +110,7 @@ public class CombatMenu extends JPanel implements Runnable {
         jLayeredPane.add(dashboardJPanel,JLayeredPane.DEFAULT_LAYER);
         jLayeredPane.add(jPanelATH,JLayeredPane.PALETTE_LAYER);
 
+        jNorthPanel.setBackground(Color.BLACK);
         jNorthATHPanel.setBackground(Color.BLACK);
         jSouthATHPanel.setBackground(Color.BLACK);
         dashboard.setBackground(GameConfiguration.WATER_BACKGROUND_COLOR);
@@ -113,6 +132,8 @@ public class CombatMenu extends JPanel implements Runnable {
 
         jPanelATH.setBounds(getWindow().getBounds());
         jNorthATHPanel.setPreferredSize(new Dimension(getWindow().getWidth(),(int) (getWindow().getHeight()*0.15)));
+        jNorthEastPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.2),(int) (getWindow().getHeight()*0.05)));
+
         jSouthATHPanel.setPreferredSize(new Dimension(getWindow().getWidth(),(int) (getWindow().getHeight()*0.15)));
         jWestSouthPanel.setPreferredSize(new Dimension(getWindow().getHeight(),(int) Math.max(26,getWindow().getHeight()*0.04)));
         jWestATHPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.20),getWindow().getHeight()));
@@ -130,6 +151,27 @@ public class CombatMenu extends JPanel implements Runnable {
             jWestCenterPanel.add(tmp);
         }
         sizeUpdate();
+    }
+
+    public class setSpeedBoostListener implements ActionListener {
+        private int value;
+
+        public setSpeedBoostListener(int value) {
+            this.value = value;
+        }
+
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            speedBoost = value;
+        }
+    }
+
+    public class flipTimeListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            MapGame.getInstance().setTimeStop(!MapGame.getInstance().isTimeStop());
+        }
     }
 
     public class cancelPlacingListener implements ActionListener {
@@ -258,7 +300,7 @@ public class CombatMenu extends JPanel implements Runnable {
     public void run() {
         while (!ThreadStop) {
             try {
-                Thread.sleep(GameConfiguration.GAME_SPEED);
+                Thread.sleep((long) GameConfiguration.GAME_SPEED/speedBoost);
 
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
