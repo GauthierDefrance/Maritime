@@ -3,6 +3,8 @@ package engine.battleengine.process;
 import engine.battleengine.data.Battle;
 import engine.entity.boats.Boat;
 
+import java.util.ArrayList;
+
 /**
  * Manager of the Battle class, manage how the battle go
  * @author Gauthier Defrance
@@ -63,7 +65,7 @@ public class BattleManager {
     }
 
 
-    public String battleEnd(){
+    public ArrayList<String> battleEnd(){
         return battleEndManager.actualizeOriginalFleet();
     }
 

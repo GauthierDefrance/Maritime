@@ -53,7 +53,7 @@ public class BattleEndManager {
      * Function that actualize the current state of the original fleet.
      * It removes all the boats that were loosed and change the inventory of the survivors boats.
      */
-    public String actualizeOriginalFleet(){
+    public ArrayList<String> actualizeOriginalFleet(){
         Inventory BigInv = new Inventory();
 
         // Yo, ici on va supprimer les bateaux qui sont morts durant la partie
@@ -82,7 +82,10 @@ public class BattleEndManager {
             }
             transferInvToFleet(BigInv, this.battle.getTeamBOriginal().getArrayListBoat());
         }
-        return "Boat destroy : "+this.battle.getDeadBoatsB().getArrayListBoat().size()+"\nBoat lost : "+this.battle.getDeadBoatsA().getArrayListBoat().size();
+        ArrayList<String> lstText = new ArrayList<>();
+        lstText.add("Boat destroy : "+this.battle.getDeadBoatsB().getArrayListBoat().size());
+        lstText.add("Boat lost : "+this.battle.getDeadBoatsA().getArrayListBoat().size());
+        return lstText;
         
     }
 

@@ -11,12 +11,14 @@ import engine.process.BoatManager;
 import gui.MainGUI;
 import gui.PopUp;
 import gui.panel.Display.BattleDisplay;
+import gui.process.ImageStock;
 import gui.process.ListenerBehaviorManager;
 import gui.utilities.GUILoader;
 import gui.process.JComponentBuilder;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 import static gui.MainGUI.getWindow;
 
@@ -320,9 +322,14 @@ public class CombatMenu extends JPanel implements Runnable {
             }
 
             if(battleManager.battleEnded()){
-
-                String text = battleManager.battleEnd(); //Cette ligne est supposé actualiser l'inventaire des bateaux.
-                JOptionPane.showMessageDialog(CombatMenu.this,text);
+                ArrayList<String> lstText = battleManager.battleEnd(); //Cette ligne est supposé actualiser l'inventaire des bateaux.
+                JPanel jPanel = JComponentBuilder.gridMenuPanel(2,1,0,20);
+                jPanel.add(JComponentBuilder.ImageLabel(new ImageIcon(ImageStock.getTbSprite(3, ImageStock.getColorInt(battle.getFactionB().getColor())))));
+                jPanel.add(JComponentBuilder.menuLabel(lstText.get(0)));
+                jPanel.add(JComponentBuilder.ImageLabel(new ImageIcon(ImageStock.getTbSprite(3,ImageStock.getColorInt(battle.getFactionA().getColor())))));
+                jPanel.add(JComponentBuilder.menuLabel(lstText.get(1)));
+                jPanel.setPreferredSize(new Dimension(400,100));
+                JOptionPane.showMessageDialog(CombatMenu.this,jPanel);
                 ThreadStop = true;
                 MapGame.getInstance().setTimeStop(true);
                 GUILoader.loadMainGame();

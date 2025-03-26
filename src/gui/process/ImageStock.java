@@ -119,7 +119,7 @@ public class ImageStock {
             default : {
             }
         }
-        return getInstance().getTbSprite(i,j);
+        return getTbSprite(i,j);
     }
 
     /**
@@ -140,21 +140,21 @@ public class ImageStock {
             }
         }
 
-        return getInstance().getTbSprite(4,j);
+        return getTbSprite(4,j);
     }
 
     /**
      * Allows you to choose the image to displayed
      */
     public static BufferedImage getImage(Fleet fleet){
-        return getInstance().getImages(0);
+        return getImages(0);
     }
 
     /**
      * Allows you to choose the image to displayed
      */
     public static BufferedImage getImage(SeaRoad seaRoad){
-        return getInstance().getImages(1);
+        return getImages(1);
     }
 
     /**
@@ -163,38 +163,38 @@ public class ImageStock {
     public static BufferedImage getImage(PopUp popUp){
         switch (popUp.getName()) {
             case "+" :{
-                return getInstance().getTbFramesSprite(2,popUp.getIFrame());
+                return getTbFramesSprite(2,popUp.getIFrame());
             }
             case "-" :{
-                return getInstance().getTbFramesSprite(3,popUp.getIFrame());
+                return getTbFramesSprite(3,popUp.getIFrame());
             }
             case "explosion" :{
-                return getInstance().getTbFramesSprite(4,popUp.getIFrame());
+                return getTbFramesSprite(4,popUp.getIFrame());
             }
             case "03" :{
-                return getInstance().getTbFramesSprite(5,popUp.getIFrame());
+                return getTbFramesSprite(5,popUp.getIFrame());
             }
             case "04" :{
-                return getInstance().getTbFramesSprite(6,popUp.getIFrame());
+                return getTbFramesSprite(6,popUp.getIFrame());
             }
             default : {
             }
         }
-        return getInstance().getTbFramesSprite(2,popUp.getIFrame());
+        return getTbFramesSprite(2,popUp.getIFrame());
     }
 
     /**
      * Allows you to choose the image to displayed
      */
     public static BufferedImage getImage(PaintBackGround backGround){
-        return getInstance().getTbFramesSprite(0,backGround.getIFrame());
+        return getTbFramesSprite(0,backGround.getIFrame());
     }
 
     /**
      * Allows you to choose the image to displayed
      */
     public static BufferedImage getImageMap(PaintBackGround backGround){
-        return getInstance().getTbFramesSprite(1,backGround.getIFrame());
+        return getTbFramesSprite(1,backGround.getIFrame());
     }
 
     /**
@@ -203,21 +203,21 @@ public class ImageStock {
     public static BufferedImage getImageDeadBoat(Boat boat){
         switch (boat.getClass().getName()) {
             case "engine.entity.boats.Standard" : {
-                return  getInstance().getTbSprite(5,0);
+                return  getTbSprite(5,0);
             }
             case "engine.entity.boats.Fodder" :{
-                return getInstance().getTbSprite(5,1);
+                return getTbSprite(5,1);
             }
             case "engine.entity.boats.Merchant" :{
-                return getInstance().getTbSprite(5,2);
+                return getTbSprite(5,2);
             }
             case "engine.entity.boats.Military" :{
-                return getInstance().getTbSprite(5,3);
+                return getTbSprite(5,3);
             }
             default : {
             }
         }
-        return getInstance().getTbFramesSprite(5,0);
+        return getTbFramesSprite(5,0);
     }
 
     /**
@@ -237,16 +237,30 @@ public class ImageStock {
         }
     }
 
-    private BufferedImage getImages(int a) {
-        return images[a];
+    public static int getColorInt(String color){
+        switch (color) {
+            case "red" :{
+                return 1;
+            }
+            case "blue" :{
+                return 2;
+            }
+            default : {
+                return 0;
+            }
+        }
     }
 
-    private BufferedImage getTbSprite(int a ,int b) {
-        return tbSprite[a][b];
+    public static BufferedImage getImages(int a) {
+        return getInstance().images[a];
     }
 
-    private BufferedImage getTbFramesSprite(int a ,int b) {
-        return tbFramesSprite[a][b];
+    public static BufferedImage getTbSprite(int a, int b) {
+        return getInstance().tbSprite[a][b];
+    }
+
+    public static BufferedImage getTbFramesSprite(int a ,int b) {
+        return getInstance().tbFramesSprite[a][b];
     }
 
 }

@@ -2,6 +2,7 @@ package gui.panel;
 
 import engine.MapGame;
 import engine.faction.Faction;
+import gui.process.ImageStock;
 import gui.utilities.GUILoader;
 
 import javax.swing.*;
@@ -85,7 +86,7 @@ public class RelationMenu extends JPanel {
             ArrayList<Faction> lstFaction = MapGame.getInstance().getLstBotFaction();
             JButton relationButton;
             if (i < lstFaction.size()){
-                relationButton = ImageButton(new ImageIcon(IMG_FILE_PATH + "/boat/standard.png"), new SwitchListener(lstFaction.get(i)));
+                relationButton = ImageButton(new ImageIcon(ImageStock.getTbSprite(0,0)), new SwitchListener(lstFaction.get(i)));
             } else {
                 relationButton = menuButton("Wasted");
                 relationButton.setEnabled(false);
