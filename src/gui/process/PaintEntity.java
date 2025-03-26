@@ -6,6 +6,8 @@ import engine.entity.boats.Boat;
 import engine.trading.SeaRoad;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 /**
@@ -111,15 +113,20 @@ public class PaintEntity {
     }
 
     public void paintSprite(Point point,  BufferedImage sprite, Graphics2D g2d,double angle){
-        if (angle!=0)g2d.rotate(angle,point.getX(),point.getY());
-        if(sprite!=null){
-            g2d.drawImage(sprite, (int) (point.getX()) - (sprite.getWidth() / 2), (int) (point.getY()) - (sprite.getHeight() / 2), null);}
+        if(sprite!=null) {
+            AffineTransform transform = new AffineTransform();
+            transform.rotate(angle, point.getX(), point.getY());
+            transform.translate((point.getX()) - (sprite.getWidth() / 2), (point.getY()) - (sprite.getHeight() / 2));
+            g2d.drawImage(sprite, transform, null);
+//            if (angle != 0) g2d.rotate(angle, point.getX(), point.getY());
+//            g2d.drawImage(sprite, (int) (point.getX()) - (sprite.getWidth() / 2), (int) (point.getY()) - (sprite.getHeight() / 2), null);
+//            if (angle != 0) g2d.rotate(-angle, point.getX(), point.getY());
+        }
         else {
             g2d.setColor(Color.MAGENTA);
             g2d.fillOval((int)(point.getX())-10,(int)(point.getY())-10, 20, 20);
             g2d.setColor(Color.black);
         }
-        if (angle!=0)g2d.rotate(-angle,point.getX(),point.getY());
     }
 
 }
