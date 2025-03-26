@@ -71,8 +71,16 @@ public class BattleEndManager {
         }
 
         if(playerWin()){
+            //On actualise les HP
+            for(Boat boat: this.battle.getBoatsInBattleA().getArrayListBoat()){
+                this.battle.getCopyToOrignalHashMap().get(boat).setCurrentHp(boat.getCurrentHp());
+            }
             transferInvToFleet(BigInv, teamA);
         } else {
+            //On actualise les HP
+            for(Boat boat: this.battle.getBoatsInBattleB().getArrayListBoat()){
+                this.battle.getCopyToOrignalHashMap().get(boat).setCurrentHp(boat.getCurrentHp());
+            }
             transferInvToFleet(BigInv, teamB);
         }
         
