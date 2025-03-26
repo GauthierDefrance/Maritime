@@ -100,7 +100,7 @@ public class Debug extends JFrame{
             switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
                 case "gui.panel.OptionsMenu" :
                 case "gui.panel.PauseMenu" : {
-                    MainGUI.setBattle(EngineBuilder.createBattle(MapGame.getInstance().getPlayer().getLstFleet().get(0), MapGame.getInstance().getLstBotFaction().get(0).getLstFleet().get(0)));
+                    MainGUI.setBattle(EngineBuilder.createBattle(MapGame.getInstance().getPlayer(),MapGame.getInstance().getLstBotFaction().get(0),MapGame.getInstance().getPlayer().getLstFleet().get(0), MapGame.getInstance().getLstBotFaction().get(0).getLstFleet().get(0)));
                     GUILoader.loadCombat(MainGUI.getBattle());
                     break;
                 }

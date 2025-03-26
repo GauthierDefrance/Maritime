@@ -3,6 +3,7 @@ import config.GameConfiguration;
 import engine.battleengine.utilities.DeepCopy;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
+import engine.faction.Faction;
 import engine.graph.GraphPoint;
 
 import java.awt.*;
@@ -16,6 +17,10 @@ import java.util.HashMap;
  * @version 0.4
  */
 public class Battle {
+
+    private Faction factionA;
+    private Faction factionB;
+
     private Fleet teamAOriginal;
     private Fleet teamBOriginal;
 
@@ -25,7 +30,6 @@ public class Battle {
     private ArrayList<Bullet> LstBulletsteamB;
 
     private HashMap<Boat, Integer> ReloadingHashMap;
-
     private HashMap<Boat, Boat> HunterPreyHashMap;
     private HashMap<Boat, Point> HunterPreyPointHashMap;
 
@@ -51,7 +55,9 @@ public class Battle {
      * @param fleetA
      * @param fleetB
      */
-    public Battle(Fleet fleetA, Fleet fleetB) {
+    public Battle(Faction factionA, Faction factionB, Fleet fleetA, Fleet fleetB) {
+        this.factionA = factionA;
+        this.factionB = factionB;
         this.teamAOriginal= fleetA;
         this.teamBOriginal= fleetB;
         this.CopyToOrignalHashMap = new HashMap<>();
@@ -271,5 +277,21 @@ public class Battle {
 
     public void setLstBulletsteamB(ArrayList<Bullet> lstBulletsteamB) {
         LstBulletsteamB = lstBulletsteamB;
+    }
+
+    public Faction getFactionA() {
+        return factionA;
+    }
+
+    public void setFactionA(Faction factionA) {
+        this.factionA = factionA;
+    }
+
+    public Faction getFactionB() {
+        return factionB;
+    }
+
+    public void setFactionB(Faction factionB) {
+        this.factionB = factionB;
     }
 }

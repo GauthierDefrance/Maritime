@@ -50,8 +50,8 @@ public class EngineBuilder {
         return new Bullet(x, y, GameConfiguration.DEFAULT_BULLET_SPEED, angle, color);
     }
 
-    public static Battle createBattle(Fleet fleetA, Fleet fleetB) {
-        Battle battle = new Battle(fleetA, fleetB);
+    public static Battle createBattle(Faction factionA, Faction factionB, Fleet fleetA, Fleet fleetB) {
+        Battle battle = new Battle(factionA, factionB, fleetA, fleetB);
         BattlePlaceFleet.placeEnemyFleet(battle);
         return battle;
     }

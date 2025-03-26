@@ -63,8 +63,8 @@ public class BattleManager {
     }
 
 
-    public void battleEnd(){
-        battleEndManager.actualizeOriginalFleet();
+    public String battleEnd(){
+        return battleEndManager.actualizeOriginalFleet();
     }
 
 

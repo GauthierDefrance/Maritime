@@ -160,17 +160,22 @@ public class CombatMenu extends JPanel implements Runnable {
             this.value = value;
         }
 
-
         @Override
         public void actionPerformed(ActionEvent e) {
             speedBoost = value;
         }
+
     }
 
     public class flipTimeListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             MapGame.getInstance().setTimeStop(!MapGame.getInstance().isTimeStop());
+            if(MapGame.getInstance().isTimeStop()){
+            jWestATHPanel.setVisible(true);
+            confirmBattle.setVisible(true);
+            battle.setPlacingMode(true);
+            }
         }
     }
 
@@ -316,8 +321,8 @@ public class CombatMenu extends JPanel implements Runnable {
 
             if(battleManager.battleEnded()){
 
-                battleManager.battleEnd(); //Cette ligne est supposé actualiser l'inventaire des bateaux.
-
+                String text = battleManager.battleEnd(); //Cette ligne est supposé actualiser l'inventaire des bateaux.
+                JOptionPane.showMessageDialog(CombatMenu.this,text);
                 ThreadStop = true;
                 MapGame.getInstance().setTimeStop(true);
                 GUILoader.loadMainGame();
