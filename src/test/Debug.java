@@ -35,6 +35,7 @@ public class Debug extends JFrame{
         contentPane.add(relationMenu);
         contentPane.add(choicePathMenu0);
         contentPane.add(choicePathMenu1);
+        setAlwaysOnTop(true);
         setFocusable(false);
         setLocationRelativeTo(null);
         setSize(360, 360);

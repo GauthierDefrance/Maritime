@@ -323,12 +323,13 @@ public class CombatMenu extends JPanel implements Runnable {
 
             if(battleManager.battleEnded()){
                 ArrayList<String> lstText = battleManager.battleEnd(); //Cette ligne est supposé actualiser l'inventaire des bateaux.
-                JPanel jPanel = JComponentBuilder.gridMenuPanel(2,1,0,20);
+                JPanel jPanel = JComponentBuilder.gridMenuPanel(3,2,0,20);
                 jPanel.add(JComponentBuilder.ImageLabel(new ImageIcon(ImageStock.getTbSprite(3, ImageStock.getColorInt(battle.getFactionB().getColor())))));
                 jPanel.add(JComponentBuilder.menuLabel(lstText.get(0)));
                 jPanel.add(JComponentBuilder.ImageLabel(new ImageIcon(ImageStock.getTbSprite(3,ImageStock.getColorInt(battle.getFactionA().getColor())))));
                 jPanel.add(JComponentBuilder.menuLabel(lstText.get(1)));
-                jPanel.setPreferredSize(new Dimension(400,100));
+                jPanel.add(JComponentBuilder.ImageLabel(new ImageIcon(ImageStock.getImages(2))));
+                jPanel.add(JComponentBuilder.menuLabel(lstText.get(2)));
                 JOptionPane.showMessageDialog(CombatMenu.this,jPanel);
                 ThreadStop = true;
                 MapGame.getInstance().setTimeStop(true);

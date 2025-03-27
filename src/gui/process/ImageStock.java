@@ -34,6 +34,7 @@ public class ImageStock {
         try {
             images[0] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/fleet.png"));
             images[1] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/seaRoad.png"));
+            images[2] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/barrel.png"));
 
             tbSprite[0][0] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/standard.png"));
             tbSprite[0][1] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/standard/red.png"));
