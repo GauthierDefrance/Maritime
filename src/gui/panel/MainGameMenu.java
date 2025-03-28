@@ -396,14 +396,18 @@ public class MainGameMenu extends JPanel implements Runnable {
                 tmp = factionManager.allChaseUpdate();
                 if(tmp != null){
                     MapGame.getInstance().setTimeStop(true);
-                    ThreadStop = true;
-                    JOptionPane.showMessageDialog(MainGameMenu.this,"jPanel");
-                    GUILoader.loadCombat(factionManager.StartBattle(tmp.get(0),tmp.get(1)));
+                    if(MapGame.getInstance().getPlayer().getLstBoat().contains(tmp.get(1))){
+                        JOptionPane.showMessageDialog(MainGameMenu.this,"jPanel");
+                        ThreadStop = true;
+                        GUILoader.loadCombat(factionManager.StartBattle(tmp.get(0),tmp.get(1)));
+                    }
+                    else if(JOptionPane.showConfirmDialog(MainGameMenu.this,"Do you want to start battle ?","confirmation",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+                        ThreadStop = true;
+                        GUILoader.loadCombat(factionManager.StartBattle(tmp.get(0),tmp.get(1)));
+                    }
+                    else MapGame.getInstance().setTimeStop(false);
                 }
             }
-
-
-
             dashboard.repaint();
             dashboard.getPaintBackGround().setIFrame((dashboard.getPaintBackGround().getIFrame() + 1) % GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES);
             for (PopUp popUp : MapGame.getInstance().getLstPopUp()) {
