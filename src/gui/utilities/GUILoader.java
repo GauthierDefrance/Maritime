@@ -31,24 +31,24 @@ public class GUILoader {
         actualise(new MainGameMenu());
     }
 
-    public static void loadPauseMenu(int token){
-        actualise(new PauseMenu(token));
+    public static void loadPauseMenu(int token,Object object){
+        actualise(new PauseMenu(token,object));
     }
 
     public static void loadStartMenu(){
         actualise(new StartMenu());
     }
 
-    public static void loadOptionsMenu(int token){
-        actualise(new OptionsMenu(token));
+    public static void loadOptionsMenu(int token,Object object){
+        actualise(new OptionsMenu(token,object));
     }
 
-    public static void loadChargeGameMenu(int token){
-        actualise(new SaveFileMenu(token, 0));
+    public static void loadChargeGameMenu(int token, Object object){
+        actualise(new SaveFileMenu(token, 0,object));
     }
 
-    public static void loadSaveGameMenu(int token){
-        actualise(new SaveFileMenu(token, 1));
+    public static void loadSaveGameMenu(int token, Object object){
+        actualise(new SaveFileMenu(token, 1,object));
     }
 
     public static void loadRelationMenu(Faction faction){

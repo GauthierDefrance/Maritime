@@ -21,15 +21,17 @@ public class SaveFileMenu extends JPanel {
     private final int state; //decide if we're in a loading (0) or saving (1) state
 
     private final int token;
+    private final Object objectToken;
 
     private final GameSaveManager manager = GameSaveManager.create();
 
     private final ArrayList<JButton> fileButtons;
 
-    public SaveFileMenu(int token, int state) {
+    public SaveFileMenu(int token, int state, Object objectToken) {
         super();
         this.token = token;
         this.state = state;
+        this.objectToken = objectToken;
         this.fileButtons = new ArrayList<>();
         init();
     }

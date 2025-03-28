@@ -23,14 +23,16 @@ import static config.GameOptions.getInstance;
 public class PauseMenu extends JPanel {
 
     private final int token;
+    private final Object objectToken;
 
     /**
      * Generate the PauseMenu using a token and makes it appear
      * @param token former GUI identifier
      */
-    public PauseMenu(int token) {
+    public PauseMenu(int token, Object objectToken) {
         super();
         this.token = token;
+        this.objectToken = objectToken;
         init();
     }
 
@@ -92,14 +94,14 @@ public class PauseMenu extends JPanel {
     public class LoadMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadChargeGameMenu(token+3);
+            GUILoader.loadChargeGameMenu(token+3,objectToken);
         }
     }
 
     public class SaveMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadSaveGameMenu(token+3);
+            GUILoader.loadSaveGameMenu(token+3,objectToken);
         }
     }
 
@@ -123,14 +125,14 @@ public class PauseMenu extends JPanel {
     public class OptionsMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadOptionsMenu(token+3);
+            GUILoader.loadOptionsMenu(token+3,objectToken);
         }
     }
 
     public class ResumeButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ListenerBehaviorManager.create().goBack(token);
+            ListenerBehaviorManager.create().goBack(token,objectToken);
         }
     }
 
@@ -138,7 +140,7 @@ public class PauseMenu extends JPanel {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                ListenerBehaviorManager.create().goBack(token);
+                ListenerBehaviorManager.create().goBack(token,objectToken);
             }
         }
 

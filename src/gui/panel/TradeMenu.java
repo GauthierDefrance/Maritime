@@ -5,6 +5,7 @@ import engine.faction.Faction;
 import engine.process.FactionManager;
 import engine.process.TradeManager;
 import engine.trading.*;
+import gui.process.ListenerBehaviorManager;
 import gui.utilities.GUILoader;
 import gui.process.JComponentBuilder;
 
@@ -12,6 +13,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -170,10 +173,30 @@ public class TradeMenu extends JPanel {
         }
     }
 
+    private class KeyControls implements KeyListener {
+
+        @Override
+        public void keyPressed(KeyEvent event) {
+            if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
+                GUILoader.loadRelationMenu(offer.getInterlocutor());
+            }
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+
+        }
+    }
+
     private class GoBackListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadMainGame();
+            GUILoader.loadRelationMenu(offer.getInterlocutor());
         }
     }
 

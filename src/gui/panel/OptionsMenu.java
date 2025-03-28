@@ -18,6 +18,7 @@ import static config.GameConfiguration.*;
 public class OptionsMenu extends JPanel {
 
     private final int token;
+    private final Object objectToken;
 
     private JButton muteButton;
 
@@ -27,9 +28,10 @@ public class OptionsMenu extends JPanel {
      * Build the OptionsMenu using a token
      * @param token former GUI JPanel identifier
      */
-    public OptionsMenu(int token) {
+    public OptionsMenu(int token, Object objectToken) {
         super();
         this.token = token;
+        this.objectToken = objectToken;
         init();
     }
 

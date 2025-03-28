@@ -115,15 +115,15 @@ public class ListenerBehaviorManager {
     public void goBack(int token,Object object){
         switch(token){
             case ROOT_PAUSE_FROM_MAIN: {
-                GUILoader.loadPauseMenu(ROOT_MAIN_GAME);
+                GUILoader.loadPauseMenu(ROOT_MAIN_GAME,object);
                 break;
             }
             case ROOT_PAUSE_FROM_COMBAT: {
-                GUILoader.loadPauseMenu(ROOT_COMBAT);
+                GUILoader.loadPauseMenu(ROOT_COMBAT,object);
                 break;
             }
             case ROOT_PAUSE_FROM_RELATION: {
-                GUILoader.loadPauseMenu(ROOT_RELATION_MENU);
+                GUILoader.loadPauseMenu(ROOT_RELATION_MENU,object);
                 break;
             }
 
@@ -140,7 +140,7 @@ public class ListenerBehaviorManager {
                     logger.error("object Battle to init the CombatMenu is null");
                     GUILoader.loadStartMenu();
                 }
-                GUILoader.loadCombat((Battle) object);
+                else GUILoader.loadCombat((Battle) object);
                 break;
             }
             case ROOT_RELATION_MENU:{

@@ -2,13 +2,11 @@ package gui.panel;
 
 import config.GameConfiguration;
 import engine.MapGame;
-import engine.battleengine.data.Battle;
 import engine.entity.Entity;
 import engine.entity.Harbor;
 import engine.entity.boats.*;
 import engine.process.FactionManager;
 import engine.trading.SeaRoad;
-import gui.MainGUI;
 import gui.PopUp;
 import gui.panel.Display.GameDisplay;
 import gui.process.ListenerBehaviorManager;
@@ -363,7 +361,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
                 ThreadStop = true;
-                GUILoader.loadPauseMenu(GameConfiguration.ROOT_MAIN_GAME);
+                GUILoader.loadPauseMenu(GameConfiguration.ROOT_MAIN_GAME,null);
             }
             else if(event.getKeyCode() == KeyEvent.VK_SPACE){
                 MapGame.getInstance().setTimeStop(!MapGame.getInstance().isTimeStop());

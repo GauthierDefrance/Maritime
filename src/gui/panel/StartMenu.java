@@ -142,7 +142,7 @@ public class StartMenu extends JPanel implements Runnable {
         @Override
         public void actionPerformed(ActionEvent e) {
             ThreadStop = true;
-            GUILoader.loadOptionsMenu(GameConfiguration.ROOT_START_MENU);
+            GUILoader.loadOptionsMenu(GameConfiguration.ROOT_START_MENU,null);
         }
     }
 
@@ -150,7 +150,7 @@ public class StartMenu extends JPanel implements Runnable {
         @Override
         public void actionPerformed(ActionEvent e) {
             ThreadStop = true;
-            GUILoader.loadChargeGameMenu(GameConfiguration.ROOT_START_MENU);
+            GUILoader.loadChargeGameMenu(GameConfiguration.ROOT_START_MENU,null);
         }
     }
 
