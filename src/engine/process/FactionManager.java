@@ -2,15 +2,17 @@ package engine.process;
 
 import config.GameConfiguration;
 import engine.MapGame;
+import engine.battleengine.data.Battle;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
 import engine.faction.Faction;
 import engine.graph.GraphPoint;
+import engine.process.builder.EngineBuilder;
 import engine.trading.SeaRoad;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 /**
  * @author Kenan Ammad
@@ -23,7 +25,6 @@ public class FactionManager {
     private final HarborManager harborManager;
     private final FleetManager fleetManager;
     private final SeaRoadManager seaRoutManager;
-    private ArrayList<Boat[]> lstAttackBoat;
 
     /**
      * Typical builder generating an FactionManager
@@ -34,14 +35,12 @@ public class FactionManager {
         this.harborManager = new HarborManager();
         this.fleetManager = new FleetManager(boatManager);
         this.seaRoutManager = new SeaRoadManager(this.harborManager,this.fleetManager, this.boatManager);
-        this.lstAttackBoat = new ArrayList<>();
     }
 
     public void nextRound(){
         moveAllFactionBoat();
         allFleetUpdate();
         allSeaRoutUpdate();
-        allChaseUpdate();
         playerManager.updatePlayerVision();
     }
 
@@ -112,7 +111,7 @@ public class FactionManager {
      * @param prey chased boat
      */
     public void chaseBoat(Boat hunter, Boat prey){
-        lstAttackBoat.add(new Boat[]{hunter,prey});
+        MapGame.getInstance().addHunterPreyHashMap(hunter,prey);
         hunter.setPath(new ArrayList<>(Collections.singleton(new GraphPoint(prey.getPosition(), "target"))));
         hunter.setIPath(0);
         hunter.setContinuePath(false);
@@ -121,53 +120,43 @@ public class FactionManager {
     /**
      * Take two boats starts a fight if they are in contact cancels the chase if they are too far away
      */
-    public void chaseUpdate(Boat[] tbBoat){
-        double distance = tbBoat[0].getPosition().distance(tbBoat[0].getPosition());
+    public ArrayList<Boat> chaseUpdate(Boat hunter,Boat prey){
+        double distance = hunter.getPosition().distance(prey.getPosition());
         if(GameConfiguration.HITBOX_BOAT-5 >= distance){
-            StartFight(tbBoat[0],tbBoat[1]);
-            lstAttackBoat.remove(tbBoat);
-            tbBoat[0].getPath().clear();
-            tbBoat[0].setNextGraphPoint(tbBoat[1].getNextGraphPoint());
+            MapGame.getInstance().removeHunterPreyHashMap(hunter);
+            hunter.getPath().clear();
+            hunter.setNextGraphPoint(prey.getNextGraphPoint());
+            ArrayList<Boat> lst = new ArrayList<>();
+            lst.add(hunter);
+            lst.add(prey);
+            return lst;
         }
-        else if (tbBoat[0].getVisionRadius()+20 < distance){
-            lstAttackBoat.remove(tbBoat);
-            tbBoat[0].getPath().clear();
-            tbBoat[0].setNextGraphPoint(tbBoat[1].getNextGraphPoint());
+        else if (hunter.getVisionRadius()+20 < distance){
+            MapGame.getInstance().removeHunterPreyHashMap(hunter);
+            hunter.getPath().clear();
+            hunter.setNextGraphPoint(prey.getNextGraphPoint());
         }
+        return null;
     }
 
     /**
      * For all the boats that are on the chase starts a fight if they are in contact cancels the chase if they are too far away
      */
-    public void allChaseUpdate(){
-        ArrayList<Boat[]> lstAttackBoatTemp = new ArrayList<>();
-        lstAttackBoatTemp.addAll(lstAttackBoat);
-        for (Boat[] tbBoat : lstAttackBoatTemp){
-                chaseUpdate(tbBoat);
+    public ArrayList<Boat> allChaseUpdate(){
+        ArrayList<Boat> lst = null;
+        HashMap<Boat, Boat> tmp = new HashMap<>(MapGame.getInstance().getHunterPreyHashMap());
+        for (Boat boat : tmp.keySet()){
+            lst = chaseUpdate(boat,tmp.get(boat));
+            if(lst!=null)return lst;
         }
+        return lst;
     }
 
     // à mettre dans une class combat
-    public void StartFight(Boat boat1,Boat boat2){
-        ArrayList<Boat> vision1 = new ArrayList<>();
-        ArrayList<Boat> vision2 = new ArrayList<>();
-        vision1.add(boat1);
-        vision2.add(boat2);
-        for (Boat boat : getMyFaction(boat1.getColor()).getLstBoat()){
-            for (Boat playerBoat : MapGame.getInstance().getPlayer().getLstBoat()){
-                if (playerBoat.getVisionRadius() /2 >= Math.sqrt(Math.pow((boat.getPosition().getX()-playerBoat.getPosition().getX()),2)+Math.pow((boat.getPosition().getY()-playerBoat.getPosition().getY()),2))){
-                    if (!vision1.contains(boat)){vision1.add(boat);}
-                }
-            }
-        }
-        for (Boat boat : getMyFaction(boat2.getColor()).getLstBoat()){
-            for (Boat playerBoat : MapGame.getInstance().getPlayer().getLstBoat()){
-                if(playerBoat.getVisionRadius() /2 >= Math.sqrt(Math.pow((boat.getPosition().getX()-playerBoat.getPosition().getX()),2)+Math.pow((boat.getPosition().getY()-playerBoat.getPosition().getY()),2))){
-                    if(!vision2.contains(boat)){vision2.add(boat);}
-                }
-            }
-        }
-        JOptionPane.showMessageDialog(null, vision1+"vs"+vision2);
+    public Battle StartBattle(Boat hunter, Boat prey){
+        Fleet fleetHunter = getMyFleet(hunter);
+        Fleet fleetPrey = getMyFleet(prey);
+        return EngineBuilder.createBattle(getMyFaction(hunter.getColor()),getMyFaction(prey.getColor()),fleetHunter,fleetPrey);
     }
 
     /**
@@ -180,6 +169,22 @@ public class FactionManager {
                 return faction;
             }
         } return new Faction("");
+    }
+
+    /**
+     * gives the Fleet associated with a boat
+     */
+    public Fleet getMyFleet(Boat boat){
+        Fleet fleet = null;
+        Faction tmp = getMyFaction(boat.getColor());
+        for(Fleet fleet2 : tmp.getLstFleet()){
+            if(fleet2.getArrayListBoat().contains(boat))fleet=fleet2;
+        }
+        if(fleet == null){
+            fleet = new Fleet();
+            fleet.add(boat);
+        }
+        return fleet;
     }
 
     public SeaRoadManager getSeaRoadManager() {

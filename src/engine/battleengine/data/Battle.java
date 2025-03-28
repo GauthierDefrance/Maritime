@@ -70,28 +70,12 @@ public class Battle {
         this.ReloadingHashMap = new HashMap<>();
         this.LstBulletsteamA= new ArrayList<>();
         this.LstBulletsteamB= new ArrayList<>();
-
-        for(Boat boat : this.teamA.getArrayListBoat()) {
-            HunterPreyHashMap.put(boat, null);
-            HunterPreyPointHashMap.put(boat, null);
-            ReloadingHashMap.put(boat, GameConfiguration.RELOAD_TIME);
-        }
-        for(Boat boat : this.teamB.getArrayListBoat()) {
-            HunterPreyHashMap.put(boat, null);
-            HunterPreyPointHashMap.put(boat, null);
-            ReloadingHashMap.put(boat, GameConfiguration.RELOAD_TIME);
-        }
-
         this.BoatsInBattleA= new Fleet();
         this.BoatsInBattleB = new Fleet();
-
         this.DeadBoatsA= new Fleet();
         this.DeadBoatsB = new Fleet();
-
         this.isInPlacingMode = true;
         this.currentBoatPoint = new Point(0,0);
-
-
     }
 
     public Fleet getDeadBoatsA(){

@@ -1,6 +1,7 @@
 package engine;
 
 import engine.entity.Harbor;
+import engine.entity.boats.Boat;
 import engine.faction.Faction;
 import engine.faction.Player;
 import engine.graph.GraphPoint;
@@ -15,6 +16,7 @@ import java.util.HashMap;
  */
 public class MapGame implements Serializable {
     private static MapGame instance;
+    private HashMap<Boat, Boat> HunterPreyHashMap;
     private HashMap<String, GraphPoint> mapGraphPoint;
     private ArrayList<Harbor> lstHarbor;
     private ArrayList<Faction> lstBotFaction;
@@ -105,4 +107,20 @@ public class MapGame implements Serializable {
     }
 
     public void addGraphPoint(GraphPoint graphPoint){ mapGraphPoint.put(graphPoint.getIdPoint(),graphPoint); }
+
+    public HashMap<Boat, Boat> getHunterPreyHashMap() {
+        return HunterPreyHashMap;
+    }
+
+    public void setHunterPreyHashMap(HashMap<Boat, Boat> hunterPreyHashMap) {
+        HunterPreyHashMap = hunterPreyHashMap;
+    }
+
+    public void addHunterPreyHashMap(Boat hunter, Boat prey) {
+        HunterPreyHashMap.put(hunter,prey);
+    }
+
+    public void removeHunterPreyHashMap(Boat hunter) {
+        HunterPreyHashMap.remove(hunter);
+    }
 }

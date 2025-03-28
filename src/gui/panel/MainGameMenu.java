@@ -2,11 +2,13 @@ package gui.panel;
 
 import config.GameConfiguration;
 import engine.MapGame;
+import engine.battleengine.data.Battle;
 import engine.entity.Entity;
 import engine.entity.Harbor;
 import engine.entity.boats.*;
 import engine.process.FactionManager;
 import engine.trading.SeaRoad;
+import gui.MainGUI;
 import gui.PopUp;
 import gui.panel.Display.GameDisplay;
 import gui.process.ListenerBehaviorManager;
@@ -17,6 +19,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static gui.MainGUI.getWindow;
@@ -381,6 +384,7 @@ public class MainGameMenu extends JPanel implements Runnable {
     @Override
     public void run() {
         while (!ThreadStop) {
+            ArrayList<Boat> tmp = null;
             try {
                 Thread.sleep((long) GameConfiguration.GAME_SPEED/speedBoost);
 
@@ -389,7 +393,17 @@ public class MainGameMenu extends JPanel implements Runnable {
             }
             if (!MapGame.getInstance().isTimeStop()){
                 factionManager.nextRound();
+                tmp = factionManager.allChaseUpdate();
+                if(tmp != null){
+                    MapGame.getInstance().setTimeStop(true);
+                    ThreadStop = true;
+                    JOptionPane.showMessageDialog(MainGameMenu.this,"jPanel");
+                    GUILoader.loadCombat(factionManager.StartBattle(tmp.get(0),tmp.get(1)));
+                }
             }
+
+
+
             dashboard.repaint();
             dashboard.getPaintBackGround().setIFrame((dashboard.getPaintBackGround().getIFrame() + 1) % GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES);
             for (PopUp popUp : MapGame.getInstance().getLstPopUp()) {

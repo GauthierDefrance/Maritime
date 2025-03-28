@@ -5,6 +5,7 @@ import engine.battleengine.data.Bullet;
 import engine.battleengine.utilities.BattlePlaceFleet;
 import config.GameConfiguration;
 import engine.MapGame;
+import engine.battleengine.utilities.DeepCopy;
 import engine.entity.Harbor;
 import engine.entity.boats.*;
 import engine.faction.Faction;
@@ -48,12 +49,6 @@ public class EngineBuilder {
 
     public static Bullet createBullet(int x, int y, double angle, String color){
         return new Bullet(x, y, GameConfiguration.DEFAULT_BULLET_SPEED, angle, color);
-    }
-
-    public static Battle createBattle(Faction factionA, Faction factionB, Fleet fleetA, Fleet fleetB) {
-        Battle battle = new Battle(factionA, factionB, fleetA, fleetB);
-        BattlePlaceFleet.placeEnemyFleet(battle);
-        return battle;
     }
 
     public static Standard Standard(String name,GraphPoint graphPoint){
@@ -104,6 +99,27 @@ public class EngineBuilder {
         return harbor;
     }
 
+    public static Battle createBattle(Faction factionA, Faction factionB, Fleet fleetA, Fleet fleetB) {
+        Battle battle;
+        if(factionA instanceof Player) {
+            battle = new Battle(factionA,factionB,fleetA,fleetB);
+        }
+        else {
+            battle = new Battle(factionB,factionA,fleetB,fleetA);
+        }
+        for(Boat boat : battle.getTeamA().getArrayListBoat()) {
+            battle.getHunterPreyHashMap().put(boat, null);
+            battle.getHunterPreyPointHashMap().put(boat, null);
+            battle.getReloadingHashMap().put(boat, GameConfiguration.RELOAD_TIME);
+        }
+        for(Boat boat : battle.getTeamB().getArrayListBoat()) {
+            battle.getHunterPreyHashMap().put(boat, null);
+            battle.getHunterPreyPointHashMap().put(boat, null);
+            battle.getReloadingHashMap().put(boat, GameConfiguration.RELOAD_TIME);
+        }
+        return battle;
+        }
+
     public static void mapInit(int choice) {
         mapInit1();
     }
@@ -115,7 +131,9 @@ public class EngineBuilder {
         ArrayList<Faction> lstFaction = new ArrayList<>();
         ArrayList<Faction> lstBotFaction = new ArrayList<>();
         HashMap<String, GraphPoint> mapGraphPoint = new HashMap<>();
+        HashMap<Boat, Boat> hunterPreyHashMap = new HashMap<>();
         MapGame.getInstance().setMapGraphPoint(mapGraphPoint);
+        MapGame.getInstance().setHunterPreyHashMap(hunterPreyHashMap);
         Player player = new Player("blue");
 
 
@@ -223,7 +241,9 @@ public class EngineBuilder {
         ArrayList<Faction> lstFaction = new ArrayList<>();
         ArrayList<Faction> lstBotFaction = new ArrayList<>();
         HashMap<String, GraphPoint> mapGraphPoint = new HashMap<>();
+        HashMap<Boat, Boat> hunterPreyHashMap = new HashMap<>();
         MapGame.getInstance().setMapGraphPoint(mapGraphPoint);
+        MapGame.getInstance().setHunterPreyHashMap(hunterPreyHashMap);
         Player player = new Player("blue");
 
         //faction init
