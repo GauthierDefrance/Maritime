@@ -397,11 +397,11 @@ public class MainGameMenu extends JPanel implements Runnable {
                 if(tmp != null){
                     MapGame.getInstance().setTimeStop(true);
                     if(MapGame.getInstance().getPlayer().getLstBoat().contains(tmp.get(1))){
-                        JOptionPane.showMessageDialog(MainGameMenu.this,"jPanel");
+                        JOptionPane.showMessageDialog(MainGameMenu.this,"jPanel","Battle",JOptionPane.PLAIN_MESSAGE);
                         ThreadStop = true;
                         GUILoader.loadCombat(factionManager.StartBattle(tmp.get(0),tmp.get(1)));
                     }
-                    else if(JOptionPane.showConfirmDialog(MainGameMenu.this,"Do you want to start battle ?","confirmation",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+                    else if(JOptionPane.showConfirmDialog(MainGameMenu.this,"Do you want to start a battle ?","confirmation Battle",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
                         ThreadStop = true;
                         GUILoader.loadCombat(factionManager.StartBattle(tmp.get(0),tmp.get(1)));
                     }
