@@ -1,5 +1,6 @@
 package test;
 
+import config.GameConfiguration;
 import engine.MapGame;
 import engine.process.builder.EngineBuilder;
 import gui.MainGUI;
@@ -55,7 +56,7 @@ public class Debug extends JFrame{
                 case "gui.panel.PauseMenu" : {
                     EngineBuilder.mapInit(0);
                     TestMove.addBoatTest();
-                    GUILoader.loadChoicePathMenu(MapGame.getInstance().getPlayer().getLstHarbor().get(0),MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1));
+                    GUILoader.loadChoicePathMenu(MapGame.getInstance().getPlayer().getLstHarbor().get(0),MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1), GameConfiguration.ROOT_MAIN_GAME);
                     break;
                 }
                 default : {
@@ -72,7 +73,7 @@ public class Debug extends JFrame{
                 case "gui.panel.PauseMenu" : {
                     EngineBuilder.mapInit(0);
                     TestMove.addBoatTest();
-                    GUILoader.loadChoicePathMenu( MapGame.getInstance().getPlayer());
+                    GUILoader.loadChoicePathMenu( MapGame.getInstance().getPlayer(), GameConfiguration.ROOT_MAIN_GAME);
                     break;
                 }
                 default : {
@@ -101,8 +102,7 @@ public class Debug extends JFrame{
             switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
                 case "gui.panel.OptionsMenu" :
                 case "gui.panel.PauseMenu" : {
-                    MainGUI.setBattle(EngineBuilder.createBattle(MapGame.getInstance().getPlayer(),MapGame.getInstance().getLstBotFaction().get(0),MapGame.getInstance().getPlayer().getLstFleet().get(0), MapGame.getInstance().getLstBotFaction().get(0).getLstFleet().get(0)));
-                    GUILoader.loadCombat(MainGUI.getBattle());
+                    GUILoader.loadCombat(EngineBuilder.createBattle(MapGame.getInstance().getPlayer(),MapGame.getInstance().getLstBotFaction().get(0),MapGame.getInstance().getPlayer().getLstFleet().get(0), MapGame.getInstance().getLstBotFaction().get(0).getLstFleet().get(0)));
                     break;
                 }
                 default : {

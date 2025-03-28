@@ -20,7 +20,6 @@ public class MainGUI extends JFrame {
 
     private static Container window;
     private static Debug debug;
-    private static Battle battle;
 
     public MainGUI() {
         super("Maritime");
@@ -40,9 +39,6 @@ public class MainGUI extends JFrame {
         GUILoader.loadStartMenu(); //setResizable(false);
         setVisible(true);
     }
-    public static Battle getBattle() {
-        return battle;
-    }
 
     public static Debug getDebug() {
         return debug;
@@ -50,10 +46,6 @@ public class MainGUI extends JFrame {
 
     public static Container getWindow() {
         return window;
-    }
-
-    public static void setBattle(Battle battle) {
-        MainGUI.battle = battle;
     }
 
     public static void main(String[] args) {

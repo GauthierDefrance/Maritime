@@ -125,8 +125,10 @@ public final class GameConfiguration {
             public static final int ROOT_START_MENU = 0;
             public static final int ROOT_MAIN_GAME = 1;
             public static final int ROOT_COMBAT = 2;
-            public static final int ROOT_PAUSE_FROM_MAIN = 3;
-            public static final int ROOT_PAUSE_FROM_COMBAT = 4;
+            public static final int ROOT_RELATION_MENU = 3;
+            public static final int ROOT_PAUSE_FROM_MAIN = 4;
+            public static final int ROOT_PAUSE_FROM_COMBAT = 5;
+            public static final int ROOT_PAUSE_FROM_RELATION = 6;
 
     //--------------------------------
 

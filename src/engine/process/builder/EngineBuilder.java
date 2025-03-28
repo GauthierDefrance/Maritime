@@ -117,6 +117,7 @@ public class EngineBuilder {
             battle.getHunterPreyPointHashMap().put(boat, null);
             battle.getReloadingHashMap().put(boat, GameConfiguration.RELOAD_TIME);
         }
+        BattlePlaceFleet.placeEnemyFleet(battle);
         return battle;
         }
 

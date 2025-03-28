@@ -1,5 +1,6 @@
 package gui.panel;
 
+import config.GameConfiguration;
 import engine.MapGame;
 import engine.faction.Faction;
 import gui.process.ImageStock;
@@ -138,10 +139,9 @@ public class RelationMenu extends JPanel {
     }
 
     private class TradeListener implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadChoicePathMenu(activeFaction);
+            GUILoader.loadChoicePathMenu(activeFaction, ROOT_RELATION_MENU);
         }
     }
     private class KeyControls implements KeyListener {

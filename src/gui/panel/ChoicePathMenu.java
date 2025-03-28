@@ -33,6 +33,7 @@ import static gui.MainGUI.getWindow;
 public class ChoicePathMenu extends JPanel implements Runnable {
 
     private static final Logger log = Logger.getLogger(ChoicePathMenu.class);
+    private final int token;
     private final int state;
     private final Faction faction;
     private Harbor harbor1;
@@ -55,8 +56,9 @@ public class ChoicePathMenu extends JPanel implements Runnable {
     /**
      * Typical constructor to make the startMenu appear
      */
-    public ChoicePathMenu(Faction faction) {
+    public ChoicePathMenu( Faction faction, int token) {
         super();
+        this.token = token;
         this.state = 1;
         this.harbor1 = null;
         this.harbor2 = null;
@@ -67,8 +69,9 @@ public class ChoicePathMenu extends JPanel implements Runnable {
     /**
      * Typical constructor to make the startMenu appear
      */
-    public ChoicePathMenu(Harbor harbor1 , Harbor harbor2) {
+    public ChoicePathMenu(Harbor harbor1 , Harbor harbor2, int token) {
         super();
+        this.token = token;
         this.state = 0;
         this.harbor1 = harbor1;
         this.harbor2 = harbor2;
@@ -285,7 +288,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
                 ThreadStop = true;
-                GUILoader.loadMainGame();
+                ListenerBehaviorManager.create().goBack(token,faction);
             }
         }
 

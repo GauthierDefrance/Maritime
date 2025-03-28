@@ -4,8 +4,12 @@ import static config.GameConfiguration.*;
 
 import config.GameConfiguration;
 import engine.MapGame;
+import engine.battleengine.data.Battle;
+import engine.faction.Faction;
 import gui.MainGUI;
 import gui.utilities.GUILoader;
+import log.LoggerUtility;
+import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +21,7 @@ import java.awt.event.MouseEvent;
  * @version 0.3
  */
 public class ListenerBehaviorManager {
+    private static Logger logger = LoggerUtility.getLogger(JComponentBuilder.class);
 
     private ListenerBehaviorManager() { }
 
@@ -100,6 +105,14 @@ public class ListenerBehaviorManager {
      * @param token identifier of the former GUI
      */
     public void goBack(int token){
+        goBack(token,null);
+    }
+
+    /**
+     * handle the process of returning to former Menu for GUIs
+     * @param token identifier of the former GUI
+     */
+    public void goBack(int token,Object object){
         switch(token){
             case ROOT_PAUSE_FROM_MAIN: {
                 GUILoader.loadPauseMenu(ROOT_MAIN_GAME);
@@ -107,6 +120,10 @@ public class ListenerBehaviorManager {
             }
             case ROOT_PAUSE_FROM_COMBAT: {
                 GUILoader.loadPauseMenu(ROOT_COMBAT);
+                break;
+            }
+            case ROOT_PAUSE_FROM_RELATION: {
+                GUILoader.loadPauseMenu(ROOT_RELATION_MENU);
                 break;
             }
 
@@ -119,7 +136,19 @@ public class ListenerBehaviorManager {
                 break;
             }
             case ROOT_COMBAT: {
-                GUILoader.loadCombat(MainGUI.getBattle());
+                if(object == null){
+                    logger.error("object Battle to init the CombatMenu is null");
+                    GUILoader.loadStartMenu();
+                }
+                GUILoader.loadCombat((Battle) object);
+                break;
+            }
+            case ROOT_RELATION_MENU:{
+                if(object == null){
+                    logger.error("object Faction to init the RelationMenu is null");
+                    GUILoader.loadStartMenu();
+                }
+                else GUILoader.loadRelationMenu((Faction) object);
                 break;
             }
             default: {
