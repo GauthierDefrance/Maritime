@@ -34,6 +34,7 @@ public final class GameConfiguration {
 
     //-------- Boats Stats --------
             public static final int RELOAD_TIME = 20;
+
         // -> Global Stat
             public static final double BOAT_ROTATION_SPEED=0.0174533*3;
             public static final double GO_BACK_BOOST = 1.2;
@@ -62,11 +63,20 @@ public final class GameConfiguration {
             public static final double MERCHANT_INVENTORY_SIZE_BOOST = 3;
 
         // -> Military Stat
+
             public static final double MILITARY_VISION_RADIUS_BOOST = 1.5;
-            public static final double MILITARY_HP_BOOST = 1;
+            public static final double MILITARY_HP_BOOST = 1.2;
             public static final double MILITARY_SPEED_BOOST = 1.5;
             public static final double MILITARY_DAMAGE_SPEED_BOOST = 3;
             public static final double MILITARY_INVENTORY_SIZE_BOOST = 0.4;
+
+        // -> Global Upgrade
+            public static final int UPGRADE_POINT_DEFAULT = 5;
+            public static final double UPGRADE_DEFAULT_HP = 100;
+        public static final double UPGRADE_DEFAULT_DAMAGE_SPEED = 1;
+            public static final double UPGRADE_DEFAULT_SPEED = 1;
+            public static final double UPGRADE_DEFAULT_INVENTORY_SIZE = 50;
+
 
     //--------------------------------
 

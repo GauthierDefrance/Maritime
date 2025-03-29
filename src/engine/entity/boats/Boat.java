@@ -1,5 +1,6 @@
 package engine.entity.boats;
 
+import config.GameConfiguration;
 import engine.entity.Entity;
 import engine.graph.GraphPoint;
 import engine.trading.Inventory;
@@ -23,6 +24,8 @@ public abstract class Boat implements Entity {
     private int currentHp;
     private int damageSpeed;
     private int speed;
+    private int upgradePoint;
+    private int level;
     private double angle;
     private ArrayList<GraphPoint> path;
     private GraphPoint oldGraphPoint;
@@ -40,6 +43,8 @@ public abstract class Boat implements Entity {
         this.currentHp = maxHp;
         this.damageSpeed = damageSpeed;
         this.speed = speed;
+        this.upgradePoint = GameConfiguration.UPGRADE_POINT_DEFAULT;
+        this.level = 0;
         this.path = new ArrayList<>();
         this.iPath = 0;
         this.continuePath = false;
@@ -145,6 +150,14 @@ public abstract class Boat implements Entity {
         this.nextGraphPoint = nextGraphPoint;
     }
 
+    public int getUpgradePoint() {
+        return upgradePoint;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
     //Basic boat handling
 
     public void addIPath(int iPath) {this.iPath += iPath;}
@@ -158,6 +171,35 @@ public abstract class Boat implements Entity {
      */
     public int checkNbResource(Resource resource) {
         return this.inventory.getNbResource(resource);
+    }
+
+    public void useUpgradePoint() {
+        this.upgradePoint -= 1;
+    }
+
+    public void LevelUp() {
+        this.level += 1;
+        this.upgradePoint += GameConfiguration.UPGRADE_POINT_DEFAULT;
+    }
+
+    public void UpgradeHp() {
+        useUpgradePoint();
+        this.setMaxHp((int) (this.getMaxHp()+GameConfiguration.UPGRADE_DEFAULT_HP));
+    }
+
+    public void UpgradeDamageSpeed() {
+        useUpgradePoint();
+        this.setDamageSpeed((int) (this.getDamageSpeed()+GameConfiguration.UPGRADE_DEFAULT_DAMAGE_SPEED));
+    }
+
+    public void UpgradeSpeed() {
+        useUpgradePoint();
+        this.setSpeed((int) (this.getSpeed()+GameConfiguration.UPGRADE_DEFAULT_SPEED));
+    }
+    
+    public void UpgradeInventorySize() {
+        useUpgradePoint();
+        this.getInventory().setCapacity((int) (this.getInventory().getCapacity()+GameConfiguration.UPGRADE_DEFAULT_INVENTORY_SIZE));
     }
 
 }

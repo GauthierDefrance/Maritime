@@ -1,10 +1,12 @@
 package engine.entity;
 
 import config.GameConfiguration;
+import engine.entity.boats.Boat;
 import engine.graph.GraphPoint;
 import engine.trading.Inventory;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Class representing Harbors : pivotal elements in gameplay serving as commercial and strategic points
@@ -20,7 +22,9 @@ public class Harbor implements Entity {
     private GraphPoint graphPosition;
     private int maxHp;
     private int currentHp;
+    private int level;
     private final Inventory inventory;
+    private ArrayList<Boat> lstBoat;
 
     public Harbor(String name,String color, Point position,GraphPoint graphPosition) {
         this.name = name;
@@ -29,8 +33,10 @@ public class Harbor implements Entity {
         this.inventory = new Inventory();
         this.maxHp = (int) GameConfiguration.HARBOR_HP;
         this.currentHp = (int) GameConfiguration.HARBOR_HP;
+        this.level = 0;
         this.position = position;
         this.graphPosition =graphPosition;
+        this.lstBoat = new ArrayList<>();
     }
 
     //Getters
@@ -78,6 +84,15 @@ public class Harbor implements Entity {
         return color;
     }
 
+    public ArrayList<Boat> getLstBoat() {
+        return lstBoat;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+
     //Setters
 
     @Override
@@ -112,4 +127,13 @@ public class Harbor implements Entity {
     public void setColor(String color) {
         this.color = color;
     }
+
+    public void setLstBoat(ArrayList<Boat> lstBoat) {
+        this.lstBoat = lstBoat;
+    }
+
+    public void LevelUp() {
+        this.level += 1;
+    }
+
 }
