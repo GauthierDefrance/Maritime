@@ -4,6 +4,7 @@ import config.GameConfiguration;
 import engine.MapGame;
 import engine.faction.Faction;
 import gui.process.ImageStock;
+import gui.process.JComponentBuilder;
 import gui.utilities.GUILoader;
 
 import javax.swing.*;
@@ -98,11 +99,10 @@ public class RelationMenu extends JPanel {
         switchPanel.add(switchInfo, BorderLayout.NORTH);
         switchPanel.add(switchGrid, BorderLayout.CENTER);
 
-        JTextPane lore = new JTextPane(); //LoL --> I don't know what to do with the lore Section rn
 
         JPanel midCol = mainCol();
         JPanel rightCol = gridMenuPanel(2, 1, BUTTON_SEPARATOR, BUTTON_SEPARATOR,factionStats, switchPanel);
-        JPanel totalDisplay = gridMenuPanel(1, 3, BUTTON_SEPARATOR, BUTTON_SEPARATOR, lore, midCol, rightCol);
+        JPanel totalDisplay = gridMenuPanel(1, 3, BUTTON_SEPARATOR, BUTTON_SEPARATOR, JComponentBuilder.voidPanel(), midCol, rightCol);
 
         this.addKeyListener(new KeyControls());
         this.add(totalDisplay, BorderLayout.CENTER);

@@ -9,6 +9,7 @@ import engine.battleengine.utilities.DeepCopy;
 import engine.entity.Harbor;
 import engine.entity.boats.*;
 import engine.faction.Faction;
+import engine.faction.Pirate;
 import engine.faction.Player;
 import engine.graph.GraphPoint;
 import engine.graph.GraphSegment;
@@ -246,6 +247,7 @@ public class EngineBuilder {
         MapGame.getInstance().setMapGraphPoint(mapGraphPoint);
         MapGame.getInstance().setHunterPreyHashMap(hunterPreyHashMap);
         Player player = new Player("blue");
+        Pirate pirate = new Pirate("");
 
         //faction init
         Faction faction1 = new Faction("red");
@@ -547,11 +549,13 @@ public class EngineBuilder {
 
         lstFaction.addAll(lstBotFaction);
         lstFaction.add(player);
+        lstFaction.add(pirate);
         MapGame.getInstance().setLstPopUp(lstPopUp);
         MapGame.getInstance().setLstHarbor(lstHarbor);
         MapGame.getInstance().setLstFaction(lstFaction);
         MapGame.getInstance().setLstBotFaction(lstBotFaction);
         MapGame.getInstance().setPlayer(player);
+        MapGame.getInstance().setPirate(pirate);
         return MapGame.getInstance();
     }
 

@@ -3,6 +3,7 @@ package engine;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
 import engine.faction.Faction;
+import engine.faction.Pirate;
 import engine.faction.Player;
 import engine.graph.GraphPoint;
 import gui.PopUp;
@@ -22,6 +23,7 @@ public class MapGame implements Serializable {
     private ArrayList<Faction> lstBotFaction;
     private ArrayList<Faction> lstFaction;
     private Player player;
+    private Pirate pirate;
     private boolean timeStop;
     private ArrayList<PopUp> lstPopUp;
 
@@ -122,5 +124,13 @@ public class MapGame implements Serializable {
 
     public void removeHunterPreyHashMap(Boat hunter) {
         HunterPreyHashMap.remove(hunter);
+    }
+
+    public Pirate getPirate() {
+        return pirate;
+    }
+
+    public void setPirate(Pirate pirate) {
+        this.pirate = pirate;
     }
 }

@@ -1,6 +1,7 @@
 package gui.process;
 
 import config.GameConfiguration;
+import engine.MapGame;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
 import engine.trading.SeaRoad;
@@ -75,6 +76,14 @@ public class PaintEntity {
         g2d.fillOval((int)(harbor.getPosition().getX())-((int)harbor.getVisionRadius()/2),(int)(harbor.getPosition().getY())-((int)harbor.getVisionRadius()/2), (int) harbor.getVisionRadius(), (int) harbor.getVisionRadius());
         g2d.setColor(Color.black);
         paint(harbor,g2d);
+    }
+
+    public void paintChase(Boat hunter,Boat prey, Graphics2D g2d){
+        g2d.setColor(ImageStock.colorChoice(hunter.getColor()));
+        float[] floats = {10,10};
+        g2d.setStroke(new BasicStroke(5,BasicStroke.CAP_ROUND,BasicStroke.JOIN_MITER,1,floats,0));
+        g2d.drawLine((int) hunter.getPosition().getX(), (int) hunter.getPosition().getY(), (int) prey.getPosition().getX(), (int) prey.getPosition().getY());
+        g2d.setColor(Color.black);
     }
 
     /**

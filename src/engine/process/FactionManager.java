@@ -9,6 +9,7 @@ import engine.faction.Faction;
 import engine.graph.GraphPoint;
 import engine.process.builder.EngineBuilder;
 import engine.trading.SeaRoad;
+import engine.utilities.SearchInGraph;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -131,10 +132,10 @@ public class FactionManager {
             lst.add(prey);
             return lst;
         }
-        else if (hunter.getVisionRadius()+20 < distance){
+        else if (hunter.getVisionRadius() < distance){
             MapGame.getInstance().removeHunterPreyHashMap(hunter);
             hunter.getPath().clear();
-            hunter.setNextGraphPoint(prey.getNextGraphPoint());
+            hunter.setNextGraphPoint(SearchInGraph.getClosestMapGraphPoint(hunter.getPosition()));
         }
         return null;
     }

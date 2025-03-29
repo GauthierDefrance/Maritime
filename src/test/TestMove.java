@@ -21,6 +21,8 @@ public class TestMove {
         MapGame.getInstance().getPlayer().addHarbor(MapGame.getInstance().getLstHarbor().get(1));
         MapGame.getInstance().getLstFaction().get(0).addHarbor(MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1));
 
+        Military militaryX = new Military("militaryX","blue", MapGame.getInstance().getLstHarbor().get(0).getGraphPosition());
+
         Military military0 = new Military("military0","blue", MapGame.getInstance().getLstHarbor().get(2).getGraphPosition());
         Military military1 = new Military("military1","blue", MapGame.getInstance().getLstHarbor().get(1).getGraphPosition());
         Merchant merchant0 = new Merchant("merchant0","blue", MapGame.getInstance().getLstHarbor().get(2).getGraphPosition());
@@ -28,6 +30,7 @@ public class TestMove {
         Standard standard1 = new Standard("standard1","blue", MapGame.getInstance().getLstHarbor().get(2).getGraphPosition());
         Fodder fodder0 = new Fodder("fodder0","blue", MapGame.getInstance().getLstHarbor().get(2).getGraphPosition());
 
+        MapGame.getInstance().getPlayer().getLstBoat().add(militaryX);
         MapGame.getInstance().getPlayer().getLstBoat().add(military0);
         MapGame.getInstance().getPlayer().getLstBoat().add(military1);
         MapGame.getInstance().getPlayer().getLstBoat().add(merchant0);
@@ -35,6 +38,7 @@ public class TestMove {
         MapGame.getInstance().getPlayer().getLstBoat().add(standard1);
         MapGame.getInstance().getPlayer().getLstBoat().add(fodder0);
 
+        fleet1.getArrayListBoat().add(militaryX);
         fleet1.getArrayListBoat().add(military0);
         fleet1.getArrayListBoat().add(military1);
         fleet1.getArrayListBoat().add(merchant0);

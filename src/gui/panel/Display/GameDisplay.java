@@ -5,6 +5,7 @@ import engine.MapGame;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
 import engine.trading.SeaRoad;
+import gui.process.ImageStock;
 import gui.process.PaintBackGround;
 import gui.process.PaintEntity;
 import gui.process.PaintPopUp;
@@ -23,6 +24,7 @@ public class GameDisplay extends JPanel {
     private final PaintEntity paintEntity;
     private final PaintBackGround paintBackGround;
     private final PaintPopUp paintPopUp;
+    private Object currentObject;
 
     /**
      * Typical constructor generating an GameDisplay
@@ -31,6 +33,7 @@ public class GameDisplay extends JPanel {
         this.paintEntity = new PaintEntity();
         this.paintBackGround = new PaintBackGround();
         this.paintPopUp = new PaintPopUp();
+        currentObject = null;
     }
     /**
      * It paints everything that has to be painted on graphics2D
@@ -59,6 +62,17 @@ public class GameDisplay extends JPanel {
         for(SeaRoad seaRoad: MapGame.getInstance().getPlayer().getLstSeaRouts()){
             paintEntity.paint(seaRoad,g2d);
         }
+        if(currentObject!= null){
+            if(currentObject instanceof Boat){
+                Boat currentBoat = (Boat) currentObject;
+                paintEntity.paintHITBOX(currentBoat.getPosition(), new Color(125, 130, 200,200),g2d);
+                paintEntity.paintSprite(currentBoat.getPosition(),ImageStock.getImage(currentBoat),g2d, currentBoat.getAngle());
+                if(MapGame.getInstance().getHunterPreyHashMap().containsKey(currentBoat)){
+                    paintEntity.paintChase(currentBoat,MapGame.getInstance().getHunterPreyHashMap().get(currentBoat),g2d);
+                }
+            }
+        }
+
         ArrayList<PopUp> lstPopUp = new ArrayList<>();
         lstPopUp.addAll(MapGame.getInstance().getLstPopUp());
         for (PopUp popUp : lstPopUp){
@@ -69,4 +83,8 @@ public class GameDisplay extends JPanel {
 
     public PaintBackGround getPaintBackGround() { return paintBackGround; }
 
+
+    public void setCurrentObject(Object currentObject) {
+        this.currentObject = currentObject;
+    }
 }

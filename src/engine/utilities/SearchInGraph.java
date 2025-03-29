@@ -156,4 +156,13 @@ public final class SearchInGraph {
         return graphPoint;
     }
 
+    public static GraphPoint getClosestMapGraphPoint(Point point){
+        GraphPoint graphPoint = null;
+        for (Map.Entry<String, GraphPoint> entry : MapGame.getInstance().getMapGraphPoint().entrySet()){
+            if(graphPoint==null||point.distance(entry.getValue().getPoint()) < point.distance(graphPoint.getPoint())){
+                graphPoint = entry.getValue();
+            }
+        }
+        return graphPoint;
+    }
 }

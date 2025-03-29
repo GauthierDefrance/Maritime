@@ -108,26 +108,54 @@ public class JComponentBuilder {
 
     /**
      * Build a JButton for an Entity with its given actionListener implemented
-     * @param entity the Entity Object attached to JButton
+     * @param o the Object attached to JButton
      * @param action actionListener
      * @return Built JButton
      */
-    public static JButton menuButton(Entity entity, ActionListener action) {
-        JButton newButton = menuButton(entity);
-        loggerWrite("menuButton name : "+entity.getName()," --> ActionListener assigned name "+action.getClass().getName());
+    public static JButton menuButton(Object o, ActionListener action) {
+        JButton newButton = menuButton(o);
+        String name = o.getClass().getName();
+        if (o instanceof Harbor) {
+            Harbor harbor = (Harbor) o;
+            name = harbor.getName();
+        } else if (o instanceof Boat) {
+            Boat boat = (Boat) o;
+            name = boat.getName();
+        } else if (o instanceof Fleet) {
+            Fleet fleet = (Fleet) o;
+            name = fleet.getName();
+        } else if (o instanceof SeaRoad) {
+            SeaRoad seaRoad = (SeaRoad) o;
+            name = seaRoad.getName();
+        }
+        loggerWrite("menuButton name : "+name," --> ActionListener assigned name "+action.getClass().getName());
         newButton.addActionListener(action);
         return newButton;
     }
 
     /**
      * Build a JButton for an Entity with its given MouseListener implemented
-     * @param entity the Entity Object attached to JButton
+     * @param o the Object attached to JButton
      * @param mouseAction MouseListener
      * @return Built JButton
      */
-    public static JButton menuButton(Entity entity, MouseListener mouseAction) {
-        JButton newButton = menuButton(entity);
-        loggerWrite("menuButton name "+entity.getName(),"MouseListener assigned name "+mouseAction.getClass().getName());
+    public static JButton menuButton(Object o, MouseListener mouseAction) {
+        JButton newButton = menuButton(o);
+        String name = o.getClass().getName();
+        if (o instanceof Harbor) {
+            Harbor harbor = (Harbor) o;
+            name = harbor.getName();
+        } else if (o instanceof Boat) {
+            Boat boat = (Boat) o;
+            name = boat.getName();
+        } else if (o instanceof Fleet) {
+            Fleet fleet = (Fleet) o;
+            name = fleet.getName();
+        } else if (o instanceof SeaRoad) {
+            SeaRoad seaRoad = (SeaRoad) o;
+            name = seaRoad.getName();
+        }
+        loggerWrite("menuButton name "+name,"MouseListener assigned name "+mouseAction.getClass().getName());
         newButton.addMouseListener(mouseAction);
         return newButton;
     }
@@ -135,15 +163,13 @@ public class JComponentBuilder {
     public static JButton ImageButton(ImageIcon image) {
         JButton newButton = new JButton(image);
         newButton.setFocusable(false);
-        newButton.setFocusPainted(false);
-        newButton.setContentAreaFilled(false);
         loggerWrite("ImageButton Created");
 
         return newButton;
     }
 
     public static JButton ImageButton(ImageIcon image, ActionListener action) {
-        JButton newButton = new JButton(image);
+        JButton newButton = ImageButton(image);
         newButton.addActionListener(action);
         loggerWrite("ImageButton ActionListener assigned > "+image.getClass().getName());
         return newButton;
@@ -157,6 +183,7 @@ public class JComponentBuilder {
     public static JLabel menuLabel(String text) {
         loggerWrite("menuLabel name "+text);
         JLabel newLabel = new JLabel(text);
+        newLabel.setFocusable(false);
         newLabel.setFont(GameConfiguration.FONT);
         return newLabel;
     }
@@ -169,6 +196,7 @@ public class JComponentBuilder {
     public static JLabel credits(String text) {
         loggerWrite("creditsLabel name "+text);
         JLabel newLabel = new JLabel(text);
+        newLabel.setFocusable(false);
         newLabel.setFont(GameConfiguration.CREDITS_FONT);
         return newLabel;
     }
@@ -181,12 +209,15 @@ public class JComponentBuilder {
     public static JLabel title(String text) {
         loggerWrite("titleLabel  name "+text);
         JLabel newLabel = new JLabel(text);
+        newLabel.setFocusable(false);
         newLabel.setFont(GameConfiguration.TITLE_FONT);
         return newLabel;
     }
 
     public static JLabel ImageLabel(ImageIcon image) {
-        return new JLabel(image);
+        JLabel newLabel = new JLabel(image);
+        newLabel.setFocusable(false);
+        return newLabel;
     }
 
     /**
@@ -196,6 +227,17 @@ public class JComponentBuilder {
     public static JPanel voidPanel() {
         loggerWrite("JPanel");
         return new JPanel();
+    }
+
+    /**
+     * Build an Empty JPanel to occupy void space
+     * @return built JPanel
+     */
+    public static JPopupMenu voidPopupMenu() {
+        loggerWrite("PopupMenu");
+        JPopupMenu jPopupMenu = new JPopupMenu();
+        jPopupMenu.setFocusable(false);
+        return jPopupMenu;
     }
 
     /**
