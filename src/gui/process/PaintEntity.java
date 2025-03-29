@@ -4,12 +4,15 @@ import config.GameConfiguration;
 import engine.MapGame;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
+import engine.faction.Faction;
+import engine.graph.GraphPoint;
 import engine.trading.SeaRoad;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.util.Map;
 
 /**
  * @author Kenan Ammad
@@ -84,6 +87,16 @@ public class PaintEntity {
         g2d.setStroke(new BasicStroke(5,BasicStroke.CAP_ROUND,BasicStroke.JOIN_MITER,1,floats,0));
         g2d.drawLine((int) hunter.getPosition().getX(), (int) hunter.getPosition().getY(), (int) prey.getPosition().getX(), (int) prey.getPosition().getY());
         g2d.setColor(Color.black);
+    }
+
+    public void paintChaseMap(Graphics2D g2d){
+        for(Faction faction : MapGame.getInstance().getLstFaction()){
+            for (Boat hunter : faction.getLstBoat()){
+                if(MapGame.getInstance().getHunterPreyHashMap().containsKey(hunter)){
+                    paintChase(hunter,MapGame.getInstance().getHunterPreyHashMap().get(hunter),g2d);
+                }
+            }
+        }
     }
 
     /**

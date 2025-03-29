@@ -3,6 +3,7 @@ package engine.process;
 import config.GameConfiguration;
 import engine.MapGame;
 import engine.battleengine.data.Battle;
+import engine.entity.Harbor;
 import engine.entity.boats.Boat;
 import engine.entity.boats.Fleet;
 import engine.faction.Faction;
@@ -132,10 +133,18 @@ public class FactionManager {
             lst.add(prey);
             return lst;
         }
-        else if (hunter.getVisionRadius() < distance){
-            MapGame.getInstance().removeHunterPreyHashMap(hunter);
-            hunter.getPath().clear();
-            hunter.setNextGraphPoint(SearchInGraph.getClosestMapGraphPoint(hunter.getPosition()));
+        else{
+            boolean flag = false;
+            for (Harbor harbor :getMyFaction(prey.getColor()).getLstHarbor()){
+                if (harbor.getLstBoat().contains(prey)) {
+                    flag = true;
+                }
+            }
+            if (hunter.getVisionRadius() < distance||!getMyFaction(prey.getColor()).getLstBoat().contains(prey)||flag){
+                MapGame.getInstance().removeHunterPreyHashMap(hunter);
+                hunter.getPath().clear();
+                hunter.setNextGraphPoint(SearchInGraph.getClosestMapGraphPoint(hunter.getPosition()));
+            }
         }
         return null;
     }

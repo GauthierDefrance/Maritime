@@ -261,18 +261,20 @@ public class MainGameMenu extends JPanel implements Runnable {
     private void ShowPopupMenu(int x, int y,Entity entity){
         jPopupMenu = JComponentBuilder.voidPopupMenu();
         jPopupMenu.setLayout(new GridLayout(1, 0));
+        JButton tmp;
         if(entity instanceof Boat) {
-            JButton tmp = JComponentBuilder.menuButton("attack", new setChaseBoatListener(entity));
+            tmp = JComponentBuilder.menuButton("attack", new setChaseBoatListener(entity));
             jPopupMenu.add(tmp);
             if(!(currentObject != null && currentObject instanceof Boat)||((Boat)currentObject).getVisionRadius() < ((Boat)currentObject).getPosition().distance(entity.getPosition())){
                 tmp.setEnabled(false);
             }
-
             tmp = JComponentBuilder.menuButton("faction", new RelationListener(entity));
             jPopupMenu.add(tmp);
         }
-        else {
-
+        else if (entity instanceof Harbor) {
+            if(entity.getColor().isEmpty())tmp = JComponentBuilder.menuButton("get it",new pickUpHarborListener((Harbor) entity));
+            else tmp = JComponentBuilder.menuButton("faction", new RelationListener(entity));
+            jPopupMenu.add(tmp);
         }
         jPopupMenu.show(jPanelATH,x,y);
     }
@@ -316,6 +318,20 @@ public class MainGameMenu extends JPanel implements Runnable {
         }
     }
 
+    public class pickUpHarborListener implements ActionListener {
+        private final Harbor harbor;
+
+        public pickUpHarborListener(Harbor harbor) {
+            this.harbor = harbor;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            jPopupMenu.setVisible(false);
+            MapGame.getInstance().getPlayer().addHarbor(harbor);
+        }
+    }
+
     public class RelationListener implements ActionListener {
         private final Entity entity;
 
@@ -332,17 +348,16 @@ public class MainGameMenu extends JPanel implements Runnable {
     }
 
     public class setChaseBoatListener implements ActionListener {
-        private final Entity entity;
+        private final Object object;
 
-        public setChaseBoatListener(Entity entity) {
-            this.entity = entity;
+        public setChaseBoatListener(Object object) {
+            this.object = object;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
             jPopupMenu.setVisible(false);
-            if(entity instanceof Boat) factionManager.chaseBoat((Boat) currentObject, (Boat) entity);
-            if(entity instanceof Harbor); //WIP
+            if(object instanceof Boat)factionManager.chaseBoat((Boat) currentObject, (Boat) object);
         }
     }
 
@@ -393,7 +408,9 @@ public class MainGameMenu extends JPanel implements Runnable {
                     jEastCenterCenterPanel.add(jEastCenterPanelChoice2);
                     ChangeCurrentJButton(harbor);
                 }
-                //WIP
+                else {
+                    ShowPopupMenu(e.getX(),e.getY(),harbor);
+                }
             }
             else if(boat != null){
                 if(MapGame.getInstance().getPlayer().getLstBoat().contains(boat)){

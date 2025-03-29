@@ -4,6 +4,7 @@ import config.GameConfiguration;
 import engine.MapGame;
 import engine.entity.Harbor;
 import engine.entity.boats.Boat;
+import engine.graph.GraphPoint;
 import engine.trading.SeaRoad;
 import gui.process.ImageStock;
 import gui.process.PaintBackGround;
@@ -13,6 +14,7 @@ import gui.PopUp;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * @author Kenan Ammad
@@ -67,11 +69,9 @@ public class GameDisplay extends JPanel {
                 Boat currentBoat = (Boat) currentObject;
                 paintEntity.paintHITBOX(currentBoat.getPosition(), new Color(125, 130, 200,200),g2d);
                 paintEntity.paintSprite(currentBoat.getPosition(),ImageStock.getImage(currentBoat),g2d, currentBoat.getAngle());
-                if(MapGame.getInstance().getHunterPreyHashMap().containsKey(currentBoat)){
-                    paintEntity.paintChase(currentBoat,MapGame.getInstance().getHunterPreyHashMap().get(currentBoat),g2d);
-                }
             }
         }
+        paintEntity.paintChaseMap(g2d);
 
         ArrayList<PopUp> lstPopUp = new ArrayList<>();
         lstPopUp.addAll(MapGame.getInstance().getLstPopUp());
