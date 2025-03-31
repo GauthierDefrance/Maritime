@@ -434,7 +434,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
                 ThreadStop = true;
-                jPopupMenu.setVisible(false);
+                if(jPopupMenu != null)jPopupMenu.setVisible(false);
                 GUILoader.loadPauseMenu(GameConfiguration.ROOT_MAIN_GAME,null);
             }
             else if(event.getKeyCode() == KeyEvent.VK_SPACE){
