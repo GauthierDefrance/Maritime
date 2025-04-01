@@ -5,7 +5,6 @@ import engine.battleengine.data.Bullet;
 import config.GameConfiguration;
 import engine.MapGame;
 import engine.entity.boats.Boat;
-import gui.MainGUI;
 import gui.PopUp;
 import gui.process.*;
 
@@ -58,34 +57,41 @@ public class BattleDisplay extends JPanel {
             paintEntity.paintBattleDeadBoat(boat,g2d);
         }
 
+        ArrayList<Boat> tmplstBoatA = new ArrayList<>();
+        tmplstBoatA.addAll(battle.getBoatsInBattleA().getArrayListBoat());
+        ArrayList<Boat> tmplstBoatB = new ArrayList<>();
+        tmplstBoatB.addAll(battle.getBoatsInBattleB().getArrayListBoat());
 
-        for(Boat boat : battle.getBoatsInBattleB().getArrayListBoat()){
+        for(Boat boat : tmplstBoatB){
             paintEntity.paintBattle(boat,g2d);
         }
-        for(Boat boat : battle.getBoatsInBattleA().getArrayListBoat()){
+        for(Boat boat : tmplstBoatA){
             paintEntity.paintBattle(boat,g2d);
         }
         for(Boat boat : battle.getLstBoatsCurrentlyBeingPlaced()){
             paintEntity.paintBattle(boat,g2d);
         }
 
-
-        for (Bullet bullet : battle.getLstBulletsteamA()){
+        ArrayList<Bullet> tmplstBullet = new ArrayList<>();
+        tmplstBullet.addAll(battle.getLstBulletsteamA());
+        for (Bullet bullet : tmplstBullet){
             g2d.setColor(ImageStock.colorChoice(bullet.getColor()));
             g2d.fillOval((int) (bullet.getPosition().getX()-5), (int) (bullet.getPosition().getY()-5),10,10);
             g2d.setColor(Color.black);
         }
 
-        for (Bullet bullet : battle.getLstBulletsteamB()){
+        tmplstBullet = new ArrayList<>();
+        tmplstBullet.addAll(battle.getLstBulletsteamB());
+        for (Bullet bullet : tmplstBullet){
             g2d.setColor(ImageStock.colorChoice(bullet.getColor()));
             g2d.fillOval((int) (bullet.getPosition().getX()-5), (int) (bullet.getPosition().getY()-5),10,10);
             g2d.setColor(Color.black);
         }
 
-        for(Boat boat : battle.getBoatsInBattleB().getArrayListBoat()){
+        for(Boat boat : tmplstBoatB){
             paintEntity.paintHP(boat,g2d);
         }
-        for(Boat boat : battle.getBoatsInBattleA().getArrayListBoat()){
+        for(Boat boat : tmplstBoatA){
             paintEntity.paintHP(boat,g2d);
         }
         for(Boat boat : battle.getLstBoatsCurrentlyBeingPlaced()){

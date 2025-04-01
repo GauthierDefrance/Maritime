@@ -157,7 +157,7 @@ public class Battle {
      *
      * @return the list of boats currently being placed
      */
-    public synchronized ArrayList<Boat> getLstBoatsCurrentlyBeingPlaced() { return LstBoatsCurrentlyBeingPlaced; }
+    public ArrayList<Boat> getLstBoatsCurrentlyBeingPlaced() { return LstBoatsCurrentlyBeingPlaced; }
 
     /**
      * Gets the current boat.
@@ -247,19 +247,19 @@ public class Battle {
         this.currentBoatPoint.setLocation(currentBoatPoint);
     }
 
-    public ArrayList<Bullet> getLstBulletsteamA() {
+    public synchronized ArrayList<Bullet> getLstBulletsteamA() {
         return LstBulletsteamA;
     }
 
-    public void setLstBulletsteamA(ArrayList<Bullet> lstBulletsteamA) {
+    public synchronized void setLstBulletsteamA(ArrayList<Bullet> lstBulletsteamA) {
         LstBulletsteamA = lstBulletsteamA;
     }
 
-    public ArrayList<Bullet> getLstBulletsteamB() {
+    public synchronized ArrayList<Bullet> getLstBulletsteamB() {
         return LstBulletsteamB;
     }
 
-    public void setLstBulletsteamB(ArrayList<Bullet> lstBulletsteamB) {
+    public synchronized void setLstBulletsteamB(ArrayList<Bullet> lstBulletsteamB) {
         LstBulletsteamB = lstBulletsteamB;
     }
 
