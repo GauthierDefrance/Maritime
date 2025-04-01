@@ -69,17 +69,14 @@ public class BattleDisplay extends JPanel {
             paintEntity.paintBattle(boat,g2d);
         }
 
-        ArrayList<Bullet> tmp = new ArrayList<>();
-        tmp.addAll(battle.getLstBulletsteamA());
-        for (Bullet bullet : tmp){
+
+        for (Bullet bullet : battle.getLstBulletsteamA()){
             g2d.setColor(ImageStock.colorChoice(bullet.getColor()));
             g2d.fillOval((int) (bullet.getPosition().getX()-5), (int) (bullet.getPosition().getY()-5),10,10);
             g2d.setColor(Color.black);
         }
 
-        tmp = new ArrayList<>();
-        tmp.addAll(battle.getLstBulletsteamB());
-        for (Bullet bullet : tmp){
+        for (Bullet bullet : battle.getLstBulletsteamB()){
             g2d.setColor(ImageStock.colorChoice(bullet.getColor()));
             g2d.fillOval((int) (bullet.getPosition().getX()-5), (int) (bullet.getPosition().getY()-5),10,10);
             g2d.setColor(Color.black);

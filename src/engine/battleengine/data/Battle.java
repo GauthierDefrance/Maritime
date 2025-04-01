@@ -26,8 +26,8 @@ public class Battle {
 
     private HashMap<Boat,Boat> CopyToOrignalHashMap;
 
-    private ArrayList<Bullet> LstBulletsteamA;
-    private ArrayList<Bullet> LstBulletsteamB;
+    private volatile ArrayList<Bullet> LstBulletsteamA;
+    private volatile ArrayList<Bullet> LstBulletsteamB;
 
     private HashMap<Boat, Integer> ReloadingHashMap;
     private HashMap<Boat, Boat> HunterPreyHashMap;
@@ -36,8 +36,8 @@ public class Battle {
     private Fleet teamA;
     private Fleet teamB;
 
-    private Fleet BoatsInBattleA;
-    private Fleet BoatsInBattleB;
+    private volatile Fleet BoatsInBattleA;
+    private volatile Fleet BoatsInBattleB;
 
     private Fleet DeadBoatsA;
     private Fleet DeadBoatsB;
@@ -136,7 +136,7 @@ public class Battle {
      *
      * @return the boats in battle for team A
      */
-    public Fleet getBoatsInBattleA() {return BoatsInBattleA; }
+    public Fleet  getBoatsInBattleA() {return BoatsInBattleA; }
 
     /**
      * Gets the boats currently in battle for team B.
@@ -157,7 +157,7 @@ public class Battle {
      *
      * @return the list of boats currently being placed
      */
-    public ArrayList<Boat> getLstBoatsCurrentlyBeingPlaced() { return LstBoatsCurrentlyBeingPlaced; }
+    public synchronized ArrayList<Boat> getLstBoatsCurrentlyBeingPlaced() { return LstBoatsCurrentlyBeingPlaced; }
 
     /**
      * Gets the current boat.

@@ -1,6 +1,5 @@
 package gui;
 
-import engine.battleengine.data.Battle;
 import config.GameConfiguration;
 import config.GameOptions;
 import gui.utilities.GUILoader;
