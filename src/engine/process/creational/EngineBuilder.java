@@ -1,4 +1,4 @@
-package engine.process.builder;
+package engine.process.creational;
 
 import engine.battleengine.data.Battle;
 import engine.battleengine.data.Bullet;

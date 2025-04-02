@@ -5,7 +5,7 @@ import engine.battleengine.data.Bullet;
 import config.GameConfiguration;
 import engine.data.entity.boats.Boat;
 import engine.data.Fleet;
-import engine.process.BoatManager;
+import engine.process.manager.BoatManager;
 import engine.MapGame;
 import gui.PopUp;
 

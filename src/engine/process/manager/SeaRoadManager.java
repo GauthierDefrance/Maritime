@@ -1,22 +1,26 @@
-package engine.process;
+package engine.process.manager;
 
 import config.GameConfiguration;
 import engine.MapGame;
 import engine.data.entity.boats.Boat;
 import engine.data.Fleet;
+import engine.data.faction.Faction;
 import engine.data.graph.GraphPoint;
-import engine.data.trading.Resource;
-import engine.data.trading.SeaRoad;
+import engine.data.trading.*;
 import gui.PopUp;
+import org.apache.log4j.Logger;
 
 import java.awt.*;
 import java.util.ArrayList;
+
+import static java.lang.Math.min;
 
 /**
  * @author Kenan Ammad
  * @version 0.3
  */
 public class SeaRoadManager {
+    private static final Logger log = Logger.getLogger(SeaRoadManager.class);
     private final FleetManager fleetManager;
     private final BoatManager boatManager;
 
@@ -61,7 +65,7 @@ public class SeaRoadManager {
                 int totalFreeSpace = TradeManager.getInstance().totalFreeSpace(boat.getInventory());
                 if (totalFreeSpace!=Math.max(0,(totalFreeSpace * seaRoad.getRatio())-totalFreeSpace)){
                     TradeManager.getInstance().transfer(proposedRes, boat.getInventory().getNbResource(proposedRes), boat, seaRoad.getSellerHarbor());
-                    if (!TradeManager.getInstance().transfer(proposedRes, Math.min(totalFreeSpace, (int) (totalFreeSpace * seaRoad.getRatio())), seaRoad.getSellerHarbor(), boat)) {
+                    if (!TradeManager.getInstance().transfer(proposedRes, min(totalFreeSpace, (int) (totalFreeSpace * seaRoad.getRatio())), seaRoad.getSellerHarbor(), boat)) {
                         TradeManager.getInstance().transfer(proposedRes, seaRoad.getSellerHarbor().getInventory().getNbResource(proposedRes), seaRoad.getSellerHarbor(), boat);
                     }
                     if(MapGame.getInstance().getPlayer().getLstBoat().contains(boat)) MapGame.getInstance().addPopUp(new PopUp("-",new Point((int) boat.getPosition().getX(), (int) boat.getPosition().getY()-10), GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES));
@@ -93,7 +97,6 @@ public class SeaRoadManager {
                 }
             }
         }
-
     }
 
     /**
@@ -108,5 +111,39 @@ public class SeaRoadManager {
         seaRoad.subtractTime(1);
     }
 
+    public boolean mission(SeaRoad seaRoad, Boat boat){ /* Work in Progress */
+        TradeManager tradeManager = TradeManager.getInstance();
+        TradeOffer associatedOffer = seaRoad.getAssociatedOffer();
+
+        boolean concluded = false;
+        boolean failed = false;
+
+        while (!concluded) {
+
+            Inventory boatInventory = boat.getInventory();
+
+            if (seaRoad.getProposedObject() instanceof Currency) /*I want Resource, I give gold*/{
+                Resource clientResource = (Resource) seaRoad.getInterlocutorObject();
+                Currency currency = (Currency) seaRoad.getProposedObject();
+                int quota = associatedOffer.getDemand().get(clientResource); //Number to satisfy
+                int proposedAmount = associatedOffer.getSelection().get(currency);
+
+                log.info("quota: " + quota);
+
+                int freeSpace = tradeManager.totalFreeSpace(boatInventory);
+                int quantity  = min(freeSpace, quota);
+                tradeManager.transfer(clientResource, quantity, seaRoad.getTargetHarbor(), boat);
+                quota -= quantity;
+
+                if (quota == 0) {
+                    FactionManager fm = FactionManager.getInstance();
+                    Faction sellerFaction = fm.getMyFaction(seaRoad.getSellerHarbor().getColor());
+                    Faction clientFaction = fm.getMyFaction(seaRoad.getTargetHarbor().getColor());
+                    if (!tradeManager.transfer(proposedAmount,sellerFaction,clientFaction)) failed = true;
+                    concluded = true;
+                }
+            }
+        } return !failed;
+    }
 }
 

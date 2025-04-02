@@ -1,4 +1,4 @@
-package engine.process;
+package engine.process.manager;
 
 import engine.data.entity.Entity;
 import engine.data.faction.Faction;
@@ -173,6 +173,11 @@ public class TradeManager {
 
     //Operation on TradeOffer
 
+    public void reduceAskedStock(HashMap<TradeObject, Integer> side, TradeObject elem, int nb){
+        side.put(elem, side.get(elem) + nb);
+    }
+
+    public void getInterlocutorAskedStock(HashMap<TradeObject, Integer> side, TradeObject elem, int nb){}
 
     /**
      * Update one side of the offer to fit what is currently asked
@@ -181,7 +186,7 @@ public class TradeManager {
      * @param quantity Quantity befitting the update
      * @return Updated offer
      */
-    public HashMap<TradeObject, Integer> Update(HashMap<TradeObject, Integer> side, TradeObject elem, int quantity) {
+    public HashMap<TradeObject, Integer> updateSide(HashMap<TradeObject, Integer> side, TradeObject elem, int quantity) {
         HashMap<TradeObject, Integer> temp = side;
         temp.clear();
         temp.put(elem, quantity);
@@ -235,7 +240,7 @@ public class TradeManager {
             //SeaRoad need name
             return new SeaRoad(offer, getRatio(offer),"");
         } else {
-            new FactionManager().modifyRelationship(offer.getInterlocutor(), -10);
+            FactionManager.getInstance().modifyRelationship(offer.getInterlocutor(), -10);
         }
         return null;
     }

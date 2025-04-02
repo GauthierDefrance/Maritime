@@ -1,4 +1,4 @@
-package engine.process;
+package engine.process.manager;
 
 import config.GameConfiguration;
 import engine.MapGame;

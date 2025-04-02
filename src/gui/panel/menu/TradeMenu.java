@@ -2,8 +2,8 @@ package gui.panel.menu;
 
 import engine.data.entity.Harbor;
 import engine.data.faction.Faction;
-import engine.process.FactionManager;
-import engine.process.TradeManager;
+import engine.process.manager.FactionManager;
+import engine.process.manager.TradeManager;
 import engine.data.trading.*;
 import gui.utilities.GUILoader;
 import gui.process.JComponentBuilder;
@@ -98,7 +98,7 @@ public class TradeMenu extends JPanel {
 
     private JScrollPane createInventoryPane(Harbor harbor) {
         JPanel contentPanel = JComponentBuilder.SelectionZone();
-        FactionManager fm = new FactionManager();
+        FactionManager fm = FactionManager.getInstance();
         Faction side = fm.getMyFaction(harbor.getColor());
         boolean isMe = side != offer.getInterlocutor();
 
@@ -131,19 +131,19 @@ public class TradeMenu extends JPanel {
             try {
                 Inventory myInventory = offer.getStartingHarbor().getInventory();
                 Inventory interlocutorInventory = offer.getTargetedHarbor().getInventory();
-
+                FactionManager fm = FactionManager.getInstance();
                 TradeObject myResource = TradeManager.getInstance().identifyResource(mySelectedResourceName, myInventory);
                 if (myResource == null) {
-                    myResource = new FactionManager().getMyFaction(offer.getStartingHarbor().getColor()).getCurrency();
+                    myResource = fm.getMyFaction(offer.getStartingHarbor().getColor()).getCurrency();
                 }
 
                 TradeObject interlocutorResource = TradeManager.getInstance().identifyResource(interlocutorSelectedResourceName, interlocutorInventory);
                 if (interlocutorResource == null) {
-                    interlocutorResource = new FactionManager().getMyFaction(offer.getInterlocutor().getColor()).getCurrency();
+                    interlocutorResource = fm.getMyFaction(offer.getInterlocutor().getColor()).getCurrency();
                 }
 
-                offer.setSelection(TradeManager.getInstance().Update(offer.getSelection(), myResource, validateEntry(myInventory, myQuantity, myResource)));
-                offer.setDemand(TradeManager.getInstance().Update(offer.getDemand(), interlocutorResource, validateEntry(interlocutorInventory, interlocutorQuantity, interlocutorResource)));
+                offer.setSelection(TradeManager.getInstance().updateSide(offer.getSelection(), myResource, validateEntry(myInventory, myQuantity, myResource)));
+                offer.setDemand(TradeManager.getInstance().updateSide(offer.getDemand(), interlocutorResource, validateEntry(interlocutorInventory, interlocutorQuantity, interlocutorResource)));
 
                 TradeManager.getInstance().calculateSuccessChance(offer);
                 updateOfferInfo();
@@ -202,7 +202,11 @@ public class TradeMenu extends JPanel {
     private class ProceedListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadFleetManagingMenu(offer);
+            if (offer.getDemand().isEmpty() || offer.getSelection().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Offer is empty", "Can't proceed", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                GUILoader.loadFleetManagingMenu(offer);
+            }
         }
     }
 }

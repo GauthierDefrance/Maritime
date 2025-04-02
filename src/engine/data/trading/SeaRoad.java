@@ -23,6 +23,7 @@ public class SeaRoad implements Serializable {
     private final Harbor targetHarbor;
     private TradeObject interlocutorObject;
     private TradeObject proposerObject;
+    private TradeOffer associatedOffer;
     private final double ratio;
 
     public SeaRoad(int timer, Harbor sellerHarbor, Harbor targetHarbor, Resource interlocutorObject, Resource proposerObject, double ratio, String name){
@@ -53,10 +54,16 @@ public class SeaRoad implements Serializable {
         this.name = name;
         this.sellerHarbor = offer.getStartingHarbor();
         this.targetHarbor = offer.getTargetedHarbor();
+        this.associatedOffer = offer;
         for (TradeObject object : offer.getSelection().keySet())
             this.proposerObject = object;
         for (TradeObject object : offer.getDemand().keySet())
             this.interlocutorObject = object;
+        /*
+        Doesn't really make sense to set a timer in this context,
+        a boolean would make more sense to check if the road hasn't failed yet,
+        anyway I'm setting it to MAX_VALUE for the hell of it feel free to change it if you have a counterargument
+         */
         this.timer = Integer.MAX_VALUE;
         this.ratio = ratio;
         this.path = SearchInGraph.findPath(sellerHarbor.getGraphPosition(), targetHarbor.getGraphPosition());
@@ -98,6 +105,10 @@ public class SeaRoad implements Serializable {
     public String getName() {
         return name;
     }
+
+    public TradeOffer getAssociatedOffer() {
+        return associatedOffer;
+    }
     
     //Setters
 
@@ -115,6 +126,10 @@ public class SeaRoad implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setAssociatedOffer(TradeOffer offer) {
+        this.associatedOffer = offer;
     }
 
     //Basic Time management behavior

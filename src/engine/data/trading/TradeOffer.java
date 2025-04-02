@@ -3,7 +3,7 @@ package engine.data.trading;
 import engine.data.entity.Harbor;
 import engine.data.Fleet;
 import engine.data.faction.Faction;
-import engine.process.FactionManager;
+import engine.process.manager.FactionManager;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -28,7 +28,8 @@ public class TradeOffer implements Serializable {
      * @param B Targeted Harbor : the one who will receive
      */
     public TradeOffer(Harbor A, Harbor B) {
-        this.interlocutor = new FactionManager().getMyFaction(B.getColor());
+        FactionManager factionManager = FactionManager.getInstance();
+        this.interlocutor = factionManager.getMyFaction(B.getColor());
         this.startingHarbor = A;
         this.targetedHarbor = B;
         this.selection = new HashMap<>();
@@ -57,6 +58,8 @@ public class TradeOffer implements Serializable {
     public HashMap<TradeObject, Integer> getDemand() {
         return demand;
     }
+
+
 
     public Fleet getConcernedFleet() {
         return concernedFleet;

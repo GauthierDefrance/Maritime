@@ -6,7 +6,7 @@ import engine.data.entity.Entity;
 import engine.data.Fleet;
 import engine.data.entity.Harbor;
 import engine.data.entity.boats.*;
-import engine.process.FactionManager;
+import engine.process.manager.FactionManager;
 import engine.data.trading.SeaRoad;
 import gui.PopUp;
 import gui.panel.display.GameDisplay;
@@ -102,7 +102,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         jButtonLeftMenu4 = JComponentBuilder.menuButton("4",new showMenu(jEastCenterPanelChoice4,jEastCenterCenterPanel));
 
         dashboard = new GameDisplay();
-        factionManager = new FactionManager();
+        factionManager = FactionManager.getInstance();
         mapObject = new HashMap<>();
         speedBoost = 1;
 

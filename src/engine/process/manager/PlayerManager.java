@@ -1,4 +1,4 @@
-package engine.process;
+package engine.process.manager;
 
 import engine.MapGame;
 import engine.data.entity.Harbor;
@@ -31,7 +31,7 @@ public class PlayerManager {
                     if(playerBoat.getVisionRadius() /2 >= boat.getPosition().distance(playerBoat.getPosition())){
                         if(!vision.contains(boat)){vision.add(boat);}
                     }
-                } /* Code Visibility can probably be improved using Entity but IDK */
+                } /* Code Visibility can probably be improved but IDK */
             }
         }
         for (Faction faction : MapGame.getInstance().getLstBotFaction()){

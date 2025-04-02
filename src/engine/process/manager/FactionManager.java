@@ -1,4 +1,4 @@
-package engine.process;
+package engine.process.manager;
 
 import config.GameConfiguration;
 import engine.MapGame;
@@ -8,7 +8,7 @@ import engine.data.entity.boats.Boat;
 import engine.data.Fleet;
 import engine.data.faction.Faction;
 import engine.data.graph.GraphPoint;
-import engine.process.builder.EngineBuilder;
+import engine.process.creational.EngineBuilder;
 import engine.data.trading.SeaRoad;
 import engine.utilities.SearchInGraph;
 
@@ -17,11 +17,13 @@ import java.util.Collections;
 import java.util.HashMap;
 
 /**
+ * Class Handling everything related directly to Factions in this game
  * @author Kenan Ammad
- * Classe FactionManager
- * @version 0.5
+ * @author Zue Jack-Arthur
+ * @version 0.6
  */
 public class FactionManager {
+    public static FactionManager instance;
     private final PlayerManager playerManager;
     private final BoatManager boatManager;
     private final HarborManager harborManager;
@@ -31,12 +33,18 @@ public class FactionManager {
     /**
      * Typical builder generating an FactionManager
      */
-    public FactionManager() {
+    private FactionManager() {
         this.playerManager = new PlayerManager();
         this.boatManager = new BoatManager();
         this.harborManager = new HarborManager();
-        this.fleetManager = new FleetManager(boatManager);
+        this.fleetManager = new FleetManager();
         this.seaRoutManager = new SeaRoadManager(this.fleetManager, this.boatManager);
+    }
+
+    public synchronized static FactionManager getInstance() {
+        if (instance == null) {
+            instance = new FactionManager();
+        } return instance;
     }
 
     public void nextRound(){
@@ -138,6 +146,7 @@ public class FactionManager {
             for (Harbor harbor :getMyFaction(prey.getColor()).getLstHarbor()){
                 if (harbor.getLstBoat().contains(prey)) {
                     flag = true;
+                    break;
                 }
             }
             if (hunter.getVisionRadius() < distance||!getMyFaction(prey.getColor()).getLstBoat().contains(prey)||flag){

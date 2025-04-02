@@ -2,7 +2,7 @@ package test;
 
 import config.GameConfiguration;
 import engine.MapGame;
-import engine.process.builder.EngineBuilder;
+import engine.process.creational.EngineBuilder;
 import gui.MainGUI;
 import gui.utilities.GUILoader;
 import gui.process.JComponentBuilder;
@@ -11,7 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Map;
 
 public class Debug extends JFrame{
 

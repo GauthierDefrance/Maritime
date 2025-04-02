@@ -6,7 +6,7 @@ import engine.data.entity.Harbor;
 import engine.data.faction.Faction;
 import engine.data.graph.GraphPoint;
 import engine.data.graph.GraphSegment;
-import engine.process.FactionManager;
+import engine.process.manager.FactionManager;
 import engine.data.trading.TradeOffer;
 import engine.utilities.SearchInGraph;
 import gui.PopUp;
@@ -89,7 +89,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         reset = JComponentBuilder.menuButton("reset",new resetListener());
         automatic = JComponentBuilder.menuButton("automatic",new automaticListener());
 
-        factionManager = new FactionManager();
+        factionManager = FactionManager.getInstance();
         dashboard = new ChoiceDisplay(state);
 
         //Window arrangement

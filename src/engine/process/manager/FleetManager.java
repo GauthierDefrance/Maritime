@@ -1,4 +1,4 @@
-package engine.process;
+package engine.process.manager;
 
 import engine.data.entity.boats.Boat;
 import engine.data.Fleet;
@@ -13,13 +13,11 @@ import java.util.ArrayList;
  * @version 0.3
  */
 public class FleetManager {
-    private final BoatManager boatManager;
 
     /**
      * Initialize a FleetManager : a way to handle multiple boats with the same goal
      */
-    public FleetManager(BoatManager boatManager) {
-        this.boatManager = boatManager;
+    public FleetManager() {
     }
 
     /**

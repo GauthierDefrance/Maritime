@@ -6,7 +6,7 @@ import engine.battleengine.utilities.AngleCalculator;
 import config.GameConfiguration;
 import engine.data.entity.boats.Boat;
 import engine.data.Fleet;
-import engine.process.builder.EngineBuilder;
+import engine.process.creational.EngineBuilder;
 
 import java.util.ArrayList;
 

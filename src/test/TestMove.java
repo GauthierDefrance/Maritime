@@ -4,9 +4,9 @@ import engine.MapGame;
 import engine.data.Fleet;
 import engine.data.entity.boats.*;
 import engine.data.faction.Faction;
-import engine.process.builder.TradeObjectBuilder;
+import engine.process.creational.TradeObjectBuilder;
 import engine.data.trading.Currency;
-import engine.process.FactionManager;
+import engine.process.manager.FactionManager;
 import engine.data.trading.Resource;
 import engine.data.trading.SeaRoad;
 
@@ -87,7 +87,7 @@ public class TestMove {
         SeaRoad seaRoad1 = new SeaRoad(20000, MapGame.getInstance().getLstHarbor().get(0), MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1),metal,wood,1,"seaRoad1");
         SeaRoad seaRoad2 = new SeaRoad(20000, MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1), MapGame.getInstance().getLstHarbor().get(0),wood,metal,1,"seaRoad2");
 
-        FactionManager factionManager = new FactionManager();
+        FactionManager factionManager = FactionManager.getInstance();
         factionManager.getSeaRoadManager().setNewFleet(seaRoad1,fleet1);
         factionManager.getSeaRoadManager().setNewFleet(seaRoad2,fleet2);
 

@@ -2,7 +2,7 @@ package engine.battleengine.process;
 
 import engine.battleengine.data.Battle;
 import engine.data.entity.boats.Boat;
-import engine.process.TradeManager;
+import engine.process.manager.TradeManager;
 import engine.data.trading.Inventory;
 import engine.data.trading.Resource;
 
