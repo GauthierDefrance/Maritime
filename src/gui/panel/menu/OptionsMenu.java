@@ -139,7 +139,7 @@ public class OptionsMenu extends JPanel {
     public class goBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ListenerBehaviorManager.create().goBack(token);
+            ListenerBehaviorManager.create().goBack(token,objectToken);
         }
     }
 
@@ -148,7 +148,7 @@ public class OptionsMenu extends JPanel {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                ListenerBehaviorManager.create().goBack(token);
+                ListenerBehaviorManager.create().goBack(token,objectToken);
             }
         }
 

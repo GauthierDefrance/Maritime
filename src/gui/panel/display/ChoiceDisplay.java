@@ -80,20 +80,18 @@ public class ChoiceDisplay extends JPanel {
                 }
             }
             g2d.setColor(Color.black);
+            g2d.setColor(new Color(10, 255, 51));
+            g2d.fillOval((harbor2.getGraphPosition().getX()-15), (harbor2.getGraphPosition().getY()-15),30,30);
+            g2d.setColor(Color.black);
         }
         if (harbor2 != null){
-            paintEntity.paintHITBOX(harbor1.getPosition(),ImageStock.colorChoice(harbor1.getColor()),g2d);
-            if(state == 0){
-                g2d.setColor(new Color(10, 255, 51));
-                g2d.fillOval((harbor2.getGraphPosition().getX()-15), (harbor2.getGraphPosition().getY()-15),30,30);
-                g2d.setColor(Color.black);
-            }
+            g2d.setColor(ImageStock.colorChoice(harbor2.getColor()));
+            g2d.fillOval((int)(harbor2.getPosition().getX())-((int)(GameConfiguration.HITBOX_BOAT*1.5)/2),(int)(harbor2.getPosition().getY())-((int)(GameConfiguration.HITBOX_BOAT*1.5)/5), (int) (GameConfiguration.HITBOX_BOAT*1.5), (int) (GameConfiguration.HITBOX_BOAT*1.5));
         }
-
         if (harbor1 != null){
-            paintEntity.paintHITBOX(harbor1.getPosition(),ImageStock.colorChoice(harbor1.getColor()),g2d);
+            g2d.setColor(ImageStock.colorChoice(harbor1.getColor()));
+            g2d.fillOval((int)(harbor1.getPosition().getX())-((int)(GameConfiguration.HITBOX_BOAT*1.5)/2),(int)(harbor1.getPosition().getY())-((int)(GameConfiguration.HITBOX_BOAT*1.5)/5), (int) (GameConfiguration.HITBOX_BOAT*1.5), (int) (GameConfiguration.HITBOX_BOAT*1.5));
         }
-
         for (Harbor harbor : MapGame.getInstance().getLstHarbor()){
             paintEntity.paint(harbor,g2d);
         }
