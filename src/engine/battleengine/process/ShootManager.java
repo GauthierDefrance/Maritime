@@ -4,8 +4,8 @@ import engine.battleengine.data.Battle;
 import engine.battleengine.data.Bullet;
 import engine.battleengine.utilities.AngleCalculator;
 import config.GameConfiguration;
-import engine.entity.boats.Boat;
-import engine.entity.boats.Fleet;
+import engine.data.entity.boats.Boat;
+import engine.data.Fleet;
 import engine.process.builder.EngineBuilder;
 
 import java.util.ArrayList;

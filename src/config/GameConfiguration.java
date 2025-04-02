@@ -39,7 +39,7 @@ public final class GameConfiguration {
             public static final double BOAT_ROTATION_SPEED=0.0174533*3;
             public static final double GO_BACK_BOOST = 1.2;
             public static final double HITBOX_BOAT = 80;
-            public static final int Transparency_Halo = 25;
+            public static final int TRANSPARENCY_HALO = 25;
 
         // -> Standard Stat
             public static final double STANDARD_VISION_RADIUS = 300;
@@ -72,7 +72,7 @@ public final class GameConfiguration {
 
         // -> Global Upgrade
             public static final int UPGRADE_POINT_DEFAULT = 5;
-            public static final double UPGRADE_DEFAULT_HP = 100;
+            public static final int UPGRADE_DEFAULT_HP = 100;
         public static final double UPGRADE_DEFAULT_DAMAGE_SPEED = 1;
             public static final double UPGRADE_DEFAULT_SPEED = 1;
             public static final double UPGRADE_DEFAULT_INVENTORY_SIZE = 50;
@@ -83,6 +83,7 @@ public final class GameConfiguration {
     //-------- Faction Stats --------
         //-> Global Stats
             public static final int WAR_THRESHOLD = -100;
+            public static final int BFF_THRESHOLD = 100;
 
     //--------------------------------
 
@@ -124,7 +125,6 @@ public final class GameConfiguration {
             public static final Font CREDITS_FONT = new Font("Noto Sans Display", Font.BOLD, 10);
 
         // -> Background
-            public static final Color DEFAULT_BACKGROUND_COLOR = new Color(0,0,0,0);
             public static final Color WATER_BACKGROUND_COLOR = new Color(78, 172, 233);
 
         // -> Options stat

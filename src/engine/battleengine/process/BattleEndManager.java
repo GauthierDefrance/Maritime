@@ -1,10 +1,10 @@
 package engine.battleengine.process;
 
 import engine.battleengine.data.Battle;
-import engine.entity.boats.Boat;
+import engine.data.entity.boats.Boat;
 import engine.process.TradeManager;
-import engine.trading.Inventory;
-import engine.trading.Resource;
+import engine.data.trading.Inventory;
+import engine.data.trading.Resource;
 
 import java.util.ArrayList;
 import java.util.HashMap;

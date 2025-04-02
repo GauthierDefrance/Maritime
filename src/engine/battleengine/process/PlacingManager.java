@@ -1,8 +1,8 @@
 package engine.battleengine.process;
 
 import engine.battleengine.data.Battle;
-import engine.entity.boats.Boat;
-import engine.entity.boats.Fleet;
+import engine.data.entity.boats.Boat;
+import engine.data.Fleet;
 
 import java.awt.*;
 

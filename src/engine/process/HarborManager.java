@@ -2,8 +2,7 @@ package engine.process;
 
 import config.GameConfiguration;
 import engine.MapGame;
-import engine.entity.Harbor;
-import engine.faction.Faction;
+import engine.data.entity.Harbor;
 
 import java.awt.*;
 

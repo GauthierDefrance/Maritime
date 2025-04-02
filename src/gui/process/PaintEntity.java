@@ -2,17 +2,14 @@ package gui.process;
 
 import config.GameConfiguration;
 import engine.MapGame;
-import engine.entity.Harbor;
-import engine.entity.boats.Boat;
-import engine.faction.Faction;
-import engine.graph.GraphPoint;
-import engine.trading.SeaRoad;
+import engine.data.entity.Harbor;
+import engine.data.entity.boats.Boat;
+import engine.data.faction.Faction;
+import engine.data.trading.SeaRoad;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.util.Map;
 
 /**
  * @author Kenan Ammad
@@ -65,7 +62,7 @@ public class PaintEntity {
      * It paints a player boat that needs to be painted on 2D graphics
      */
     public void paintPlayer(Boat boat, Graphics2D g2d){
-        g2d.setColor(new Color(255,255,255, GameConfiguration.Transparency_Halo));
+        g2d.setColor(new Color(255,255,255, GameConfiguration.TRANSPARENCY_HALO));
         g2d.fillOval((int)(boat.getPosition().getX())-((int)boat.getVisionRadius()/2),(int)(boat.getPosition().getY())-((int)boat.getVisionRadius()/2), (int) boat.getVisionRadius(), (int) boat.getVisionRadius());
         g2d.setColor(Color.black);
         paint(boat,g2d);
@@ -75,7 +72,7 @@ public class PaintEntity {
      * It paints a player harbor that needs to be painted on 2D graphics
      */
     public void paintPlayer(Harbor harbor, Graphics2D g2d){
-        g2d.setColor(new Color(255,255,255, GameConfiguration.Transparency_Halo));
+        g2d.setColor(new Color(255,255,255, GameConfiguration.TRANSPARENCY_HALO));
         g2d.fillOval((int)(harbor.getPosition().getX())-((int)harbor.getVisionRadius()/2),(int)(harbor.getPosition().getY())-((int)harbor.getVisionRadius()/2), (int) harbor.getVisionRadius(), (int) harbor.getVisionRadius());
         g2d.setColor(Color.black);
         paint(harbor,g2d);

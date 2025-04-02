@@ -1,8 +1,8 @@
 package engine.battleengine.utilities;
 
 import engine.battleengine.data.Battle;
-import engine.entity.boats.Boat;
-import engine.entity.boats.Fleet;
+import engine.data.entity.boats.Boat;
+import engine.data.Fleet;
 import static config.GameConfiguration.*;
 
 import java.util.ArrayList;

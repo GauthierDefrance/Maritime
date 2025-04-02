@@ -2,11 +2,12 @@ package gui.utilities;
 
 import engine.MapGame;
 import engine.battleengine.data.Battle;
-import engine.entity.Harbor;
-import engine.faction.Faction;
-import engine.trading.TradeOffer;
+import engine.data.entity.Harbor;
+import engine.data.faction.Faction;
+import engine.data.trading.TradeOffer;
 import gui.MainGUI;
-import gui.panel.*;
+import gui.panel.menu.*;
+
 import javax.swing.JPanel;
 import java.awt.*;
 
@@ -61,15 +62,15 @@ public class GUILoader {
     }
 
     public static void loadFleetManagingMenu(TradeOffer offer){
-        actualise(new FleetManagingMenu(offer));
+        actualise(new FleetBuildingMenu(offer));
     }
 
     public static void loadTradeMenu(TradeOffer offer){
         actualise(new TradeMenu(offer));
     }
 
-    public static void loadFleetManagingMenu(Harbor startingHarbor, Harbor targetedHarbor){
-        actualise(new FleetManagingMenu(startingHarbor, targetedHarbor));
+    public static void loadFleetManagingMenu(){
+        actualise(new FleetBuildingMenu());
     }
 
     public static void loadChoicePathMenu(Faction faction, int token){

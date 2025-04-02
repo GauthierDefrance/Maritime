@@ -1,9 +1,9 @@
 package engine.process;
 
 import engine.MapGame;
-import engine.entity.Harbor;
-import engine.entity.boats.Boat;
-import engine.faction.Faction;
+import engine.data.entity.Harbor;
+import engine.data.entity.boats.Boat;
+import engine.data.faction.Faction;
 
 import java.util.ArrayList;
 

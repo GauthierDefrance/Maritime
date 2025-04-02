@@ -1,16 +1,14 @@
 package test;
 
 import engine.MapGame;
-import engine.entity.boats.*;
-import engine.faction.Faction;
+import engine.data.Fleet;
+import engine.data.entity.boats.*;
+import engine.data.faction.Faction;
 import engine.process.builder.TradeObjectBuilder;
-import engine.trading.Currency;
-import engine.process.builder.EngineBuilder;
-import engine.utilities.SearchInGraph;
+import engine.data.trading.Currency;
 import engine.process.FactionManager;
-import engine.trading.Resource;
-import engine.trading.SeaRoad;
-import gui.MainGUI;
+import engine.data.trading.Resource;
+import engine.data.trading.SeaRoad;
 
 public class TestMove {
     public static void addBoatTest(){

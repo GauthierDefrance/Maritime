@@ -3,13 +3,12 @@ package engine.battleengine.process;
 import engine.battleengine.data.Battle;
 import engine.battleengine.data.Bullet;
 import config.GameConfiguration;
-import engine.entity.boats.Boat;
-import engine.entity.boats.Fleet;
+import engine.data.entity.boats.Boat;
+import engine.data.Fleet;
 import engine.process.BoatManager;
 import engine.MapGame;
 import gui.PopUp;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 

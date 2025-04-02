@@ -52,8 +52,8 @@ public class Debug extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
-                case "gui.panel.OptionsMenu" :
-                case "gui.panel.PauseMenu" : {
+                case "gui.panel.menu.OptionsMenu" :
+                case "gui.panel.menu.PauseMenu" : {
                     EngineBuilder.mapInit(0);
                     TestMove.addBoatTest();
                     GUILoader.loadChoicePathMenu(MapGame.getInstance().getPlayer().getLstHarbor().get(0),MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1), GameConfiguration.ROOT_MAIN_GAME);
@@ -69,8 +69,8 @@ public class Debug extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
-                case "gui.panel.OptionsMenu" :
-                case "gui.panel.PauseMenu" : {
+                case "gui.panel.menu.OptionsMenu" :
+                case "gui.panel.menu.PauseMenu" : {
                     TestMove.addBoatTest();
                     GUILoader.loadChoicePathMenu( MapGame.getInstance().getPlayer(), GameConfiguration.ROOT_MAIN_GAME);
                     break;
@@ -85,8 +85,8 @@ public class Debug extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
-                case "gui.panel.OptionsMenu" :
-                case "gui.panel.PauseMenu" : {
+                case "gui.panel.menu.OptionsMenu" :
+                case "gui.panel.menu.PauseMenu" : {
                     GUILoader.loadRelationMenu(MapGame.getInstance().getLstBotFaction().get(0));
                     break;
                 }
@@ -99,8 +99,8 @@ public class Debug extends JFrame{
     private class CombatMenu implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
-                case "gui.panel.OptionsMenu" :
-                case "gui.panel.PauseMenu" : {
+                case "gui.panel.menu.OptionsMenu" :
+                case "gui.panel.menu.PauseMenu" : {
                     GUILoader.loadCombat(EngineBuilder.createBattle(MapGame.getInstance().getPlayer(),MapGame.getInstance().getLstBotFaction().get(0),MapGame.getInstance().getPlayer().getLstFleet().get(0), MapGame.getInstance().getLstBotFaction().get(0).getLstFleet().get(0)));
                     break;
                 }

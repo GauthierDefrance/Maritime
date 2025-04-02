@@ -2,11 +2,11 @@ package engine.process;
 
 import config.GameConfiguration;
 import engine.MapGame;
-import engine.entity.boats.Boat;
-import engine.entity.boats.Fleet;
-import engine.graph.GraphPoint;
-import engine.trading.Resource;
-import engine.trading.SeaRoad;
+import engine.data.entity.boats.Boat;
+import engine.data.Fleet;
+import engine.data.graph.GraphPoint;
+import engine.data.trading.Resource;
+import engine.data.trading.SeaRoad;
 import gui.PopUp;
 
 import java.awt.*;
@@ -17,15 +17,13 @@ import java.util.ArrayList;
  * @version 0.3
  */
 public class SeaRoadManager {
-    private final HarborManager harborManager;
     private final FleetManager fleetManager;
     private final BoatManager boatManager;
 
     /**
      * Typical constructor generating a SeaRoadManager
      */
-    public SeaRoadManager(HarborManager harborManager, FleetManager fleetManager, BoatManager boatManager) {
-        this.harborManager = harborManager;
+    public SeaRoadManager(FleetManager fleetManager, BoatManager boatManager) {
         this.fleetManager = fleetManager;
         this.boatManager = boatManager;
     }

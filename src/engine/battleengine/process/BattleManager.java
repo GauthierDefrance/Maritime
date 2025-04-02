@@ -1,7 +1,6 @@
 package engine.battleengine.process;
 
 import engine.battleengine.data.Battle;
-import engine.entity.boats.Boat;
 
 import java.util.ArrayList;
 

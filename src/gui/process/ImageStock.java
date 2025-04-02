@@ -1,10 +1,10 @@
 package gui.process;
 
 import config.GameConfiguration;
-import engine.entity.Harbor;
-import engine.entity.boats.Boat;
-import engine.entity.boats.Fleet;
-import engine.trading.SeaRoad;
+import engine.data.entity.Harbor;
+import engine.data.entity.boats.Boat;
+import engine.data.Fleet;
+import engine.data.trading.SeaRoad;
 import gui.PopUp;
 import log.LoggerUtility;
 import org.apache.log4j.Logger;
@@ -89,19 +89,19 @@ public class ImageStock {
         int j = 0;
 
         switch (boat.getClass().getName()) {
-            case "engine.entity.boats.Standard" : {
+            case "engine.data.entity.boats.Standard" : {
                 i=0 ;
                 break;
             }
-            case "engine.entity.boats.Fodder" :{
+            case "engine.data.entity.boats.Fodder" :{
                 i=1;
                 break;
             }
-            case "engine.entity.boats.Merchant" :{
+            case "engine.data.entity.boats.Merchant" :{
                 i=2;
                 break;
             }
-            case "engine.entity.boats.Military" :{
+            case "engine.data.entity.boats.Military" :{
                 i=3;
                 break;
             }
@@ -203,16 +203,16 @@ public class ImageStock {
      */
     public static BufferedImage getImageDeadBoat(Boat boat){
         switch (boat.getClass().getName()) {
-            case "engine.entity.boats.Standard" : {
+            case "engine.data.entity.boats.Standard" : {
                 return  getTbSprite(5,0);
             }
-            case "engine.entity.boats.Fodder" :{
+            case "engine.data.entity.boats.Fodder" :{
                 return getTbSprite(5,1);
             }
-            case "engine.entity.boats.Merchant" :{
+            case "engine.data.entity.boats.Merchant" :{
                 return getTbSprite(5,2);
             }
-            case "engine.entity.boats.Military" :{
+            case "engine.data.entity.boats.Military" :{
                 return getTbSprite(5,3);
             }
             default : {

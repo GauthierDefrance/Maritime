@@ -1,6 +1,6 @@
 package engine.process.builder;
-import engine.trading.Currency;
-import engine.trading.Resource;
+import engine.data.trading.Currency;
+import engine.data.trading.Resource;
 
 public class TradeObjectBuilder {
     private String name;

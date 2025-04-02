@@ -3,17 +3,14 @@ package gui.process;
 import static config.GameConfiguration.*;
 
 import config.GameConfiguration;
-import engine.MapGame;
 import engine.battleengine.data.Battle;
-import engine.faction.Faction;
-import gui.MainGUI;
+import engine.data.faction.Faction;
 import gui.utilities.GUILoader;
 import log.LoggerUtility;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
 
 /**
  * Store and allow the use of typical EventListener behaviors

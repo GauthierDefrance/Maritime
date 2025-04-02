@@ -1,10 +1,8 @@
 package engine.battleengine.data;
-import config.GameConfiguration;
 import engine.battleengine.utilities.DeepCopy;
-import engine.entity.boats.Boat;
-import engine.entity.boats.Fleet;
-import engine.faction.Faction;
-import engine.graph.GraphPoint;
+import engine.data.entity.boats.Boat;
+import engine.data.Fleet;
+import engine.data.faction.Faction;
 
 import java.awt.*;
 import java.util.ArrayList;

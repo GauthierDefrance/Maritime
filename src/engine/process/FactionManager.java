@@ -3,13 +3,13 @@ package engine.process;
 import config.GameConfiguration;
 import engine.MapGame;
 import engine.battleengine.data.Battle;
-import engine.entity.Harbor;
-import engine.entity.boats.Boat;
-import engine.entity.boats.Fleet;
-import engine.faction.Faction;
-import engine.graph.GraphPoint;
+import engine.data.entity.Harbor;
+import engine.data.entity.boats.Boat;
+import engine.data.Fleet;
+import engine.data.faction.Faction;
+import engine.data.graph.GraphPoint;
 import engine.process.builder.EngineBuilder;
-import engine.trading.SeaRoad;
+import engine.data.trading.SeaRoad;
 import engine.utilities.SearchInGraph;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class FactionManager {
         this.boatManager = new BoatManager();
         this.harborManager = new HarborManager();
         this.fleetManager = new FleetManager(boatManager);
-        this.seaRoutManager = new SeaRoadManager(this.harborManager,this.fleetManager, this.boatManager);
+        this.seaRoutManager = new SeaRoadManager(this.fleetManager, this.boatManager);
     }
 
     public void nextRound(){
@@ -89,7 +89,7 @@ public class FactionManager {
         ArrayList<SeaRoad> lstSeaRouts = new ArrayList<>();
         for (SeaRoad seaRoad : faction.getLstSeaRouts()){
             seaRoutManager.sellAndPickUpAllResources(seaRoad);
-            if (!seaRoad.available()){
+            if (!seaRoad.isActive()){
                 lstSeaRouts.add(seaRoad);
                 fleetManager.setContinuePathAll(seaRoad.getFleet(),false);
                 seaRoad.getFleet().setPath(new ArrayList<>());
@@ -157,12 +157,12 @@ public class FactionManager {
         HashMap<Boat, Boat> tmp = new HashMap<>(MapGame.getInstance().getHunterPreyHashMap());
         for (Boat boat : tmp.keySet()){
             lst = chaseUpdate(boat,tmp.get(boat));
-            if(lst!=null)return lst;
+            if(lst!=null)
+                break;
         }
         return lst;
     }
 
-    // à mettre dans une class combat
     public Battle StartBattle(Boat hunter, Boat prey){
         Fleet fleetHunter = getMyFleet(hunter);
         Fleet fleetPrey = getMyFleet(prey);
@@ -182,7 +182,7 @@ public class FactionManager {
     }
 
     /**
-     * gives the Fleet associated with a boat
+     * Gives the Fleet associated with a boat
      */
     public Fleet getMyFleet(Boat boat){
         Fleet fleet = null;
@@ -195,6 +195,17 @@ public class FactionManager {
             fleet.add(boat);
         }
         return fleet;
+    }
+
+    public void modifyRelationship(Faction faction, int value){
+        int uncheckedResult = faction.getRelationship() + value;
+        if (uncheckedResult <= GameConfiguration.BFF_THRESHOLD && uncheckedResult >= GameConfiguration.WAR_THRESHOLD) {
+            faction.setRelationship(uncheckedResult);
+        } else if (uncheckedResult < 0) {
+            faction.setRelationship(GameConfiguration.WAR_THRESHOLD);
+        } else {
+            faction.setRelationship(GameConfiguration.BFF_THRESHOLD);
+        }
     }
 
     public SeaRoadManager getSeaRoadManager() {

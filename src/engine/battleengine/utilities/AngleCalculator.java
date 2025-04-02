@@ -1,6 +1,6 @@
 package engine.battleengine.utilities;
 
-import engine.entity.boats.Boat;
+import engine.data.entity.boats.Boat;
 import java.awt.Point;
 
 public final class AngleCalculator {

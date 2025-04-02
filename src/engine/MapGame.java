@@ -1,11 +1,11 @@
 package engine;
 
-import engine.entity.Harbor;
-import engine.entity.boats.Boat;
-import engine.faction.Faction;
-import engine.faction.Pirate;
-import engine.faction.Player;
-import engine.graph.GraphPoint;
+import engine.data.entity.Harbor;
+import engine.data.entity.boats.Boat;
+import engine.data.faction.Faction;
+import engine.data.faction.Pirate;
+import engine.data.faction.Player;
+import engine.data.graph.GraphPoint;
 import gui.PopUp;
 
 import java.io.Serializable;

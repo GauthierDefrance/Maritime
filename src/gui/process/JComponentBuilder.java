@@ -1,21 +1,17 @@
 package gui.process;
 
 import config.GameConfiguration;
-import engine.entity.Entity;
-import engine.entity.Harbor;
-import engine.entity.boats.Boat;
-import engine.entity.boats.Fleet;
-import engine.trading.SeaRoad;
+import engine.data.entity.Harbor;
+import engine.data.entity.boats.Boat;
+import engine.data.Fleet;
+import engine.data.trading.SeaRoad;
 import log.LoggerUtility;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
-
-import static gui.MainGUI.getWindow;
 
 /**
  * Class containing methods to build (Components)

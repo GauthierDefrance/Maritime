@@ -1,8 +1,8 @@
 package engine.process;
 
-import engine.entity.boats.Boat;
-import engine.entity.boats.Fleet;
-import engine.graph.GraphPoint;
+import engine.data.entity.boats.Boat;
+import engine.data.Fleet;
+import engine.data.graph.GraphPoint;
 import engine.utilities.SearchInGraph;
 
 import java.util.ArrayList;

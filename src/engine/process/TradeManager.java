@@ -1,8 +1,8 @@
 package engine.process;
 
-import engine.entity.Entity;
-import engine.faction.Faction;
-import engine.trading.*;
+import engine.data.entity.Entity;
+import engine.data.faction.Faction;
+import engine.data.trading.*;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -235,7 +235,7 @@ public class TradeManager {
             //SeaRoad need name
             return new SeaRoad(offer, getRatio(offer),"");
         } else {
-            offer.getInterlocutor().setRelationship(offer.getInterlocutor().getRelationship() - 10);
+            new FactionManager().modifyRelationship(offer.getInterlocutor(), -10);
         }
         return null;
     }

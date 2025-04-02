@@ -2,11 +2,9 @@ package engine.utilities;
 
 import config.GameConfiguration;
 import engine.MapGame;
-import engine.entity.Harbor;
-import engine.entity.boats.Boat;
-import engine.faction.Faction;
-import engine.graph.GraphPoint;
-import engine.graph.GraphSegment;
+import engine.data.entity.boats.Boat;
+import engine.data.graph.GraphPoint;
+import engine.data.graph.GraphSegment;
 
 import java.awt.*;
 import java.util.ArrayList;
