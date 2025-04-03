@@ -27,7 +27,7 @@ public class Harbor implements Entity {
     private int level;
     private final Inventory inventory;
     private ArrayList<Boat> lstBoat;
-    private HashMap<Resource, Integer> generator;
+    private HashMap<Resource, Integer[]> generator;
 
     public Harbor(String name,String color, Point position,GraphPoint graphPosition) {
         this.name = name;
@@ -92,7 +92,7 @@ public class Harbor implements Entity {
         return lstBoat;
     }
 
-    public HashMap<Resource, Integer> getGenerator() {
+    public HashMap<Resource, Integer[]> getGenerator() {
         return generator;
     }
 
@@ -140,7 +140,7 @@ public class Harbor implements Entity {
         this.lstBoat = lstBoat;
     }
 
-    public void setGenerator(HashMap<Resource, Integer> generator) {
+    public void setGenerator(HashMap<Resource, Integer[]> generator) {
         this.generator = generator;
     }
 

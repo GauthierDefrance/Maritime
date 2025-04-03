@@ -21,10 +21,30 @@ public class HarborManager {
 
     }
 
+    public int getNbGenerator(Harbor harbor){
+        int nb = 0;
+        for (Resource resource : harbor.getGenerator().keySet()){
+            nb +=  harbor.getGenerator().get(resource)[1];
+
+        }
+        return nb;
+    }
+
     public boolean canIAddGenerator(Harbor harbor,Resource resource){
-        return harbor.getGenerator().size() < harbor.getLevel()
+        return getNbGenerator(harbor) < harbor.getLevel()
                 && resource.getValue() / resource.getProductionRate()*GameConfiguration.COST_GENERATOR < FactionManager.getInstance().getMyFaction(harbor.getColor()).getCurrency().getAmount()
                 &&(!harbor.getGenerator().containsKey(resource));
+    }
+
+    public void addGenerator(Harbor harbor,Resource resource){
+        FactionManager.getInstance().getMyFaction(harbor.getColor()).getCurrency().subtractAmount(resource.getValue() / resource.getProductionRate()*GameConfiguration.COST_GENERATOR);
+        if(harbor.getGenerator().containsKey(resource))harbor.getGenerator().get(resource)[1]+=1;
+        else harbor.getGenerator().put(resource, new Integer[]{resource.getValue(),1});
+    }
+
+    public void removeGenerator(Harbor harbor,Resource resource){
+        if (harbor.getGenerator().get(resource)[1]<2)harbor.getGenerator().remove(resource);
+        else harbor.getGenerator().get(resource)[1]-=1;
     }
 
     public boolean canILevelUpHarbor(Harbor harbor){
@@ -94,15 +114,14 @@ public class HarborManager {
         boat.upgradeInventorySize();
     }
 
-
     public void updateGeneratorTime(Harbor harbor){
         for(Resource resource : harbor.getGenerator().keySet()){
-            if(harbor.getGenerator().get(resource)<harbor.getLevel()){
-                harbor.getGenerator().put(resource,resource.getProductionRate());
+            if(harbor.getGenerator().get(resource)[0]<harbor.getLevel()){
+                harbor.getGenerator().get(resource)[0] = resource.getProductionRate();
                 harbor.getInventory().add(resource,1);
                 //add popup here
             }
-            else harbor.getGenerator().put(resource,harbor.getGenerator().get(resource)-1);
+            else harbor.getGenerator().get(resource)[0] -= 1;
         }
     }
 

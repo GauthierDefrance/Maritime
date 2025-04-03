@@ -50,7 +50,7 @@ public class PauseMenu extends JPanel {
 
         //Regular Button
         JButton saveButton = JComponentBuilder.menuButton("Save game", new SaveMenuListener());
-        if(token==GameConfiguration.ROOT_COMBAT)saveButton.setEnabled(false);
+        saveButton.setEnabled(token!=GameConfiguration.ROOT_COMBAT);
 
         JButton loadButton = JComponentBuilder.menuButton("Load game", new LoadMenuListener());
 
