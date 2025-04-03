@@ -1,6 +1,8 @@
 package config;
 
+import engine.data.trading.Currency;
 import engine.data.trading.Resource;
+import engine.process.creational.TradeObjectBuilder;
 
 import java.awt.*;
 
@@ -26,12 +28,15 @@ public final class GameConfiguration {
 
     //-------- Resource --------
 
-    public static final Resource WOOD = new Resource("Wood",1,50);
-    public static final Resource CLOTH = new Resource("Cloth",2,80);
-    public static final Resource METAL = new Resource("Metal",4,150);
-    public static final Resource SUGAR = new Resource("Sugar",40,500);
-    public static final Resource CACAO = new Resource("Cacao",60,1000);
-    public static final Resource PEARL = new Resource("Pearl",120,1000);
+    static TradeObjectBuilder tob = new TradeObjectBuilder();
+    public static final Resource WOOD = tob.name("Wood").value(1).productionRate(50).buildResource();
+    public static final Resource CLOTH = tob.name("Cloth").value(2).productionRate(80).buildResource();
+    public static final Resource METAL = tob.name("Metal").value(4).productionRate(150).buildResource();
+    public static final Resource SUGAR = tob.name("Sugar").value(40).productionRate(500).buildResource();
+    public static final Resource CACAO = tob.name("Cacao").value(60).productionRate(1000).buildResource();
+    public static final Resource PEARL = tob.name("Pearl").value(120).buildResource();
+    public static final Currency GOLD = tob.name("Gold").value(1).amount(1500).buildCurrency();
+
 
     //--------------------------------
 
