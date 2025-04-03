@@ -45,6 +45,14 @@ public class Currency implements TradeObject {
         this.amount = amount;
     }
 
+    public void addAmount(int amount){
+        this.amount += amount;
+    }
+
+    public void subtractAmount(int amount){
+        this.amount -= amount;
+    }
+
     @Override
     public boolean equals(Object o){
         if (o instanceof Currency){

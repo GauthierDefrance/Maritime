@@ -4,9 +4,11 @@ import config.GameConfiguration;
 import engine.data.entity.boats.Boat;
 import engine.data.graph.GraphPoint;
 import engine.data.trading.Inventory;
+import engine.data.trading.Resource;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Class representing Harbors : pivotal elements in gameplay serving as commercial and strategic points
@@ -25,6 +27,7 @@ public class Harbor implements Entity {
     private int level;
     private final Inventory inventory;
     private ArrayList<Boat> lstBoat;
+    private HashMap<Resource, Integer> generator;
 
     public Harbor(String name,String color, Point position,GraphPoint graphPosition) {
         this.name = name;
@@ -33,10 +36,11 @@ public class Harbor implements Entity {
         this.inventory = new Inventory();
         this.maxHp = (int) GameConfiguration.HARBOR_HP;
         this.currentHp = (int) GameConfiguration.HARBOR_HP;
-        this.level = 0;
+        this.level = 1;
         this.position = position;
         this.graphPosition =graphPosition;
         this.lstBoat = new ArrayList<>();
+        this.generator = new HashMap<>();
     }
 
     //Getters
@@ -88,6 +92,10 @@ public class Harbor implements Entity {
         return lstBoat;
     }
 
+    public HashMap<Resource, Integer> getGenerator() {
+        return generator;
+    }
+
     public int getLevel() {
         return level;
     }
@@ -132,7 +140,11 @@ public class Harbor implements Entity {
         this.lstBoat = lstBoat;
     }
 
-    public void LevelUp() {
+    public void setGenerator(HashMap<Resource, Integer> generator) {
+        this.generator = generator;
+    }
+
+    public void levelUp() {
         this.level += 1;
     }
 

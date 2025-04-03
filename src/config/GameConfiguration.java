@@ -1,5 +1,7 @@
 package config;
 
+import engine.data.trading.Resource;
+
 import java.awt.*;
 
 /**
@@ -22,8 +24,35 @@ public final class GameConfiguration {
 
     //--------------------------------
 
+    //-------- Resource --------
+
+    public static final Resource WOOD = new Resource("Wood",1,50);
+    public static final Resource CLOTH = new Resource("Cloth",2,80);
+    public static final Resource METAL = new Resource("Metal",4,150);
+    public static final Resource SUGAR = new Resource("Sugar",40,500);
+    public static final Resource CACAO = new Resource("Cacao",60,1000);
+    public static final Resource PEARL = new Resource("Pearl",120,1000);
+
+    //--------------------------------
+
+
+    //-------- Global Upgrade -------
+
+    public static final int COST_GENERATOR = 30000;
+    public static final int COST_LEVEL_UP_HARBOR = 2000;
+    public static final int COST_LEVEL_UP_BOAT = 200;
+
+    public static final int UPGRADE_POINT_DEFAULT = 5;
+    public static final int UPGRADE_DEFAULT_HP = 100;
+    public static final double UPGRADE_DEFAULT_DAMAGE_SPEED = 1;
+    public static final double UPGRADE_DEFAULT_SPEED = 1;
+    public static final double UPGRADE_DEFAULT_INVENTORY_SIZE = 50;
+
+    //--------------------------------
+
 
     //-------- Battle Stats -------
+
         public static final int MAX_X = 640*GAME_SCALE;
         public static final int MAX_Y = 360*GAME_SCALE-57*GAME_SCALE;
         public static final int MIN_X = 0;
@@ -70,15 +99,8 @@ public final class GameConfiguration {
             public static final double MILITARY_DAMAGE_SPEED_BOOST = 3;
             public static final double MILITARY_INVENTORY_SIZE_BOOST = 0.4;
 
-        // -> Global Upgrade
-            public static final int UPGRADE_POINT_DEFAULT = 5;
-            public static final int UPGRADE_DEFAULT_HP = 100;
-        public static final double UPGRADE_DEFAULT_DAMAGE_SPEED = 1;
-            public static final double UPGRADE_DEFAULT_SPEED = 1;
-            public static final double UPGRADE_DEFAULT_INVENTORY_SIZE = 50;
-
-
     //--------------------------------
+
 
     //-------- Faction Stats --------
         //-> Global Stats
@@ -86,6 +108,7 @@ public final class GameConfiguration {
             public static final int BFF_THRESHOLD = 100;
 
     //--------------------------------
+
 
     //-------- Bullets Stats --------
         //-> Global Stats
@@ -101,10 +124,8 @@ public final class GameConfiguration {
     //--------------------------------
 
 
-
     //-------- SpawnZone --------
         public static final Rectangle SPAWN_ZONE = new Rectangle(0,0,160*GAME_SCALE,360*GAME_SCALE);
-
         public static final int SPAWN_ZONE_MIN_Y = 60*GameConfiguration.GAME_SCALE;
         public static final int SPAWN_ZONE_MAX_Y = 300*GameConfiguration.GAME_SCALE;
         public static final int SPAWN_ZONE_STARTING_X = 600*GameConfiguration.GAME_SCALE;
@@ -139,7 +160,6 @@ public final class GameConfiguration {
             public static final int ROOT_PAUSE_FROM_MAIN = 4;
             public static final int ROOT_PAUSE_FROM_COMBAT = 5;
             public static final int ROOT_PAUSE_FROM_RELATION = 6;
-
     //--------------------------------
 
 

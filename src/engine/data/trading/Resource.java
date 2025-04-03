@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Resource implements TradeObject {
     private String name;
     private int value;
-    private double productionRate;
+    private int productionRate;
 
     /**
      * A typical constructor to make instances of Resources
@@ -19,7 +19,7 @@ public class Resource implements TradeObject {
      * @param value default selling value
      * @param productionRate default speed of generation
      */
-    public Resource(String name, int value, double productionRate) {
+    public Resource(String name, int value, int productionRate) {
         this.name = name;
         this.value = value;
         this.productionRate = productionRate;
@@ -49,7 +49,7 @@ public class Resource implements TradeObject {
      * Allows fetching of the indicative speed of generation of the Resource
      * @return default speed of generation
      */
-    public double getProductionRate() {
+    public int getProductionRate() {
         return productionRate;
     }
 
@@ -76,7 +76,7 @@ public class Resource implements TradeObject {
      * Allows alteration of the indicative speed of generation of the Resource
      * @param productionRate new default speed of generation
      */
-    public void setProductionRate(double productionRate) {
+    public void setProductionRate(int productionRate) {
         this.productionRate = productionRate;
     }
 

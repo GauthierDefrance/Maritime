@@ -5,7 +5,7 @@ import engine.data.trading.Resource;
 public class TradeObjectBuilder {
     private String name;
     private int value;
-    private double productionRate;
+    private int productionRate;
     private int amount;
 
     public TradeObjectBuilder(){}
@@ -20,7 +20,7 @@ public class TradeObjectBuilder {
         return this;
     }
 
-    public TradeObjectBuilder productionRate(double productionRate){
+    public TradeObjectBuilder productionRate(int productionRate){
         this.productionRate = productionRate;
         return this;
     }

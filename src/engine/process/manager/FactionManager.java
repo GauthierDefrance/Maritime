@@ -52,6 +52,13 @@ public class FactionManager {
         allFleetUpdate();
         allSeaRoutUpdate();
         playerManager.updatePlayerVision();
+        updateAllGeneratorTime();
+    }
+
+    public void updateAllGeneratorTime(){
+        for (Harbor harbor : MapGame.getInstance().getLstHarbor()){
+            harborManager.updateGeneratorTime(harbor);
+        }
     }
 
     /**

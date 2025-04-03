@@ -44,7 +44,7 @@ public abstract class Boat implements Entity {
         this.damageSpeed = damageSpeed;
         this.speed = speed;
         this.upgradePoint = GameConfiguration.UPGRADE_POINT_DEFAULT;
-        this.level = 0;
+        this.level = 1;
         this.path = new ArrayList<>();
         this.iPath = 0;
         this.continuePath = false;
@@ -177,27 +177,27 @@ public abstract class Boat implements Entity {
         this.upgradePoint -= 1;
     }
 
-    public void LevelUp() {
+    public void levelUp() {
         this.level += 1;
         this.upgradePoint += GameConfiguration.UPGRADE_POINT_DEFAULT;
     }
 
-    public void UpgradeHp() {
+    public void upgradeHp() {
         useUpgradePoint();
-        this.setMaxHp((int) (this.getMaxHp()+GameConfiguration.UPGRADE_DEFAULT_HP));
+        this.setMaxHp(this.getMaxHp()+GameConfiguration.UPGRADE_DEFAULT_HP);
     }
 
-    public void UpgradeDamageSpeed() {
+    public void upgradeDamageSpeed() {
         useUpgradePoint();
         this.setDamageSpeed((int) (this.getDamageSpeed()+GameConfiguration.UPGRADE_DEFAULT_DAMAGE_SPEED));
     }
 
-    public void UpgradeSpeed() {
+    public void upgradeSpeed() {
         useUpgradePoint();
         this.setSpeed((int) (this.getSpeed()+GameConfiguration.UPGRADE_DEFAULT_SPEED));
     }
     
-    public void UpgradeInventorySize() {
+    public void upgradeInventorySize() {
         useUpgradePoint();
         this.getInventory().setCapacity((int) (this.getInventory().getCapacity()+GameConfiguration.UPGRADE_DEFAULT_INVENTORY_SIZE));
     }

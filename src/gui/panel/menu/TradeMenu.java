@@ -98,8 +98,7 @@ public class TradeMenu extends JPanel {
 
     private JScrollPane createInventoryPane(Harbor harbor) {
         JPanel contentPanel = JComponentBuilder.SelectionZone();
-        FactionManager fm = FactionManager.getInstance();
-        Faction side = fm.getMyFaction(harbor.getColor());
+        Faction side = FactionManager.getInstance().getMyFaction(harbor.getColor());
         boolean isMe = side != offer.getInterlocutor();
 
         Currency money = side.getCurrency();
