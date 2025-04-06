@@ -145,7 +145,6 @@ public class JComponentFactory {
         }
     }
 
-
     public static JButton ImageButton(ImageIcon image) {
         JButton newButton = new JButton(image);
         newButton.setFocusable(false);

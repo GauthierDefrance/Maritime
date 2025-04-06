@@ -111,39 +111,63 @@ public class SeaRoadManager {
         seaRoad.subtractTime(1);
     }
 
-    public boolean mission(SeaRoad seaRoad, Boat boat){ /* Work in Progress */
+    public boolean mission(SeaRoad seaRoad){ /* Work in Progress */
         TradeManager tradeManager = TradeManager.getInstance();
+        FactionManager fm = FactionManager.getInstance();
         TradeOffer associatedOffer = seaRoad.getAssociatedOffer();
-
+        Fleet fleet = seaRoad.getFleet();
+        int i = 0;
+        Boat boat = fleet.getArrayListBoat().get(i);
+        Faction sellerFaction = fm.getMyFaction(seaRoad.getSellerHarbor().getColor());
+        Faction clientFaction = fm.getMyFaction(seaRoad.getTargetHarbor().getColor());
         boolean concluded = false;
-        boolean failed = false;
+        boolean success = false;
 
         while (!concluded) {
-
             Inventory boatInventory = boat.getInventory();
 
-            if (seaRoad.getProposedObject() instanceof Currency) /*I want Resource, I give gold*/{
+            if (!boatManager.HarborReached(boat, seaRoad.getTargetHarbor())) {
+                seaRoad.subtractTime(1);
+            }
+
+            else if (seaRoad.getProposedObject() instanceof Currency) /*I want Resource, I give gold*/ {
                 Resource clientResource = (Resource) seaRoad.getInterlocutorObject();
-                Currency currency = (Currency) seaRoad.getProposedObject();
+                Currency myCurrency = (Currency) seaRoad.getProposedObject();
                 int quota = associatedOffer.getDemand().get(clientResource); //Number to satisfy
-                int proposedAmount = associatedOffer.getSelection().get(currency);
-
-                log.info("quota: " + quota);
-
+                int proposedAmount = associatedOffer.getSelection().get(myCurrency);
                 int freeSpace = tradeManager.totalFreeSpace(boatInventory);
                 int quantity  = min(freeSpace, quota);
                 tradeManager.transfer(clientResource, quantity, seaRoad.getTargetHarbor(), boat);
                 quota -= quantity;
 
                 if (quota == 0) {
-                    FactionManager fm = FactionManager.getInstance();
-                    Faction sellerFaction = fm.getMyFaction(seaRoad.getSellerHarbor().getColor());
-                    Faction clientFaction = fm.getMyFaction(seaRoad.getTargetHarbor().getColor());
-                    if (!tradeManager.transfer(proposedAmount,sellerFaction,clientFaction)) failed = true;
+                    success = tradeManager.transfer(proposedAmount,sellerFaction,clientFaction);
                     concluded = true;
+                } else {
+                    boat = fleet.getArrayListBoat().get(++i);
+                }
+            } else if (seaRoad.getProposedObject() instanceof Resource) {
+                Resource myResource = (Resource) seaRoad.getProposedObject();
+                int quota = associatedOffer.getSelection().get(myResource);
+                if (seaRoad.getInterlocutorObject() instanceof Resource) {
+                    Resource clientResource = (Resource) seaRoad.getInterlocutorObject();
+                    //WiP
+                } else {
+                    Currency clientCurrency = (Currency) seaRoad.getProposedObject();
+                    int proposedAmount = associatedOffer.getDemand().get(clientCurrency);
+                    int quantity  = min(boat.checkNbResource(myResource), quota);
+                    tradeManager.transfer(myResource, quantity, boat, seaRoad.getTargetHarbor());
+                    quota -= quantity;
+
+                    if (quota == 0) {
+                        success = tradeManager.transfer(proposedAmount,clientFaction, sellerFaction);
+                        concluded = true;
+                    } else {
+                        boat = fleet.getArrayListBoat().get(++i);
+                    }
                 }
             }
-        } return !failed;
+        } return success;
     }
 }
 
