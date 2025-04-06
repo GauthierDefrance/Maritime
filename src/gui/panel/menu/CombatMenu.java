@@ -11,7 +11,7 @@ import gui.panel.display.BattleDisplay;
 import gui.process.ImageStock;
 import gui.process.ListenerBehaviorManager;
 import gui.utilities.GUILoader;
-import gui.process.JComponentBuilder;
+import gui.process.JComponentFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -53,15 +53,15 @@ public class CombatMenu extends JPanel implements Runnable {
     }
     public void init() {
         this.setLayout(new BorderLayout());
-        dashboardJPanel = JComponentBuilder.borderMenuPanel();
-        jPanelATH = JComponentBuilder.borderMenuPanel();
-        jWestATHPanel = JComponentBuilder.borderMenuPanel();
-        jSouthATHPanel = JComponentBuilder.flowMenuPanel();
-        jNorthATHPanel = JComponentBuilder.borderMenuPanel();
-        jNorthEastPanel = JComponentBuilder.gridMenuPanel(1,4,0,0);
-        jWestCenterPanel = JComponentBuilder.gridMenuPanel(0,2);
-        jWestSouthPanel = JComponentBuilder.gridMenuPanel(1,0,0,0);
-        confirmBattle = JComponentBuilder.menuButton("Battle",new confirmContinueBattleListener());
+        dashboardJPanel = JComponentFactory.borderMenuPanel();
+        jPanelATH = JComponentFactory.borderMenuPanel();
+        jWestATHPanel = JComponentFactory.borderMenuPanel();
+        jSouthATHPanel = JComponentFactory.flowMenuPanel();
+        jNorthATHPanel = JComponentFactory.borderMenuPanel();
+        jNorthEastPanel = JComponentFactory.gridMenuPanel(1,4,0,0);
+        jWestCenterPanel = JComponentFactory.gridMenuPanel(0,2);
+        jWestSouthPanel = JComponentFactory.gridMenuPanel(1,0,0,0);
+        confirmBattle = JComponentFactory.menuButton("Battle",new confirmContinueBattleListener());
 
         battle.setPlacingMode(true);
         dashboard = new BattleDisplay(battle);
@@ -70,18 +70,18 @@ public class CombatMenu extends JPanel implements Runnable {
 
         //Window arrangement
         JLayeredPane jLayeredPane = new JLayeredPane();
-        JPanel jWestPanel = JComponentBuilder.borderMenuPanel();
+        JPanel jWestPanel = JComponentFactory.borderMenuPanel();
 
         JScrollPane jScrollPane = new JScrollPane(jWestCenterPanel);
         jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         jWestPanel.add(jScrollPane);
 
-        jWestSouthPanel.add(JComponentBuilder.menuButton("Cancel",new cancelPlacingListener()));
+        jWestSouthPanel.add(JComponentFactory.menuButton("Cancel",new cancelPlacingListener()));
 
-        JButton jButtonNorthMenu1 = JComponentBuilder.menuButton("⏯",new flipTimeListener());
-        JButton jButtonNorthMenu2 = JComponentBuilder.menuButton(">",new setSpeedBoostListener(1));
-        JButton jButtonNorthMenu3 = JComponentBuilder.menuButton(">>",new setSpeedBoostListener(4));
-        JButton jButtonNorthMenu4 = JComponentBuilder.menuButton(">>>",new setSpeedBoostListener(8));
+        JButton jButtonNorthMenu1 = JComponentFactory.menuButton("⏯",new flipTimeListener());
+        JButton jButtonNorthMenu2 = JComponentFactory.menuButton(">",new setSpeedBoostListener(1));
+        JButton jButtonNorthMenu3 = JComponentFactory.menuButton(">>",new setSpeedBoostListener(4));
+        JButton jButtonNorthMenu4 = JComponentFactory.menuButton(">>>",new setSpeedBoostListener(8));
 
         jNorthEastPanel.add(jButtonNorthMenu1);
         jNorthEastPanel.add(jButtonNorthMenu2);
@@ -93,7 +93,7 @@ public class CombatMenu extends JPanel implements Runnable {
         jWestPanel.setOpaque(false);
 
         dashboardJPanel.add(dashboard,BorderLayout.CENTER);
-        JPanel jNorthPanel = JComponentBuilder.borderMenuPanel();
+        JPanel jNorthPanel = JComponentFactory.borderMenuPanel();
         jNorthPanel.add(jNorthEastPanel,BorderLayout.NORTH);
         jNorthATHPanel.add(jNorthPanel,BorderLayout.EAST);
 
@@ -145,7 +145,7 @@ public class CombatMenu extends JPanel implements Runnable {
     public void elementInPanelUpdate() {
         jWestCenterPanel.removeAll();
         for (Boat boat : battle.getLstBoatsToPlace()){
-            JButton tmp = JComponentBuilder.menuButton(boat, new buttonMouseListener(boat));
+            JButton tmp = JComponentFactory.menuButton(boat, new buttonMouseListener(boat));
             tmp.addMouseMotionListener(new buttonMouseListener(boat));
             jWestCenterPanel.add(tmp);
         }
@@ -320,13 +320,13 @@ public class CombatMenu extends JPanel implements Runnable {
 
             if(battleManager.battleEnded()){
                 ArrayList<String> lstText = battleManager.battleEnd(); //Cette ligne est supposé actualiser l'inventaire des bateaux.
-                JPanel jPanel = JComponentBuilder.gridMenuPanel(3,2,0,20);
-                jPanel.add(JComponentBuilder.ImageLabel(new ImageIcon(ImageStock.getTbSprite(3, ImageStock.getColorInt(battle.getFactionB().getColor())))));
-                jPanel.add(JComponentBuilder.menuLabel(lstText.get(0)));
-                jPanel.add(JComponentBuilder.ImageLabel(new ImageIcon(ImageStock.getTbSprite(3,ImageStock.getColorInt(battle.getFactionA().getColor())))));
-                jPanel.add(JComponentBuilder.menuLabel(lstText.get(1)));
-                jPanel.add(JComponentBuilder.ImageLabel(new ImageIcon(ImageStock.getImages(2))));
-                jPanel.add(JComponentBuilder.menuLabel(lstText.get(2)));
+                JPanel jPanel = JComponentFactory.gridMenuPanel(3,2,0,20);
+                jPanel.add(JComponentFactory.ImageLabel(new ImageIcon(ImageStock.getTbSprite(3, ImageStock.getColorInt(battle.getFactionB().getColor())))));
+                jPanel.add(JComponentFactory.menuLabel(lstText.get(0)));
+                jPanel.add(JComponentFactory.ImageLabel(new ImageIcon(ImageStock.getTbSprite(3,ImageStock.getColorInt(battle.getFactionA().getColor())))));
+                jPanel.add(JComponentFactory.menuLabel(lstText.get(1)));
+                jPanel.add(JComponentFactory.ImageLabel(new ImageIcon(ImageStock.getImages(2))));
+                jPanel.add(JComponentFactory.menuLabel(lstText.get(2)));
                 JOptionPane.showMessageDialog(CombatMenu.this,jPanel);
                 ThreadStop = true;
                 MapGame.getInstance().setTimeStop(true);

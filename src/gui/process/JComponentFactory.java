@@ -12,16 +12,17 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.EventListener;
 
 /**
- * Class containing methods to build (Components)
+ * Class containing methods to make (JComponents)
  * @author Zue Jack-Arthur
  * @author Kenan Ammad
  * @see Component
- * @version 0.5
+ * @version 0.6
  */
-public class JComponentBuilder {
-    private static Logger logger = LoggerUtility.getLogger(JComponentBuilder.class);
+public class JComponentFactory {
+    private static Logger logger = LoggerUtility.getLogger(JComponentFactory.class);
 
     /**
      * Write log in a logger
@@ -103,58 +104,47 @@ public class JComponentBuilder {
     }
 
     /**
-     * Build a JButton for an Entity with its given actionListener implemented
+     * Build a JButton for an Entity with its given Listener implemented
      * @param o the Object attached to JButton
-     * @param action actionListener
+     * @param listener Listener
      * @return Built JButton
      */
-    public static JButton menuButton(Object o, ActionListener action) {
+    public static JButton menuButton(Object o, EventListener listener) {
         JButton newButton = menuButton(o);
-        String name = o.getClass().getName();
-        if (o instanceof Harbor) {
-            Harbor harbor = (Harbor) o;
-            name = harbor.getName();
-        } else if (o instanceof Boat) {
-            Boat boat = (Boat) o;
-            name = boat.getName();
-        } else if (o instanceof Fleet) {
-            Fleet fleet = (Fleet) o;
-            name = fleet.getName();
-        } else if (o instanceof SeaRoad) {
-            SeaRoad seaRoad = (SeaRoad) o;
-            name = seaRoad.getName();
+        String name = getEntityName(o);
+
+        if (listener instanceof ActionListener) {
+            newButton.addActionListener((ActionListener) listener);
+            loggerWrite("menuButton name : " + name, "--> ActionListener assigned name " + listener.getClass().getName());
+        } else if (listener instanceof MouseListener) {
+            newButton.addMouseListener((MouseListener) listener);
+            loggerWrite("menuButton name : " + name, "--> MouseListener assigned name " + listener.getClass().getName());
+        } else {
+            loggerWrite("menuButton name : " + name, "--> Unsupported listener type: " + listener.getClass().getName());
         }
-        loggerWrite("menuButton name : "+name," --> ActionListener assigned name "+action.getClass().getName());
-        newButton.addActionListener(action);
+
         return newButton;
     }
 
     /**
-     * Build a JButton for an Entity with its given MouseListener implemented
-     * @param o the Object attached to JButton
-     * @param mouseAction MouseListener
-     * @return Built JButton
+     * Check the name of the associated Object
+     * @param o object to be analyzed
+     * @return name of the Object
      */
-    public static JButton menuButton(Object o, MouseListener mouseAction) {
-        JButton newButton = menuButton(o);
-        String name = o.getClass().getName();
+    private static String getEntityName(Object o) {
         if (o instanceof Harbor) {
-            Harbor harbor = (Harbor) o;
-            name = harbor.getName();
+            return ((Harbor) o).getName();
         } else if (o instanceof Boat) {
-            Boat boat = (Boat) o;
-            name = boat.getName();
+            return ((Boat) o).getName();
         } else if (o instanceof Fleet) {
-            Fleet fleet = (Fleet) o;
-            name = fleet.getName();
+            return ((Fleet) o).getName();
         } else if (o instanceof SeaRoad) {
-            SeaRoad seaRoad = (SeaRoad) o;
-            name = seaRoad.getName();
+            return ((SeaRoad) o).getName();
+        } else {
+            return o.getClass().getName();
         }
-        loggerWrite("menuButton name "+name,"MouseListener assigned name "+mouseAction.getClass().getName());
-        newButton.addMouseListener(mouseAction);
-        return newButton;
     }
+
 
     public static JButton ImageButton(ImageIcon image) {
         JButton newButton = new JButton(image);

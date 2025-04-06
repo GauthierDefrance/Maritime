@@ -1,6 +1,6 @@
 package gui.panel.menu;
 
-import gui.process.JComponentBuilder;
+import gui.process.JComponentFactory;
 import gui.process.ListenerBehaviorManager;
 import saveSystem.process.OptSaveManager;
 import javax.swing.*;
@@ -54,7 +54,7 @@ public class OptionsMenu extends JPanel {
      * @return Completed line
      */
     private JPanel lineMaker(JComponent component1, JComponent component2) {
-        return JComponentBuilder.gridMenuPanel(1,2,BUTTON_SEPARATOR, BUTTON_SEPARATOR, component1, component2);
+        return JComponentFactory.gridMenuPanel(1,2,BUTTON_SEPARATOR, BUTTON_SEPARATOR, component1, component2);
     }
 
     /**
@@ -73,28 +73,28 @@ public class OptionsMenu extends JPanel {
 
         this.setLayout(new BorderLayout());
 
-        JButton goBackButton = JComponentBuilder.menuButton("Go back", new goBackButtonListener());
+        JButton goBackButton = JComponentFactory.menuButton("Go back", new goBackButtonListener());
 
-        JLabel soundLabel = JComponentBuilder.menuLabel("Sound Level");
-        JButton plusButton = JComponentBuilder.menuButton("+", new plusButtonListener());
-        JButton minusButton = JComponentBuilder.menuButton("-", new minusButtonListener());
+        JLabel soundLabel = JComponentFactory.menuLabel("Sound Level");
+        JButton plusButton = JComponentFactory.menuButton("+", new plusButtonListener());
+        JButton minusButton = JComponentFactory.menuButton("-", new minusButtonListener());
         JPanel soundOptionPanel = lineMaker(plusButton, minusButton);
         JPanel soundPanel = lineMaker(soundLabel, soundOptionPanel);
 
-        JLabel muteLabel = JComponentBuilder.menuLabel("Mute");
-        muteButton = JComponentBuilder.menuButton(textSetter(getInstance().getIsMuted()), new muteButtonListener());
+        JLabel muteLabel = JComponentFactory.menuLabel("Mute");
+        muteButton = JComponentFactory.menuButton(textSetter(getInstance().getIsMuted()), new muteButtonListener());
         JPanel mutePanel = lineMaker(muteLabel, muteButton);
 
-        JLabel debugLabel = JComponentBuilder.menuLabel("Debug Menu");
-        debugButton = JComponentBuilder.menuButton(textSetter(getInstance().getShowDebug()), new debugMenuListener());
+        JLabel debugLabel = JComponentFactory.menuLabel("Debug Menu");
+        debugButton = JComponentFactory.menuButton(textSetter(getInstance().getShowDebug()), new debugMenuListener());
         JPanel debugPanel = lineMaker(debugLabel, debugButton);
 
-        JPanel optionDisplay = JComponentBuilder.gridMenuPanel(4, 1, BUTTON_SEPARATOR, BUTTON_SEPARATOR, goBackButton, soundPanel, mutePanel, debugPanel);
+        JPanel optionDisplay = JComponentFactory.gridMenuPanel(4, 1, BUTTON_SEPARATOR, BUTTON_SEPARATOR, goBackButton, soundPanel, mutePanel, debugPanel);
 
         this.addKeyListener(new KeyControls());
         this.add(optionDisplay, BorderLayout.CENTER);
         for (String position : new String[]{BorderLayout.NORTH, BorderLayout.SOUTH, BorderLayout.EAST, BorderLayout.WEST}) {
-            this.add(JComponentBuilder.voidPanel(), position);
+            this.add(JComponentFactory.voidPanel(), position);
         }
 
     }

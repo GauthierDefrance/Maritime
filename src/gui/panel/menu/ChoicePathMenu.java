@@ -13,7 +13,7 @@ import gui.PopUp;
 import gui.panel.display.ChoiceDisplay;
 import gui.process.ListenerBehaviorManager;
 import gui.utilities.GUILoader;
-import gui.process.JComponentBuilder;
+import gui.process.JComponentFactory;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -81,13 +81,13 @@ public class ChoicePathMenu extends JPanel implements Runnable {
 
     public void init() {
         this.setLayout(new BorderLayout());
-        dashboardJPanel = JComponentBuilder.borderMenuPanel();
-        jPanelATH = JComponentBuilder.borderMenuPanel();
-        jSouthATHPanel = JComponentBuilder.flowMenuPanel();
-        confirm = JComponentBuilder.menuButton("Confirm",new confirmListener());
-        cancel = JComponentBuilder.menuButton("Cancel",new cancelListener());
-        reset = JComponentBuilder.menuButton("reset",new resetListener());
-        automatic = JComponentBuilder.menuButton("automatic",new automaticListener());
+        dashboardJPanel = JComponentFactory.borderMenuPanel();
+        jPanelATH = JComponentFactory.borderMenuPanel();
+        jSouthATHPanel = JComponentFactory.flowMenuPanel();
+        confirm = JComponentFactory.menuButton("Confirm",new confirmListener());
+        cancel = JComponentFactory.menuButton("Cancel",new cancelListener());
+        reset = JComponentFactory.menuButton("reset",new resetListener());
+        automatic = JComponentFactory.menuButton("automatic",new automaticListener());
 
         factionManager = FactionManager.getInstance();
         dashboard = new ChoiceDisplay(state);

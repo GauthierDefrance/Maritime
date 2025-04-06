@@ -5,7 +5,7 @@ import engine.MapGame;
 import engine.process.creational.EngineBuilder;
 import gui.MainGUI;
 import gui.utilities.GUILoader;
-import gui.process.JComponentBuilder;
+import gui.process.JComponentFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,11 +25,11 @@ public class Debug extends JFrame{
         contentPane.setLayout(new FlowLayout());
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        JButton timeStop = JComponentBuilder.menuButton("timeStop",new TimeStop());
-        JButton combatMenu = JComponentBuilder.menuButton("CombatMenu",new CombatMenu());
-        JButton relationMenu = JComponentBuilder.menuButton("RelationMenu", new RelationMenu());
-        JButton choicePathMenu0 = JComponentBuilder.menuButton("ChoicePathMenu0", new ChoiceMenu0());
-        JButton choicePathMenu1 = JComponentBuilder.menuButton("ChoicePathMenu1", new ChoiceMenu1());
+        JButton timeStop = JComponentFactory.menuButton("timeStop",new TimeStop());
+        JButton combatMenu = JComponentFactory.menuButton("CombatMenu",new CombatMenu());
+        JButton relationMenu = JComponentFactory.menuButton("RelationMenu", new RelationMenu());
+        JButton choicePathMenu0 = JComponentFactory.menuButton("ChoicePathMenu0", new ChoiceMenu0());
+        JButton choicePathMenu1 = JComponentFactory.menuButton("ChoicePathMenu1", new ChoiceMenu1());
         contentPane.add(timeStop);
         contentPane.add(combatMenu);
         contentPane.add(relationMenu);

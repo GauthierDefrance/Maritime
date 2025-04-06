@@ -6,7 +6,7 @@ import engine.process.manager.FactionManager;
 import engine.process.manager.TradeManager;
 import engine.data.trading.*;
 import gui.utilities.GUILoader;
-import gui.process.JComponentBuilder;
+import gui.process.JComponentFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -75,29 +75,29 @@ public class TradeMenu extends JPanel {
 
         JScrollPane myInventoryPanel = createInventoryPane(offer.getStartingHarbor());
         JScrollPane interlocutorInventoryPanel = createInventoryPane(offer.getTargetedHarbor());
-        JPanel portDisplay = JComponentBuilder.gridMenuPanel(1, 2, BUTTON_SEPARATOR, BUTTON_SEPARATOR, myInventoryPanel, interlocutorInventoryPanel);
+        JPanel portDisplay = JComponentFactory.gridMenuPanel(1, 2, BUTTON_SEPARATOR, BUTTON_SEPARATOR, myInventoryPanel, interlocutorInventoryPanel);
 
         myQuantity = new JTextField(20);
         interlocutorQuantity = new JTextField(20);
-        JPanel myOffer = JComponentBuilder.flowMenuPanel(new JLabel("Your Resource:"), myQuantity);
-        JPanel interlocutorOffer = JComponentBuilder.flowMenuPanel(new JLabel("Their Resource:"), interlocutorQuantity);
+        JPanel myOffer = JComponentFactory.flowMenuPanel(new JLabel("Your Resource:"), myQuantity);
+        JPanel interlocutorOffer = JComponentFactory.flowMenuPanel(new JLabel("Their Resource:"), interlocutorQuantity);
 
         currentProposition = new JTextArea("Proposition will appear here.");
-        JButton modifyOfferButton = JComponentBuilder.menuButton("Modify Offer", new UpdateOfferListener());
-        JPanel centralPanel = JComponentBuilder.gridMenuPanel(2, 1, BUTTON_SEPARATOR, BUTTON_SEPARATOR, currentProposition, modifyOfferButton);
-        JPanel middleRow = JComponentBuilder.gridMenuPanel(1, 3, BUTTON_SEPARATOR, BUTTON_SEPARATOR, myOffer, centralPanel, interlocutorOffer);
+        JButton modifyOfferButton = JComponentFactory.menuButton("Modify Offer", new UpdateOfferListener());
+        JPanel centralPanel = JComponentFactory.gridMenuPanel(2, 1, BUTTON_SEPARATOR, BUTTON_SEPARATOR, currentProposition, modifyOfferButton);
+        JPanel middleRow = JComponentFactory.gridMenuPanel(1, 3, BUTTON_SEPARATOR, BUTTON_SEPARATOR, myOffer, centralPanel, interlocutorOffer);
 
-        successChanceLabel = JComponentBuilder.menuLabel(successChance());
-        JButton cancelButton = JComponentBuilder.menuButton("Cancel Offer", new GoBackListener());
-        JButton proceedButton = JComponentBuilder.menuButton("Assign Crew", new ProceedListener());
-        JPanel buttonPanel = JComponentBuilder.gridMenuPanel(1, 3, BUTTON_SEPARATOR, BUTTON_SEPARATOR, cancelButton, successChanceLabel, proceedButton);
+        successChanceLabel = JComponentFactory.menuLabel(successChance());
+        JButton cancelButton = JComponentFactory.menuButton("Cancel Offer", new GoBackListener());
+        JButton proceedButton = JComponentFactory.menuButton("Assign Crew", new ProceedListener());
+        JPanel buttonPanel = JComponentFactory.gridMenuPanel(1, 3, BUTTON_SEPARATOR, BUTTON_SEPARATOR, cancelButton, successChanceLabel, proceedButton);
 
-        JPanel totalDisplay = JComponentBuilder.gridMenuPanel(3, 1, BUTTON_SEPARATOR, BUTTON_SEPARATOR, portDisplay, middleRow, buttonPanel);
+        JPanel totalDisplay = JComponentFactory.gridMenuPanel(3, 1, BUTTON_SEPARATOR, BUTTON_SEPARATOR, portDisplay, middleRow, buttonPanel);
         this.add(totalDisplay, BorderLayout.CENTER);
     }
 
     private JScrollPane createInventoryPane(Harbor harbor) {
-        JPanel contentPanel = JComponentBuilder.SelectionZone();
+        JPanel contentPanel = JComponentFactory.SelectionZone();
         Faction side = FactionManager.getInstance().getMyFaction(harbor.getColor());
         boolean isMe = side != offer.getInterlocutor();
 

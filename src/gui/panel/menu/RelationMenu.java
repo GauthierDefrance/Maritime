@@ -3,7 +3,7 @@ package gui.panel.menu;
 import engine.MapGame;
 import engine.data.faction.Faction;
 import gui.process.ImageStock;
-import gui.process.JComponentBuilder;
+import gui.process.JComponentFactory;
 import gui.utilities.GUILoader;
 
 import javax.swing.*;
@@ -15,7 +15,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import static config.GameConfiguration.*;
-import static gui.process.JComponentBuilder.*;
+import static gui.process.JComponentFactory.*;
 
 public class RelationMenu extends JPanel {
     private final Faction activeFaction;
@@ -101,7 +101,7 @@ public class RelationMenu extends JPanel {
 
         JPanel midCol = mainCol();
         JPanel rightCol = gridMenuPanel(2, 1, BUTTON_SEPARATOR, BUTTON_SEPARATOR,factionStats, switchPanel);
-        JPanel totalDisplay = gridMenuPanel(1, 3, BUTTON_SEPARATOR, BUTTON_SEPARATOR, JComponentBuilder.voidPanel(), midCol, rightCol);
+        JPanel totalDisplay = gridMenuPanel(1, 3, BUTTON_SEPARATOR, BUTTON_SEPARATOR, JComponentFactory.voidPanel(), midCol, rightCol);
 
         this.addKeyListener(new KeyControls());
         this.add(totalDisplay, BorderLayout.CENTER);

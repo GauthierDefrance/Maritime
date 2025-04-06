@@ -12,7 +12,7 @@ import gui.PopUp;
 import gui.panel.display.GameDisplay;
 import gui.process.ListenerBehaviorManager;
 import gui.utilities.GUILoader;
-import gui.process.JComponentBuilder;
+import gui.process.JComponentFactory;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -79,27 +79,27 @@ public class MainGameMenu extends JPanel implements Runnable {
 
     public void init() {
         this.setLayout(new BorderLayout());
-        jPanelATH = JComponentBuilder.borderMenuPanel();
-        jEastATHPanel = JComponentBuilder.borderMenuPanel();
-        dashboardJPanel = JComponentBuilder.borderMenuPanel();
-        jSouthATHPanel = JComponentBuilder.borderMenuPanel();
-        jSouthEastPanel = JComponentBuilder.borderMenuPanel();
-        jNorthATHPanel = JComponentBuilder.borderMenuPanel();
-        jNorthEastPanel = JComponentBuilder.gridMenuPanel(1,4,0,0);
-        jEastPanel = JComponentBuilder.borderMenuPanel();
-        jEastCenterChoice1CenterPanel = JComponentBuilder.gridMenuPanel(0,2);
-        jEastCenterChoice2CenterPanel = JComponentBuilder.gridMenuPanel(0,2);
-        jEastCenterChoice3CenterPanel1 = JComponentBuilder.gridMenuPanel(0,2);
-        jEastCenterChoice3CenterPanel2 = JComponentBuilder.gridMenuPanel(0,2);
-        jEastCenterCenterPanel = JComponentBuilder.borderMenuPanel();
-        jEastCenterPanelChoice1 = JComponentBuilder.borderMenuPanel();
-        jEastCenterPanelChoice2 = JComponentBuilder.borderMenuPanel();
-        jEastCenterPanelChoice3 = JComponentBuilder.borderMenuPanel();
-        jEastCenterPanelChoice4 = JComponentBuilder.borderMenuPanel();
-        jButtonLeftMenu1 = JComponentBuilder.menuButton("1",new showMenu(jEastCenterPanelChoice1,jEastCenterCenterPanel));
-        jButtonLeftMenu2 = JComponentBuilder.menuButton("2",new showMenu(jEastCenterPanelChoice2,jEastCenterCenterPanel));
-        jButtonLeftMenu3 = JComponentBuilder.menuButton("3",new showMenu(jEastCenterPanelChoice3,jEastCenterCenterPanel));
-        jButtonLeftMenu4 = JComponentBuilder.menuButton("4",new showMenu(jEastCenterPanelChoice4,jEastCenterCenterPanel));
+        jPanelATH = JComponentFactory.borderMenuPanel();
+        jEastATHPanel = JComponentFactory.borderMenuPanel();
+        dashboardJPanel = JComponentFactory.borderMenuPanel();
+        jSouthATHPanel = JComponentFactory.borderMenuPanel();
+        jSouthEastPanel = JComponentFactory.borderMenuPanel();
+        jNorthATHPanel = JComponentFactory.borderMenuPanel();
+        jNorthEastPanel = JComponentFactory.gridMenuPanel(1,4,0,0);
+        jEastPanel = JComponentFactory.borderMenuPanel();
+        jEastCenterChoice1CenterPanel = JComponentFactory.gridMenuPanel(0,2);
+        jEastCenterChoice2CenterPanel = JComponentFactory.gridMenuPanel(0,2);
+        jEastCenterChoice3CenterPanel1 = JComponentFactory.gridMenuPanel(0,2);
+        jEastCenterChoice3CenterPanel2 = JComponentFactory.gridMenuPanel(0,2);
+        jEastCenterCenterPanel = JComponentFactory.borderMenuPanel();
+        jEastCenterPanelChoice1 = JComponentFactory.borderMenuPanel();
+        jEastCenterPanelChoice2 = JComponentFactory.borderMenuPanel();
+        jEastCenterPanelChoice3 = JComponentFactory.borderMenuPanel();
+        jEastCenterPanelChoice4 = JComponentFactory.borderMenuPanel();
+        jButtonLeftMenu1 = JComponentFactory.menuButton("1",new showMenu(jEastCenterPanelChoice1,jEastCenterCenterPanel));
+        jButtonLeftMenu2 = JComponentFactory.menuButton("2",new showMenu(jEastCenterPanelChoice2,jEastCenterCenterPanel));
+        jButtonLeftMenu3 = JComponentFactory.menuButton("3",new showMenu(jEastCenterPanelChoice3,jEastCenterCenterPanel));
+        jButtonLeftMenu4 = JComponentFactory.menuButton("4",new showMenu(jEastCenterPanelChoice4,jEastCenterCenterPanel));
 
         dashboard = new GameDisplay();
         factionManager = FactionManager.getInstance();
@@ -108,28 +108,28 @@ public class MainGameMenu extends JPanel implements Runnable {
 
         //Window arrangement
         JLayeredPane jLayeredPane = new JLayeredPane();
-        JPanel jEastWestPanel = JComponentBuilder.borderMenuPanel();
-        JPanel jEastButtonPanel = JComponentBuilder.borderMenuPanel();
-        JPanel jEastCenterPanel = JComponentBuilder.borderMenuPanel();
-        JPanel jEastCenterNorthPanel = JComponentBuilder.gridMenuPanel(1,4,0,0,jButtonLeftMenu1,jButtonLeftMenu2,jButtonLeftMenu3,jButtonLeftMenu4);
+        JPanel jEastWestPanel = JComponentFactory.borderMenuPanel();
+        JPanel jEastButtonPanel = JComponentFactory.borderMenuPanel();
+        JPanel jEastCenterPanel = JComponentFactory.borderMenuPanel();
+        JPanel jEastCenterNorthPanel = JComponentFactory.gridMenuPanel(1,4,0,0,jButtonLeftMenu1,jButtonLeftMenu2,jButtonLeftMenu3,jButtonLeftMenu4);
 
-        JButton jButtonNorthMenu1 = JComponentBuilder.menuButton("⏯",new flipTimeListener());
-        JButton jButtonNorthMenu2 = JComponentBuilder.menuButton(">",new setSpeedBoostListener(1));
-        JButton jButtonNorthMenu3 = JComponentBuilder.menuButton(">>",new setSpeedBoostListener(4));
-        JButton jButtonNorthMenu4 = JComponentBuilder.menuButton(">>>",new setSpeedBoostListener(8));
+        JButton jButtonNorthMenu1 = JComponentFactory.menuButton("⏯",new flipTimeListener());
+        JButton jButtonNorthMenu2 = JComponentFactory.menuButton(">",new setSpeedBoostListener(1));
+        JButton jButtonNorthMenu3 = JComponentFactory.menuButton(">>",new setSpeedBoostListener(4));
+        JButton jButtonNorthMenu4 = JComponentFactory.menuButton(">>>",new setSpeedBoostListener(8));
 
-        JScrollPane jScrollPane1 = JComponentBuilder.ScrollPaneMenuPanel(jEastCenterChoice1CenterPanel);
+        JScrollPane jScrollPane1 = JComponentFactory.ScrollPaneMenuPanel(jEastCenterChoice1CenterPanel);
         jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         jEastCenterPanelChoice1.add(jScrollPane1);
 
-        JScrollPane jScrollPane2 = JComponentBuilder.ScrollPaneMenuPanel(jEastCenterChoice2CenterPanel);
+        JScrollPane jScrollPane2 = JComponentFactory.ScrollPaneMenuPanel(jEastCenterChoice2CenterPanel);
         jScrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         jEastCenterPanelChoice2.add(jScrollPane2);
 
-        JPanel jEastCenterChoice3CenterPanel = JComponentBuilder.boxMenuPanel(BoxLayout.Y_AXIS);
+        JPanel jEastCenterChoice3CenterPanel = JComponentFactory.boxMenuPanel(BoxLayout.Y_AXIS);
         jEastCenterChoice3CenterPanel.add(jEastCenterChoice3CenterPanel1);
         jEastCenterChoice3CenterPanel.add(jEastCenterChoice3CenterPanel2);
-        JScrollPane jScrollPane3 = JComponentBuilder.ScrollPaneMenuPanel(jEastCenterChoice3CenterPanel);
+        JScrollPane jScrollPane3 = JComponentFactory.ScrollPaneMenuPanel(jEastCenterChoice3CenterPanel);
         jScrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         jEastCenterPanelChoice3.add(jScrollPane3);
 
@@ -138,9 +138,9 @@ public class MainGameMenu extends JPanel implements Runnable {
         jNorthEastPanel.add(jButtonNorthMenu3);
         jNorthEastPanel.add(jButtonNorthMenu4);
 
-        showLeftMenuButton = JComponentBuilder.menuButton("<", new showMenu(jEastPanel,jEastATHPanel));
+        showLeftMenuButton = JComponentFactory.menuButton("<", new showMenu(jEastPanel,jEastATHPanel));
         jEastButtonPanel.add(showLeftMenuButton,BorderLayout.NORTH);
-        hideLeftMenuButton = JComponentBuilder.menuButton(">", new showMenu(jEastButtonPanel,jEastATHPanel));
+        hideLeftMenuButton = JComponentFactory.menuButton(">", new showMenu(jEastButtonPanel,jEastATHPanel));
 
         jEastATHPanel.setOpaque(false);
         jPanelATH.setOpaque(false);
@@ -222,23 +222,23 @@ public class MainGameMenu extends JPanel implements Runnable {
         jEastCenterChoice2CenterPanel.removeAll();
         JButton tmp;
         for (Boat boat : MapGame.getInstance().getPlayer().getLstBoat()){
-            tmp = JComponentBuilder.menuButton(boat,new buttonObjectListener(boat));
+            tmp = JComponentFactory.menuButton(boat,new buttonObjectListener(boat));
             mapObject.put(boat,tmp);
             jEastCenterChoice1CenterPanel.add(tmp);
 
         }
         for (Harbor harbor : MapGame.getInstance().getPlayer().getLstHarbor()){
-            tmp = JComponentBuilder.menuButton(harbor,new buttonObjectListener(harbor));
+            tmp = JComponentFactory.menuButton(harbor,new buttonObjectListener(harbor));
             mapObject.put(harbor,tmp);
             jEastCenterChoice2CenterPanel.add(tmp);
         }
         for (Fleet fleet : MapGame.getInstance().getPlayer().getLstFleet()){
-            tmp = JComponentBuilder.menuButton(fleet,new buttonObjectListener(fleet));
+            tmp = JComponentFactory.menuButton(fleet,new buttonObjectListener(fleet));
             mapObject.put(fleet,tmp);
             jEastCenterChoice3CenterPanel1.add(tmp);
         }
         for (SeaRoad seaRoad : MapGame.getInstance().getPlayer().getLstSeaRouts()){
-            tmp = JComponentBuilder.menuButton(seaRoad,new buttonObjectListener(seaRoad));
+            tmp = JComponentFactory.menuButton(seaRoad,new buttonObjectListener(seaRoad));
             mapObject.put(seaRoad,tmp);
             jEastCenterChoice3CenterPanel2.add(tmp);
         }
@@ -255,21 +255,21 @@ public class MainGameMenu extends JPanel implements Runnable {
     }
 
     private void ShowPopupMenu(int x, int y,Entity entity){
-        jPopupMenu = JComponentBuilder.voidPopupMenu();
+        jPopupMenu = JComponentFactory.voidPopupMenu();
         jPopupMenu.setLayout(new GridLayout(1, 0));
         JButton tmp;
         if(entity instanceof Boat) {
-            tmp = JComponentBuilder.menuButton("attack", new setChaseBoatListener(entity));
+            tmp = JComponentFactory.menuButton("attack", new setChaseBoatListener(entity));
             jPopupMenu.add(tmp);
             if(!(currentObject != null && currentObject instanceof Boat)||((Boat)currentObject).getVisionRadius() < ((Boat)currentObject).getPosition().distance(entity.getPosition())){
                 tmp.setEnabled(false);
             }
-            tmp = JComponentBuilder.menuButton("faction", new RelationListener(entity));
+            tmp = JComponentFactory.menuButton("faction", new RelationListener(entity));
             jPopupMenu.add(tmp);
         }
         else if (entity instanceof Harbor) {
-            if(entity.getColor().isEmpty())tmp = JComponentBuilder.menuButton("claim",new pickUpHarborListener((Harbor) entity));
-            else tmp = JComponentBuilder.menuButton("faction", new RelationListener(entity));
+            if(entity.getColor().isEmpty())tmp = JComponentFactory.menuButton("claim",new pickUpHarborListener((Harbor) entity));
+            else tmp = JComponentFactory.menuButton("faction", new RelationListener(entity));
             jPopupMenu.add(tmp);
         }
         jPopupMenu.show(jPanelATH,x,y);

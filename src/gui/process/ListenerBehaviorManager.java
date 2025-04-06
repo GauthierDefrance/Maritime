@@ -18,7 +18,7 @@ import java.awt.*;
  * @version 0.3
  */
 public class ListenerBehaviorManager {
-    private static Logger logger = LoggerUtility.getLogger(JComponentBuilder.class);
+    private static Logger logger = LoggerUtility.getLogger(JComponentFactory.class);
 
     private ListenerBehaviorManager() { }
 

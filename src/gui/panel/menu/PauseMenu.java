@@ -3,7 +3,7 @@ package gui.panel.menu;
 import config.GameConfiguration;
 import gui.MainGUI;
 import gui.utilities.GUILoader;
-import gui.process.JComponentBuilder;
+import gui.process.JComponentFactory;
 import gui.process.ListenerBehaviorManager;
 
 import javax.swing.*;
@@ -44,43 +44,43 @@ public class PauseMenu extends JPanel {
         this.setLayout(new BorderLayout());
 
         //Elements
-        JLabel title = JComponentBuilder.title("Maritime");
+        JLabel title = JComponentFactory.title("Maritime");
 
-        JLabel credits = JComponentBuilder.credits("A Game by Ammad Kenan, Defrance Gauthier & Zue Jack-Arthur");
+        JLabel credits = JComponentFactory.credits("A Game by Ammad Kenan, Defrance Gauthier & Zue Jack-Arthur");
 
         //Regular Button
-        JButton saveButton = JComponentBuilder.menuButton("Save game", new SaveMenuListener());
+        JButton saveButton = JComponentFactory.menuButton("Save game", new SaveMenuListener());
         saveButton.setEnabled(token!=GameConfiguration.ROOT_COMBAT);
 
-        JButton loadButton = JComponentBuilder.menuButton("Load game", new LoadMenuListener());
+        JButton loadButton = JComponentFactory.menuButton("Load game", new LoadMenuListener());
 
-        JButton optionsButton = JComponentBuilder.menuButton("Options", new OptionsMenuListener());
+        JButton optionsButton = JComponentFactory.menuButton("Options", new OptionsMenuListener());
 
-        JButton mainMenuButton = JComponentBuilder.menuButton("Main Menu", new MainMenuListener());
+        JButton mainMenuButton = JComponentFactory.menuButton("Main Menu", new MainMenuListener());
 
         //Big Button
-        JButton backToGameButton = JComponentBuilder.menuButton("Back to game", new ResumeButtonListener());
+        JButton backToGameButton = JComponentFactory.menuButton("Back to game", new ResumeButtonListener());
 
-        JButton exitButton = JComponentBuilder.menuButton("Exit", new ExitListener());
+        JButton exitButton = JComponentFactory.menuButton("Exit", new ExitListener());
 
-        JButton debugButton = JComponentBuilder.menuButton("Debug Menu", new debugListener());
+        JButton debugButton = JComponentFactory.menuButton("Debug Menu", new debugListener());
 
         debugButton.setVisible(getInstance().getShowDebug());
 
-        JPanel buttonsDisplay = JComponentBuilder.gridMenuPanel(2, 2, GameConfiguration.BUTTON_SEPARATOR, GameConfiguration.BUTTON_SEPARATOR, saveButton, loadButton, optionsButton, mainMenuButton);
-        JPanel bigButtonDisplay = JComponentBuilder.gridMenuPanel(3, 1, GameConfiguration.BUTTON_SEPARATOR, GameConfiguration.BUTTON_SEPARATOR, backToGameButton, exitButton, debugButton);
-        JPanel totalButtonDisplay = JComponentBuilder.gridMenuPanel(2, 1, 10, 10, buttonsDisplay, bigButtonDisplay);
+        JPanel buttonsDisplay = JComponentFactory.gridMenuPanel(2, 2, GameConfiguration.BUTTON_SEPARATOR, GameConfiguration.BUTTON_SEPARATOR, saveButton, loadButton, optionsButton, mainMenuButton);
+        JPanel bigButtonDisplay = JComponentFactory.gridMenuPanel(3, 1, GameConfiguration.BUTTON_SEPARATOR, GameConfiguration.BUTTON_SEPARATOR, backToGameButton, exitButton, debugButton);
+        JPanel totalButtonDisplay = JComponentFactory.gridMenuPanel(2, 1, 10, 10, buttonsDisplay, bigButtonDisplay);
 
-        JPanel titleDisplay = JComponentBuilder.flowMenuPanel(title);
+        JPanel titleDisplay = JComponentFactory.flowMenuPanel(title);
 
-        JPanel creditsDisplay = JComponentBuilder.flowMenuPanel(credits);
+        JPanel creditsDisplay = JComponentFactory.flowMenuPanel(credits);
 
         this.addKeyListener(new KeyControls());
         this.add(titleDisplay, BorderLayout.NORTH);
         this.add(totalButtonDisplay, BorderLayout.CENTER);
 
-        this.add(JComponentBuilder.voidPanel(), BorderLayout.EAST);
-        this.add(JComponentBuilder.voidPanel(), BorderLayout.WEST);
+        this.add(JComponentFactory.voidPanel(), BorderLayout.EAST);
+        this.add(JComponentFactory.voidPanel(), BorderLayout.WEST);
         this.add(creditsDisplay, BorderLayout.SOUTH);
     }
 
