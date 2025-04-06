@@ -2,9 +2,11 @@ package engine.process.manager;
 
 import config.GameConfiguration;
 import engine.MapGame;
+import engine.data.Fleet;
 import engine.data.entity.Harbor;
 import engine.data.entity.boats.Boat;
 import engine.data.trading.Resource;
+import engine.utilities.SearchInGraph;
 
 import java.awt.*;
 
@@ -28,6 +30,45 @@ public class HarborManager {
 
         }
         return nb;
+    }
+
+    public void addBoatInHarbor(Harbor harbor,Boat boat){
+        boat.getPath().clear();
+        boat.setContinuePath(false);
+        harbor.getHashMapBoat().put(boat,false);
+    }
+
+    public void addFleetInHarbor(Harbor harbor, Fleet fleet){
+        for (Boat boat : fleet.getArrayListBoat()){
+            addBoatInHarbor(harbor,boat);
+        }
+    }
+
+    public void removeBoatInHarbor(Harbor harbor,Boat boat){
+        harbor.getHashMapBoat().remove(boat);
+        if(harbor.getHashMapBoat().get(boat)) {
+            boat.setPosition(new Point(harbor.getGraphPosition().getPoint()));
+        }
+    }
+
+    public void removeFleetInHarbor(Harbor harbor, Fleet fleet){
+        for (Boat boat : fleet.getArrayListBoat()){
+            removeBoatInHarbor(harbor,boat);
+        }
+    }
+
+    public void boatApproachingHarbor(Harbor harbor){
+        for (Boat boat : harbor.getHashMapBoat().keySet()){
+            if(!harbor.getHashMapBoat().get(boat)){
+                if(harbor.getGraphPosition().getPoint().equals(boat.getPosition())){
+                    harbor.getHashMapBoat().put(boat,true);
+                    boat.setPosition(harbor.getPosition().getX()*-100000,harbor.getPosition().getY()*-100000);
+                }
+                else if(boat.getPath().isEmpty()) {
+                    SearchInGraph.findPath(boat, harbor.getGraphPosition());
+                }
+            }
+        }
     }
 
     public boolean canIAddGenerator(Harbor harbor,Resource resource){

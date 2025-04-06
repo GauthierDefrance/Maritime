@@ -48,6 +48,7 @@ public class FactionManager {
     }
 
     public void nextRound(){
+        allBoatApproachingHarbor();
         moveAllFactionBoat();
         allFleetUpdate();
         allSeaRoutUpdate();
@@ -58,6 +59,12 @@ public class FactionManager {
     public void updateAllGeneratorTime(){
         for (Harbor harbor : MapGame.getInstance().getLstHarbor()){
             harborManager.updateGeneratorTime(harbor);
+        }
+    }
+
+    public void allBoatApproachingHarbor(){
+        for (Harbor harbor : MapGame.getInstance().getLstHarbor()){
+            harborManager.boatApproachingHarbor(harbor);
         }
     }
 
@@ -151,7 +158,7 @@ public class FactionManager {
         else{
             boolean flag = false;
             for (Harbor harbor :getMyFaction(prey.getColor()).getLstHarbor()){
-                if (harbor.getLstBoat().contains(prey)) {
+                if (harbor.getHashMapBoat().containsKey(prey)) {
                     flag = true;
                     break;
                 }

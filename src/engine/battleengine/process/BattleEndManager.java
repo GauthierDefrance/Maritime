@@ -60,16 +60,10 @@ public class BattleEndManager {
         Inventory lostInv = new Inventory();
         HashMap<String, Integer> resoursHashMap = new HashMap<>();
 
-        // Yo, ici on va supprimer les bateaux qui sont morts durant la partie
-        // De plus on ajoute au BigInv l'inventaire de tout les bateaux morts.
-
         for(Boat boat : this.battle.getDeadBoatsB().getArrayListBoat()){
             TradeManager.getInstance().transferAll(this.battle.getCopyToOrignalHashMap().get(boat).getInventory(), bigInv);
             this.battle.getTeamBOriginal().getArrayListBoat().remove(this.battle.getCopyToOrignalHashMap().get(boat));
             this.battle.getFactionB().removeBoat(this.battle.getCopyToOrignalHashMap().get(boat));
-        }
-        for (Resource resource : bigInv.getContent().keySet()){
-            resoursHashMap.put(resource.getName(), bigInv.getContent().get(resource));
         }
         for(Boat boat : this.battle.getDeadBoatsA().getArrayListBoat()){
             TradeManager.getInstance().transferAll(this.battle.getCopyToOrignalHashMap().get(boat).getInventory(), lostInv);
@@ -84,22 +78,27 @@ public class BattleEndManager {
             for(Boat boat: this.battle.getBoatsInBattleA().getArrayListBoat()){
                 this.battle.getCopyToOrignalHashMap().get(boat).setCurrentHp(boat.getCurrentHp());
             }
+            for (Resource resource : bigInv.getContent().keySet()){
+                resoursHashMap.put(resource.getName(), bigInv.getContent().get(resource));
+            }
             TradeManager.getInstance().transferAll(lostInv,bigInv);
             transferInvToFleet(bigInv, this.battle.getTeamAOriginal().getArrayListBoat());
             for (Resource resource : bigInv.getContent().keySet()){
                 if(resoursHashMap.containsKey(resource.getName()))resoursHashMap.put(resource.getName(), resoursHashMap.get(resource.getName())- bigInv.getContent().get(resource));
                 else resoursHashMap.put(resource.getName(),- bigInv.getContent().get(resource));
             }
-        } else {
+        } 
+        else {
             //On actualise les HP
             for(Boat boat: this.battle.getBoatsInBattleB().getArrayListBoat()){
                 this.battle.getCopyToOrignalHashMap().get(boat).setCurrentHp(boat.getCurrentHp());
             }
-            transferInvToFleet(bigInv, this.battle.getTeamBOriginal().getArrayListBoat());
             resoursHashMap = new HashMap<>();
             for (Resource resource : lostInv.getContent().keySet()){
                 resoursHashMap.put(resource.getName(),-lostInv.getContent().get(resource));
             }
+            TradeManager.getInstance().transferAll(lostInv,bigInv);
+            transferInvToFleet(bigInv, this.battle.getTeamBOriginal().getArrayListBoat());
         }
 
         for (String resource : resoursHashMap.keySet()){

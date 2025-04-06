@@ -26,7 +26,7 @@ public class Harbor implements Entity {
     private int currentHp;
     private int level;
     private final Inventory inventory;
-    private ArrayList<Boat> lstBoat;
+    private HashMap<Boat,Boolean> hashMapBoat;
     private HashMap<Resource, Integer[]> generator;
 
     public Harbor(String name,String color, Point position,GraphPoint graphPosition) {
@@ -39,7 +39,7 @@ public class Harbor implements Entity {
         this.level = 1;
         this.position = position;
         this.graphPosition =graphPosition;
-        this.lstBoat = new ArrayList<>();
+        this.hashMapBoat = new HashMap<>();
         this.generator = new HashMap<>();
     }
 
@@ -88,8 +88,8 @@ public class Harbor implements Entity {
         return color;
     }
 
-    public ArrayList<Boat> getLstBoat() {
-        return lstBoat;
+    public HashMap<Boat, Boolean> getHashMapBoat() {
+        return hashMapBoat;
     }
 
     public HashMap<Resource, Integer[]> getGenerator() {
@@ -136,8 +136,8 @@ public class Harbor implements Entity {
         this.color = color;
     }
 
-    public void setLstBoat(ArrayList<Boat> lstBoat) {
-        this.lstBoat = lstBoat;
+    public void setHashMapBoat(HashMap<Boat, Boolean> hashMapBoat) {
+        this.hashMapBoat = hashMapBoat;
     }
 
     public void setGenerator(HashMap<Resource, Integer[]> generator) {
