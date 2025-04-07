@@ -9,7 +9,6 @@ import gui.PopUp;
 import gui.process.ImageStock;
 import gui.process.PaintBackGround;
 import gui.process.PaintEntity;
-import gui.process.PaintPopUp;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +25,6 @@ public class ChoiceDisplay extends JPanel {
     private final int state;
     private final PaintEntity paintEntity;
     private final PaintBackGround paintBackGround;
-    private final PaintPopUp paintPopUp;
     private Harbor harbor1;
     private Harbor harbor2;
     private ArrayList<GraphPoint> path;
@@ -39,7 +37,6 @@ public class ChoiceDisplay extends JPanel {
         this.state = state;
         this.paintEntity = new PaintEntity();
         this.paintBackGround = new PaintBackGround();
-        this.paintPopUp = new PaintPopUp();
     }
 
     /**
@@ -99,7 +96,7 @@ public class ChoiceDisplay extends JPanel {
         ArrayList<PopUp> lstPopUp = new ArrayList<>();
         lstPopUp.addAll(MapGame.getInstance().getLstPopUp());
         for (PopUp popUp : lstPopUp){
-            paintPopUp.paint(popUp,g2d);
+            paintEntity.paint(popUp,g2d);
         }
         g2d.scale(GameConfiguration.GAME_SCALE,GameConfiguration.GAME_SCALE);
     }

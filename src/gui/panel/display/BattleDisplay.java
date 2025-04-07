@@ -21,7 +21,6 @@ public class BattleDisplay extends JPanel {
 
     private final PaintEntity paintEntity;
     private final PaintBackGround paintBackGround;
-    private final PaintPopUp paintPopUp;
     private Battle battle;
 
     /**
@@ -31,7 +30,6 @@ public class BattleDisplay extends JPanel {
         this.battle = battle;
         this.paintEntity = new PaintEntity();
         this.paintBackGround = new PaintBackGround();
-        this.paintPopUp = new PaintPopUp();
     }
     /**
      * It paints everything that has to be painted on graphics2D
@@ -108,7 +106,7 @@ public class BattleDisplay extends JPanel {
         ArrayList<PopUp> lstPopUp = new ArrayList<>();
         lstPopUp.addAll(MapGame.getInstance().getLstPopUp());
         for (PopUp popUp : lstPopUp){
-            paintPopUp.paint(popUp,g2d);
+            paintEntity.paint(popUp,g2d);
         }
         g2d.scale(GameConfiguration.GAME_SCALE,GameConfiguration.GAME_SCALE);
     }

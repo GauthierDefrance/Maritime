@@ -6,6 +6,7 @@ import engine.data.entity.Harbor;
 import engine.data.entity.boats.Boat;
 import engine.data.faction.Faction;
 import engine.data.trading.SeaRoad;
+import gui.PopUp;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -56,6 +57,25 @@ public class PaintEntity {
         g2d.setColor(Color.black);
         g2d.setFont(new Font("time20",Font.PLAIN, (int) (7.5*GameConfiguration.GAME_SCALE)));
         if(sprite!=null)g2d.drawString(seaRoad.getStringTimer(),(int) (seaRoad.getTargetHarbor().getPosition().getX())- (g2d.getFontMetrics().stringWidth(seaRoad.getStringTimer())/2), (int) (seaRoad.getTargetHarbor().getPosition().getY())-(sprite.getHeight() / 2)-5);
+    }
+
+    /**
+     * It paints a popUp that needs to be painted on 2D graphics
+     */
+    public void paint(PopUp popUp, Graphics2D g2d) {
+
+        if (popUp.getIFrame() < popUp.getMaxFrame()) {
+            BufferedImage sprite = ImageStock.getImage(popUp);
+            if (sprite != null) {
+                g2d.drawImage(sprite, (int) (popUp.getPosition().getX()) - (sprite.getWidth() / 2), ((int) (popUp.getPosition().getY()) - (sprite.getHeight() / 2))-(popUp.getIFrame()*2), null);
+            } else {
+                g2d.setColor(Color.MAGENTA);
+                g2d.fillOval((int) (popUp.getPosition().getX()) - 10, (int) (popUp.getPosition().getY()) - 10, 20, 20);
+                g2d.setColor(Color.black);
+            }
+        }
+        else {
+            MapGame.getInstance().removePopUp(popUp);}
     }
 
     /**

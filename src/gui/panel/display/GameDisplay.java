@@ -8,7 +8,6 @@ import engine.data.trading.SeaRoad;
 import gui.process.ImageStock;
 import gui.process.PaintBackGround;
 import gui.process.PaintEntity;
-import gui.process.PaintPopUp;
 import gui.PopUp;
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +22,6 @@ public class GameDisplay extends JPanel {
 
     private final PaintEntity paintEntity;
     private final PaintBackGround paintBackGround;
-    private final PaintPopUp paintPopUp;
     private Object currentObject;
 
     /**
@@ -32,7 +30,6 @@ public class GameDisplay extends JPanel {
     public GameDisplay(){
         this.paintEntity = new PaintEntity();
         this.paintBackGround = new PaintBackGround();
-        this.paintPopUp = new PaintPopUp();
         currentObject = null;
     }
     /**
@@ -74,7 +71,7 @@ public class GameDisplay extends JPanel {
         ArrayList<PopUp> lstPopUp = new ArrayList<>();
         lstPopUp.addAll(MapGame.getInstance().getLstPopUp());
         for (PopUp popUp : lstPopUp){
-            paintPopUp.paint(popUp,g2d);
+            paintEntity.paint(popUp,g2d);
         }
         g2d.scale(GameConfiguration.GAME_SCALE,GameConfiguration.GAME_SCALE);
     }
