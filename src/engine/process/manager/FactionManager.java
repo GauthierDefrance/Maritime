@@ -51,7 +51,7 @@ public class FactionManager {
         allBoatApproachingHarbor();
         moveAllFactionBoat();
         allFleetUpdate();
-        allSeaRoutUpdate();
+        allSeaRoadUpdate();
         playerManager.updatePlayerVision();
         updateAllGeneratorTime();
     }
@@ -107,7 +107,7 @@ public class FactionManager {
     /**
      * for all faction sea road boat pickUpResources and sellResources and remove sea road if timer < 0
      */
-    public void seaRoutUpdate(Faction faction){
+    public void seaRoadUpdate(Faction faction){
         ArrayList<SeaRoad> lstSeaRouts = new ArrayList<>();
         for (SeaRoad seaRoad : faction.getLstSeaRouts()){
             seaRoutManager.sellAndPickUpAllResources(seaRoad);
@@ -123,9 +123,9 @@ public class FactionManager {
     /**
      * for all map faction sea road boat pickUpResources and sellResources and remove sea road if timer < 0
      */
-    public void allSeaRoutUpdate(){
+    public void allSeaRoadUpdate(){
         for (Faction faction : MapGame.getInstance().getLstFaction()){
-            seaRoutUpdate(faction);
+            seaRoadUpdate(faction);
         }
     }
 
