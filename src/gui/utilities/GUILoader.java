@@ -4,7 +4,7 @@ import engine.MapGame;
 import engine.battleengine.data.Battle;
 import engine.data.entity.Harbor;
 import engine.data.faction.Faction;
-import engine.data.trading.TradeOffer;
+import engine.data.trading.SeaRoad;
 import gui.MainGUI;
 import gui.panel.menu.*;
 
@@ -61,16 +61,12 @@ public class GUILoader {
         actualise(new CombatMenu(battle));
     }
 
-    public static void loadFleetManagingMenu(TradeOffer offer){
-        actualise(new FleetBuildingMenu(offer));
-    }
-
-    public static void loadTradeMenu(TradeOffer offer){
-        actualise(new TradeMenu(offer));
+    public static void loadTradeMenu(Harbor sellerHarbor, Harbor targetHarbor){
+        actualise(new TradeMenu(sellerHarbor,targetHarbor));
     }
 
     public static void loadFleetManagingMenu(){
-        actualise(new FleetBuildingMenu());
+//        actualise(new FleetManagingMenu());
     }
 
     public static void loadChoicePathMenu(Faction faction, int token){

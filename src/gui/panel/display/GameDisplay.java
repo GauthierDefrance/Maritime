@@ -42,6 +42,13 @@ public class GameDisplay extends JPanel {
         double scale = Math.min((double)getWidth()/640,(double) getHeight() /360);
         g2d.scale(scale,scale);
         paintBackGround.paint(g2d,true);
+
+        if(MapGame.getInstance().isTimeStop()){
+            g2d.setColor(new Color(64, 64, 64, 100));
+            g2d.fillRect(0,0, 640, 360);
+            g2d.setColor(Color.black);
+        }
+
         g2d.scale((double) 1 /GameConfiguration.GAME_SCALE, (double) 1 /GameConfiguration.GAME_SCALE);
 
         for (Harbor harbor : MapGame.getInstance().getLstHarbor()){

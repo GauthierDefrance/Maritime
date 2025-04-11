@@ -277,6 +277,7 @@ public class CombatMenu extends JPanel implements Runnable {
                     MapGame.getInstance().setTimeStop(false);
                     jWestATHPanel.setVisible(false);
                     confirmBattle.setVisible(false);
+                    battle.setPlacingMode(false);
                 }
                 else {
                     MapGame.getInstance().setTimeStop(true);

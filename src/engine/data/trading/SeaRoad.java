@@ -4,10 +4,12 @@ import config.GameConfiguration;
 import engine.data.entity.Harbor;
 import engine.data.entity.boats.Boat;
 import engine.data.Fleet;
+import engine.data.faction.Faction;
 import engine.data.graph.GraphPoint;
 import engine.utilities.SearchInGraph;
 
 import java.io.Serializable;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 
 /**
@@ -21,53 +23,20 @@ public class SeaRoad implements Serializable {
     private Fleet fleet;
     private final Harbor sellerHarbor;
     private final Harbor targetHarbor;
-    private TradeObject interlocutorObject;
-    private TradeObject proposerObject;
-    private TradeOffer associatedOffer;
+    private AbstractMap.SimpleEntry<Resource, Integer> selection;
+    private AbstractMap.SimpleEntry<Resource, Integer> demand;
     private final double ratio;
 
-    public SeaRoad(int timer, Harbor sellerHarbor, Harbor targetHarbor, Resource interlocutorObject, Resource proposerObject, double ratio, String name){
-        this.timer = timer;
-        this.interlocutorObject = interlocutorObject;
-        this.proposerObject = proposerObject;
-        this.ratio = ratio;
-        this.path = SearchInGraph.findPath(sellerHarbor.getGraphPosition(), targetHarbor.getGraphPosition());
-        this.fleet = new Fleet();
+    public SeaRoad(String name,Harbor sellerHarbor,Harbor targetHarbor, Resource selectionResource,Resource demandResource,int selectionQuantity,int demandQuantity,int timer){
+        this.name = name;
         this.sellerHarbor = sellerHarbor;
         this.targetHarbor = targetHarbor;
-        this.name = name;
-    }
-
-    public SeaRoad(int timer, Harbor sellerHarbor, Harbor targetHarbor, ArrayList<GraphPoint> path, Resource interlocutorObject, Resource proposerObject, double ratio, String name){
-        this.timer = timer;
-        this.path = path;
-        this.interlocutorObject = interlocutorObject;
-        this.proposerObject = proposerObject;
-        this.ratio = ratio;
         this.fleet = new Fleet();
-        this.sellerHarbor = sellerHarbor;
-        this.targetHarbor = targetHarbor;
-        this.name = name;
-    }
-
-    public SeaRoad(TradeOffer offer, double ratio, String name){
-        this.name = name;
-        this.sellerHarbor = offer.getStartingHarbor();
-        this.targetHarbor = offer.getTargetedHarbor();
-        this.associatedOffer = offer;
-        for (TradeObject object : offer.getSelection().keySet())
-            this.proposerObject = object;
-        for (TradeObject object : offer.getDemand().keySet())
-            this.interlocutorObject = object;
-        /*
-        Doesn't really make sense to set a timer in this context,
-        a boolean would make more sense to check if the road hasn't failed yet,
-        anyway I'm setting it to MAX_VALUE for the hell of it feel free to change it if you have a counterargument
-         */
-        this.timer = Integer.MAX_VALUE;
-        this.ratio = ratio;
+        this.selection = new AbstractMap.SimpleEntry<>(selectionResource,selectionQuantity);
+        this.demand = new AbstractMap.SimpleEntry<>(demandResource,demandQuantity);
+        this.timer = timer;
+        this.ratio = (double) demand.getValue()/selection.getValue();
         this.path = SearchInGraph.findPath(sellerHarbor.getGraphPosition(), targetHarbor.getGraphPosition());
-        this.fleet = offer.getConcernedFleet();
     }
 
     //Getters
@@ -92,23 +61,16 @@ public class SeaRoad implements Serializable {
         return ratio;
     }
 
-    public TradeObject getProposedObject() {
-        return proposerObject;
-    }
-
-    public TradeObject getInterlocutorObject() {
-        return interlocutorObject;
-    }
-
     public Fleet getFleet() {return fleet;}
 
     public String getName() {
         return name;
     }
 
-    public TradeOffer getAssociatedOffer() {
-        return associatedOffer;
+    public int getTimer(){
+        return timer;
     }
+
     
     //Setters
 
@@ -118,24 +80,19 @@ public class SeaRoad implements Serializable {
 
     public void removeFleet() { this.fleet = new Fleet(); }
 
-    public void setFleet(Boat boat) {
-        Fleet fleet = new Fleet();
-        fleet.add(boat);
-        this.fleet = fleet;
+    public void setTime(int nb) {
+        this.timer = nb;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setAssociatedOffer(TradeOffer offer) {
-        this.associatedOffer = offer;
-    }
-
     //Basic Time management behavior
 
     public void abandonTask() {
-        this.timer = 0;
+        this.selection.setValue(-1);
+        this.demand.setValue(-1);
     }
     
     public void subtractTime(int nb) {
@@ -147,7 +104,7 @@ public class SeaRoad implements Serializable {
     }
     
     public boolean isActive(){
-        return timer > 0;
+        return timer > 0 && selection.getValue()>0 && demand.getValue()>0;
     }
 
     public String getStringTimer(){
@@ -155,4 +112,19 @@ public class SeaRoad implements Serializable {
         return time/60+":"+time%60;
     }
 
+    public AbstractMap.SimpleEntry<Resource, Integer> getDemand() {
+        return demand;
+    }
+
+    public void setDemand(AbstractMap.SimpleEntry<Resource, Integer> demand) {
+        this.demand = demand;
+    }
+
+    public AbstractMap.SimpleEntry<Resource, Integer> getSelection() {
+        return selection;
+    }
+
+    public void setSelection(AbstractMap.SimpleEntry<Resource, Integer> selection) {
+        this.selection = selection;
+    }
 }

@@ -35,7 +35,7 @@ public final class GameConfiguration {
     public static final Resource SUGAR = tob.name("Sugar").value(40).productionRate(500).buildResource();
     public static final Resource CACAO = tob.name("Cacao").value(60).productionRate(1000).buildResource();
     public static final Resource PEARL = tob.name("Pearl").value(120).buildResource();
-    public static final Currency GOLD = tob.name("Gold").value(1).amount(1500).buildCurrency();
+    public static final Currency GOLD = tob.name("Gold").value(1).buildCurrency();
 
 
     //--------------------------------

@@ -2,6 +2,7 @@ package gui.process;
 
 import config.GameConfiguration;
 import engine.MapGame;
+import engine.battleengine.data.Bullet;
 import engine.data.entity.Harbor;
 import engine.data.entity.boats.Boat;
 import engine.data.faction.Faction;
@@ -76,6 +77,12 @@ public class PaintEntity {
         }
         else {
             MapGame.getInstance().removePopUp(popUp);}
+    }
+
+    public void paint(Bullet bullet, Graphics2D g2d) {
+        g2d.setColor(ImageStock.colorChoice(bullet.getColor()));
+        g2d.fillOval((int) (bullet.getPosition().getX()-5), (int) (bullet.getPosition().getY()-5),10,10);
+        g2d.setColor(Color.black);
     }
 
     /**

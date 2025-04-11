@@ -1,5 +1,6 @@
 package test;
 
+import config.GameConfiguration;
 import engine.MapGame;
 import engine.data.Fleet;
 import engine.data.entity.boats.*;
@@ -69,23 +70,18 @@ public class TestMove {
         fleet2.getArrayListBoat().add(fodder3);
         fleet2.getArrayListBoat().add(military3);
 
-        TradeObjectBuilder builder = new TradeObjectBuilder();
-        Resource metal = builder.name("Metal").value(10).productionRate(1).buildResource();
-        Resource wood = builder.name("Wood").value(2).productionRate(3).buildResource();
-        Currency gold = builder.name("Gold").value(1).amount(0).buildCurrency();
 
-        MapGame.getInstance().getLstHarbor().get(0).getInventory().add(metal,10000);
-        MapGame.getInstance().getLstHarbor().get(0).getInventory().add(metal,10000);
-        MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1).getInventory().add(wood,10000);
-        MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1).getInventory().add(metal,10000);
-        MapGame.getInstance().getLstHarbor().get(0).getInventory().add(wood,10000);
-        for (Faction f : MapGame.getInstance().getLstFaction()) {
-            f.setCurrency(gold);
-            f.getCurrency().setAmount(200);
-        }
+        MapGame.getInstance().getLstHarbor().get(0).getInventory().add(GameConfiguration.METAL,10000);
+        MapGame.getInstance().getLstHarbor().get(0).getInventory().add(GameConfiguration.WOOD,10000);
+        MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1).getInventory().add(GameConfiguration.WOOD,10000);
+        MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1).getInventory().add(GameConfiguration.METAL,10000);
 
-        SeaRoad seaRoad1 = new SeaRoad(20000, MapGame.getInstance().getLstHarbor().get(0), MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1),metal,wood,1,"seaRoad1");
-        SeaRoad seaRoad2 = new SeaRoad(20000, MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1), MapGame.getInstance().getLstHarbor().get(0),wood,metal,1,"seaRoad2");
+        MapGame.getInstance().getLstFaction().get(0).addAmountCurrency(1000);
+        MapGame.getInstance().getPlayer().addAmountCurrency(1000);
+
+
+        SeaRoad seaRoad1 = new SeaRoad("seaRoad1", MapGame.getInstance().getLstHarbor().get(0), MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1),GameConfiguration.METAL,GameConfiguration.GOLD,5000,10000,20000);
+        SeaRoad seaRoad2 = new SeaRoad("seaRoad2", MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1), MapGame.getInstance().getLstHarbor().get(0),GameConfiguration.WOOD,GameConfiguration.METAL,10000,5000,20000);
 
         FactionManager factionManager = FactionManager.getInstance();
         factionManager.getSeaRoadManager().setNewFleet(seaRoad1,fleet1);

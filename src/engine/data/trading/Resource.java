@@ -8,7 +8,7 @@ import java.util.Objects;
  * @author Zue Jack-Arthur
  * @version 0.3
  */
-public class Resource implements TradeObject {
+public class Resource {
     private String name;
     private int value;
     private int productionRate;
@@ -31,7 +31,6 @@ public class Resource implements TradeObject {
      * Allows fetching the name of the Resource
      * @return identifying String
      */
-    @Override
     public String getName() {
         return name;
     }
@@ -40,7 +39,6 @@ public class Resource implements TradeObject {
      * Allows fetching of the indicative value of the Resource
      * @return default selling value
      */
-    @Override
     public int getValue() {
         return value;
     }
@@ -67,7 +65,6 @@ public class Resource implements TradeObject {
      * Allows alteration of the indicative value of the Resource
      * @param value new default selling value
      */
-    @Override
     public void setValue(int value) {
         this.value = value;
     }
@@ -87,7 +84,6 @@ public class Resource implements TradeObject {
      * @param r a Resource Object
      * @return result of the comparison
      */
-    @Override
     public boolean equals(Object r) {
         if (r instanceof Resource) {
             return (this.name.equals(((Resource) r).getName()) && this.productionRate == ((Resource) r).getProductionRate());
@@ -98,7 +94,6 @@ public class Resource implements TradeObject {
      * Generate the hashCode of this Object
      * @return hashCode
      */
-    @Override
     public int hashCode() {
         return Objects.hash(this.name, this.productionRate);
     }

@@ -7,7 +7,6 @@ import engine.data.faction.Faction;
 import engine.data.graph.GraphPoint;
 import engine.data.graph.GraphSegment;
 import engine.process.manager.FactionManager;
-import engine.data.trading.TradeOffer;
 import engine.utilities.SearchInGraph;
 import gui.PopUp;
 import gui.panel.display.ChoiceDisplay;
@@ -153,11 +152,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
                         return;
                     }
                     if(harbor1 != null && harbor2 != null){
-                        if (faction.getRelationship() == WAR_THRESHOLD) {
-                            // /!\ must lead to a choice between picking or building a fleet instead
-                            GUILoader.loadFleetManagingMenu();
-                            return;
-                        } GUILoader.loadTradeMenu(new TradeOffer(harbor1, harbor2));
+                        GUILoader.loadTradeMenu(harbor1, harbor2);
                     } else JOptionPane.showMessageDialog(ChoicePathMenu.this,"No proper selection");
                     break;
                 default:

@@ -41,14 +41,6 @@ public class BattleEndManager {
         return battle.getBoatsInBattleB().getArrayListBoat().isEmpty();
     }
 
-    /**
-     *
-     * @return
-     */
-    public boolean playerTie(){
-        return playerLose()&&playerWin();
-    }
-    /* ------------------- */
 
 
     /**
@@ -61,12 +53,12 @@ public class BattleEndManager {
         HashMap<String, Integer> resoursHashMap = new HashMap<>();
 
         for(Boat boat : this.battle.getDeadBoatsB().getArrayListBoat()){
-            TradeManager.getInstance().transferAll(this.battle.getCopyToOrignalHashMap().get(boat).getInventory(), bigInv);
+            TradeManager.getInstance().transferMaxAll(this.battle.getCopyToOrignalHashMap().get(boat).getInventory(), bigInv,null,null);
             this.battle.getTeamBOriginal().getArrayListBoat().remove(this.battle.getCopyToOrignalHashMap().get(boat));
             this.battle.getFactionB().removeBoat(this.battle.getCopyToOrignalHashMap().get(boat));
         }
         for(Boat boat : this.battle.getDeadBoatsA().getArrayListBoat()){
-            TradeManager.getInstance().transferAll(this.battle.getCopyToOrignalHashMap().get(boat).getInventory(), lostInv);
+            TradeManager.getInstance().transferMaxAll(this.battle.getCopyToOrignalHashMap().get(boat).getInventory(), lostInv,null,null);
             this.battle.getTeamAOriginal().getArrayListBoat().remove(this.battle.getCopyToOrignalHashMap().get(boat));
             this.battle.getFactionA().removeBoat(this.battle.getCopyToOrignalHashMap().get(boat));
         }
@@ -81,11 +73,11 @@ public class BattleEndManager {
             for (Resource resource : bigInv.getContent().keySet()){
                 resoursHashMap.put(resource.getName(), bigInv.getContent().get(resource));
             }
-            TradeManager.getInstance().transferAll(lostInv,bigInv);
-            transferInvToFleet(bigInv, this.battle.getTeamAOriginal().getArrayListBoat());
-            for (Resource resource : bigInv.getContent().keySet()){
-                if(resoursHashMap.containsKey(resource.getName()))resoursHashMap.put(resource.getName(), resoursHashMap.get(resource.getName())- bigInv.getContent().get(resource));
-                else resoursHashMap.put(resource.getName(),- bigInv.getContent().get(resource));
+            TradeManager.getInstance().transferMaxAll(lostInv,bigInv,null,null);
+            if(!transferInvToFleet(bigInv, this.battle.getTeamAOriginal().getArrayListBoat())){
+                for (Resource resource : bigInv.getContent().keySet()){
+                    resoursHashMap.put(resource.getName(), resoursHashMap.get(resource.getName())-bigInv.getContent().get(resource));
+                }
             }
         } 
         else {
@@ -97,7 +89,7 @@ public class BattleEndManager {
             for (Resource resource : lostInv.getContent().keySet()){
                 resoursHashMap.put(resource.getName(),-lostInv.getContent().get(resource));
             }
-            TradeManager.getInstance().transferAll(lostInv,bigInv);
+            TradeManager.getInstance().transferMaxAll(lostInv,bigInv,null,null);
             transferInvToFleet(bigInv, this.battle.getTeamBOriginal().getArrayListBoat());
         }
 
@@ -124,13 +116,14 @@ public class BattleEndManager {
      * @param inv
      * @param fleet
      */
-    public void transferInvToFleet(Inventory inv, ArrayList<Boat> fleet){
+    public boolean transferInvToFleet(Inventory inv, ArrayList<Boat> fleet){
         Iterator<Boat> iterator = fleet.iterator();
         boolean loop=true;
         while(iterator.hasNext()&&loop){
             Boat tmp = iterator.next();
-            loop = !TradeManager.getInstance().transferAll(inv, tmp.getInventory());
+            loop = !TradeManager.getInstance().transferMaxAll(inv, tmp.getInventory(),null,tmp);
         }
+        return loop;
     }
 
 }

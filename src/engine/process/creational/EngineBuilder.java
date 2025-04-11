@@ -556,6 +556,13 @@ public class EngineBuilder {
         MapGame.getInstance().setLstBotFaction(lstBotFaction);
         MapGame.getInstance().setPlayer(player);
         MapGame.getInstance().setPirate(pirate);
+
+        for (Faction factionTmp1 : MapGame.getInstance().getLstFaction()){
+            for (Faction factionTmp2 : MapGame.getInstance().getLstFaction()){
+                factionTmp1.setRelationship(factionTmp2,0);
+            }
+        }
+
         return MapGame.getInstance();
     }
 

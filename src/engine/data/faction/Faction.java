@@ -1,12 +1,15 @@
 package engine.data.faction;
 
+import config.GameConfiguration;
 import engine.data.entity.Harbor;
 import engine.data.entity.boats.Boat;
 import engine.data.Fleet;
 import engine.data.trading.Currency;
 import engine.data.trading.SeaRoad;
 import java.io.Serializable;
+import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * @author Kenan Ammad
@@ -21,8 +24,8 @@ public class Faction implements Serializable {
     private ArrayList<SeaRoad> lstSeaRouts;
     private ArrayList<Fleet> lstFleet;
     private String color;
-    private int relationship;
-    private Currency currency;
+    private HashMap<Faction,Integer> relationship;
+    private AbstractMap.SimpleEntry<Currency, Integer> currencySimpleEntry;
 
     public Faction(String color){
         this.lstBoat = new ArrayList<>();
@@ -30,8 +33,8 @@ public class Faction implements Serializable {
         this.lstSeaRouts = new ArrayList<>();
         this.lstFleet = new ArrayList<>();
         this.color = color;
-        this.relationship = 0;
-        this.currency = new Currency("",0,0);
+        this.relationship = new HashMap<>();
+        this.currencySimpleEntry = new AbstractMap.SimpleEntry<>(GameConfiguration.GOLD,0);
     }
 
     //Getters
@@ -56,12 +59,16 @@ public class Faction implements Serializable {
         return color;
     }
 
-    public int getRelationship() {
-        return relationship;
+    public int getRelationship(Faction faction) {
+        return relationship.get(faction);
+    }
+
+    public int getAmountCurrency() {
+        return currencySimpleEntry.getValue();
     }
 
     public Currency getCurrency() {
-        return currency;
+        return currencySimpleEntry.getKey();
     }
 
     //Setters
@@ -80,12 +87,32 @@ public class Faction implements Serializable {
 
     public void setColor(String color) {this.color = color;}
 
-    public void setRelationship(int relationship) {
-        this.relationship = relationship;
+    public void setRelationship(Faction faction,int relationship) {
+        this.relationship.put(faction,relationship);
+    }
+
+    public void addRelationship(Faction faction,int relationship) {
+        this.relationship.put(faction,getRelationship(faction)+relationship);
+    }
+
+    public void subtractRelationship(Faction faction,int relationship) {
+        this.relationship.put(faction,getRelationship(faction)-relationship);
+    }
+
+    public void setAmountCurrency(int nb) {
+        this.currencySimpleEntry.setValue(nb);
     }
 
     public void setCurrency(Currency currency) {
-        this.currency = currency;
+        this.currencySimpleEntry = new AbstractMap.SimpleEntry<>(currency,0);
+    }
+
+    public void addAmountCurrency(int nb) {
+        this.currencySimpleEntry.setValue(this.currencySimpleEntry.getValue()+nb);
+    }
+
+    public void subtractAmountCurrency(int nb) {
+        this.currencySimpleEntry.setValue(this.currencySimpleEntry.getValue()-nb);
     }
 
     //Content Handler

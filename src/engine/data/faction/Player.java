@@ -22,4 +22,12 @@ public class Player extends Faction {
     public void setVision(ArrayList<Boat> vision) {
         this.vision = vision;
     }
+
+    @Override
+    public int getRelationship(Faction faction) {
+        return 0;
+    }
+
+    @Override
+    public void setRelationship(Faction faction,int relationship) {}
 }

@@ -5,6 +5,7 @@ import engine.MapGame;
 import engine.data.Fleet;
 import engine.data.entity.Harbor;
 import engine.data.entity.boats.Boat;
+import engine.data.trading.Currency;
 import engine.data.trading.Resource;
 import engine.utilities.SearchInGraph;
 
@@ -73,12 +74,12 @@ public class HarborManager {
 
     public boolean canIAddGenerator(Harbor harbor,Resource resource){
         return getNbGenerator(harbor) < harbor.getLevel()
-                && resource.getValue() / resource.getProductionRate()*GameConfiguration.COST_GENERATOR < FactionManager.getInstance().getMyFaction(harbor.getColor()).getCurrency().getAmount()
+                && resource.getValue() / resource.getProductionRate()*GameConfiguration.COST_GENERATOR < FactionManager.getInstance().getMyFaction(harbor.getColor()).getAmountCurrency()
                 &&(!harbor.getGenerator().containsKey(resource));
     }
 
     public void addGenerator(Harbor harbor,Resource resource){
-        FactionManager.getInstance().getMyFaction(harbor.getColor()).getCurrency().subtractAmount(resource.getValue() / resource.getProductionRate()*GameConfiguration.COST_GENERATOR);
+        FactionManager.getInstance().getMyFaction(harbor.getColor()).subtractAmountCurrency(resource.getValue() / resource.getProductionRate()*GameConfiguration.COST_GENERATOR);
         if(harbor.getGenerator().containsKey(resource))harbor.getGenerator().get(resource)[1]+=1;
         else harbor.getGenerator().put(resource, new Integer[]{resource.getValue(),1});
     }
@@ -89,21 +90,21 @@ public class HarborManager {
     }
 
     public boolean canILevelUpHarbor(Harbor harbor){
-        return harbor.getLevel()*GameConfiguration.COST_LEVEL_UP_HARBOR < FactionManager.getInstance().getMyFaction(harbor.getColor()).getCurrency().getAmount();
+        return harbor.getLevel()*GameConfiguration.COST_LEVEL_UP_HARBOR < FactionManager.getInstance().getMyFaction(harbor.getColor()).getAmountCurrency();
     }
 
     public void levelUpHarbor(Harbor harbor){
-        FactionManager.getInstance().getMyFaction(harbor.getColor()).getCurrency().subtractAmount(harbor.getLevel()*GameConfiguration.COST_LEVEL_UP_HARBOR);
+        FactionManager.getInstance().getMyFaction(harbor.getColor()).subtractAmountCurrency(harbor.getLevel()*GameConfiguration.COST_LEVEL_UP_HARBOR);
         harbor.levelUp();
     }
 
     public boolean canILevelUpBoat(Harbor harbor, Boat boat){
         return boat.getLevel() < harbor.getLevel()
-                && boat.getLevel()*GameConfiguration.COST_LEVEL_UP_BOAT < FactionManager.getInstance().getMyFaction(harbor.getColor()).getCurrency().getAmount();
+                && boat.getLevel()*GameConfiguration.COST_LEVEL_UP_BOAT < FactionManager.getInstance().getMyFaction(harbor.getColor()).getAmountCurrency();
     }
 
     public void levelUpBoat(Harbor harbor, Boat boat){
-        FactionManager.getInstance().getMyFaction(harbor.getColor()).getCurrency().subtractAmount(harbor.getLevel()*GameConfiguration.COST_LEVEL_UP_BOAT);
+        FactionManager.getInstance().getMyFaction(harbor.getColor()).subtractAmountCurrency(harbor.getLevel()*GameConfiguration.COST_LEVEL_UP_BOAT);
         boat.levelUp();
     }
 

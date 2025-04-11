@@ -110,11 +110,19 @@ public class FactionManager {
     public void seaRoadUpdate(Faction faction){
         ArrayList<SeaRoad> lstSeaRouts = new ArrayList<>();
         for (SeaRoad seaRoad : faction.getLstSeaRouts()){
-            seaRoutManager.sellAndPickUpAllResources(seaRoad);
-            if (!seaRoad.isActive()){
+            if(seaRoad.isActive()) {
+                seaRoutManager.sellAndPickUpAllResources(seaRoad);
+            }
+            else {
+                if(seaRoad.getTimer()<=0)getMyFaction(seaRoad.getTargetHarbor().getColor()).subtractRelationship(faction,10);
+                else if(seaRoad.getSelection().getValue()==-1||seaRoad.getDemand().getValue()==-1)faction.subtractRelationship(getMyFaction(seaRoad.getTargetHarbor().getColor()),10);
+                else {
+                    getMyFaction(seaRoad.getTargetHarbor().getColor()).addRelationship(faction,10);
+                    faction.addRelationship(getMyFaction(seaRoad.getTargetHarbor().getColor()),10);
+                }
                 lstSeaRouts.add(seaRoad);
                 fleetManager.setContinuePathAll(seaRoad.getFleet(),false);
-                seaRoad.getFleet().setPath(new ArrayList<>());
+                Collections.reverse(seaRoad.getFleet().getPath());
             }
         }
         faction.getLstSeaRouts().removeAll(lstSeaRouts);
@@ -220,14 +228,14 @@ public class FactionManager {
         return fleet;
     }
 
-    public void modifyRelationship(Faction faction, int value){
-        int uncheckedResult = faction.getRelationship() + value;
+    public void modifyRelationship(Faction faction1,Faction faction2, int value){
+        int uncheckedResult = faction2.getRelationship(faction1) + value;
         if (uncheckedResult <= GameConfiguration.BFF_THRESHOLD && uncheckedResult >= GameConfiguration.WAR_THRESHOLD) {
-            faction.setRelationship(uncheckedResult);
+            faction2.setRelationship(faction1,uncheckedResult);
         } else if (uncheckedResult < 0) {
-            faction.setRelationship(GameConfiguration.WAR_THRESHOLD);
+            faction2.setRelationship(faction1,GameConfiguration.WAR_THRESHOLD);
         } else {
-            faction.setRelationship(GameConfiguration.BFF_THRESHOLD);
+            faction2.setRelationship(faction1,GameConfiguration.BFF_THRESHOLD);
         }
     }
 

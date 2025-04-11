@@ -1,7 +1,7 @@
 package engine.process.manager;
 
 import engine.data.entity.Entity;
-import engine.data.faction.Faction;
+import engine.data.entity.Harbor;
 import engine.data.trading.*;
 
 import java.util.HashMap;
@@ -55,39 +55,22 @@ public class TradeManager {
     }
 
     /**
-     * Identify the resource behind a String in a given Inventory
-     * @param elem String representing the resource to seek
-     * @param inventory inventory targeted for identification
-     * @return correct element or null if not found
-     */
-    public Resource identifyResource(String elem, Inventory inventory){
-        if (elem != null){
-            for (Resource el : inventory.getContent().keySet()){
-                if (elem.equals(el.getName()))
-                    return el;
-            }
-        } return null;
-    }
-
-    /**
      * Check if the conditions are met to add a number of elements to the Inventory, and if so proceed to do it
      * @param inventory targeted Inventory
      * @param elem targeted Resource
      * @param nb number of elements to be added
      * @return boolean indicating the success or failure of the operation
      */
-    public boolean safeAdd(Inventory inventory, Resource elem, int nb){
-        if ((totalUsedSpace(inventory) + nb) <= inventory.getCapacity()) {
+    public boolean safeAdd(Inventory inventory, Resource elem, int nb,Object inventoryOwner){
+        if(elem instanceof Currency && inventoryOwner instanceof Harbor){
+            FactionManager.getInstance().getMyFaction(((Harbor) inventoryOwner).getColor()).addAmountCurrency(nb);
+            return true;
+        }
+        else if ((totalUsedSpace(inventory) + nb) <= inventory.getCapacity()) {
             inventory.add(elem, nb);
             return true;
-        } else return false;
-    }
-
-    public boolean safeAddAll(Inventory source,Inventory target){
-        for(Resource resource : source.getContent().keySet()){
-            if (!safeAdd(target, resource, source.getContent().get(resource)))return false;
         }
-        return true;
+        else return false;
     }
 
     /**
@@ -97,11 +80,19 @@ public class TradeManager {
      * @param nb number of elements to be subtracted
      * @return boolean indicating the success or failure of the operation
      */
-    public boolean safeSubtract(Inventory inventory, Resource elem, int nb){
-        if (inventory.getNbResource(elem) >= nb) {
+    public boolean safeSubtract(Inventory inventory, Resource elem, int nb,Object inventoryOwner){
+        if(elem instanceof Currency && inventoryOwner instanceof Harbor){
+            if(FactionManager.getInstance().getMyFaction(((Harbor) inventoryOwner).getColor()).getAmountCurrency()>=nb){
+                FactionManager.getInstance().getMyFaction(((Harbor) inventoryOwner).getColor()).subtractAmountCurrency(nb);
+                return true;
+            }
+            else return false;
+        }
+        else if (inventory.getNbResource(elem) >= nb) {
             inventory.subtract(elem, nb);
             return true;
-        } else return false;
+        }
+        else return false;
     }
 
     /**
@@ -113,10 +104,11 @@ public class TradeManager {
      * @return boolean indicating the success or failure of the operation
      */
     public boolean transfer(Resource resource, int nb, Entity source, Entity target){
-        if (safeSubtract(source.getInventory(), resource, nb)){
-            if (safeAdd(target.getInventory(), resource, nb)) return true;
-            else {source.getInventory().add(resource,nb);} //Compensate for the failure to safeAdd the designated number of resource
-        } return false;
+        if (safeSubtract(source.getInventory(), resource, nb,source)){
+            if (safeAdd(target.getInventory(), resource, nb,target)) return true;
+            else safeAdd(source.getInventory(),resource,nb,source);//Compensate for the failure to safeAdd the designated number of resource
+        }
+        return false;
     }
 
     /**
@@ -125,13 +117,13 @@ public class TradeManager {
      * @param target target Inventory Object
      * @return success of the global transfer (everything is gone)
      */
-    public boolean transferAll(Inventory source, Inventory target) {
+    public boolean transferMaxAll(Inventory source, Inventory target, Entity entitySource, Entity entityTarget) {
         HashMap<Resource, Integer> sourceContent = source.getContent();
         int targetFreeSpace = totalFreeSpace(target);
 
         if (targetFreeSpace >= totalUsedSpace(source)) {
             for (Resource elem : sourceContent.keySet()) {
-                target.add(elem, sourceContent.get(elem));
+                safeAdd(target,elem,sourceContent.get(elem),entityTarget);
             }
             sourceContent.clear();
             return true;
@@ -142,11 +134,11 @@ public class TradeManager {
                 int nbResource = sourceContent.get(resource);
 
                 if (targetFreeSpace >= nbResource) {
-                    target.add(resource, nbResource);
+                    safeAdd(target,resource,nbResource,entityTarget);
                     sourceContent.put(resource, 0);
                     targetFreeSpace -= nbResource;
                 } else {
-                    target.add(resource, targetFreeSpace);
+                    safeAdd(target,resource,targetFreeSpace,entityTarget);
                     sourceContent.put(resource, nbResource - targetFreeSpace);
                     return false;
                 }
@@ -154,67 +146,18 @@ public class TradeManager {
         }
     }
 
-
-    /**
-     * Handle the transfer of currency between Faction
-     * @param nb amount to transfer
-     * @param source Faction that will give
-     * @param target Faction that will receive
-     * @return boolean indicating the success or failure of the operation
-     */
-    public boolean transfer(int nb, Faction source, Faction target){
-        int swing = source.getCurrency().getAmount();
-        if ( swing >= nb) {
-            source.getCurrency().setAmount(swing - nb);
-            target.getCurrency().setAmount(target.getCurrency().getAmount() + nb);
-            return true;
-        } return false;
-    }
-
-    //Operation on TradeOffer
-
-    public void reduceAskedStock(HashMap<TradeObject, Integer> side, TradeObject elem, int nb){
-        side.put(elem, side.get(elem) + nb);
-    }
-
-    public void getInterlocutorAskedStock(HashMap<TradeObject, Integer> side, TradeObject elem, int nb){}
-
-    /**
-     * Update one side of the offer to fit what is currently asked
-     * @param side side of the offer that need to be updated
-     * @param elem TradeObject that fits the update
-     * @param quantity Quantity befitting the update
-     * @return Updated offer
-     */
-    public HashMap<TradeObject, Integer> updateSide(HashMap<TradeObject, Integer> side, TradeObject elem, int quantity) {
-        HashMap<TradeObject, Integer> temp = side;
-        temp.clear();
-        temp.put(elem, quantity);
-        return temp;
-    }
-
-    public int CalculateValue(HashMap<TradeObject, Integer> side) {
-        int sum = 0;
-        for (TradeObject element : side.keySet()) {
-            sum += element.getValue() * side.get(element);
-        } return sum;
-    }
-
-    public double getRatio(TradeOffer offer) {
-        return (double) CalculateValue(offer.getSelection()) /CalculateValue(offer.getDemand());
-    }
+    //Operation on SeaRoad
 
     /**
      * Calculate the chance of success for a trade
      */
-    public void calculateSuccessChance(TradeOffer offer) {
-        if (offer.getDemand().keySet().equals(offer.getSelection().keySet())) {
-            offer.setSuccessChance(0);
-            return; //Cannot trade a resource for the same one
+    public double calculateSuccessChance(SeaRoad offer) {
+        if (offer.getDemand()!=null || offer.getSelection()!=null ||offer.getDemand().getKey().equals(offer.getSelection().getKey())) {
+            return 0; //Cannot trade a resource for the same one
         }
 
-        double ratio = getRatio(offer);
-        double relation = offer.getInterlocutor().getRelationship();
+        double ratio = offer.getRatio();
+        double relation = FactionManager.getInstance().getMyFaction(offer.getTargetHarbor().getColor()).getRelationship(FactionManager.getInstance().getMyFaction(offer.getSellerHarbor().getColor()));
 
         double relationshipModifier = (relation / 100.0);
 
@@ -222,25 +165,24 @@ public class TradeManager {
             relationshipModifier *= 0.25;
         }
         double successChance = Math.max(0, Math.min(1, (ratio + (relationshipModifier))));
-        offer.setSuccessChance( successChance * 100);
+        return successChance * 100;
     }
 
     /**
      * Determine if the trade is successful based on the success chance
-     * @param offer the TradeOffer to evaluate
+     * @param offer the SeaRoad to evaluate
      */
-    public boolean evaluate(TradeOffer offer) {
-        double successChance = offer.getSuccessChance();
+    public boolean evaluate(SeaRoad offer) {
         double roll = new Random().nextDouble() * 100;
-        return (roll <= successChance);
+        return (roll <= calculateSuccessChance(offer));
     }
 
-    public SeaRoad conclude(TradeOffer offer) {
+    public SeaRoad conclude(SeaRoad offer) {
         if (evaluate(offer)) {
             //SeaRoad need name
-            return new SeaRoad(offer, getRatio(offer),"");
+            return offer;
         } else {
-            FactionManager.getInstance().modifyRelationship(offer.getInterlocutor(), -10);
+            FactionManager.getInstance().modifyRelationship(FactionManager.getInstance().getMyFaction(offer.getSellerHarbor().getColor()),FactionManager.getInstance().getMyFaction(offer.getTargetHarbor().getColor()), -10);
         }
         return null;
     }

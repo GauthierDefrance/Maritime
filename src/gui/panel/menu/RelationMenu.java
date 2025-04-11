@@ -29,7 +29,7 @@ public class RelationMenu extends JPanel {
     //Init Helper
 
     private String relationshipInfo(){
-        int relation = activeFaction.getRelationship();
+        int relation = activeFaction.getRelationship(MapGame.getInstance().getPlayer());
         if (relation > 50)
             return "Friendly ("+ relation +")";
         if (relation > 25 && relation < 50)
@@ -48,7 +48,7 @@ public class RelationMenu extends JPanel {
         JPanel boatDisplay = flowMenuPanel(menuLabel("Armada : "+ activeFaction.getLstBoat().size() + " Boat(s)"));
         JPanel harborDisplay = flowMenuPanel(menuLabel("Harbor possessed : "+ activeFaction.getLstHarbor().size() + " Harbor(s)"));
         JPanel comDisplay = flowMenuPanel(menuLabel("Commercial activity : "+ activeFaction.getLstSeaRouts().size() + " SeaRoad(s)"));
-        JPanel currencyDisplay = flowMenuPanel(menuLabel("Capital : " + activeFaction.getCurrency().getAmount()*activeFaction.getCurrency().getValue() + " $"));
+        JPanel currencyDisplay = flowMenuPanel(menuLabel("Capital : " + activeFaction.getAmountCurrency()*activeFaction.getCurrency().getValue() + " $"));
         JPanel relationDisplay = flowMenuPanel(menuLabel("Current relationship : " + relationshipInfo()));
         return gridMenuPanel(8, 1, voidPanel(),colorDisplay, boatDisplay, harborDisplay, comDisplay, currencyDisplay, relationDisplay, voidPanel());
     }
@@ -58,7 +58,7 @@ public class RelationMenu extends JPanel {
         picture.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         JButton declareWar = menuButton("Declare War", new ProvokeListener());
         JButton interact;
-        if (activeFaction.getRelationship() == WAR_THRESHOLD) {
+        if (activeFaction.getRelationship(MapGame.getInstance().getPlayer()) == WAR_THRESHOLD) {
             interact = menuButton("Engage", new TradeListener());
             interact.setBackground(Color.RED);
             declareWar.setEnabled(false);
@@ -116,7 +116,7 @@ public class RelationMenu extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(JOptionPane.showConfirmDialog(RelationMenu.this,"Do you want to declare war to "+activeFaction.getColor()+"? This decision cannot be reversed","confirmation",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
-                activeFaction.setRelationship(WAR_THRESHOLD);
+                activeFaction.setRelationship(MapGame.getInstance().getPlayer(), WAR_THRESHOLD);
                 GUILoader.loadRelationMenu(activeFaction);
             }
         }
