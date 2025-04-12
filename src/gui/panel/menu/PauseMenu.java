@@ -7,13 +7,12 @@ import gui.process.JComponentFactory;
 import gui.process.ListenerBehaviorManager;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 
 import static config.GameOptions.getInstance;
+import static gui.MainGUI.getWindow;
 
 /**
  * A pause menu for the game
@@ -24,6 +23,9 @@ public class PauseMenu extends JPanel {
 
     private final int token;
     private final Object objectToken;
+    private JPanel totalButtonDisplay;
+    private JPanel jPanelCenter;
+    private JPanel bigButtonDisplay;
 
     /**
      * Generate the PauseMenu using a token and makes it appear
@@ -67,21 +69,71 @@ public class PauseMenu extends JPanel {
 
         debugButton.setVisible(getInstance().getShowDebug());
 
-        JPanel buttonsDisplay = JComponentFactory.gridMenuPanel(2, 2, GameConfiguration.BUTTON_SEPARATOR, GameConfiguration.BUTTON_SEPARATOR, saveButton, loadButton, optionsButton, mainMenuButton);
-        JPanel bigButtonDisplay = JComponentFactory.gridMenuPanel(3, 1, GameConfiguration.BUTTON_SEPARATOR, GameConfiguration.BUTTON_SEPARATOR, backToGameButton, exitButton, debugButton);
-        JPanel totalButtonDisplay = JComponentFactory.gridMenuPanel(2, 1, 10, 10, buttonsDisplay, bigButtonDisplay);
+        JPanel buttonsDisplay = JComponentFactory.gridMenuPanel(2, 2, 20+GameConfiguration.BUTTON_SEPARATOR, 5+GameConfiguration.BUTTON_SEPARATOR, saveButton, loadButton, optionsButton, mainMenuButton);
+        bigButtonDisplay = JComponentFactory.gridMenuPanel(3, 1, 5+GameConfiguration.BUTTON_SEPARATOR, 5+GameConfiguration.BUTTON_SEPARATOR, exitButton, backToGameButton, debugButton);
+
+        JPanel tmpBigButtonDisplay = JComponentFactory.voidPanel();
+        tmpBigButtonDisplay.add(bigButtonDisplay);
+
+        totalButtonDisplay = JComponentFactory.gridMenuPanel(2, 1, 10, 20, buttonsDisplay, tmpBigButtonDisplay);
 
         JPanel titleDisplay = JComponentFactory.flowMenuPanel(title);
 
         JPanel creditsDisplay = JComponentFactory.flowMenuPanel(credits);
 
+        jPanelCenter = JComponentFactory.voidPanel();
+        jPanelCenter.add(totalButtonDisplay);
+
         this.addKeyListener(new KeyControls());
         this.add(titleDisplay, BorderLayout.NORTH);
-        this.add(totalButtonDisplay, BorderLayout.CENTER);
+        this.add(jPanelCenter, BorderLayout.CENTER);
 
-        this.add(JComponentFactory.voidPanel(), BorderLayout.EAST);
-        this.add(JComponentFactory.voidPanel(), BorderLayout.WEST);
         this.add(creditsDisplay, BorderLayout.SOUTH);
+
+        jPanelCenter.setBackground(Color.gray);
+        totalButtonDisplay.setBackground(Color.gray);
+        buttonsDisplay.setBackground(Color.gray);
+        tmpBigButtonDisplay.setBackground(Color.gray);
+        bigButtonDisplay.setBackground(Color.gray);
+
+
+        creditsDisplay.setBackground(Color.lightGray);
+        titleDisplay.setBackground(Color.lightGray);
+
+        getWindow().addComponentListener(new ComponentControls());
+        sizeUpdate();
+    }
+
+    private void sizeUpdate() {
+        totalButtonDisplay.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.5),(int) (getWindow().getHeight()*0.7)));
+        totalButtonDisplay.setBorder(new EmptyBorder((int) (getWindow().getHeight()*0.03),0, 0,0));
+
+        bigButtonDisplay.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.4),(int) (getWindow().getHeight()*0.3)));
+        getWindow().revalidate();
+        getWindow().repaint();
+    }
+
+    private class ComponentControls implements ComponentListener {
+
+        @Override
+        public void componentResized(ComponentEvent e) {
+            sizeUpdate();
+        }
+
+        @Override
+        public void componentMoved(ComponentEvent e) {
+
+        }
+
+        @Override
+        public void componentShown(ComponentEvent e) {
+
+        }
+
+        @Override
+        public void componentHidden(ComponentEvent e) {
+
+        }
     }
 
     public class MainMenuListener implements ActionListener {

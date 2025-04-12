@@ -4,11 +4,13 @@ import gui.process.JComponentFactory;
 import gui.process.ListenerBehaviorManager;
 import saveSystem.process.OptSaveManager;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 
 import static config.GameOptions.getInstance;
 import static config.GameConfiguration.*;
+import static gui.MainGUI.getWindow;
 
 /**
  * options menu for the game
@@ -20,8 +22,11 @@ public class OptionsMenu extends JPanel {
     private final int token;
     private final Object objectToken;
 
-    private JButton muteButton;
+    private JPanel optionDisplay;
+    private JPanel jPanelCenter;
+    private JPanel goBack;
 
+    private JButton muteButton;
     private JButton debugButton;
 
     /**
@@ -73,12 +78,15 @@ public class OptionsMenu extends JPanel {
 
         this.setLayout(new BorderLayout());
 
+        JLabel title = JComponentFactory.title("Options");
+        JPanel titleDisplay = JComponentFactory.flowMenuPanel(title);
+
         JButton goBackButton = JComponentFactory.menuButton("Go back", new goBackButtonListener());
 
         JLabel soundLabel = JComponentFactory.menuLabel("Sound Level");
         JButton plusButton = JComponentFactory.menuButton("+", new plusButtonListener());
         JButton minusButton = JComponentFactory.menuButton("-", new minusButtonListener());
-        JPanel soundOptionPanel = lineMaker(plusButton, minusButton);
+        JPanel soundOptionPanel = JComponentFactory.gridMenuPanel(1,2,10+BUTTON_SEPARATOR,10+BUTTON_SEPARATOR,plusButton, minusButton);
         JPanel soundPanel = lineMaker(soundLabel, soundOptionPanel);
 
         JLabel muteLabel = JComponentFactory.menuLabel("Mute");
@@ -89,17 +97,70 @@ public class OptionsMenu extends JPanel {
         debugButton = JComponentFactory.menuButton(textSetter(getInstance().getShowDebug()), new debugMenuListener());
         JPanel debugPanel = lineMaker(debugLabel, debugButton);
 
-        JPanel optionDisplay = JComponentFactory.gridMenuPanel(4, 1, BUTTON_SEPARATOR, BUTTON_SEPARATOR, goBackButton, soundPanel, mutePanel, debugPanel);
+        goBack = JComponentFactory.borderMenuPanel();
+        goBack.add(goBackButton);
+
+        optionDisplay = JComponentFactory.gridMenuPanel(4, 1, BUTTON_SEPARATOR, BUTTON_SEPARATOR, soundPanel, mutePanel, debugPanel, goBack);
+
+        jPanelCenter = JComponentFactory.voidPanel();
+        jPanelCenter.add(optionDisplay);
 
         this.addKeyListener(new KeyControls());
-        this.add(optionDisplay, BorderLayout.CENTER);
-        for (String position : new String[]{BorderLayout.NORTH, BorderLayout.SOUTH, BorderLayout.EAST, BorderLayout.WEST}) {
-            this.add(JComponentFactory.voidPanel(), position);
-        }
+        this.add(jPanelCenter, BorderLayout.CENTER);
+        this.add(titleDisplay, BorderLayout.NORTH);
+//        for (String position : new String[]{BorderLayout.NORTH, BorderLayout.SOUTH, BorderLayout.EAST, BorderLayout.WEST}) {
+//            this.add(JComponentFactory.voidPanel(), position);
+//        }
 
+        jPanelCenter.setBackground(Color.gray);
+        optionDisplay.setBackground(Color.lightGray);
+
+        soundPanel.setBackground(Color.lightGray);
+        soundOptionPanel.setBackground(Color.lightGray);
+        mutePanel.setBackground(Color.lightGray);
+        debugPanel.setBackground(Color.lightGray);
+        goBack.setBackground(Color.lightGray);
+        titleDisplay.setBackground(Color.lightGray);
+
+        getWindow().addComponentListener(new ComponentControls());
+        sizeUpdate();
+    }
+
+    private void sizeUpdate() {
+        optionDisplay.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.5),(int) (getWindow().getHeight()*0.5)));
+        optionDisplay.setBorder(new EmptyBorder((int) (getWindow().getHeight()*0.03),(int) (getWindow().getHeight()*0.015), (int) (getWindow().getHeight()*0.02),(int) (getWindow().getHeight()*0.015)));
+        jPanelCenter.setBorder(new EmptyBorder((int) (getWindow().getHeight()*0.02),0, (int) (getWindow().getHeight()*0.01),0));
+
+        goBack.setBorder(new EmptyBorder((int) (getWindow().getHeight()*0.02),(int) (getWindow().getHeight()*0.06), 0,(int) (getWindow().getHeight()*0.06)));
+
+        getWindow().revalidate();
+        getWindow().repaint();
     }
 
     //Listener
+
+    private class ComponentControls implements ComponentListener {
+
+        @Override
+        public void componentResized(ComponentEvent e) {
+            sizeUpdate();
+        }
+
+        @Override
+        public void componentMoved(ComponentEvent e) {
+
+        }
+
+        @Override
+        public void componentShown(ComponentEvent e) {
+
+        }
+
+        @Override
+        public void componentHidden(ComponentEvent e) {
+
+        }
+    }
 
     public class minusButtonListener implements ActionListener {
         @Override
