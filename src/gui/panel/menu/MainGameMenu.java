@@ -187,8 +187,8 @@ public class MainGameMenu extends JPanel implements Runnable {
         this.addMouseListener(new MouseListener());
         this.addKeyListener(new KeyControls());
         getWindow().addComponentListener(new ComponentControls());
-        sizeUpdate();
         elementInPanelUpdate();
+        sizeUpdate();
         ThreadStop = false;
         Thread gameThread = new Thread(this);
         gameThread.start();
@@ -220,6 +220,8 @@ public class MainGameMenu extends JPanel implements Runnable {
     private void elementInPanelUpdate() {
         jEastCenterChoice1CenterPanel.removeAll();
         jEastCenterChoice2CenterPanel.removeAll();
+        jEastCenterChoice3CenterPanel1.removeAll();
+        jEastCenterChoice3CenterPanel2.removeAll();
         JButton tmp;
         for (Boat boat : MapGame.getInstance().getPlayer().getLstBoat()){
             tmp = JComponentFactory.menuButton(boat,new buttonObjectListener(boat));

@@ -2,6 +2,7 @@ package config;
 
 import engine.data.trading.Currency;
 import engine.data.trading.Resource;
+import engine.data.trading.SeaRoad;
 import engine.process.creational.TradeObjectBuilder;
 
 import java.awt.*;
@@ -37,6 +38,8 @@ public final class GameConfiguration {
     public static final Resource PEARL = tob.name("Pearl").value(120).buildResource();
     public static final Currency GOLD = tob.name("Gold").value(1).buildCurrency();
 
+
+    public static final int SEAROAD_TIME = 3000;
 
     //--------------------------------
 

@@ -5,6 +5,7 @@ import engine.data.entity.Harbor;
 import engine.data.entity.boats.Boat;
 import engine.data.Fleet;
 import engine.data.trading.SeaRoad;
+import gui.panel.menu.TradeMenu;
 import log.LoggerUtility;
 import org.apache.log4j.Logger;
 
@@ -206,6 +207,19 @@ public class JComponentFactory {
     }
 
     /**
+     * Build a JTextField accommodating game-menu Convention
+     * @param text JTextField text
+     * @return Built JTextField
+     */
+    public static JTextField textField(String text,KeyListener keyListener) {
+        loggerWrite("menuLabel name "+text);
+        JTextField newLabel = new JTextField(text);
+        newLabel.addKeyListener(keyListener);
+        newLabel.setFont(GameConfiguration.FONT);
+        return newLabel;
+    }
+
+    /**
      * Build an Empty JPanel to occupy void space
      * @return built JPanel
      */
@@ -262,31 +276,31 @@ public class JComponentFactory {
 
     /**
      * Build a GridLayout JPanel accommodating game-menu Convention
-     * @param r number of rows
-     * @param c number of columns
+     * @param rows number of rows
+     * @param cols number of columns
      * @see GridLayout
      * @return built JPanel
      */
-    public static JPanel gridMenuPanel(int r, int c) {
+    public static JPanel gridMenuPanel(int rows, int cols) {
         JPanel newPanel = new JPanel();
-        loggerWrite("gridMenuPanel r="+r+" c="+c);
-        newPanel.setLayout(new GridLayout(r, c));
+        loggerWrite("gridMenuPanel rows="+ rows +" cols="+ cols);
+        newPanel.setLayout(new GridLayout(rows, cols));
         return newPanel;
     }
 
     /**
      * Build a GridLayout JPanel accommodating game-menu Convention
-     * @param r number of rows
-     * @param c number of columns
+     * @param rows number of rows
+     * @param cols number of columns
      * @param heightGap height gap between rows
      * @param widthGap width gap between rows
      * @see GridLayout
      * @return built JPanel
      */
-    public static JPanel gridMenuPanel(int r, int c,int heightGap,int widthGap) {
+    public static JPanel gridMenuPanel(int rows, int cols, int heightGap, int widthGap) {
         JPanel newPanel = new JPanel();
-        loggerWrite("gridMenuPanel r="+r+" c="+c+" heightGap="+heightGap+" widthGap="+widthGap);
-        newPanel.setLayout(new GridLayout(r, c,heightGap,widthGap));
+        loggerWrite("gridMenuPanel rows="+ rows +" cols="+ cols +" heightGap="+heightGap+" widthGap="+widthGap);
+        newPanel.setLayout(new GridLayout(rows, cols,heightGap,widthGap));
         return newPanel;
     }
 

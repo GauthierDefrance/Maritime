@@ -6,6 +6,7 @@ import engine.data.entity.Harbor;
 import engine.data.faction.Faction;
 import engine.data.graph.GraphPoint;
 import engine.data.graph.GraphSegment;
+import engine.data.trading.SeaRoad;
 import engine.process.manager.FactionManager;
 import engine.utilities.SearchInGraph;
 import gui.PopUp;
@@ -152,7 +153,18 @@ public class ChoicePathMenu extends JPanel implements Runnable {
                         return;
                     }
                     if(harbor1 != null && harbor2 != null){
-                        GUILoader.loadTradeMenu(harbor1, harbor2);
+                        boolean flag = true;
+                        for (SeaRoad seaRoad : MapGame.getInstance().getPlayer().getLstSeaRouts()){
+                            if (seaRoad.getTargetHarbor().equals(harbor2)) {
+                                flag = false;
+                                break;
+                            }
+                        }
+                        if(flag)GUILoader.loadTradeMenu(harbor1, harbor2);
+                        else JOptionPane.showMessageDialog(ChoicePathMenu.this,"already has an active Sea-Road");
+
+
+
                     } else JOptionPane.showMessageDialog(ChoicePathMenu.this,"No proper selection");
                     break;
                 default:

@@ -105,7 +105,6 @@ public class OptionsMenu extends JPanel {
         jPanelCenter = JComponentFactory.voidPanel();
         jPanelCenter.add(optionDisplay);
 
-        this.addKeyListener(new KeyControls());
         this.add(jPanelCenter, BorderLayout.CENTER);
         this.add(titleDisplay, BorderLayout.NORTH);
 //        for (String position : new String[]{BorderLayout.NORTH, BorderLayout.SOUTH, BorderLayout.EAST, BorderLayout.WEST}) {
@@ -122,6 +121,7 @@ public class OptionsMenu extends JPanel {
         goBack.setBackground(Color.lightGray);
         titleDisplay.setBackground(Color.lightGray);
 
+        this.addKeyListener(new KeyControls());
         getWindow().addComponentListener(new ComponentControls());
         sizeUpdate();
     }

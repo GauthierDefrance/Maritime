@@ -19,6 +19,7 @@ public class TestMove {
         MapGame.getInstance().getPlayer().addHarbor(MapGame.getInstance().getLstHarbor().get(0));
         MapGame.getInstance().getPlayer().addHarbor(MapGame.getInstance().getLstHarbor().get(1));
         MapGame.getInstance().getLstFaction().get(0).addHarbor(MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1));
+        MapGame.getInstance().getLstFaction().get(0).addHarbor(MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-2));
 
         Military militaryX = new Military("militaryX","blue", MapGame.getInstance().getLstHarbor().get(0).getGraphPosition());
 
@@ -80,8 +81,8 @@ public class TestMove {
         MapGame.getInstance().getPlayer().addAmountCurrency(1000);
 
 
-        SeaRoad seaRoad1 = new SeaRoad("seaRoad1", MapGame.getInstance().getLstHarbor().get(0), MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1),GameConfiguration.METAL,GameConfiguration.GOLD,5000,10000,20000);
-        SeaRoad seaRoad2 = new SeaRoad("seaRoad2", MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1), MapGame.getInstance().getLstHarbor().get(0),GameConfiguration.WOOD,GameConfiguration.METAL,10000,5000,20000);
+        SeaRoad seaRoad1 = new SeaRoad("seaRoad1", MapGame.getInstance().getLstHarbor().get(0), MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1),GameConfiguration.METAL,GameConfiguration.GOLD,5000,10000,3000);
+        SeaRoad seaRoad2 = new SeaRoad("seaRoad2", MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1), MapGame.getInstance().getLstHarbor().get(0),GameConfiguration.WOOD,GameConfiguration.METAL,10000,5000,3000);
 
         FactionManager factionManager = FactionManager.getInstance();
         factionManager.getSeaRoadManager().setNewFleet(seaRoad1,fleet1);

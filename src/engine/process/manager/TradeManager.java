@@ -152,11 +152,11 @@ public class TradeManager {
      * Calculate the chance of success for a trade
      */
     public double calculateSuccessChance(SeaRoad offer) {
-        if (offer.getDemand()!=null || offer.getSelection()!=null ||offer.getDemand().getKey().equals(offer.getSelection().getKey())) {
+        if (offer == null || offer.getDemand().getKey().equals(offer.getSelection().getKey())) {
             return 0; //Cannot trade a resource for the same one
         }
 
-        double ratio = offer.getRatio();
+        double ratio = ((double) offer.getSelection().getValue()*offer.getSelection().getKey().getValue()) / offer.getDemand().getValue()*offer.getDemand().getKey().getValue();
         double relation = FactionManager.getInstance().getMyFaction(offer.getTargetHarbor().getColor()).getRelationship(FactionManager.getInstance().getMyFaction(offer.getSellerHarbor().getColor()));
 
         double relationshipModifier = (relation / 100.0);
@@ -164,8 +164,8 @@ public class TradeManager {
         if(relationshipModifier > 0) {
             relationshipModifier *= 0.25;
         }
-        double successChance = Math.max(0, Math.min(1, (ratio + (relationshipModifier))));
-        return successChance * 100;
+        double successChance = Math.max(0,(ratio + (relationshipModifier)));
+        return Math.max(0,Math.min(100,(successChance * 100)-20));
     }
 
     /**
@@ -177,13 +177,12 @@ public class TradeManager {
         return (roll <= calculateSuccessChance(offer));
     }
 
-    public SeaRoad conclude(SeaRoad offer) {
+    public boolean conclude(SeaRoad offer) {
         if (evaluate(offer)) {
-            //SeaRoad need name
-            return offer;
+            return true;
         } else {
             FactionManager.getInstance().modifyRelationship(FactionManager.getInstance().getMyFaction(offer.getSellerHarbor().getColor()),FactionManager.getInstance().getMyFaction(offer.getTargetHarbor().getColor()), -10);
+            return false;
         }
-        return null;
     }
 }
