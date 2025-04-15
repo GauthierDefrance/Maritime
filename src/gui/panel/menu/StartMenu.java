@@ -204,7 +204,6 @@ public class StartMenu extends JPanel implements Runnable {
         while (!ThreadStop) {
             try {
                 Thread.sleep(GameConfiguration.GAME_SPEED);
-
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }

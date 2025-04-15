@@ -247,7 +247,7 @@ public class EngineBuilder {
         MapGame.getInstance().setMapGraphPoint(mapGraphPoint);
         MapGame.getInstance().setHunterPreyHashMap(hunterPreyHashMap);
         Player player = new Player("blue");
-        Pirate pirate = new Pirate("");
+        Pirate pirate = new Pirate("orange");
 
         //faction init
         Faction faction1 = new Faction("red");

@@ -72,9 +72,6 @@ public class SaveFileMenu extends JPanel {
 
         this.add(jPanelCenter, BorderLayout.CENTER);
         this.add(titleDisplay, BorderLayout.NORTH);
-//        for (String position : new String[]{BorderLayout.NORTH, BorderLayout.SOUTH, BorderLayout.EAST, BorderLayout.WEST}) {
-//            this.add(JComponentFactory.voidPanel(), position);
-//        }
 
         jPanelCenter.setBackground(Color.gray);
         goBack.setBackground(Color.lightGray);

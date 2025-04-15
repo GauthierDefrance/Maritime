@@ -48,6 +48,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
     private JButton cancel;
     private JButton reset;
     private JButton automatic;
+    private JButton goBackButton;
 
     private FactionManager factionManager;
     private ChoiceDisplay dashboard;
@@ -88,7 +89,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         cancel = JComponentFactory.menuButton("Cancel",new cancelListener());
         reset = JComponentFactory.menuButton("reset",new resetListener());
         automatic = JComponentFactory.menuButton("automatic",new automaticListener());
-
+        goBackButton = JComponentFactory.menuButton("Go back", new goBackButtonListener());
         factionManager = FactionManager.getInstance();
         dashboard = new ChoiceDisplay(state);
 
@@ -96,6 +97,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         JLayeredPane jLayeredPane = new JLayeredPane();
         jPanelATH.setOpaque(false);
         dashboardJPanel.add(dashboard,BorderLayout.CENTER);
+        jSouthATHPanel.add(goBackButton);
         if(state == 0)jSouthATHPanel.add(reset);
         jSouthATHPanel.add(cancel);
         if(state == 0)jSouthATHPanel.add(automatic);
@@ -115,6 +117,9 @@ public class ChoicePathMenu extends JPanel implements Runnable {
             path.add(harbor1.getGraphPosition());
         }
         this.add(jLayeredPane);
+
+        jSouthATHPanel.setOpaque(false);
+
         this.addMouseListener(new MouseListener());
         this.addKeyListener(new KeyControls());
         getWindow().addComponentListener(new ComponentControls());
@@ -130,10 +135,11 @@ public class ChoicePathMenu extends JPanel implements Runnable {
 
         jPanelATH.setBounds(getWindow().getBounds());
         jSouthATHPanel.setPreferredSize(new Dimension(getWindow().getWidth(),(int) (getWindow().getHeight()*0.10)));
-        confirm.setPreferredSize(new Dimension((int) Math.max(50,getWindow().getWidth()*0.2), (int) Math.max(26,getWindow().getHeight()*0.08)));
-        cancel.setPreferredSize(new Dimension((int) Math.max(50,getWindow().getWidth()*0.2), (int) Math.max(26,getWindow().getHeight()*0.08)));
-        reset.setPreferredSize(new Dimension((int) Math.max(50,getWindow().getWidth()*0.2), (int) Math.max(26,getWindow().getHeight()*0.08)));
-        automatic.setPreferredSize(new Dimension((int) Math.max(50,getWindow().getWidth()*0.25), (int) Math.max(26,getWindow().getHeight()*0.08)));
+        goBackButton.setPreferredSize(new Dimension((int) Math.max(50,getWindow().getWidth()*0.10), (int) Math.max(26,getWindow().getHeight()*0.08)));
+        confirm.setPreferredSize(new Dimension((int) Math.max(50,getWindow().getWidth()*0.10), (int) Math.max(26,getWindow().getHeight()*0.08)));
+        cancel.setPreferredSize(new Dimension((int) Math.max(50,getWindow().getWidth()*0.10), (int) Math.max(26,getWindow().getHeight()*0.08)));
+        reset.setPreferredSize(new Dimension((int) Math.max(50,getWindow().getWidth()*0.10), (int) Math.max(26,getWindow().getHeight()*0.08)));
+        automatic.setPreferredSize(new Dimension((int) Math.max(50,getWindow().getWidth()*0.10), (int) Math.max(26,getWindow().getHeight()*0.08)));
         getWindow().revalidate();
         getWindow().repaint();
     }
@@ -239,7 +245,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
                 case 0: //We're tracing a Path
 
                     GraphPoint graphPoint = SearchInGraph.pointCollisionToMapGraphPoint(point);
-                    if (graphPoint != null && !path.isEmpty()) {
+                    if (e.getButton() == MouseEvent.BUTTON1&&graphPoint != null && !path.isEmpty()) {
                         if (path.get(path.size()-1).equals(graphPoint)&&path.size()>1){
                             path.remove(graphPoint);
                             dashboard.setPath(path);
@@ -267,19 +273,19 @@ public class ChoicePathMenu extends JPanel implements Runnable {
                     }
 
                     if (e.getButton() == MouseEvent.BUTTON1) /*Left Click*/ {
-                        if (MapGame.getInstance().getPlayer().getLstHarbor().contains(clickedHarbor) && harbor1 == null) {
+                        if (MapGame.getInstance().getPlayer().getLstHarbor().contains(clickedHarbor)) {
                             harbor1 = clickedHarbor;
                             dashboard.setHarbor1(harbor1);
-                        } else if (faction.getLstHarbor().contains(clickedHarbor) && harbor2 == null) {
+                        } else if (faction.getLstHarbor().contains(clickedHarbor)) {
                             harbor2 = clickedHarbor;
                             dashboard.setHarbor2(harbor2);
                         }
                     }
                     else if (e.getButton() == MouseEvent.BUTTON3)  /*Right Click*/ {
-                        if (MapGame.getInstance().getPlayer().getLstHarbor().contains(harbor1)) {
+                        if (clickedHarbor.equals(harbor1)) {
                             harbor1 = null;
                             dashboard.setHarbor1(null);
-                        } else if (faction.getLstHarbor().contains(harbor2)) {
+                        } else if (clickedHarbor.equals(harbor2)) {
                             harbor2 = null;
                             dashboard.setHarbor2(null);
                         }
@@ -287,6 +293,14 @@ public class ChoicePathMenu extends JPanel implements Runnable {
                 default:
                         log.error("ChoicePathMenu : Unknown state --> could not proceed with logic");
             }
+        }
+    }
+
+    public class goBackButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ThreadStop = true;
+            ListenerBehaviorManager.create().goBack(token,faction);
         }
     }
 

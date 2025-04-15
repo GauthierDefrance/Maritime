@@ -16,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 
+import static config.GameConfiguration.WAR_THRESHOLD;
 import static gui.MainGUI.getWindow;
 
 public class TradeMenu extends JPanel {
@@ -389,6 +390,34 @@ public class TradeMenu extends JPanel {
         }
     }
 
+    private class TryListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            SeaRoad seaRoad = new SeaRoad("",sellerHarbor,targetHarbor,sellerResource,targetResource,sellerResourceQuantity,targetResourceQuantity, GameConfiguration.SEAROAD_TIME+GameConfiguration.SEAROAD_TIME*(FactionManager.getInstance().getMyFaction(targetHarbor.getColor()).getRelationship(MapGame.getInstance().getPlayer()))/200);
+            if(TradeManager.getInstance().conclude(seaRoad)){
+                String name = JOptionPane.showInputDialog(TradeMenu.this,"      Success\nname the sea-Road");
+                if(name!=null)seaRoad.setName(name);
+                MapGame.getInstance().getPlayer().addSeaRoad(seaRoad);
+                GUILoader.loadMainGame();
+            }
+            else {
+                JOptionPane.showMessageDialog(TradeMenu.this,"     Fail\nrelationship -10");
+                if(FactionManager.getInstance().getMyFaction(targetHarbor.getColor()).getRelationship(MapGame.getInstance().getPlayer()) <= WAR_THRESHOLD){
+                    JOptionPane.showMessageDialog(TradeMenu.this,"GG it's War time");
+                    GUILoader.loadRelationMenu(FactionManager.getInstance().getMyFaction(targetHarbor.getColor()));
+                }
+                else seaRoadTryUpdate();
+            }
+        }
+    }
+
+    private class GoBackListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            GUILoader.loadRelationMenu(FactionManager.getInstance().getMyFaction(targetHarbor.getColor()));
+        }
+    }
+
     private class KeyControls implements KeyListener {
 
         @Override
@@ -406,30 +435,6 @@ public class TradeMenu extends JPanel {
         @Override
         public void keyReleased(KeyEvent e) {
 
-        }
-    }
-
-    private class TryListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            SeaRoad seaRoad = new SeaRoad("",sellerHarbor,targetHarbor,sellerResource,targetResource,sellerResourceQuantity,targetResourceQuantity, GameConfiguration.SEAROAD_TIME+GameConfiguration.SEAROAD_TIME*(FactionManager.getInstance().getMyFaction(targetHarbor.getColor()).getRelationship(MapGame.getInstance().getPlayer()))/200);
-            if(TradeManager.getInstance().conclude(seaRoad)){
-                String name = JOptionPane.showInputDialog(TradeMenu.this,"      Success\nname the sea-Road");
-                if(name!=null)seaRoad.setName(name);
-                MapGame.getInstance().getPlayer().addSeaRoad(seaRoad);
-                GUILoader.loadMainGame();
-            }
-            else {
-                JOptionPane.showMessageDialog(TradeMenu.this,"     Fail\nrelationship -10");
-                seaRoadTryUpdate();
-            }
-        }
-    }
-
-    private class GoBackListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            GUILoader.loadRelationMenu(FactionManager.getInstance().getMyFaction(targetHarbor.getColor()));
         }
     }
 }
