@@ -262,6 +262,20 @@ public class JComponentFactory {
 
     /**
      * Build a default JPanel accommodating game-menu Convention
+     * @param flowLayout flowLayout choice LEFT CENTER RIGHT LEADING TRAILING
+     * @return built JPanel
+     */
+    public static JPanel flowMenuPanel(int flowLayout) {
+        loggerWrite("flowMenuPanel");
+        JPanel newPanel = new JPanel();
+        if (flowLayout >= 0 && flowLayout <= 4) {
+            newPanel.setLayout(new FlowLayout(flowLayout));
+        }
+        return newPanel;
+    }
+
+    /**
+     * Build a default JPanel accommodating game-menu Convention
      * @param components other components that must be present within the JPanel
      * @return built JPanel
      */
@@ -364,6 +378,15 @@ public class JComponentFactory {
         loggerWrite("boxMenuPanel generated");
         return newPanel;
     }
+
+    public static JComboBox<String> comboBox() {
+        JComboBox<String> newComboBox = new JComboBox<>();
+        newComboBox.setFocusable(false);
+        newComboBox.setFont(GameConfiguration.FONT);
+        loggerWrite("ComboBox generated");
+        return newComboBox;
+    }
+
 
     public static JPanel SelectionZone(){
         JPanel contentPanel = new JPanel();

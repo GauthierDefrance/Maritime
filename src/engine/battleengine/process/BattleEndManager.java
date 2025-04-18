@@ -1,6 +1,7 @@
 package engine.battleengine.process;
 
 import engine.battleengine.data.Battle;
+import engine.data.Fleet;
 import engine.data.entity.boats.Boat;
 import engine.process.manager.TradeManager;
 import engine.data.trading.Inventory;
@@ -50,7 +51,7 @@ public class BattleEndManager {
     public ArrayList<String> actualizeOriginalFleet(){
         Inventory bigInv = new Inventory();
         Inventory lostInv = new Inventory();
-        HashMap<String, Integer> resoursHashMap = new HashMap<>();
+        Inventory resoursHashMap = new Inventory();
 
         for(Boat boat : this.battle.getDeadBoatsB().getArrayListBoat()){
             TradeManager.getInstance().transferMaxAll(this.battle.getCopyToOrignalHashMap().get(boat).getInventory(), bigInv,null,null);
@@ -62,21 +63,18 @@ public class BattleEndManager {
             this.battle.getTeamAOriginal().getArrayListBoat().remove(this.battle.getCopyToOrignalHashMap().get(boat));
             this.battle.getFactionA().removeBoat(this.battle.getCopyToOrignalHashMap().get(boat));
         }
-
-        StringBuffer textResource = new StringBuffer();
-        textResource.append("Resource collected : ");
         if(playerWin()){
             //On actualise les HP
             for(Boat boat: this.battle.getBoatsInBattleA().getArrayListBoat()){
                 this.battle.getCopyToOrignalHashMap().get(boat).setCurrentHp(boat.getCurrentHp());
             }
             for (Resource resource : bigInv.getContent().keySet()){
-                resoursHashMap.put(resource.getName(), bigInv.getContent().get(resource));
+                resoursHashMap.getContent().put(resource, bigInv.getContent().get(resource));
             }
             TradeManager.getInstance().transferMaxAll(lostInv,bigInv,null,null);
             if(!transferInvToFleet(bigInv, this.battle.getTeamAOriginal().getArrayListBoat())){
                 for (Resource resource : bigInv.getContent().keySet()){
-                    resoursHashMap.put(resource.getName(), resoursHashMap.get(resource.getName())-bigInv.getContent().get(resource));
+                    resoursHashMap.getContent().put(resource, resoursHashMap.getNbResource(resource)-bigInv.getContent().get(resource));
                 }
             }
         } 
@@ -85,28 +83,20 @@ public class BattleEndManager {
             for(Boat boat: this.battle.getBoatsInBattleB().getArrayListBoat()){
                 this.battle.getCopyToOrignalHashMap().get(boat).setCurrentHp(boat.getCurrentHp());
             }
-            resoursHashMap = new HashMap<>();
+            resoursHashMap = new Inventory();
             for (Resource resource : lostInv.getContent().keySet()){
-                resoursHashMap.put(resource.getName(),-lostInv.getContent().get(resource));
+                resoursHashMap.getContent().put(resource,-lostInv.getContent().get(resource));
             }
             TradeManager.getInstance().transferMaxAll(lostInv,bigInv,null,null);
             transferInvToFleet(bigInv, this.battle.getTeamBOriginal().getArrayListBoat());
         }
 
-        for (String resource : resoursHashMap.keySet()){
-            if (resoursHashMap.get(resource)!=0){
-                textResource.append(resource);
-                textResource.append(" ");
-                textResource.append(resoursHashMap.get(resource));
-                textResource.append(" ");
-            }
-        }
 
 
         ArrayList<String> lstText = new ArrayList<>();
         lstText.add("Boat destroy : "+this.battle.getDeadBoatsB().getArrayListBoat().size());
         lstText.add("Boat lost : "+this.battle.getDeadBoatsA().getArrayListBoat().size());
-        lstText.add(textResource+"");
+        lstText.add("Resource collected : "+resoursHashMap.toString());
         return lstText;
         
     }

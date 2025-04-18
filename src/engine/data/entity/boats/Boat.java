@@ -185,6 +185,7 @@ public abstract class Boat implements Entity {
     public void upgradeHp() {
         useUpgradePoint();
         this.setMaxHp(this.getMaxHp()+GameConfiguration.UPGRADE_DEFAULT_HP);
+        this.setCurrentHp(this.getCurrentHp()+GameConfiguration.UPGRADE_DEFAULT_HP);
     }
 
     public void upgradeDamageSpeed() {
@@ -196,10 +197,26 @@ public abstract class Boat implements Entity {
         useUpgradePoint();
         this.setSpeed((int) (this.getSpeed()+GameConfiguration.UPGRADE_DEFAULT_SPEED));
     }
-    
+
     public void upgradeInventorySize() {
         useUpgradePoint();
         this.getInventory().setCapacity((int) (this.getInventory().getCapacity()+GameConfiguration.UPGRADE_DEFAULT_INVENTORY_SIZE));
+    }
+
+    public int nextUpgradeHp() {
+        return this.getMaxHp()+GameConfiguration.UPGRADE_DEFAULT_HP;
+    }
+
+    public int nextUpgradeDamageSpeed() {
+        return (int) (this.getDamageSpeed()+GameConfiguration.UPGRADE_DEFAULT_DAMAGE_SPEED);
+    }
+
+    public int nextUpgradeSpeed() {
+        return (int) (this.getSpeed()+GameConfiguration.UPGRADE_DEFAULT_SPEED);
+    }
+
+    public int nextUpgradeInventorySize() {
+        return (int) (this.getInventory().getCapacity()+GameConfiguration.UPGRADE_DEFAULT_INVENTORY_SIZE);
     }
 
 }

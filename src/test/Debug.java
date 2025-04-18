@@ -2,6 +2,8 @@ package test;
 
 import config.GameConfiguration;
 import engine.MapGame;
+import engine.data.entity.boats.Boat;
+import engine.data.entity.boats.Standard;
 import engine.process.creational.EngineBuilder;
 import gui.MainGUI;
 import gui.utilities.GUILoader;
@@ -29,7 +31,7 @@ public class Debug extends JFrame{
         JButton combatMenu = JComponentFactory.menuButton("CombatMenu",new CombatMenu());
         JButton relationMenu = JComponentFactory.menuButton("RelationMenu", new RelationMenu());
         JButton choicePathMenu0 = JComponentFactory.menuButton("ChoicePathMenu0", new ChoiceMenu0());
-        JButton choicePathMenu1 = JComponentFactory.menuButton("ChoicePathMenu1", new ChoiceMenu1());
+        JButton choicePathMenu1 = JComponentFactory.menuButton("HarborMenu", new ChoiceMenu1());
         contentPane.add(timeStop);
         contentPane.add(combatMenu);
         contentPane.add(relationMenu);
@@ -70,8 +72,9 @@ public class Debug extends JFrame{
             switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
                 case "gui.panel.menu.OptionsMenu" :
                 case "gui.panel.menu.PauseMenu" : {
+                    EngineBuilder.mapInit(0);
                     TestMove.addBoatTest();
-                    GUILoader.loadChoicePathMenu( MapGame.getInstance().getPlayer(), GameConfiguration.ROOT_MAIN_GAME);
+                    GUILoader.loadHarborMenu(MapGame.getInstance().getPlayer().getLstHarbor().get(0));
                     break;
                 }
                 default : {

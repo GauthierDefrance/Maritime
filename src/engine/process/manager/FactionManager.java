@@ -122,7 +122,8 @@ public class FactionManager {
                 }
                 lstSeaRouts.add(seaRoad);
                 fleetManager.setContinuePathAll(seaRoad.getFleet(),false);
-                Collections.reverse(seaRoad.getFleet().getPath());
+                fleetManager.removePath(seaRoad.getFleet());
+                getHarborManager().addFleetInHarbor(seaRoad.getSellerHarbor(),seaRoad.getFleet());
             }
         }
         faction.getLstSeaRouts().removeAll(lstSeaRouts);

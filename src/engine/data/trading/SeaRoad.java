@@ -91,8 +91,8 @@ public class SeaRoad implements Serializable {
     //Basic Time management behavior
 
     public void abandonTask() {
-        this.selection.setValue(-1);
-        this.demand.setValue(-1);
+        this.selection.setValue(0);
+        this.demand.setValue(0);
     }
     
     public void subtractTime(int nb) {
@@ -104,7 +104,7 @@ public class SeaRoad implements Serializable {
     }
     
     public boolean isActive(){
-        return timer > 0 && selection.getValue()>0 && demand.getValue()>0;
+        return timer > 0 && (selection.getValue()>0 || demand.getValue()>0);
     }
 
     public String getStringTimer(){

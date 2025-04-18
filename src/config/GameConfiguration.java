@@ -6,6 +6,9 @@ import engine.data.trading.SeaRoad;
 import engine.process.creational.TradeObjectBuilder;
 
 import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * class containing constants necessary to the game execution
@@ -37,6 +40,7 @@ public final class GameConfiguration {
     public static final Resource CACAO = tob.name("Cacao").value(60).productionRate(1000).buildResource();
     public static final Resource PEARL = tob.name("Pearl").value(120).buildResource();
     public static final Currency GOLD = tob.name("Gold").value(1).buildCurrency();
+    public static final ArrayList<Resource> LIST_RESOURCE = new ArrayList<>(Arrays.asList(WOOD,CLOTH,METAL,SUGAR,CACAO,PEARL));
 
 
     public static final int SEAROAD_TIME = 3000;
@@ -49,9 +53,12 @@ public final class GameConfiguration {
     public static final int COST_GENERATOR = 30000;
     public static final int COST_LEVEL_UP_HARBOR = 2000;
     public static final int COST_LEVEL_UP_BOAT = 200;
+    public static final int COST_HEAL_HARBOR = 1;
+    public static final int COST_HEAL_BOAT = 1;
 
     public static final int UPGRADE_POINT_DEFAULT = 5;
     public static final int UPGRADE_DEFAULT_HP = 100;
+    public static final int UPGRADE_HARBOR_HP = 100;
     public static final double UPGRADE_DEFAULT_DAMAGE_SPEED = 1;
     public static final double UPGRADE_DEFAULT_SPEED = 1;
     public static final double UPGRADE_DEFAULT_INVENTORY_SIZE = 50;

@@ -146,6 +146,8 @@ public class Harbor implements Entity {
 
     public void levelUp() {
         this.level += 1;
+        maxHp += GameConfiguration.UPGRADE_HARBOR_HP;
+        currentHp += GameConfiguration.UPGRADE_HARBOR_HP;
     }
 
 }

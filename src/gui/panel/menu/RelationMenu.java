@@ -39,7 +39,7 @@ public class RelationMenu extends JPanel {
     private void init() {
         this.setLayout(new GridLayout(1, 3,BUTTON_SEPARATOR,BUTTON_SEPARATOR));
 
-        factionStats = gridMenuPanel(6, 1);
+        factionStats = gridMenuPanel(0, 1);
         jPanelCenter = borderMenuPanel();
         goBackButton = JComponentFactory.menuButton("Go back", new goBackButtonListener());
         declareWar = menuButton("Declare War", new ProvokeListener());
@@ -117,7 +117,7 @@ public class RelationMenu extends JPanel {
         JButton tmp;
         for (Faction faction : MapGame.getInstance().getLstFaction()){
             if(!(faction.equals(MapGame.getInstance().getPlayer())||faction.equals(MapGame.getInstance().getPirate()))) {
-                tmp = menuButton(faction.getColor());
+                tmp = menuButton(faction.getColor(),new buttonObjectListener(faction));
                 gridPanel.add(tmp);
                 if(activeFaction.equals(faction))ChangeCurrentJButton(tmp);
             }
@@ -132,7 +132,8 @@ public class RelationMenu extends JPanel {
         JPanel goBackButtonPanel = voidPanel();
         goBackButtonPanel.add(goBackButton);
         goBackButtonPanel.setBackground(Color.gray);
-        JLabel picture = new JLabel("Image Placeholder", SwingConstants.CENTER);
+        JLabel picture =JComponentFactory.title("Image Placeholder");
+         picture.setHorizontalAlignment(SwingConstants.CENTER);
 
         jPanelCenter.add(goBackButtonPanel,BorderLayout.SOUTH);
         jPanelCenter.add(picture,BorderLayout.NORTH);

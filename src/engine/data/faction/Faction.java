@@ -127,7 +127,11 @@ public class Faction implements Serializable {
 
     public void addSeaRoad(SeaRoad seaRoad) {this.lstSeaRouts.add(seaRoad);}
 
-    public void removeBoat(Boat Boat) {this.lstBoat.remove(Boat);}
+    public void removeBoat(Boat Boat) {
+        this.lstBoat.remove(Boat);
+        for (Fleet fleet : lstFleet)fleet.getArrayListBoat().remove(Boat);
+        for (Harbor harbor : lstHarbor)harbor.getHashMapBoat().remove(Boat);
+    }
 
     public void removeHarbor(Harbor harbor) {
         harbor.setColor("");

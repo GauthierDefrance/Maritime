@@ -16,6 +16,8 @@ public class TestMove {
         Fleet fleet1 = new Fleet("Fleet1");
         Fleet fleet2 = new Fleet("Fleet2");
 
+        MapGame.getInstance().getLstHarbor().get(0).setCurrentHp(300);
+
         MapGame.getInstance().getPlayer().addHarbor(MapGame.getInstance().getLstHarbor().get(0));
         MapGame.getInstance().getPlayer().addHarbor(MapGame.getInstance().getLstHarbor().get(1));
         MapGame.getInstance().getLstFaction().get(0).addHarbor(MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1));
@@ -74,11 +76,12 @@ public class TestMove {
 
         MapGame.getInstance().getLstHarbor().get(0).getInventory().add(GameConfiguration.METAL,10000);
         MapGame.getInstance().getLstHarbor().get(0).getInventory().add(GameConfiguration.WOOD,10000);
+        MapGame.getInstance().getLstHarbor().get(0).getInventory().add(GameConfiguration.CLOTH,10000);
         MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1).getInventory().add(GameConfiguration.WOOD,10000);
         MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1).getInventory().add(GameConfiguration.METAL,10000);
 
         MapGame.getInstance().getLstFaction().get(0).addAmountCurrency(1000);
-        MapGame.getInstance().getPlayer().addAmountCurrency(1000);
+        MapGame.getInstance().getPlayer().addAmountCurrency(10000);
 
 
         SeaRoad seaRoad1 = new SeaRoad("seaRoad1", MapGame.getInstance().getLstHarbor().get(0), MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1),GameConfiguration.METAL,GameConfiguration.GOLD,5000,10000,3000);

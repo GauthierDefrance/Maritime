@@ -102,5 +102,18 @@ public class Inventory implements Serializable {
     public void subtract(Resource elem, int nb){
         this.content.put(elem, getNbResource(elem) - nb);
     }
+
+    public String toString() {
+        StringBuilder textResource = new StringBuilder();
+        for (Resource resource : content.keySet()) {
+            if (content.get(resource) != 0) {
+                textResource.append(resource.getName());
+                textResource.append(" ");
+                textResource.append(content.get(resource));
+                textResource.append(" ");
+            }
+        }
+        return String.valueOf(textResource);
+    }
     
 }

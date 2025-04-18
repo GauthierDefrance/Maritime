@@ -8,6 +8,7 @@ import engine.data.entity.boats.Boat;
 import engine.data.faction.Faction;
 import engine.data.trading.SeaRoad;
 import gui.PopUp;
+import gui.panel.display.GameDisplay;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -150,6 +151,20 @@ public class PaintEntity {
         g2d.setColor(Color.black);
     }
 
+    public void paintHP(Harbor harbor, Graphics2D g2d){
+        if(harbor.getCurrentHp()<harbor.getMaxHp()) {
+            g2d.setColor(Color.DARK_GRAY);
+            g2d.fillRect((int) (harbor.getPosition().getX() - (double) 50 / 2), (int) (harbor.getPosition().getY() + 60), 50, 10);
+            if (harbor.getCurrentHp() / (double) harbor.getMaxHp() > 0.75) g2d.setColor(Color.GREEN);
+            else if (harbor.getCurrentHp() / (double) harbor.getMaxHp() > 0.50) g2d.setColor(Color.YELLOW);
+            else if (harbor.getCurrentHp() / (double) harbor.getMaxHp() > 0.25) g2d.setColor(Color.ORANGE);
+            else g2d.setColor(Color.RED);
+            int width = (int) ((50 * harbor.getCurrentHp()) / (double) harbor.getMaxHp());
+            g2d.fillRect((int) (harbor.getPosition().getX() - (double) 50 / 2), (int) (harbor.getPosition().getY() + 60), width, 10);
+            g2d.setColor(Color.black);
+        }
+    }
+
     public void paintHITBOX(Point point,  Color color, Graphics2D g2d){
         g2d.setColor(color);
         g2d.fillOval((int)(point.getX())-((int)GameConfiguration.HITBOX_BOAT/2),(int)(point.getY())-((int)GameConfiguration.HITBOX_BOAT/2), (int) GameConfiguration.HITBOX_BOAT, (int) GameConfiguration.HITBOX_BOAT);
@@ -168,6 +183,42 @@ public class PaintEntity {
             g2d.fillOval((int)(point.getX())-10,(int)(point.getY())-10, 20, 20);
             g2d.setColor(Color.black);
         }
+    }
+
+    public static BufferedImage paintImage(Harbor harbor,int scale,int border){
+        BufferedImage sprite = ImageStock.getImage(harbor);
+        int width = sprite.getWidth()*scale+border;
+        int height = sprite.getHeight()*scale+border;
+
+        GameDisplay dashboard = new GameDisplay();
+        dashboard.setSize(640,360);
+        dashboard.doLayout();
+        BufferedImage image = new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = image.createGraphics();
+        g2d.scale(GameConfiguration.GAME_SCALE, GameConfiguration.GAME_SCALE);
+        g2d.scale(scale, scale);
+        g2d.translate(-(harbor.getPosition().getX()-(double)width/(2*scale))/GameConfiguration.GAME_SCALE,-(harbor.getPosition().getY()-(double)height/(2*scale))/GameConfiguration.GAME_SCALE);
+        dashboard.paint(g2d);
+        g2d.dispose();
+        return image;
+    }
+
+    public static BufferedImage paintImage(Boat boat,int scale,int border){
+        BufferedImage sprite = ImageStock.getImage(boat);
+        int width = sprite.getWidth()*scale+border;
+        int height = sprite.getHeight()*scale+border;
+
+        GameDisplay dashboard = new GameDisplay();
+        dashboard.setSize(640,360);
+        dashboard.doLayout();
+        BufferedImage image = new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = image.createGraphics();
+        g2d.scale(GameConfiguration.GAME_SCALE, GameConfiguration.GAME_SCALE);
+        g2d.scale(scale, scale);
+        g2d.translate(-(boat.getPosition().getX()-(double)width/(2*scale))/GameConfiguration.GAME_SCALE,-(boat.getPosition().getY()-(double)height/(2*scale))/GameConfiguration.GAME_SCALE);
+        dashboard.paint(g2d);
+        g2d.dispose();
+        return image;
     }
 
 }

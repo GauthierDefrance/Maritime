@@ -273,12 +273,30 @@ public class ChoicePathMenu extends JPanel implements Runnable {
                     }
 
                     if (e.getButton() == MouseEvent.BUTTON1) /*Left Click*/ {
-                        if (MapGame.getInstance().getPlayer().getLstHarbor().contains(clickedHarbor)) {
-                            harbor1 = clickedHarbor;
-                            dashboard.setHarbor1(harbor1);
-                        } else if (faction.getLstHarbor().contains(clickedHarbor)) {
-                            harbor2 = clickedHarbor;
-                            dashboard.setHarbor2(harbor2);
+                        if (MapGame.getInstance().getPlayer().equals(faction)&&MapGame.getInstance().getPlayer().getLstHarbor().contains(clickedHarbor)) {
+                            if(harbor1 == null){
+                                harbor1 = clickedHarbor;
+                                dashboard.setHarbor1(harbor1);
+                            }
+                            else if(harbor2 == null){
+                                harbor2 = clickedHarbor;
+                                dashboard.setHarbor2(harbor2);
+                            }
+                            else {
+                                harbor1 = null;
+                                harbor2 = null;
+                                dashboard.setHarbor1(null);
+                                dashboard.setHarbor2(null);
+                            }
+                        }
+                        else {
+                            if (MapGame.getInstance().getPlayer().getLstHarbor().contains(clickedHarbor)) {
+                                harbor1 = clickedHarbor;
+                                dashboard.setHarbor1(harbor1);
+                            } else if (faction.getLstHarbor().contains(clickedHarbor)) {
+                                harbor2 = clickedHarbor;
+                                dashboard.setHarbor2(harbor2);
+                            }
                         }
                     }
                     else if (e.getButton() == MouseEvent.BUTTON3)  /*Right Click*/ {
@@ -300,7 +318,8 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         @Override
         public void actionPerformed(ActionEvent e) {
             ThreadStop = true;
-            ListenerBehaviorManager.create().goBack(token,faction);
+            if(MapGame.getInstance().getPlayer().equals(faction))GUILoader.loadHarborMenu(MapGame.getInstance().getPlayer().getLstHarbor().get(0));
+            else ListenerBehaviorManager.create().goBack(token,faction);
         }
     }
 
@@ -310,7 +329,8 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
                 ThreadStop = true;
-                ListenerBehaviorManager.create().goBack(token,faction);
+                if(MapGame.getInstance().getPlayer().equals(faction))GUILoader.loadHarborMenu(MapGame.getInstance().getPlayer().getLstHarbor().get(0));
+                else ListenerBehaviorManager.create().goBack(token,faction);
             }
         }
 

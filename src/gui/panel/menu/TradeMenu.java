@@ -20,6 +20,8 @@ import static config.GameConfiguration.WAR_THRESHOLD;
 import static gui.MainGUI.getWindow;
 
 public class TradeMenu extends JPanel {
+    private boolean isMoveResource;
+
     private Harbor sellerHarbor;
     private Harbor targetHarbor;
 
@@ -53,6 +55,7 @@ public class TradeMenu extends JPanel {
         this.setLayout(new BorderLayout());
         sellerResourceQuantity = 1;
         targetResourceQuantity = 1;
+        isMoveResource = MapGame.getInstance().getPlayer().getLstHarbor().contains(targetHarbor);
 
         JPanel jvoidPanel;
 
@@ -73,6 +76,7 @@ public class TradeMenu extends JPanel {
         jCenterWestPanel1.add(Quantity1,BorderLayout.SOUTH);
 
         JLabel jLabelTmp = JComponentFactory.menuLabel("you");
+        if(isMoveResource)jLabelTmp.setText(sellerHarbor.getName());
         jLabelTmp.setHorizontalAlignment(SwingConstants.CENTER);
         jLabelTmp.setFont(new Font( "Noto Sans Display", Font.BOLD, 30));
         jLabelTmp.setOpaque(true);
@@ -90,6 +94,7 @@ public class TradeMenu extends JPanel {
         jCenterWestPanel2.add(Quantity2,BorderLayout.SOUTH);
 
         jLabelTmp = JComponentFactory.menuLabel("target");
+        if(isMoveResource)jLabelTmp.setText(targetHarbor.getName());
         jLabelTmp.setHorizontalAlignment(SwingConstants.CENTER);
         jLabelTmp.setFont(new Font( "Noto Sans Display", Font.BOLD, 30));
         jLabelTmp.setOpaque(true);
@@ -101,6 +106,7 @@ public class TradeMenu extends JPanel {
 
         goBackButton = JComponentFactory.menuButton("Go back", new  GoBackListener());
         seaRoadTry = JComponentFactory.menuButton("Try",new TryListener());
+        if(isMoveResource)seaRoadTry.setText("Create");
         jSouthPanel = JComponentFactory.flowMenuPanel(goBackButton,seaRoadTry);
 
         jvoidPanel = JComponentFactory.voidPanel();
@@ -119,6 +125,8 @@ public class TradeMenu extends JPanel {
         jCenterPanel.setBackground(Color.gray);
         jCenterCenterPanel.setBackground(Color.gray);
         jCenterWestPanel.setBackground(Color.gray);
+        gridPanel1.setBackground(Color.gray);
+        gridPanel2.setBackground(Color.gray);
 
 
         jSouthPanel.setBackground(Color.lightGray);
@@ -156,20 +164,36 @@ public class TradeMenu extends JPanel {
         JButton tmp;
         Faction faction;
 
-        faction = MapGame.getInstance().getPlayer();
-        tmp = JComponentFactory.menuButton(faction.getCurrency().getName()+" Δ"+faction.getAmountCurrency()+" $"+faction.getCurrency().getValue(),new ResourceListener(true,faction.getCurrency()));
-        tmp.setBackground(Color.lightGray);
-        gridPanel1.add(tmp);
+        if(isMoveResource) {
+            faction = MapGame.getInstance().getPlayer();
+            tmp = JComponentFactory.menuButton("Δ",new ResourceListener(true,faction.getCurrency()));
+            tmp.setBackground(Color.lightGray);
+            gridPanel1.add(tmp);
+        }
+        else {
+            faction = MapGame.getInstance().getPlayer();
+            tmp = JComponentFactory.menuButton(faction.getCurrency().getName() + " Δ" + faction.getAmountCurrency() + " $" + faction.getCurrency().getValue(), new ResourceListener(true, faction.getCurrency()));
+            tmp.setBackground(Color.lightGray);
+            gridPanel1.add(tmp);
+        }
         for (Resource resource : sellerHarbor.getInventory().getContent().keySet()){
             tmp = JComponentFactory.menuButton(resource.getName()+" Δ"+sellerHarbor.getInventory().getNbResource(resource)+" $"+resource.getValue(),new ResourceListener(true,resource));
             tmp.setBackground(Color.lightGray);
             gridPanel1.add(tmp);
         }
 
-        faction = FactionManager.getInstance().getMyFaction(targetHarbor.getColor());
-        tmp = JComponentFactory.menuButton(faction.getCurrency().getName()+" Δ"+faction.getAmountCurrency()+" $"+faction.getCurrency().getValue(),new ResourceListener(false,faction.getCurrency()));
-        tmp.setBackground(Color.lightGray);
-        gridPanel2.add(tmp);
+        if(isMoveResource) {
+            faction = FactionManager.getInstance().getMyFaction(targetHarbor.getColor());
+            tmp = JComponentFactory.menuButton("Δ",new ResourceListener(false,faction.getCurrency()));
+            tmp.setBackground(Color.lightGray);
+            gridPanel2.add(tmp);
+        }
+        else {
+            faction = FactionManager.getInstance().getMyFaction(targetHarbor.getColor());
+            tmp = JComponentFactory.menuButton(faction.getCurrency().getName() + " Δ" + faction.getAmountCurrency() + " $" + faction.getCurrency().getValue(), new ResourceListener(false, faction.getCurrency()));
+            tmp.setBackground(Color.lightGray);
+            gridPanel2.add(tmp);
+        }
         for (Resource resource : targetHarbor.getInventory().getContent().keySet()){
             tmp = JComponentFactory.menuButton(resource.getName()+" Δ"+targetHarbor.getInventory().getNbResource(resource)+" $"+resource.getValue(),new ResourceListener(false,resource));
             tmp.setBackground(Color.lightGray);
@@ -241,7 +265,7 @@ public class TradeMenu extends JPanel {
         jCenterCenterPanel2.setOpaque(true);
         jCenterCenterPanel2.setBorder(new EmptyBorder((int) (getWindow().getHeight()*0.01),(int) (getWindow().getHeight()*0.015), (int) (getWindow().getHeight()*0.01),(int) (getWindow().getHeight()*0.015)));
         JPanel jVoidPanel = JComponentFactory.voidPanel();
-        jVoidPanel.add(jCenterCenterPanel2);
+        if(!isMoveResource)jVoidPanel.add(jCenterCenterPanel2);
         jVoidPanel.setBackground(Color.gray);
         jVoidPanel.setBorder(new EmptyBorder((int) (getWindow().getHeight()*0.005),0, 0,0));
 
@@ -365,7 +389,12 @@ public class TradeMenu extends JPanel {
             }
             else nb = Integer.parseInt(textField.getText());
             if(isSeller){
-                if(sellerResource!=null && sellerResource instanceof Currency && nb>MapGame.getInstance().getPlayer().getAmountCurrency()){
+
+                if(sellerResource!=null && sellerResource instanceof Currency && isMoveResource){
+                    nb = 1;
+                    textField.setText(String.valueOf(nb));
+                }
+                else if(sellerResource!=null && sellerResource instanceof Currency && nb>MapGame.getInstance().getPlayer().getAmountCurrency()){
                     nb = MapGame.getInstance().getPlayer().getAmountCurrency();
                     textField.setText(String.valueOf(nb));
                 }
@@ -376,7 +405,12 @@ public class TradeMenu extends JPanel {
                 sellerResourceQuantity = nb;
             }
             else {
-                if(targetResource!=null && targetResource instanceof Currency && nb>FactionManager.getInstance().getMyFaction(targetHarbor.getColor()).getAmountCurrency()){
+
+                if(targetResource!=null && targetResource instanceof Currency && isMoveResource){
+                    nb = 1;
+                    textField.setText(String.valueOf(nb));
+                }
+                else if(targetResource!=null && targetResource instanceof Currency && nb>FactionManager.getInstance().getMyFaction(targetHarbor.getColor()).getAmountCurrency()){
                     nb = FactionManager.getInstance().getMyFaction(targetHarbor.getColor()).getAmountCurrency();
                     textField.setText(String.valueOf(nb));
                 }
@@ -394,7 +428,8 @@ public class TradeMenu extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             SeaRoad seaRoad = new SeaRoad("",sellerHarbor,targetHarbor,sellerResource,targetResource,sellerResourceQuantity,targetResourceQuantity, GameConfiguration.SEAROAD_TIME+GameConfiguration.SEAROAD_TIME*(FactionManager.getInstance().getMyFaction(targetHarbor.getColor()).getRelationship(MapGame.getInstance().getPlayer()))/200);
-            if(TradeManager.getInstance().conclude(seaRoad)){
+            if(isMoveResource)seaRoad.setTime(GameConfiguration.SEAROAD_TIME*3);
+            if(TradeManager.getInstance().conclude(seaRoad)||isMoveResource){
                 String name = JOptionPane.showInputDialog(TradeMenu.this,"      Success\nname the sea-Road");
                 if(name!=null)seaRoad.setName(name);
                 MapGame.getInstance().getPlayer().addSeaRoad(seaRoad);
@@ -414,7 +449,8 @@ public class TradeMenu extends JPanel {
     private class GoBackListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadRelationMenu(FactionManager.getInstance().getMyFaction(targetHarbor.getColor()));
+            if(isMoveResource)GUILoader.loadHarborMenu(sellerHarbor);
+            else GUILoader.loadRelationMenu(FactionManager.getInstance().getMyFaction(targetHarbor.getColor()));
         }
     }
 
@@ -423,7 +459,8 @@ public class TradeMenu extends JPanel {
         @Override
         public void keyPressed(KeyEvent event) {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                GUILoader.loadRelationMenu(FactionManager.getInstance().getMyFaction(targetHarbor.getColor()));
+                if(isMoveResource)GUILoader.loadHarborMenu(sellerHarbor);
+                else GUILoader.loadRelationMenu(FactionManager.getInstance().getMyFaction(targetHarbor.getColor()));
             }
         }
 

@@ -32,6 +32,10 @@ public class GUILoader {
         actualise(new MainGameMenu());
     }
 
+    public static void loadHarborMenu(Harbor harbor){
+        actualise(new HarborMenu(harbor));
+    }
+
     public static void loadPauseMenu(int token,Object object){
         actualise(new PauseMenu(token,object));
     }

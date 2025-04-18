@@ -75,6 +75,10 @@ public class GameDisplay extends JPanel {
         }
         paintEntity.paintChaseMap(g2d);
 
+        for (Harbor harbor : MapGame.getInstance().getLstHarbor()){
+            paintEntity.paintHP(harbor,g2d);
+        }
+
         ArrayList<PopUp> lstPopUp = new ArrayList<>();
         lstPopUp.addAll(MapGame.getInstance().getLstPopUp());
         for (PopUp popUp : lstPopUp){

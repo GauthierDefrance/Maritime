@@ -11,6 +11,7 @@ public class Merchant extends Boat {
     public void upgradeHp() {
         useUpgradePoint();
         this.setMaxHp((int) (this.getMaxHp()+(GameConfiguration.UPGRADE_DEFAULT_HP*GameConfiguration.MERCHANT_HP_BOOST)));
+        this.setCurrentHp((int) (this.getCurrentHp()+(GameConfiguration.UPGRADE_DEFAULT_HP*GameConfiguration.MERCHANT_HP_BOOST)));
     }
 
     public void upgradeDamageSpeed() {
@@ -26,6 +27,22 @@ public class Merchant extends Boat {
     public void upgradeInventorySize() {
         useUpgradePoint();
         this.getInventory().setCapacity((int) (this.getInventory().getCapacity()+(GameConfiguration.UPGRADE_DEFAULT_INVENTORY_SIZE*GameConfiguration.MERCHANT_INVENTORY_SIZE_BOOST)));
+    }
+
+    public int nextUpgradeHp() {
+        return (int) (this.getMaxHp()+(GameConfiguration.UPGRADE_DEFAULT_HP*GameConfiguration.MERCHANT_HP_BOOST));
+    }
+
+    public int nextUpgradeDamageSpeed() {
+        return (int) (this.getDamageSpeed()+(GameConfiguration.UPGRADE_DEFAULT_DAMAGE_SPEED*GameConfiguration.MERCHANT_DAMAGE_SPEED_BOOST));
+    }
+
+    public int nextUpgradeSpeed() {
+        return (int) (this.getSpeed()+(GameConfiguration.UPGRADE_DEFAULT_SPEED*GameConfiguration.MERCHANT_SPEED_BOOST));
+    }
+
+    public int nextUpgradeInventorySize() {
+        return (int) (this.getInventory().getCapacity()+(GameConfiguration.UPGRADE_DEFAULT_INVENTORY_SIZE*GameConfiguration.MERCHANT_INVENTORY_SIZE_BOOST));
     }
 
 }
