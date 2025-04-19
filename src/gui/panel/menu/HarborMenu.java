@@ -13,6 +13,7 @@ import gui.utilities.GUILoader;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -96,26 +97,18 @@ public class HarborMenu extends JPanel {
         jComboBoxCurrentSelectedBoat = "Standard";
 
 
-        JPanel jPanelCenterCenterTmp = flowMenuPanel(FlowLayout.RIGHT);
         jPanelCenterCenter.add(imageLabel,BorderLayout.CENTER);
         jPanelCenterCenter.add(renameButton,BorderLayout.SOUTH);
-        jPanelCenterCenterTmp.add(jPanelCenterCenter);
 
-        JPanel jPanelCenterSouthTmp = JComponentFactory.voidPanel();
         jPanelCenterSouth.add(healButton);
         jPanelCenterSouth.add(healAllButton);
-        jPanelCenterSouthTmp.add(jPanelCenterSouth);
 
-        JPanel jPanelCenterEastTmp = JComponentFactory.boxMenuPanel(BoxLayout.Y_AXIS);
-        jPanelCenterEastTmp.add(statsPanel);
-        jPanelCenterEastTmp.add(jPanelCenterSouthTmp);
+        JPanel jPanelCenterEastTmp = JComponentFactory.borderMenuPanel();
+        jPanelCenterEastTmp.add(statsPanel,BorderLayout.CENTER);;
+        jPanelCenterEastTmp.add(jPanelCenterSouth,BorderLayout.SOUTH);
 
-        JPanel jPanelCenter = JComponentFactory.borderMenuPanel();
-        jPanelCenter.add(jPanelCenterCenterTmp,BorderLayout.CENTER);
-        jPanelCenter.add(jPanelCenterEastTmp,BorderLayout.EAST);
 
-        JPanel jPanelWest = JComponentFactory.voidPanel();
-        jPanelWest.add(jPanelWestGrid);
+
         currentCreatePanel.add(jComboBoxCurrent,BorderLayout.WEST);
         currentCreatePanel.add(jComboBoxCurrentButton,BorderLayout.CENTER);
 
@@ -123,7 +116,6 @@ public class HarborMenu extends JPanel {
         JPanel gridPanelTmp = JComponentFactory.voidPanel();
         gridPanelTmp.add(gridPanel);
 
-        JPanel jPanelEast = JComponentFactory.borderMenuPanel();
         JScrollPane jScrollPane = JComponentFactory.ScrollPaneMenuPanel(gridPanelTmp);
         jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
@@ -131,35 +123,29 @@ public class HarborMenu extends JPanel {
         jPanelEastCenter.add(jComboBoxHarbor,BorderLayout.SOUTH);
         jPanelEastCenter.add(jScrollPane,BorderLayout.CENTER);
 
-        JPanel jScrollPaneTmp = JComponentFactory.voidPanel();
-        jScrollPaneTmp.add(jPanelEastCenter);
-        jPanelEast.add(jScrollPaneTmp,BorderLayout.CENTER);
 
         JPanel jPanelEastButton = JComponentFactory.voidPanel();
         jPanelEastButton.add(goBackButton);
 
 
-        jPanelEast.add(jPanelEastButton,BorderLayout.SOUTH);
 
-
+        JPanel jPanelCenter = JComponentFactory.flowMenuPanel();
+        jPanelCenter.add(jPanelCenterEastTmp);
+        jPanelCenter.add(jPanelCenterCenter);
+        jPanelCenter.add(jPanelWestGrid);
+        jPanelCenter.add(jPanelEastCenter,BorderLayout.CENTER);
 
         this.add(jPanelNorthResource,BorderLayout.NORTH);
-        this.add(jPanelWest,BorderLayout.WEST);
         this.add(jPanelCenter,BorderLayout.CENTER);
-        this.add(jPanelEast,BorderLayout.EAST);
+        this.add(jPanelEastButton,BorderLayout.SOUTH);
 
-        this.setBackground(Color.gray);
+        this.setBackground(Color.lightGray);
         gridPanelTmp.setBackground(Color.gray);
-        jPanelCenterCenterTmp.setBackground(Color.gray);
         jPanelCenterEastTmp.setBackground(Color.gray);
-        jPanelCenter.setBackground(Color.gray);
-        jPanelCenterSouthTmp.setBackground(Color.gray);
-        jScrollPaneTmp.setBackground(Color.gray);
         jPanelEastButton.setBackground(Color.gray);
-        jPanelEast.setBackground(Color.gray);
-        jPanelWest.setBackground(Color.gray);
         gridPanel.setBackground(Color.gray);
-        jPanelNorthResource.setBackground(Color.gray);
+        jPanelNorthResource.setBackground(Color.lightGray);
+        jPanelCenter.setBackground(Color.lightGray);
 
 
         jScrollPane.setBackground(Color.lightGray);
@@ -181,20 +167,16 @@ public class HarborMenu extends JPanel {
     }
 
     private void sizeUpdate() {
-
         jPanelWestGrid.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.25), (int) (getWindow().getHeight()*(0.08*jPanelWestGrid.getComponentCount()))));
         statsPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.25), (int) (getWindow().getHeight()*0.50)));
         jPanelCenterSouth.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.25), (int) (getWindow().getHeight()*0.1)));
-        jPanelWestGrid.setBorder(new EmptyBorder((int) (getWindow().getHeight()*0.01),(int) (getWindow().getHeight()*0.015), (int) (getWindow().getHeight()*0.01),(int) (getWindow().getHeight()*0.015)));
-        statsPanel.setBorder(new EmptyBorder((int) (getWindow().getHeight()*0.01),(int) (getWindow().getHeight()*0.015), (int) (getWindow().getHeight()*0.01),(int) (getWindow().getHeight()*0.015)));
-        imageLabel.setBorder(new EmptyBorder((int) (getWindow().getHeight()*0.01),0, (int) (getWindow().getHeight()*0.005),0));
 
-        jComboBoxCurrent.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.04), getWindow().getHeight()));
+        jComboBoxCurrent.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.045), getWindow().getHeight()));
         goBackButton.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.15), (int) (getWindow().getHeight()*0.08)));
         if(!isInBoatMode)gridPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.17), (int) (getWindow().getHeight()*(0.08* (activeHarbor.getGenerator().size())))));
         else gridPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.17), (int) (getWindow().getHeight()*(0.08* (activeHarbor.getHashMapBoat().size())))));
         jPanelEastCenter.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.2), (int) (getWindow().getHeight()*0.8)));
-        jPanelEastCenter.setBorder(new EmptyBorder((int) (getWindow().getHeight()*0.015),(int) (getWindow().getHeight()*0.015), (int) (getWindow().getHeight()*0.015),(int) (getWindow().getHeight()*0.015)));
+
         getWindow().revalidate();
         getWindow().repaint();
     }
