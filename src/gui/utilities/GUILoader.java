@@ -5,6 +5,7 @@ import engine.battleengine.data.Battle;
 import engine.data.entity.Harbor;
 import engine.data.faction.Faction;
 import engine.data.trading.SeaRoad;
+import engine.process.manager.FactionManager;
 import gui.MainGUI;
 import gui.panel.menu.*;
 

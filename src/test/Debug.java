@@ -72,8 +72,6 @@ public class Debug extends JFrame{
             switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
                 case "gui.panel.menu.OptionsMenu" :
                 case "gui.panel.menu.PauseMenu" : {
-                    EngineBuilder.mapInit(0);
-                    TestMove.addBoatTest();
                     GUILoader.loadHarborMenu(MapGame.getInstance().getPlayer().getLstHarbor().get(0));
                     break;
                 }

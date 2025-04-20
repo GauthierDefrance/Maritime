@@ -141,6 +141,7 @@ public final class GameConfiguration {
 
     //-------- SpawnZone --------
         public static final Rectangle SPAWN_ZONE = new Rectangle(0,0,160*GAME_SCALE,360*GAME_SCALE);
+        public static final Rectangle ZONE = new Rectangle(0,0,640*GAME_SCALE,360*GAME_SCALE);
         public static final int SPAWN_ZONE_MIN_Y = 60*GameConfiguration.GAME_SCALE;
         public static final int SPAWN_ZONE_MAX_Y = 300*GameConfiguration.GAME_SCALE;
         public static final int SPAWN_ZONE_STARTING_X = 600*GameConfiguration.GAME_SCALE;

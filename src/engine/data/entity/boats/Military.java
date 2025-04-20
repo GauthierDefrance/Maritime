@@ -21,7 +21,7 @@ public class Military extends Boat {
 
     public void upgradeSpeed() {
         useUpgradePoint();
-        this.setSpeed((int) (this.getSpeed()+(GameConfiguration.UPGRADE_DEFAULT_SPEED*GameConfiguration.MILITARY_SPEED_BOOST)));
+        this.setSpeed((int) (this.getSpeed()+(GameConfiguration.UPGRADE_DEFAULT_SPEED*GameConfiguration.MILITARY_SPEED_BOOST+1)));
     }
 
     public void upgradeInventorySize() {
@@ -38,7 +38,7 @@ public class Military extends Boat {
     }
 
     public int nextUpgradeSpeed() {
-        return (int) (this.getSpeed()+(GameConfiguration.UPGRADE_DEFAULT_SPEED*GameConfiguration.MILITARY_SPEED_BOOST));
+        return (int) (this.getSpeed()+(GameConfiguration.UPGRADE_DEFAULT_SPEED*GameConfiguration.MILITARY_SPEED_BOOST+1));
     }
 
     public int nextUpgradeInventorySize() {

@@ -31,7 +31,7 @@ public class PlacingManager {
      * @param point object of type {@link Point}
      * @return {@link Boolean}
      */
-    public boolean tryPlaceBoat(Boat boat, Point point) {
+    public boolean placeBoat(Boat boat, Point point) {
         boat.setPosition(point);
         battle.getLstBoatsToPlace().remove(boat);
         battle.getLstBoatsCurrentlyBeingPlaced().add(boat);
@@ -43,7 +43,10 @@ public class PlacingManager {
      */
     public void cancelPlacing(){
         battle.getLstBoatsToPlace().addAll(battle.getLstBoatsCurrentlyBeingPlaced());
-        clearBoatsCurrentlyBeingPlaced();
+        for(Boat boat : battle.getLstBoatsCurrentlyBeingPlaced()){
+            boat.setNextGraphPoint(null);
+        }
+        battle.getLstBoatsCurrentlyBeingPlaced().clear();
     }
 
     /**
@@ -55,20 +58,13 @@ public class PlacingManager {
             for(Boat boat : battle.getLstBoatsCurrentlyBeingPlaced() ){
                 battle.getBoatsInBattleA().add(boat);
             }
-            clearBoatsCurrentlyBeingPlaced();
+            battle.getLstBoatsCurrentlyBeingPlaced().clear();
             this.battle.setPlacingMode(false);
             return true;
         }
         else {
             return false;
         }
-    }
-
-    /**
-     * Void function that clear the Lst of boats that the player is placing.
-     */
-    private void clearBoatsCurrentlyBeingPlaced(){
-        battle.getLstBoatsCurrentlyBeingPlaced().clear();
     }
 
 

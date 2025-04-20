@@ -62,6 +62,7 @@ public class HarborManager {
             if(!harbor.getHashMapBoat().get(boat)){
                 if(harbor.getGraphPosition().getPoint().equals(boat.getPosition())){
                     harbor.getHashMapBoat().put(boat,true);
+                    TradeManager.getInstance().transferMaxAll(boat.getInventory(),harbor.getInventory(),boat,harbor);
                     boat.setPosition(harbor.getPosition().getX()*-100000,harbor.getPosition().getY()*-100000);
                 }
                 else if(boat.getPath().isEmpty()) {
@@ -210,9 +211,8 @@ public class HarborManager {
     }
 
     public boolean canIHealBoat(Harbor harbor, Boat boat){
-        return boat.getLevel() < harbor.getLevel()
-                && boat.getMaxHp()-boat.getCurrentHp()>0
-                && GameConfiguration.COST_HEAL_BOAT <= harbor.getInventory().getNbResource(GameConfiguration.WOOD);
+        return GameConfiguration.COST_HEAL_BOAT <= harbor.getInventory().getNbResource(GameConfiguration.WOOD)
+                && boat.getMaxHp()-boat.getCurrentHp()>0;
     }
 
     public void healBoat(Harbor harbor, Boat boat){

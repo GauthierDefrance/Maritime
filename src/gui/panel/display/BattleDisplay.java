@@ -66,6 +66,23 @@ public class BattleDisplay extends JPanel {
         ArrayList<Boat> tmplstBoatB = new ArrayList<>();
         tmplstBoatB.addAll(battle.getBoatsInBattleB().getArrayListBoat());
 
+        for(Boat boat : battle.getLstBoatsCurrentlyBeingPlaced()){
+            if(boat.getNextGraphPoint() != null){
+                paintEntity.paintChase(boat, boat.getNextGraphPoint().getPoint(), g2d);
+                g2d.setColor(ImageStock.colorChoice(boat.getColor()));
+                g2d.fillOval((int) (boat.getNextGraphPoint().getPoint().getX()-8), (int) (boat.getNextGraphPoint().getPoint().getY()-8),16,16);
+                g2d.setColor(Color.black);
+            }
+        }
+        for(Boat boat : tmplstBoatA){
+            if(boat.getNextGraphPoint() != null){
+                paintEntity.paintChase(boat, boat.getNextGraphPoint().getPoint(), g2d);
+                g2d.setColor(ImageStock.colorChoice(boat.getColor()));
+                g2d.fillOval((int) (boat.getNextGraphPoint().getPoint().getX()-8), (int) (boat.getNextGraphPoint().getPoint().getY()-8),16,16);
+                g2d.setColor(Color.black);
+            }
+        }
+
         for(Boat boat : tmplstBoatB){
             paintEntity.paintBattle(boat,g2d);
         }
@@ -102,7 +119,15 @@ public class BattleDisplay extends JPanel {
             int x = (int) ((battle.getCurrentBoatPoint().getX()*GameConfiguration.GAME_SCALE)/scale);
             int y = (int) ((battle.getCurrentBoatPoint().getY()*GameConfiguration.GAME_SCALE)/scale);
             Point boatPoint = new Point(x, y);
-            paintEntity.paint(battle.getCurrentBoat(), boatPoint, (Graphics2D) g);
+            paintEntity.paint(battle.getCurrentBoat(), boatPoint, g2d);
+        }
+        if(battle.getCurrentBoat2() != null && battle.getCurrentBoatPoint2() != null) {
+            int x = (int) ((battle.getCurrentBoatPoint2().getX()*GameConfiguration.GAME_SCALE)/scale);
+            int y = (int) ((battle.getCurrentBoatPoint2().getY()*GameConfiguration.GAME_SCALE)/scale);
+            float[] floats = {10,10};
+            g2d.setStroke(new BasicStroke(5,BasicStroke.CAP_ROUND,BasicStroke.JOIN_MITER,1,floats,0));
+            g2d.drawLine((int) battle.getCurrentBoat2().getPosition().getX(), (int) battle.getCurrentBoat2().getPosition().getY(), x, y);
+            g2d.fillOval(x-8, y-8,16,16);
         }
 
         ArrayList<PopUp> lstPopUp = new ArrayList<>();

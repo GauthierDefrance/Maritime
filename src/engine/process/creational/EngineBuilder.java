@@ -252,6 +252,7 @@ public class EngineBuilder {
         //faction init
         Faction faction1 = new Faction("red");
         lstBotFaction.add(faction1);
+        lstBotFaction.add(pirate);
 
         //Harbor init
         GraphPoint AHarbor = new GraphPoint(new Point(100*GameConfiguration.GAME_SCALE,61*GameConfiguration.GAME_SCALE),"AHarbor");
@@ -549,7 +550,6 @@ public class EngineBuilder {
 
         lstFaction.addAll(lstBotFaction);
         lstFaction.add(player);
-        lstFaction.add(pirate);
         MapGame.getInstance().setLstPopUp(lstPopUp);
         MapGame.getInstance().setLstHarbor(lstHarbor);
         MapGame.getInstance().setLstFaction(lstFaction);

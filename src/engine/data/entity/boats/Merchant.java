@@ -21,7 +21,7 @@ public class Merchant extends Boat {
 
     public void upgradeSpeed() {
         useUpgradePoint();
-        this.setSpeed((int) (this.getSpeed()+(GameConfiguration.UPGRADE_DEFAULT_SPEED*GameConfiguration.MERCHANT_SPEED_BOOST)));
+        this.setSpeed((int) (this.getSpeed()+(Math.max(1,GameConfiguration.UPGRADE_DEFAULT_SPEED*GameConfiguration.MERCHANT_SPEED_BOOST))));
     }
 
     public void upgradeInventorySize() {
@@ -38,7 +38,7 @@ public class Merchant extends Boat {
     }
 
     public int nextUpgradeSpeed() {
-        return (int) (this.getSpeed()+(GameConfiguration.UPGRADE_DEFAULT_SPEED*GameConfiguration.MERCHANT_SPEED_BOOST));
+        return (int) (this.getSpeed()+(Math.max(1,GameConfiguration.UPGRADE_DEFAULT_SPEED*GameConfiguration.MERCHANT_SPEED_BOOST)));
     }
 
     public int nextUpgradeInventorySize() {

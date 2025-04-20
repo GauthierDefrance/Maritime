@@ -106,11 +106,11 @@ public class PaintEntity {
         paint(harbor,g2d);
     }
 
-    public void paintChase(Boat hunter,Boat prey, Graphics2D g2d){
+    public void paintChase(Boat hunter,Point point, Graphics2D g2d){
         g2d.setColor(ImageStock.colorChoice(hunter.getColor()));
         float[] floats = {10,10};
         g2d.setStroke(new BasicStroke(5,BasicStroke.CAP_ROUND,BasicStroke.JOIN_MITER,1,floats,0));
-        g2d.drawLine((int) hunter.getPosition().getX(), (int) hunter.getPosition().getY(), (int) prey.getPosition().getX(), (int) prey.getPosition().getY());
+        g2d.drawLine((int) hunter.getPosition().getX(), (int) hunter.getPosition().getY(), (int) point.getX(), (int) point.getY());
         g2d.setColor(Color.black);
     }
 
@@ -118,7 +118,7 @@ public class PaintEntity {
         for(Faction faction : MapGame.getInstance().getLstFaction()){
             for (Boat hunter : faction.getLstBoat()){
                 if(MapGame.getInstance().getHunterPreyHashMap().containsKey(hunter)){
-                    paintChase(hunter,MapGame.getInstance().getHunterPreyHashMap().get(hunter),g2d);
+                    paintChase(hunter,MapGame.getInstance().getHunterPreyHashMap().get(hunter).getPosition(),g2d);
                 }
             }
         }
@@ -185,7 +185,7 @@ public class PaintEntity {
         }
     }
 
-    public static BufferedImage paintImage(Harbor harbor,int scale,int border){
+    public static BufferedImage paintImage(Harbor harbor, int scale, int border){
         BufferedImage sprite = ImageStock.getImage(harbor);
         int width = sprite.getWidth()*scale+border;
         int height = sprite.getHeight()*scale+border;

@@ -5,6 +5,8 @@ import engine.battleengine.process.BattleManager;
 import config.GameConfiguration;
 import engine.MapGame;
 import engine.data.entity.boats.Boat;
+import engine.data.graph.GraphPoint;
+import engine.process.manager.BoatManager;
 import gui.MainGUI;
 import gui.PopUp;
 import gui.panel.display.BattleDisplay;
@@ -117,6 +119,8 @@ public class CombatMenu extends JPanel implements Runnable {
 
         this.add(jLayeredPane);
         this.addKeyListener(new KeyControls());
+        this.addMouseListener(new MouseListener());
+        this.addMouseMotionListener(new MouseListener());
         getWindow().addComponentListener(new ComponentControls());
         sizeUpdate();
         elementInPanelUpdate();
@@ -225,6 +229,40 @@ public class CombatMenu extends JPanel implements Runnable {
         }
     }
 
+    private class MouseListener extends MouseAdapter {
+        private Boat boat;
+        @Override
+        public void mousePressed(MouseEvent e) {
+            Point point = ListenerBehaviorManager.create().clickLogic(CombatMenu.this, e.getPoint());
+            Boat boat = BoatManager.boatCollisionToPoint(point,battle.getBoatsInBattleA().getArrayListBoat());
+            if(boat == null)boat = BoatManager.boatCollisionToPoint(point,battle.getLstBoatsCurrentlyBeingPlaced());
+            if (e.getButton() == MouseEvent.BUTTON1 && boat != null) {
+                battle.setCurrentBoat2(boat);
+            }
+            if (battle.isInPlacingMode() && e.getButton() == MouseEvent.BUTTON3)jWestATHPanel.setVisible(!jWestATHPanel.isVisible());
+        }
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            if (e.getButton() == MouseEvent.BUTTON1 && battle.getCurrentBoat2()!=null) {
+                Point point0 = SwingUtilities.convertPoint((Component) e.getSource(),e.getPoint(),dashboardJPanel);
+                Point point = ListenerBehaviorManager.create().clickLogic(CombatMenu.this, point0);
+                if(GameConfiguration.ZONE.contains(point)) {
+                    battle.getCurrentBoat2().setNextGraphPoint(new GraphPoint(point,""));
+                }
+                battle.setCurrentBoat2(null);
+                battle.setCurrentBoatPoint2(new Point(-1000,-1000));
+                elementInPanelUpdate();
+
+            }
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            battle.setCurrentBoatPoint2(SwingUtilities.convertPoint((Component) e.getSource(),e.getPoint(),MainGUI.getWindow()));
+            dashboard.repaint();
+        }
+    }
+
     private class buttonMouseListener extends MouseAdapter {
         private Boat boat;
 
@@ -247,10 +285,10 @@ public class CombatMenu extends JPanel implements Runnable {
                 Point point0 = SwingUtilities.convertPoint((Component) e.getSource(),e.getPoint(),dashboardJPanel);
                 Point point = ListenerBehaviorManager.create().clickLogic(CombatMenu.this, point0);
                 if(GameConfiguration.SPAWN_ZONE.contains(point)) {
-                    battleManager.getPlacingManager().tryPlaceBoat(battle.getCurrentBoat(), point);
+                    battleManager.getPlacingManager().placeBoat(battle.getCurrentBoat(), point);
                 }
                 battle.setCurrentBoat(null);
-                battle.setCurrentBoatPoint(new Point(-100,-100));
+                battle.setCurrentBoatPoint(new Point(-1000,-1000));
                 elementInPanelUpdate();
 
             }
@@ -330,7 +368,6 @@ public class CombatMenu extends JPanel implements Runnable {
                 jPanel.add(JComponentFactory.menuLabel(lstText.get(2)));
                 JOptionPane.showMessageDialog(CombatMenu.this,jPanel);
                 ThreadStop = true;
-                MapGame.getInstance().setTimeStop(true);
                 GUILoader.loadMainGame();
             }
         }

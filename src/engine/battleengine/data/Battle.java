@@ -44,7 +44,9 @@ public class Battle {
     private ArrayList<Boat> LstBoatsCurrentlyBeingPlaced;
 
     private Boat currentBoat;
+    private Boat currentBoat2;
     private Point currentBoatPoint;
+    private Point currentBoatPoint2;
 
     private boolean isInPlacingMode;
 
@@ -275,5 +277,21 @@ public class Battle {
 
     public void setFactionB(Faction factionB) {
         this.factionB = factionB;
+    }
+
+    public Boat getCurrentBoat2() {
+        return currentBoat2;
+    }
+
+    public void setCurrentBoat2(Boat currentBoat2) {
+        this.currentBoat2 = currentBoat2;
+    }
+
+    public Point getCurrentBoatPoint2() {
+        return currentBoatPoint2;
+    }
+
+    public void setCurrentBoatPoint2(Point currentBoatPoint2) {
+        this.currentBoatPoint2 = currentBoatPoint2;
     }
 }

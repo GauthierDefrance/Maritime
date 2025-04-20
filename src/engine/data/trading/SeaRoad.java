@@ -91,8 +91,8 @@ public class SeaRoad implements Serializable {
     //Basic Time management behavior
 
     public void abandonTask() {
-        this.selection.setValue(0);
-        this.demand.setValue(0);
+        this.selection.setValue(-1);
+        this.demand.setValue(-1);
     }
     
     public void subtractTime(int nb) {

@@ -43,7 +43,6 @@ public class BattleBoatManager {
         ArrayList<Boat> toRemove = new ArrayList<>();
         for (Boat boat : fleet.getArrayListBoat()) {
             if (boat.getCurrentHp() < 1) {
-                //RAJOUTER POP UP MORT BATEAU
                 deadFleet.add(boat);
                 toRemove.add(boat);
             }

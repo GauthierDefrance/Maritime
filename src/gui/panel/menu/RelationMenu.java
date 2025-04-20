@@ -2,6 +2,7 @@ package gui.panel.menu;
 
 import engine.MapGame;
 import engine.data.faction.Faction;
+import engine.process.manager.FactionManager;
 import gui.process.JComponentFactory;
 import gui.utilities.GUILoader;
 
@@ -210,7 +211,7 @@ public class RelationMenu extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(JOptionPane.showConfirmDialog(RelationMenu.this,"Do you want to declare war to "+activeFaction.getColor()+"? This decision cannot be reversed","confirmation",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
-                activeFaction.setRelationship(MapGame.getInstance().getPlayer(), WAR_THRESHOLD);
+                FactionManager.getInstance().modifyRelationship(MapGame.getInstance().getPlayer(),activeFaction, WAR_THRESHOLD);
                 factionUpdate();
             }
         }

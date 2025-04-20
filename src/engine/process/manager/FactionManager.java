@@ -50,8 +50,9 @@ public class FactionManager {
     public void nextRound(){
         allBoatApproachingHarbor();
         moveAllFactionBoat();
-        allFleetUpdate();
         allSeaRoadUpdate();
+        allFleetUpdate();
+        startChase();
         playerManager.updatePlayerVision();
         updateAllGeneratorTime();
     }
@@ -114,11 +115,11 @@ public class FactionManager {
                 seaRoutManager.sellAndPickUpAllResources(seaRoad);
             }
             else {
-                if(seaRoad.getTimer()<=0)getMyFaction(seaRoad.getTargetHarbor().getColor()).subtractRelationship(faction,10);
-                else if(seaRoad.getSelection().getValue()==-1||seaRoad.getDemand().getValue()==-1)faction.subtractRelationship(getMyFaction(seaRoad.getTargetHarbor().getColor()),10);
+                if(seaRoad.getTimer()<=0)modifyRelationship(faction,getMyFaction(seaRoad.getTargetHarbor().getColor()),-10);
+                else if(seaRoad.getSelection().getValue()==-1||seaRoad.getDemand().getValue()==-1)modifyRelationship(getMyFaction(seaRoad.getTargetHarbor().getColor()),faction,-10);
                 else {
-                    getMyFaction(seaRoad.getTargetHarbor().getColor()).addRelationship(faction,10);
-                    faction.addRelationship(getMyFaction(seaRoad.getTargetHarbor().getColor()),10);
+                    modifyRelationship(getMyFaction(seaRoad.getTargetHarbor().getColor()),faction,10);
+                    modifyRelationship(faction,getMyFaction(seaRoad.getTargetHarbor().getColor()),10);
                 }
                 lstSeaRouts.add(seaRoad);
                 fleetManager.setContinuePathAll(seaRoad.getFleet(),false);
@@ -151,6 +152,16 @@ public class FactionManager {
     }
 
     /**
+     * Remove a chase between two boats
+     * @param hunter chasing boat
+     */
+    public void chaseBoatRemove(Boat hunter){
+        MapGame.getInstance().removeHunterPreyHashMap(hunter);
+        hunter.getPath().clear();
+        hunter.setNextGraphPoint(SearchInGraph.getClosestMapGraphPoint(hunter.getPosition()));
+    }
+
+    /**
      * Take two boats starts a fight if they are in contact cancels the chase if they are too far away
      */
     public ArrayList<Boat> chaseUpdate(Boat hunter,Boat prey){
@@ -168,14 +179,12 @@ public class FactionManager {
             boolean flag = false;
             for (Harbor harbor :getMyFaction(prey.getColor()).getLstHarbor()){
                 if (harbor.getHashMapBoat().containsKey(prey)) {
-                    flag = true;
+                    flag = harbor.getHashMapBoat().get(prey);
                     break;
                 }
             }
             if (hunter.getVisionRadius() < distance||!getMyFaction(prey.getColor()).getLstBoat().contains(prey)||flag){
-                MapGame.getInstance().removeHunterPreyHashMap(hunter);
-                hunter.getPath().clear();
-                hunter.setNextGraphPoint(SearchInGraph.getClosestMapGraphPoint(hunter.getPosition()));
+                chaseBoatRemove(hunter);
             }
         }
         return null;
@@ -189,16 +198,48 @@ public class FactionManager {
         HashMap<Boat, Boat> tmp = new HashMap<>(MapGame.getInstance().getHunterPreyHashMap());
         for (Boat boat : tmp.keySet()){
             lst = chaseUpdate(boat,tmp.get(boat));
-            if(lst!=null)
-                break;
+            if(lst!=null) break;
         }
         return lst;
     }
 
-    public Battle StartBattle(Boat hunter, Boat prey){
+    public Battle startBattle(Boat hunter, Boat prey){
         Fleet fleetHunter = getMyFleet(hunter);
         Fleet fleetPrey = getMyFleet(prey);
         return EngineBuilder.createBattle(getMyFaction(hunter.getColor()),getMyFaction(prey.getColor()),fleetHunter,fleetPrey);
+    }
+
+    public void startChase(){
+        for(Faction hunterFaction : MapGame.getInstance().getLstBotFaction()){
+            for(Boat hunter : hunterFaction.getLstBoat()) {
+                boolean flag = !MapGame.getInstance().getHunterPreyHashMap().containsKey(hunter);
+                if (flag) {
+                    for (Faction preyFaction : MapGame.getInstance().getLstFaction()) {
+                        if (flag && !hunterFaction.equals(preyFaction) && hunterFaction.getRelationship(preyFaction) <= -100) {
+                            for (Boat prey : preyFaction.getLstBoat()) {
+                                if (flag && (hunter.getVisionRadius() / 2) >= prey.getPosition().distance(hunter.getPosition())) {
+                                    chaseBoat(hunter, prey);
+                                    flag = false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void warTime(Faction faction1,Faction faction2){
+        for (SeaRoad seaRoad : faction1.getLstSeaRouts()){
+            if(faction2.getLstHarbor().contains(seaRoad.getTargetHarbor()) || faction2.getLstHarbor().contains(seaRoad.getSellerHarbor())){
+                seaRoad.abandonTask();
+            }
+        }
+        for (SeaRoad seaRoad : faction2.getLstSeaRouts()){
+            if(faction1.getLstHarbor().contains(seaRoad.getTargetHarbor()) || faction1.getLstHarbor().contains(seaRoad.getSellerHarbor())){
+                seaRoad.abandonTask();
+            }
+        }
     }
 
     /**
@@ -229,15 +270,16 @@ public class FactionManager {
         return fleet;
     }
 
-    public void modifyRelationship(Faction faction1,Faction faction2, int value){
-        int uncheckedResult = faction2.getRelationship(faction1) + value;
-        if (uncheckedResult <= GameConfiguration.BFF_THRESHOLD && uncheckedResult >= GameConfiguration.WAR_THRESHOLD) {
-            faction2.setRelationship(faction1,uncheckedResult);
-        } else if (uncheckedResult < 0) {
-            faction2.setRelationship(faction1,GameConfiguration.WAR_THRESHOLD);
-        } else {
-            faction2.setRelationship(faction1,GameConfiguration.BFF_THRESHOLD);
+    public void modifyRelationship(Faction factionTarget, Faction factionOwner, int value){
+        int uncheckedResult = factionOwner.getRelationship(factionTarget) + value;
+        if (uncheckedResult <= GameConfiguration.WAR_THRESHOLD) {
+            factionOwner.setRelationship(factionTarget,GameConfiguration.WAR_THRESHOLD);
+            warTime(factionTarget, factionOwner);
         }
+        else if(uncheckedResult >= GameConfiguration.BFF_THRESHOLD){
+            factionOwner.setRelationship(factionTarget,GameConfiguration.BFF_THRESHOLD);
+        }
+        else factionOwner.setRelationship(factionTarget,uncheckedResult);
     }
 
     public SeaRoadManager getSeaRoadManager() {

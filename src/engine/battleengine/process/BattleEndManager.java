@@ -1,8 +1,10 @@
 package engine.battleengine.process;
 
+import engine.MapGame;
 import engine.battleengine.data.Battle;
 import engine.data.Fleet;
 import engine.data.entity.boats.Boat;
+import engine.process.manager.FactionManager;
 import engine.process.manager.TradeManager;
 import engine.data.trading.Inventory;
 import engine.data.trading.Resource;
@@ -31,7 +33,7 @@ public class BattleEndManager {
      * @return
      */
     public boolean playerLose(){
-        return battle.getBoatsInBattleA().getArrayListBoat().isEmpty()&&battle.getLstBoatsToPlace().isEmpty()&&!battle.isInPlacingMode();
+        return battle.getBoatsInBattleA().getArrayListBoat().isEmpty()&&battle.getLstBoatsToPlace().isEmpty()&&battle.getLstBoatsCurrentlyBeingPlaced().isEmpty();
     }
 
     /**
@@ -53,15 +55,28 @@ public class BattleEndManager {
         Inventory lostInv = new Inventory();
         Inventory resoursHashMap = new Inventory();
 
+        FactionManager.getInstance().modifyRelationship(this.battle.getFactionB(),this.battle.getFactionA(),-5*this.battle.getDeadBoatsA().getArrayListBoat().size());
+        FactionManager.getInstance().modifyRelationship(this.battle.getFactionA(),this.battle.getFactionB(),-5*this.battle.getDeadBoatsB().getArrayListBoat().size());
         for(Boat boat : this.battle.getDeadBoatsB().getArrayListBoat()){
             TradeManager.getInstance().transferMaxAll(this.battle.getCopyToOrignalHashMap().get(boat).getInventory(), bigInv,null,null);
             this.battle.getTeamBOriginal().getArrayListBoat().remove(this.battle.getCopyToOrignalHashMap().get(boat));
             this.battle.getFactionB().removeBoat(this.battle.getCopyToOrignalHashMap().get(boat));
+            MapGame.getInstance().getHunterPreyHashMap().remove(this.battle.getCopyToOrignalHashMap().get(boat));
+            ArrayList<Boat> tmp = new ArrayList<>(MapGame.getInstance().getHunterPreyHashMap().keySet());
+            for(Boat boat1 : tmp){
+                if(MapGame.getInstance().getHunterPreyHashMap().get(boat1).equals(this.battle.getCopyToOrignalHashMap().get(boat)))MapGame.getInstance().getHunterPreyHashMap().remove(boat1);
+            }
         }
         for(Boat boat : this.battle.getDeadBoatsA().getArrayListBoat()){
             TradeManager.getInstance().transferMaxAll(this.battle.getCopyToOrignalHashMap().get(boat).getInventory(), lostInv,null,null);
             this.battle.getTeamAOriginal().getArrayListBoat().remove(this.battle.getCopyToOrignalHashMap().get(boat));
             this.battle.getFactionA().removeBoat(this.battle.getCopyToOrignalHashMap().get(boat));
+            MapGame.getInstance().getHunterPreyHashMap().remove(this.battle.getCopyToOrignalHashMap().get(boat));
+
+            ArrayList<Boat> tmp = new ArrayList<>(MapGame.getInstance().getHunterPreyHashMap().keySet());
+            for(Boat boat1 : tmp){
+                if(MapGame.getInstance().getHunterPreyHashMap().get(boat1).equals(this.battle.getCopyToOrignalHashMap().get(boat)))MapGame.getInstance().getHunterPreyHashMap().remove(boat1);
+            }
         }
         if(playerWin()){
             //On actualise les HP

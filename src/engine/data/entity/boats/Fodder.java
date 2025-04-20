@@ -16,12 +16,12 @@ public class Fodder extends Boat {
 
     public void upgradeDamageSpeed() {
         useUpgradePoint();
-        this.setDamageSpeed((int) (this.getDamageSpeed()+(GameConfiguration.UPGRADE_DEFAULT_DAMAGE_SPEED*GameConfiguration.FODDER_DAMAGE_SPEED_BOOST)));
+        this.setDamageSpeed((int) (Math.max(1,this.getDamageSpeed()+(GameConfiguration.UPGRADE_DEFAULT_DAMAGE_SPEED*GameConfiguration.FODDER_DAMAGE_SPEED_BOOST))));
     }
 
     public void upgradeSpeed() {
         useUpgradePoint();
-        this.setSpeed((int) (this.getSpeed()+(GameConfiguration.UPGRADE_DEFAULT_SPEED*GameConfiguration.FODDER_SPEED_BOOST)));
+        this.setSpeed((int) (this.getSpeed()+(Math.max(1,GameConfiguration.UPGRADE_DEFAULT_SPEED*GameConfiguration.FODDER_SPEED_BOOST))));
     }
 
     public void upgradeInventorySize() {
@@ -34,11 +34,11 @@ public class Fodder extends Boat {
     }
 
     public int nextUpgradeDamageSpeed() {
-        return (int) (this.getDamageSpeed()+(GameConfiguration.UPGRADE_DEFAULT_DAMAGE_SPEED*GameConfiguration.FODDER_DAMAGE_SPEED_BOOST));
+        return (int) (Math.max(1,this.getDamageSpeed()+(GameConfiguration.UPGRADE_DEFAULT_DAMAGE_SPEED*GameConfiguration.FODDER_DAMAGE_SPEED_BOOST)));
     }
 
     public int nextUpgradeSpeed() {
-        return (int) (this.getSpeed()+(GameConfiguration.UPGRADE_DEFAULT_SPEED*GameConfiguration.FODDER_SPEED_BOOST));
+        return (int) (this.getSpeed()+(Math.max(1,GameConfiguration.UPGRADE_DEFAULT_SPEED*GameConfiguration.FODDER_SPEED_BOOST)));
     }
 
     public int nextUpgradeInventorySize() {

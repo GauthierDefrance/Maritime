@@ -91,14 +91,6 @@ public class Faction implements Serializable {
         this.relationship.put(faction,relationship);
     }
 
-    public void addRelationship(Faction faction,int relationship) {
-        this.relationship.put(faction,getRelationship(faction)+relationship);
-    }
-
-    public void subtractRelationship(Faction faction,int relationship) {
-        this.relationship.put(faction,getRelationship(faction)-relationship);
-    }
-
     public void setAmountCurrency(int nb) {
         this.currencySimpleEntry.setValue(nb);
     }
