@@ -35,14 +35,17 @@ public class CombatMenu extends JPanel implements Runnable {
     private JPanel jNorthEastPanel;
     private JPanel jSouthATHPanel;
     private JPanel jWestATHPanel;
+    private JPanel jWestPanel;
     private JPanel jWestCenterPanel;
-    private JPanel jWestSouthPanel;
 
+    private JButton jCancelButton;
     private JButton jButtonNorthMenu1;
     private JButton jButtonNorthMenu2;
     private JButton jButtonNorthMenu3;
     private JButton jButtonNorthMenu4;
     private JButton confirmBattle;
+    private JButton showLeftMenuButton;
+    private JButton hideLeftMenuButton;
 
     private BattleDisplay dashboard;
     private Battle battle;
@@ -62,11 +65,12 @@ public class CombatMenu extends JPanel implements Runnable {
         dashboardJPanel = JComponentFactory.borderMenuPanel();
         jPanelATH = JComponentFactory.borderMenuPanel();
         jWestATHPanel = JComponentFactory.borderMenuPanel();
+        jWestPanel = JComponentFactory.borderMenuPanel();
         jSouthATHPanel = JComponentFactory.flowMenuPanel();
         jNorthATHPanel = JComponentFactory.borderMenuPanel();
         jNorthEastPanel = JComponentFactory.gridMenuPanel(1,4,0,0);
         jWestCenterPanel = JComponentFactory.gridMenuPanel(0,2);
-        jWestSouthPanel = JComponentFactory.gridMenuPanel(1,0,0,0);
+        jCancelButton = JComponentFactory.menuButton("Cancel",new cancelPlacingListener());
         confirmBattle = JComponentFactory.menuButton("Battle",new confirmContinueBattleListener());
 
         battle.setPlacingMode(true);
@@ -76,13 +80,23 @@ public class CombatMenu extends JPanel implements Runnable {
 
         //Window arrangement
         JLayeredPane jLayeredPane = new JLayeredPane();
-        JPanel jWestPanel = JComponentFactory.borderMenuPanel();
+        JPanel jWestButtonPanel = JComponentFactory.borderMenuPanel();
+        JPanel hideLeftMenuPanel = JComponentFactory.borderMenuPanel();
 
         JScrollPane jScrollPane = new JScrollPane(jWestCenterPanel);
         jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        jWestPanel.add(jScrollPane);
 
-        jWestSouthPanel.add(JComponentFactory.menuButton("Cancel",new cancelPlacingListener()));
+        showLeftMenuButton = JComponentFactory.menuButton(">", new showMenu(jWestPanel,jWestATHPanel));
+        jWestButtonPanel.add(showLeftMenuButton,BorderLayout.NORTH);
+        hideLeftMenuButton = JComponentFactory.menuButton("<", new showMenu(jWestButtonPanel,jWestATHPanel));
+        hideLeftMenuPanel.add(hideLeftMenuButton,BorderLayout.NORTH);
+
+        JPanel jWestTmpPanel = JComponentFactory.borderMenuPanel();
+        jWestTmpPanel.add(jScrollPane,BorderLayout.CENTER);
+        jWestTmpPanel.add(jCancelButton,BorderLayout.SOUTH);
+        jWestPanel.add(jWestTmpPanel,BorderLayout.CENTER);
+        jWestPanel.add(hideLeftMenuPanel,BorderLayout.EAST);
+
 
         jButtonNorthMenu1 = JComponentFactory.menuButton("⏯",new flipTimeListener());
         jButtonNorthMenu2 = JComponentFactory.menuButton(">",new setSpeedBoostListener(1));
@@ -98,6 +112,8 @@ public class CombatMenu extends JPanel implements Runnable {
         jWestATHPanel.setOpaque(false);
         jPanelATH.setOpaque(false);
         jWestPanel.setOpaque(false);
+        jWestButtonPanel.setOpaque(false);
+        hideLeftMenuPanel.setOpaque(false);
 
         dashboardJPanel.add(dashboard,BorderLayout.CENTER);
         JPanel jNorthPanel = JComponentFactory.borderMenuPanel();
@@ -105,13 +121,12 @@ public class CombatMenu extends JPanel implements Runnable {
         jNorthATHPanel.add(jNorthPanel,BorderLayout.EAST);
 
         jWestATHPanel.add(jWestPanel,BorderLayout.CENTER);
-        jWestATHPanel.add(jWestSouthPanel,BorderLayout.SOUTH);
 
         jSouthATHPanel.add(confirmBattle);
 
         jPanelATH.add(jNorthATHPanel,BorderLayout.NORTH);
         jPanelATH.add(jSouthATHPanel,BorderLayout.SOUTH);
-        jPanelATH.add(jWestATHPanel,BorderLayout.WEST);
+        if(battle.getFactionA().equals(MapGame.getInstance().getPlayer()))jPanelATH.add(jWestATHPanel,BorderLayout.WEST);
 
         jLayeredPane.add(dashboardJPanel,JLayeredPane.DEFAULT_LAYER);
         jLayeredPane.add(jPanelATH,JLayeredPane.PALETTE_LAYER);
@@ -124,8 +139,8 @@ public class CombatMenu extends JPanel implements Runnable {
 
         this.add(jLayeredPane);
         this.addKeyListener(new KeyControls());
-        this.addMouseListener(new MouseListener());
-        this.addMouseMotionListener(new MouseListener());
+        if(battle.getFactionA().equals(MapGame.getInstance().getPlayer()))this.addMouseListener(new MouseListener());
+        if(battle.getFactionA().equals(MapGame.getInstance().getPlayer()))this.addMouseMotionListener(new MouseListener());
         getWindow().addComponentListener(new ComponentControls());
         sizeUpdate();
         elementInPanelUpdate();
@@ -142,9 +157,10 @@ public class CombatMenu extends JPanel implements Runnable {
         jNorthATHPanel.setPreferredSize(new Dimension(getWindow().getWidth(),(int) (getWindow().getHeight()*0.15)));
         jNorthEastPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.2),(int) (getWindow().getHeight()*0.05)));
 
+        showLeftMenuButton.setPreferredSize(new Dimension((int) Math.max(26,getWindow().getHeight()*0.04), (int) Math.max(26,getWindow().getHeight()*0.04)));
+        hideLeftMenuButton.setPreferredSize(new Dimension((int) Math.max(26,getWindow().getHeight()*0.04), (int) Math.max(26,getWindow().getHeight()*0.04)));
         jSouthATHPanel.setPreferredSize(new Dimension(getWindow().getWidth(),(int) (getWindow().getHeight()*0.15)));
-        jWestSouthPanel.setPreferredSize(new Dimension(getWindow().getHeight(),(int) Math.max(26,getWindow().getHeight()*0.04)));
-        jWestATHPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.20),getWindow().getHeight()));
+        jWestPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.20),getWindow().getHeight()));
         jWestCenterPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.08* MapGame.getInstance().getPlayer().getLstBoat().size()))));
         confirmBattle.setPreferredSize(new Dimension((int) Math.max(50,getWindow().getWidth()*0.2), (int) Math.max(26,getWindow().getHeight()*0.08)));
         getWindow().revalidate();
@@ -152,13 +168,15 @@ public class CombatMenu extends JPanel implements Runnable {
     }
 
     public void elementInPanelUpdate() {
-        jWestCenterPanel.removeAll();
-        for (Boat boat : battle.getLstBoatsToPlace()){
-            JButton tmp = JComponentFactory.menuButton(boat, new buttonMouseListener(boat));
-            tmp.addMouseMotionListener(new buttonMouseListener(boat));
-            jWestCenterPanel.add(tmp);
+        if(battle.getFactionA().equals(MapGame.getInstance().getPlayer())) {
+            jWestCenterPanel.removeAll();
+            for (Boat boat : battle.getLstBoatsToPlace()) {
+                JButton tmp = JComponentFactory.menuButton(boat, new buttonMouseListener(boat));
+                tmp.addMouseMotionListener(new buttonMouseListener(boat));
+                jWestCenterPanel.add(tmp);
+            }
+            sizeUpdate();
         }
-        sizeUpdate();
     }
 
     public class setSpeedBoostListener implements ActionListener {
@@ -189,6 +207,23 @@ public class CombatMenu extends JPanel implements Runnable {
                 confirmBattle.setVisible(true);
                 battle.setPlacingMode(true);
             }
+        }
+    }
+
+    public class showMenu implements ActionListener {
+        private final JPanel jPanel1;
+        private final JPanel jPanel2;
+
+        public showMenu(JPanel jPanel1, JPanel jPanel2){
+            this.jPanel1 = jPanel1;
+            this.jPanel2 = jPanel2;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            jPanel2.removeAll();
+            jPanel2.add(jPanel1);
+            sizeUpdate();
         }
     }
 
@@ -249,7 +284,6 @@ public class CombatMenu extends JPanel implements Runnable {
             if (e.getButton() == MouseEvent.BUTTON1 && boat != null) {
                 battle.setCurrentBoat2(boat);
             }
-            if (battle.isInPlacingMode() && e.getButton() == MouseEvent.BUTTON3)jWestATHPanel.setVisible(!jWestATHPanel.isVisible());
         }
         @Override
         public void mouseReleased(MouseEvent e) {

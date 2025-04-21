@@ -145,6 +145,7 @@ public final class GameConfiguration {
         public static final int SPAWN_ZONE_MIN_Y = 60*GameConfiguration.GAME_SCALE;
         public static final int SPAWN_ZONE_MAX_Y = 300*GameConfiguration.GAME_SCALE;
         public static final int SPAWN_ZONE_STARTING_X = 600*GameConfiguration.GAME_SCALE;
+        public static final int SPAWN_ZONE_STARTING_X2 = 60*GameConfiguration.GAME_SCALE;
         public static final int SPAWN_ZONE_MAX_BOATS_PER_COLUMN = 6;
 
     //--------------------------------

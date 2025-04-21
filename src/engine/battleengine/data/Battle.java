@@ -1,4 +1,5 @@
 package engine.battleengine.data;
+import engine.MapGame;
 import engine.battleengine.utilities.DeepCopy;
 import engine.data.entity.boats.Boat;
 import engine.data.Fleet;
@@ -63,7 +64,7 @@ public class Battle {
         this.CopyToOrignalHashMap = new HashMap<>();
         this.teamA = DeepCopy.copyFleet(fleetA, CopyToOrignalHashMap);
         this.teamB = DeepCopy.copyFleet(fleetB, CopyToOrignalHashMap);
-        this.LstBoatsToPlace = this.teamA.getArrayListBoat();
+        if(factionA.equals(MapGame.getInstance().getPlayer()))this.LstBoatsToPlace = this.teamA.getArrayListBoat();
         this.LstBoatsCurrentlyBeingPlaced = new ArrayList<>();
         this.HunterPreyHashMap = new HashMap<>();
         this.HunterPreyPointHashMap = new HashMap<>();

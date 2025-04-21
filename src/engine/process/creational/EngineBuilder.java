@@ -118,7 +118,12 @@ public class EngineBuilder {
             battle.getHunterPreyPointHashMap().put(boat, null);
             battle.getReloadingHashMap().put(boat, GameConfiguration.RELOAD_TIME);
         }
-        BattlePlaceFleet.placeEnemyFleet(battle);
+        if(!factionA.equals(MapGame.getInstance().getPlayer())){
+            BattlePlaceFleet.placeEnemyFleet(battle.getTeamA(),GameConfiguration.SPAWN_ZONE_STARTING_X2);
+            battle.getBoatsInBattleA().getArrayListBoat().addAll(battle.getTeamA().getArrayListBoat());
+        }
+        BattlePlaceFleet.placeEnemyFleet(battle.getTeamB(),GameConfiguration.SPAWN_ZONE_STARTING_X);
+        battle.getBoatsInBattleB().getArrayListBoat().addAll(battle.getTeamB().getArrayListBoat());
         return battle;
         }
 
