@@ -29,6 +29,7 @@ public class FactionManager {
     private final HarborManager harborManager;
     private final FleetManager fleetManager;
     private final SeaRoadManager seaRoutManager;
+    private boolean needUpdate;
 
     /**
      * Typical builder generating an FactionManager
@@ -39,6 +40,15 @@ public class FactionManager {
         this.harborManager = new HarborManager();
         this.fleetManager = new FleetManager();
         this.seaRoutManager = new SeaRoadManager(this.fleetManager, this.boatManager);
+        this.needUpdate = false;
+    }
+
+    public boolean needUpdate(){
+        if(needUpdate){
+            needUpdate = false;
+            return true;
+        }
+        return false;
     }
 
     public synchronized static FactionManager getInstance() {
@@ -115,8 +125,13 @@ public class FactionManager {
                 seaRoutManager.sellAndPickUpAllResources(seaRoad);
             }
             else {
-                if(seaRoad.getTimer()<=0)modifyRelationship(faction,getMyFaction(seaRoad.getTargetHarbor().getColor()),-10);
-                else if(seaRoad.getSelection().getValue()==-1||seaRoad.getDemand().getValue()==-1)modifyRelationship(getMyFaction(seaRoad.getTargetHarbor().getColor()),faction,-10);
+                needUpdate = true;
+                if(seaRoad.getTimer()<=0){
+                    modifyRelationship(faction,getMyFaction(seaRoad.getTargetHarbor().getColor()),-10);
+                }
+                else if(seaRoad.getSelection().getValue()==-1||seaRoad.getDemand().getValue()==-1){
+                    modifyRelationship(getMyFaction(seaRoad.getTargetHarbor().getColor()),faction,-10);
+                }
                 else {
                     modifyRelationship(getMyFaction(seaRoad.getTargetHarbor().getColor()),faction,10);
                     modifyRelationship(faction,getMyFaction(seaRoad.getTargetHarbor().getColor()),10);

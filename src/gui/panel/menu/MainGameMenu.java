@@ -250,7 +250,8 @@ public class MainGameMenu extends JPanel implements Runnable {
             mapObject.put(seaRoad,tmp);
             jEastCenterChoice3CenterPanel2.add(tmp);
         }
-
+        if(currentObject!= null)ChangeCurrentJButton(currentObject);
+        sizeUpdate();
     }
 
     private void ChangeCurrentJButton(Object object){
@@ -462,11 +463,25 @@ public class MainGameMenu extends JPanel implements Runnable {
 
         }
     }
+    private void wantFight(ArrayList<Boat> tmp){
+        MapGame.getInstance().setTimeStop(true);
+        if(MapGame.getInstance().getPlayer().getLstBoat().contains(tmp.get(1))){
+            JOptionPane.showMessageDialog(MainGameMenu.this,"it's battle time !","Battle",JOptionPane.PLAIN_MESSAGE);
+            ThreadStop = true;
+            GUILoader.loadCombat(factionManager.startBattle(tmp.get(0),tmp.get(1)));
+        }
+        else if(JOptionPane.showConfirmDialog(MainGameMenu.this,"Do you want to start a battle ?","confirmation Battle",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+            FactionManager.getInstance().modifyRelationship(MapGame.getInstance().getPlayer(),FactionManager.getInstance().getMyFaction(tmp.get(1).getColor()),-15);
+            ThreadStop = true;
+            GUILoader.loadCombat(factionManager.startBattle(tmp.get(0),tmp.get(1)));
+        }
+        else MapGame.getInstance().setTimeStop(false);
+    }
 
     @Override
     public void run() {
         while (!ThreadStop) {
-            ArrayList<Boat> tmp = null;
+            ArrayList<Boat> tmp;
             try {
                 Thread.sleep((long) GameConfiguration.GAME_SPEED/speedBoost);
 
@@ -475,20 +490,10 @@ public class MainGameMenu extends JPanel implements Runnable {
             }
             if (!MapGame.getInstance().isTimeStop()){
                 factionManager.nextRound();
+                if(factionManager.needUpdate())elementInPanelUpdate();
                 tmp = factionManager.allChaseUpdate();
                 if(tmp != null){
-                    MapGame.getInstance().setTimeStop(true);
-                    if(MapGame.getInstance().getPlayer().getLstBoat().contains(tmp.get(1))){
-                        JOptionPane.showMessageDialog(MainGameMenu.this,"it's battle time !","Battle",JOptionPane.PLAIN_MESSAGE);
-                        ThreadStop = true;
-                        GUILoader.loadCombat(factionManager.startBattle(tmp.get(0),tmp.get(1)));
-                    }
-                    else if(JOptionPane.showConfirmDialog(MainGameMenu.this,"Do you want to start a battle ?","confirmation Battle",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
-                        FactionManager.getInstance().modifyRelationship(MapGame.getInstance().getPlayer(),FactionManager.getInstance().getMyFaction(tmp.get(1).getColor()),-15);
-                        ThreadStop = true;
-                        GUILoader.loadCombat(factionManager.startBattle(tmp.get(0),tmp.get(1)));
-                    }
-                    else MapGame.getInstance().setTimeStop(false);
+                    wantFight(tmp);
                 }
             }
             dashboard.repaint();

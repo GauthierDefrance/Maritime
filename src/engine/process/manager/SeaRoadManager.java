@@ -83,7 +83,7 @@ public class SeaRoadManager {
             if(NbResource>max(0,(int)seaRoad.getRatio())){
                 if(TradeManager.getInstance().transfer(seaRoad.getSelection().getKey(),NbResource,boat, seaRoad.getTargetHarbor())) {
 
-                    seaRoad.addTime((int) Math.max(NbResource, NbResource / seaRoad.getRatio()));
+                    seaRoad.addTime(2*(int) Math.max(NbResource, NbResource / seaRoad.getRatio()));
                     seaRoad.getSelection().setValue(seaRoad.getSelection().getValue()-NbResource);
                     seaRoad.getDemand().setValue(seaRoad.getDemand().getValue()-(int) (NbResource / seaRoad.getRatio()));
                     if (MapGame.getInstance().getPlayer().getLstBoat().contains(boat) || MapGame.getInstance().getPlayer().getLstHarbor().contains(seaRoad.getTargetHarbor())) MapGame.getInstance().addPopUp(new PopUp("+", new Point((int) boat.getPosition().getX(), (int) boat.getPosition().getY() - 10), GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES));
