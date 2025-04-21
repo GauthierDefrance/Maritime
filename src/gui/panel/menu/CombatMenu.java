@@ -38,6 +38,10 @@ public class CombatMenu extends JPanel implements Runnable {
     private JPanel jWestCenterPanel;
     private JPanel jWestSouthPanel;
 
+    private JButton jButtonNorthMenu1;
+    private JButton jButtonNorthMenu2;
+    private JButton jButtonNorthMenu3;
+    private JButton jButtonNorthMenu4;
     private JButton confirmBattle;
 
     private BattleDisplay dashboard;
@@ -80,10 +84,11 @@ public class CombatMenu extends JPanel implements Runnable {
 
         jWestSouthPanel.add(JComponentFactory.menuButton("Cancel",new cancelPlacingListener()));
 
-        JButton jButtonNorthMenu1 = JComponentFactory.menuButton("⏯",new flipTimeListener());
-        JButton jButtonNorthMenu2 = JComponentFactory.menuButton(">",new setSpeedBoostListener(1));
-        JButton jButtonNorthMenu3 = JComponentFactory.menuButton(">>",new setSpeedBoostListener(4));
-        JButton jButtonNorthMenu4 = JComponentFactory.menuButton(">>>",new setSpeedBoostListener(8));
+        jButtonNorthMenu1 = JComponentFactory.menuButton("⏯",new flipTimeListener());
+        jButtonNorthMenu2 = JComponentFactory.menuButton(">",new setSpeedBoostListener(1));
+        jButtonNorthMenu3 = JComponentFactory.menuButton(">>",new setSpeedBoostListener(4));
+        jButtonNorthMenu4 = JComponentFactory.menuButton(">>>",new setSpeedBoostListener(8));
+        jButtonNorthMenu2.setEnabled(false);
 
         jNorthEastPanel.add(jButtonNorthMenu1);
         jNorthEastPanel.add(jButtonNorthMenu2);
@@ -166,6 +171,11 @@ public class CombatMenu extends JPanel implements Runnable {
         @Override
         public void actionPerformed(ActionEvent e) {
             speedBoost = value;
+            jButtonNorthMenu1.setEnabled(true);
+            jButtonNorthMenu2.setEnabled(true);
+            jButtonNorthMenu3.setEnabled(true);
+            jButtonNorthMenu4.setEnabled(true);
+            ((JButton)e.getSource()).setEnabled(false);
         }
 
     }
@@ -175,9 +185,9 @@ public class CombatMenu extends JPanel implements Runnable {
         public void actionPerformed(ActionEvent e) {
             MapGame.getInstance().setTimeStop(!MapGame.getInstance().isTimeStop());
             if(MapGame.getInstance().isTimeStop()){
-            jWestATHPanel.setVisible(true);
-            confirmBattle.setVisible(true);
-            battle.setPlacingMode(true);
+                jWestATHPanel.setVisible(true);
+                confirmBattle.setVisible(true);
+                battle.setPlacingMode(true);
             }
         }
     }

@@ -65,6 +65,11 @@ public class MainGameMenu extends JPanel implements Runnable {
     private JButton jButtonLeftMenu3;
     private JButton jButtonLeftMenu4;
 
+    private JButton jButtonNorthMenu1;
+    private JButton jButtonNorthMenu2;
+    private JButton jButtonNorthMenu3;
+    private JButton jButtonNorthMenu4;
+
     private GameDisplay dashboard;
     private FactionManager factionManager;
     private boolean ThreadStop;
@@ -113,10 +118,11 @@ public class MainGameMenu extends JPanel implements Runnable {
         JPanel jEastCenterPanel = JComponentFactory.borderMenuPanel();
         JPanel jEastCenterNorthPanel = JComponentFactory.gridMenuPanel(1,4,0,0,jButtonLeftMenu1,jButtonLeftMenu2,jButtonLeftMenu3,jButtonLeftMenu4);
 
-        JButton jButtonNorthMenu1 = JComponentFactory.menuButton("⏯",new flipTimeListener());
-        JButton jButtonNorthMenu2 = JComponentFactory.menuButton(">",new setSpeedBoostListener(1));
-        JButton jButtonNorthMenu3 = JComponentFactory.menuButton(">>",new setSpeedBoostListener(4));
-        JButton jButtonNorthMenu4 = JComponentFactory.menuButton(">>>",new setSpeedBoostListener(8));
+        jButtonNorthMenu1 = JComponentFactory.menuButton("⏯",new flipTimeListener());
+        jButtonNorthMenu2 = JComponentFactory.menuButton(">",new setSpeedBoostListener(1));
+        jButtonNorthMenu3 = JComponentFactory.menuButton(">>",new setSpeedBoostListener(4));
+        jButtonNorthMenu4 = JComponentFactory.menuButton(">>>",new setSpeedBoostListener(8));
+        jButtonNorthMenu2.setEnabled(false);
 
         JScrollPane jScrollPane1 = JComponentFactory.ScrollPaneMenuPanel(jEastCenterChoice1CenterPanel);
         jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -370,6 +376,11 @@ public class MainGameMenu extends JPanel implements Runnable {
         @Override
         public void actionPerformed(ActionEvent e) {
             speedBoost = value;
+            jButtonNorthMenu1.setEnabled(true);
+            jButtonNorthMenu2.setEnabled(true);
+            jButtonNorthMenu3.setEnabled(true);
+            jButtonNorthMenu4.setEnabled(true);
+            ((JButton)e.getSource()).setEnabled(false);
         }
     }
 
