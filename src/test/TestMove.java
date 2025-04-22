@@ -27,7 +27,7 @@ public class TestMove {
 
         Military military0 = new Military("military0","blue", MapGame.getInstance().getLstHarbor().get(2).getGraphPosition());
         Military military1 = new Military("military1","blue", MapGame.getInstance().getLstHarbor().get(1).getGraphPosition());
-        Merchant merchant0 = new Merchant("merchant0","blue", MapGame.getInstance().getLstHarbor().get(2).getGraphPosition());
+        Merchant merchant0 = new Merchant("merchant0","blue", MapGame.getInstance().getLstHarbor().get(0).getGraphPosition());
         Standard standard0 = new Standard("standard0","blue", MapGame.getInstance().getLstHarbor().get(1).getGraphPosition());
         Standard standard1 = new Standard("standard1","blue", MapGame.getInstance().getLstHarbor().get(2).getGraphPosition());
         Fodder fodder0 = new Fodder("fodder0","blue", MapGame.getInstance().getLstHarbor().get(2).getGraphPosition());

@@ -25,6 +25,7 @@ public class MapGame implements Serializable {
     private Player player;
     private Pirate pirate;
     private boolean timeStop;
+    private double time;
     private ArrayList<PopUp> lstPopUp;
 
     private MapGame(){}
@@ -132,5 +133,17 @@ public class MapGame implements Serializable {
 
     public void setPirate(Pirate pirate) {
         this.pirate = pirate;
+    }
+
+    public double getTime() {
+        return time;
+    }
+
+    public void setTime(double time) {
+        this.time = time;
+    }
+
+    public void addTime(double time) {
+        this.time += time;
     }
 }

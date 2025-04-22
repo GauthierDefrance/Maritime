@@ -388,6 +388,7 @@ public class CombatMenu extends JPanel implements Runnable {
         while (!ThreadStop) {
             try {
                 Thread.sleep((long) GameConfiguration.GAME_SPEED/speedBoost);
+                MapGame.getInstance().addTime(((double)GameConfiguration.GAME_SPEED / speedBoost)/1000);
 
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());

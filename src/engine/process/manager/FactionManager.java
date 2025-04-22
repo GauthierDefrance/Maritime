@@ -15,6 +15,7 @@ import engine.utilities.SearchInGraph;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * Class Handling everything related directly to Factions in this game
@@ -58,11 +59,12 @@ public class FactionManager {
     }
 
     public void nextRound(){
-        allBoatApproachingHarbor();
         moveAllFactionBoat();
         allSeaRoadUpdate();
         allFleetUpdate();
         startChase();
+        botsActions();
+        allBoatApproachingHarbor();
         playerManager.updatePlayerVision();
         updateAllGeneratorTime();
     }
@@ -228,15 +230,33 @@ public class FactionManager {
         for(Faction hunterFaction : MapGame.getInstance().getLstBotFaction()){
             for(Boat hunter : hunterFaction.getLstBoat()) {
                 boolean flag = !MapGame.getInstance().getHunterPreyHashMap().containsKey(hunter);
-                if (flag) {
-                    for (Faction preyFaction : MapGame.getInstance().getLstFaction()) {
-                        if (flag && !hunterFaction.equals(preyFaction) && hunterFaction.getRelationship(preyFaction) <= -100) {
+                for (Faction preyFaction : MapGame.getInstance().getLstFaction()) {
+                    if(!hunterFaction.equals(preyFaction) && hunterFaction.getRelationship(preyFaction) <= -100) {
+                        if(!hunterFaction.equals(MapGame.getInstance().getPirate())) {
+                            for (Harbor harbor : preyFaction.getLstHarbor()) {
+                                if(harbor.getGraphPosition().getPoint().equals(hunter.getPosition())){
+                                    dealDamageHarbor(harbor,hunter);
+                                    flag = false;
+                                }
+                            }
+                        }
+                        if (flag) {
                             for (Boat prey : preyFaction.getLstBoat()) {
                                 if (flag && (hunter.getVisionRadius() / 2) >= prey.getPosition().distance(hunter.getPosition())) {
                                     chaseBoat(hunter, prey);
                                     flag = false;
                                 }
                             }
+                        }
+                    }
+                }
+            }
+            //for the player
+            if(hunterFaction.getRelationship(MapGame.getInstance().getPlayer()) <= -100) {
+                for (Boat boat : MapGame.getInstance().getPlayer().getLstBoat()) {
+                    for (Harbor harbor : hunterFaction.getLstHarbor()) {
+                        if(harbor.getGraphPosition().getPoint().equals(boat.getPosition())){
+                            dealDamageHarbor(harbor,boat);
                         }
                     }
                 }
@@ -253,6 +273,43 @@ public class FactionManager {
         for (SeaRoad seaRoad : faction2.getLstSeaRouts()){
             if(faction1.getLstHarbor().contains(seaRoad.getTargetHarbor()) || faction1.getLstHarbor().contains(seaRoad.getSellerHarbor())){
                 seaRoad.abandonTask();
+            }
+        }
+    }
+
+    public void dealDamageHarbor(Harbor harbor,Boat boat){
+
+    }
+
+    public void botsActions(){
+        Random random = new Random();
+        for(Faction botFaction : MapGame.getInstance().getLstBotFaction()){
+            boolean flag = false;
+            for (Boat boat : botFaction.getLstBoat()) {
+                for (Faction faction : MapGame.getInstance().getLstFaction()) {
+                    for (Harbor harbor : faction.getLstHarbor()) {
+                        if (botFaction.getRelationship(faction) <= -100 && harbor.getGraphPosition().getPoint().equals(boat.getPosition())) {
+                            flag = true;
+                        }
+                    }
+                }
+                for (Faction faction : MapGame.getInstance().getLstFaction()){
+                    if(botFaction.getRelationship(faction) <= -100){
+                        for(Harbor harbor : botFaction.getLstHarbor()){
+                            if(harbor.getHashMapBoat().containsKey(boat)) {
+                                getHarborManager().removeBoatInHarbor(harbor, boat);
+                                for(Fleet fleet : botFaction.getLstFleet()){
+                                    if(fleet.getArrayListBoat().contains(boat)){
+                                        getHarborManager().removeFleetInHarbor(harbor, fleet);
+                                    }
+                                }
+                            }
+                        }
+                        if(boat.getPath().isEmpty()&&!flag){
+                            boat.setPath(SearchInGraph.findPath(boat,faction.getLstHarbor().get(random.nextInt(faction.getLstHarbor().size())).getGraphPosition()));
+                        }
+                    }
+                }
             }
         }
     }

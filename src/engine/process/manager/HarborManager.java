@@ -46,7 +46,7 @@ public class HarborManager {
 
     public void removeBoatInHarbor(Harbor harbor,Boat boat){
         harbor.getHashMapBoat().remove(boat);
-        if(harbor.getHashMapBoat().get(boat)) {
+        if(harbor.getHashMapBoat().containsKey(boat) && harbor.getHashMapBoat().get(boat)) {
             boat.setPosition(new Point(harbor.getGraphPosition().getPoint()));
         }
     }

@@ -133,6 +133,7 @@ public class EngineBuilder {
 
     public static MapGame mapInit0() {
         MapGame.getInstance().setTimeStop(false);
+        MapGame.getInstance().setTime(0);
         ArrayList<PopUp> lstPopUp =new ArrayList<>();
         ArrayList<Harbor> lstHarbor = new ArrayList<>();
         ArrayList<Faction> lstFaction = new ArrayList<>();
@@ -242,7 +243,9 @@ public class EngineBuilder {
         return MapGame.getInstance();
     }
     public static MapGame mapInit1() {
+
         MapGame.getInstance().setTimeStop(false);
+        MapGame.getInstance().setTime(0);
         ArrayList<PopUp> lstPopUp =new ArrayList<>();
         ArrayList<Harbor> lstHarbor = new ArrayList<>();
         ArrayList<Faction> lstFaction = new ArrayList<>();
