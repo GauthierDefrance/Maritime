@@ -27,12 +27,14 @@ public class Debug extends JFrame{
 
         JButton timeStop = JComponentFactory.menuButton("timeStop",new TimeStop());
         JButton godMode = JComponentFactory.menuButton("GodMode",new GodMode());
+        JButton noSpawnMode = JComponentFactory.menuButton("NoSpawnMode",new NoSpawnMode());
         JButton combatMenu = JComponentFactory.menuButton("CombatMenu",new CombatMenu());
         JButton relationMenu = JComponentFactory.menuButton("RelationMenu", new RelationMenu());
         JButton choicePathMenu0 = JComponentFactory.menuButton("ChoicePathMenu0", new ChoiceMenu0());
         JButton choicePathMenu1 = JComponentFactory.menuButton("HarborMenu", new HarborMenu());
         contentPane.add(timeStop);
         contentPane.add(godMode);
+        contentPane.add(noSpawnMode);
         contentPane.add(combatMenu);
         contentPane.add(relationMenu);
         contentPane.add(choicePathMenu0);
@@ -52,6 +54,12 @@ public class Debug extends JFrame{
     private class GodMode implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             MapGame.getInstance().setGodMode(!MapGame.getInstance().isGodMode());
+        }
+    }
+
+    private class NoSpawnMode implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            MapGame.getInstance().setNoSpawnMode(!MapGame.getInstance().isNoSpawnMode());
         }
     }
 

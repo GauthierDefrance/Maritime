@@ -27,6 +27,7 @@ public class MapGame implements Serializable {
     private boolean timeStop;
     private double time;
     private boolean godMode;
+    private boolean NoSpawnMode;
     private ArrayList<PopUp> lstPopUp;
 
     private MapGame(){}
@@ -154,5 +155,13 @@ public class MapGame implements Serializable {
 
     public void setGodMode(boolean godMode) {
         this.godMode = godMode;
+    }
+
+    public boolean isNoSpawnMode() {
+        return NoSpawnMode;
+    }
+
+    public void setNoSpawnMode(boolean noSpawnMode) {
+        NoSpawnMode = noSpawnMode;
     }
 }

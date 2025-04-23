@@ -135,6 +135,7 @@ public class EngineBuilder {
         MapGame.getInstance().setTimeStop(false);
         MapGame.getInstance().setTime(0);
         MapGame.getInstance().setGodMode(false);
+        MapGame.getInstance().setNoSpawnMode(false);
         ArrayList<PopUp> lstPopUp =new ArrayList<>();
         ArrayList<Harbor> lstHarbor = new ArrayList<>();
         ArrayList<Faction> lstFaction = new ArrayList<>();
@@ -248,6 +249,7 @@ public class EngineBuilder {
         MapGame.getInstance().setTimeStop(false);
         MapGame.getInstance().setTime(0);
         MapGame.getInstance().setGodMode(false);
+        MapGame.getInstance().setNoSpawnMode(false);
         ArrayList<PopUp> lstPopUp =new ArrayList<>();
         ArrayList<Harbor> lstHarbor = new ArrayList<>();
         ArrayList<Faction> lstFaction = new ArrayList<>();
