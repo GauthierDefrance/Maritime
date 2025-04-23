@@ -6,6 +6,7 @@ import engine.data.Fleet;
 import engine.data.entity.Harbor;
 import engine.data.entity.boats.*;
 import engine.data.trading.Resource;
+import engine.process.creational.EngineBuilder;
 import engine.utilities.SearchInGraph;
 
 import java.awt.*;
@@ -131,7 +132,7 @@ public class HarborManager {
             case "Standard":
                 harbor.getInventory().subtract(GameConfiguration.WOOD,300);
                 harbor.getInventory().subtract(GameConfiguration.CLOTH,100);
-                boat = new Standard(newName,harbor.getColor(),harbor.getGraphPosition());
+                boat = EngineBuilder.Standard(newName,harbor.getGraphPosition(),harbor.getColor());
                 boat.setPosition(harbor.getGraphPosition().getX()*10000,harbor.getGraphPosition().getY()*10000);
                 harbor.getHashMapBoat().put(boat,true);
                 FactionManager.getInstance().getMyFaction(harbor.getColor()).addBoat(boat);
@@ -139,7 +140,7 @@ public class HarborManager {
             case "Fodder":
                 harbor.getInventory().subtract(GameConfiguration.WOOD,100);
                 harbor.getInventory().subtract(GameConfiguration.CLOTH,20);
-                boat = new Fodder(newName,harbor.getColor(),harbor.getGraphPosition());
+                boat = EngineBuilder.Fodder(newName,harbor.getGraphPosition(),harbor.getColor());
                 boat.setPosition(harbor.getGraphPosition().getX()*10000,harbor.getGraphPosition().getY()*10000);
                 harbor.getHashMapBoat().put(boat,true);
                 FactionManager.getInstance().getMyFaction(harbor.getColor()).addBoat(boat);
@@ -148,7 +149,7 @@ public class HarborManager {
                 harbor.getInventory().subtract(GameConfiguration.WOOD,700);
                 harbor.getInventory().subtract(GameConfiguration.CLOTH,200);
                 harbor.getInventory().subtract(GameConfiguration.METAL,50);
-                boat = new Merchant(newName,harbor.getColor(),harbor.getGraphPosition());
+                boat = EngineBuilder.Merchant(newName,harbor.getGraphPosition(),harbor.getColor());
                 boat.setPosition(harbor.getGraphPosition().getX()*10000,harbor.getGraphPosition().getY()*10000);
                 harbor.getHashMapBoat().put(boat,true);
                 FactionManager.getInstance().getMyFaction(harbor.getColor()).addBoat(boat);
@@ -157,7 +158,7 @@ public class HarborManager {
                 harbor.getInventory().subtract(GameConfiguration.WOOD,400);
                 harbor.getInventory().subtract(GameConfiguration.CLOTH,500);
                 harbor.getInventory().subtract(GameConfiguration.METAL,200);
-                boat = new Military(newName,harbor.getColor(),harbor.getGraphPosition());
+                boat = EngineBuilder.Military(newName,harbor.getGraphPosition(),harbor.getColor());
                 boat.setPosition(harbor.getGraphPosition().getX()*10000,harbor.getGraphPosition().getY()*10000);
                 harbor.getHashMapBoat().put(boat,true);
                 FactionManager.getInstance().getMyFaction(harbor.getColor()).addBoat(boat);

@@ -246,7 +246,7 @@ public class FactionManager {
         Fleet fleetHunter = getMyFleet(hunter);
         ArrayList<Boat> lstBoat = new ArrayList<>();
         for (Boat boat : prey.getHashMapBoat().keySet())if(prey.getHashMapBoat().get(boat))lstBoat.add(boat);
-        Fleet fleetPrey = new Fleet(lstBoat,"");
+        Fleet fleetPrey = EngineBuilder.Fleet(lstBoat,"");
         return EngineBuilder.createBattle(getMyFaction(hunter.getColor()),getMyFaction(prey.getColor()),fleetHunter,fleetPrey);
     }
 
@@ -427,7 +427,7 @@ public class FactionManager {
         if(MapGame.getInstance().getPirate().getLstBoat().size()<GameConfiguration.GAME_PIRATE_MAX_BOAT && (((int)(MapGame.getInstance().getTime()*10)) % GameConfiguration.GAME_FLEET_SPAWN_TIME) == 1 && !MapGame.getInstance().isNoSpawnMode()){
             int randomInt1 = random.nextInt(MapGame.getInstance().getMapGraphPoint().size()-11)+11;
             int randomInt2 = random.nextInt(GameConfiguration.GAME_FLEET_PIRATE_SIZE)+1;
-            Fleet fleet = new Fleet("");
+            Fleet fleet = EngineBuilder.Fleet("");
             MapGame.getInstance().getPirate().addFleet(fleet);
             for(int i = 0 ; i < randomInt2 ;i++) {
                 Boat newBoat = getRandomBoat(MapGame.getInstance().getPirate(), MapGame.getInstance().getMapGraphPoint().get(randomInt1));
@@ -450,19 +450,19 @@ public class FactionManager {
         int randomInt = random.nextInt(4);
         switch (randomInt) {
             case 0 :{
-                return new Standard("Standard", faction.getColor(), graphPoint);
+                return EngineBuilder.Standard("Standard", graphPoint, faction.getColor());
             }
             case 1 :{
-                return new Fodder("Fodder", faction.getColor(), graphPoint);
+                return EngineBuilder.Fodder("Fodder", graphPoint, faction.getColor());
             }
             case 2 :{
-                return new Merchant("Merchant", faction.getColor(), graphPoint);
+                return EngineBuilder.Merchant("Merchant", graphPoint, faction.getColor());
             }
             case 3 :{
-                return new Military("Military", faction.getColor(), graphPoint);
+                return EngineBuilder.Military("Military", graphPoint, faction.getColor());
             }
             default : {
-                return new Standard("Standard ", faction.getColor(), graphPoint);
+                return EngineBuilder.Standard("Standard ", graphPoint, faction.getColor());
             }
         }
     }
@@ -495,7 +495,7 @@ public class FactionManager {
             if(fleet2.getArrayListBoat().contains(boat))fleet=fleet2;
         }
         if(fleet == null){
-            fleet = new Fleet();
+            fleet = EngineBuilder.Fleet("");
             fleet.add(boat);
         }
         return fleet;
@@ -539,5 +539,8 @@ public class FactionManager {
 
     public HarborManager getHarborManager(){
         return harborManager;
+    }
+    public FleetManager getFleetManager(){
+        return fleetManager;
     }
 }

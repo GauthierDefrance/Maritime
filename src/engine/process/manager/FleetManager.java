@@ -67,7 +67,7 @@ public class FleetManager {
      */
     public void setNewPath(Fleet fleet, ArrayList<GraphPoint> path,boolean continuePath){
         if(path!=null){
-            fleet.setContinuePath(true);
+            fleet.setContinuePath(continuePath);
             ArrayList<GraphPoint> newPath = new ArrayList<>(path);
             fleet.setPath(newPath);
             for(Boat boat : fleet.getArrayListBoat()){

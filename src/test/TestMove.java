@@ -56,22 +56,24 @@ public class TestMove {
         Fodder fodder2 = new Fodder("fodder2","red", MapGame.getInstance().getLstHarbor().get(2).getGraphPosition());
         Fodder fodder3 = new Fodder("fodder3","red", MapGame.getInstance().getLstHarbor().get(2).getGraphPosition());
 
+        MapGame.getInstance().getLstFaction().get(0).getLstBoat().add(military3);
         MapGame.getInstance().getLstFaction().get(0).getLstBoat().add(military2);
         MapGame.getInstance().getLstFaction().get(0).getLstBoat().add(merchant1);
         MapGame.getInstance().getLstFaction().get(0).getLstBoat().add(merchant2);
         MapGame.getInstance().getLstFaction().get(0).getLstBoat().add(standard2);
         MapGame.getInstance().getLstFaction().get(0).getLstBoat().add(fodder1);
         MapGame.getInstance().getLstFaction().get(0).getLstBoat().add(fodder2);
+        MapGame.getInstance().getLstFaction().get(0).getLstBoat().add(fodder3);
 
         Fleet fleet2 = MapGame.getInstance().getLstFaction().get(0).getLstFleet().get(0);
-        fleet2.getArrayListBoat().add(military2);
-        fleet2.getArrayListBoat().add(merchant1);
-        fleet2.getArrayListBoat().add(merchant2);
-        fleet2.getArrayListBoat().add(standard2);
-        fleet2.getArrayListBoat().add(fodder1);
-        fleet2.getArrayListBoat().add(fodder2);
-        fleet2.getArrayListBoat().add(fodder3);
-        fleet2.getArrayListBoat().add(military3);
+//        fleet2.getArrayListBoat().add(military2);
+//        fleet2.getArrayListBoat().add(merchant1);
+//        fleet2.getArrayListBoat().add(merchant2);
+//        fleet2.getArrayListBoat().add(standard2);
+//        fleet2.getArrayListBoat().add(fodder1);
+//        fleet2.getArrayListBoat().add(fodder2);
+//        fleet2.getArrayListBoat().add(fodder3);
+//        fleet2.getArrayListBoat().add(military3);
 
 
         MapGame.getInstance().getLstHarbor().get(0).getInventory().add(GameConfiguration.METAL,10000);

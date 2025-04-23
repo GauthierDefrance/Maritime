@@ -47,6 +47,7 @@ public class SeaRoadManager {
      * Take a seaRoad set the fleet and set the continuePath of the fleet true and set the fleet path
      */
     public void setNewFleet(SeaRoad seaRoad, Fleet fleet) {
+        fleetManager.removePath(seaRoad.getFleet());
         seaRoad.setFleet(fleet);
         fleet.setContinuePath(true);
         fleetManager.setNewPath(fleet,seaRoad.getPath(),true);

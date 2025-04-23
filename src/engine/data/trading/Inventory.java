@@ -110,9 +110,10 @@ public class Inventory implements Serializable {
                 textResource.append(resource.getName());
                 textResource.append(" ");
                 textResource.append(content.get(resource));
-                textResource.append(" ");
+                textResource.append(" | ");
             }
         }
+        if(textResource.length()>2)textResource.delete(textResource.length()-2,textResource.length());
         return String.valueOf(textResource);
     }
     

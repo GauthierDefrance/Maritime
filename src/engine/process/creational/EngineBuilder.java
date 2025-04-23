@@ -52,52 +52,41 @@ public class EngineBuilder {
         return new Bullet(x, y, GameConfiguration.DEFAULT_BULLET_SPEED, angle, color);
     }
 
-    public static Standard Standard(String name,GraphPoint graphPoint){
+    public static Standard Standard(String name,GraphPoint graphPoint, String color){
         loggerWrite("Standard name "+name);
-        Standard standard = new Standard(name,"",graphPoint);
+        Standard standard = new Standard(name,color,graphPoint);
         return standard;
     }
 
-    public static Standard Standard(String name,GraphPoint graphPoint, Faction faction){
-        loggerWrite("Standard name "+name);
-        Standard standard = new Standard(name,faction.getColor(),graphPoint);
-        return standard;
-    }
-
-    public static Fodder Fodder(String name, GraphPoint graphPoint){
+    public static Fodder Fodder(String name, GraphPoint graphPoint, String color){
         loggerWrite("Fodder name "+name);
         Fodder fodder = new Fodder(name,"",graphPoint);
         return fodder;
     }
 
-    public static Fodder Fodder(String name, GraphPoint graphPoint, Faction faction){
-        loggerWrite("Fodder name "+name);
-        Fodder fodder = new Fodder(name,"",graphPoint);
-        return fodder;
-    }
-
-    public static Merchant Merchant(String name, GraphPoint graphPoint){
+    public static Merchant Merchant(String name, GraphPoint graphPoint, String color){
         loggerWrite("Merchant name "+name);
-        Merchant merchant = new Merchant(name,"",graphPoint);
-        return merchant;
+        return new Merchant(name,color,graphPoint);
     }
 
-    public static Merchant Merchant(String name, GraphPoint graphPoint, Faction faction){
-        loggerWrite("Merchant name "+name);
-        Merchant merchant = new Merchant(name,"",graphPoint);
-        return merchant;
-    }
-
-    public static Military Military(String name, GraphPoint graphPoint){
+    public static Military Military(String name, GraphPoint graphPoint, String color){
         loggerWrite("Military name "+name);
-        Military military = new Military(name,"",graphPoint);
-        return military;
+        return new Military(name,color,graphPoint);
     }
 
-    public static Harbor harbor(String name,Point position , GraphPoint graphPoint){
+    public static Fleet Fleet(String name){
+        loggerWrite("Fleet name "+name);
+        return new Fleet(name);
+    }
+
+    public static Fleet Fleet(ArrayList<Boat> lstBoat,String name){
+        loggerWrite("Fleet name "+name);
+        return new Fleet(lstBoat,name);
+    }
+
+    public static Harbor harbor(String name,Point position , GraphPoint graphPoint, String color){
         loggerWrite("Harbor name "+name);
-        Harbor harbor = new Harbor(name,"",position,graphPoint);
-        return harbor;
+        return new Harbor(name,color,position,graphPoint);
     }
 
     public static Battle createBattle(Faction factionA, Faction factionB, Fleet fleetA, Fleet fleetB) {

@@ -72,6 +72,8 @@ public class Fleet implements Serializable {
     }
 
     public void remove(Boat boat) {
+        boat.setContinuePath(false);
+        boat.getPath().clear();
         this.lstBoats.remove(boat);
     }
 
