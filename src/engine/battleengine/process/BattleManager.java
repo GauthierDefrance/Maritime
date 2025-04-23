@@ -1,6 +1,7 @@
 package engine.battleengine.process;
 
 import engine.battleengine.data.Battle;
+import engine.data.entity.boats.Boat;
 
 import java.util.ArrayList;
 
@@ -63,6 +64,30 @@ public class BattleManager {
         return false;
     }
 
+    public static void fakeBattle(Battle battle){
+        if(battle.getLstBoatsToPlace() !=null) {
+            battle.getBoatsInBattleA().getArrayListBoat().addAll(battle.getLstBoatsToPlace());
+            battle.getLstBoatsToPlace().clear();
+        }
+        int a = 0;
+        int b = 0;
+        for (Boat boat : battle.getBoatsInBattleA().getArrayListBoat()){
+            a += boat.getCurrentHp()*boat.getDamageSpeed()*boat.getSpeed();
+        }
+        for (Boat boat : battle.getBoatsInBattleB().getArrayListBoat()){
+            b += boat.getCurrentHp()*boat.getDamageSpeed()*boat.getSpeed();
+        }
+        if(a>b) {
+            battle.getDeadBoatsB().getArrayListBoat().addAll(battle.getBoatsInBattleB().getArrayListBoat());
+            battle.getBoatsInBattleB().getArrayListBoat().clear();
+        }
+        else {
+            battle.getDeadBoatsA().getArrayListBoat().addAll(battle.getBoatsInBattleA().getArrayListBoat());
+            battle.getBoatsInBattleA().getArrayListBoat().clear();
+        }
+        BattleEndManager endManager = new BattleEndManager(battle);
+        endManager.actualizeOriginalFleet();
+    }
 
     public ArrayList<String> battleEnd(){
         return battleEndManager.actualizeOriginalFleet();

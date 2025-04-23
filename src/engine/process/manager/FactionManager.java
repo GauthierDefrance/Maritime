@@ -7,6 +7,7 @@ import engine.data.entity.Harbor;
 import engine.data.entity.boats.*;
 import engine.data.Fleet;
 import engine.data.faction.Faction;
+import engine.data.faction.Pirate;
 import engine.data.graph.GraphPoint;
 import engine.process.creational.EngineBuilder;
 import engine.data.trading.SeaRoad;
@@ -495,15 +496,14 @@ public class FactionManager {
     }
 
     public void modifyRelationship(Faction factionTarget, Faction factionOwner, int value){
-        int uncheckedResult = factionOwner.getRelationship(factionTarget) + value;
-        if (uncheckedResult <= GameConfiguration.WAR_THRESHOLD) {
-            factionOwner.setRelationship(factionTarget,GameConfiguration.WAR_THRESHOLD);
-            warTime(factionTarget, factionOwner);
+        if(!(factionTarget instanceof Pirate)) {
+            int uncheckedResult = factionOwner.getRelationship(factionTarget) + value;
+            if (uncheckedResult <= GameConfiguration.WAR_THRESHOLD) {
+                factionOwner.setRelationship(factionTarget, GameConfiguration.WAR_THRESHOLD);
+                warTime(factionTarget, factionOwner);
+            }
+            else factionOwner.setRelationship(factionTarget, Math.min(uncheckedResult, GameConfiguration.BFF_THRESHOLD));
         }
-        else if(uncheckedResult >= GameConfiguration.BFF_THRESHOLD){
-            factionOwner.setRelationship(factionTarget,GameConfiguration.BFF_THRESHOLD);
-        }
-        else factionOwner.setRelationship(factionTarget,uncheckedResult);
     }
 
     public SeaRoadManager getSeaRoadManager() {
