@@ -2,6 +2,7 @@ package engine.process.manager;
 
 import engine.data.entity.Entity;
 import engine.data.entity.Harbor;
+import engine.data.faction.Faction;
 import engine.data.trading.*;
 
 import java.util.HashMap;
@@ -166,16 +167,18 @@ public class TradeManager {
             return 0; //Cannot trade a resource for the same one
         }
 
-        double ratio = ((double) offer.getSelection().getValue()*offer.getSelection().getKey().getValue()) / offer.getDemand().getValue()*offer.getDemand().getKey().getValue();
-        double relation = FactionManager.getInstance().getMyFaction(offer.getTargetHarbor().getColor()).getRelationship(FactionManager.getInstance().getMyFaction(offer.getSellerHarbor().getColor()));
+        double offerValue = offer.getSelection().getValue() * offer.getSelection().getKey().getValue();
+        double demandValue = offer.getDemand().getValue() * offer.getDemand().getKey().getValue();
+        double ratio = offerValue / demandValue;
 
-        double relationshipModifier = (relation / 100.0);
+        Faction myFaction = FactionManager.getInstance().getMyFaction(offer.getTargetHarbor().getColor());
+        Faction sellerFaction = FactionManager.getInstance().getMyFaction(offer.getSellerHarbor().getColor());
+        double relation = myFaction.getRelationship(sellerFaction); // Can only be between -100 and +100
+        double relationshipModifier = relation / 100.0;
+        if(relationshipModifier > 0) relationshipModifier *= 0.25;
 
-        if(relationshipModifier > 0) {
-            relationshipModifier *= 0.25;
-        }
-        double successChance = Math.max(0,(ratio + (relationshipModifier)));
-        return Math.max(0,Math.min(100,(successChance * 100)-20));
+        double successChance = ratio + relationshipModifier;
+        return Math.max(0, Math.min(100, successChance * 100 - 20));
     }
 
     /**
