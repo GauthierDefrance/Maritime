@@ -112,6 +112,11 @@ public class BulletManager {
         collideLst(this.battle.getLstBulletsteamB(),this.battle.getBoatsInBattleA());
     }
 
+    /**
+     * Private method that check if a bullet has collided a Boat.
+     * @param lstBullets
+     * @param fleet
+     */
     private void collideLst(ArrayList<Bullet> lstBullets, Fleet fleet) {
         Iterator<Bullet> bulletsIt = lstBullets.iterator();
         Bullet tmp;
@@ -124,6 +129,12 @@ public class BulletManager {
         }
     }
 
+    /**
+     * Methods that check if a bullet has collided with any boat in a Fleet
+     * @param bullet
+     * @param fleet
+     * @return
+     */
     private Boolean collide(Bullet bullet, Fleet fleet) {
         Boat tmp = BoatManager.boatCollisionToPoint(bullet.getPosition(), fleet.getArrayListBoat());
         if(tmp != null){

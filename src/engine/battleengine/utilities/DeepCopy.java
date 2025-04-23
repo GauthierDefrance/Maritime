@@ -3,7 +3,6 @@ package engine.battleengine.utilities;
 import engine.data.Fleet;
 import engine.data.entity.boats.*;
 import engine.data.graph.GraphPoint;
-import engine.process.creational.EngineBuilder;
 import log.LoggerUtility;
 import org.apache.log4j.Logger;
 
@@ -12,7 +11,7 @@ import java.util.HashMap;
 
 /**
  * @author Gauthier Defrance
- * @version 0.1
+ * @version 0.2
  */
 public final class DeepCopy {
     private static Logger logger = LoggerUtility.getLogger(DeepCopy.class);

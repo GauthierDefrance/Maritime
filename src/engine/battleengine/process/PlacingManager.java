@@ -51,6 +51,7 @@ public class PlacingManager {
 
     /**
      * Method that is used to confirm the end of the Placing phase.
+     * @return Bool
      */
     public boolean confirmContinueBattle(){
         //potentielle modification des conditions

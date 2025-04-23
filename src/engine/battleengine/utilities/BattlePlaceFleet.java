@@ -10,6 +10,11 @@ import java.util.Iterator;
 
 public final class BattlePlaceFleet {
 
+    /**
+     * Function that place the ennemy fleet at the starting coordinate x
+     * @param fleet
+     * @param x
+     */
     public static void placeEnemyFleet(Fleet fleet,int x) {
         ArrayList<Boat> group = new ArrayList<>();
         Iterator<Boat> fleetIterator = fleet.getArrayListBoat().iterator();
@@ -31,6 +36,13 @@ public final class BattlePlaceFleet {
         }
     }
 
+    /**
+     * Method that place an ArrayList of Boat beetween a yMin and a yMax at a x.
+     * @param yMin
+     * @param yMax
+     * @param x
+     * @param boats
+     */
     public static void boatPlacerColumn(int yMin, int yMax, int x, ArrayList<Boat> boats) {
         double distance = (double) (yMax - yMin) / (boats.size()+1);
         int i = 0;

@@ -20,6 +20,12 @@ public final class AngleCalculator {
         return Math.atan2(y2 - y1, x2 - x1);
     }
 
+    /**
+     * Method that caculate the angle beetween two points.
+     * @param boat
+     * @param direction
+     * @return double
+     */
     public static double calculateDeltaAngle(Boat boat, Point direction){
         double angle = AngleCalculator.calculateAngle(boat.getPosition(), direction);
         double deltaAngle = angle - boat.getAngle();
