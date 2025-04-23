@@ -130,7 +130,7 @@ public class HarborMenu extends JPanel {
         jPanelCenter.add(jPanelCenterEastTmp);
         jPanelCenter.add(jPanelCenterCenter);
         jPanelCenter.add(jPanelWestGrid);
-        jPanelCenter.add(jPanelEastCenter,BorderLayout.CENTER);
+        jPanelCenter.add(jPanelEastCenter);
 
         this.add(jPanelNorthResource,BorderLayout.NORTH);
         this.add(jPanelCenter,BorderLayout.CENTER);

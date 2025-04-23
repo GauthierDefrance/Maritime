@@ -1,5 +1,6 @@
 package engine.data.trading;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Objects;
  * @author Zue Jack-Arthur
  * @version 0.3
  */
-public class Resource {
+public class Resource implements Serializable {
     private String name;
     private int value;
     private int productionRate;

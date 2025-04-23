@@ -19,6 +19,9 @@ public class FleetMenu extends JPanel {
     private boolean isInSeaRoadMode;
     private Fleet activeFleet;
 
+    private JPanel jPanelCenter1;
+    private JPanel jPanelCenter2;
+    private JPanel jPanelCenter3;
     private JPanel jPanelGrid;
     private JPanel gridPanel1;
     private JPanel gridPanel2;
@@ -39,6 +42,9 @@ public class FleetMenu extends JPanel {
     public void init() {
         this.setLayout(new BorderLayout());
 
+        jPanelCenter1 = JComponentFactory.borderMenuPanel();
+        jPanelCenter2 = JComponentFactory.borderMenuPanel();
+        jPanelCenter3 = JComponentFactory.borderMenuPanel();
         jPanelGrid = JComponentFactory.gridMenuPanel(0, 1, GameConfiguration.BUTTON_SEPARATOR,GameConfiguration.BUTTON_SEPARATOR);
         goBackButton = JComponentFactory.menuButton("Go back", new goBackButtonListener());
         isInSeaRoadMode = false;
@@ -49,21 +55,11 @@ public class FleetMenu extends JPanel {
         JScrollPane jScrollPane1 = JComponentFactory.ScrollPaneMenuPanel(gridPanelTmp1);
         jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-
         gridPanel2 = JComponentFactory.gridMenuPanel(0,1);
         JPanel gridPanelTmp2 = JComponentFactory.voidPanel();
         gridPanelTmp2.add(gridPanel2);
         JScrollPane jScrollPane2 = JComponentFactory.ScrollPaneMenuPanel(gridPanelTmp2);
         jScrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-
-        JPanel jPanelCenterCenter = JComponentFactory.borderMenuPanel();
-        jPanelCenterCenter.add(jScrollPane2,BorderLayout.CENTER);
-        jPanelCenterCenter.add(jPanelGrid,BorderLayout.SOUTH);
-
-        jPanelGrid.add(JComponentFactory.menuButton(""));
-        jPanelGrid.add(JComponentFactory.menuButton(""));
-        jPanelGrid.add(JComponentFactory.menuButton(""));
-
 
         gridPanel3 = JComponentFactory.gridMenuPanel(0,1);
         JPanel gridPanelTmp3 = JComponentFactory.voidPanel();
@@ -71,10 +67,20 @@ public class FleetMenu extends JPanel {
         JScrollPane jScrollPane3 = JComponentFactory.ScrollPaneMenuPanel(gridPanelTmp3);
         jScrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
+
+        jPanelCenter1.add(jScrollPane1,BorderLayout.CENTER);
+        jPanelCenter2.add(jScrollPane2,BorderLayout.CENTER);
+        jPanelCenter3.add(jScrollPane3,BorderLayout.CENTER);
+        jPanelCenter2.add(jPanelGrid,BorderLayout.SOUTH);
+
+        jPanelGrid.add(JComponentFactory.menuButton(""));
+        jPanelGrid.add(JComponentFactory.menuButton(""));
+        jPanelGrid.add(JComponentFactory.menuButton(""));
+
         JPanel jPanelCenter = JComponentFactory.flowMenuPanel();
-        jPanelCenter.add(jScrollPane1);
-        jPanelCenter.add(jPanelCenterCenter);
-        jPanelCenter.add(jScrollPane3);
+        jPanelCenter.add(jPanelCenter1);
+        jPanelCenter.add(jPanelCenter2);
+        jPanelCenter.add(jPanelCenter3);
 
         this.add(jPanelCenter,BorderLayout.CENTER);
         this.addKeyListener(new KeyControls());
@@ -84,6 +90,14 @@ public class FleetMenu extends JPanel {
     }
 
     private void sizeUpdate() {
+        gridPanel1.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.17), (int) (getWindow().getHeight()*(0.08* (gridPanel1.getComponentCount())))));
+        gridPanel2.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.17), (int) (getWindow().getHeight()*(0.08* (gridPanel2.getComponentCount())))));
+        gridPanel3.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.17), (int) (getWindow().getHeight()*(0.08* (gridPanel3.getComponentCount())))));
+        jPanelCenter1.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.2), (int) (getWindow().getHeight()*0.8)));
+        jPanelCenter2.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.2), (int) (getWindow().getHeight()*0.8)));
+        jPanelCenter3.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.2), (int) (getWindow().getHeight()*0.8)));
+
+        jPanelGrid.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.25), (int) (getWindow().getHeight()*(0.08*jPanelGrid.getComponentCount()))));
         getWindow().revalidate();
         getWindow().repaint();
     }
