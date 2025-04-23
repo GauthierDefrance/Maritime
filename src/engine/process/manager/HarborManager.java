@@ -181,7 +181,7 @@ public class HarborManager {
     }
 
     public void levelUpBoat(Harbor harbor, Boat boat){
-        FactionManager.getInstance().getMyFaction(harbor.getColor()).subtractAmountCurrency(harbor.getLevel()*GameConfiguration.COST_LEVEL_UP_BOAT);
+        FactionManager.getInstance().getMyFaction(harbor.getColor()).subtractAmountCurrency(boat.getLevel()*GameConfiguration.COST_LEVEL_UP_BOAT);
         boat.levelUp();
     }
 

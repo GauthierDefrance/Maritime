@@ -277,7 +277,7 @@ public class HarborMenu extends JPanel {
                 healButton.setText("heal Boat "+boat.getName()+" : "+(boat.getMaxHp()-boat.getCurrentHp())*GameConfiguration.COST_HEAL_BOAT+" "+GameConfiguration.WOOD.getName());
                 if(FactionManager.getInstance().getHarborManager().canIHealBoat(activeHarbor,boat))healButton.setEnabled(true);
 
-                levelUpButton.setText("LevelUp "+boat.getLevel()+" -> "+(boat.getLevel()+1)+" : "+boat.getLevel()* GameConfiguration.COST_LEVEL_UP_BOAT+" "+MapGame.getInstance().getPlayer().getCurrency().getName());
+                levelUpButton.setText("LevelUp "+boat.getLevel()+" -> "+(boat.getLevel()+1)+" : "+boat.getLevel()*GameConfiguration.COST_LEVEL_UP_BOAT+" "+MapGame.getInstance().getPlayer().getCurrency().getName());
                 if(FactionManager.getInstance().getHarborManager().canILevelUpBoat(activeHarbor, (Boat) activeObject))levelUpButton.setEnabled(true);
 
 

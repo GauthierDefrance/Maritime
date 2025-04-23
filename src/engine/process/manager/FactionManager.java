@@ -342,7 +342,7 @@ public class FactionManager {
                     for (Faction faction : MapGame.getInstance().getLstFaction()) {
                         if (botFaction.getRelationship(faction) <= -100) {
                             Harbor harbor = getMyHarbor(boat);
-                            fleetManager.removePath(getMyFleet(boat));
+                            if(!getMyFleet(boat).getPath().isEmpty())fleetManager.removePath(getMyFleet(boat));
                             isWar = true;
                             if (harbor != null) {
                                 getHarborManager().removeBoatInHarbor(harbor, boat);
@@ -372,13 +372,25 @@ public class FactionManager {
                 if(!isWar){
                     for (Fleet fleet : botFaction.getLstFleet()){
                         if(!fleet.getContinuePath()) {
-                            if (!botFaction.getLstHarbor().isEmpty()) {
+                            if (MapGame.getInstance().getLstHarbor().size() > botFaction.getLstHarbor().size()+MapGame.getInstance().getPlayer().getLstHarbor().size()) {
+                                int randomInt1 = random.nextInt(botFaction.getLstHarbor().size());
+                                int randomInt2 = random.nextInt(MapGame.getInstance().getLstHarbor().size());
+                                while (botFaction.getLstHarbor().contains(MapGame.getInstance().getLstHarbor().get(randomInt2)) || MapGame.getInstance().getPlayer().getLstHarbor().contains(MapGame.getInstance().getLstHarbor().get(randomInt2))) {
+                                    randomInt2 = random.nextInt(MapGame.getInstance().getLstHarbor().size());
+                                }
+                                fleetManager.setNewPath(fleet, SearchInGraph.findPath(botFaction.getLstHarbor().get(randomInt1).getGraphPosition(), MapGame.getInstance().getLstHarbor().get(randomInt2).getGraphPosition()),true);
+                            }
+                            else if(botFaction.getLstHarbor().size()>=2){
                                 int randomInt1 = random.nextInt(botFaction.getLstHarbor().size());
                                 int randomInt2 = random.nextInt(MapGame.getInstance().getLstHarbor().size());
                                 while (MapGame.getInstance().getPlayer().getLstHarbor().contains(MapGame.getInstance().getLstHarbor().get(randomInt2))) {
                                     randomInt2 = random.nextInt(MapGame.getInstance().getLstHarbor().size());
                                 }
                                 fleetManager.setNewPath(fleet, SearchInGraph.findPath(botFaction.getLstHarbor().get(randomInt1).getGraphPosition(), MapGame.getInstance().getLstHarbor().get(randomInt2).getGraphPosition()),true);
+                            }
+                            else {
+                                int randomInt = random.nextInt(MapGame.getInstance().getMapGraphPoint().size()-11)+11;
+                                fleetManager.setNewPath(fleet, SearchInGraph.findPath(botFaction.getLstHarbor().get(0).getGraphPosition(), MapGame.getInstance().getMapGraphPoint().get(randomInt)),true);
                             }
                         }
                         else {

@@ -3,6 +3,9 @@ package engine.battleengine.utilities;
 import engine.data.Fleet;
 import engine.data.entity.boats.*;
 import engine.data.graph.GraphPoint;
+import engine.process.creational.EngineBuilder;
+import log.LoggerUtility;
+import org.apache.log4j.Logger;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -12,6 +15,7 @@ import java.util.HashMap;
  * @version 0.1
  */
 public final class DeepCopy {
+    private static Logger logger = LoggerUtility.getLogger(DeepCopy.class);
     /**
      * Classe permettant de faire une copie profonde totalement différente et sans aucune références partagées
      * @param input une fleet remplies d'élements.
@@ -42,10 +46,17 @@ public final class DeepCopy {
                     break;
                 }
                 default: {
-                    System.err.println(boat.getClass().getName()+" non reconnu par la deepcopy !");
+                    logger.warn(boat.getClass().getName()+" non reconnu par Deepcopy");
                     continue;
                 }
             }
+            tmp.setMaxHp(boat.getMaxHp());
+            tmp.setCurrentHp(boat.getCurrentHp());
+            tmp.setDamageSpeed(boat.getDamageSpeed());
+            tmp.setSpeed(boat.getSpeed());
+
+
+
             tmp.setNextGraphPoint(null);
             tmp.setOldGraphPoint(null);
             output.add(tmp);
