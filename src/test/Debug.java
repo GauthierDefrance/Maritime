@@ -31,14 +31,16 @@ public class Debug extends JFrame{
         JButton combatMenu = JComponentFactory.menuButton("CombatMenu",new CombatMenu());
         JButton relationMenu = JComponentFactory.menuButton("RelationMenu", new RelationMenu());
         JButton choicePathMenu0 = JComponentFactory.menuButton("ChoicePathMenu0", new ChoiceMenu0());
-        JButton choicePathMenu1 = JComponentFactory.menuButton("HarborMenu", new HarborMenu());
+        JButton HarborMenu = JComponentFactory.menuButton("HarborMenu", new HarborMenu());
+        JButton FleetMenu = JComponentFactory.menuButton("FleetMenu", new FleetMenu());
         contentPane.add(timeStop);
         contentPane.add(godMode);
         contentPane.add(noSpawnMode);
         contentPane.add(combatMenu);
         contentPane.add(relationMenu);
         contentPane.add(choicePathMenu0);
-        contentPane.add(choicePathMenu1);
+        contentPane.add(HarborMenu);
+        contentPane.add(FleetMenu);
         setAlwaysOnTop(true);
         setFocusable(false);
         setLocationRelativeTo(null);
@@ -72,6 +74,21 @@ public class Debug extends JFrame{
                     EngineBuilder.mapInit(0);
                     TestMove.addBoatTest();
                     GUILoader.loadChoicePathMenu(MapGame.getInstance().getPlayer().getLstHarbor().get(0),MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1), GameConfiguration.ROOT_MAIN_GAME);
+                    break;
+                }
+                default : {
+                }
+            }
+        }
+    }
+
+    private class FleetMenu implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
+                case "gui.panel.menu.OptionsMenu" :
+                case "gui.panel.menu.PauseMenu" : {
+                    GUILoader.loadFleetMenu(MapGame.getInstance().getPlayer().getLstFleet().get(0));
                     break;
                 }
                 default : {

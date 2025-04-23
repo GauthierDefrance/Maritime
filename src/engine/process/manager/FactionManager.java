@@ -501,6 +501,15 @@ public class FactionManager {
         return fleet;
     }
 
+    public boolean doIHaveFleet(Boat boat){
+        for(Fleet fleet2 : getMyFaction(boat.getColor()).getLstFleet()){
+            if(fleet2.getArrayListBoat().contains(boat)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Harbor getMyHarbor(Boat boat){
         Harbor harbor = null;
         for(Harbor harbor2 : getMyFaction(boat.getColor()).getLstHarbor()){

@@ -72,8 +72,8 @@ public class TestGraph {
         ArrayList<GraphPoint> PList = SearchInGraph.findPath(this.Origin, this.Destination);
 
         assertNotNull(PList);
-        assertEquals(this.Destination, PList.getLast());
-        assertEquals(this.Origin, PList.getFirst());
+        assertEquals(this.Destination, PList.get(PList.size()-1));
+        assertEquals(this.Origin, PList.get(0));
         assertEquals(3, PList.size());
     }
 

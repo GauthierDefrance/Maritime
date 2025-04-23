@@ -2,6 +2,7 @@ package gui.utilities;
 
 import engine.MapGame;
 import engine.battleengine.data.Battle;
+import engine.data.Fleet;
 import engine.data.entity.Harbor;
 import engine.data.faction.Faction;
 import engine.data.trading.SeaRoad;
@@ -35,6 +36,10 @@ public class GUILoader {
 
     public static void loadHarborMenu(Harbor harbor){
         actualise(new HarborMenu(harbor));
+    }
+
+    public static void loadFleetMenu(Fleet fleet){
+        actualise(new FleetMenu(fleet));
     }
 
     public static void loadPauseMenu(int token,Object object){

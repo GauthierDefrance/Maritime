@@ -2,7 +2,6 @@ package gui.panel.menu;
 
 import config.GameConfiguration;
 import engine.MapGame;
-import engine.data.Fleet;
 import engine.data.entity.Harbor;
 import engine.data.entity.boats.*;
 import engine.data.trading.Resource;
@@ -12,8 +11,6 @@ import gui.process.PaintEntity;
 import gui.utilities.GUILoader;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -191,7 +188,7 @@ public class HarborMenu extends JPanel {
                 if(activeHarbor.getHashMapBoat().get(boat)){
                    tmp = JComponentFactory.menuButton(boat,new buttonObjectListener(boat));
                    gridPanel.add(tmp);
-                   if(activeObject!=null && activeObject.equals(boat))ChangeCurrentJButton(tmp);
+                   if(activeObject!=null && activeObject.equals(boat)) changeCurrentJButton(tmp);
                 }
             }
         }
@@ -201,7 +198,7 @@ public class HarborMenu extends JPanel {
                 tmp.setBackground(Color.darkGray);
                 tmp.setForeground(Color.white);
                 gridPanel.add(tmp);
-                if(activeObject!=null && activeObject.equals(resource))ChangeCurrentJButton(tmp);
+                if(activeObject!=null && activeObject.equals(resource)) changeCurrentJButton(tmp);
             }
         }
     }
@@ -388,7 +385,7 @@ public class HarborMenu extends JPanel {
         sizeUpdate();
     }
 
-    private void ChangeCurrentJButton(JButton jButton){
+    private void changeCurrentJButton(JButton jButton){
         if(activeButton!=null)activeButton.setBackground(Color.darkGray);
         activeButton = jButton;
         if(jButton!=null)jButton.setBackground(new Color(125, 130, 200));
@@ -404,7 +401,7 @@ public class HarborMenu extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             activeObject = object;
-            ChangeCurrentJButton((JButton) e.getSource());
+            changeCurrentJButton((JButton) e.getSource());
             allUpdate();
         }
     }

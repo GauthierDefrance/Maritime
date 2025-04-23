@@ -20,7 +20,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.AbstractMap;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import static gui.MainGUI.getWindow;
@@ -252,11 +251,11 @@ public class MainGameMenu extends JPanel implements Runnable {
             mapObject.put(seaRoad,tmp);
             jEastCenterChoice3CenterPanel2.add(tmp);
         }
-        if(currentObject!= null)ChangeCurrentJButton(currentObject);
+        if(currentObject!= null) changeCurrentJButton(currentObject);
         sizeUpdate();
     }
 
-    private void ChangeCurrentJButton(Object object){
+    private void changeCurrentJButton(Object object){
         JButton currentJButton = mapObject.get(currentObject);
         if(currentJButton!=null) currentJButton.setBackground(Color.DARK_GRAY);
         currentJButton = mapObject.get(object);
@@ -403,7 +402,7 @@ public class MainGameMenu extends JPanel implements Runnable {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            ChangeCurrentJButton(object);
+            changeCurrentJButton(object);
         }
     }
 
@@ -419,7 +418,7 @@ public class MainGameMenu extends JPanel implements Runnable {
                     jEastATHPanel.add(jEastPanel);
                     jEastCenterCenterPanel.removeAll();
                     jEastCenterCenterPanel.add(jEastCenterPanelChoice2);
-                    ChangeCurrentJButton(harbor);
+                    changeCurrentJButton(harbor);
                 }
                 else {
                     ShowPopupMenu(e.getX(),e.getY(),harbor);
@@ -431,7 +430,7 @@ public class MainGameMenu extends JPanel implements Runnable {
                     jEastATHPanel.add(jEastPanel);
                     jEastCenterCenterPanel.removeAll();
                     jEastCenterCenterPanel.add(jEastCenterPanelChoice1);
-                    ChangeCurrentJButton(boat);
+                    changeCurrentJButton(boat);
                 }
                 else if(MapGame.getInstance().getPlayer().getVision().contains(boat)){
                     ShowPopupMenu(e.getX(),e.getY(),boat);
