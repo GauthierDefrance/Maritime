@@ -22,11 +22,21 @@ public final class GameConfiguration {
 
     //--------------------------------
 
+    //-------- Bot Stats --------
+
+    public static final int GAME_FLEET_BOT_SIZE = 5;
+    public static final int GAME_FLEET_PIRATE_SIZE = 4;
+    public static final int GAME_FLEET_SPAWN_TIME = 2000;
+
+    //--------------------------------
+
 
 
     //-------- Harbor Stats --------
         public static final double HARBOR_VISION_RADIUS = 700;
         public static final double HARBOR_HP = 500;
+        public static final int DAMAGE_TAKEN = 3;
+        public static final int RELOAD_TIME_DAMAGE_HARBOR = 50;
 
     //--------------------------------
 
@@ -58,7 +68,7 @@ public final class GameConfiguration {
 
     public static final int UPGRADE_POINT_DEFAULT = 5;
     public static final int UPGRADE_DEFAULT_HP = 100;
-    public static final int UPGRADE_HARBOR_HP = 100;
+    public static final int UPGRADE_HARBOR_HP = 200;
     public static final double UPGRADE_DEFAULT_DAMAGE_SPEED = 1;
     public static final double UPGRADE_DEFAULT_SPEED = 1;
     public static final double UPGRADE_DEFAULT_INVENTORY_SIZE = 50;

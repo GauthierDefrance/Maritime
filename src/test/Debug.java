@@ -2,8 +2,6 @@ package test;
 
 import config.GameConfiguration;
 import engine.MapGame;
-import engine.data.entity.boats.Boat;
-import engine.data.entity.boats.Standard;
 import engine.process.creational.EngineBuilder;
 import gui.MainGUI;
 import gui.utilities.GUILoader;
@@ -28,11 +26,13 @@ public class Debug extends JFrame{
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         JButton timeStop = JComponentFactory.menuButton("timeStop",new TimeStop());
+        JButton godMode = JComponentFactory.menuButton("GodMode",new GodMode());
         JButton combatMenu = JComponentFactory.menuButton("CombatMenu",new CombatMenu());
         JButton relationMenu = JComponentFactory.menuButton("RelationMenu", new RelationMenu());
         JButton choicePathMenu0 = JComponentFactory.menuButton("ChoicePathMenu0", new ChoiceMenu0());
-        JButton choicePathMenu1 = JComponentFactory.menuButton("HarborMenu", new ChoiceMenu1());
+        JButton choicePathMenu1 = JComponentFactory.menuButton("HarborMenu", new HarborMenu());
         contentPane.add(timeStop);
+        contentPane.add(godMode);
         contentPane.add(combatMenu);
         contentPane.add(relationMenu);
         contentPane.add(choicePathMenu0);
@@ -46,6 +46,12 @@ public class Debug extends JFrame{
     private class TimeStop implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             MapGame.getInstance().setTimeStop(!MapGame.getInstance().isTimeStop());
+        }
+    }
+
+    private class GodMode implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            MapGame.getInstance().setGodMode(!MapGame.getInstance().isGodMode());
         }
     }
 
@@ -66,7 +72,7 @@ public class Debug extends JFrame{
         }
     }
 
-    private class ChoiceMenu1 implements ActionListener {
+    private class HarborMenu implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {

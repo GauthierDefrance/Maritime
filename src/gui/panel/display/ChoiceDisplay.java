@@ -53,8 +53,8 @@ public class ChoiceDisplay extends JPanel {
 
         if (state == 0){
             g2d.setColor(new Color(4, 4, 62,75));
-            for(Map.Entry<String, GraphPoint> entry : MapGame.getInstance().getMapGraphPoint().entrySet()){
-                g2d.fillOval(entry.getValue().getX()-15, entry.getValue().getY()-15,30,30);
+            for(GraphPoint graphPoint : MapGame.getInstance().getMapGraphPoint()){
+                g2d.fillOval(graphPoint.getX()-15, graphPoint.getY()-15,30,30);
             }
             g2d.setColor(new Color(10, 35, 160));
             if(path.get(path.size()-1).equals(harbor2.getGraphPosition())){

@@ -2,6 +2,7 @@ package gui.panel.menu;
 
 import config.GameConfiguration;
 import engine.MapGame;
+import engine.battleengine.data.Battle;
 import engine.data.entity.Entity;
 import engine.data.Fleet;
 import engine.data.entity.Harbor;
@@ -18,6 +19,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -463,45 +465,45 @@ public class MainGameMenu extends JPanel implements Runnable {
 
         }
     }
-    private void wantFight(ArrayList<Boat> tmp){
-        MapGame.getInstance().setTimeStop(true);
-        if(MapGame.getInstance().getPlayer().getLstBoat().contains(tmp.get(1))){
-            JOptionPane.showMessageDialog(MainGameMenu.this,"it's battle time !","Battle",JOptionPane.PLAIN_MESSAGE);
-            ThreadStop = true;
-            GUILoader.loadCombat(factionManager.startBattle(tmp.get(0),tmp.get(1)));
-        }
-        else if(JOptionPane.showConfirmDialog(MainGameMenu.this,"Do you want to start a battle ?","confirmation Battle",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
-            FactionManager.getInstance().modifyRelationship(MapGame.getInstance().getPlayer(),FactionManager.getInstance().getMyFaction(tmp.get(1).getColor()),-15);
-            ThreadStop = true;
-            GUILoader.loadCombat(factionManager.startBattle(tmp.get(0),tmp.get(1)));
-        }
-        else MapGame.getInstance().setTimeStop(false);
-    }
-
-    @Override
-    public void run() {
-        while (!ThreadStop) {
-            ArrayList<Boat> tmp;
-            try {
-                Thread.sleep((long) GameConfiguration.GAME_SPEED/speedBoost);
-                MapGame.getInstance().addTime(((double)GameConfiguration.GAME_SPEED / speedBoost)/1000);
-                
-            } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
+        private void wantFight(Battle battle,boolean ConfirmDialog){
+            MapGame.getInstance().setTimeStop(true);
+            if(!ConfirmDialog){
+                JOptionPane.showMessageDialog(MainGameMenu.this,"it's battle time !","Battle",JOptionPane.PLAIN_MESSAGE);
+                ThreadStop = true;
+                GUILoader.loadCombat(battle);
             }
-            if (!MapGame.getInstance().isTimeStop()){
-                factionManager.nextRound();
-                if(factionManager.needUpdate())elementInPanelUpdate();
-                tmp = factionManager.allChaseUpdate();
-                if(tmp != null){
-                    wantFight(tmp);
+            else if(JOptionPane.showConfirmDialog(MainGameMenu.this,"Do you want to start a battle ?","confirmation Battle",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+                FactionManager.getInstance().modifyRelationship(MapGame.getInstance().getPlayer(),battle.getFactionB(),-15);
+                ThreadStop = true;
+                GUILoader.loadCombat(battle);
+            }
+            else MapGame.getInstance().setTimeStop(false);
+        }
+
+        @Override
+        public void run() {
+            while (!ThreadStop) {
+                AbstractMap.SimpleEntry<Battle, Boolean> tmp;
+                try {
+                    Thread.sleep((long) GameConfiguration.GAME_SPEED/speedBoost);
+
+                } catch (InterruptedException e) {
+                    System.out.println(e.getMessage());
+                }
+                if (!MapGame.getInstance().isTimeStop()){
+                    factionManager.nextRound();
+                    if(factionManager.needUpdate())elementInPanelUpdate();
+                    tmp = factionManager.needBattle();
+                    if(tmp != null){
+                        wantFight(tmp.getKey(),tmp.getValue());
+                    }
+                    MapGame.getInstance().addTime(((double)GameConfiguration.GAME_SPEED)/1000);
+                }
+                dashboard.repaint();
+                dashboard.getPaintBackGround().setIFrame((dashboard.getPaintBackGround().getIFrame() + 1) % GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES);
+                for (PopUp popUp : MapGame.getInstance().getLstPopUp()) {
+                    popUp.addIFrame(1);
                 }
             }
-            dashboard.repaint();
-            dashboard.getPaintBackGround().setIFrame((dashboard.getPaintBackGround().getIFrame() + 1) % GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES);
-            for (PopUp popUp : MapGame.getInstance().getLstPopUp()) {
-                popUp.addIFrame(1);
-            }
         }
     }
-}

@@ -118,7 +118,7 @@ public class EngineBuilder {
             battle.getHunterPreyPointHashMap().put(boat, null);
             battle.getReloadingHashMap().put(boat, GameConfiguration.RELOAD_TIME);
         }
-        if(!factionA.equals(MapGame.getInstance().getPlayer())){
+        if(!battle.getFactionA().equals(MapGame.getInstance().getPlayer())){
             BattlePlaceFleet.placeEnemyFleet(battle.getTeamA(),GameConfiguration.SPAWN_ZONE_STARTING_X2);
             battle.getBoatsInBattleA().getArrayListBoat().addAll(battle.getTeamA().getArrayListBoat());
         }
@@ -134,11 +134,12 @@ public class EngineBuilder {
     public static MapGame mapInit0() {
         MapGame.getInstance().setTimeStop(false);
         MapGame.getInstance().setTime(0);
+        MapGame.getInstance().setGodMode(false);
         ArrayList<PopUp> lstPopUp =new ArrayList<>();
         ArrayList<Harbor> lstHarbor = new ArrayList<>();
         ArrayList<Faction> lstFaction = new ArrayList<>();
         ArrayList<Faction> lstBotFaction = new ArrayList<>();
-        HashMap<String, GraphPoint> mapGraphPoint = new HashMap<>();
+        ArrayList<GraphPoint> mapGraphPoint = new ArrayList<>();
         HashMap<Boat, Boat> hunterPreyHashMap = new HashMap<>();
         MapGame.getInstance().setMapGraphPoint(mapGraphPoint);
         MapGame.getInstance().setHunterPreyHashMap(hunterPreyHashMap);
@@ -246,11 +247,12 @@ public class EngineBuilder {
 
         MapGame.getInstance().setTimeStop(false);
         MapGame.getInstance().setTime(0);
+        MapGame.getInstance().setGodMode(false);
         ArrayList<PopUp> lstPopUp =new ArrayList<>();
         ArrayList<Harbor> lstHarbor = new ArrayList<>();
         ArrayList<Faction> lstFaction = new ArrayList<>();
         ArrayList<Faction> lstBotFaction = new ArrayList<>();
-        HashMap<String, GraphPoint> mapGraphPoint = new HashMap<>();
+        ArrayList<GraphPoint> mapGraphPoint = new ArrayList<>();
         HashMap<Boat, Boat> hunterPreyHashMap = new HashMap<>();
         MapGame.getInstance().setMapGraphPoint(mapGraphPoint);
         MapGame.getInstance().setHunterPreyHashMap(hunterPreyHashMap);

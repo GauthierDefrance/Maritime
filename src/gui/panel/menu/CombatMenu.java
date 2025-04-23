@@ -388,13 +388,13 @@ public class CombatMenu extends JPanel implements Runnable {
         while (!ThreadStop) {
             try {
                 Thread.sleep((long) GameConfiguration.GAME_SPEED/speedBoost);
-                MapGame.getInstance().addTime(((double)GameConfiguration.GAME_SPEED / speedBoost)/1000);
 
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
             if (!MapGame.getInstance().isTimeStop()){
                 battleManager.tick();
+                MapGame.getInstance().addTime(((double)GameConfiguration.GAME_SPEED)/1000);
             }
             dashboard.repaint();
             dashboard.getPaintBackGround().setIFrame((dashboard.getPaintBackGround().getIFrame() + 1) % GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES);
@@ -403,7 +403,7 @@ public class CombatMenu extends JPanel implements Runnable {
             }
 
             if(battleManager.battleEnded()){
-                ArrayList<String> lstText = battleManager.battleEnd(); //Cette ligne est supposé actualiser l'inventaire des bateaux.
+                ArrayList<String> lstText = battleManager.battleEnd();
                 JPanel jPanel = JComponentFactory.gridMenuPanel(3,2,0,20);
                 jPanel.add(JComponentFactory.ImageLabel(new ImageIcon(ImageStock.getTbSprite(3, ImageStock.getColorInt(battle.getFactionB().getColor())))));
                 jPanel.add(JComponentFactory.menuLabel(lstText.get(0)));

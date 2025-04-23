@@ -4,6 +4,7 @@ import config.GameConfiguration;
 import engine.MapGame;
 import engine.data.entity.Harbor;
 import engine.data.entity.boats.Boat;
+import engine.data.faction.Faction;
 import engine.data.trading.SeaRoad;
 import gui.process.ImageStock;
 import gui.process.PaintBackGround;
@@ -50,6 +51,14 @@ public class GameDisplay extends JPanel {
         }
 
         g2d.scale((double) 1 /GameConfiguration.GAME_SCALE, (double) 1 /GameConfiguration.GAME_SCALE);
+
+        if(MapGame.getInstance().isGodMode()) {
+            for (Faction faction : MapGame.getInstance().getLstFaction()) {
+                for (Boat boat : faction.getLstBoat()) {
+                    paintEntity.paint(boat, g2d);
+                }
+            }
+        }
 
         for (Harbor harbor : MapGame.getInstance().getLstHarbor()){
             paintEntity.paint(harbor,g2d);

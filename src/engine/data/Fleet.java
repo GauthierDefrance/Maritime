@@ -67,6 +67,7 @@ public class Fleet implements Serializable {
     //Modifier
 
     public void add(Boat boat) {
+        boat.setContinuePath(false);
         this.lstBoats.add(boat);
     }
 

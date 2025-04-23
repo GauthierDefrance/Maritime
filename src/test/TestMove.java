@@ -13,8 +13,6 @@ import engine.data.trading.SeaRoad;
 
 public class TestMove {
     public static void addBoatTest(){
-        Fleet fleet1 = new Fleet("Fleet1");
-        Fleet fleet2 = new Fleet("Fleet2");
 
         MapGame.getInstance().getLstHarbor().get(0).setCurrentHp(300);
 
@@ -40,6 +38,7 @@ public class TestMove {
         MapGame.getInstance().getPlayer().getLstBoat().add(standard1);
         MapGame.getInstance().getPlayer().getLstBoat().add(fodder0);
 
+        Fleet fleet1 = new Fleet("Fleet1");
         fleet1.getArrayListBoat().add(militaryX);
         fleet1.getArrayListBoat().add(military0);
         fleet1.getArrayListBoat().add(military1);
@@ -64,6 +63,7 @@ public class TestMove {
         MapGame.getInstance().getLstFaction().get(0).getLstBoat().add(fodder1);
         MapGame.getInstance().getLstFaction().get(0).getLstBoat().add(fodder2);
 
+        Fleet fleet2 = MapGame.getInstance().getLstFaction().get(0).getLstFleet().get(0);
         fleet2.getArrayListBoat().add(military2);
         fleet2.getArrayListBoat().add(merchant1);
         fleet2.getArrayListBoat().add(merchant2);
@@ -92,7 +92,6 @@ public class TestMove {
         factionManager.getSeaRoadManager().setNewFleet(seaRoad2,fleet2);
 
         MapGame.getInstance().getPlayer().addFleet(fleet1);
-        MapGame.getInstance().getLstFaction().get(0).addFleet(fleet2);
 
         MapGame.getInstance().getPlayer().addSeaRoad(seaRoad1);
         MapGame.getInstance().getLstFaction().get(0).addSeaRoad(seaRoad2);

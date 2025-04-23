@@ -29,6 +29,7 @@ public class FleetManager {
         fleet.setContinuePath(continuePath);
         for (Boat boat : fleet.getArrayListBoat()){
             boat.setContinuePath(continuePath);
+            boat.getPath().clear();
         }
     }
 
@@ -39,9 +40,6 @@ public class FleetManager {
     public void removePath(Fleet fleet){
         fleet.getPath().clear();
         setContinuePathAll(fleet, false);
-        for(Boat boat : fleet.getArrayListBoat()){
-            boat.getPath().clear();
-        }
     }
 
     /**
@@ -53,9 +51,7 @@ public class FleetManager {
             for(Boat boat : fleet.getArrayListBoat()){
                 if(boat.getPath().isEmpty()&&(fleet.getContinuePath()||!boat.getPosition().equals(fleet.getPath().get(fleet.getPath().size()-1).getPoint()))){
                     if(boat.getPosition().equals(fleet.getPath().get(0).getPoint())){
-                        ArrayList<GraphPoint> newPath = new ArrayList<>();
-                        newPath.addAll(fleet.getPath());
-                        boat.setPath(newPath);
+                        boat.setPath(new ArrayList<>(fleet.getPath()));
                         boat.setContinuePath(fleet.getContinuePath());
                     }
                     else {
@@ -69,10 +65,10 @@ public class FleetManager {
     /**
      * change a fleet path to a brand new one
      */
-    public void setNewPath(Fleet fleet, ArrayList<GraphPoint> path){
+    public void setNewPath(Fleet fleet, ArrayList<GraphPoint> path,boolean continuePath){
         if(path!=null){
-            ArrayList<GraphPoint> newPath = new ArrayList<>();
-            newPath.addAll(path);
+            fleet.setContinuePath(true);
+            ArrayList<GraphPoint> newPath = new ArrayList<>(path);
             fleet.setPath(newPath);
             for(Boat boat : fleet.getArrayListBoat()){
                 boat.getPath().clear();

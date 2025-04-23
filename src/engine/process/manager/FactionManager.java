@@ -4,18 +4,19 @@ import config.GameConfiguration;
 import engine.MapGame;
 import engine.battleengine.data.Battle;
 import engine.data.entity.Harbor;
-import engine.data.entity.boats.Boat;
+import engine.data.entity.boats.*;
 import engine.data.Fleet;
 import engine.data.faction.Faction;
 import engine.data.graph.GraphPoint;
 import engine.process.creational.EngineBuilder;
 import engine.data.trading.SeaRoad;
 import engine.utilities.SearchInGraph;
+import gui.PopUp;
+import gui.process.ImageStock;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Random;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.*;
 
 /**
  * Class Handling everything related directly to Factions in this game
@@ -31,6 +32,8 @@ public class FactionManager {
     private final FleetManager fleetManager;
     private final SeaRoadManager seaRoutManager;
     private boolean needUpdate;
+    private AbstractMap.SimpleEntry<Battle, Boolean> battleTime;
+
 
     /**
      * Typical builder generating an FactionManager
@@ -42,6 +45,7 @@ public class FactionManager {
         this.fleetManager = new FleetManager();
         this.seaRoutManager = new SeaRoadManager(this.fleetManager, this.boatManager);
         this.needUpdate = false;
+        this.battleTime = null;
     }
 
     public boolean needUpdate(){
@@ -50,6 +54,15 @@ public class FactionManager {
             return true;
         }
         return false;
+    }
+
+    public AbstractMap.SimpleEntry<Battle, Boolean> needBattle(){
+        if(battleTime != null){
+            AbstractMap.SimpleEntry<Battle, Boolean> tmp = battleTime;
+            battleTime = null;
+            return tmp;
+        }
+        return null;
     }
 
     public synchronized static FactionManager getInstance() {
@@ -67,6 +80,7 @@ public class FactionManager {
         allBoatApproachingHarbor();
         playerManager.updatePlayerVision();
         updateAllGeneratorTime();
+        allChaseUpdate();
     }
 
     public void updateAllGeneratorTime(){
@@ -139,9 +153,8 @@ public class FactionManager {
                     modifyRelationship(faction,getMyFaction(seaRoad.getTargetHarbor().getColor()),10);
                 }
                 lstSeaRouts.add(seaRoad);
-                fleetManager.setContinuePathAll(seaRoad.getFleet(),false);
                 fleetManager.removePath(seaRoad.getFleet());
-                getHarborManager().addFleetInHarbor(seaRoad.getSellerHarbor(),seaRoad.getFleet());
+                if(faction.equals(MapGame.getInstance().getPlayer()))getHarborManager().addFleetInHarbor(seaRoad.getSellerHarbor(),seaRoad.getFleet());
             }
         }
         faction.getLstSeaRouts().removeAll(lstSeaRouts);
@@ -210,19 +223,29 @@ public class FactionManager {
     /**
      * For all the boats that are on the chase starts a fight if they are in contact cancels the chase if they are too far away
      */
-    public ArrayList<Boat> allChaseUpdate(){
-        ArrayList<Boat> lst = null;
+    public void allChaseUpdate(){
+        ArrayList<Boat> lst;
         HashMap<Boat, Boat> tmp = new HashMap<>(MapGame.getInstance().getHunterPreyHashMap());
         for (Boat boat : tmp.keySet()){
             lst = chaseUpdate(boat,tmp.get(boat));
-            if(lst!=null) break;
+            if(lst!=null){
+                battleTime = new AbstractMap.SimpleEntry<>(startBattle(lst.get(0),lst.get(1)),MapGame.getInstance().getPlayer().getLstBoat().contains(lst.get(0)));
+                break;
+            }
         }
-        return lst;
     }
 
     public Battle startBattle(Boat hunter, Boat prey){
         Fleet fleetHunter = getMyFleet(hunter);
         Fleet fleetPrey = getMyFleet(prey);
+        return EngineBuilder.createBattle(getMyFaction(hunter.getColor()),getMyFaction(prey.getColor()),fleetHunter,fleetPrey);
+    }
+
+    public Battle startBattle(Boat hunter, Harbor prey){
+        Fleet fleetHunter = getMyFleet(hunter);
+        ArrayList<Boat> lstBoat = new ArrayList<>();
+        for (Boat boat : prey.getHashMapBoat().keySet())if(prey.getHashMapBoat().get(boat))lstBoat.add(boat);
+        Fleet fleetPrey = new Fleet(lstBoat,"");
         return EngineBuilder.createBattle(getMyFaction(hunter.getColor()),getMyFaction(prey.getColor()),fleetHunter,fleetPrey);
     }
 
@@ -233,7 +256,8 @@ public class FactionManager {
                 for (Faction preyFaction : MapGame.getInstance().getLstFaction()) {
                     if(!hunterFaction.equals(preyFaction) && hunterFaction.getRelationship(preyFaction) <= -100) {
                         if(!hunterFaction.equals(MapGame.getInstance().getPirate())) {
-                            for (Harbor harbor : preyFaction.getLstHarbor()) {
+                            ArrayList<Harbor> tmpHarbor = new ArrayList<>(preyFaction.getLstHarbor());
+                            for (Harbor harbor : tmpHarbor) {
                                 if(harbor.getGraphPosition().getPoint().equals(hunter.getPosition())){
                                     dealDamageHarbor(harbor,hunter);
                                     flag = false;
@@ -254,7 +278,8 @@ public class FactionManager {
             //for the player
             if(hunterFaction.getRelationship(MapGame.getInstance().getPlayer()) <= -100) {
                 for (Boat boat : MapGame.getInstance().getPlayer().getLstBoat()) {
-                    for (Harbor harbor : hunterFaction.getLstHarbor()) {
+                    ArrayList<Harbor> tmpHarbor = new ArrayList<>(hunterFaction.getLstHarbor());
+                    for (Harbor harbor : tmpHarbor) {
                         if(harbor.getGraphPosition().getPoint().equals(boat.getPosition())){
                             dealDamageHarbor(harbor,boat);
                         }
@@ -278,38 +303,138 @@ public class FactionManager {
     }
 
     public void dealDamageHarbor(Harbor harbor,Boat boat){
-
+        Random random = new Random();
+        boolean flag = false;
+        for (Boat boatTmp : harbor.getHashMapBoat().keySet()){
+            if(harbor.getHashMapBoat().get(boatTmp)){
+                flag = true;
+                break;
+            }
+        }
+        if(flag)battleTime = new AbstractMap.SimpleEntry<>(startBattle(boat,harbor),false);
+        else if((((int)(MapGame.getInstance().getTime()*10)) % (GameConfiguration.RELOAD_TIME_DAMAGE_HARBOR/boat.getDamageSpeed())) == 0){
+            harbor.setCurrentHp(harbor.getCurrentHp() - GameConfiguration.DAMAGE_TAKEN);
+            BufferedImage sprite = ImageStock.getImage(harbor);
+            MapGame.getInstance().addPopUp(new PopUp("explosion",new Point((int) (harbor.getPosition().getX()+((random.nextInt(sprite.getWidth()/2)+1)-((double) sprite.getWidth() /4))),(int) (harbor.getPosition().getY()+((random.nextInt(sprite.getHeight())+1)-((double) sprite.getHeight() /2)))), 5));
+            if (harbor.getCurrentHp() <= 0) {
+                getMyFaction(harbor.getColor()).removeHarbor(harbor);
+                getMyFaction(boat.getColor()).addHarbor(harbor);
+                harbor.setCurrentHp(harbor.getMaxHp() / 2);
+                needUpdate = true;
+            }
+        }
     }
 
     public void botsActions(){
         Random random = new Random();
         for(Faction botFaction : MapGame.getInstance().getLstBotFaction()){
-            boolean flag = false;
-            for (Boat boat : botFaction.getLstBoat()) {
-                for (Faction faction : MapGame.getInstance().getLstFaction()) {
-                    for (Harbor harbor : faction.getLstHarbor()) {
-                        if (botFaction.getRelationship(faction) <= -100 && harbor.getGraphPosition().getPoint().equals(boat.getPosition())) {
-                            flag = true;
-                        }
-                    }
-                }
-                for (Faction faction : MapGame.getInstance().getLstFaction()){
-                    if(botFaction.getRelationship(faction) <= -100){
-                        for(Harbor harbor : botFaction.getLstHarbor()){
-                            if(harbor.getHashMapBoat().containsKey(boat)) {
-                                getHarborManager().removeBoatInHarbor(harbor, boat);
-                                for(Fleet fleet : botFaction.getLstFleet()){
-                                    if(fleet.getArrayListBoat().contains(boat)){
-                                        getHarborManager().removeFleetInHarbor(harbor, fleet);
-                                    }
-                                }
+            boolean isWar = false;
+            if(!botFaction.equals(MapGame.getInstance().getPirate())) {
+                for (Boat boat : botFaction.getLstBoat()) {
+                    boolean flag = false;// to know if you are already on a harbor
+                    for (Faction faction : MapGame.getInstance().getLstFaction()) {
+                        for (Harbor harbor : faction.getLstHarbor()) {
+                            if (botFaction.getRelationship(faction) <= -100 && harbor.getGraphPosition().getPoint().equals(boat.getPosition())) {
+                                flag = true;
                             }
                         }
-                        if(boat.getPath().isEmpty()&&!flag){
-                            boat.setPath(SearchInGraph.findPath(boat,faction.getLstHarbor().get(random.nextInt(faction.getLstHarbor().size())).getGraphPosition()));
+                    }
+                    for (Faction faction : MapGame.getInstance().getLstFaction()) {
+                        if (botFaction.getRelationship(faction) <= -100) {
+                            Harbor harbor = getMyHarbor(boat);
+                            fleetManager.removePath(getMyFleet(boat));
+                            isWar = true;
+                            if (harbor != null) {
+                                getHarborManager().removeBoatInHarbor(harbor, boat);
+                                getHarborManager().removeFleetInHarbor(harbor, getMyFleet(boat));
+                            }
+                            if (boat.getPath().isEmpty() && !flag && !faction.getLstHarbor().isEmpty()) {
+                                boat.setPath(SearchInGraph.findPath(boat, faction.getLstHarbor().get(random.nextInt(faction.getLstHarbor().size())).getGraphPosition()));
+                            }
+                        }
+                    }
+
+                    for (Faction faction : MapGame.getInstance().getLstFaction()) {
+                        if (botFaction.getRelationship(faction) <= -100) {
+                            if (boat.getPath().isEmpty() && !flag && !faction.getLstBoat().isEmpty()) {
+                                boat.setPath(SearchInGraph.findPath(boat, SearchInGraph.getClosestMapGraphPoint(faction.getLstBoat().get(random.nextInt(faction.getLstBoat().size())).getPosition())));
+                            }
                         }
                     }
                 }
+                for (Fleet fleet : botFaction.getLstFleet()) {
+                    if (fleet.getArrayListBoat().size() < GameConfiguration.GAME_FLEET_BOT_SIZE && (((int) (MapGame.getInstance().getTime() * 10)) % GameConfiguration.GAME_FLEET_SPAWN_TIME) == 1) {
+                        Boat newBoat = getRandomBoat(botFaction, botFaction.getLstHarbor().get(random.nextInt(botFaction.getLstHarbor().size())).getGraphPosition());
+                        fleet.add(newBoat);
+                        botFaction.addBoat(newBoat);
+                    }
+                }
+                if(!isWar){
+                    for (Fleet fleet : botFaction.getLstFleet()){
+                        if(!fleet.getContinuePath()) {
+                            if (!botFaction.getLstHarbor().isEmpty()) {
+                                int randomInt1 = random.nextInt(botFaction.getLstHarbor().size());
+                                int randomInt2 = random.nextInt(MapGame.getInstance().getLstHarbor().size());
+                                while (MapGame.getInstance().getPlayer().getLstHarbor().contains(MapGame.getInstance().getLstHarbor().get(randomInt2))) {
+                                    randomInt2 = random.nextInt(MapGame.getInstance().getLstHarbor().size());
+                                }
+                                fleetManager.setNewPath(fleet, SearchInGraph.findPath(botFaction.getLstHarbor().get(randomInt1).getGraphPosition(), MapGame.getInstance().getLstHarbor().get(randomInt2).getGraphPosition()),true);
+                            }
+                        }
+                        else {
+                            boolean needToChanger = false;
+                            for (Harbor harbor : MapGame.getInstance().getPlayer().getLstHarbor()){
+                                if (harbor.getGraphPosition().equals(fleet.getPath().get(0)) || harbor.getGraphPosition().equals(fleet.getPath().get(fleet.getPath().size()-1))) {
+                                    needToChanger = true;
+                                    for (SeaRoad seaRoad : botFaction.getLstSeaRouts()){
+                                        if (seaRoad.getTargetHarbor().getGraphPosition().equals(fleet.getPath().get(0)) || seaRoad.getTargetHarbor().getGraphPosition().equals(fleet.getPath().get(fleet.getPath().size() - 1))) {
+                                            needToChanger = false;
+                                            break;
+                                        }
+                                    }
+                                    break;
+                                }
+                            }
+                            if(needToChanger){
+                                fleetManager.removePath(fleet);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if(MapGame.getInstance().getPirate().getLstBoat().size()<GameConfiguration.GAME_FLEET_PIRATE_SIZE && (((int)(MapGame.getInstance().getTime()*10)) % GameConfiguration.GAME_FLEET_SPAWN_TIME) == 0){
+            int randomInt = random.nextInt(MapGame.getInstance().getMapGraphPoint().size()-11)+11;
+            Boat newBoat = getRandomBoat(MapGame.getInstance().getPirate(),MapGame.getInstance().getMapGraphPoint().get(randomInt));
+            newBoat.setNextGraphPoint(SearchInGraph.getClosestMapGraphPoint(newBoat.getPosition()));
+            MapGame.getInstance().getPirate().addBoat(newBoat);
+        }
+        for(Boat boat : MapGame.getInstance().getPirate().getLstBoat()){
+            if(boat.getPath().isEmpty()){
+                int randomInt = random.nextInt(MapGame.getInstance().getMapGraphPoint().size());
+                boat.setPath(SearchInGraph.findPath(boat,MapGame.getInstance().getMapGraphPoint().get(randomInt)));
+            }
+        }
+    }
+
+    public Boat getRandomBoat(Faction faction, GraphPoint graphPoint){
+        Random random = new Random();
+        int randomInt = random.nextInt(4);
+        switch (randomInt) {
+            case 0 :{
+                return new Standard("Standard", faction.getColor(), graphPoint);
+            }
+            case 1 :{
+                return new Fodder("Fodder", faction.getColor(), graphPoint);
+            }
+            case 2 :{
+                return new Merchant("Merchant", faction.getColor(), graphPoint);
+            }
+            case 3 :{
+                return new Military("Military", faction.getColor(), graphPoint);
+            }
+            default : {
+                return new Standard("Standard ", faction.getColor(), graphPoint);
             }
         }
     }
@@ -331,8 +456,7 @@ public class FactionManager {
      */
     public Fleet getMyFleet(Boat boat){
         Fleet fleet = null;
-        Faction tmp = getMyFaction(boat.getColor());
-        for(Fleet fleet2 : tmp.getLstFleet()){
+        for(Fleet fleet2 : getMyFaction(boat.getColor()).getLstFleet()){
             if(fleet2.getArrayListBoat().contains(boat))fleet=fleet2;
         }
         if(fleet == null){
@@ -340,6 +464,14 @@ public class FactionManager {
             fleet.add(boat);
         }
         return fleet;
+    }
+
+    public Harbor getMyHarbor(Boat boat){
+        Harbor harbor = null;
+        for(Harbor harbor2 : getMyFaction(boat.getColor()).getLstHarbor()){
+            if(harbor2.getHashMapBoat().containsKey(boat))harbor=harbor2;
+        }
+        return harbor;
     }
 
     public void modifyRelationship(Faction factionTarget, Faction factionOwner, int value){

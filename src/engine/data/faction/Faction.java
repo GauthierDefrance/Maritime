@@ -111,7 +111,9 @@ public class Faction implements Serializable {
 
     public void addHarbor(Harbor harbor) {
         harbor.setColor(this.getColor());
-        this.lstHarbor.add(harbor);}
+        this.lstHarbor.add(harbor);
+        this.lstFleet.add(new Fleet());
+    }
 
     public void addBoat(Boat boat) {this.lstBoat.add(boat);}
 

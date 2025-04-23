@@ -33,7 +33,7 @@ public class BattleEndManager {
      * @return
      */
     public boolean playerLose(){
-        return battle.getBoatsInBattleA().getArrayListBoat().isEmpty()&&battle.getLstBoatsToPlace().isEmpty()&&battle.getLstBoatsCurrentlyBeingPlaced().isEmpty();
+        return battle.getBoatsInBattleA().getArrayListBoat().isEmpty()&& (battle.getLstBoatsToPlace() == null||battle.getLstBoatsToPlace().isEmpty()) && (battle.getLstBoatsCurrentlyBeingPlaced() == null ||battle.getLstBoatsCurrentlyBeingPlaced().isEmpty());
     }
 
     /**

@@ -83,17 +83,6 @@ public class BoatManager {
         boat.setPosition(x,y);
     }
 
-    public boolean reduceHp(int value, Boat boat) {
-        if (value < boat.getCurrentHp()){
-            boat.addCurrentHp(-value);
-            return true;
-        }
-        else {
-            boat.setCurrentHp(0);
-            return false;
-        }
-    }
-
     /**
      * Check if a boat reached a targeted harbor
      * @param boat concerned boat

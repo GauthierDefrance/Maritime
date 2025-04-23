@@ -40,7 +40,7 @@ public class SeaRoadManager {
      */
     public void setNewPath(SeaRoad seaRoad, ArrayList<GraphPoint> path) {
         seaRoad.setPath(path);
-        fleetManager.setNewPath(seaRoad.getFleet(),path);
+        fleetManager.setNewPath(seaRoad.getFleet(),path,true);
     }
 
     /**
@@ -49,7 +49,7 @@ public class SeaRoadManager {
     public void setNewFleet(SeaRoad seaRoad, Fleet fleet) {
         seaRoad.setFleet(fleet);
         fleet.setContinuePath(true);
-        fleetManager.setNewPath(fleet,seaRoad.getPath());
+        fleetManager.setNewPath(fleet,seaRoad.getPath(),true);
     }
 
     /**

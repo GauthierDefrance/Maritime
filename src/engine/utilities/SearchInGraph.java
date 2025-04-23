@@ -8,7 +8,6 @@ import engine.data.graph.GraphSegment;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Map;
 
 
 /**
@@ -141,14 +140,14 @@ public final class SearchInGraph {
      */
     public static GraphPoint pointCollisionToMapGraphPoint(Point point){
         GraphPoint graphPoint = null;
-        for (Map.Entry<String, GraphPoint> entry : MapGame.getInstance().getMapGraphPoint().entrySet()){
-            if (GameConfiguration.HITBOX_BOAT - 5 >= point.distance(entry.getValue().getPoint())){
+        for (GraphPoint graphPoint1 : MapGame.getInstance().getMapGraphPoint()){
+            if (GameConfiguration.HITBOX_BOAT - 5 >= point.distance(graphPoint1.getPoint())){
                 if(graphPoint != null){
-                    if(point.distance(entry.getValue().getPoint()) < point.distance(graphPoint.getPoint())){
-                        graphPoint = entry.getValue();
+                    if(point.distance(graphPoint1.getPoint()) < point.distance(graphPoint.getPoint())){
+                        graphPoint = graphPoint1;
                     }
                 }
-                else graphPoint = entry.getValue();
+                else graphPoint = graphPoint1;
             }
         }
         return graphPoint;
@@ -156,9 +155,9 @@ public final class SearchInGraph {
 
     public static GraphPoint getClosestMapGraphPoint(Point point){
         GraphPoint graphPoint = null;
-        for (Map.Entry<String, GraphPoint> entry : MapGame.getInstance().getMapGraphPoint().entrySet()){
-            if(graphPoint==null||point.distance(entry.getValue().getPoint()) < point.distance(graphPoint.getPoint())){
-                graphPoint = entry.getValue();
+        for (GraphPoint graphPoint1 : MapGame.getInstance().getMapGraphPoint()){
+            if(graphPoint==null||point.distance(graphPoint1.getPoint()) < point.distance(graphPoint.getPoint())){
+                graphPoint = graphPoint1;
             }
         }
         return graphPoint;

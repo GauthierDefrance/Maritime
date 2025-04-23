@@ -1,5 +1,6 @@
 package engine.data.faction;
 
+import engine.data.entity.Harbor;
 import engine.data.entity.boats.Boat;
 
 import java.util.ArrayList;
@@ -30,4 +31,10 @@ public class Player extends Faction {
 
     @Override
     public void setRelationship(Faction faction,int relationship) {}
+
+    @Override
+    public void addHarbor(Harbor harbor) {
+        harbor.setColor(this.getColor());
+        getLstHarbor().add(harbor);
+    }
 }

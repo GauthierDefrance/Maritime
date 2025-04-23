@@ -18,7 +18,7 @@ import java.util.HashMap;
 public class MapGame implements Serializable {
     private static MapGame instance;
     private HashMap<Boat, Boat> HunterPreyHashMap;
-    private HashMap<String, GraphPoint> mapGraphPoint;
+    private ArrayList<GraphPoint> mapGraphPoint;
     private ArrayList<Harbor> lstHarbor;
     private ArrayList<Faction> lstBotFaction;
     private ArrayList<Faction> lstFaction;
@@ -26,6 +26,7 @@ public class MapGame implements Serializable {
     private Pirate pirate;
     private boolean timeStop;
     private double time;
+    private boolean godMode;
     private ArrayList<PopUp> lstPopUp;
 
     private MapGame(){}
@@ -48,11 +49,11 @@ public class MapGame implements Serializable {
         this.lstBotFaction = lstBotFaction;
     }
 
-    public HashMap<String, GraphPoint> getMapGraphPoint() {
+    public ArrayList<GraphPoint> getMapGraphPoint() {
         return mapGraphPoint;
     }
 
-    public void setMapGraphPoint(HashMap<String, GraphPoint> mapGraphPoint) {
+    public void setMapGraphPoint(ArrayList<GraphPoint> mapGraphPoint) {
         this.mapGraphPoint = mapGraphPoint;
     }
 
@@ -109,7 +110,7 @@ public class MapGame implements Serializable {
         this.lstBotFaction.remove(faction);
     }
 
-    public void addGraphPoint(GraphPoint graphPoint){ mapGraphPoint.put(graphPoint.getIdPoint(),graphPoint); }
+    public void addGraphPoint(GraphPoint graphPoint){ mapGraphPoint.add(graphPoint); }
 
     public HashMap<Boat, Boat> getHunterPreyHashMap() {
         return HunterPreyHashMap;
@@ -145,5 +146,13 @@ public class MapGame implements Serializable {
 
     public void addTime(double time) {
         this.time += time;
+    }
+
+    public boolean isGodMode() {
+        return godMode;
+    }
+
+    public void setGodMode(boolean godMode) {
+        this.godMode = godMode;
     }
 }
