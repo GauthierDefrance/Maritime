@@ -55,6 +55,16 @@ public class TradeManager {
     }
 
     /**
+     * Calculate the Value in an Inventory
+     * @param inventory targeted Inventory
+     */
+    public int totalValue(Inventory inventory){
+        int total = 0;
+        for (Resource elem : inventory.getContent().keySet()) {total += elem.getValue()*inventory.getContent().get(elem);}
+        return total;
+    }
+
+    /**
      * Check if the conditions are met to add a number of elements to the Inventory, and if so proceed to do it
      * @param inventory targeted Inventory
      * @param elem targeted Resource

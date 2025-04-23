@@ -414,6 +414,14 @@ public class FactionManager {
                     }
                 }
             }
+            if(botFaction.getAmountCurrency()<1000){
+                botFaction.addAmountCurrency(100*random.nextInt(50));
+            }
+            for (Harbor harbor : botFaction.getLstHarbor()){
+                if(TradeManager.getInstance().totalValue(harbor.getInventory())<GameConfiguration.MAX_VALUE_IN_INVENTORY_BOT){
+                    harbor.getInventory().add(GameConfiguration.LIST_RESOURCE.get(random.nextInt(GameConfiguration.LIST_RESOURCE.size())),random.nextInt(10)+1);
+                }
+            }
         }
         if(MapGame.getInstance().getPirate().getLstBoat().size()<GameConfiguration.GAME_FLEET_PIRATE_SIZE && (((int)(MapGame.getInstance().getTime()*10)) % GameConfiguration.GAME_FLEET_SPAWN_TIME) == 0){
             int randomInt = random.nextInt(MapGame.getInstance().getMapGraphPoint().size()-11)+11;

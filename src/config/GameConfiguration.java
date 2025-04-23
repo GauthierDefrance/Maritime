@@ -24,8 +24,9 @@ public final class GameConfiguration {
 
     //-------- Bot Stats --------
 
+    public static final int MAX_VALUE_IN_INVENTORY_BOT = 10000;
     public static final int GAME_FLEET_BOT_SIZE = 5;
-    public static final int GAME_FLEET_PIRATE_SIZE = 0;
+    public static final int GAME_FLEET_PIRATE_SIZE = 4;
     public static final int GAME_FLEET_SPAWN_TIME = 2000;
 
     //--------------------------------
