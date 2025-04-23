@@ -39,6 +39,11 @@ public class BattleBoatManager {
         deadBoatsCleaner(this.battle.getBoatsInBattleB(),this.battle.getDeadBoatsB());
     }
 
+    /**
+     * Method that remove all the boat whom hp are <1, thoses boats are then puts the given deadFleet
+     * @param fleet The fleet to clean
+     * @param deadFleet The graveyard Fleet
+     */
     public void deadBoatsCleaner(Fleet fleet, Fleet deadFleet){
         ArrayList<Boat> toRemove = new ArrayList<>();
         for (Boat boat : fleet.getArrayListBoat()) {
@@ -116,6 +121,12 @@ public class BattleBoatManager {
         boat.setPosition(x,y);
     }
 
+    /**
+     * Method that calculate which point around a boat prey, should a boat hunter go to.
+     * @param hunter The boat that will move
+     * @param prey The boat that is chased by the hunter
+     * @return Point, a {@link Point} object
+     */
     private Point getPointToFollow(Boat hunter, Boat prey){
         Point champion = null;
         int SHOOT_DISTANCE = (int) (GameConfiguration.DEFAULT_SHOOT_DISTANCE * hunter.getVisionRadius()/2.5);
@@ -164,11 +175,11 @@ public class BattleBoatManager {
     public static Point getBoatPointBehind(Boat boat,int SHOOT_DISTANCE){return getBoatPoint(boat,SHOOT_DISTANCE,Math.PI);}
 
     /**
-     *
-     * @param boat
-     * @param SHOOT_DISTANCE
-     * @param BONUS_ANGLE
-     * @return
+     * Method that calculate the position of the 4 points at PI/2 radian around the boat.
+     * @param boat The prey
+     * @param SHOOT_DISTANCE The hunter shooting distance
+     * @param BONUS_ANGLE Angle of the prey boat
+     * @return Point, a {@link Point} object
      */
     public static Point getBoatPoint(Boat boat,int SHOOT_DISTANCE, double BONUS_ANGLE){
         Point tmpPoint = boat.getPosition();

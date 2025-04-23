@@ -37,7 +37,9 @@ public class BattleManager {
     public PlacingManager getPlacingManager() {return placingManager;}
     public BattleBoatManager getBattleBoatManager() {return battleBoatManager;}
     public BulletManager getBulletManager() {return bulletManager;}
-
+    public ArrayList<String> battleEnd(){
+        return battleEndManager.actualizeOriginalFleet();
+    }
 
     /**
      * Method that "tick" the BattleManager,
@@ -52,6 +54,10 @@ public class BattleManager {
         }
     }
 
+    /**
+     * Method the check if the battle has ended, who ever has won.
+     * @return Bool
+     */
     public boolean battleEnded(){
         if(battleEndManager.playerLose()){
             //Lose
@@ -64,6 +70,10 @@ public class BattleManager {
         return false;
     }
 
+    /**
+     * Method that launch a fake battle not showing on the screen.
+     * @param battle
+     */
     public static void fakeBattle(Battle battle){
         if(battle.getLstBoatsToPlace() !=null) {
             battle.getBoatsInBattleA().getArrayListBoat().addAll(battle.getLstBoatsToPlace());
@@ -88,10 +98,5 @@ public class BattleManager {
         BattleEndManager endManager = new BattleEndManager(battle);
         endManager.actualizeOriginalFleet();
     }
-
-    public ArrayList<String> battleEnd(){
-        return battleEndManager.actualizeOriginalFleet();
-    }
-
 
 }

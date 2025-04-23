@@ -2,7 +2,6 @@ package engine.battleengine.process;
 
 import engine.MapGame;
 import engine.battleengine.data.Battle;
-import engine.data.Fleet;
 import engine.data.entity.boats.Boat;
 import engine.process.manager.FactionManager;
 import engine.process.manager.TradeManager;
@@ -10,7 +9,6 @@ import engine.data.trading.Inventory;
 import engine.data.trading.Resource;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 
 /**
@@ -29,16 +27,16 @@ public class BattleEndManager {
     /*---- WIN/LOSE COND ----*/
 
     /**
-     *
-     * @return
+     * Function that return a boolean showing if the player has lose.
+     * @return Bool
      */
     public boolean playerLose(){
         return battle.getBoatsInBattleA().getArrayListBoat().isEmpty()&& (battle.getLstBoatsToPlace() == null||battle.getLstBoatsToPlace().isEmpty()) && (battle.getLstBoatsCurrentlyBeingPlaced() == null ||battle.getLstBoatsCurrentlyBeingPlaced().isEmpty());
     }
 
     /**
-     *
-     * @return
+     * Function that return a boolean showing if the player has won.
+     * @return Bool
      */
     public boolean playerWin(){
         return battle.getBoatsInBattleB().getArrayListBoat().isEmpty();
@@ -49,6 +47,7 @@ public class BattleEndManager {
     /**
      * Function that actualize the current state of the original fleet.
      * It removes all the boats that were loosed and change the inventory of the survivors boats.
+     * @return ArrayList<String> The text to show  when the game end
      */
     public ArrayList<String> actualizeOriginalFleet(){
         Inventory bigInv = new Inventory();
@@ -79,7 +78,6 @@ public class BattleEndManager {
             }
         }
         if(playerWin()){
-            //On actualise les HP
             for(Boat boat: this.battle.getBoatsInBattleA().getArrayListBoat()){
                 this.battle.getCopyToOrignalHashMap().get(boat).setCurrentHp(boat.getCurrentHp());
             }
@@ -94,7 +92,6 @@ public class BattleEndManager {
             }
         } 
         else {
-            //On actualise les HP
             for(Boat boat: this.battle.getBoatsInBattleB().getArrayListBoat()){
                 this.battle.getCopyToOrignalHashMap().get(boat).setCurrentHp(boat.getCurrentHp());
             }
@@ -105,8 +102,6 @@ public class BattleEndManager {
             TradeManager.getInstance().transferMaxAll(lostInv,bigInv,null,null);
             transferInvToFleet(bigInv, this.battle.getTeamBOriginal().getArrayListBoat());
         }
-
-
 
         ArrayList<String> lstText = new ArrayList<>();
         lstText.add("Boat destroy : "+this.battle.getDeadBoatsB().getArrayListBoat().size());
