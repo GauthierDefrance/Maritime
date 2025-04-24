@@ -23,7 +23,7 @@ import java.util.ArrayList;
 /**
  * Unit test that check if the save does indeed save data without loss
  * @author Gauthier Defrance
- * Classe TestSave
+ * Class TestSave
  * @version 0.1
  */
 public class TestSave {

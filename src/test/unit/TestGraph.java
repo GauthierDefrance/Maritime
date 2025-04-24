@@ -16,7 +16,7 @@ import engine.utilities.SearchInGraph;
 /**
  * Unit test that check if the graph is working as intended
  * @author Gauthier Defrance
- * Classe TestGraph
+ * Class TestGraph
  * @version 0.1
  */
 public class TestGraph {
