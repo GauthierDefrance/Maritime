@@ -2,7 +2,6 @@ package test.unit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +14,7 @@ import java.util.ArrayList;
 import engine.utilities.SearchInGraph;
 
 /**
+ * Unit test that check if the graph is working as intended
  * @author Gauthier Defrance
  * Classe TestGraph
  * @version 0.1
