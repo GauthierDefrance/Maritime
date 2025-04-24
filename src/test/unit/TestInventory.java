@@ -2,11 +2,15 @@ package test.unit;
 
 import static org.junit.Assert.*;
 
+import engine.data.entity.boats.Standard;
+import engine.data.graph.GraphPoint;
 import engine.data.trading.Inventory;
 import engine.data.trading.Resource;
 import engine.process.manager.TradeManager;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.awt.*;
 
 /**
  * Unit test that check if the inventory works as intended
@@ -55,7 +59,7 @@ public class TestInventory {
      * Testing of the safeSubstract methode with Inventory
      */
     @Test
-    public void testInventorySubtract(){
+    public void testInventorySafeSubtract(){
         manager.safeAdd(inventory, resource,100, null);
 
         //We remove all the ressources in the inventory
@@ -72,4 +76,52 @@ public class TestInventory {
 
         inventory.clearContent();
     }
+
+
+    /**
+     * Method that test if total free space and total value are calculated as intended
+     */
+    @Test
+    public void testInventoryCount(){
+        //We add 90 ressources of type : "TestResource" with a value of 10.
+        //So, on an inventory of 100 places, we have logically 10 places lefts
+        //And the total value is of 90*10 = 900
+        manager.safeAdd(inventory, resource,90, null);
+
+        assertEquals(10, manager.totalFreeSpace(inventory));
+        assertEquals(900, manager.totalValue(inventory));
+
+        inventory.clearContent();
+    }
+
+    /**
+     * Methods that check if the transferMaxAll methods works as intended
+     */
+    @Test
+    public void testInventoryTransfer(){
+        //We create the origin boat, that will have an inventory with a certain quantity of ressources
+        Standard originBoat = new Standard("origin", "red", new GraphPoint(new Point(), "A"));
+        originBoat.getInventory().setCapacity(100);
+        manager.safeAdd(originBoat.getInventory(), resource,100, originBoat);
+
+        //We then create the destination boat to which we will transfer the ressources
+        Standard destinationBoat = new Standard("destination", "red", new GraphPoint(new Point(), "B"));
+        destinationBoat.getInventory().setCapacity(50);
+
+        //We check the FreeSpace in the boats
+        assertEquals(0, manager.totalFreeSpace(originBoat.getInventory()));
+        assertEquals(50, manager.totalFreeSpace(destinationBoat.getInventory()));
+
+        //We transfer the resources from the origin to the destination (50 max will be transfer on 100)
+        manager.transferMaxAll(originBoat.getInventory(), destinationBoat.getInventory() ,originBoat, destinationBoat);
+        assertEquals(0, manager.totalFreeSpace(destinationBoat.getInventory()));
+        assertEquals(50, manager.totalFreeSpace(originBoat.getInventory()));
+
+        //We then transfer it backs
+        manager.transferMaxAll(destinationBoat.getInventory() , originBoat.getInventory(),  destinationBoat, originBoat);
+        assertEquals(50, manager.totalFreeSpace(destinationBoat.getInventory()));
+        assertEquals(0, manager.totalFreeSpace(originBoat.getInventory()));
+    }
+
+
 }
