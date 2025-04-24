@@ -118,7 +118,7 @@ public class RelationMenu extends JPanel {
         JButton tmp;
         for (Faction faction : MapGame.getInstance().getLstFaction()){
             if(!(faction.equals(MapGame.getInstance().getPlayer())||faction.equals(MapGame.getInstance().getPirate()))) {
-                tmp = menuButton(faction.getColor(),new buttonObjectListener(faction));
+                tmp = menuButton(faction.getName(),new buttonObjectListener(faction));
                 gridPanel.add(tmp);
                 if(activeFaction.equals(faction))ChangeCurrentJButton(tmp);
             }

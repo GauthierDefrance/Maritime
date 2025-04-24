@@ -49,7 +49,7 @@ public class TestSave {
 
 
         // --- Init a player with a boat ---
-        Player playerTest = new Player("red");
+        Player playerTest = new Player("red","Player");
         playerTest.addBoat(new Standard("tested","red",testPoint));
         game.setPlayer(playerTest);
 

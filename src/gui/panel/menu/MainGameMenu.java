@@ -3,12 +3,14 @@ package gui.panel.menu;
 import config.GameConfiguration;
 import engine.MapGame;
 import engine.battleengine.data.Battle;
+import engine.battleengine.process.BattleManager;
 import engine.data.entity.Entity;
 import engine.data.Fleet;
 import engine.data.entity.Harbor;
 import engine.data.entity.boats.*;
 import engine.process.manager.FactionManager;
 import engine.data.trading.SeaRoad;
+import engine.utilities.SearchInGraph;
 import gui.PopUp;
 import gui.panel.display.GameDisplay;
 import gui.process.ListenerBehaviorManager;
@@ -269,7 +271,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         jPopupMenu.setLayout(new GridLayout(1, 0));
         JButton tmp;
         if(entity instanceof Boat) {
-            tmp = JComponentFactory.menuButton("attack", new setChaseBoatListener(entity));
+            tmp = JComponentFactory.menuButton("attack", new setChaseListener(entity));
             jPopupMenu.add(tmp);
             if(!(currentObject != null && currentObject instanceof Boat)||((Boat)currentObject).getVisionRadius() < ((Boat)currentObject).getPosition().distance(entity.getPosition())){
                 tmp.setEnabled(false);
@@ -278,8 +280,19 @@ public class MainGameMenu extends JPanel implements Runnable {
             jPopupMenu.add(tmp);
         }
         else if (entity instanceof Harbor) {
-            if(entity.getColor().isEmpty())tmp = JComponentFactory.menuButton("claim",new pickUpHarborListener((Harbor) entity));
-            else tmp = JComponentFactory.menuButton("faction", new RelationListener(entity));
+            if(!entity.getColor().isEmpty()){
+                tmp = JComponentFactory.menuButton("faction", new RelationListener(entity));
+                jPopupMenu.add(tmp);
+            }
+
+            tmp = JComponentFactory.menuButton("attack", new setChaseListener(entity));
+            tmp.setEnabled(false);
+            if(currentObject != null && currentObject instanceof Boat && FactionManager.getInstance().doIHaveFleet((Boat)currentObject)){
+                tmp.setEnabled(true);
+            }
+            else if(currentObject != null && currentObject instanceof Fleet){
+                tmp.setEnabled(true);
+            }
             jPopupMenu.add(tmp);
         }
         jPopupMenu.show(jPanelATH,x,y);
@@ -354,10 +367,10 @@ public class MainGameMenu extends JPanel implements Runnable {
         }
     }
 
-    public class setChaseBoatListener implements ActionListener {
+    public class setChaseListener implements ActionListener {
         private final Object object;
 
-        public setChaseBoatListener(Object object) {
+        public setChaseListener(Object object) {
             this.object = object;
         }
 
@@ -365,6 +378,20 @@ public class MainGameMenu extends JPanel implements Runnable {
         public void actionPerformed(ActionEvent e) {
             jPopupMenu.setVisible(false);
             if(object instanceof Boat)factionManager.chaseBoat((Boat) currentObject, (Boat) object);
+            else if(object instanceof Harbor){
+                if(JOptionPane.showConfirmDialog(MainGameMenu.this,"Do you want to declare war to "+FactionManager.getInstance().getMyFaction(((Harbor) object).getColor())+"? This decision cannot be reversed","confirmation",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
+                    FactionManager.getInstance().modifyRelationship(MapGame.getInstance().getPlayer(),FactionManager.getInstance().getMyFaction(((Harbor) object).getColor()),-100);
+                    if (currentObject instanceof Boat) {
+                        ((Boat) currentObject).setContinuePath(false);
+                        ((Boat) currentObject).setPath(SearchInGraph.findPath((Boat) currentObject, ((Harbor) object).getGraphPosition()));
+                    } else if (currentObject instanceof Fleet) {
+                        SeaRoad seaRoad = FactionManager.getInstance().getMySeaRoad((Fleet) currentObject);
+                        if (seaRoad != null)
+                            FactionManager.getInstance().getSeaRoadManager().setNewFleet(seaRoad, new Fleet());
+                        FactionManager.getInstance().getFleetManager().setNewPath((Fleet) currentObject, SearchInGraph.findPath(((Harbor) object).getGraphPosition(), ((Harbor) object).getGraphPosition()), false);
+                    }
+                }
+            }
         }
     }
 
@@ -466,10 +493,52 @@ public class MainGameMenu extends JPanel implements Runnable {
     }
         private void wantFight(Battle battle,boolean ConfirmDialog){
             MapGame.getInstance().setTimeStop(true);
-            if(!ConfirmDialog){
-                JOptionPane.showMessageDialog(MainGameMenu.this,"it's battle time !","Battle",JOptionPane.PLAIN_MESSAGE);
-                ThreadStop = true;
-                GUILoader.loadCombat(battle);
+
+            if(!battle.getFactionA().equals(MapGame.getInstance().getPlayer())&&!battle.getFactionA().equals(MapGame.getInstance().getPlayer())){
+                boolean flag = true;
+                for (Boat boat : battle.getTeamAOriginal().getArrayListBoat()){
+                    if(MapGame.getInstance().getPlayer().getVision().contains(boat)){
+                        flag = false;
+                        break;
+                    }
+                }
+                for (Boat boat : battle.getTeamBOriginal().getArrayListBoat()){
+                    if(MapGame.getInstance().getPlayer().getVision().contains(boat)){
+                        flag = false;
+                        break;
+                    }
+                }
+                if(flag){
+                    BattleManager.fakeBattle(battle);
+                    MapGame.getInstance().setTimeStop(false);
+                }
+                else if(JOptionPane.showConfirmDialog(MainGameMenu.this,"Do you want to watch the battle of "+battle.getFactionA().getName()+" VS "+battle.getFactionB().getName(),"confirmation Battle",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+                    FactionManager.getInstance().modifyRelationship(MapGame.getInstance().getPlayer(),battle.getFactionB(),-15);
+                    ThreadStop = true;
+                    GUILoader.loadCombat(battle);
+                }
+                else {
+                    BattleManager.fakeBattle(battle);
+                    MapGame.getInstance().setTimeStop(false);
+                }
+            }
+            else if(!ConfirmDialog){
+                if(MapGame.getInstance().isGodMode()){
+                    if(JOptionPane.showConfirmDialog(MainGameMenu.this,"it's battle time ! (GodMode) ","confirmation Battle",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+                        FactionManager.getInstance().modifyRelationship(MapGame.getInstance().getPlayer(),battle.getFactionB(),-15);
+                        ThreadStop = true;
+                        GUILoader.loadCombat(battle);
+                    }
+                    else {
+                        BattleManager.fakeBattle(battle);
+                        MapGame.getInstance().setTimeStop(false);
+                    }
+                }
+                else {
+                    JOptionPane.showMessageDialog(MainGameMenu.this, "it's battle time !", "Battle", JOptionPane.PLAIN_MESSAGE);
+                    ThreadStop = true;
+                    GUILoader.loadCombat(battle);
+                }
             }
             else if(JOptionPane.showConfirmDialog(MainGameMenu.this,"Do you want to start a battle ?","confirmation Battle",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
                 FactionManager.getInstance().modifyRelationship(MapGame.getInstance().getPlayer(),battle.getFactionB(),-15);

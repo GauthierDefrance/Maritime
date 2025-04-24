@@ -42,6 +42,10 @@ public class GUILoader {
         actualise(new FleetMenu(fleet));
     }
 
+    public static void loadFleetMenu(SeaRoad seaRoad){
+        actualise(new FleetMenu(seaRoad));
+    }
+
     public static void loadPauseMenu(int token,Object object){
         actualise(new PauseMenu(token,object));
     }

@@ -39,6 +39,14 @@ public class FleetMenu extends JPanel {
     public FleetMenu(Fleet activeFleet) {
         super();
         this.activeFleet = activeFleet;
+        isInSeaRoadMode = false;
+        init();
+    }
+
+    public FleetMenu(SeaRoad activeSeaRoad) {
+        super();
+        this.activeSeaRoad = activeSeaRoad;
+        isInSeaRoadMode = true;
         init();
     }
 
@@ -53,7 +61,6 @@ public class FleetMenu extends JPanel {
         goBackButton = JComponentFactory.menuButton("Go back", new goBackButtonListener());
         SeaRoadButton = JComponentFactory.menuButton("Placeholder",new switchModeListener());
         jPanelNorth = JComponentFactory.voidPanel();
-        isInSeaRoadMode = false;
 
         gridPanel1 = JComponentFactory.gridMenuPanel(0,1);
         JPanel gridPanelTmp1 = JComponentFactory.voidPanel();
@@ -228,6 +235,7 @@ public class FleetMenu extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(activeSeaRoad != null && activeFleet != null && !activeSeaRoad.getFleet().equals(activeFleet)){
+                FactionManager.getInstance().getSeaRoadManager().setNewFleet(FactionManager.getInstance().getMySeaRoad(activeFleet), new Fleet());
                 FactionManager.getInstance().getSeaRoadManager().setNewFleet(activeSeaRoad,activeFleet);
             }
             allUpdate();

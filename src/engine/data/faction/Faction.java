@@ -24,15 +24,17 @@ public class Faction implements Serializable {
     private ArrayList<SeaRoad> lstSeaRouts;
     private ArrayList<Fleet> lstFleet;
     private String color;
+    private String name;
     private HashMap<Faction,Integer> relationship;
     private AbstractMap.SimpleEntry<Currency, Integer> currencySimpleEntry;
 
-    public Faction(String color){
+    public Faction(String color,String name){
         this.lstBoat = new ArrayList<>();
         this.lstHarbor = new ArrayList<>();
         this.lstSeaRouts = new ArrayList<>();
         this.lstFleet = new ArrayList<>();
         this.color = color;
+        this.name = name;
         this.relationship = new HashMap<>();
         this.currencySimpleEntry = new AbstractMap.SimpleEntry<>(GameConfiguration.GOLD,0);
     }
@@ -133,4 +135,12 @@ public class Faction implements Serializable {
     }
 
     public void removeFleet(Fleet fleet) {this.lstFleet.remove(fleet);}
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

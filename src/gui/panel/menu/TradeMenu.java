@@ -433,7 +433,7 @@ public class TradeMenu extends JPanel {
                 String name = JOptionPane.showInputDialog(TradeMenu.this,"      Success\nname the sea-Road");
                 if(name!=null)seaRoad.setName(name);
                 MapGame.getInstance().getPlayer().addSeaRoad(seaRoad);
-                GUILoader.loadMainGame();
+                GUILoader.loadFleetMenu(seaRoad);
             }
             else {
                 JOptionPane.showMessageDialog(TradeMenu.this,"     Fail\nrelationship -10");

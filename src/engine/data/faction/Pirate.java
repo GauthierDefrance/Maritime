@@ -2,8 +2,8 @@ package engine.data.faction;
 
 public class Pirate extends Faction {
 
-    public Pirate(String color){
-        super(color);
+    public Pirate(String color,String name){
+        super(color, name);
     }
 
     @Override

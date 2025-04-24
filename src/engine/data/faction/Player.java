@@ -11,8 +11,8 @@ import java.util.ArrayList;
 public class Player extends Faction {
     private ArrayList<Boat> vision;
 
-    public Player(String color){
-        super(color);
+    public Player(String color,String name){
+        super(color,name);
         vision = new ArrayList<>();
     }
 

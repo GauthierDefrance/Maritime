@@ -133,7 +133,7 @@ public class EngineBuilder {
         HashMap<Boat, Boat> hunterPreyHashMap = new HashMap<>();
         MapGame.getInstance().setMapGraphPoint(mapGraphPoint);
         MapGame.getInstance().setHunterPreyHashMap(hunterPreyHashMap);
-        Player player = new Player("blue");
+        Player player = new Player("blue","Player");
 
 
 //        Map.getInstance().put("A",new GraphPoint(new Point(0*GameConfiguration.GAME_SCALE,0*GameConfiguration.GAME_SCALE),"A"));
@@ -216,7 +216,7 @@ public class EngineBuilder {
         Harbor harborC = new Harbor("harborC","",new Point((340)*GameConfiguration.GAME_SCALE,(130-temp)*GameConfiguration.GAME_SCALE),CHarbor);
         Harbor harborD = new Harbor("harborD","",new Point((580)*GameConfiguration.GAME_SCALE,(225-temp)*GameConfiguration.GAME_SCALE),DHarbor);
 
-        Faction faction1 = new Faction("red");
+        Faction faction1 = new Faction("red","Faction");
 
         lstBotFaction.add(faction1);
         lstHarbor.add(harborA);
@@ -247,11 +247,11 @@ public class EngineBuilder {
         HashMap<Boat, Boat> hunterPreyHashMap = new HashMap<>();
         MapGame.getInstance().setMapGraphPoint(mapGraphPoint);
         MapGame.getInstance().setHunterPreyHashMap(hunterPreyHashMap);
-        Player player = new Player("blue");
-        Pirate pirate = new Pirate("orange");
+        Player player = new Player("blue","Player");
+        Pirate pirate = new Pirate("orange","Pirate");
 
         //faction init
-        Faction faction1 = new Faction("red");
+        Faction faction1 = new Faction("red","Faction red");
         lstBotFaction.add(faction1);
         lstBotFaction.add(pirate);
 

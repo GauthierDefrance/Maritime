@@ -483,7 +483,18 @@ public class FactionManager {
             if (faction.getColor().equals(color)) {
                 return faction;
             }
-        } return new Faction("");
+        } return new Faction("","");
+    }
+
+    /**
+     * gives the faction associated with a Fleet
+     */
+    public Faction getMyFaction(Fleet fleet){
+        for (Faction faction : MapGame.getInstance().getLstFaction()) {
+            if (faction.getLstFleet().contains(fleet)) {
+                return faction;
+            }
+        } return new Faction("","");
     }
 
     /**
@@ -502,12 +513,21 @@ public class FactionManager {
     }
 
     public boolean doIHaveFleet(Boat boat){
-        for(Fleet fleet2 : getMyFaction(boat.getColor()).getLstFleet()){
-            if(fleet2.getArrayListBoat().contains(boat)){
+        for(Fleet fleet : getMyFaction(boat.getColor()).getLstFleet()){
+            if(fleet.getArrayListBoat().contains(boat)){
                 return true;
             }
         }
         return false;
+    }
+
+    public SeaRoad getMySeaRoad(Fleet fleet){
+        for(SeaRoad seaRoad : getMyFaction(fleet).getLstSeaRouts()){
+            if(seaRoad.getFleet().equals(fleet)){
+                return seaRoad;
+            }
+        }
+        return null;
     }
 
     public Harbor getMyHarbor(Boat boat){
