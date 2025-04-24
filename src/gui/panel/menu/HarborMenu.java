@@ -197,6 +197,7 @@ public class HarborMenu extends JPanel {
                 tmp = JComponentFactory.menuButton(resource.getName()+" Δ"+activeHarbor.getGenerator().get(resource)[1],new buttonObjectListener(resource));
                 tmp.setBackground(Color.darkGray);
                 tmp.setForeground(Color.white);
+                tmp.setBorderPainted(false);
                 gridPanel.add(tmp);
                 if(activeObject!=null && activeObject.equals(resource)) changeCurrentJButton(tmp);
             }

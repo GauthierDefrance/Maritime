@@ -48,7 +48,7 @@ public final class BattlePlaceFleet {
         int i = 0;
         for(Boat boat : boats) {
             i++;
-            boat.setPosition(x, (yMin + (i * distance)));
+            boat.setPosition(x, (int) (yMin + (i * distance)));
             if(x>320*GAME_SCALE)boat.setAngle(-Math.PI);
             else boat.setAngle(0);
         }

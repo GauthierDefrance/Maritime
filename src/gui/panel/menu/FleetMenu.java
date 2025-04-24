@@ -22,6 +22,7 @@ public class FleetMenu extends JPanel {
     private Fleet activeFleet;
     private SeaRoad activeSeaRoad;
 
+    private JPanel jPanelNorth;
     private JPanel jPanelCenter1;
     private JPanel jPanelCenter2;
     private JPanel jPanelCenter3;
@@ -51,6 +52,7 @@ public class FleetMenu extends JPanel {
         jPanelGrid = JComponentFactory.gridMenuPanel(0, 1, GameConfiguration.BUTTON_SEPARATOR,GameConfiguration.BUTTON_SEPARATOR);
         goBackButton = JComponentFactory.menuButton("Go back", new goBackButtonListener());
         SeaRoadButton = JComponentFactory.menuButton("Placeholder",new switchModeListener());
+        jPanelNorth = JComponentFactory.voidPanel();
         isInSeaRoadMode = false;
 
         gridPanel1 = JComponentFactory.gridMenuPanel(0,1);
@@ -85,9 +87,26 @@ public class FleetMenu extends JPanel {
         JPanel jPanelEastButton = JComponentFactory.voidPanel();
         jPanelEastButton.add(goBackButton);
 
+        this.add(jPanelNorth,BorderLayout.NORTH);
         this.add(jPanelCenter,BorderLayout.CENTER);
         this.add(jPanelEastButton,BorderLayout.SOUTH);
 
+        this.setBackground(Color.lightGray);
+        jPanelCenter.setBackground(Color.lightGray);
+        jPanelCenter1.setBackground(Color.lightGray);
+        jPanelCenter2.setBackground(Color.lightGray);
+        jPanelCenter3.setBackground(Color.lightGray);
+        jPanelGrid.setBackground(Color.lightGray);
+
+
+        gridPanel1.setBackground(Color.gray);
+        gridPanel2.setBackground(Color.gray);
+        gridPanel3.setBackground(Color.gray);
+        gridPanelTmp1.setBackground(Color.gray);
+        gridPanelTmp2.setBackground(Color.gray);
+        gridPanelTmp3.setBackground(Color.gray);
+        jPanelEastButton.setBackground(Color.gray);
+        jPanelNorth.setBackground(Color.gray);
 
 
         this.addKeyListener(new KeyControls());
@@ -102,8 +121,8 @@ public class FleetMenu extends JPanel {
         jPanelCenter1.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.2), (int) (getWindow().getHeight()*0.8)));
         jPanelCenter2.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.2), (int) (getWindow().getHeight()*0.8)));
         jPanelCenter3.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.2), (int) (getWindow().getHeight()*0.8)));
-
         jPanelGrid.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.25), (int) (getWindow().getHeight()*(0.08*jPanelGrid.getComponentCount()))));
+        jPanelNorth.setPreferredSize(new Dimension((getWindow().getWidth()), (int) (getWindow().getHeight()*0.04)));
 
         goBackButton.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.15), (int) (getWindow().getHeight()*0.08)));
         getWindow().revalidate();
@@ -313,8 +332,6 @@ public class FleetMenu extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             isInSeaRoadMode = !isInSeaRoadMode;
-            activeFleet = null;
-            activeSeaRoad = null;
             activeButton1 = null;
             activeButton3 = null;
             allUpdate();

@@ -60,7 +60,7 @@ public class EngineBuilder {
 
     public static Fodder Fodder(String name, GraphPoint graphPoint, String color){
         loggerWrite("Fodder name "+name);
-        Fodder fodder = new Fodder(name,"",graphPoint);
+        Fodder fodder = new Fodder(name,color,graphPoint);
         return fodder;
     }
 

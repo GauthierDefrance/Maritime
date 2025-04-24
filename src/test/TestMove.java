@@ -66,14 +66,14 @@ public class TestMove {
         MapGame.getInstance().getLstFaction().get(0).getLstBoat().add(fodder3);
 
         Fleet fleet2 = MapGame.getInstance().getLstFaction().get(0).getLstFleet().get(0);
-//        fleet2.getArrayListBoat().add(military2);
-//        fleet2.getArrayListBoat().add(merchant1);
-//        fleet2.getArrayListBoat().add(merchant2);
-//        fleet2.getArrayListBoat().add(standard2);
-//        fleet2.getArrayListBoat().add(fodder1);
-//        fleet2.getArrayListBoat().add(fodder2);
-//        fleet2.getArrayListBoat().add(fodder3);
-//        fleet2.getArrayListBoat().add(military3);
+        fleet2.getArrayListBoat().add(military2);
+        fleet2.getArrayListBoat().add(merchant1);
+        fleet2.getArrayListBoat().add(merchant2);
+        fleet2.getArrayListBoat().add(standard2);
+        fleet2.getArrayListBoat().add(fodder1);
+        fleet2.getArrayListBoat().add(fodder2);
+        fleet2.getArrayListBoat().add(fodder3);
+        fleet2.getArrayListBoat().add(military3);
 
 
         MapGame.getInstance().getLstHarbor().get(0).getInventory().add(GameConfiguration.METAL,10000);

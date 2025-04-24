@@ -67,13 +67,14 @@ public class Fleet implements Serializable {
     //Modifier
 
     public void add(Boat boat) {
+        boat.clearPath();
         boat.setContinuePath(false);
         this.lstBoats.add(boat);
     }
 
     public void remove(Boat boat) {
+        boat.clearPath();
         boat.setContinuePath(false);
-        boat.getPath().clear();
         this.lstBoats.remove(boat);
     }
 

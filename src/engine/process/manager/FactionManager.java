@@ -188,7 +188,7 @@ public class FactionManager {
      */
     public void chaseBoatRemove(Boat hunter){
         MapGame.getInstance().removeHunterPreyHashMap(hunter);
-        hunter.getPath().clear();
+        hunter.clearPath();
         hunter.setNextGraphPoint(SearchInGraph.getClosestMapGraphPoint(hunter.getPosition()));
     }
 
@@ -199,7 +199,7 @@ public class FactionManager {
         double distance = hunter.getPosition().distance(prey.getPosition());
         if(GameConfiguration.HITBOX_BOAT-5 >= distance){
             MapGame.getInstance().removeHunterPreyHashMap(hunter);
-            hunter.getPath().clear();
+            hunter.clearPath();
             hunter.setNextGraphPoint(prey.getNextGraphPoint());
             ArrayList<Boat> lst = new ArrayList<>();
             lst.add(hunter);

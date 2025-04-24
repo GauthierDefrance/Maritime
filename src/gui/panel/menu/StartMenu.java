@@ -207,7 +207,6 @@ public class StartMenu extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
-            factionManager.nextRound();
             dashboard.repaint();
             dashboard.getPaintBackGround().setIFrame((dashboard.getPaintBackGround().getIFrame() + 1) % GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES);
             for (PopUp popUp : MapGame.getInstance().getLstPopUp()) {

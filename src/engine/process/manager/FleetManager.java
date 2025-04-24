@@ -1,5 +1,6 @@
 package engine.process.manager;
 
+import engine.data.entity.Harbor;
 import engine.data.entity.boats.Boat;
 import engine.data.Fleet;
 import engine.data.graph.GraphPoint;
@@ -29,7 +30,7 @@ public class FleetManager {
         fleet.setContinuePath(continuePath);
         for (Boat boat : fleet.getArrayListBoat()){
             boat.setContinuePath(continuePath);
-            boat.getPath().clear();
+            boat.clearPath();
         }
     }
 
@@ -55,6 +56,10 @@ public class FleetManager {
                         boat.setContinuePath(fleet.getContinuePath());
                     }
                     else {
+                        Harbor harbor = FactionManager.getInstance().getMyHarbor(boat);
+                        if(harbor != null && harbor.getHashMapBoat().get(boat)){
+                            FactionManager.getInstance().getHarborManager().removeBoatInHarbor(harbor,boat);
+                        }
                         boat.setPath(SearchInGraph.findPath(boat,fleet.getPath().get(0)));
                     }
                 }
@@ -71,7 +76,7 @@ public class FleetManager {
             ArrayList<GraphPoint> newPath = new ArrayList<>(path);
             fleet.setPath(newPath);
             for(Boat boat : fleet.getArrayListBoat()){
-                boat.getPath().clear();
+                boat.clearPath();
             }
         }
     }

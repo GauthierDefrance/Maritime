@@ -21,7 +21,7 @@ public final class SearchInGraph {
      * Take one points one boat and return the shortest path as a list of GraphPoint
      */
     public static ArrayList<GraphPoint> findPath(Boat boat, GraphPoint pointEnd) {
-        GraphPoint pointStart = new GraphPoint(boat.getPosition(),"temp");
+        GraphPoint pointStart = new GraphPoint(boat.getPosition(),"temp-pointStart");
         pointStart.addSegment(new GraphSegment(boat.getOldGraphPoint(), (int) pointStart.getPoint().distance(boat.getOldGraphPoint().getPoint())));
         pointStart.addSegment(new GraphSegment(boat.getNextGraphPoint(), (int) pointStart.getPoint().distance(boat.getNextGraphPoint().getPoint())));
         return findPath(pointStart, pointEnd);

@@ -134,7 +134,7 @@ public abstract class Boat implements Entity {
     @Override
     public void setPosition(Point position) {this.position = position;}
 
-    public void setPosition(double x,double y) {position.setLocation(x,y);}
+    public void setPosition(int x,int y) {this.position = new Point(x,y);}
 
     public void setDamageSpeed(int damageSpeed) {this.damageSpeed = damageSpeed;}
 
@@ -159,6 +159,11 @@ public abstract class Boat implements Entity {
     }
 
     //Basic boat handling
+
+    public void clearPath() {
+        this.iPath = 0;
+        this.path.clear();
+    }
 
     public void addIPath(int iPath) {this.iPath += iPath;}
 

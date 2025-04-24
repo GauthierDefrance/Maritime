@@ -10,6 +10,8 @@ import engine.process.creational.EngineBuilder;
 import engine.utilities.SearchInGraph;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * @author Kenan Ammad
@@ -34,7 +36,7 @@ public class HarborManager {
     }
 
     public void addBoatInHarbor(Harbor harbor,Boat boat){
-        boat.getPath().clear();
+        boat.clearPath();
         boat.setContinuePath(false);
         harbor.getHashMapBoat().put(boat,false);
     }
@@ -46,9 +48,12 @@ public class HarborManager {
     }
 
     public void removeBoatInHarbor(Harbor harbor,Boat boat){
-        harbor.getHashMapBoat().remove(boat);
+        Random random = new Random();
         if(harbor.getHashMapBoat().containsKey(boat) && harbor.getHashMapBoat().get(boat)) {
-            boat.setPosition(new Point(harbor.getGraphPosition().getPoint()));
+            if(harbor.getHashMapBoat().get(boat)){
+                boat.setPosition(new Point((int) (harbor.getGraphPosition().getX()+((random.nextInt((int) (GameConfiguration.HITBOX_BOAT))+1)-(GameConfiguration.HITBOX_BOAT /2))),(int) (harbor.getGraphPosition().getY()+((random.nextInt((int) GameConfiguration.HITBOX_BOAT)+1)-(GameConfiguration.HITBOX_BOAT /2)))));
+            }
+            harbor.getHashMapBoat().remove(boat);
         }
     }
 
@@ -64,7 +69,9 @@ public class HarborManager {
                 if(harbor.getGraphPosition().getPoint().equals(boat.getPosition())){
                     harbor.getHashMapBoat().put(boat,true);
                     TradeManager.getInstance().transferMaxAll(boat.getInventory(),harbor.getInventory(),boat,harbor);
-                    boat.setPosition(harbor.getPosition().getX()*-100000,harbor.getPosition().getY()*-100000);
+                    boat.setPosition(harbor.getGraphPosition().getX()*-100000, harbor.getGraphPosition().getY()*-100000);
+                    boat.setNextGraphPoint(harbor.getGraphPosition());
+                    boat.clearPath();
                 }
                 else if(boat.getPath().isEmpty()) {
                     boat.setPath(SearchInGraph.findPath(boat, harbor.getGraphPosition()));
@@ -133,7 +140,7 @@ public class HarborManager {
                 harbor.getInventory().subtract(GameConfiguration.WOOD,300);
                 harbor.getInventory().subtract(GameConfiguration.CLOTH,100);
                 boat = EngineBuilder.Standard(newName,harbor.getGraphPosition(),harbor.getColor());
-                boat.setPosition(harbor.getGraphPosition().getX()*10000,harbor.getGraphPosition().getY()*10000);
+                boat.setPosition(harbor.getGraphPosition().getX()*-100000,harbor.getGraphPosition().getY()*-100000);
                 harbor.getHashMapBoat().put(boat,true);
                 FactionManager.getInstance().getMyFaction(harbor.getColor()).addBoat(boat);
                 return;
@@ -141,7 +148,7 @@ public class HarborManager {
                 harbor.getInventory().subtract(GameConfiguration.WOOD,100);
                 harbor.getInventory().subtract(GameConfiguration.CLOTH,20);
                 boat = EngineBuilder.Fodder(newName,harbor.getGraphPosition(),harbor.getColor());
-                boat.setPosition(harbor.getGraphPosition().getX()*10000,harbor.getGraphPosition().getY()*10000);
+                boat.setPosition(harbor.getGraphPosition().getX()*-100000,harbor.getGraphPosition().getY()*-100000);
                 harbor.getHashMapBoat().put(boat,true);
                 FactionManager.getInstance().getMyFaction(harbor.getColor()).addBoat(boat);
                 return;
@@ -150,7 +157,7 @@ public class HarborManager {
                 harbor.getInventory().subtract(GameConfiguration.CLOTH,200);
                 harbor.getInventory().subtract(GameConfiguration.METAL,50);
                 boat = EngineBuilder.Merchant(newName,harbor.getGraphPosition(),harbor.getColor());
-                boat.setPosition(harbor.getGraphPosition().getX()*10000,harbor.getGraphPosition().getY()*10000);
+                boat.setPosition(harbor.getGraphPosition().getX()*-100000,harbor.getGraphPosition().getY()*-100000);
                 harbor.getHashMapBoat().put(boat,true);
                 FactionManager.getInstance().getMyFaction(harbor.getColor()).addBoat(boat);
                 return;

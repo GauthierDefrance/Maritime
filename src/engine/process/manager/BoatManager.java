@@ -31,7 +31,11 @@ public class BoatManager {
      */
     public void followThePath(Boat boat){
         if (!boat.getPath().isEmpty()){
-            approachingToPoint(boat,boat.getPath().get(boat.getIPath()));
+            Harbor harbor = FactionManager.getInstance().getMyHarbor(boat);
+            if(harbor != null && harbor.getHashMapBoat().get(boat)){
+                FactionManager.getInstance().getHarborManager().removeBoatInHarbor(harbor,boat);
+            }
+            else approachingToPoint(boat,boat.getPath().get(boat.getIPath()));
         }
     }
 
@@ -40,8 +44,8 @@ public class BoatManager {
      * @param boat targeted boat
      */
     public void approachingToPoint(Boat boat, GraphPoint point){
-        double x1 = point.getX();
-        double y1 = point.getY();
+        int x1 = point.getX();
+        int y1 = point.getY();
         double x2 = boat.getPosition().getX();
         double y2 = boat.getPosition().getY();
         double distance = boat.getPosition().distance(point.getPoint());
@@ -49,10 +53,10 @@ public class BoatManager {
         if (distance < boat.getSpeed()) {
             moveTo(x1,y1,boat);
             weAreOnPoint(boat);
-        }//distance < speed, on se déplace sur le point visé
+        }
         else {
-            boat.setAngle(Math.atan2(y1 - y2, x1 - x2)); //calcul avec ArcTan la position cible
-            moveTo(Math.round(x2 + Math.cos(boat.getAngle()) * boat.getSpeed()), Math.round(y2 + Math.sin(boat.getAngle()) * boat.getSpeed()), boat);// Sinon, on se déplace en direction de notre point grâce aux formules de trigonometrie
+            boat.setAngle(Math.atan2(y1 - y2, x1 - x2));
+            moveTo((int) Math.round(x2 + Math.cos(boat.getAngle()) * boat.getSpeed()), (int) Math.round(y2 + Math.sin(boat.getAngle()) * boat.getSpeed()), boat);
         }
     }
 
@@ -69,7 +73,7 @@ public class BoatManager {
         else {
             boat.setIPath(0);
             if (boat.getContinuePath()) Collections.reverse(boat.getPath());
-            else boat.getPath().clear();
+            else boat.clearPath();
         }
     }
 
@@ -79,7 +83,7 @@ public class BoatManager {
      * @param y coordinate y
      * @param boat targeted boat
      */
-    public void moveTo(double x,double y, Boat boat){
+    public void moveTo(int x,int y, Boat boat){
         boat.setPosition(x,y);
     }
 
