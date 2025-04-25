@@ -41,7 +41,7 @@ public class PauseMenu extends JPanel {
     /**
      * Makes all necessary operations to initialize the panel
      */
-    public void init() {
+    private void init() {
 
         this.setLayout(new BorderLayout());
 
@@ -136,28 +136,28 @@ public class PauseMenu extends JPanel {
         }
     }
 
-    public class MainMenuListener implements ActionListener {
+    private class MainMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             GUILoader.loadStartMenu();
         }
     }
 
-    public class LoadMenuListener implements ActionListener {
+    private class LoadMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             GUILoader.loadChargeGameMenu(token+4,objectToken);
         }
     }
 
-    public class SaveMenuListener implements ActionListener {
+    private class SaveMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             GUILoader.loadSaveGameMenu(token+4,objectToken);
         }
     }
 
-    public class debugListener implements ActionListener {
+    private class debugListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             MainGUI.getDebug().setVisible(!MainGUI.getDebug().isVisible());
@@ -167,21 +167,21 @@ public class PauseMenu extends JPanel {
     /**
      * An ActionListener allowing to exit the game
      */
-    public class ExitListener implements ActionListener {
+    private class ExitListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             ListenerBehaviorManager.create().exit(PauseMenu.this);
         }
     }
 
-    public class OptionsMenuListener implements ActionListener {
+    private class OptionsMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             GUILoader.loadOptionsMenu(token+4,objectToken);
         }
     }
 
-    public class ResumeButtonListener implements ActionListener {
+    private class ResumeButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             ListenerBehaviorManager.create().goBack(token,objectToken);

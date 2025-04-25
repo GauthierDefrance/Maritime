@@ -51,7 +51,7 @@ public class FleetMenu extends JPanel {
     }
 
 
-    public void init() {
+    private void init() {
         this.setLayout(new BorderLayout());
 
         jPanelCenter1 = JComponentFactory.borderMenuPanel();
@@ -243,7 +243,7 @@ public class FleetMenu extends JPanel {
         if(jButton!=null)jButton.setBackground(new Color(125, 130, 200));
     }
 
-    public class combineCurrentListener implements ActionListener {
+    private class combineCurrentListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(activeSeaRoad != null && activeFleet != null && !activeSeaRoad.getFleet().equals(activeFleet)){
@@ -254,7 +254,7 @@ public class FleetMenu extends JPanel {
         }
     }
 
-    public class addBoatToFleetListener implements ActionListener {
+    private class addBoatToFleetListener implements ActionListener {
         private Boat boat;
 
         public addBoatToFleetListener(Boat boat) {
@@ -269,7 +269,7 @@ public class FleetMenu extends JPanel {
         }
     }
 
-    public class removeBoatToFleetListener implements ActionListener {
+    private class removeBoatToFleetListener implements ActionListener {
         private Boat boat;
 
         public removeBoatToFleetListener(Boat boat) {
@@ -284,7 +284,7 @@ public class FleetMenu extends JPanel {
         }
     }
 
-    public class setFleetListener implements ActionListener {
+    private class setFleetListener implements ActionListener {
         private Fleet fleet;
 
         public setFleetListener(Fleet fleet) {
@@ -299,7 +299,7 @@ public class FleetMenu extends JPanel {
         }
     }
 
-    public class setSeaRoadListener implements ActionListener {
+    private class setSeaRoadListener implements ActionListener {
         private SeaRoad seaRoad;
 
         public setSeaRoadListener(SeaRoad seaRoad) {
@@ -314,7 +314,7 @@ public class FleetMenu extends JPanel {
         }
     }
 
-    public class newFleetListener implements ActionListener {
+    private class newFleetListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             String nameForNewFleet = JOptionPane.showInputDialog(FleetMenu.this,"Name for New Fleet");
@@ -324,7 +324,7 @@ public class FleetMenu extends JPanel {
         }
     }
 
-    public class removeListener implements ActionListener {
+    private class removeListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(isInSeaRoadMode){
@@ -348,7 +348,7 @@ public class FleetMenu extends JPanel {
         }
     }
 
-    public class setPathListener implements ActionListener {
+    private class setPathListener implements ActionListener {
         private Fleet fleet;
         private SeaRoad seaRoad;
 
@@ -372,7 +372,7 @@ public class FleetMenu extends JPanel {
         }
     }
 
-    public class switchModeListener implements ActionListener {
+    private class switchModeListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             isInSeaRoadMode = !isInSeaRoadMode;
@@ -405,7 +405,7 @@ public class FleetMenu extends JPanel {
         }
     }
 
-    public class goBackButtonListener implements ActionListener {
+    private class goBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             GUILoader.loadMainGame();

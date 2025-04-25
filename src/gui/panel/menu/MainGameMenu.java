@@ -85,7 +85,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         init();
     }
 
-    public void init() {
+    private void init() {
         this.setLayout(new BorderLayout());
         jPanelATH = JComponentFactory.borderMenuPanel();
         jEastATHPanel = JComponentFactory.borderMenuPanel();
@@ -154,7 +154,6 @@ public class MainGameMenu extends JPanel implements Runnable {
         jEastATHPanel.setOpaque(false);
         jPanelATH.setOpaque(false);
         jEastPanel.setOpaque(false);
-        jSouthATHPanel.setOpaque(false);
         jEastButtonPanel.setOpaque(false);
         jEastWestPanel.setOpaque(false);
 
@@ -186,6 +185,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         jEastCenterPanel.setBackground(Color.DARK_GRAY);
         jSouthEastPanel.setBackground(Color.GRAY);
         jNorthATHPanel.setBackground(new Color(64, 64, 64,100));
+        jSouthATHPanel.setBackground(new Color(64, 64, 64,100));
         dashboard.setBackground(GameConfiguration.WATER_BACKGROUND_COLOR);
         jEastCenterChoice1CenterPanel.setBackground(Color.GRAY);
         jEastCenterChoice2CenterPanel.setBackground(Color.GRAY);
@@ -264,6 +264,27 @@ public class MainGameMenu extends JPanel implements Runnable {
         if(currentJButton!=null) currentJButton.setBackground(new Color(125, 130, 200));
         currentObject = object;
         dashboard.setCurrentObject(currentObject);
+        SouthATHPanelUpdate();
+    }
+
+    private void SouthATHPanelUpdate(){
+        jSouthATHPanel.removeAll();
+        if(currentObject!= null){
+            if (currentObject instanceof Boat){
+                Boat currentBoat = (Boat) currentObject;
+            }
+            if (currentObject instanceof Harbor){
+                Harbor currentHarbor = (Harbor) currentObject;
+            }
+            if (currentObject instanceof Fleet){
+                Fleet currentFleet = (Fleet) currentObject;
+            }
+            if (currentObject instanceof SeaRoad){
+                SeaRoad currentSeaRoad = (SeaRoad) currentObject;
+            }
+
+
+        }
     }
 
     private void ShowPopupMenu(int x, int y,Entity entity){
@@ -298,7 +319,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         jPopupMenu.show(jPanelATH,x,y);
     }
 
-    public class showMenu implements ActionListener {
+    private class showMenu implements ActionListener {
         private final JPanel jPanel1;
         private final JPanel jPanel2;
 
@@ -338,21 +359,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         }
     }
 
-    public class pickUpHarborListener implements ActionListener {
-        private final Harbor harbor;
-
-        public pickUpHarborListener(Harbor harbor) {
-            this.harbor = harbor;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            jPopupMenu.setVisible(false);
-            MapGame.getInstance().getPlayer().addHarbor(harbor);
-        }
-    }
-
-    public class RelationListener implements ActionListener {
+    private class RelationListener implements ActionListener {
         private final Entity entity;
 
         public RelationListener(Entity entity) {
@@ -367,7 +374,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         }
     }
 
-    public class setChaseListener implements ActionListener {
+    private class setChaseListener implements ActionListener {
         private final Object object;
 
         public setChaseListener(Object object) {
@@ -395,7 +402,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         }
     }
 
-    public class setSpeedBoostListener implements ActionListener {
+    private class setSpeedBoostListener implements ActionListener {
         private final int value;
 
         public setSpeedBoostListener(int value) {
@@ -413,14 +420,14 @@ public class MainGameMenu extends JPanel implements Runnable {
         }
     }
 
-    public class flipTimeListener implements ActionListener {
+    private class flipTimeListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             MapGame.getInstance().setTimeStop(!MapGame.getInstance().isTimeStop());
         }
     }
 
-    public class buttonObjectListener implements ActionListener {
+    private class buttonObjectListener implements ActionListener {
         private final Object object;
 
         public buttonObjectListener(Object object) {
@@ -430,6 +437,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         @Override
         public void actionPerformed(ActionEvent e) {
             changeCurrentJButton(object);
+            sizeUpdate();
         }
     }
 

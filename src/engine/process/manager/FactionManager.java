@@ -431,6 +431,15 @@ public class FactionManager {
             MapGame.getInstance().getPirate().addFleet(fleet);
             for(int i = 0 ; i < randomInt2 ;i++) {
                 Boat newBoat = getRandomBoat(MapGame.getInstance().getPirate(), MapGame.getInstance().getMapGraphPoint().get(randomInt1));
+                playerManager.updatePlayerVision();
+                int j = 0;
+                while (MapGame.getInstance().getPlayer().getVision().contains(newBoat)&&j<100){
+                    j++;
+                    randomInt1 = random.nextInt(MapGame.getInstance().getMapGraphPoint().size()-11)+11;
+                    newBoat.setPosition(new Point(MapGame.getInstance().getMapGraphPoint().get(randomInt1).getPoint()));
+                    playerManager.updatePlayerVision();
+
+                }
                 newBoat.setNextGraphPoint(SearchInGraph.getClosestMapGraphPoint(newBoat.getPosition()));
                 MapGame.getInstance().getPirate().addBoat(newBoat);
                 fleet.add(newBoat);
@@ -560,7 +569,12 @@ public class FactionManager {
     public HarborManager getHarborManager(){
         return harborManager;
     }
+
     public FleetManager getFleetManager(){
         return fleetManager;
+    }
+
+    public PlayerManager getPlayerManager(){
+        return playerManager;
     }
 }

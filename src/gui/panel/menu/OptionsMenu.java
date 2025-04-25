@@ -74,7 +74,7 @@ public class OptionsMenu extends JPanel {
     /**
      * Makes all necessary operations to initialize the panel
      */
-    public void init() {
+    private void init() {
 
         this.setLayout(new BorderLayout());
 
@@ -159,7 +159,7 @@ public class OptionsMenu extends JPanel {
         }
     }
 
-    public class minusButtonListener implements ActionListener {
+    private class minusButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             ListenerBehaviorManager lbm = ListenerBehaviorManager.create();
@@ -168,7 +168,7 @@ public class OptionsMenu extends JPanel {
         }
     }
 
-    public class plusButtonListener implements ActionListener {
+    private class plusButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             ListenerBehaviorManager lbm = ListenerBehaviorManager.create();
@@ -177,7 +177,7 @@ public class OptionsMenu extends JPanel {
         }
     }
 
-    public class muteButtonListener implements ActionListener {
+    private class muteButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             getInstance().setIsMuted(ListenerBehaviorManager.create().toggle(muteButton, getInstance().getIsMuted()));
@@ -185,7 +185,7 @@ public class OptionsMenu extends JPanel {
         }
     }
 
-    public class debugMenuListener implements ActionListener {
+    private class debugMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             ListenerBehaviorManager lbm = ListenerBehaviorManager.create();
@@ -194,7 +194,7 @@ public class OptionsMenu extends JPanel {
         }
     }
 
-    public class goBackButtonListener implements ActionListener {
+    private class goBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             ListenerBehaviorManager.create().goBack(token,objectToken);

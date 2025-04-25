@@ -2,10 +2,13 @@ package gui.panel.display;
 
 import config.GameConfiguration;
 import engine.MapGame;
+import engine.data.Fleet;
 import engine.data.entity.Harbor;
 import engine.data.entity.boats.Boat;
 import engine.data.faction.Faction;
+import engine.data.graph.GraphPoint;
 import engine.data.trading.SeaRoad;
+import engine.process.manager.FactionManager;
 import gui.process.ImageStock;
 import gui.process.PaintBackGround;
 import gui.process.PaintEntity;
@@ -80,6 +83,21 @@ public class GameDisplay extends JPanel {
                 Boat currentBoat = (Boat) currentObject;
                 paintEntity.paintHITBOX(currentBoat.getPosition(), new Color(125, 130, 200,200),g2d);
                 paintEntity.paintSprite(currentBoat.getPosition(),ImageStock.getImage(currentBoat),g2d, currentBoat.getAngle());
+            }
+            else if(currentObject instanceof Fleet){
+                Fleet currentFleet = (Fleet) currentObject;
+                for (Boat boat : currentFleet.getArrayListBoat()){
+                    paintEntity.paintHITBOX(boat.getPosition(), new Color(125, 130, 200,150),g2d);
+                }
+                for (Boat boat : currentFleet.getArrayListBoat()){
+                    paintEntity.paintSprite(boat.getPosition(),ImageStock.getImage(boat),g2d, boat.getAngle());
+                }
+                paintEntity.paintPath(currentFleet.getPath(),ImageStock.colorChoice(FactionManager.getInstance().getMyFaction(currentFleet).getColor()),g2d);
+            }
+            else if(currentObject instanceof SeaRoad){
+                SeaRoad currentSeaRoad = (SeaRoad) currentObject;
+                paintEntity.paintPath(currentSeaRoad.getPath(),ImageStock.colorChoice(currentSeaRoad.getSellerHarbor().getColor()),g2d);
+
             }
         }
         paintEntity.paintChaseMap(g2d);

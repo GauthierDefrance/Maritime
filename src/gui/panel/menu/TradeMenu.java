@@ -51,7 +51,7 @@ public class TradeMenu extends JPanel {
         this.targetHarbor = targetHarbor;
         init();
     }
-    public void init() {
+    private void init() {
         this.setLayout(new BorderLayout());
         sellerResourceQuantity = 1;
         targetResourceQuantity = 1;
@@ -471,7 +471,7 @@ public class TradeMenu extends JPanel {
 
         @Override
         public void keyReleased(KeyEvent e) {
-
         }
     }
+
 }

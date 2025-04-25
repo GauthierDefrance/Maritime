@@ -91,7 +91,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         init();
     }
 
-    public void init() {
+    private void init() {
         this.setLayout(new BorderLayout());
         dashboardJPanel = JComponentFactory.borderMenuPanel();
         jPanelATH = JComponentFactory.borderMenuPanel();
@@ -145,7 +145,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         gameThread.start();
     }
 
-    public void sizeUpdate() {
+    private void sizeUpdate() {
         dashboardJPanel.setBounds(getWindow().getBounds());
         jPanelATH.setBounds(getWindow().getBounds());
 
@@ -160,7 +160,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         getWindow().repaint();
     }
 
-    public class confirmListener implements ActionListener {
+    private class confirmListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             switch (state){
@@ -202,7 +202,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         }
     }
 
-    public class resetListener implements ActionListener {
+    private class resetListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(state == 0) {
@@ -218,7 +218,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         }
     }
 
-    public class cancelListener implements ActionListener {
+    private class cancelListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(state == 0) {
@@ -239,7 +239,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         }
     }
 
-    public class automaticListener implements ActionListener {
+    private class automaticListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(state == 0) {
@@ -367,7 +367,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         }
     }
 
-    public class goBackButtonListener implements ActionListener {
+    private class goBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             ThreadStop = true;

@@ -191,7 +191,7 @@ public class RelationMenu extends JPanel {
         if(jButton!=null)jButton.setBackground(new Color(125, 130, 200));
     }
 
-    public class buttonObjectListener implements ActionListener {
+    private class buttonObjectListener implements ActionListener {
         private final Faction faction;
 
         public buttonObjectListener(Faction faction) {
@@ -247,7 +247,7 @@ public class RelationMenu extends JPanel {
         }
     }
 
-    public class goBackButtonListener implements ActionListener {
+    private class goBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             GUILoader.loadMainGame();

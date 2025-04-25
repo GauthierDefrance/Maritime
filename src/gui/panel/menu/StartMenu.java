@@ -48,7 +48,7 @@ public class StartMenu extends JPanel implements Runnable {
     /**
      * Makes all necessary operations to initialize the panel
      */
-    public void init() {
+    private void init() {
         EngineBuilder.mapInit(0);
         this.setLayout(new BorderLayout());
         jPanelATH = JComponentFactory.borderMenuPanel();
@@ -129,7 +129,7 @@ public class StartMenu extends JPanel implements Runnable {
     /**
      * An ActionListener allowing to start the game (currently starts the TestMove demo)
      */
-    public class StartGameListener implements ActionListener {
+    private class StartGameListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             ThreadStop = true;
@@ -138,7 +138,7 @@ public class StartMenu extends JPanel implements Runnable {
         }
     }
 
-    public class OptionsMenuListener implements ActionListener {
+    private class OptionsMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             ThreadStop = true;
@@ -146,7 +146,7 @@ public class StartMenu extends JPanel implements Runnable {
         }
     }
 
-    public class LoadMenuListener implements ActionListener {
+    private class LoadMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             ThreadStop = true;
@@ -157,7 +157,7 @@ public class StartMenu extends JPanel implements Runnable {
     /**
      * An ActionListener allowing to exit the game
      */
-    public class ExitListener implements ActionListener {
+    private class ExitListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             ListenerBehaviorManager.create().exit(StartMenu.this);

@@ -60,7 +60,7 @@ public class CombatMenu extends JPanel implements Runnable {
         this.battle = battle;
         init();
     }
-    public void init() {
+    private void init() {
         this.setLayout(new BorderLayout());
         dashboardJPanel = JComponentFactory.borderMenuPanel();
         jPanelATH = JComponentFactory.borderMenuPanel();
@@ -149,7 +149,7 @@ public class CombatMenu extends JPanel implements Runnable {
         gameThread.start();
     }
 
-    public void sizeUpdate() {
+    private void sizeUpdate() {
         dashboardJPanel.setBounds(getWindow().getBounds());
         jPanelATH.setBounds(getWindow().getBounds());
 
@@ -167,7 +167,7 @@ public class CombatMenu extends JPanel implements Runnable {
         getWindow().repaint();
     }
 
-    public void elementInPanelUpdate() {
+    private void elementInPanelUpdate() {
         if(battle.getFactionA().equals(MapGame.getInstance().getPlayer())) {
             jWestCenterPanel.removeAll();
             for (Boat boat : battle.getLstBoatsToPlace()) {
@@ -179,7 +179,7 @@ public class CombatMenu extends JPanel implements Runnable {
         }
     }
 
-    public class setSpeedBoostListener implements ActionListener {
+    private class setSpeedBoostListener implements ActionListener {
         private int value;
 
         public setSpeedBoostListener(int value) {
@@ -198,7 +198,7 @@ public class CombatMenu extends JPanel implements Runnable {
 
     }
 
-    public class flipTimeListener implements ActionListener {
+    private class flipTimeListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             MapGame.getInstance().setTimeStop(!MapGame.getInstance().isTimeStop());
@@ -210,7 +210,7 @@ public class CombatMenu extends JPanel implements Runnable {
         }
     }
 
-    public class showMenu implements ActionListener {
+    private class showMenu implements ActionListener {
         private final JPanel jPanel1;
         private final JPanel jPanel2;
 
@@ -227,7 +227,7 @@ public class CombatMenu extends JPanel implements Runnable {
         }
     }
 
-    public class cancelPlacingListener implements ActionListener {
+    private class cancelPlacingListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             battleManager.getPlacingManager().cancelPlacing();
@@ -236,7 +236,7 @@ public class CombatMenu extends JPanel implements Runnable {
         }
     }
 
-    public class confirmContinueBattleListener implements ActionListener {
+    private class confirmContinueBattleListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(!battleManager.getPlacingManager().confirmContinueBattle()){
@@ -275,7 +275,6 @@ public class CombatMenu extends JPanel implements Runnable {
     }
 
     private class MouseListener extends MouseAdapter {
-        private Boat boat;
         @Override
         public void mousePressed(MouseEvent e) {
             Point point = ListenerBehaviorManager.create().clickLogic(CombatMenu.this, e.getPoint());

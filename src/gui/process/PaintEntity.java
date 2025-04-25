@@ -6,13 +6,16 @@ import engine.battleengine.data.Bullet;
 import engine.data.entity.Harbor;
 import engine.data.entity.boats.Boat;
 import engine.data.faction.Faction;
+import engine.data.graph.GraphPoint;
 import engine.data.trading.SeaRoad;
+import engine.process.manager.FactionManager;
 import gui.PopUp;
 import gui.panel.display.GameDisplay;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 /**
  * @author Kenan Ammad
@@ -104,6 +107,19 @@ public class PaintEntity {
         g2d.fillOval((int)(harbor.getPosition().getX())-((int)harbor.getVisionRadius()/2),(int)(harbor.getPosition().getY())-((int)harbor.getVisionRadius()/2), (int) harbor.getVisionRadius(), (int) harbor.getVisionRadius());
         g2d.setColor(Color.black);
         paint(harbor,g2d);
+    }
+
+    public void paintPath(ArrayList<GraphPoint> path,Color color , Graphics2D g2d){
+        g2d.setColor(color);
+        float[] floats = {10,10};
+        g2d.setStroke(new BasicStroke(6,BasicStroke.CAP_ROUND,BasicStroke.JOIN_MITER,1,floats,0));
+        for(int i = 0; i < path.size();i++){
+            g2d.fillOval((path.get(i).getX()-15), (path.get(i).getY()-15),30,30);
+            if(i>0){
+                g2d.drawLine(path.get(i).getX(),path.get(i).getY(),path.get(i-1).getX(),path.get(i-1).getY());
+            }
+        }
+        g2d.setColor(Color.black);
     }
 
     public void paintChase(Boat hunter,Point point, Graphics2D g2d){

@@ -45,7 +45,7 @@ public class SaveFileMenu extends JPanel {
         return save.getName().split(".ser")[0];
     }
 
-    public void init(){
+    private void init(){
         this.setLayout(new BorderLayout());
         this.addKeyListener(new KeyControls());
         for (int i = 0; i < 6; i++) {
@@ -118,7 +118,7 @@ public class SaveFileMenu extends JPanel {
         }
     }
 
-    public class SaveListener implements ActionListener {
+    private class SaveListener implements ActionListener {
         private final int fileID;
         public SaveListener(int fileID) {
             this.fileID = fileID;
@@ -140,7 +140,7 @@ public class SaveFileMenu extends JPanel {
         }
     }
 
-    public class goBackButtonListener implements ActionListener {
+    private class goBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             ListenerBehaviorManager ls = ListenerBehaviorManager.create();
