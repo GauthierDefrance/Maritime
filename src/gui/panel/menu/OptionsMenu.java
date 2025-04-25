@@ -30,6 +30,8 @@ public class OptionsMenu extends JPanel {
     private JButton muteButton;
     private JButton debugButton;
 
+    private JLabel soundLabel;
+
     /**
      * Build the OptionsMenu using a token
      * @param token former GUI JPanel identifier
@@ -83,8 +85,7 @@ public class OptionsMenu extends JPanel {
         JPanel titleDisplay = JComponentFactory.flowMenuPanel(title);
 
         JButton goBackButton = JComponentFactory.menuButton("Go back", new goBackButtonListener());
-
-        JLabel soundLabel = JComponentFactory.menuLabel("Sound Level");
+        soundLabel = JComponentFactory.menuLabel("Sound Level ("+getInstance().getVolume()+"/"+MAX_SOUND_LEVEL+")");
         JButton plusButton = JComponentFactory.menuButton("+", new plusButtonListener());
         JButton minusButton = JComponentFactory.menuButton("-", new minusButtonListener());
         JPanel soundOptionPanel = JComponentFactory.gridMenuPanel(1,2,10+BUTTON_SEPARATOR,10+BUTTON_SEPARATOR,plusButton, minusButton);
@@ -166,6 +167,7 @@ public class OptionsMenu extends JPanel {
             ListenerBehaviorManager lbm = ListenerBehaviorManager.create();
             getInstance().setVolume(lbm.decrement(MIN_SOUND_LEVEL, getInstance().getVolume()));
             MusicManager.getInstance().actualizeMusicPlayers();
+            soundLabel.setText("Sound Level ("+getInstance().getVolume()+"/"+MAX_SOUND_LEVEL+")");
             updateLinkedFile();
         }
     }
@@ -176,6 +178,7 @@ public class OptionsMenu extends JPanel {
             ListenerBehaviorManager lbm = ListenerBehaviorManager.create();
             getInstance().setVolume(lbm.increment(MAX_SOUND_LEVEL, getInstance().getVolume()));
             MusicManager.getInstance().actualizeMusicPlayers();
+            soundLabel.setText("Sound Level ("+getInstance().getVolume()+"/"+MAX_SOUND_LEVEL+")");
             updateLinkedFile();
         }
     }

@@ -104,10 +104,9 @@ public class TestMove {
 
         MapGame.getInstance().setTimeStop(true);
 
-        MusicManager MM = MusicManager.getInstance();
 
-        MM.addMusicPlayer(MusicBuilder.createMusic("Killing_in_the_Name.wav",true));
-        MM.addMusicPlayer(MusicBuilder.createMusic("declare_war.wav",true));
+        MusicManager.getInstance().addMusicPlayer(MusicBuilder.createMusic("Killing_in_the_Name.wav",true));
+        MusicManager.getInstance().addMusicPlayer(MusicBuilder.createMusic("declare_war.wav", true));
     }
 }
 

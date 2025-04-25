@@ -1,5 +1,9 @@
 package music;
 
+import engine.process.creational.EngineBuilder;
+import log.LoggerUtility;
+import org.apache.log4j.Logger;
+
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +20,8 @@ public class MusicPlayer {
     private Boolean loop=false;
     private String filename;
 
+    private static Logger logger = LoggerUtility.getLogger(MusicPlayer.class);
+
     /**
      * Method that load in memory a music .waw from a given path
      * @param filePath
@@ -25,8 +31,7 @@ public class MusicPlayer {
         try {
             File audioFile = new File(filePath);
             if (!audioFile.exists()) {
-                System.out.println("The file doesn't exist : " + filePath);
-                //add a Log
+                logger.warn("The file doesn't exist : " + filePath);
             }
             else {
                 AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
@@ -35,8 +40,7 @@ public class MusicPlayer {
                 this.filename = filePath;
             }
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            //e.printStackTrace();
-            //add a log
+            logger.warn("Error while loading the file :"+e.getMessage());
         }
     }
 

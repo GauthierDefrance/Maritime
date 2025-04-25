@@ -1,6 +1,9 @@
 package music;
 
 
+import log.LoggerUtility;
+import org.apache.log4j.Logger;
+
 import java.io.File;
 
 import static config.GameConfiguration.MUSIC_FILE_PATH;
@@ -13,7 +16,7 @@ import static config.GameConfiguration.MUSIC_FILE_PATH;
  * @version 0.1
  */
 public class MusicBuilder {
-
+    private static Logger logger = LoggerUtility.getLogger(MusicBuilder.class);
 
     /**
      * Method that create an object MusicPlayer with a specific name like : my_music.wav
@@ -27,7 +30,7 @@ public class MusicBuilder {
             mp.load(MUSIC_FILE_PATH+filename);
             return mp;
         } else {
-            //ERREUR
+            logger.warn("The file couldn't be created : " + MUSIC_FILE_PATH+filename);
             return null;
         }
     }
@@ -49,7 +52,7 @@ public class MusicBuilder {
             }
             return mp;
         } else {
-            //ERREUR
+            logger.warn("The file couldn't be created : " + MUSIC_FILE_PATH+filename);
             return null;
         }
     }

@@ -36,14 +36,22 @@ public class MusicManager {
      * @param mp
      */
     public void addMusicPlayer(MusicPlayer mp) {
-        if(musicPlayersMap.containsKey(mp.getFilename()) ){
-            MusicPlayer old = musicPlayersMap.get(mp.getFilename());
-            old.stop();
-            old.close();
+        if(mp!=null) {
+            //Delete the old music with same name
+            if(musicPlayersMap.containsKey(mp.getFilename())){
+                MusicPlayer old = musicPlayersMap.get(mp.getFilename());
+                old.stop();
+                old.close();
+            }
+            //Create new music
+            musicPlayersMap.put(mp.getFilename(),mp);
+            if(!GameOptions.getInstance().getIsMuted()){
+                mp.setVolume(0);
+            } else {
+                mp.setVolume(((float) GameOptions.getInstance().getVolume() )/10);
+            }
+            mp.play();
         }
-        musicPlayersMap.put(mp.getFilename(),mp);
-        mp.setVolume(((float) GameOptions.getInstance().getVolume() )/10);
-        mp.play();
     }
 
     /**
@@ -68,7 +76,7 @@ public class MusicManager {
             if(mp.isFinished() && !mp.isLooping()) {
                 killMusicPlayer(mp.getFilename());
             } else {
-                if(GameOptions.getInstance().getIsMuted()){
+                if(!GameOptions.getInstance().getIsMuted()){
                     mp.setVolume(0);
                 } else {
                     mp.setVolume(((float) GameOptions.getInstance().getVolume() )/10);
