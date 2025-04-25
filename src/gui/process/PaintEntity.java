@@ -8,7 +8,6 @@ import engine.data.entity.boats.Boat;
 import engine.data.faction.Faction;
 import engine.data.graph.GraphPoint;
 import engine.data.trading.SeaRoad;
-import engine.process.manager.FactionManager;
 import gui.PopUp;
 import gui.panel.display.GameDisplay;
 

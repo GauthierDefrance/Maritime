@@ -4,7 +4,6 @@ import config.GameConfiguration;
 import engine.MapGame;
 import engine.data.entity.boats.Boat;
 import engine.data.Fleet;
-import engine.data.faction.Faction;
 import engine.data.graph.GraphPoint;
 import engine.data.trading.*;
 import gui.PopUp;

@@ -10,7 +10,6 @@ import engine.process.creational.EngineBuilder;
 import engine.utilities.SearchInGraph;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Random;
 
 /**

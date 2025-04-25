@@ -1,8 +1,6 @@
 package test;
 
-import config.GameConfiguration;
 import engine.MapGame;
-import engine.data.trading.SeaRoad;
 import engine.process.creational.EngineBuilder;
 import gui.MainGUI;
 import gui.utilities.GUILoader;

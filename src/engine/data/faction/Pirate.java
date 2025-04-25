@@ -1,5 +1,12 @@
 package engine.data.faction;
 
+/**
+ * A specific kind of Faction, they behave differently.
+ * @author Kenan Ammad
+ * @author Zue Jack-Arthur
+ * Class Pirate
+ * @version 0.2
+ */
 public class Pirate extends Faction {
 
     public Pirate(String color,String name){

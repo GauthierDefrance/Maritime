@@ -4,8 +4,11 @@ import engine.data.entity.Harbor;
 import engine.data.entity.boats.Boat;
 
 import java.util.ArrayList;
+
 /**
+ * A specific kind of Faction with specific information.
  * @author Kenan Ammad
+ * Class Pirate
  * @version 0.1
  */
 public class Player extends Faction {
