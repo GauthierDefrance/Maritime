@@ -79,7 +79,7 @@ public class HarborMenu extends JPanel {
         renameButton = JComponentFactory.menuButton("Rename", new renameListener());
         healButton = JComponentFactory.menuButton("Heal", new healListener());
         healAllButton = JComponentFactory.menuButton("Heal All", new healAllListener());
-        moveResourceButton = JComponentFactory.menuButton("move Resource", new moveResourceListener());
+        moveResourceButton = JComponentFactory.menuButton("Export Resources", new moveResourceListener());
         removeCurrent = JComponentFactory.menuButton("Destroy",new removeListener());
         levelUpButton = JComponentFactory.menuButton("levelUp", new levelUpListener());
 
@@ -148,7 +148,7 @@ public class HarborMenu extends JPanel {
         jPanelEastCenter.setBackground(Color.lightGray);
         statsPanel.setBackground(Color.lightGray);
         currentCreatePanel.setBackground(Color.lightGray);
-        imageLabel.setBackground(Color.lightGray);
+        imageLabel.setBackground(Color.white);
 
         imageLabel.setOpaque(true);
 
@@ -321,7 +321,7 @@ public class HarborMenu extends JPanel {
                 }
                 else imageLabel.setIcon(new ImageIcon(PaintEntity.paintImage(boat,4,400)));
             }
-            boatModeButton.setText("go harbor");
+            boatModeButton.setText("Harbor Menu");
             jPanelWestGrid.add(boatModeButton);
             jPanelWestGrid.add(levelUpButton);
             jPanelWestGrid.add(upgradeHpButton);
@@ -374,8 +374,8 @@ public class HarborMenu extends JPanel {
             statsPanel.add(resourceDisplay);
 
             imageLabel.setText(activeHarbor.getName());
-            imageLabel.setIcon(new ImageIcon(PaintEntity.paintImage(activeHarbor,3,300)));
-            boatModeButton.setText("go boat");
+            imageLabel.setIcon(new ImageIcon(PaintEntity.paintImage(activeHarbor,3,310)));
+            boatModeButton.setText("Boat Menu");
             jPanelWestGrid.add(boatModeButton);
             jPanelWestGrid.add(moveResourceButton);
             jPanelWestGrid.add(levelUpButton);

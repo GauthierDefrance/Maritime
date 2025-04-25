@@ -96,7 +96,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         jEastATHPanel = JComponentFactory.borderMenuPanel();
         dashboardJPanel = JComponentFactory.borderMenuPanel();
         jSouthATHPanel = JComponentFactory.borderMenuPanel();
-        jSouthEastPanel = JComponentFactory.borderMenuPanel();
+        jSouthEastPanel = JComponentFactory.gridMenuPanel(0,1,GameConfiguration.BUTTON_SEPARATOR,GameConfiguration.BUTTON_SEPARATOR);
         jNorthATHPanel = JComponentFactory.borderMenuPanel();
         jNorthEastPanel = JComponentFactory.gridMenuPanel(1,4,0,0);
         jEastPanel = JComponentFactory.borderMenuPanel();
@@ -144,7 +144,8 @@ public class MainGameMenu extends JPanel implements Runnable {
             default : {
             }
         }
-
+        jSouthEastPanel.add(JComponentFactory.menuButton("Harbor Menu",new goHarborMenuListener()));
+        jSouthEastPanel.add(JComponentFactory.menuButton("Fleet Menu",new  goFleetMenuListener()));
 
         JScrollPane jScrollPane1 = JComponentFactory.ScrollPaneMenuPanel(jEastCenterChoice1CenterPanel);
         jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -192,7 +193,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         jEastCenterPanel.add(jEastCenterCenterPanel,BorderLayout.CENTER);
         jEastCenterCenterPanel.add(jEastCenterPanelChoice1,BorderLayout.CENTER);
         jEastWestPanel.add(hideLeftMenuButton,BorderLayout.NORTH);
-        jEastATHPanel.add(jEastPanel,BorderLayout.CENTER);
+        jEastATHPanel.add(jEastButtonPanel,BorderLayout.CENTER);
 
         jSouthATHPanel.add(jSouthEastPanel,BorderLayout.EAST);
         jSouthATHPanel.add(jSouthATHPanelCenter,BorderLayout.CENTER);
@@ -351,12 +352,11 @@ public class MainGameMenu extends JPanel implements Runnable {
             }
             tmp = JComponentFactory.menuButton("faction", new RelationListener(entity));
             jPopupMenu.add(tmp);
+            jPopupMenu.show(jPanelATH,x,y);
         }
-        else if (entity instanceof Harbor) {
-            if(!entity.getColor().isEmpty()){
-                tmp = JComponentFactory.menuButton("faction", new RelationListener(entity));
-                jPopupMenu.add(tmp);
-            }
+        else if (entity instanceof Harbor && !entity.getColor().isEmpty()) {
+            tmp = JComponentFactory.menuButton("faction", new RelationListener(entity));
+            jPopupMenu.add(tmp);
 
             tmp = JComponentFactory.menuButton("attack", new setChaseListener(entity));
             tmp.setEnabled(false);
@@ -367,8 +367,8 @@ public class MainGameMenu extends JPanel implements Runnable {
                 tmp.setEnabled(true);
             }
             jPopupMenu.add(tmp);
+            jPopupMenu.show(jPanelATH,x,y);
         }
-        jPopupMenu.show(jPanelATH,x,y);
     }
 
     private class showMenu implements ActionListener {
@@ -472,6 +472,27 @@ public class MainGameMenu extends JPanel implements Runnable {
         }
     }
 
+    private class goFleetMenuListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ThreadStop = true;
+            if(currentObject != null && currentObject instanceof Fleet)GUILoader.loadFleetMenu((Fleet) currentObject);
+            else if(currentObject != null && currentObject instanceof SeaRoad)GUILoader.loadFleetMenu((SeaRoad) currentObject);
+            else GUILoader.loadFleetMenu((Fleet) null);
+        }
+    }
+
+    private class goHarborMenuListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ThreadStop = true;
+            if(currentObject != null && currentObject instanceof Harbor){
+                GUILoader.loadHarborMenu((Harbor) currentObject);
+            }
+            else if(!MapGame.getInstance().getPlayer().getLstHarbor().isEmpty())GUILoader.loadHarborMenu(MapGame.getInstance().getPlayer().getLstHarbor().get(0));
+        }
+    }
+
     private class flipTimeListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -501,8 +522,6 @@ public class MainGameMenu extends JPanel implements Runnable {
             Harbor harbor = FactionManager.getInstance().getHarborManager().pointCollisionToMapHarbor(point);
             if(harbor != null){
                 if(MapGame.getInstance().getPlayer().getLstHarbor().contains(harbor)){
-                    jEastATHPanel.removeAll();
-                    jEastATHPanel.add(jEastPanel);
                     jEastCenterCenterPanel.removeAll();
                     jEastCenterCenterPanel.add(jEastCenterPanelChoice2);
                     changeCurrentJButton(harbor);
@@ -513,8 +532,6 @@ public class MainGameMenu extends JPanel implements Runnable {
             }
             else if(boat != null){
                 if(MapGame.getInstance().getPlayer().getLstBoat().contains(boat)){
-                    jEastATHPanel.removeAll();
-                    jEastATHPanel.add(jEastPanel);
                     jEastCenterCenterPanel.removeAll();
                     jEastCenterCenterPanel.add(jEastCenterPanelChoice1);
                     changeCurrentJButton(boat);

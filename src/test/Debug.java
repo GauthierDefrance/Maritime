@@ -29,7 +29,6 @@ public class Debug extends JFrame{
         JButton noSpawnMode = JComponentFactory.menuButton("NoSpawnMode",new NoSpawnMode());
         JButton combatMenu = JComponentFactory.menuButton("CombatMenu",new CombatMenu());
         JButton relationMenu = JComponentFactory.menuButton("RelationMenu", new RelationMenu());
-        JButton choicePathMenu0 = JComponentFactory.menuButton("ChoicePathMenu0", new ChoiceMenu0());
         JButton HarborMenu = JComponentFactory.menuButton("HarborMenu", new HarborMenu());
         JButton FleetMenu = JComponentFactory.menuButton("FleetMenu", new FleetMenu());
         contentPane.add(timeStop);
@@ -37,7 +36,6 @@ public class Debug extends JFrame{
         contentPane.add(noSpawnMode);
         contentPane.add(combatMenu);
         contentPane.add(relationMenu);
-        contentPane.add(choicePathMenu0);
         contentPane.add(HarborMenu);
         contentPane.add(FleetMenu);
         setAlwaysOnTop(true);
@@ -61,23 +59,6 @@ public class Debug extends JFrame{
     private class NoSpawnMode implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             MapGame.getInstance().setNoSpawnMode(!MapGame.getInstance().isNoSpawnMode());
-        }
-    }
-
-    private class ChoiceMenu0 implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
-                case "gui.panel.menu.OptionsMenu" :
-                case "gui.panel.menu.PauseMenu" : {
-                    EngineBuilder.mapInit(0);
-                    TestMove.addBoatTest();
-                    //GUILoader.loadChoicePathMenu(new SeaRoad(), GameConfiguration.ROOT_MAIN_GAME);
-                    break;
-                }
-                default : {
-                }
-            }
         }
     }
 
