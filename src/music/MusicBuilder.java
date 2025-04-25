@@ -20,7 +20,7 @@ public class MusicBuilder {
      * @param filename the full name with extension of the file
      * @return {@link MusicPlayer} object that can play music and must be stopped
      */
-    public MusicPlayer createMusic(String filename) {
+    public static MusicPlayer createMusic(String filename) {
         File fichier = new File(MUSIC_FILE_PATH+filename);
         if(fichier.exists()) {
             MusicPlayer mp = new MusicPlayer();
@@ -38,7 +38,7 @@ public class MusicBuilder {
      * @param loop {@link Boolean} that indicate if the music player should be initialized in looping mode.
      * @return {@link MusicPlayer} object that can play music and must be stopped
      */
-    public MusicPlayer createMusic(String filename, Boolean loop) {
+    public static MusicPlayer createMusic(String filename, Boolean loop) {
         File fichier = new File(MUSIC_FILE_PATH+filename);
         if(fichier.exists()) {
             MusicPlayer mp = new MusicPlayer();
