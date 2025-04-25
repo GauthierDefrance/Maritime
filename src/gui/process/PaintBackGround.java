@@ -1,13 +1,6 @@
 package gui.process;
 
-
-import config.GameConfiguration;
-
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.util.ArrayList;
 
 /**
  * @author Kenan Ammad

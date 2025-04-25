@@ -6,7 +6,6 @@ import engine.data.Fleet;
 import engine.data.entity.Harbor;
 import engine.data.entity.boats.Boat;
 import engine.data.faction.Faction;
-import engine.data.graph.GraphPoint;
 import engine.data.trading.SeaRoad;
 import engine.process.manager.FactionManager;
 import gui.process.ImageStock;

@@ -2,11 +2,9 @@ package config;
 
 import engine.data.trading.Currency;
 import engine.data.trading.Resource;
-import engine.data.trading.SeaRoad;
 import engine.process.creational.TradeObjectBuilder;
 
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
