@@ -166,7 +166,6 @@ public class OptionsMenu extends JPanel {
             ListenerBehaviorManager lbm = ListenerBehaviorManager.create();
             getInstance().setVolume(lbm.decrement(MIN_SOUND_LEVEL, getInstance().getVolume()));
             MusicManager.getInstance().actualizeMusicPlayers();
-            System.out.println(getInstance().getVolume());
             updateLinkedFile();
         }
     }
@@ -177,7 +176,6 @@ public class OptionsMenu extends JPanel {
             ListenerBehaviorManager lbm = ListenerBehaviorManager.create();
             getInstance().setVolume(lbm.increment(MAX_SOUND_LEVEL, getInstance().getVolume()));
             MusicManager.getInstance().actualizeMusicPlayers();
-            System.out.println(getInstance().getVolume());
             updateLinkedFile();
         }
     }
@@ -186,6 +184,7 @@ public class OptionsMenu extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             getInstance().setIsMuted(ListenerBehaviorManager.create().toggle(muteButton, getInstance().getIsMuted()));
+            MusicManager.getInstance().actualizeMusicPlayers();
             updateLinkedFile();
         }
     }

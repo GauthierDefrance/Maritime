@@ -68,7 +68,12 @@ public class MusicManager {
             if(mp.isFinished() && !mp.isLooping()) {
                 killMusicPlayer(mp.getFilename());
             } else {
-                mp.setVolume(((float) GameOptions.getInstance().getVolume() )/10);
+                if(GameOptions.getInstance().getIsMuted()){
+                    mp.setVolume(0);
+                } else {
+                    mp.setVolume(((float) GameOptions.getInstance().getVolume() )/10);
+                }
+
             }
         }
     }
