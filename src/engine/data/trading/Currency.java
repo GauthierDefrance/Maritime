@@ -1,5 +1,10 @@
 package engine.data.trading;
 
+/**
+ * Class relative to the notion of Currency
+ * @version 0.2
+ * @author Zue Jack-Arthur
+ */
 public class Currency extends Resource {
 
     public Currency(String name, int value) {

@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
+ * A class representing one of the many Faction in a game.
  * @author Kenan Ammad
  * @author Zue Jack-Arthur
  * Classe Faction
  * @version 0.3
  */
-
 public class Faction implements Serializable {
     private ArrayList<Boat> lstBoat;
     private ArrayList<Harbor> lstHarbor;
@@ -111,31 +111,63 @@ public class Faction implements Serializable {
 
     //Content Handler
 
+    /**
+     * Method that add a harbor to a faction.
+     * @param harbor the {@link Harbor} that will be added
+     */
     public void addHarbor(Harbor harbor) {
         harbor.setColor(this.getColor());
         this.lstHarbor.add(harbor);
         this.lstFleet.add(new Fleet());
     }
 
+    /**
+     * Method that add a given boat to a Faction.
+     * @param boat the {@link Boat} that will be added
+     */
     public void addBoat(Boat boat) {this.lstBoat.add(boat);}
 
+    /**
+     * Method add a given Fleet to a Faction
+     * @param fleet the {@link Fleet} that will be added
+     */
     public void addFleet(Fleet fleet) {this.lstFleet.add(fleet);}
 
+    /**
+     * Method add a given SeaRoad to a Faction
+     * @param seaRoad the {@link SeaRoad} that will be added
+     */
     public void addSeaRoad(SeaRoad seaRoad) {this.lstSeaRouts.add(seaRoad);}
 
+    /**
+     * Method that remove a Boat from a given Faction
+     * @param Boat the {@link Boat} that will be removed
+     */
     public void removeBoat(Boat Boat) {
         this.lstBoat.remove(Boat);
         for (Fleet fleet : lstFleet)fleet.getArrayListBoat().remove(Boat);
         for (Harbor harbor : lstHarbor)harbor.getHashMapBoat().remove(Boat);
     }
 
+    /**
+     * Method that remove a harbor from a given Faction
+     * @param harbor the {@link Harbor} that will be removed
+     */
     public void removeHarbor(Harbor harbor) {
         harbor.setColor("");
         this.lstHarbor.remove(harbor);
     }
 
+    /**
+     * Method that remove a fleet from a given Faction
+     * @param fleet the {@link Fleet} that will be removed
+     */
     public void removeFleet(Fleet fleet) {this.lstFleet.remove(fleet);}
 
+    /**
+     * Method that return the name of the faction.
+     * @return {@link String} The name of the faction
+     */
     public String getName() {
         return name;
     }

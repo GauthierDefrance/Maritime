@@ -3,6 +3,12 @@ package engine.data.entity.boats;
 import config.GameConfiguration;
 import engine.data.graph.GraphPoint;
 
+/**
+ * class representing the extends type of Boats Fodder
+ * @author Kenan Ammad
+ * @author Zue Jack-Arthur
+ * @version 0.2
+ */
 public class Fodder extends Boat {
     public Fodder(String name,String color, GraphPoint position) {
         super(name,color,GameConfiguration.STANDARD_VISION_RADIUS*GameConfiguration.FODDER_VISION_RADIUS_BOOST,position, (int) (GameConfiguration.STANDARD_HP*GameConfiguration.FODDER_HP_BOOST), (int) (GameConfiguration.STANDARD_DAMAGE_SPEED*GameConfiguration.FODDER_DAMAGE_SPEED_BOOST), (int) (GameConfiguration.STANDARD_SPEED*GameConfiguration.FODDER_SPEED_BOOST),(int) (GameConfiguration.STANDARD_INVENTORY_SIZE*GameConfiguration.FODDER_INVENTORY_SIZE_BOOST));
