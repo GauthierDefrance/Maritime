@@ -211,6 +211,12 @@ public class FleetMenu extends JPanel {
             SeaRoadButton.setText("Fleet");
             jPanelGrid.add(removeCurrent);
             jPanelGrid.add(combineCurrent);
+            JButton pathButton = JComponentFactory.menuButton("path",new  setPathListener(activeSeaRoad));
+            jPanelGrid.add(pathButton);
+            pathButton.setEnabled(false);
+            if(activeSeaRoad != null){
+                pathButton.setEnabled(true);
+            }
         }
         else {
             if(activeFleet!=null)removeCurrent.setEnabled(true);
@@ -218,8 +224,14 @@ public class FleetMenu extends JPanel {
             JButton NewFleet = JComponentFactory.menuButton("New Fleet",new newFleetListener());
             jPanelGrid.add(removeCurrent);
             jPanelGrid.add(NewFleet);
+            JButton pathButton = JComponentFactory.menuButton("path",new  setPathListener(activeFleet));
+            jPanelGrid.add(pathButton);
+            pathButton.setEnabled(false);
+            if(activeFleet != null ){
+                if(FactionManager.getInstance().getMySeaRoad(activeFleet) != null)pathButton.setText("path ( Is Combine with Sea-Road )");
+                else pathButton.setEnabled(true);
+            }
         }
-
         jPanelGrid.add(SeaRoadButton);
 
         elementInPanelUpdate();
@@ -332,6 +344,30 @@ public class FleetMenu extends JPanel {
                     activeFleet = null;
                     allUpdate();
                 }
+            }
+        }
+    }
+
+    public class setPathListener implements ActionListener {
+        private Fleet fleet;
+        private SeaRoad seaRoad;
+
+        public setPathListener(SeaRoad seaRoad) {
+            this.seaRoad = seaRoad;
+            this.fleet = null;
+        }
+        public setPathListener(Fleet fleet) {
+            this.fleet = fleet;
+            this.seaRoad = null;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(fleet != null){
+                GUILoader.loadChoicePathMenu(fleet);
+            }
+            else if(seaRoad != null){
+                GUILoader.loadChoicePathMenu(seaRoad);
             }
         }
     }

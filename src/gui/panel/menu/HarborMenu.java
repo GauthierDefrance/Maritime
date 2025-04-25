@@ -575,7 +575,7 @@ public class HarborMenu extends JPanel {
     public class moveResourceListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadChoicePathMenu(MapGame.getInstance().getPlayer(),1);
+            GUILoader.loadChoicePathMenu(MapGame.getInstance().getPlayer());
         }
     }
 

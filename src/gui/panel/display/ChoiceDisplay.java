@@ -51,13 +51,13 @@ public class ChoiceDisplay extends JPanel {
         paintBackGround.paint(g2d,true);
         g2d.scale((double) 1 /GameConfiguration.GAME_SCALE, (double) 1 /GameConfiguration.GAME_SCALE);
 
-        if (state == 0){
+        if (state == 0||state == 1){
             g2d.setColor(new Color(4, 4, 62,75));
             for(GraphPoint graphPoint : MapGame.getInstance().getMapGraphPoint()){
                 g2d.fillOval(graphPoint.getX()-15, graphPoint.getY()-15,30,30);
             }
             g2d.setColor(new Color(10, 35, 160));
-            if(path.get(path.size()-1).equals(harbor2.getGraphPosition())){
+            if(state == 0 && path.get(path.size()-1).equals(harbor2.getGraphPosition())){
                 g2d.setColor(new Color(10, 255, 51));
             }
             g2d.setStroke(new BasicStroke(6));
@@ -68,7 +68,7 @@ public class ChoiceDisplay extends JPanel {
                 }
             }
 
-            if(!path.isEmpty()&&!path.get(path.size()-1).equals(harbor2.getGraphPosition())){
+            if(!path.isEmpty()&&(state == 1 || !path.get(path.size()-1).equals(harbor2.getGraphPosition()))){
                 g2d.setColor(new Color(10, 160, 70));
                 for(Map.Entry<String, GraphSegment> entry : path.get(path.size()-1).getSegmentHashMap().entrySet()){
                     if(!path.contains(entry.getValue().getGraphPoint())){
@@ -77,9 +77,11 @@ public class ChoiceDisplay extends JPanel {
                 }
             }
             g2d.setColor(Color.black);
-            g2d.setColor(new Color(10, 255, 51));
-            g2d.fillOval((harbor2.getGraphPosition().getX()-15), (harbor2.getGraphPosition().getY()-15),30,30);
-            g2d.setColor(Color.black);
+            if(state == 0) {
+                g2d.setColor(new Color(10, 255, 51));
+                g2d.fillOval((harbor2.getGraphPosition().getX() - 15), (harbor2.getGraphPosition().getY() - 15), 30, 30);
+                g2d.setColor(Color.black);
+            }
         }
         if (harbor2 != null){
             g2d.setColor(ImageStock.colorChoice(harbor2.getColor()));

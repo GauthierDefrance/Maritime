@@ -79,15 +79,15 @@ public class GUILoader {
         actualise(new TradeMenu(sellerHarbor,targetHarbor));
     }
 
-    public static void loadFleetManagingMenu(){
-//        actualise(new FleetManagingMenu());
+    public static void loadChoicePathMenu(Faction faction){
+        actualise(new ChoicePathMenu(faction));
     }
 
-    public static void loadChoicePathMenu(Faction faction, int token){
-        actualise(new ChoicePathMenu(faction,token));
+    public static void loadChoicePathMenu(SeaRoad seaRoad){
+        actualise(new ChoicePathMenu(seaRoad));
     }
 
-    public static void loadChoicePathMenu(Harbor harbor1,Harbor harbor2 , int token){
-        actualise(new ChoicePathMenu(harbor1,harbor2,token));
+    public static void loadChoicePathMenu(Fleet fleet){
+        actualise(new ChoicePathMenu(fleet));
     }
 }

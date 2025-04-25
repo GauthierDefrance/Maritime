@@ -2,6 +2,7 @@ package gui.panel.menu;
 
 import config.GameConfiguration;
 import engine.MapGame;
+import engine.data.Fleet;
 import engine.data.entity.Harbor;
 import engine.data.faction.Faction;
 import engine.data.graph.GraphPoint;
@@ -22,7 +23,6 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Map;
 
-import static config.GameConfiguration.WAR_THRESHOLD;
 import static gui.MainGUI.getWindow;
 
 /**
@@ -33,11 +33,12 @@ import static gui.MainGUI.getWindow;
 public class ChoicePathMenu extends JPanel implements Runnable {
 
     private static final Logger log = Logger.getLogger(ChoicePathMenu.class);
-    private final int token;
     private final int state;
     private final Faction faction;
     private Harbor harbor1;
     private Harbor harbor2;
+    private SeaRoad seaRoad;
+    private Fleet fleet;
     private ArrayList<GraphPoint> path;
 
     private JPanel dashboardJPanel;
@@ -57,26 +58,36 @@ public class ChoicePathMenu extends JPanel implements Runnable {
     /**
      * Typical constructor to make the startMenu appear
      */
-    public ChoicePathMenu( Faction faction, int token) {
+    public ChoicePathMenu(SeaRoad seaRoad) {
         super();
-        this.token = token;
-        this.state = 1;
-        this.harbor1 = null;
-        this.harbor2 = null;
-        this.faction = faction;
+        this.state = 0;
+        this.harbor1 = seaRoad.getSellerHarbor();
+        this.harbor2 = seaRoad.getTargetHarbor();
+        this.seaRoad = seaRoad;
+        this.faction = null;
         init();
     }
 
     /**
      * Typical constructor to make the startMenu appear
      */
-    public ChoicePathMenu(Harbor harbor1 , Harbor harbor2, int token) {
+    public ChoicePathMenu(Fleet fleet) {
         super();
-        this.token = token;
-        this.state = 0;
-        this.harbor1 = harbor1;
-        this.harbor2 = harbor2;
+        this.state = 1;
         this.faction = null;
+        this.fleet = fleet;
+        init();
+    }
+
+    /**
+     * Typical constructor to make the startMenu appear
+     */
+    public ChoicePathMenu( Faction faction) {
+        super();
+        this.state = 2;
+        this.harbor1 = null;
+        this.harbor2 = null;
+        this.faction = faction;
         init();
     }
 
@@ -99,6 +110,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         dashboardJPanel.add(dashboard,BorderLayout.CENTER);
         jSouthATHPanel.add(goBackButton);
         if(state == 0)jSouthATHPanel.add(reset);
+        if(state == 1)jSouthATHPanel.add(reset);
         jSouthATHPanel.add(cancel);
         if(state == 0)jSouthATHPanel.add(automatic);
         jSouthATHPanel.add(confirm);
@@ -115,6 +127,10 @@ public class ChoicePathMenu extends JPanel implements Runnable {
             dashboard.setHarbor2(harbor2);
             dashboard.setPath(path);
             path.add(harbor1.getGraphPosition());
+        }
+        if (state == 1){
+            path = new ArrayList<>(fleet.getPath());
+            dashboard.setPath(path);
         }
         this.add(jLayeredPane);
 
@@ -150,10 +166,16 @@ public class ChoicePathMenu extends JPanel implements Runnable {
             switch (state){
                 case 0:
                     if (path.get(path.size()-1).equals(harbor2.getGraphPosition())){
-                        //WIP
-                    } else JOptionPane.showMessageDialog(ChoicePathMenu.this,"where do you want to go ??");
+                        FactionManager.getInstance().getSeaRoadManager().setNewPath(seaRoad,path);
+                        GUILoader.loadFleetMenu(seaRoad);
+                    }
+                    else JOptionPane.showMessageDialog(ChoicePathMenu.this,"where do you want to go ??");
                     break;
                 case 1:
+                    if(path!=null&&!path.isEmpty())FactionManager.getInstance().getFleetManager().setNewPath(fleet,path,false);
+                    GUILoader.loadFleetMenu(fleet);
+                    break;
+                case 2:
                     if (faction == null){
                         log.error("faction is null, cannot proceed");
                         return;
@@ -189,6 +211,10 @@ public class ChoicePathMenu extends JPanel implements Runnable {
                 path.add(graphPoint);
                 dashboard.setPath(path);
             }
+            if(state == 1) {
+                path.clear();
+                dashboard.setPath(path);
+            }
         }
     }
 
@@ -200,6 +226,10 @@ public class ChoicePathMenu extends JPanel implements Runnable {
                 dashboard.setPath(path);
             }
             else if(state == 1){
+                path.remove(path.size()-1);
+                dashboard.setPath(path);
+            }
+            else if(state == 2){
                 harbor2 = null;
                 harbor1 = null;
                 dashboard.setHarbor2(null);
@@ -243,25 +273,48 @@ public class ChoicePathMenu extends JPanel implements Runnable {
 
             switch (state){
                 case 0: //We're tracing a Path
-
-                    GraphPoint graphPoint = SearchInGraph.pointCollisionToMapGraphPoint(point);
-                    if (e.getButton() == MouseEvent.BUTTON1&&graphPoint != null && !path.isEmpty()) {
-                        if (path.get(path.size()-1).equals(graphPoint)&&path.size()>1){
-                            path.remove(graphPoint);
+                    GraphPoint graphPoint1 = SearchInGraph.pointCollisionToMapGraphPoint(point);
+                    if (e.getButton() == MouseEvent.BUTTON1 && graphPoint1 != null && !path.isEmpty()) {
+                        if (path.get(path.size()-1).equals(graphPoint1)&&path.size()>1){
+                            path.remove(graphPoint1);
                             dashboard.setPath(path);
                         }
 
                         else if (!path.get(path.size()-1).equals(harbor2.getGraphPosition())){
                             for(Map.Entry<String, GraphSegment> entry : path.get(path.size()-1).getSegmentHashMap().entrySet()){
-                                if(entry.getValue().getGraphPoint().equals(graphPoint)&& !path.contains(entry.getValue().getGraphPoint())){
-                                    path.add(graphPoint);
+                                if(entry.getValue().getGraphPoint().equals(graphPoint1)&& !path.contains(entry.getValue().getGraphPoint())){
+                                    path.add(graphPoint1);
                                     dashboard.setPath(path);
                                 }
                             }
                         }
-                    } break;
+                    }
+                    break;
 
-                case 1: //We're designating Harbor Object
+                case 1: //We're tracing a Path
+                    GraphPoint graphPoint2 = SearchInGraph.pointCollisionToMapGraphPoint(point);
+                    if (e.getButton() == MouseEvent.BUTTON1 && graphPoint2 != null) {
+                        if(path.isEmpty()){
+                            path.add(graphPoint2);
+                            dashboard.setPath(path);
+                        }
+                        else if (path.get(path.size()-1).equals(graphPoint2)){
+                            path.remove(graphPoint2);
+                            dashboard.setPath(path);
+                        }
+                        else {
+                            for (Map.Entry<String, GraphSegment> entry : path.get(path.size() - 1).getSegmentHashMap().entrySet()) {
+                                if (entry.getValue().getGraphPoint().equals(graphPoint2) && !path.contains(entry.getValue().getGraphPoint())) {
+                                    path.add(graphPoint2);
+                                    dashboard.setPath(path);
+                                }
+                            }
+                        }
+
+                    }
+                    break;
+
+                case 2: //We're designating Harbor Object
 
                     if (faction == null) {
                         log.error("Could not proceed --> faction is null");
@@ -319,7 +372,9 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         public void actionPerformed(ActionEvent e) {
             ThreadStop = true;
             if(MapGame.getInstance().getPlayer().equals(faction))GUILoader.loadHarborMenu(MapGame.getInstance().getPlayer().getLstHarbor().get(0));
-            else ListenerBehaviorManager.create().goBack(token,faction);
+            else if(state == 0)GUILoader.loadFleetMenu(seaRoad);
+            else if(state == 1)GUILoader.loadFleetMenu(fleet);
+            else if(state == 2)GUILoader.loadRelationMenu(faction);
         }
     }
 
@@ -330,7 +385,9 @@ public class ChoicePathMenu extends JPanel implements Runnable {
             if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
                 ThreadStop = true;
                 if(MapGame.getInstance().getPlayer().equals(faction))GUILoader.loadHarborMenu(MapGame.getInstance().getPlayer().getLstHarbor().get(0));
-                else ListenerBehaviorManager.create().goBack(token,faction);
+                else if(state == 0)GUILoader.loadFleetMenu(seaRoad);
+                else if(state == 1)GUILoader.loadFleetMenu(fleet);
+                else if(state == 2)GUILoader.loadRelationMenu(faction);
             }
         }
 

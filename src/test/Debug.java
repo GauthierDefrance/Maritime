@@ -2,6 +2,7 @@ package test;
 
 import config.GameConfiguration;
 import engine.MapGame;
+import engine.data.trading.SeaRoad;
 import engine.process.creational.EngineBuilder;
 import gui.MainGUI;
 import gui.utilities.GUILoader;
@@ -73,7 +74,7 @@ public class Debug extends JFrame{
                 case "gui.panel.menu.PauseMenu" : {
                     EngineBuilder.mapInit(0);
                     TestMove.addBoatTest();
-                    GUILoader.loadChoicePathMenu(MapGame.getInstance().getPlayer().getLstHarbor().get(0),MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1), GameConfiguration.ROOT_MAIN_GAME);
+                    //GUILoader.loadChoicePathMenu(new SeaRoad(), GameConfiguration.ROOT_MAIN_GAME);
                     break;
                 }
                 default : {

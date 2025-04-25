@@ -220,7 +220,7 @@ public class RelationMenu extends JPanel {
     private class TradeListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadChoicePathMenu(activeFaction, ROOT_RELATION_MENU);
+            GUILoader.loadChoicePathMenu(activeFaction);
         }
     }
 

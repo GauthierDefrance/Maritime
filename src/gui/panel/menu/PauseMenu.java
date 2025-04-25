@@ -146,14 +146,14 @@ public class PauseMenu extends JPanel {
     public class LoadMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadChargeGameMenu(token+3,objectToken);
+            GUILoader.loadChargeGameMenu(token+4,objectToken);
         }
     }
 
     public class SaveMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadSaveGameMenu(token+3,objectToken);
+            GUILoader.loadSaveGameMenu(token+4,objectToken);
         }
     }
 
@@ -177,7 +177,7 @@ public class PauseMenu extends JPanel {
     public class OptionsMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            GUILoader.loadOptionsMenu(token+3,objectToken);
+            GUILoader.loadOptionsMenu(token+4,objectToken);
         }
     }
 

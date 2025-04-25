@@ -4,7 +4,9 @@ import static config.GameConfiguration.*;
 
 import config.GameConfiguration;
 import engine.battleengine.data.Battle;
+import engine.data.Fleet;
 import engine.data.faction.Faction;
+import engine.data.trading.SeaRoad;
 import gui.utilities.GUILoader;
 import log.LoggerUtility;
 import org.apache.log4j.Logger;
@@ -123,6 +125,10 @@ public class ListenerBehaviorManager {
                 GUILoader.loadPauseMenu(ROOT_RELATION_MENU,object);
                 break;
             }
+            case ROOT_PAUSE_FROM_FLEET: {
+                GUILoader.loadPauseMenu(ROOT_FLEET_MENU,object);
+                break;
+            }
 
             case ROOT_START_MENU:{
                 GUILoader.loadStartMenu();
@@ -146,6 +152,15 @@ public class ListenerBehaviorManager {
                     GUILoader.loadStartMenu();
                 }
                 else GUILoader.loadRelationMenu((Faction) object);
+                break;
+            }
+            case ROOT_FLEET_MENU:{
+                if(object == null){
+                    logger.error("object to init the FleetMenu is null");
+                    GUILoader.loadStartMenu();
+                }
+                else if(object instanceof SeaRoad)GUILoader.loadFleetMenu((SeaRoad) object);
+                else GUILoader.loadFleetMenu((Fleet) object);
                 break;
             }
             default: {
