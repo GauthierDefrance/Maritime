@@ -1,5 +1,6 @@
 package gui.panel.menu;
 
+import config.GameConfiguration;
 import engine.MapGame;
 import engine.data.faction.Faction;
 import engine.process.manager.FactionManager;
@@ -11,9 +12,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 
-import static config.GameConfiguration.*;
 import static gui.MainGUI.getWindow;
-import static gui.process.JComponentFactory.*;
 
 public class RelationMenu extends JPanel {
     private Faction activeFaction;
@@ -38,35 +37,35 @@ public class RelationMenu extends JPanel {
     //Initialization
 
     private void init() {
-        this.setLayout(new GridLayout(1, 3,BUTTON_SEPARATOR,BUTTON_SEPARATOR));
+        this.setLayout(new GridLayout(1, 3, GameConfiguration.BUTTON_SEPARATOR,GameConfiguration.BUTTON_SEPARATOR));
 
-        factionStats = gridMenuPanel(0, 1);
-        jPanelCenter = borderMenuPanel();
+        factionStats = JComponentFactory.gridMenuPanel(0, 1);
+        jPanelCenter = JComponentFactory.borderMenuPanel();
         goBackButton = JComponentFactory.menuButton("Go back", new goBackButtonListener());
-        declareWar = menuButton("Declare War", new ProvokeListener());
-        jButtonPanel = borderMenuPanel();
+        declareWar = JComponentFactory.menuButton("Declare War", new ProvokeListener());
+        jButtonPanel = JComponentFactory.borderMenuPanel();
 
-        JPanel jPanelWest = borderMenuPanel();
+        JPanel jPanelWest = JComponentFactory.borderMenuPanel();
         gridPanel = JComponentFactory.gridMenuPanel(0,1);
-        JPanel gridPanelTmp = voidPanel();
+        JPanel gridPanelTmp = JComponentFactory.voidPanel();
         gridPanelTmp.add(gridPanel);
 
         jScrollPane = JComponentFactory.ScrollPaneMenuPanel(gridPanelTmp);
         jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        JPanel jScrollPaneTmp = flowMenuPanel();
+        JPanel jScrollPaneTmp = JComponentFactory.flowMenuPanel();
         jScrollPaneTmp.add(jScrollPane);
         jPanelWest.add(jScrollPaneTmp,BorderLayout.WEST);
 
 
-        JButton jButtonTrade = menuButton("Propose Trade", new TradeListener());
+        JButton jButtonTrade = JComponentFactory.menuButton("Propose Trade", new TradeListener());
         jButtonPanel.add(jButtonTrade,BorderLayout.CENTER);
 
-        JPanel factionStatsTmp = voidPanel();
+        JPanel factionStatsTmp = JComponentFactory.voidPanel();
         factionStatsTmp.add(factionStats);
 
-        JPanel jPanelEast = borderMenuPanel();
-        JPanel declareWarTmp = voidPanel();
+        JPanel jPanelEast = JComponentFactory.borderMenuPanel();
+        JPanel declareWarTmp = JComponentFactory.voidPanel();
 
         declareWarTmp.add(declareWar);
         jPanelEast.add(factionStatsTmp, BorderLayout.CENTER);
@@ -118,7 +117,7 @@ public class RelationMenu extends JPanel {
         JButton tmp;
         for (Faction faction : MapGame.getInstance().getLstFaction()){
             if(!(faction.equals(MapGame.getInstance().getPlayer())||faction.equals(MapGame.getInstance().getPirate()))) {
-                tmp = menuButton(faction.getName(),new buttonObjectListener(faction));
+                tmp = JComponentFactory.menuButton(faction.getName(),new buttonObjectListener(faction));
                 gridPanel.add(tmp);
                 if(activeFaction.equals(faction))ChangeCurrentJButton(tmp);
             }
@@ -130,7 +129,7 @@ public class RelationMenu extends JPanel {
     private void factionUpdate(){
         jPanelCenter.removeAll();
 
-        JPanel goBackButtonPanel = voidPanel();
+        JPanel goBackButtonPanel = JComponentFactory.voidPanel();
         goBackButtonPanel.add(goBackButton);
         goBackButtonPanel.setBackground(Color.gray);
         JLabel picture =JComponentFactory.title("Image Placeholder");
@@ -138,12 +137,12 @@ public class RelationMenu extends JPanel {
 
         jPanelCenter.add(goBackButtonPanel,BorderLayout.SOUTH);
         jPanelCenter.add(picture,BorderLayout.NORTH);
-        if(activeFaction.getRelationship(MapGame.getInstance().getPlayer()) <= WAR_THRESHOLD){
+        if(activeFaction.getRelationship(MapGame.getInstance().getPlayer()) <= GameConfiguration.WAR_THRESHOLD){
             declareWar.setText("it's war");
             declareWar.setEnabled(false);
         }
         else {
-            JPanel tmpPanel = voidPanel();
+            JPanel tmpPanel = JComponentFactory.voidPanel();
             tmpPanel.setBackground(Color.gray);
             tmpPanel.add(jButtonPanel);
             jPanelCenter.add(tmpPanel,BorderLayout.CENTER);
@@ -155,12 +154,12 @@ public class RelationMenu extends JPanel {
     //Init Helper
 
     private void statDisplay(){
-        JPanel colorDisplay = flowMenuPanel(menuLabel("Representative color : " + activeFaction.getColor()));
-        JPanel boatDisplay = flowMenuPanel(menuLabel("Armada : "+ activeFaction.getLstBoat().size() + " Boat(s)"));
-        JPanel harborDisplay = flowMenuPanel(menuLabel("Harbor possessed : "+ activeFaction.getLstHarbor().size() + " Harbor(s)"));
-        JPanel comDisplay = flowMenuPanel(menuLabel("Commercial activity : "+ activeFaction.getLstSeaRouts().size() + " SeaRoad(s)"));
-        JPanel currencyDisplay = flowMenuPanel(menuLabel("Capital : " + activeFaction.getAmountCurrency()*activeFaction.getCurrency().getValue() + " $"));
-        JPanel relationDisplay = flowMenuPanel(menuLabel("Current relationship : " + relationshipInfo()));
+        JPanel colorDisplay = JComponentFactory.flowMenuPanel(JComponentFactory.menuLabel("Representative color : " + activeFaction.getColor()));
+        JPanel boatDisplay = JComponentFactory.flowMenuPanel(JComponentFactory.menuLabel("Armada : "+ activeFaction.getLstBoat().size() + " Boat(s)"));
+        JPanel harborDisplay = JComponentFactory.flowMenuPanel(JComponentFactory.menuLabel("Harbor possessed : "+ activeFaction.getLstHarbor().size() + " Harbor(s)"));
+        JPanel comDisplay = JComponentFactory.flowMenuPanel(JComponentFactory.menuLabel("Commercial activity : "+ activeFaction.getLstSeaRouts().size() + " SeaRoad(s)"));
+        JPanel currencyDisplay = JComponentFactory.flowMenuPanel(JComponentFactory.menuLabel("Capital : " + activeFaction.getAmountCurrency()*activeFaction.getCurrency().getValue() + " $"));
+        JPanel relationDisplay = JComponentFactory.flowMenuPanel(JComponentFactory.menuLabel("Current relationship : " + relationshipInfo()));
         factionStats.removeAll();
         factionStats.add(colorDisplay);
         factionStats.add(boatDisplay);
@@ -178,9 +177,9 @@ public class RelationMenu extends JPanel {
             return "Favorable ("+ relation +")";
         if (relation < -25 && relation >= -50)
             return "Unfavorable ("+ relation +")";
-        if (relation < -50 && relation > WAR_THRESHOLD)
+        if (relation < -50 && relation > GameConfiguration.WAR_THRESHOLD)
             return "Dire ("+ relation +")";
-        if (relation <= WAR_THRESHOLD)
+        if (relation <= GameConfiguration.WAR_THRESHOLD)
             return "At war ("+ relation +")";
         return "Neutral ("+ relation +")";
     }
@@ -211,7 +210,7 @@ public class RelationMenu extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(JOptionPane.showConfirmDialog(RelationMenu.this,"Do you want to declare war to "+activeFaction.getColor()+"? This decision cannot be reversed","confirmation",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
-                FactionManager.getInstance().modifyRelationship(MapGame.getInstance().getPlayer(),activeFaction, WAR_THRESHOLD);
+                FactionManager.getInstance().modifyRelationship(MapGame.getInstance().getPlayer(),activeFaction, GameConfiguration.WAR_THRESHOLD);
                 factionUpdate();
             }
         }

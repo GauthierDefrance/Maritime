@@ -16,7 +16,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 
-import static config.GameConfiguration.WAR_THRESHOLD;
 import static gui.MainGUI.getWindow;
 
 public class TradeMenu extends JPanel {
@@ -437,7 +436,7 @@ public class TradeMenu extends JPanel {
             }
             else {
                 JOptionPane.showMessageDialog(TradeMenu.this,"     Fail\nrelationship -10");
-                if(FactionManager.getInstance().getMyFaction(targetHarbor.getColor()).getRelationship(MapGame.getInstance().getPlayer()) <= WAR_THRESHOLD){
+                if(FactionManager.getInstance().getMyFaction(targetHarbor.getColor()).getRelationship(MapGame.getInstance().getPlayer()) <= GameConfiguration.WAR_THRESHOLD){
                     JOptionPane.showMessageDialog(TradeMenu.this,"GG it's War time");
                     GUILoader.loadRelationMenu(FactionManager.getInstance().getMyFaction(targetHarbor.getColor()));
                 }

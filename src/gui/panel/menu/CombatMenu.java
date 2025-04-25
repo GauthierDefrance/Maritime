@@ -1,5 +1,6 @@
 package gui.panel.menu;
 
+import config.GameOptions;
 import engine.battleengine.data.Battle;
 import engine.battleengine.process.BattleManager;
 import config.GameConfiguration;
@@ -28,7 +29,6 @@ import static gui.MainGUI.getWindow;
  */
 public class CombatMenu extends JPanel implements Runnable {
 
-    private int speedBoost;
     private JLayeredPane jLayeredPane;
     private JPanel dashboardJPanel;
     private JPanel jPanelATH;
@@ -78,7 +78,6 @@ public class CombatMenu extends JPanel implements Runnable {
         battle.setPlacingMode(true);
         dashboard = new BattleDisplay(battle);
         battleManager = new BattleManager(battle);
-        speedBoost = 1;
 
         //Window arrangement
         JPanel jWestButtonPanel = JComponentFactory.borderMenuPanel();
@@ -103,7 +102,22 @@ public class CombatMenu extends JPanel implements Runnable {
         jButtonNorthMenu2 = JComponentFactory.menuButton(">",new setSpeedBoostListener(1));
         jButtonNorthMenu3 = JComponentFactory.menuButton(">>",new setSpeedBoostListener(4));
         jButtonNorthMenu4 = JComponentFactory.menuButton(">>>",new setSpeedBoostListener(8));
-        jButtonNorthMenu2.setEnabled(false);
+        switch (GameOptions.getInstance().getSpeedBoost()) {
+            case 1 :{
+                jButtonNorthMenu2.setEnabled(false);
+                break;
+            }
+            case 4 :{
+                jButtonNorthMenu3.setEnabled(false);
+                break;
+            }
+            case 8 :{
+                jButtonNorthMenu4.setEnabled(false);
+                break;
+            }
+            default : {
+            }
+        }
 
         jNorthEastPanel.add(jButtonNorthMenu1);
         jNorthEastPanel.add(jButtonNorthMenu2);
@@ -189,7 +203,7 @@ public class CombatMenu extends JPanel implements Runnable {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            speedBoost = value;
+            GameOptions.getInstance().setSpeedBoost(value);
             jButtonNorthMenu1.setEnabled(true);
             jButtonNorthMenu2.setEnabled(true);
             jButtonNorthMenu3.setEnabled(true);
@@ -387,7 +401,7 @@ public class CombatMenu extends JPanel implements Runnable {
     public void run() {
         while (!ThreadStop) {
             try {
-                Thread.sleep((long) GameConfiguration.GAME_SPEED/speedBoost);
+                Thread.sleep((long) GameConfiguration.GAME_SPEED/GameOptions.getInstance().getSpeedBoost());
 
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());

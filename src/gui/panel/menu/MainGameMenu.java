@@ -1,6 +1,7 @@
 package gui.panel.menu;
 
 import config.GameConfiguration;
+import config.GameOptions;
 import engine.MapGame;
 import engine.battleengine.data.Battle;
 import engine.battleengine.process.BattleManager;
@@ -26,7 +27,6 @@ import java.util.AbstractMap;
 import java.util.HashMap;
 
 import static gui.MainGUI.getWindow;
-import static gui.process.JComponentFactory.menuLabel;
 
 /**
  * Simple test start menu for the game, serves as the entrypoint of the program
@@ -35,7 +35,6 @@ import static gui.process.JComponentFactory.menuLabel;
  */
 public class MainGameMenu extends JPanel implements Runnable {
 
-    private int speedBoost;
     private HashMap<Object, JButton> mapObject;
     private Object currentObject;
 
@@ -80,7 +79,6 @@ public class MainGameMenu extends JPanel implements Runnable {
     private JLabel jNorthATHLabel;
 
     private GameDisplay dashboard;
-    private FactionManager factionManager;
     private boolean ThreadStop;
 
     /**
@@ -116,24 +114,37 @@ public class MainGameMenu extends JPanel implements Runnable {
         jButtonLeftMenu2 = JComponentFactory.menuButton("2",new showMenu(jEastCenterPanelChoice2,jEastCenterCenterPanel));
         jButtonLeftMenu3 = JComponentFactory.menuButton("3",new showMenu(jEastCenterPanelChoice3,jEastCenterCenterPanel));
         jButtonLeftMenu4 = JComponentFactory.menuButton("4",new showMenu(jEastCenterPanelChoice4,jEastCenterCenterPanel));
-        jNorthATHLabel = JComponentFactory.title("    "+MapGame.getInstance().getPlayer().getCurrency().getName()+" : "+MapGame.getInstance().getPlayer().getAmountCurrency());
-
+        jNorthATHLabel = JComponentFactory.title("    "+MapGame.getInstance().getPlayer().getCurrency().getName()+" : "+MapGame.getInstance().getPlayer().getAmountCurrency()+"   Harbor : "+MapGame.getInstance().getPlayer().getLstHarbor().size()+"/"+MapGame.getInstance().getLstHarbor().size());
         dashboard = new GameDisplay();
-        factionManager = FactionManager.getInstance();
         mapObject = new HashMap<>();
-        speedBoost = 1;
 
         //Window arrangement
         JPanel jEastWestPanel = JComponentFactory.borderMenuPanel();
         JPanel jEastButtonPanel = JComponentFactory.borderMenuPanel();
         JPanel jEastCenterPanel = JComponentFactory.borderMenuPanel();
-        JPanel jEastCenterNorthPanel = JComponentFactory.gridMenuPanel(1,4,0,0,jButtonLeftMenu1,jButtonLeftMenu2,jButtonLeftMenu3,jButtonLeftMenu4);
+        JPanel jEastCenterNorthPanel = JComponentFactory.gridMenuPanel(1,0,0,0,jButtonLeftMenu1,jButtonLeftMenu2,jButtonLeftMenu3);
 
         jButtonNorthMenu1 = JComponentFactory.menuButton("⏯",new flipTimeListener());
         jButtonNorthMenu2 = JComponentFactory.menuButton(">",new setSpeedBoostListener(1));
         jButtonNorthMenu3 = JComponentFactory.menuButton(">>",new setSpeedBoostListener(4));
         jButtonNorthMenu4 = JComponentFactory.menuButton(">>>",new setSpeedBoostListener(8));
-        jButtonNorthMenu2.setEnabled(false);
+        switch (GameOptions.getInstance().getSpeedBoost()) {
+            case 1 :{
+                jButtonNorthMenu2.setEnabled(false);
+                break;
+            }
+            case 4 :{
+                jButtonNorthMenu3.setEnabled(false);
+                break;
+            }
+            case 8 :{
+                jButtonNorthMenu4.setEnabled(false);
+                break;
+            }
+            default : {
+            }
+        }
+
 
         JScrollPane jScrollPane1 = JComponentFactory.ScrollPaneMenuPanel(jEastCenterChoice1CenterPanel);
         jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -173,7 +184,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         dashboardJPanel.add(dashboard,BorderLayout.CENTER);
 
         jNorthATHPanel.add(jNorthEastPanel,BorderLayout.EAST);
-        jNorthATHPanel.add(jNorthATHLabel,BorderLayout.WEST);
+        jNorthATHPanel.add(jNorthATHLabel,BorderLayout.CENTER);
 
         jEastPanel.add(jEastCenterPanel,BorderLayout.CENTER);
         jEastPanel.add(jEastWestPanel,BorderLayout.WEST);
@@ -202,6 +213,8 @@ public class MainGameMenu extends JPanel implements Runnable {
         jEastCenterChoice2CenterPanel.setBackground(Color.GRAY);
         jEastCenterChoice3CenterPanel1.setBackground(Color.GRAY);
         jEastCenterChoice3CenterPanel2.setBackground(Color.GRAY);
+        jNorthATHLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        jNorthATHLabel.setForeground(Color.lightGray);
 
         this.add(jLayeredPane);
         this.addMouseListener(new MouseListener());
@@ -280,7 +293,7 @@ public class MainGameMenu extends JPanel implements Runnable {
 
     private void repaintUpdate(){
         jSouthATHPanelCenter.removeAll();
-        jNorthATHLabel.setText("    "+MapGame.getInstance().getPlayer().getCurrency().getName()+" : "+MapGame.getInstance().getPlayer().getAmountCurrency());
+        jNorthATHLabel.setText("    "+MapGame.getInstance().getPlayer().getCurrency().getName()+" : "+MapGame.getInstance().getPlayer().getAmountCurrency()+"   Harbor : "+MapGame.getInstance().getPlayer().getLstHarbor().size()+"/"+MapGame.getInstance().getLstHarbor().size());
         if(currentObject!= null){
             if (currentObject instanceof Boat){
                 Boat currentBoat = (Boat) currentObject;
@@ -294,7 +307,7 @@ public class MainGameMenu extends JPanel implements Runnable {
                 String[] lstString = {"Level : " +currentHarbor.getLevel(),"Health : "+currentHarbor.getCurrentHp()+"/"+currentHarbor.getMaxHp(),"Harbor Generator : "+nb+"/"+currentHarbor.getLevel(),"Harbor Resource : "+currentHarbor.getInventory().toString()};
 
                 for (String string : lstString){
-                    tmpLabel = menuLabel(string);
+                    tmpLabel = JComponentFactory.menuLabel(string);
                     tmpLabel.setHorizontalAlignment(SwingConstants.CENTER);
                     tmpLabel.setFont(font);
                     tmpLabel.setForeground(Color.white);
@@ -312,7 +325,7 @@ public class MainGameMenu extends JPanel implements Runnable {
                 String[] lstString = {"Remaining Time : "+currentSeaRoad.getStringTimer(),currentSeaRoad.getSelection().getKey().getName()+" ( "+currentSeaRoad.getSelection().getValue()+" ) / "+currentSeaRoad.getDemand().getKey().getName()+" ( "+currentSeaRoad.getDemand().getValue()+" )"};
 
                 for (String string : lstString){
-                    tmpLabel = menuLabel(string);
+                    tmpLabel = JComponentFactory.menuLabel(string);
                     tmpLabel.setHorizontalAlignment(SwingConstants.CENTER);
                     tmpLabel.setFont(font);
                     tmpLabel.setForeground(Color.white);
@@ -409,7 +422,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         public void actionPerformed(ActionEvent e) {
             ThreadStop = true;
             jPopupMenu.setVisible(false);
-            GUILoader.loadRelationMenu(factionManager.getMyFaction(entity.getColor()));
+            GUILoader.loadRelationMenu(FactionManager.getInstance().getMyFaction(entity.getColor()));
         }
     }
 
@@ -423,7 +436,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         @Override
         public void actionPerformed(ActionEvent e) {
             jPopupMenu.setVisible(false);
-            if(object instanceof Boat)factionManager.chaseBoat((Boat) currentObject, (Boat) object);
+            if(object instanceof Boat)FactionManager.getInstance().chaseBoat((Boat) currentObject, (Boat) object);
             else if(object instanceof Harbor){
                 if((FactionManager.getInstance().getMyFaction(((Harbor) object).getColor()).getRelationship(MapGame.getInstance().getPlayer()) <= -100) || JOptionPane.showConfirmDialog(MainGameMenu.this,"Do you want to declare war to "+FactionManager.getInstance().getMyFaction(((Harbor) object).getName()).getName()+"? This decision cannot be reversed","confirmation",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
                     FactionManager.getInstance().modifyRelationship(MapGame.getInstance().getPlayer(),FactionManager.getInstance().getMyFaction(((Harbor) object).getColor()),-100);
@@ -450,7 +463,7 @@ public class MainGameMenu extends JPanel implements Runnable {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            speedBoost = value;
+            GameOptions.getInstance().setSpeedBoost(value);
             jButtonNorthMenu1.setEnabled(true);
             jButtonNorthMenu2.setEnabled(true);
             jButtonNorthMenu3.setEnabled(true);
@@ -484,8 +497,8 @@ public class MainGameMenu extends JPanel implements Runnable {
         @Override
         public void mousePressed(MouseEvent e) {
             Point point = ListenerBehaviorManager.create().clickLogic(MainGameMenu.this, e.getPoint());
-            Boat boat = factionManager.getBoatManager().pointCollisionToMapBoat(point);
-            Harbor harbor = factionManager.getHarborManager().pointCollisionToMapHarbor(point);
+            Boat boat = FactionManager.getInstance().getBoatManager().pointCollisionToMapBoat(point);
+            Harbor harbor = FactionManager.getInstance().getHarborManager().pointCollisionToMapHarbor(point);
             if(harbor != null){
                 if(MapGame.getInstance().getPlayer().getLstHarbor().contains(harbor)){
                     jEastATHPanel.removeAll();
@@ -600,14 +613,14 @@ public class MainGameMenu extends JPanel implements Runnable {
             while (!ThreadStop) {
                 AbstractMap.SimpleEntry<Battle, Boolean> tmp;
                 try {
-                    Thread.sleep((long) GameConfiguration.GAME_SPEED/speedBoost);
+                    Thread.sleep((long) GameConfiguration.GAME_SPEED/ GameOptions.getInstance().getSpeedBoost());
 
                 } catch (InterruptedException e) {
                     System.out.println(e.getMessage());
                 }
                 if (!MapGame.getInstance().isTimeStop()){
-                    factionManager.nextRound();
-                    if(factionManager.needUpdate()){
+                    FactionManager.getInstance().nextRound();
+                    if(FactionManager.getInstance().needUpdate()){
                         if(currentObject!= null){
                             if (currentObject instanceof Harbor && !MapGame.getInstance().getPlayer().getLstHarbor().contains((Harbor)currentObject)){
                                 currentObject = null;
@@ -621,7 +634,7 @@ public class MainGameMenu extends JPanel implements Runnable {
                     else if((int)(MapGame.getInstance().getTime()*10)%10 == 1){
                         repaintUpdate();
                     }
-                    tmp = factionManager.needBattle();
+                    tmp = FactionManager.getInstance().needBattle();
                     if(tmp != null){
                         wantFight(tmp.getKey(),tmp.getValue());
                     }

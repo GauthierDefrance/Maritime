@@ -15,8 +15,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 import static gui.MainGUI.getWindow;
-import static gui.process.JComponentFactory.flowMenuPanel;
-import static gui.process.JComponentFactory.menuLabel;
 
 public class HarborMenu extends JPanel {
 
@@ -66,7 +64,7 @@ public class HarborMenu extends JPanel {
         this.setLayout(new BorderLayout());
 
         jPanelWestGrid = JComponentFactory.gridMenuPanel(0, 1,GameConfiguration.BUTTON_SEPARATOR,GameConfiguration.BUTTON_SEPARATOR);
-        jPanelNorthResource = flowMenuPanel();
+        jPanelNorthResource = JComponentFactory.flowMenuPanel();
         currentCreatePanel = JComponentFactory.borderMenuPanel();
         jPanelCenterCenter = JComponentFactory.borderMenuPanel();
         jPanelCenterSouth = JComponentFactory.gridMenuPanel(2,1);
@@ -232,7 +230,7 @@ public class HarborMenu extends JPanel {
         healAllButton.setEnabled(false);
         removeCurrent.setEnabled(activeObject != null);
 
-        JLabel northResourceLabel = menuLabel(" "+MapGame.getInstance().getPlayer().getCurrency().getName()+" : "+MapGame.getInstance().getPlayer().getAmountCurrency()+"   "+"Resource : "+activeHarbor.getInventory().toString());
+        JLabel northResourceLabel = JComponentFactory.menuLabel(" "+MapGame.getInstance().getPlayer().getCurrency().getName()+" : "+MapGame.getInstance().getPlayer().getAmountCurrency()+"   "+"Resource : "+activeHarbor.getInventory().toString());
         northResourceLabel.setFont(new Font( "Noto Sans Display", Font.BOLD, 30));
         northResourceLabel.setOpaque(true);
         northResourceLabel.setBackground(Color.lightGray);
@@ -250,6 +248,9 @@ public class HarborMenu extends JPanel {
         currentCreatePanel.add(jComboBoxCurrentButton,BorderLayout.CENTER);
 
         if(isInBoatMode){
+            if(activeObject == null && !activeHarbor.getHashMapBoat().isEmpty()) {
+                activeObject = activeHarbor.getHashMapBoat().keySet().iterator().next();
+            }
             if(jComboBoxCurrentSelectedBoat!=null) {
                 jComboBoxCurrentButton.setText("Build " + jComboBoxCurrentSelectedBoat+ " :"+FactionManager.getInstance().getHarborManager().canIAddBoatString(activeHarbor,jComboBoxCurrentSelectedBoat));
                 if (FactionManager.getInstance().getHarborManager().canIAddBoat(activeHarbor, jComboBoxCurrentSelectedBoat))jComboBoxCurrentButton.setEnabled(true);
@@ -291,14 +292,14 @@ public class HarborMenu extends JPanel {
                 upgradeInventorySizeButton.setText("Upgrade Inventory Size "+boat.getInventory().getCapacity()+" -> "+boat.nextUpgradeInventorySize()+" : 100 "+GameConfiguration.WOOD.getName());
                 if(FactionManager.getInstance().getHarborManager().canIUpgradeInventorySize(activeHarbor, (Boat) activeObject))upgradeInventorySizeButton.setEnabled(true);
 
-                JPanel nameDisplay = flowMenuPanel(menuLabel("Name : " +boat.getName()));
-                JPanel levelDisplay = flowMenuPanel(menuLabel("Level : " +boat.getLevel()));
-                JPanel pointDisplay = flowMenuPanel(menuLabel("Upgrade Point : "+boat.getUpgradePoint()+"/"+(boat.getLevel()*GameConfiguration.UPGRADE_POINT_DEFAULT)));
-                JPanel boatDisplay = flowMenuPanel(menuLabel("Boat Type : "+boatClass));
-                JPanel healthDisplay = flowMenuPanel(menuLabel("Boat Health : "+boat.getCurrentHp()+"/"+boat.getMaxHp()));
-                JPanel DamageSpeedDisplay = flowMenuPanel(menuLabel("Boat dps : "+boat.getDamageSpeed()));
-                JPanel SpeedDisplay = flowMenuPanel(menuLabel("Boat Speed : "+boat.getSpeed()));
-                JPanel InventorySizeDisplay = flowMenuPanel(menuLabel("Boat Inventory Size : "+boat.getInventory().getCapacity()));
+                JPanel nameDisplay = JComponentFactory.flowMenuPanel(JComponentFactory.menuLabel("Name : " +boat.getName()));
+                JPanel levelDisplay = JComponentFactory.flowMenuPanel(JComponentFactory.menuLabel("Level : " +boat.getLevel()));
+                JPanel pointDisplay = JComponentFactory.flowMenuPanel(JComponentFactory.menuLabel("Upgrade Point : "+boat.getUpgradePoint()+"/"+(boat.getLevel()*GameConfiguration.UPGRADE_POINT_DEFAULT)));
+                JPanel boatDisplay = JComponentFactory.flowMenuPanel(JComponentFactory.menuLabel("Boat Type : "+boatClass));
+                JPanel healthDisplay = JComponentFactory.flowMenuPanel(JComponentFactory.menuLabel("Boat Health : "+boat.getCurrentHp()+"/"+boat.getMaxHp()));
+                JPanel DamageSpeedDisplay = JComponentFactory.flowMenuPanel(JComponentFactory.menuLabel("Boat dps : "+boat.getDamageSpeed()));
+                JPanel SpeedDisplay = JComponentFactory.flowMenuPanel(JComponentFactory.menuLabel("Boat Speed : "+boat.getSpeed()));
+                JPanel InventorySizeDisplay = JComponentFactory.flowMenuPanel(JComponentFactory.menuLabel("Boat Inventory Size : "+boat.getInventory().getCapacity()));
                 statsPanel.add(nameDisplay);
                 statsPanel.add(levelDisplay);
                 statsPanel.add(pointDisplay);
@@ -357,14 +358,14 @@ public class HarborMenu extends JPanel {
 
             nb = 0;
             for (Boat boat : activeHarbor.getHashMapBoat().keySet())if(activeHarbor.getHashMapBoat().get(boat))nb+=1;
-            JPanel nameDisplay = flowMenuPanel(menuLabel("Name : " +activeHarbor.getName()));
-            JPanel levelDisplay = flowMenuPanel(menuLabel("Level : " +activeHarbor.getLevel()));
-            JPanel boatDisplay = flowMenuPanel(menuLabel("Boat Contained : "+activeHarbor.getHashMapBoat().size()+"("+nb+")"));
-            JPanel healthDisplay = flowMenuPanel(menuLabel("Harbor Health : "+activeHarbor.getCurrentHp()+"/"+activeHarbor.getMaxHp()));
+            JPanel nameDisplay = JComponentFactory.flowMenuPanel(JComponentFactory.menuLabel("Name : " +activeHarbor.getName()));
+            JPanel levelDisplay = JComponentFactory.flowMenuPanel(JComponentFactory.menuLabel("Level : " +activeHarbor.getLevel()));
+            JPanel boatDisplay = JComponentFactory.flowMenuPanel(JComponentFactory.menuLabel("Boat Contained : "+activeHarbor.getHashMapBoat().size()+"("+nb+")"));
+            JPanel healthDisplay = JComponentFactory.flowMenuPanel(JComponentFactory.menuLabel("Harbor Health : "+activeHarbor.getCurrentHp()+"/"+activeHarbor.getMaxHp()));
             nb = 0;
             for (Resource resource : activeHarbor.getGenerator().keySet())nb+=activeHarbor.getGenerator().get(resource)[1];
-            JPanel generatorDisplay = flowMenuPanel(menuLabel("Harbor Generator : "+nb+"/"+activeHarbor.getLevel()));
-            JPanel resourceDisplay = flowMenuPanel(menuLabel("Harbor Resource : "+activeHarbor.getInventory().toString()));
+            JPanel generatorDisplay = JComponentFactory.flowMenuPanel(JComponentFactory.menuLabel("Harbor Generator : "+nb+"/"+activeHarbor.getLevel()));
+            JPanel resourceDisplay = JComponentFactory.flowMenuPanel(JComponentFactory.menuLabel("Harbor Resource : "+activeHarbor.getInventory().toString()));
             statsPanel.add(nameDisplay);
             statsPanel.add(levelDisplay);
             statsPanel.add(boatDisplay);

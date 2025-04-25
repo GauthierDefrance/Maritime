@@ -1,6 +1,7 @@
 package gui.panel.menu;
 
 
+import config.GameConfiguration;
 import gui.process.JComponentFactory;
 import gui.process.ListenerBehaviorManager;
 import saveSystem.GameSave;
@@ -12,7 +13,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-import static config.GameConfiguration.BUTTON_SEPARATOR;
 import static gui.MainGUI.getWindow;
 
 public class SaveFileMenu extends JPanel {
@@ -59,14 +59,14 @@ public class SaveFileMenu extends JPanel {
         JLabel title = JComponentFactory.title(t);
         JPanel titleDisplay = JComponentFactory.flowMenuPanel(title);
 
-        JPanel saveLine1 = JComponentFactory.gridMenuPanel(1, 3, 10+BUTTON_SEPARATOR, BUTTON_SEPARATOR, fileButtons.get(0), fileButtons.get(1), fileButtons.get(2));
-        JPanel saveLine2 = JComponentFactory.gridMenuPanel(1, 3, 10+BUTTON_SEPARATOR, BUTTON_SEPARATOR, fileButtons.get(3), fileButtons.get(4), fileButtons.get(5));
+        JPanel saveLine1 = JComponentFactory.gridMenuPanel(1, 3, 10+ GameConfiguration.BUTTON_SEPARATOR, GameConfiguration.BUTTON_SEPARATOR, fileButtons.get(0), fileButtons.get(1), fileButtons.get(2));
+        JPanel saveLine2 = JComponentFactory.gridMenuPanel(1, 3, 10+GameConfiguration.BUTTON_SEPARATOR, GameConfiguration.BUTTON_SEPARATOR, fileButtons.get(3), fileButtons.get(4), fileButtons.get(5));
 
         JButton goBackButton = JComponentFactory.menuButton("Go back", new goBackButtonListener());
         goBack = JComponentFactory.borderMenuPanel();
         goBack.add(goBackButton,BorderLayout.CENTER);
 
-        menu = JComponentFactory.gridMenuPanel(3, 1, BUTTON_SEPARATOR, BUTTON_SEPARATOR, saveLine1, saveLine2,goBack);
+        menu = JComponentFactory.gridMenuPanel(3, 1, GameConfiguration.BUTTON_SEPARATOR, GameConfiguration.BUTTON_SEPARATOR, saveLine1, saveLine2,goBack);
         jPanelCenter = JComponentFactory.voidPanel();
         jPanelCenter.add(menu);
 

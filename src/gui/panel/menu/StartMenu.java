@@ -3,7 +3,6 @@ package gui.panel.menu;
 import config.GameConfiguration;
 import engine.MapGame;
 import engine.process.creational.EngineBuilder;
-import engine.process.manager.FactionManager;
 import gui.PopUp;
 import gui.panel.display.GameDisplay;
 import gui.utilities.GUILoader;
@@ -34,7 +33,6 @@ public class StartMenu extends JPanel implements Runnable {
     private JLabel title;
 
     private GameDisplay dashboard;
-    private final FactionManager factionManager = FactionManager.getInstance();
     private boolean ThreadStop;
 
     /**

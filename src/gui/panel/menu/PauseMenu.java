@@ -1,6 +1,7 @@
 package gui.panel.menu;
 
 import config.GameConfiguration;
+import config.GameOptions;
 import gui.MainGUI;
 import gui.utilities.GUILoader;
 import gui.process.JComponentFactory;
@@ -11,7 +12,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 
-import static config.GameOptions.getInstance;
 import static gui.MainGUI.getWindow;
 
 /**
@@ -67,7 +67,7 @@ public class PauseMenu extends JPanel {
 
         JButton debugButton = JComponentFactory.menuButton("Debug Menu", new debugListener());
 
-        debugButton.setVisible(getInstance().getShowDebug());
+        debugButton.setVisible(GameOptions.getInstance().getShowDebug());
 
         JPanel buttonsDisplay = JComponentFactory.gridMenuPanel(2, 2, 20+GameConfiguration.BUTTON_SEPARATOR, 5+GameConfiguration.BUTTON_SEPARATOR, saveButton, loadButton, optionsButton, mainMenuButton);
         bigButtonDisplay = JComponentFactory.gridMenuPanel(3, 1, 5+GameConfiguration.BUTTON_SEPARATOR, 5+GameConfiguration.BUTTON_SEPARATOR, exitButton, backToGameButton, debugButton);

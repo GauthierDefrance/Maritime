@@ -8,12 +8,14 @@ public class GameOptions implements Serializable {
     private boolean isMuted;
     private boolean showDebug;
     private int volume;
+    private int speedBoost;
 
     private GameOptions() {
         instance = this;
         isMuted = false;
         showDebug = false;
         volume = 5;
+        speedBoost = 1;
     }
 
     //Getters
@@ -30,6 +32,10 @@ public class GameOptions implements Serializable {
         return volume;
     }
 
+    public int getSpeedBoost() {
+        return speedBoost;
+    }
+
     //Setters
 
     public void setIsMuted(boolean isMuted) {
@@ -41,6 +47,10 @@ public class GameOptions implements Serializable {
     }
 
     public void setVolume(int volume) { this.volume = volume; }
+
+    public void setSpeedBoost(int speedBoost) {
+        this.speedBoost = speedBoost;
+    }
 
     //Instance Management
 
