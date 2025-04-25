@@ -41,6 +41,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
     private Fleet fleet;
     private ArrayList<GraphPoint> path;
 
+    private JLayeredPane jLayeredPane;
     private JPanel dashboardJPanel;
     private JPanel jPanelATH;
     private JPanel jSouthATHPanel;
@@ -93,6 +94,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
 
     private void init() {
         this.setLayout(new BorderLayout());
+        jLayeredPane = JComponentFactory.JLayeredPane();
         dashboardJPanel = JComponentFactory.borderMenuPanel();
         jPanelATH = JComponentFactory.borderMenuPanel();
         jSouthATHPanel = JComponentFactory.flowMenuPanel();
@@ -105,7 +107,6 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         dashboard = new ChoiceDisplay(state);
 
         //Window arrangement
-        JLayeredPane jLayeredPane = new JLayeredPane();
         jPanelATH.setOpaque(false);
         dashboardJPanel.add(dashboard,BorderLayout.CENTER);
         jSouthATHPanel.add(goBackButton);
@@ -156,8 +157,8 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         cancel.setPreferredSize(new Dimension((int) Math.max(50,getWindow().getWidth()*0.10), (int) Math.max(26,getWindow().getHeight()*0.08)));
         reset.setPreferredSize(new Dimension((int) Math.max(50,getWindow().getWidth()*0.10), (int) Math.max(26,getWindow().getHeight()*0.08)));
         automatic.setPreferredSize(new Dimension((int) Math.max(50,getWindow().getWidth()*0.10), (int) Math.max(26,getWindow().getHeight()*0.08)));
-        getWindow().revalidate();
-        getWindow().repaint();
+        jLayeredPane.revalidate();
+        jLayeredPane.repaint();
     }
 
     private class confirmListener implements ActionListener {
@@ -411,7 +412,8 @@ public class ChoicePathMenu extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
-            dashboard.repaint();
+            jLayeredPane.revalidate();
+            jLayeredPane.repaint();
             dashboard.getPaintBackGround().setIFrame((dashboard.getPaintBackGround().getIFrame() + 1) % GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES);
             for (PopUp popUp : MapGame.getInstance().getLstPopUp()) {
                 popUp.addIFrame(1);

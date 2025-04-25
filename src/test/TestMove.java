@@ -4,16 +4,10 @@ import config.GameConfiguration;
 import engine.MapGame;
 import engine.data.Fleet;
 import engine.data.entity.boats.*;
-import engine.data.faction.Faction;
-import engine.process.creational.EngineBuilder;
-import engine.process.creational.TradeObjectBuilder;
-import engine.data.trading.Currency;
 import engine.process.manager.FactionManager;
-import engine.data.trading.Resource;
 import engine.data.trading.SeaRoad;
 import music.MusicBuilder;
 import music.MusicManager;
-import music.MusicPlayer;
 
 public class TestMove {
     public static void addBoatTest(){
@@ -90,8 +84,8 @@ public class TestMove {
         MapGame.getInstance().getPlayer().addAmountCurrency(10000);
 
 
-        SeaRoad seaRoad1 = new SeaRoad("seaRoad1", MapGame.getInstance().getLstHarbor().get(0), MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1),GameConfiguration.METAL,GameConfiguration.GOLD,500,1000,3000);
-        SeaRoad seaRoad2 = new SeaRoad("seaRoad2", MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1), MapGame.getInstance().getLstHarbor().get(0),GameConfiguration.WOOD,GameConfiguration.METAL,1000,500,3000);
+        SeaRoad seaRoad1 = new SeaRoad("seaRoad1", MapGame.getInstance().getLstHarbor().get(0), MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1),GameConfiguration.METAL,GameConfiguration.GOLD,1000,2000,3000);
+        SeaRoad seaRoad2 = new SeaRoad("seaRoad2", MapGame.getInstance().getLstHarbor().get(MapGame.getInstance().getLstHarbor().size()-1), MapGame.getInstance().getLstHarbor().get(0),GameConfiguration.WOOD,GameConfiguration.METAL,2000,1000,3000);
 
         FactionManager factionManager = FactionManager.getInstance();
         factionManager.getSeaRoadManager().setNewFleet(seaRoad1,fleet1);
@@ -108,5 +102,6 @@ public class TestMove {
         MusicManager.getInstance().addMusicPlayer(MusicBuilder.createMusic("Killing_in_the_Name.wav",true));
         MusicManager.getInstance().addMusicPlayer(MusicBuilder.createMusic("declare_war.wav", true));
     }
+
 }
 

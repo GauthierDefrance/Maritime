@@ -223,15 +223,6 @@ public class JComponentFactory {
      * Build an Empty JPanel to occupy void space
      * @return built JPanel
      */
-    public static JPanel voidPanel() {
-        loggerWrite("JPanel");
-        return new JPanel();
-    }
-
-    /**
-     * Build an Empty JPanel to occupy void space
-     * @return built JPanel
-     */
     public static JPopupMenu voidPopupMenu() {
         loggerWrite("PopupMenu");
         JPopupMenu jPopupMenu = new JPopupMenu();
@@ -247,6 +238,21 @@ public class JComponentFactory {
     public static JScrollPane ScrollPaneMenuPanel(JComponent jComponent) {
         loggerWrite("jScrollPane");
         return new JScrollPane(jComponent);
+    }
+
+    public static JLayeredPane JLayeredPane() {
+        JLayeredPane newJLayeredPane = new JLayeredPane();
+        loggerWrite("JLayeredPane generated");
+        return newJLayeredPane;
+    }
+
+    /**
+     * Build an Empty JPanel to occupy void space
+     * @return built JPanel
+     */
+    public static JPanel voidPanel() {
+        loggerWrite("JPanel");
+        return new JPanel();
     }
 
     /**

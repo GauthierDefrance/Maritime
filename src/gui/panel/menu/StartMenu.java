@@ -25,8 +25,8 @@ import static gui.MainGUI.getWindow;
  */
 public class StartMenu extends JPanel implements Runnable {
 
+    private JLayeredPane jLayeredPane;
     private JPanel dashboardJPanel;
-
     private JPanel jPanelATH;
     private JPanel jNorthATHPanel;
     private JPanel NorthVoidpanel;
@@ -51,6 +51,7 @@ public class StartMenu extends JPanel implements Runnable {
     private void init() {
         EngineBuilder.mapInit(0);
         this.setLayout(new BorderLayout());
+        jLayeredPane = JComponentFactory.JLayeredPane();
         jPanelATH = JComponentFactory.borderMenuPanel();
         dashboardJPanel = JComponentFactory.borderMenuPanel();
         jNorthATHPanel = JComponentFactory.borderMenuPanel();
@@ -85,8 +86,6 @@ public class StartMenu extends JPanel implements Runnable {
         jPanelATH.setBounds(getWindow().getBounds());
 
         //Window arrangement
-        JLayeredPane jLayeredPane = new JLayeredPane();
-
         dashboard.setBackground(GameConfiguration.WATER_BACKGROUND_COLOR);
 
         jPanelATH.setOpaque(false);
@@ -121,9 +120,8 @@ public class StartMenu extends JPanel implements Runnable {
         buttonDisplay.setPreferredSize(new Dimension((int) Math.max(600,getWindow().getWidth()*0.6),(int) (getWindow().getHeight()*0.08)));
         title.setFont(new Font( "Noto Sans Display", Font.BOLD, Math.max(30,(int) (getWindow().getHeight()*0.05))));
 
-
-        getWindow().revalidate();
-        getWindow().repaint();
+        jLayeredPane.revalidate();
+        jLayeredPane.repaint();
     }
 
     /**
@@ -207,7 +205,8 @@ public class StartMenu extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
-            dashboard.repaint();
+            jLayeredPane.revalidate();
+            jLayeredPane.repaint();
             dashboard.getPaintBackGround().setIFrame((dashboard.getPaintBackGround().getIFrame() + 1) % GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES);
             for (PopUp popUp : MapGame.getInstance().getLstPopUp()) {
                 popUp.addIFrame(1);

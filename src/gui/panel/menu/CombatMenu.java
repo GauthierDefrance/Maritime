@@ -29,6 +29,7 @@ import static gui.MainGUI.getWindow;
 public class CombatMenu extends JPanel implements Runnable {
 
     private int speedBoost;
+    private JLayeredPane jLayeredPane;
     private JPanel dashboardJPanel;
     private JPanel jPanelATH;
     private JPanel jNorthATHPanel;
@@ -62,6 +63,7 @@ public class CombatMenu extends JPanel implements Runnable {
     }
     private void init() {
         this.setLayout(new BorderLayout());
+        jLayeredPane = JComponentFactory.JLayeredPane();
         dashboardJPanel = JComponentFactory.borderMenuPanel();
         jPanelATH = JComponentFactory.borderMenuPanel();
         jWestATHPanel = JComponentFactory.borderMenuPanel();
@@ -79,7 +81,6 @@ public class CombatMenu extends JPanel implements Runnable {
         speedBoost = 1;
 
         //Window arrangement
-        JLayeredPane jLayeredPane = new JLayeredPane();
         JPanel jWestButtonPanel = JComponentFactory.borderMenuPanel();
         JPanel hideLeftMenuPanel = JComponentFactory.borderMenuPanel();
 
@@ -163,8 +164,8 @@ public class CombatMenu extends JPanel implements Runnable {
         jWestPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.20),getWindow().getHeight()));
         jWestCenterPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*(0.08* MapGame.getInstance().getPlayer().getLstBoat().size()))));
         confirmBattle.setPreferredSize(new Dimension((int) Math.max(50,getWindow().getWidth()*0.2), (int) Math.max(26,getWindow().getHeight()*0.08)));
-        getWindow().revalidate();
-        getWindow().repaint();
+        jLayeredPane.revalidate();
+        jLayeredPane.repaint();
     }
 
     private void elementInPanelUpdate() {
@@ -395,7 +396,8 @@ public class CombatMenu extends JPanel implements Runnable {
                 battleManager.tick();
                 MapGame.getInstance().addTime(((double)GameConfiguration.GAME_SPEED)/1000);
             }
-            dashboard.repaint();
+            jLayeredPane.revalidate();
+            jLayeredPane.repaint();
             dashboard.getPaintBackGround().setIFrame((dashboard.getPaintBackGround().getIFrame() + 1) % GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES);
             for (PopUp popUp : MapGame.getInstance().getLstPopUp()) {
                 popUp.addIFrame(1);
