@@ -2,6 +2,7 @@ package gui.panel.menu;
 
 import gui.process.JComponentFactory;
 import gui.process.ListenerBehaviorManager;
+import music.MusicManager;
 import saveSystem.process.OptSaveManager;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -164,6 +165,8 @@ public class OptionsMenu extends JPanel {
         public void actionPerformed(ActionEvent e) {
             ListenerBehaviorManager lbm = ListenerBehaviorManager.create();
             getInstance().setVolume(lbm.decrement(MIN_SOUND_LEVEL, getInstance().getVolume()));
+            MusicManager.getInstance().actualizeMusicPlayers();
+            System.out.println(getInstance().getVolume());
             updateLinkedFile();
         }
     }
@@ -173,6 +176,8 @@ public class OptionsMenu extends JPanel {
         public void actionPerformed(ActionEvent e) {
             ListenerBehaviorManager lbm = ListenerBehaviorManager.create();
             getInstance().setVolume(lbm.increment(MAX_SOUND_LEVEL, getInstance().getVolume()));
+            MusicManager.getInstance().actualizeMusicPlayers();
+            System.out.println(getInstance().getVolume());
             updateLinkedFile();
         }
     }

@@ -14,12 +14,10 @@ import java.util.HashMap;
  */
 public class MusicManager {
     private static MusicManager instance;
-    private float volume;
     private HashMap<String, MusicPlayer> musicPlayersMap;
 
-    private MusicManager(float volume) {
+    private MusicManager() {
         musicPlayersMap = new HashMap<String, MusicPlayer>();
-        this.volume = volume;
     }
 
     /**
@@ -27,7 +25,7 @@ public class MusicManager {
      */
     public static MusicManager getInstance() {
         if (instance == null) {
-            instance = new MusicManager(((float) GameOptions.getInstance().getVolume() )/10);
+            instance = new MusicManager();
         }
         return instance;
     }
@@ -44,6 +42,7 @@ public class MusicManager {
             old.close();
         }
         musicPlayersMap.put(mp.getFilename(),mp);
+        mp.setVolume(((float) GameOptions.getInstance().getVolume() )/10);
         mp.play();
     }
 
@@ -69,7 +68,7 @@ public class MusicManager {
             if(mp.isFinished() && !mp.isLooping()) {
                 killMusicPlayer(mp.getFilename());
             } else {
-                mp.setVolume(GameOptions.getInstance().getVolume());
+                mp.setVolume(((float) GameOptions.getInstance().getVolume() )/10);
             }
         }
     }
@@ -85,6 +84,29 @@ public class MusicManager {
             killMusicPlayer(mp.getFilename());
         }
     }
+
+    /**
+     * Methode that pause all the existing music
+     */
+    public void pauseAllMusicPlayers() {
+        ArrayList<MusicPlayer> copyLst = new ArrayList<MusicPlayer>();
+        copyLst.addAll(musicPlayersMap.values());
+        for (MusicPlayer mp : copyLst) {
+            pauseMusicPlayer(mp.getFilename());
+        }
+    }
+
+    /**
+     * Methode that resume all the existing music
+     */
+    public void resumeAllMusicPlayers() {
+        ArrayList<MusicPlayer> copyLst = new ArrayList<MusicPlayer>();
+        copyLst.addAll(musicPlayersMap.values());
+        for (MusicPlayer mp : copyLst) {
+            resumeMusicPlayer(mp.getFilename());
+        }
+    }
+
 
 
     /**

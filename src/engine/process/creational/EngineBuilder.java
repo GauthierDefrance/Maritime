@@ -15,6 +15,7 @@ import engine.data.graph.GraphPoint;
 import engine.data.graph.GraphSegment;
 import gui.PopUp;
 import log.LoggerUtility;
+import music.MusicManager;
 import org.apache.log4j.Logger;
 
 import java.awt.*;
@@ -231,6 +232,9 @@ public class EngineBuilder {
         MapGame.getInstance().setLstFaction(lstFaction);
         MapGame.getInstance().setLstBotFaction(lstBotFaction);
         MapGame.getInstance().setPlayer(player);
+
+        MusicManager.getInstance().actualizeMusicPlayers();
+
         return MapGame.getInstance();
     }
     public static MapGame mapInit1() {
@@ -563,6 +567,8 @@ public class EngineBuilder {
                 factionTmp1.setRelationship(factionTmp2,0);
             }
         }
+
+        MusicManager.getInstance().actualizeMusicPlayers();
 
         return MapGame.getInstance();
     }

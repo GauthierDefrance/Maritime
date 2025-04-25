@@ -5,11 +5,15 @@ import engine.MapGame;
 import engine.data.Fleet;
 import engine.data.entity.boats.*;
 import engine.data.faction.Faction;
+import engine.process.creational.EngineBuilder;
 import engine.process.creational.TradeObjectBuilder;
 import engine.data.trading.Currency;
 import engine.process.manager.FactionManager;
 import engine.data.trading.Resource;
 import engine.data.trading.SeaRoad;
+import music.MusicBuilder;
+import music.MusicManager;
+import music.MusicPlayer;
 
 public class TestMove {
     public static void addBoatTest(){
@@ -99,6 +103,11 @@ public class TestMove {
         MapGame.getInstance().getLstFaction().get(0).addSeaRoad(seaRoad2);
 
         MapGame.getInstance().setTimeStop(true);
+
+        MusicManager MM = MusicManager.getInstance();
+
+        MM.addMusicPlayer(MusicBuilder.createMusic("Killing_in_the_Name.wav",true));
+        MM.addMusicPlayer(MusicBuilder.createMusic("declare_war.wav",true));
     }
 }
 

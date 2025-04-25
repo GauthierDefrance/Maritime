@@ -43,6 +43,7 @@ public class MusicBuilder {
         if(fichier.exists()) {
             MusicPlayer mp = new MusicPlayer();
             mp.load(MUSIC_FILE_PATH+filename);
+
             if(loop) {
                 mp.loop();
             }
