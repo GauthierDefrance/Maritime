@@ -50,7 +50,7 @@ public class HarborManager {
         Random random = new Random();
         if(harbor.getHashMapBoat().containsKey(boat) && harbor.getHashMapBoat().get(boat)) {
             if(harbor.getHashMapBoat().get(boat)){
-                boat.setPosition(new Point((int) (harbor.getGraphPosition().getX()+((random.nextInt((int) (GameConfiguration.HITBOX_BOAT))+1)-(GameConfiguration.HITBOX_BOAT /2))),(int) (harbor.getGraphPosition().getY()+((random.nextInt((int) GameConfiguration.HITBOX_BOAT)+1)-(GameConfiguration.HITBOX_BOAT /2)))));
+                boat.setPosition((int) (harbor.getGraphPosition().getX()+((random.nextInt((int) (GameConfiguration.HITBOX_BOAT))+1)-(GameConfiguration.HITBOX_BOAT /2))),(int) (harbor.getGraphPosition().getY()+((random.nextInt((int) GameConfiguration.HITBOX_BOAT)+1)-(GameConfiguration.HITBOX_BOAT /2))));
             }
             harbor.getHashMapBoat().remove(boat);
         }
@@ -80,12 +80,12 @@ public class HarborManager {
     }
 
     public boolean canIAddGenerator(Harbor harbor,Resource resource){
-        return getNbGenerator(harbor) < harbor.getLevel()
+        return getNbGenerator(harbor) < (harbor.getLevel()*2)
                 && resource.getValue()*GameConfiguration.COST_GENERATOR / resource.getProductionRate() <= FactionManager.getInstance().getMyFaction(harbor.getColor()).getAmountCurrency();
     }
 
     public void addGenerator(Harbor harbor,Resource resource){
-        FactionManager.getInstance().getMyFaction(harbor.getColor()).subtractAmountCurrency(resource.getValue() / resource.getProductionRate()*GameConfiguration.COST_GENERATOR);
+        FactionManager.getInstance().getMyFaction(harbor.getColor()).subtractAmountCurrency(resource.getValue()*GameConfiguration.COST_GENERATOR / resource.getProductionRate());
         if(harbor.getGenerator().containsKey(resource))harbor.getGenerator().get(resource)[1]+=1;
         else harbor.getGenerator().put(resource, new Integer[]{resource.getValue(),1});
     }

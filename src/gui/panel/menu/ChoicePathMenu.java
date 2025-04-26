@@ -32,7 +32,7 @@ import static gui.MainGUI.getWindow;
  */
 public class ChoicePathMenu extends JPanel implements Runnable {
 
-    private static final Logger log = Logger.getLogger(ChoicePathMenu.class);
+    private static final Logger logger = Logger.getLogger(ChoicePathMenu.class);
     private final int state;
     private final Faction faction;
     private Harbor harbor1;
@@ -83,7 +83,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
     /**
      * Typical constructor to make the startMenu appear
      */
-    public ChoicePathMenu( Faction faction) {
+    public ChoicePathMenu(Faction faction) {
         super();
         this.state = 2;
         this.harbor1 = null;
@@ -98,11 +98,11 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         dashboardJPanel = JComponentFactory.borderMenuPanel();
         jPanelATH = JComponentFactory.borderMenuPanel();
         jSouthATHPanel = JComponentFactory.flowMenuPanel();
-        confirm = JComponentFactory.menuButton("Confirm",new confirmListener());
-        cancel = JComponentFactory.menuButton("Cancel",new cancelListener());
-        reset = JComponentFactory.menuButton("reset",new resetListener());
-        automatic = JComponentFactory.menuButton("automatic",new automaticListener());
-        goBackButton = JComponentFactory.menuButton("Go back", new goBackButtonListener());
+        confirm = JComponentFactory.menuButton("Confirm",new ConfirmListener());
+        cancel = JComponentFactory.menuButton("Cancel",new CancelListener());
+        reset = JComponentFactory.menuButton("reset",new ResetListener());
+        automatic = JComponentFactory.menuButton("automatic",new AutomaticListener());
+        goBackButton = JComponentFactory.menuButton("Go back", new GoBackButtonListener());
         factionManager = FactionManager.getInstance();
         dashboard = new ChoiceDisplay(state);
 
@@ -161,7 +161,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         jLayeredPane.repaint();
     }
 
-    private class confirmListener implements ActionListener {
+    private class ConfirmListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             switch (state){
@@ -178,7 +178,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
                     break;
                 case 2:
                     if (faction == null){
-                        log.error("faction is null, cannot proceed");
+                        logger.error("faction is null, cannot proceed");
                         return;
                     }
                     if(harbor1 != null && harbor2 != null){
@@ -197,13 +197,13 @@ public class ChoicePathMenu extends JPanel implements Runnable {
                     } else JOptionPane.showMessageDialog(ChoicePathMenu.this,"No proper selection");
                     break;
                 default:
-                    log.error("ChoicePathMenu : Unknown state --> could not proceed with confirmation");
+                    logger.error("ChoicePathMenu : Unknown state --> could not proceed with confirmation");
                     break;
             }
         }
     }
 
-    private class resetListener implements ActionListener {
+    private class ResetListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(state == 0) {
@@ -219,7 +219,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         }
     }
 
-    private class cancelListener implements ActionListener {
+    private class CancelListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(state == 0) {
@@ -240,7 +240,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
         }
     }
 
-    private class automaticListener implements ActionListener {
+    private class AutomaticListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(state == 0) {
@@ -318,7 +318,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
                 case 2: //We're designating Harbor Object
 
                     if (faction == null) {
-                        log.error("Could not proceed --> faction is null");
+                        logger.error("Could not proceed --> faction is null");
                         break;
                     }
                     Harbor clickedHarbor = factionManager.getHarborManager().pointCollisionToMapHarbor(point);
@@ -363,12 +363,12 @@ public class ChoicePathMenu extends JPanel implements Runnable {
                         }
                     } break;
                 default:
-                        log.error("ChoicePathMenu : Unknown state --> could not proceed with logic");
+                        logger.error("ChoicePathMenu : Unknown state --> could not proceed with logic");
             }
         }
     }
 
-    private class goBackButtonListener implements ActionListener {
+    private class GoBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             ThreadStop = true;
@@ -410,7 +410,7 @@ public class ChoicePathMenu extends JPanel implements Runnable {
                 Thread.sleep(GameConfiguration.GAME_SPEED);
 
             } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
+                logger.error(e.getMessage());
             }
             jLayeredPane.revalidate();
             jLayeredPane.repaint();

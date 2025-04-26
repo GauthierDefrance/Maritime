@@ -58,14 +58,14 @@ public class PauseMenu extends JPanel {
 
         JButton optionsButton = JComponentFactory.menuButton("Options", new OptionsMenuListener());
 
-        JButton mainMenuButton = JComponentFactory.menuButton("Main Menu", new MainMenuListener());
+        JButton mainMenuButton = JComponentFactory.menuButton("Main Menu", new LoadMainMenuListener());
 
         //Big Button
         JButton backToGameButton = JComponentFactory.menuButton("Back to game", new ResumeButtonListener());
 
         JButton exitButton = JComponentFactory.menuButton("Exit", new ExitListener());
 
-        JButton debugButton = JComponentFactory.menuButton("Debug Menu", new debugListener());
+        JButton debugButton = JComponentFactory.menuButton("Debug Menu", new DebugListener());
 
         debugButton.setVisible(GameOptions.getInstance().getShowDebug());
 
@@ -136,7 +136,7 @@ public class PauseMenu extends JPanel {
         }
     }
 
-    private class MainMenuListener implements ActionListener {
+    private class LoadMainMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             GUILoader.loadStartMenu();
@@ -157,7 +157,7 @@ public class PauseMenu extends JPanel {
         }
     }
 
-    private class debugListener implements ActionListener {
+    private class DebugListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             MainGUI.getDebug().setVisible(!MainGUI.getDebug().isVisible());

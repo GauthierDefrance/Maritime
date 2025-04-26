@@ -13,6 +13,8 @@ import engine.data.faction.Pirate;
 import engine.data.faction.Player;
 import engine.data.graph.GraphPoint;
 import engine.data.graph.GraphSegment;
+import engine.process.manager.FactionManager;
+import engine.process.manager.TradeManager;
 import gui.PopUp;
 import log.LoggerUtility;
 import music.MusicManager;
@@ -21,6 +23,7 @@ import org.apache.log4j.Logger;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * Class containing methods to build (Components)
@@ -237,7 +240,8 @@ public class EngineBuilder {
 
         return MapGame.getInstance();
     }
-    public static MapGame mapInit1() {
+
+    public static void mapInit1() {
 
         MapGame.getInstance().setTimeStop(false);
         MapGame.getInstance().setTime(0);
@@ -252,11 +256,16 @@ public class EngineBuilder {
         MapGame.getInstance().setMapGraphPoint(mapGraphPoint);
         MapGame.getInstance().setHunterPreyHashMap(hunterPreyHashMap);
         Player player = new Player("blue","Player");
-        Pirate pirate = new Pirate("orange","Pirate");
-
+        Pirate pirate = new Pirate("black","Pirate");
         //faction init
         Faction faction1 = new Faction("red","Faction red");
+        Faction faction2 = new Faction("purple","Faction purple");
+        Faction faction3 = new Faction("yellow","Faction yellow");
+        Faction faction4 = new Faction("green","Faction green");
         lstBotFaction.add(faction1);
+        lstBotFaction.add(faction2);
+        lstBotFaction.add(faction3);
+        lstBotFaction.add(faction4);
         lstBotFaction.add(pirate);
 
         //Harbor init
@@ -570,7 +579,79 @@ public class EngineBuilder {
 
         MusicManager.getInstance().actualizeMusicPlayers();
 
-        return MapGame.getInstance();
+        MapGame.getInstance();
+    }
+
+    public static void newGame(){
+        Random random = new Random();
+        ArrayList<Harbor> lstHarbor = new ArrayList<>(MapGame.getInstance().getLstHarbor());
+        ArrayList<Faction> lstBotFaction = new ArrayList<>(MapGame.getInstance().getLstBotFaction());
+        lstBotFaction.remove(MapGame.getInstance().getPirate());
+        Faction tmpFaction;
+        MapGame.getInstance().setTimeStop(true);
+
+
+        MapGame.getInstance().getPlayer().addAmountCurrency(3000);
+        MapGame.getInstance().getPlayer().addHarbor(MapGame.getInstance().getLstHarbor().get(0));
+        lstHarbor.remove(MapGame.getInstance().getLstHarbor().get(0));
+
+        for (int i = 0 ; i < 2 ;i++) {
+            Boat boatPlayer = EngineBuilder.Standard("Standard"+i, MapGame.getInstance().getLstHarbor().get(0).getGraphPosition(), MapGame.getInstance().getPlayer().getColor());
+            MapGame.getInstance().getPlayer().addBoat(boatPlayer);
+            boatPlayer.setPosition(MapGame.getInstance().getLstHarbor().get(0).getGraphPosition().getX() * -100000, MapGame.getInstance().getLstHarbor().get(0).getGraphPosition().getY() * -100000);
+            MapGame.getInstance().getLstHarbor().get(0).getHashMapBoat().put(boatPlayer, true);
+        }
+        for (int i = 0 ; i < 3 ;i++) {
+            Boat boatPlayer = EngineBuilder.Fodder("Fodder"+i, MapGame.getInstance().getLstHarbor().get(0).getGraphPosition(), MapGame.getInstance().getPlayer().getColor());
+            MapGame.getInstance().getPlayer().addBoat(boatPlayer);
+            boatPlayer.setPosition(MapGame.getInstance().getLstHarbor().get(0).getGraphPosition().getX() * -100000, MapGame.getInstance().getLstHarbor().get(0).getGraphPosition().getY() * -100000);
+            MapGame.getInstance().getLstHarbor().get(0).getHashMapBoat().put(boatPlayer, true);
+        }
+
+        for (Faction faction : lstBotFaction){
+            if(!lstHarbor.isEmpty()) {
+                int randomInt = random.nextInt(lstHarbor.size());
+                faction.addHarbor(lstHarbor.get(randomInt));
+                lstHarbor.remove(randomInt);
+            }
+        }
+        for(int nb : new int[]{1, 2, 3}) {
+            tmpFaction = lstBotFaction.get(random.nextInt(lstBotFaction.size()));
+            for (int i = 0; i < nb; i++) {
+                int randomInt = random.nextInt(lstHarbor.size());
+                tmpFaction.addHarbor(lstHarbor.get(randomInt));
+                lstHarbor.remove(randomInt);
+            }
+            lstBotFaction.remove(tmpFaction);
+        }
+
+        for(Harbor harbor : MapGame.getInstance().getLstHarbor()){
+            Faction faction = FactionManager.getInstance().getMyFaction(harbor.getColor());
+            if(faction != null && !MapGame.getInstance().getPlayer().equals(faction)){
+                int randomInt = random.nextInt(4)+3;
+                for(int i = 0 ; i < randomInt ;i++) {
+                    Boat boat = FactionManager.getInstance().getRandomBoat(faction,harbor.getGraphPosition());
+                    faction.addBoat(boat);
+                    boat.setPosition(harbor.getGraphPosition().getX()*-100000, harbor.getGraphPosition().getY()*-100000);
+                    harbor.getHashMapBoat().put(boat,true);
+                }
+            }
+        }
+
+        for (Faction faction : MapGame.getInstance().getLstBotFaction()) {
+            if(!faction.equals(MapGame.getInstance().getPirate())) {
+                if (faction.getAmountCurrency() < 1000) {
+                    faction.addAmountCurrency(100 * random.nextInt(50));
+                }
+                for (Harbor harbor : faction.getLstHarbor()) {
+                    while (TradeManager.getInstance().totalValue(harbor.getInventory()) < GameConfiguration.MAX_VALUE_IN_INVENTORY_BOT) {
+                        harbor.getInventory().add(GameConfiguration.LIST_RESOURCE.get(random.nextInt(GameConfiguration.LIST_RESOURCE.size()-3)), random.nextInt(100) + 1);
+                    }
+                }
+            }
+        }
+
+
     }
 
 }

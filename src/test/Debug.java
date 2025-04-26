@@ -1,10 +1,10 @@
 package test;
 
+import config.GameConfiguration;
 import engine.MapGame;
-import engine.process.creational.EngineBuilder;
-import gui.MainGUI;
+import engine.data.entity.Harbor;
+import engine.data.trading.Resource;
 import gui.process.ImageStock;
-import gui.utilities.GUILoader;
 import gui.process.JComponentFactory;
 
 import javax.swing.*;
@@ -28,6 +28,7 @@ public class Debug extends JFrame{
         JButton timeStop = JComponentFactory.menuButton("TimeStop",new TimeStop());
         JButton godMode = JComponentFactory.menuButton("GodMode",new GodMode());
         JButton noSpawnMode = JComponentFactory.menuButton("NoSpawnMode",new NoSpawnMode());
+        JButton giveResource = JComponentFactory.menuButton("GiveResource",new GiveResource());
 
         if(MapGame.getInstance().isTimeStop())timeStop.setText("TimeStop : true");
         else timeStop.setText("timeStop : false");
@@ -40,6 +41,7 @@ public class Debug extends JFrame{
         contentPane.add(timeStop);
         contentPane.add(godMode);
         contentPane.add(noSpawnMode);
+        contentPane.add(giveResource);
         setAlwaysOnTop(true);
         setFocusable(false);
         setLocationRelativeTo(null);
@@ -67,6 +69,17 @@ public class Debug extends JFrame{
             MapGame.getInstance().setNoSpawnMode(!MapGame.getInstance().isNoSpawnMode());
             if(MapGame.getInstance().isNoSpawnMode())((JButton)e.getSource()).setText("NoSpawnMode : true");
             else((JButton)e.getSource()).setText("NoSpawnMode : false");
+        }
+    }
+
+    private class GiveResource implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            for (Harbor harbor : MapGame.getInstance().getPlayer().getLstHarbor()){
+                for(Resource resource : GameConfiguration.LIST_RESOURCE){
+                    harbor.getInventory().add(resource,1000);
+                }
+            }
+            MapGame.getInstance().getPlayer().addAmountCurrency(1000);
         }
     }
 }

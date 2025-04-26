@@ -49,6 +49,24 @@ public class FactionManager {
         this.battleTime = null;
     }
 
+    public synchronized static FactionManager getInstance() {
+        if (instance == null) {
+            instance = new FactionManager();
+        } return instance;
+    }
+
+    public void nextRound(){
+        moveAllFactionBoat();
+        allSeaRoadUpdate();
+        allFleetUpdate();
+        startChase();
+        allChaseUpdate();
+        botsActions();
+        allBoatApproachingHarbor();
+        playerManager.updatePlayerVision();
+        updateAllGeneratorTime();
+    }
+
     public boolean needUpdate(){
         if(needUpdate){
             needUpdate = false;
@@ -66,22 +84,17 @@ public class FactionManager {
         return null;
     }
 
-    public synchronized static FactionManager getInstance() {
-        if (instance == null) {
-            instance = new FactionManager();
-        } return instance;
+    public boolean playerWin(){
+        boolean Flag = true;
+        for (Faction faction : MapGame.getInstance().getLstBotFaction()){
+            if(!MapGame.getInstance().getPirate().equals(faction) && (!faction.getLstBoat().isEmpty() || !faction.getLstHarbor().isEmpty())){
+                Flag = false;
+            }
+        }
+        return Flag;
     }
-
-    public void nextRound(){
-        moveAllFactionBoat();
-        allSeaRoadUpdate();
-        allFleetUpdate();
-        startChase();
-        botsActions();
-        allBoatApproachingHarbor();
-        playerManager.updatePlayerVision();
-        updateAllGeneratorTime();
-        allChaseUpdate();
+    public boolean playerLose(){
+        return MapGame.getInstance().getPlayer().getLstBoat().isEmpty() && MapGame.getInstance().getPlayer().getLstHarbor().isEmpty();
     }
 
     public void updateAllGeneratorTime(){
@@ -345,29 +358,50 @@ public class FactionManager {
                             Harbor harbor = getMyHarbor(boat);
                             if(!getMyFleet(boat).getPath().isEmpty())fleetManager.removePath(getMyFleet(boat));
                             isWar = true;
-                            if (harbor != null) {
-                                getHarborManager().removeBoatInHarbor(harbor, boat);
+                            if (harbor != null && doIHaveFleet(boat)) {
                                 getHarborManager().removeFleetInHarbor(harbor, getMyFleet(boat));
                             }
-                            if (boat.getPath().isEmpty() && !flag && !faction.getLstHarbor().isEmpty()) {
+                            if (getMyHarbor(boat) == null && boat.getPath().isEmpty() && !flag && !faction.getLstHarbor().isEmpty()) {
                                 boat.setPath(SearchInGraph.findPath(boat, faction.getLstHarbor().get(random.nextInt(faction.getLstHarbor().size())).getGraphPosition()));
                             }
+
                         }
                     }
 
                     for (Faction faction : MapGame.getInstance().getLstFaction()) {
                         if (botFaction.getRelationship(faction) <= -100) {
-                            if (boat.getPath().isEmpty() && !flag && !faction.getLstBoat().isEmpty()) {
+                            if (getMyHarbor(boat) == null && boat.getPath().isEmpty() && !flag && !faction.getLstBoat().isEmpty()) {
                                 boat.setPath(SearchInGraph.findPath(boat, SearchInGraph.getClosestMapGraphPoint(faction.getLstBoat().get(random.nextInt(faction.getLstBoat().size())).getPosition())));
                             }
                         }
                     }
                 }
+
+                for(Harbor harbor : botFaction.getLstHarbor()) {
+                    if (harbor.getHashMapBoat().size() < GameConfiguration.MAX_BOT_BOAT_FOR_HARBOR && (((int) (MapGame.getInstance().getTime() * 10)) % GameConfiguration.GAME_FLEET_SPAWN_TIME) == 1 && !botFaction.getLstHarbor().isEmpty() && !MapGame.getInstance().isNoSpawnMode()) {
+                        int randomInt = random.nextInt(GameConfiguration.MAX_SPAWN_BOAT_BOT_SIZE) + 1;
+                        for (int i = 0; i < randomInt; i++) {
+                            if (harbor.getHashMapBoat().size() < GameConfiguration.MAX_BOT_BOAT_FOR_HARBOR) {
+                                Boat newBoat = FactionManager.getInstance().getRandomBoat(botFaction,harbor.getGraphPosition());
+                                botFaction.addBoat(newBoat);
+                                newBoat.setPosition(harbor.getGraphPosition().getX()*-100000, harbor.getGraphPosition().getY()*-100000);
+                                harbor.getHashMapBoat().put(newBoat,true);
+                            }
+                        }
+                    }
+                }
+
                 for (Fleet fleet : botFaction.getLstFleet()) {
-                    if (fleet.getArrayListBoat().size() < GameConfiguration.GAME_FLEET_BOT_SIZE && (((int) (MapGame.getInstance().getTime() * 10)) % GameConfiguration.GAME_FLEET_SPAWN_TIME) == 1 && !botFaction.getLstHarbor().isEmpty() && !MapGame.getInstance().isNoSpawnMode()) {
-                        Boat newBoat = getRandomBoat(botFaction, botFaction.getLstHarbor().get(random.nextInt(botFaction.getLstHarbor().size())).getGraphPosition());
-                        fleet.add(newBoat);
-                        botFaction.addBoat(newBoat);
+                    if (fleet.getArrayListBoat().size() < GameConfiguration.GAME_FLEET_BOT_SIZE) {
+                        for(Harbor harbor : botFaction.getLstHarbor()) {
+                            if (fleet.getArrayListBoat().size() < GameConfiguration.GAME_FLEET_BOT_SIZE) {
+                                if(!harbor.getHashMapBoat().isEmpty()){
+                                    Boat boat = harbor.getHashMapBoat().entrySet().iterator().next().getKey();
+                                    fleet.add(boat);
+                                    FactionManager.getInstance().getHarborManager().removeBoatInHarbor(harbor,boat);
+                                }
+                            } else break;
+                        }
                     }
                 }
                 if(!isWar){
@@ -424,19 +458,21 @@ public class FactionManager {
                 }
             }
         }
-        if(MapGame.getInstance().getPirate().getLstBoat().size()<GameConfiguration.GAME_PIRATE_MAX_BOAT && (((int)(MapGame.getInstance().getTime()*10)) % GameConfiguration.GAME_FLEET_SPAWN_TIME) == 1 && !MapGame.getInstance().isNoSpawnMode()){
+
+
+        if(MapGame.getInstance().getPirate().getLstBoat().size()<GameConfiguration.MAX_PIRATE_BOAT && (((int) (MapGame.getInstance().getTime() * 10)) % (GameConfiguration.GAME_FLEET_SPAWN_TIME/100)) == 1 && !MapGame.getInstance().isNoSpawnMode()){
             int randomInt1 = random.nextInt(MapGame.getInstance().getMapGraphPoint().size()-11)+11;
             int randomInt2 = random.nextInt(GameConfiguration.GAME_FLEET_PIRATE_SIZE)+1;
             Fleet fleet = EngineBuilder.Fleet("");
             MapGame.getInstance().getPirate().addFleet(fleet);
             for(int i = 0 ; i < randomInt2 ;i++) {
-                Boat newBoat = getRandomBoat(MapGame.getInstance().getPirate(), MapGame.getInstance().getMapGraphPoint().get(randomInt1));
+                Boat newBoat = getRandomBoat(MapGame.getInstance().getPirate(), MapGame.getInstance().getMapGraphPoint().get(randomInt1),new ArrayList<>(Collections.singletonList(3)));
                 playerManager.updatePlayerVision();
                 int j = 0;
-                while (MapGame.getInstance().getPlayer().getVision().contains(newBoat)&&j<100){
+                while (MapGame.getInstance().getPlayer().getVision().contains(newBoat) && j < 100) {
                     j++;
-                    randomInt1 = random.nextInt(MapGame.getInstance().getMapGraphPoint().size()-11)+11;
-                    newBoat.setPosition(new Point(MapGame.getInstance().getMapGraphPoint().get(randomInt1).getPoint()));
+                    randomInt1 = random.nextInt(MapGame.getInstance().getMapGraphPoint().size() - 11) + 11;
+                    newBoat.setPosition(MapGame.getInstance().getMapGraphPoint().get(randomInt1).getPoint());
                     playerManager.updatePlayerVision();
 
                 }
@@ -455,8 +491,19 @@ public class FactionManager {
     }
 
     public Boat getRandomBoat(Faction faction, GraphPoint graphPoint){
+        return getRandomBoat(faction,graphPoint,null);
+    }
+
+    public Boat getRandomBoat(Faction faction, GraphPoint graphPoint,ArrayList<Integer> nb){
         Random random = new Random();
         int randomInt = random.nextInt(4);
+        if(nb!= null){
+            int i = 0;
+            while (nb.contains(randomInt) && i<100){
+                i++;
+                randomInt = random.nextInt(4);
+            }
+        }
         switch (randomInt) {
             case 0 :{
                 return EngineBuilder.Standard("Standard", graphPoint, faction.getColor());

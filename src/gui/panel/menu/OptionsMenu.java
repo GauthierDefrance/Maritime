@@ -84,19 +84,19 @@ public class OptionsMenu extends JPanel {
         JLabel title = JComponentFactory.title("Options");
         JPanel titleDisplay = JComponentFactory.flowMenuPanel(title);
 
-        JButton goBackButton = JComponentFactory.menuButton("Go back", new goBackButtonListener());
+        JButton goBackButton = JComponentFactory.menuButton("Go back", new GoBackButtonListener());
         soundLabel = JComponentFactory.menuLabel("Sound Level ("+ GameOptions.getInstance().getVolume()+"/"+GameConfiguration.MAX_SOUND_LEVEL+")");
-        JButton plusButton = JComponentFactory.menuButton("+", new plusButtonListener());
-        JButton minusButton = JComponentFactory.menuButton("-", new minusButtonListener());
+        JButton plusButton = JComponentFactory.menuButton("+", new PlusButtonListener());
+        JButton minusButton = JComponentFactory.menuButton("-", new MinusButtonListener());
         JPanel soundOptionPanel = JComponentFactory.gridMenuPanel(1,2,10+GameConfiguration.BUTTON_SEPARATOR,10+GameConfiguration.BUTTON_SEPARATOR,plusButton, minusButton);
         JPanel soundPanel = lineMaker(soundLabel, soundOptionPanel);
 
         JLabel muteLabel = JComponentFactory.menuLabel("Mute");
-        muteButton = JComponentFactory.menuButton(textSetter(GameOptions.getInstance().getIsMuted()), new muteButtonListener());
+        muteButton = JComponentFactory.menuButton(textSetter(GameOptions.getInstance().getIsMuted()), new MuteButtonListener());
         JPanel mutePanel = lineMaker(muteLabel, muteButton);
 
         JLabel debugLabel = JComponentFactory.menuLabel("Debug Menu");
-        debugButton = JComponentFactory.menuButton(textSetter(GameOptions.getInstance().getShowDebug()), new debugMenuListener());
+        debugButton = JComponentFactory.menuButton(textSetter(GameOptions.getInstance().getShowDebug()), new DebugMenuListener());
         JPanel debugPanel = lineMaker(debugLabel, debugButton);
 
         goBack = JComponentFactory.borderMenuPanel();
@@ -161,7 +161,7 @@ public class OptionsMenu extends JPanel {
         }
     }
 
-    private class minusButtonListener implements ActionListener {
+    private class MinusButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             ListenerBehaviorManager lbm = ListenerBehaviorManager.create();
@@ -172,7 +172,7 @@ public class OptionsMenu extends JPanel {
         }
     }
 
-    private class plusButtonListener implements ActionListener {
+    private class PlusButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             ListenerBehaviorManager lbm = ListenerBehaviorManager.create();
@@ -183,7 +183,7 @@ public class OptionsMenu extends JPanel {
         }
     }
 
-    private class muteButtonListener implements ActionListener {
+    private class MuteButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             GameOptions.getInstance().setIsMuted(ListenerBehaviorManager.create().toggle(muteButton, GameOptions.getInstance().getIsMuted()));
@@ -192,7 +192,7 @@ public class OptionsMenu extends JPanel {
         }
     }
 
-    private class debugMenuListener implements ActionListener {
+    private class DebugMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             ListenerBehaviorManager lbm = ListenerBehaviorManager.create();
@@ -201,7 +201,7 @@ public class OptionsMenu extends JPanel {
         }
     }
 
-    private class goBackButtonListener implements ActionListener {
+    private class GoBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             ListenerBehaviorManager.create().goBack(token,objectToken);

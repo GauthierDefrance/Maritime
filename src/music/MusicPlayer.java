@@ -94,7 +94,6 @@ public class MusicPlayer {
     /**
      * Method that set the volume of a clip using the logarithmic curve making the sound
      * increase / decrease smoothly.
-     * Source : https://docs.oracle.com/javase/8/docs/api/javax/sound/sampled/FloatControl.html
      * @param volume {@link Float} beetween 0 and 1 representing how much is the sound loud
      */
     public void setVolume(float volume) {

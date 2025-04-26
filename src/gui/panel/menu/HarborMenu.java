@@ -51,7 +51,6 @@ public class HarborMenu extends JPanel {
     private JButton upgradeSpeedButton;
     private JButton upgradeInventorySizeButton;
 
-
     private JLabel imageLabel;
 
     public HarborMenu(Harbor harbor) {
@@ -73,20 +72,20 @@ public class HarborMenu extends JPanel {
         jComboBoxHarbor = JComponentFactory.comboBox();
         jComboBoxCurrent = JComponentFactory.comboBox();
         imageLabel = JComponentFactory.title("Image Placeholder");
-        boatModeButton = JComponentFactory.menuButton("Placeholder",new switchModeListener());
-        jComboBoxCurrentButton = JComponentFactory.menuButton("Placeholder",new comboBoxCurrentButtonListener());
-        goBackButton = JComponentFactory.menuButton("Go back", new goBackButtonListener());
-        renameButton = JComponentFactory.menuButton("Rename", new renameListener());
-        healButton = JComponentFactory.menuButton("Heal", new healListener());
-        healAllButton = JComponentFactory.menuButton("Heal All", new healAllListener());
-        moveResourceButton = JComponentFactory.menuButton("Export Resources", new moveResourceListener());
-        removeCurrent = JComponentFactory.menuButton("Destroy",new removeListener());
-        levelUpButton = JComponentFactory.menuButton("levelUp", new levelUpListener());
+        boatModeButton = JComponentFactory.menuButton("Placeholder",new SwitchModeListener());
+        jComboBoxCurrentButton = JComponentFactory.menuButton("Placeholder",new ComboBoxCurrentButtonListener());
+        goBackButton = JComponentFactory.menuButton("Go back", new GoBackButtonListener());
+        renameButton = JComponentFactory.menuButton("Rename", new RenameListener());
+        healButton = JComponentFactory.menuButton("Heal", new HealListener());
+        healAllButton = JComponentFactory.menuButton("Heal All", new HealAllListener());
+        moveResourceButton = JComponentFactory.menuButton("Export Resources", new MoveResourceListener());
+        removeCurrent = JComponentFactory.menuButton("Destroy",new RemoveListener());
+        levelUpButton = JComponentFactory.menuButton("levelUp", new LevelUpListener());
 
-        upgradeHpButton = JComponentFactory.menuButton("upgradeHp", new upgradeHpListener());
-        upgradeDamageSpeedButton = JComponentFactory.menuButton("upgradeDamageSpeed", new upgradeDamageSpeedListener());
-        upgradeSpeedButton = JComponentFactory.menuButton("upgradeSpeed", new upgradeSpeedListener());
-        upgradeInventorySizeButton = JComponentFactory.menuButton("upgradeInventorySize", new upgradeInventorySizeListener());
+        upgradeHpButton = JComponentFactory.menuButton("upgradeHp", new UpgradeHpListener());
+        upgradeDamageSpeedButton = JComponentFactory.menuButton("upgradeDamageSpeed", new UpgradeDamageSpeedListener());
+        upgradeSpeedButton = JComponentFactory.menuButton("upgradeSpeed", new UpgradeSpeedListener());
+        upgradeInventorySizeButton = JComponentFactory.menuButton("upgradeInventorySize", new UpgradeInventorySizeListener());
         isInBoatMode = false;
         jComboBoxCurrentSelectedResource = GameConfiguration.WOOD.getName();
         jComboBoxCurrentSelectedBoat = "Standard";
@@ -185,7 +184,7 @@ public class HarborMenu extends JPanel {
         if(isInBoatMode){
             for (Boat boat : activeHarbor.getHashMapBoat().keySet()){
                 if(activeHarbor.getHashMapBoat().get(boat)){
-                   tmp = JComponentFactory.menuButton(boat,new buttonObjectListener(boat));
+                   tmp = JComponentFactory.menuButton(boat,new ButtonObjectListener(boat));
                    gridPanel.add(tmp);
                    if(activeObject!=null && activeObject.equals(boat)) changeCurrentJButton(tmp);
                 }
@@ -193,7 +192,7 @@ public class HarborMenu extends JPanel {
         }
         else {
             for (Resource resource : activeHarbor.getGenerator().keySet()){
-                tmp = JComponentFactory.menuButton(resource.getName()+" Δ"+activeHarbor.getGenerator().get(resource)[1],new buttonObjectListener(resource));
+                tmp = JComponentFactory.menuButton(resource.getName()+" Δ"+activeHarbor.getGenerator().get(resource)[1],new ButtonObjectListener(resource));
                 tmp.setBackground(Color.darkGray);
                 tmp.setForeground(Color.white);
                 tmp.setBorderPainted(false);
@@ -241,7 +240,7 @@ public class HarborMenu extends JPanel {
         jComboBoxHarbor = JComponentFactory.comboBox();
         for(Harbor harbor: MapGame.getInstance().getPlayer().getLstHarbor())jComboBoxHarbor.addItem(harbor.getName());
         jComboBoxHarbor.setSelectedItem(activeHarbor.getName());
-        jComboBoxHarbor.addActionListener(new comboBoxHarborListener());
+        jComboBoxHarbor.addActionListener(new ComboBoxHarborListener());
         jPanelEastCenter.add(jComboBoxHarbor,BorderLayout.SOUTH);
 
         jComboBoxCurrent = JComponentFactory.comboBox();
@@ -383,7 +382,7 @@ public class HarborMenu extends JPanel {
             jPanelWestGrid.add(currentCreatePanel);
             jPanelWestGrid.add(removeCurrent);
         }
-        jComboBoxCurrent.addActionListener(new comboBoxCurrentListener());
+        jComboBoxCurrent.addActionListener(new ComboBoxCurrentListener());
         elementInPanelUpdate();
         sizeUpdate();
     }
@@ -394,10 +393,10 @@ public class HarborMenu extends JPanel {
         if(jButton!=null)jButton.setBackground(new Color(125, 130, 200));
     }
 
-    private class buttonObjectListener implements ActionListener {
+    private class ButtonObjectListener implements ActionListener {
         private final Object object;
 
-        public buttonObjectListener(Object object) {
+        public ButtonObjectListener(Object object) {
             this.object = object;
         }
 
@@ -409,7 +408,7 @@ public class HarborMenu extends JPanel {
         }
     }
 
-    private class healListener implements ActionListener {
+    private class HealListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (isInBoatMode){
@@ -422,7 +421,7 @@ public class HarborMenu extends JPanel {
         }
     }
 
-    private class healAllListener implements ActionListener {
+    private class HealAllListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (isInBoatMode){
@@ -435,7 +434,7 @@ public class HarborMenu extends JPanel {
         }
     }
 
-    private class levelUpListener implements ActionListener {
+    private class LevelUpListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (isInBoatMode){
@@ -448,7 +447,7 @@ public class HarborMenu extends JPanel {
         }
     }
 
-    private class upgradeHpListener implements ActionListener {
+    private class UpgradeHpListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             FactionManager.getInstance().getHarborManager().upgradeHp(activeHarbor, (Boat) activeObject);
@@ -456,7 +455,7 @@ public class HarborMenu extends JPanel {
         }
     }
 
-    private class upgradeDamageSpeedListener implements ActionListener {
+    private class UpgradeDamageSpeedListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             FactionManager.getInstance().getHarborManager().upgradeDamageSpeed(activeHarbor, (Boat) activeObject);
@@ -464,7 +463,7 @@ public class HarborMenu extends JPanel {
         }
     }
 
-    private class upgradeSpeedListener implements ActionListener {
+    private class UpgradeSpeedListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             FactionManager.getInstance().getHarborManager().upgradeSpeed(activeHarbor, (Boat) activeObject);
@@ -472,7 +471,7 @@ public class HarborMenu extends JPanel {
         }
     }
 
-    private class upgradeInventorySizeListener implements ActionListener {
+    private class UpgradeInventorySizeListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             FactionManager.getInstance().getHarborManager().upgradeInventorySize(activeHarbor, (Boat) activeObject);
@@ -480,7 +479,7 @@ public class HarborMenu extends JPanel {
         }
     }
 
-    private class renameListener implements ActionListener {
+    private class RenameListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             boolean flag = true;
@@ -522,7 +521,7 @@ public class HarborMenu extends JPanel {
         }
     }
 
-    private class comboBoxHarborListener implements ActionListener {
+    private class ComboBoxHarborListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             String selected = (String) jComboBoxHarbor.getSelectedItem();
@@ -534,7 +533,7 @@ public class HarborMenu extends JPanel {
         }
     }
 
-    private class comboBoxCurrentListener implements ActionListener {
+    private class ComboBoxCurrentListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(isInBoatMode){
@@ -547,7 +546,7 @@ public class HarborMenu extends JPanel {
         }
     }
 
-    private class comboBoxCurrentButtonListener implements ActionListener {
+    private class ComboBoxCurrentButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(isInBoatMode){
@@ -565,7 +564,7 @@ public class HarborMenu extends JPanel {
         }
     }
 
-    private class switchModeListener implements ActionListener {
+    private class SwitchModeListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             isInBoatMode = !isInBoatMode;
@@ -574,14 +573,14 @@ public class HarborMenu extends JPanel {
         }
     }
 
-    private class moveResourceListener implements ActionListener {
+    private class MoveResourceListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             GUILoader.loadChoicePathMenu(MapGame.getInstance().getPlayer());
         }
     }
 
-    private class removeListener implements ActionListener {
+    private class RemoveListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(isInBoatMode && activeObject != null && activeObject instanceof Boat) {
@@ -648,7 +647,7 @@ public class HarborMenu extends JPanel {
         }
     }
 
-    private class goBackButtonListener implements ActionListener {
+    private class GoBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             GUILoader.loadMainGame();

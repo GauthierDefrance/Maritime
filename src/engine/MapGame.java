@@ -17,7 +17,7 @@ import java.util.HashMap;
  */
 public class MapGame implements Serializable {
     private static MapGame instance;
-    private HashMap<Boat, Boat> HunterPreyHashMap;
+    private HashMap<Boat, Boat> hunterPreyHashMap;
     private ArrayList<GraphPoint> mapGraphPoint;
     private ArrayList<Harbor> lstHarbor;
     private ArrayList<Faction> lstBotFaction;
@@ -27,10 +27,23 @@ public class MapGame implements Serializable {
     private boolean timeStop;
     private double time;
     private boolean godMode;
-    private boolean NoSpawnMode;
+    private boolean noSpawnMode;
     private ArrayList<PopUp> lstPopUp;
 
-    private MapGame(){}
+    private MapGame(){
+        timeStop = false;
+        time = 0;
+        godMode = false;
+        noSpawnMode = false;
+        lstPopUp = new ArrayList<>();
+        lstHarbor = new ArrayList<>();
+        lstFaction = new ArrayList<>();
+        lstBotFaction = new ArrayList<>();
+        mapGraphPoint = new ArrayList<>();
+        hunterPreyHashMap = new HashMap<>();
+        player = new Player("blue","Player");
+        pirate = new Pirate("black","Pirate");
+    }
 
     public static synchronized MapGame getInstance() {
         if (instance == null) {
@@ -114,19 +127,19 @@ public class MapGame implements Serializable {
     public void addGraphPoint(GraphPoint graphPoint){ mapGraphPoint.add(graphPoint); }
 
     public HashMap<Boat, Boat> getHunterPreyHashMap() {
-        return HunterPreyHashMap;
+        return hunterPreyHashMap;
     }
 
     public void setHunterPreyHashMap(HashMap<Boat, Boat> hunterPreyHashMap) {
-        HunterPreyHashMap = hunterPreyHashMap;
+        this.hunterPreyHashMap = hunterPreyHashMap;
     }
 
     public void addHunterPreyHashMap(Boat hunter, Boat prey) {
-        HunterPreyHashMap.put(hunter,prey);
+        hunterPreyHashMap.put(hunter,prey);
     }
 
     public void removeHunterPreyHashMap(Boat hunter) {
-        HunterPreyHashMap.remove(hunter);
+        hunterPreyHashMap.remove(hunter);
     }
 
     public Pirate getPirate() {
@@ -158,10 +171,10 @@ public class MapGame implements Serializable {
     }
 
     public boolean isNoSpawnMode() {
-        return NoSpawnMode;
+        return noSpawnMode;
     }
 
     public void setNoSpawnMode(boolean noSpawnMode) {
-        NoSpawnMode = noSpawnMode;
+        this.noSpawnMode = noSpawnMode;
     }
 }

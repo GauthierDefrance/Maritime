@@ -20,6 +20,8 @@ import gui.panel.display.GameDisplay;
 import gui.process.ListenerBehaviorManager;
 import gui.utilities.GUILoader;
 import gui.process.JComponentFactory;
+import log.LoggerUtility;
+import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -39,6 +41,8 @@ import static gui.MainGUI.getWindow;
  */
 public class MainGameMenu extends JPanel implements Runnable {
 
+    private static Logger logger = LoggerUtility.getLogger(MainGameMenu.class);
+    private boolean endFlag;
     private boolean fastPathMode;
     private HashMap<Object, JButton> mapObject;
     private Object currentObject;
@@ -112,13 +116,14 @@ public class MainGameMenu extends JPanel implements Runnable {
         jEastCenterPanelChoice1 = JComponentFactory.borderMenuPanel();
         jEastCenterPanelChoice2 = JComponentFactory.borderMenuPanel();
         jEastCenterPanelChoice3 = JComponentFactory.borderMenuPanel();
-        jButtonLeftMenu1 = JComponentFactory.menuButton("1",new showMenu(jEastCenterPanelChoice1,jEastCenterCenterPanel));
-        jButtonLeftMenu2 = JComponentFactory.menuButton("2",new showMenu(jEastCenterPanelChoice2,jEastCenterCenterPanel));
-        jButtonLeftMenu3 = JComponentFactory.menuButton("3",new showMenu(jEastCenterPanelChoice3,jEastCenterCenterPanel));
+        jButtonLeftMenu1 = JComponentFactory.menuButton("1",new ShowMenu(jEastCenterPanelChoice1,jEastCenterCenterPanel));
+        jButtonLeftMenu2 = JComponentFactory.menuButton("2",new ShowMenu(jEastCenterPanelChoice2,jEastCenterCenterPanel));
+        jButtonLeftMenu3 = JComponentFactory.menuButton("3",new ShowMenu(jEastCenterPanelChoice3,jEastCenterCenterPanel));
         jNorthATHLabel = JComponentFactory.title("    "+MapGame.getInstance().getPlayer().getCurrency().getName()+" : "+MapGame.getInstance().getPlayer().getAmountCurrency()+"   Harbor : "+MapGame.getInstance().getPlayer().getLstHarbor().size()+"/"+MapGame.getInstance().getLstHarbor().size());
         dashboard = new GameDisplay();
         mapObject = new HashMap<>();
         fastPathMode = false;
+        endFlag = false;
 
         //Window arrangement
         JPanel jEastPanel = JComponentFactory.borderMenuPanel();
@@ -127,10 +132,10 @@ public class MainGameMenu extends JPanel implements Runnable {
         JPanel jEastCenterPanel = JComponentFactory.borderMenuPanel();
         JPanel jEastCenterNorthPanel = JComponentFactory.gridMenuPanel(1,0,0,0,jButtonLeftMenu1,jButtonLeftMenu2,jButtonLeftMenu3);
 
-        jButtonNorthMenu1 = JComponentFactory.menuButton("⏯",new flipTimeListener());
-        jButtonNorthMenu2 = JComponentFactory.menuButton(">",new setSpeedBoostListener(1));
-        jButtonNorthMenu3 = JComponentFactory.menuButton(">>",new setSpeedBoostListener(4));
-        jButtonNorthMenu4 = JComponentFactory.menuButton(">>>",new setSpeedBoostListener(8));
+        jButtonNorthMenu1 = JComponentFactory.menuButton("⏯",new FlipTimeListener());
+        jButtonNorthMenu2 = JComponentFactory.menuButton(">",new SetSpeedBoostListener(1));
+        jButtonNorthMenu3 = JComponentFactory.menuButton(">>",new SetSpeedBoostListener(4));
+        jButtonNorthMenu4 = JComponentFactory.menuButton(">>>",new SetSpeedBoostListener(8));
         switch (GameOptions.getInstance().getSpeedBoost()) {
             case 1 :{
                 jButtonNorthMenu2.setEnabled(false);
@@ -147,10 +152,10 @@ public class MainGameMenu extends JPanel implements Runnable {
             default : {
             }
         }
-        jSouthEastPanel.add(JComponentFactory.menuButton("Harbor Menu",new goHarborMenuListener()));
-        jSouthEastPanel.add(JComponentFactory.menuButton("Fleet Menu",new  goFleetMenuListener()));
-        jSouthEastPanel.add(JComponentFactory.menuButton("Faction Menu",new  goFactionMenuListener()));
-        jSouthEastPanel.add(JComponentFactory.menuButton("Pause Menu",new  goPauseMenuListener()));
+        jSouthEastPanel.add(JComponentFactory.menuButton("Harbor Menu",new LoadHarborMenuListener()));
+        jSouthEastPanel.add(JComponentFactory.menuButton("Fleet Menu",new LoadFleetMenuListener()));
+        jSouthEastPanel.add(JComponentFactory.menuButton("Faction Menu",new LoadFactionMenuListener()));
+        jSouthEastPanel.add(JComponentFactory.menuButton("Pause Menu",new LoadPauseMenuListener()));
 
         JScrollPane jScrollPane1 = JComponentFactory.ScrollPaneMenuPanel(jEastCenterChoice1CenterPanel);
         jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -172,9 +177,9 @@ public class MainGameMenu extends JPanel implements Runnable {
         jNorthEastPanel.add(jButtonNorthMenu3);
         jNorthEastPanel.add(jButtonNorthMenu4);
 
-        showLeftMenuButton = JComponentFactory.menuButton("<", new showMenu(jEastPanel,jEastATHPanel));
+        showLeftMenuButton = JComponentFactory.menuButton("<", new ShowMenu(jEastPanel,jEastATHPanel));
         jEastButtonPanel.add(showLeftMenuButton,BorderLayout.NORTH);
-        hideLeftMenuButton = JComponentFactory.menuButton(">", new showMenu(jEastButtonPanel,jEastATHPanel));
+        hideLeftMenuButton = JComponentFactory.menuButton(">", new ShowMenu(jEastButtonPanel,jEastATHPanel));
 
         jEastATHPanel.setOpaque(false);
         jPanelATH.setOpaque(false);
@@ -220,6 +225,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         jEastCenterChoice3CenterPanel1.setBackground(Color.GRAY);
         jEastCenterChoice3CenterPanel2.setBackground(Color.GRAY);
         jNorthATHLabel.setForeground(Color.lightGray);
+        jNorthATHLabel.setFont(new Font( "Noto Sans Display", Font.BOLD, 40));
 
         this.add(jLayeredPane);
         this.addMouseListener(new MouseListener());
@@ -263,28 +269,40 @@ public class MainGameMenu extends JPanel implements Runnable {
         jEastCenterChoice3CenterPanel2.removeAll();
         JButton tmp;
         for (Boat boat : MapGame.getInstance().getPlayer().getLstBoat()){
-            tmp = JComponentFactory.menuButton(boat,new buttonObjectListener(boat));
+            tmp = JComponentFactory.menuButton(boat,new ButtonObjectListener(boat));
             mapObject.put(boat,tmp);
             jEastCenterChoice1CenterPanel.add(tmp);
 
         }
         for (Harbor harbor : MapGame.getInstance().getPlayer().getLstHarbor()){
-            tmp = JComponentFactory.menuButton(harbor,new buttonObjectListener(harbor));
+            tmp = JComponentFactory.menuButton(harbor,new ButtonObjectListener(harbor));
             mapObject.put(harbor,tmp);
             jEastCenterChoice2CenterPanel.add(tmp);
         }
         for (Fleet fleet : MapGame.getInstance().getPlayer().getLstFleet()){
-            tmp = JComponentFactory.menuButton(fleet,new buttonObjectListener(fleet));
+            tmp = JComponentFactory.menuButton(fleet,new ButtonObjectListener(fleet));
             mapObject.put(fleet,tmp);
             jEastCenterChoice3CenterPanel1.add(tmp);
         }
         for (SeaRoad seaRoad : MapGame.getInstance().getPlayer().getLstSeaRouts()){
-            tmp = JComponentFactory.menuButton(seaRoad,new buttonObjectListener(seaRoad));
+            tmp = JComponentFactory.menuButton(seaRoad,new ButtonObjectListener(seaRoad));
             mapObject.put(seaRoad,tmp);
             jEastCenterChoice3CenterPanel2.add(tmp);
         }
         if(currentObject!= null) changeCurrentJButton(currentObject);
         sizeUpdate();
+    }
+
+    private void needUpdate(){
+        if(currentObject!= null){
+            if (currentObject instanceof Harbor && !MapGame.getInstance().getPlayer().getLstHarbor().contains((Harbor)currentObject)){
+                currentObject = null;
+            }
+            else if (currentObject instanceof SeaRoad && !MapGame.getInstance().getPlayer().getLstSeaRouts().contains((SeaRoad) currentObject)){
+                currentObject = null;
+            }
+        }
+        elementInPanelUpdate();
     }
 
     private void changeCurrentJButton(Object object){
@@ -306,8 +324,8 @@ public class MainGameMenu extends JPanel implements Runnable {
         if(currentObject!= null){
             if (currentObject instanceof Boat){
                 Boat currentBoat = (Boat) currentObject;
-                JButton fastPath = JComponentFactory.menuButton("Fast path",new fastPathListenerListener());
-                JButton cancelChase = JComponentFactory.menuButton("Cancel the Chase",new  cancelChaseListener(currentBoat));
+                JButton fastPath = JComponentFactory.menuButton("Fast path",new FastPathListenerListener());
+                JButton cancelChase = JComponentFactory.menuButton("Cancel the Chase",new CancelChaseListener(currentBoat));
                 cancelChase.setEnabled(false);
                 if(MapGame.getInstance().getHunterPreyHashMap().containsKey(currentBoat))cancelChase.setEnabled(true);
                 JPanel tmpFastPath = JComponentFactory.borderMenuPanel();
@@ -368,7 +386,7 @@ public class MainGameMenu extends JPanel implements Runnable {
                 tmpLabel.setFont(font);
                 tmpLabel.setForeground(Color.white);
 
-                JButton fastPath = JComponentFactory.menuButton("Fast path",new fastPathListenerListener());
+                JButton fastPath = JComponentFactory.menuButton("Fast path",new FastPathListenerListener());
                 fastPath.setEnabled(true);
                 if(FactionManager.getInstance().getMySeaRoad(currentFleet) != null){
                     fastPath.setEnabled(false);
@@ -400,12 +418,11 @@ public class MainGameMenu extends JPanel implements Runnable {
         sizeUpdate();
     }
 
-
     private void showPopupMenu(int x, int y, Entity entity){
         jPopupMenu.removeAll();
         JButton tmp;
         if(entity instanceof Boat) {
-            tmp = JComponentFactory.menuButton("attack", new setChaseListener(entity));
+            tmp = JComponentFactory.menuButton("attack", new SetChaseListener(entity));
             jPopupMenu.add(tmp);
             if(!(currentObject != null && currentObject instanceof Boat)||((Boat)currentObject).getVisionRadius() < ((Boat)currentObject).getPosition().distance(entity.getPosition())){
                 tmp.setEnabled(false);
@@ -418,7 +435,7 @@ public class MainGameMenu extends JPanel implements Runnable {
             tmp = JComponentFactory.menuButton("faction", new RelationListener(entity));
             jPopupMenu.add(tmp);
 
-            tmp = JComponentFactory.menuButton("attack", new setChaseListener(entity));
+            tmp = JComponentFactory.menuButton("attack", new SetChaseListener(entity));
             tmp.setEnabled(false);
             if(currentObject != null && currentObject instanceof Boat && !FactionManager.getInstance().doIHaveFleet((Boat)currentObject)){
                 tmp.setEnabled(true);
@@ -431,11 +448,67 @@ public class MainGameMenu extends JPanel implements Runnable {
         }
     }
 
-    private class showMenu implements ActionListener {
+    private void wantFight(Battle battle,boolean ConfirmDialog){
+        MapGame.getInstance().setTimeStop(true);
+        if(!battle.getFactionA().equals(MapGame.getInstance().getPlayer())&&!battle.getFactionA().equals(MapGame.getInstance().getPlayer())){
+            boolean flag = true;
+            for (Boat boat : battle.getTeamAOriginal().getArrayListBoat()){
+                if(MapGame.getInstance().getPlayer().getVision().contains(boat)){
+                    flag = false;
+                    break;
+                }
+            }
+            for (Boat boat : battle.getTeamBOriginal().getArrayListBoat()){
+                if(MapGame.getInstance().getPlayer().getVision().contains(boat)){
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag){
+                BattleManager.fakeBattle(battle);
+                MapGame.getInstance().setTimeStop(false);
+            }
+            else if(JOptionPane.showConfirmDialog(MainGameMenu.this,"Do you want to watch the battle of "+battle.getFactionA().getName()+" VS "+battle.getFactionB().getName(),"confirmation Battle",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+                FactionManager.getInstance().modifyRelationship(MapGame.getInstance().getPlayer(),battle.getFactionB(),-15);
+                ThreadStop = true;
+                GUILoader.loadCombat(battle);
+            }
+            else {
+                BattleManager.fakeBattle(battle);
+                MapGame.getInstance().setTimeStop(false);
+            }
+        }
+        else if(!ConfirmDialog){
+            if(MapGame.getInstance().isGodMode()){
+                if(JOptionPane.showConfirmDialog(MainGameMenu.this,"it's battle time ! (GodMode) ","confirmation Battle",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+                    FactionManager.getInstance().modifyRelationship(MapGame.getInstance().getPlayer(),battle.getFactionB(),-15);
+                    ThreadStop = true;
+                    GUILoader.loadCombat(battle);
+                }
+                else {
+                    BattleManager.fakeBattle(battle);
+                    MapGame.getInstance().setTimeStop(false);
+                }
+            }
+            else {
+                JOptionPane.showMessageDialog(MainGameMenu.this, "it's battle time !", "Battle", JOptionPane.PLAIN_MESSAGE);
+                ThreadStop = true;
+                GUILoader.loadCombat(battle);
+            }
+        }
+        else if(JOptionPane.showConfirmDialog(MainGameMenu.this,"Do you want to start a battle ?","confirmation Battle",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+            FactionManager.getInstance().modifyRelationship(MapGame.getInstance().getPlayer(),battle.getFactionB(),-15);
+            ThreadStop = true;
+            GUILoader.loadCombat(battle);
+        }
+        else MapGame.getInstance().setTimeStop(false);
+    }
+
+    private class ShowMenu implements ActionListener {
         private final JPanel jPanel1;
         private final JPanel jPanel2;
 
-        public showMenu(JPanel jPanel1, JPanel jPanel2){
+        public ShowMenu(JPanel jPanel1, JPanel jPanel2){
             this.jPanel1 = jPanel1;
             this.jPanel2 = jPanel2;
         }
@@ -463,10 +536,10 @@ public class MainGameMenu extends JPanel implements Runnable {
         }
     }
 
-    private class setChaseListener implements ActionListener {
+    private class SetChaseListener implements ActionListener {
         private final Object object;
 
-        public setChaseListener(Object object) {
+        public SetChaseListener(Object object) {
             this.object = object;
         }
 
@@ -492,10 +565,10 @@ public class MainGameMenu extends JPanel implements Runnable {
         }
     }
 
-    private class setSpeedBoostListener implements ActionListener {
+    private class SetSpeedBoostListener implements ActionListener {
         private final int value;
 
-        public setSpeedBoostListener(int value) {
+        public SetSpeedBoostListener(int value) {
             this.value = value;
         }
 
@@ -510,7 +583,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         }
     }
 
-    private class goPauseMenuListener implements ActionListener {
+    private class LoadPauseMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             ThreadStop = true;
@@ -518,7 +591,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         }
     }
 
-    private class goFactionMenuListener implements ActionListener {
+    private class LoadFactionMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             for (Faction faction : MapGame.getInstance().getLstBotFaction()){
@@ -531,7 +604,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         }
     }
 
-    private class goFleetMenuListener implements ActionListener {
+    private class LoadFleetMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             ThreadStop = true;
@@ -541,7 +614,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         }
     }
 
-    private class goHarborMenuListener implements ActionListener {
+    private class LoadHarborMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             ThreadStop = true;
@@ -552,7 +625,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         }
     }
 
-    private class fastPathListenerListener implements ActionListener {
+    private class FastPathListenerListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             fastPathMode = !fastPathMode;
@@ -560,17 +633,17 @@ public class MainGameMenu extends JPanel implements Runnable {
         }
     }
 
-    private class flipTimeListener implements ActionListener {
+    private class FlipTimeListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             MapGame.getInstance().setTimeStop(!MapGame.getInstance().isTimeStop());
         }
     }
 
-    private class cancelChaseListener implements ActionListener {
+    private class CancelChaseListener implements ActionListener {
         private Boat boat;
 
-        private cancelChaseListener(Boat boat) {
+        private CancelChaseListener(Boat boat) {
             this.boat = boat;
         }
 
@@ -583,10 +656,10 @@ public class MainGameMenu extends JPanel implements Runnable {
         }
     }
 
-    private class buttonObjectListener implements ActionListener {
+    private class ButtonObjectListener implements ActionListener {
         private final Object object;
 
-        public buttonObjectListener(Object object) {
+        public ButtonObjectListener(Object object) {
             this.object = object;
         }
 
@@ -688,101 +761,39 @@ public class MainGameMenu extends JPanel implements Runnable {
 
         }
     }
-        private void wantFight(Battle battle,boolean ConfirmDialog){
-            MapGame.getInstance().setTimeStop(true);
 
-            if(!battle.getFactionA().equals(MapGame.getInstance().getPlayer())&&!battle.getFactionA().equals(MapGame.getInstance().getPlayer())){
-                boolean flag = true;
-                for (Boat boat : battle.getTeamAOriginal().getArrayListBoat()){
-                    if(MapGame.getInstance().getPlayer().getVision().contains(boat)){
-                        flag = false;
-                        break;
-                    }
-                }
-                for (Boat boat : battle.getTeamBOriginal().getArrayListBoat()){
-                    if(MapGame.getInstance().getPlayer().getVision().contains(boat)){
-                        flag = false;
-                        break;
-                    }
-                }
-                if(flag){
-                    BattleManager.fakeBattle(battle);
-                    MapGame.getInstance().setTimeStop(false);
-                }
-                else if(JOptionPane.showConfirmDialog(MainGameMenu.this,"Do you want to watch the battle of "+battle.getFactionA().getName()+" VS "+battle.getFactionB().getName(),"confirmation Battle",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
-                    FactionManager.getInstance().modifyRelationship(MapGame.getInstance().getPlayer(),battle.getFactionB(),-15);
-                    ThreadStop = true;
-                    GUILoader.loadCombat(battle);
-                }
-                else {
-                    BattleManager.fakeBattle(battle);
-                    MapGame.getInstance().setTimeStop(false);
-                }
-            }
-            else if(!ConfirmDialog){
-                if(MapGame.getInstance().isGodMode()){
-                    if(JOptionPane.showConfirmDialog(MainGameMenu.this,"it's battle time ! (GodMode) ","confirmation Battle",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
-                        FactionManager.getInstance().modifyRelationship(MapGame.getInstance().getPlayer(),battle.getFactionB(),-15);
-                        ThreadStop = true;
-                        GUILoader.loadCombat(battle);
-                    }
-                    else {
-                        BattleManager.fakeBattle(battle);
-                        MapGame.getInstance().setTimeStop(false);
-                    }
-                }
-                else {
-                    JOptionPane.showMessageDialog(MainGameMenu.this, "it's battle time !", "Battle", JOptionPane.PLAIN_MESSAGE);
-                    ThreadStop = true;
-                    GUILoader.loadCombat(battle);
-                }
-            }
-            else if(JOptionPane.showConfirmDialog(MainGameMenu.this,"Do you want to start a battle ?","confirmation Battle",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
-                FactionManager.getInstance().modifyRelationship(MapGame.getInstance().getPlayer(),battle.getFactionB(),-15);
-                ThreadStop = true;
-                GUILoader.loadCombat(battle);
-            }
-            else MapGame.getInstance().setTimeStop(false);
-        }
+    @Override
+    public void run() {
+        while (!ThreadStop) {
+            AbstractMap.SimpleEntry<Battle, Boolean> tmp;
+            try {
+                Thread.sleep((long) GameConfiguration.GAME_SPEED/ GameOptions.getInstance().getSpeedBoost());
 
-        @Override
-        public void run() {
-            while (!ThreadStop) {
-                AbstractMap.SimpleEntry<Battle, Boolean> tmp;
-                try {
-                    Thread.sleep((long) GameConfiguration.GAME_SPEED/ GameOptions.getInstance().getSpeedBoost());
-
-                } catch (InterruptedException e) {
-                    System.out.println(e.getMessage());
+            } catch (InterruptedException e) {
+                logger.error(e.getMessage());
+            }
+            if (!MapGame.getInstance().isTimeStop()){
+                FactionManager.getInstance().nextRound();
+                if(FactionManager.getInstance().needUpdate())needUpdate();
+                else if((int)(MapGame.getInstance().getTime()*10)%10 == 1)repaintUpdate();
+                tmp = FactionManager.getInstance().needBattle();
+                if(tmp != null)wantFight(tmp.getKey(),tmp.getValue());
+                if(!endFlag&&FactionManager.getInstance().playerWin()){
+                    endFlag = true;
+                    JOptionPane.showMessageDialog(MainGameMenu.this,"You Win GG");
                 }
-                if (!MapGame.getInstance().isTimeStop()){
-                    FactionManager.getInstance().nextRound();
-                    if(FactionManager.getInstance().needUpdate()){
-                        if(currentObject!= null){
-                            if (currentObject instanceof Harbor && !MapGame.getInstance().getPlayer().getLstHarbor().contains((Harbor)currentObject)){
-                                currentObject = null;
-                            }
-                            else if (currentObject instanceof SeaRoad && !MapGame.getInstance().getPlayer().getLstSeaRouts().contains((SeaRoad) currentObject)){
-                                currentObject = null;
-                            }
-                        }
-                        elementInPanelUpdate();
-                    }
-                    else if((int)(MapGame.getInstance().getTime()*10)%10 == 1){
-                        repaintUpdate();
-                    }
-                    tmp = FactionManager.getInstance().needBattle();
-                    if(tmp != null){
-                        wantFight(tmp.getKey(),tmp.getValue());
-                    }
-                    MapGame.getInstance().addTime(((double)GameConfiguration.GAME_SPEED)/1000);
+                else if(!endFlag&&FactionManager.getInstance().playerLose()){
+                    JOptionPane.showMessageDialog(MainGameMenu.this,"You Lose (╯°□°)╯︵ ┻━┻");
+                    endFlag = true;
                 }
-                jLayeredPane.revalidate();
-                jLayeredPane.repaint();
-                dashboard.getPaintBackGround().setIFrame((dashboard.getPaintBackGround().getIFrame() + 1) % GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES);
-                for (PopUp popUp : MapGame.getInstance().getLstPopUp()) {
-                    popUp.addIFrame(1);
-                }
+                MapGame.getInstance().addTime(((double)GameConfiguration.GAME_SPEED)/1000);
+            }
+            jLayeredPane.revalidate();
+            jLayeredPane.repaint();
+            dashboard.getPaintBackGround().setIFrame((dashboard.getPaintBackGround().getIFrame() + 1) % GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES);
+            for (PopUp popUp : MapGame.getInstance().getLstPopUp()) {
+                popUp.addIFrame(1);
             }
         }
+    }
 }

@@ -18,7 +18,6 @@ import static gui.MainGUI.getWindow;
 public class SaveFileMenu extends JPanel {
 
     private final int state; //decide if we're in a loading (0) or saving (1) state
-
     private final int token;
     private final Object objectToken;
     private final GameSaveManager manager = GameSaveManager.create();
@@ -62,7 +61,7 @@ public class SaveFileMenu extends JPanel {
         JPanel saveLine1 = JComponentFactory.gridMenuPanel(1, 3, 10+ GameConfiguration.BUTTON_SEPARATOR, GameConfiguration.BUTTON_SEPARATOR, fileButtons.get(0), fileButtons.get(1), fileButtons.get(2));
         JPanel saveLine2 = JComponentFactory.gridMenuPanel(1, 3, 10+GameConfiguration.BUTTON_SEPARATOR, GameConfiguration.BUTTON_SEPARATOR, fileButtons.get(3), fileButtons.get(4), fileButtons.get(5));
 
-        JButton goBackButton = JComponentFactory.menuButton("Go back", new goBackButtonListener());
+        JButton goBackButton = JComponentFactory.menuButton("Go back", new GoBackButtonListener());
         goBack = JComponentFactory.borderMenuPanel();
         goBack.add(goBackButton,BorderLayout.CENTER);
 
@@ -140,7 +139,7 @@ public class SaveFileMenu extends JPanel {
         }
     }
 
-    private class goBackButtonListener implements ActionListener {
+    private class GoBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             ListenerBehaviorManager ls = ListenerBehaviorManager.create();

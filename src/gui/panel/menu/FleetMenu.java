@@ -50,7 +50,6 @@ public class FleetMenu extends JPanel {
         init();
     }
 
-
     private void init() {
         this.setLayout(new BorderLayout());
 
@@ -58,8 +57,8 @@ public class FleetMenu extends JPanel {
         jPanelCenter2 = JComponentFactory.borderMenuPanel();
         jPanelCenter3 = JComponentFactory.borderMenuPanel();
         jPanelGrid = JComponentFactory.gridMenuPanel(0, 1, GameConfiguration.BUTTON_SEPARATOR,GameConfiguration.BUTTON_SEPARATOR);
-        goBackButton = JComponentFactory.menuButton("Go back", new goBackButtonListener());
-        SeaRoadButton = JComponentFactory.menuButton("Placeholder",new switchModeListener());
+        goBackButton = JComponentFactory.menuButton("Go back", new GoBackButtonListener());
+        SeaRoadButton = JComponentFactory.menuButton("Placeholder",new SwitchModeListener());
         jPanelNorth = JComponentFactory.voidPanel();
 
         gridPanel1 = JComponentFactory.gridMenuPanel(0,1);
@@ -143,7 +142,7 @@ public class FleetMenu extends JPanel {
         JButton tmp;
         if(isInSeaRoadMode){
             for (Fleet fleet : MapGame.getInstance().getPlayer().getLstFleet()){
-                tmp = JComponentFactory.menuButton(fleet,new setFleetListener(fleet));
+                tmp = JComponentFactory.menuButton(fleet,new SetFleetListener(fleet));
                 gridPanel1.add(tmp);
                 if(activeFleet!=null && activeFleet.equals(fleet)){
                     changeCurrentJButton(tmp,activeButton1);
@@ -165,7 +164,7 @@ public class FleetMenu extends JPanel {
                 }
             }
             for (SeaRoad seaRoad : MapGame.getInstance().getPlayer().getLstSeaRouts()){
-                tmp = JComponentFactory.menuButton(seaRoad,new setSeaRoadListener(seaRoad));
+                tmp = JComponentFactory.menuButton(seaRoad,new SetSeaRoadListener(seaRoad));
                 gridPanel3.add(tmp);
                 if(activeSeaRoad!=null && activeSeaRoad.equals(seaRoad)){
                     changeCurrentJButton(tmp,activeButton3);
@@ -176,18 +175,18 @@ public class FleetMenu extends JPanel {
         else {
             for (Boat boat : MapGame.getInstance().getPlayer().getLstBoat()){
                 if(!FactionManager.getInstance().doIHaveFleet(boat)){
-                    tmp = JComponentFactory.menuButton(boat,new addBoatToFleetListener(boat));
+                    tmp = JComponentFactory.menuButton(boat,new AddBoatToFleetListener(boat));
                     gridPanel1.add(tmp);
                 }
             }
             if(activeFleet!=null) {
                 for (Boat boat : activeFleet.getArrayListBoat()) {
-                    tmp = JComponentFactory.menuButton(boat, new removeBoatToFleetListener(boat));
+                    tmp = JComponentFactory.menuButton(boat, new RemoveBoatToFleetListener(boat));
                     gridPanel2.add(tmp);
                 }
             }
             for (Fleet fleet : MapGame.getInstance().getPlayer().getLstFleet()){
-                tmp = JComponentFactory.menuButton(fleet,new setFleetListener(fleet));
+                tmp = JComponentFactory.menuButton(fleet,new SetFleetListener(fleet));
                 gridPanel3.add(tmp);
                 if(activeFleet!=null && activeFleet.equals(fleet)){
                     changeCurrentJButton(tmp,activeButton3);
@@ -201,17 +200,17 @@ public class FleetMenu extends JPanel {
     private void allUpdate(){
         jPanelGrid.removeAll();
 
-        JButton removeCurrent = JComponentFactory.menuButton("Destroy",new removeListener());
+        JButton removeCurrent = JComponentFactory.menuButton("Destroy",new RemoveListener());
         removeCurrent.setEnabled(false);
         if(isInSeaRoadMode){
             if(activeSeaRoad!=null)removeCurrent.setEnabled(true);
-            JButton combineCurrent = JComponentFactory.menuButton("Combine",new combineCurrentListener());
+            JButton combineCurrent = JComponentFactory.menuButton("Combine",new CombineCurrentListener());
             combineCurrent.setEnabled(false);
             if(activeSeaRoad != null && activeFleet != null && !activeSeaRoad.getFleet().equals(activeFleet))combineCurrent.setEnabled(true);
             SeaRoadButton.setText("Fleet");
             jPanelGrid.add(removeCurrent);
             jPanelGrid.add(combineCurrent);
-            JButton pathButton = JComponentFactory.menuButton("path",new  setPathListener(activeSeaRoad));
+            JButton pathButton = JComponentFactory.menuButton("path",new SetPathListener(activeSeaRoad));
             jPanelGrid.add(pathButton);
             pathButton.setEnabled(false);
             if(activeSeaRoad != null){
@@ -221,10 +220,10 @@ public class FleetMenu extends JPanel {
         else {
             if(activeFleet!=null)removeCurrent.setEnabled(true);
             SeaRoadButton.setText("Sea-Road");
-            JButton NewFleet = JComponentFactory.menuButton("New Fleet",new newFleetListener());
+            JButton NewFleet = JComponentFactory.menuButton("New Fleet",new NewFleetListener());
             jPanelGrid.add(removeCurrent);
             jPanelGrid.add(NewFleet);
-            JButton pathButton = JComponentFactory.menuButton("path",new  setPathListener(activeFleet));
+            JButton pathButton = JComponentFactory.menuButton("path",new SetPathListener(activeFleet));
             jPanelGrid.add(pathButton);
             pathButton.setEnabled(false);
             if(activeFleet != null ){
@@ -243,21 +242,20 @@ public class FleetMenu extends JPanel {
         if(jButton!=null)jButton.setBackground(new Color(125, 130, 200));
     }
 
-    private class combineCurrentListener implements ActionListener {
+    private class CombineCurrentListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(activeSeaRoad != null && activeFleet != null && !activeSeaRoad.getFleet().equals(activeFleet)){
-                FactionManager.getInstance().getSeaRoadManager().setNewFleet(FactionManager.getInstance().getMySeaRoad(activeFleet), new Fleet());
                 FactionManager.getInstance().getSeaRoadManager().setNewFleet(activeSeaRoad,activeFleet);
             }
             allUpdate();
         }
     }
 
-    private class addBoatToFleetListener implements ActionListener {
+    private class AddBoatToFleetListener implements ActionListener {
         private Boat boat;
 
-        public addBoatToFleetListener(Boat boat) {
+        public AddBoatToFleetListener(Boat boat) {
             this.boat = boat;
         }
 
@@ -269,10 +267,10 @@ public class FleetMenu extends JPanel {
         }
     }
 
-    private class removeBoatToFleetListener implements ActionListener {
+    private class RemoveBoatToFleetListener implements ActionListener {
         private Boat boat;
 
-        public removeBoatToFleetListener(Boat boat) {
+        public RemoveBoatToFleetListener(Boat boat) {
             this.boat = boat;
         }
 
@@ -284,10 +282,10 @@ public class FleetMenu extends JPanel {
         }
     }
 
-    private class setFleetListener implements ActionListener {
+    private class SetFleetListener implements ActionListener {
         private Fleet fleet;
 
-        public setFleetListener(Fleet fleet) {
+        public SetFleetListener(Fleet fleet) {
             this.fleet = fleet;
         }
 
@@ -299,10 +297,10 @@ public class FleetMenu extends JPanel {
         }
     }
 
-    private class setSeaRoadListener implements ActionListener {
+    private class SetSeaRoadListener implements ActionListener {
         private SeaRoad seaRoad;
 
-        public setSeaRoadListener(SeaRoad seaRoad) {
+        public SetSeaRoadListener(SeaRoad seaRoad) {
             this.seaRoad = seaRoad;
         }
 
@@ -314,7 +312,7 @@ public class FleetMenu extends JPanel {
         }
     }
 
-    private class newFleetListener implements ActionListener {
+    private class NewFleetListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             String nameForNewFleet = JOptionPane.showInputDialog(FleetMenu.this,"Name for New Fleet");
@@ -324,7 +322,7 @@ public class FleetMenu extends JPanel {
         }
     }
 
-    private class removeListener implements ActionListener {
+    private class RemoveListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(isInSeaRoadMode){
@@ -348,15 +346,15 @@ public class FleetMenu extends JPanel {
         }
     }
 
-    private class setPathListener implements ActionListener {
+    private class SetPathListener implements ActionListener {
         private Fleet fleet;
         private SeaRoad seaRoad;
 
-        public setPathListener(SeaRoad seaRoad) {
+        public SetPathListener(SeaRoad seaRoad) {
             this.seaRoad = seaRoad;
             this.fleet = null;
         }
-        public setPathListener(Fleet fleet) {
+        public SetPathListener(Fleet fleet) {
             this.fleet = fleet;
             this.seaRoad = null;
         }
@@ -372,7 +370,7 @@ public class FleetMenu extends JPanel {
         }
     }
 
-    private class switchModeListener implements ActionListener {
+    private class SwitchModeListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             isInSeaRoadMode = !isInSeaRoadMode;
@@ -405,7 +403,7 @@ public class FleetMenu extends JPanel {
         }
     }
 
-    private class goBackButtonListener implements ActionListener {
+    private class GoBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             GUILoader.loadMainGame();

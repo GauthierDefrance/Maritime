@@ -23,8 +23,10 @@ public final class GameConfiguration {
     //-------- Bot Stats --------
 
     public static final int MAX_VALUE_IN_INVENTORY_BOT = 10000;
+    public static final int MAX_BOT_BOAT_FOR_HARBOR = 10;
     public static final int GAME_FLEET_BOT_SIZE = 5;
-    public static final int GAME_PIRATE_MAX_BOAT = 4;
+    public static final int MAX_SPAWN_BOAT_BOT_SIZE = 3;
+    public static final int MAX_PIRATE_BOAT = 7;
     public static final int GAME_FLEET_PIRATE_SIZE = 3;
     public static final int GAME_FLEET_SPAWN_TIME = 2000;
 
@@ -43,11 +45,11 @@ public final class GameConfiguration {
     //-------- Resource --------
 
     static TradeObjectBuilder tob = new TradeObjectBuilder();
-    public static final Resource WOOD = tob.name("Wood").value(1).productionRate(50).buildResource();
-    public static final Resource CLOTH = tob.name("Cloth").value(2).productionRate(80).buildResource();
-    public static final Resource METAL = tob.name("Metal").value(4).productionRate(150).buildResource();
-    public static final Resource SUGAR = tob.name("Sugar").value(40).productionRate(500).buildResource();
-    public static final Resource CACAO = tob.name("Cacao").value(60).productionRate(1000).buildResource();
+    public static final Resource WOOD = tob.name("Wood").value(1).productionRate(4).buildResource();
+    public static final Resource CLOTH = tob.name("Cloth").value(2).productionRate(6).buildResource();
+    public static final Resource METAL = tob.name("Metal").value(4).productionRate(10).buildResource();
+    public static final Resource SUGAR = tob.name("Sugar").value(40).productionRate(50).buildResource();
+    public static final Resource CACAO = tob.name("Cacao").value(60).productionRate(100).buildResource();
     public static final Resource PEARL = tob.name("Pearl").value(120).buildResource();
     public static final Currency GOLD = tob.name("Gold").value(1).buildCurrency();
     public static final ArrayList<Resource> LIST_RESOURCE = new ArrayList<>(Arrays.asList(WOOD,CLOTH,METAL,SUGAR,CACAO,PEARL));
@@ -60,7 +62,7 @@ public final class GameConfiguration {
 
     //-------- Global Upgrade -------
 
-    public static final int COST_GENERATOR = 30000;
+    public static final int COST_GENERATOR = 3000;
     public static final int COST_LEVEL_UP_HARBOR = 2000;
     public static final int COST_LEVEL_UP_BOAT = 200;
     public static final int COST_HEAL_HARBOR = 1;

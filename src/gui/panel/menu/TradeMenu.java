@@ -19,6 +19,7 @@ import java.awt.event.*;
 import static gui.MainGUI.getWindow;
 
 public class TradeMenu extends JPanel {
+
     private boolean isMoveResource;
 
     private Harbor sellerHarbor;
@@ -50,6 +51,7 @@ public class TradeMenu extends JPanel {
         this.targetHarbor = targetHarbor;
         init();
     }
+
     private void init() {
         this.setLayout(new BorderLayout());
         sellerResourceQuantity = 1;
@@ -64,7 +66,7 @@ public class TradeMenu extends JPanel {
         JPanel jCenterWestPanel2 = JComponentFactory.borderMenuPanel();
         JPanel jCenterPanel = JComponentFactory.borderMenuPanel();
 
-        Quantity1 = JComponentFactory.textField("1",new textKeyControls(true));
+        Quantity1 = JComponentFactory.textField("1",new TextKeyControls(true));
         gridPanel1 = JComponentFactory.gridMenuPanel(0,1);
         jvoidPanel = JComponentFactory.voidPanel();
         jvoidPanel.add(gridPanel1);
@@ -82,7 +84,7 @@ public class TradeMenu extends JPanel {
         jLabelTmp.setBackground(Color.lightGray);
         jCenterWestPanel1.add(jLabelTmp,BorderLayout.NORTH);
 
-        Quantity2 = JComponentFactory.textField("1",new textKeyControls(false));
+        Quantity2 = JComponentFactory.textField("1",new TextKeyControls(false));
         gridPanel2 = JComponentFactory.gridMenuPanel(0,1);
         jvoidPanel = JComponentFactory.voidPanel();
         jvoidPanel.add(gridPanel2);
@@ -274,7 +276,7 @@ public class TradeMenu extends JPanel {
         sizeUpdate();
     }
 
-    private void ChangeCurrentJButton(boolean isSeller,JButton jButton2){
+    private void changeCurrentJButton(boolean isSeller,JButton jButton2){
         if(isSeller){
             if(currentSellerResource!=null)currentSellerResource.setBackground(Color.lightGray);
             currentSellerResource = jButton2;
@@ -310,8 +312,8 @@ public class TradeMenu extends JPanel {
     }
 
     private class ResourceListener implements ActionListener {
-        private boolean isSeller;
-        private Resource resource;
+        private final boolean isSeller;
+        private final Resource resource;
 
         private ResourceListener(boolean isSeller, Resource resource) {
             this.isSeller = isSeller;
@@ -323,7 +325,7 @@ public class TradeMenu extends JPanel {
             int nb;
             if(isSeller) {
                 sellerResource = resource;
-                ChangeCurrentJButton(true,(JButton) e.getSource());
+                changeCurrentJButton(true,(JButton) e.getSource());
                 if(!Quantity1.getText().isEmpty()) {
                     nb = Integer.parseInt(Quantity1.getText());
                     if (sellerResource != null && sellerResource instanceof Currency && nb > MapGame.getInstance().getPlayer().getAmountCurrency()) {
@@ -339,7 +341,7 @@ public class TradeMenu extends JPanel {
             }
             else {
                 targetResource = resource;
-                ChangeCurrentJButton(false,(JButton) e.getSource());
+                changeCurrentJButton(false,(JButton) e.getSource());
                 if(!Quantity2.getText().isEmpty()) {
                     nb = Integer.parseInt(Quantity2.getText());
                     if (targetResource != null && targetResource instanceof Currency && nb > FactionManager.getInstance().getMyFaction(targetHarbor.getColor()).getAmountCurrency()) {
@@ -357,10 +359,10 @@ public class TradeMenu extends JPanel {
         }
     }
 
-    private class textKeyControls implements KeyListener {
-        private boolean isSeller;
+    private class TextKeyControls implements KeyListener {
+        private final boolean isSeller;
 
-        private textKeyControls(boolean isSeller) {
+        private TextKeyControls(boolean isSeller) {
             this.isSeller = isSeller;
         }
 
@@ -430,7 +432,8 @@ public class TradeMenu extends JPanel {
             if(isMoveResource)seaRoad.setTime(GameConfiguration.SEAROAD_TIME*3);
             if(TradeManager.getInstance().conclude(seaRoad)||isMoveResource){
                 String name = JOptionPane.showInputDialog(TradeMenu.this,"      Success\nname the sea-Road");
-                if(name!=null)seaRoad.setName(name);
+                if(name!=null && !name.isEmpty())seaRoad.setName(name);
+                else seaRoad.setName("SeaRoad"+MapGame.getInstance().getPlayer().getLstHarbor().size());
                 MapGame.getInstance().getPlayer().addSeaRoad(seaRoad);
                 GUILoader.loadFleetMenu(seaRoad);
             }

@@ -8,6 +8,8 @@ import gui.panel.display.GameDisplay;
 import gui.utilities.GUILoader;
 import gui.process.JComponentFactory;
 import gui.process.ListenerBehaviorManager;
+import log.LoggerUtility;
+import org.apache.log4j.Logger;
 import test.TestMove;
 
 import javax.swing.*;
@@ -25,6 +27,7 @@ import static gui.MainGUI.getWindow;
  */
 public class StartMenu extends JPanel implements Runnable {
 
+    private static Logger logger = LoggerUtility.getLogger(StartMenu.class);
     private JLayeredPane jLayeredPane;
     private JPanel dashboardJPanel;
     private JPanel jPanelATH;
@@ -105,6 +108,7 @@ public class StartMenu extends JPanel implements Runnable {
         Thread gameThread = new Thread(this);
         gameThread.start();
     }
+
     private void sizeUpdate() {
         dashboardJPanel.setBounds(getWindow().getBounds());
         jPanelATH.setBounds(getWindow().getBounds());
@@ -125,7 +129,7 @@ public class StartMenu extends JPanel implements Runnable {
         @Override
         public void actionPerformed(ActionEvent e) {
             ThreadStop = true;
-            TestMove.addBoatTest();
+            EngineBuilder.newGame();
             GUILoader.loadMainGame();
         }
     }
@@ -197,7 +201,7 @@ public class StartMenu extends JPanel implements Runnable {
             try {
                 Thread.sleep(GameConfiguration.GAME_SPEED);
             } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
+                logger.error(e.getMessage());
             }
             jLayeredPane.revalidate();
             jLayeredPane.repaint();

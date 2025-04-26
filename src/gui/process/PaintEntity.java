@@ -132,7 +132,7 @@ public class PaintEntity {
     public void paintChaseMap(Graphics2D g2d){
         for(Faction faction : MapGame.getInstance().getLstFaction()){
             for (Boat hunter : faction.getLstBoat()){
-                if(MapGame.getInstance().getHunterPreyHashMap().containsKey(hunter) && (MapGame.getInstance().getPlayer().getLstBoat().contains(hunter)||MapGame.getInstance().getPlayer().getLstBoat().contains(MapGame.getInstance().getHunterPreyHashMap().get(hunter)))){
+                if(MapGame.getInstance().getHunterPreyHashMap().containsKey(hunter) && (MapGame.getInstance().isGodMode()||(MapGame.getInstance().getPlayer().getLstBoat().contains(hunter)||MapGame.getInstance().getPlayer().getLstBoat().contains(MapGame.getInstance().getHunterPreyHashMap().get(hunter))))){
                     paintChase(hunter,MapGame.getInstance().getHunterPreyHashMap().get(hunter).getPosition(),g2d);
                 }
             }

@@ -4,6 +4,7 @@ import config.GameConfiguration;
 import engine.MapGame;
 import engine.data.faction.Faction;
 import engine.process.manager.FactionManager;
+import gui.process.ImageStock;
 import gui.process.JComponentFactory;
 import gui.utilities.GUILoader;
 
@@ -41,7 +42,7 @@ public class RelationMenu extends JPanel {
 
         factionStats = JComponentFactory.gridMenuPanel(0, 1);
         jPanelCenter = JComponentFactory.borderMenuPanel();
-        goBackButton = JComponentFactory.menuButton("Go back", new goBackButtonListener());
+        goBackButton = JComponentFactory.menuButton("Go back", new GoBackButtonListener());
         declareWar = JComponentFactory.menuButton("Declare War", new ProvokeListener());
         jButtonPanel = JComponentFactory.borderMenuPanel();
 
@@ -81,6 +82,7 @@ public class RelationMenu extends JPanel {
         declareWarTmp.setBackground(Color.gray);
         jScrollPaneTmp.setBackground(Color.gray);
         gridPanelTmp.setBackground(Color.gray);
+        gridPanel.setBackground(Color.gray);
         jPanelCenter.setBackground(Color.gray);
         jPanelWest.setBackground(Color.gray);
 
@@ -118,6 +120,9 @@ public class RelationMenu extends JPanel {
         for (Faction faction : MapGame.getInstance().getLstFaction()){
             if(!(faction.equals(MapGame.getInstance().getPlayer())||faction.equals(MapGame.getInstance().getPirate()))) {
                 tmp = JComponentFactory.menuButton(faction.getName(),new buttonObjectListener(faction));
+                tmp.setBackground(ImageStock.mixColor(ImageStock.colorChoice(faction.getColor(),255),Color.gray,0.7));
+                tmp.setForeground(Color.white);
+                tmp.setBorderPainted(false);
                 gridPanel.add(tmp);
                 if(activeFaction.equals(faction))ChangeCurrentJButton(tmp);
                 if(faction.getLstHarbor().isEmpty()&&faction.getLstBoat().isEmpty()){
@@ -146,6 +151,8 @@ public class RelationMenu extends JPanel {
             declareWar.setEnabled(false);
         }
         else {
+            declareWar.setText("Declare War");
+            declareWar.setEnabled(true);
             JPanel tmpPanel = JComponentFactory.voidPanel();
             tmpPanel.setBackground(Color.gray);
             tmpPanel.add(jButtonPanel);
@@ -189,9 +196,9 @@ public class RelationMenu extends JPanel {
     }
 
     private void ChangeCurrentJButton(JButton jButton){
-        if(activeFactionButton!=null)activeFactionButton.setBackground(Color.lightGray);
+        if(activeFactionButton!=null)activeFactionButton.setForeground(Color.white);
         activeFactionButton = jButton;
-        if(jButton!=null)jButton.setBackground(new Color(125, 130, 200));
+        if(jButton!=null)jButton.setForeground(Color.black);
     }
 
     private class buttonObjectListener implements ActionListener {
@@ -250,7 +257,7 @@ public class RelationMenu extends JPanel {
         }
     }
 
-    private class goBackButtonListener implements ActionListener {
+    private class GoBackButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             GUILoader.loadMainGame();

@@ -132,9 +132,9 @@ public abstract class Boat implements Entity {
     public void setCurrentHp(int currentHp) {this.currentHp = currentHp;}
 
     @Override
-    public void setPosition(Point position) {this.position = position;}
+    public void setPosition(Point position) {this.position.setLocation(position);}
 
-    public void setPosition(int x,int y) {this.position = new Point(x,y);}
+    public void setPosition(int x,int y) {this.position.setLocation(x,y);}
 
     public void setDamageSpeed(int damageSpeed) {this.damageSpeed = damageSpeed;}
 

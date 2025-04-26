@@ -29,7 +29,7 @@ public class ImageStock {
 
     private ImageStock(){
         images = new BufferedImage[5];
-        tbSprite = new BufferedImage[6][4];
+        tbSprite = new BufferedImage[6][6];
         tbFramesSprite = new BufferedImage[6][GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES];
         try {
             images[0] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/fleet.png"));
@@ -39,22 +39,37 @@ public class ImageStock {
             tbSprite[0][0] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/standard.png"));
             tbSprite[0][1] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/standard/red.png"));
             tbSprite[0][2] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/standard/blue.png"));
+            tbSprite[0][3] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/standard/purple.png"));
+            tbSprite[0][4] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/standard/yellow.png"));
+            tbSprite[0][5] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/standard/green.png"));
 
             tbSprite[1][0] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/fodder.png"));
             tbSprite[1][1] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/fodder/red.png"));
             tbSprite[1][2] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/fodder/blue.png"));
+            tbSprite[1][3] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/fodder/purple.png"));
+            tbSprite[1][4] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/fodder/yellow.png"));
+            tbSprite[1][5] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/fodder/green.png"));
 
             tbSprite[2][0] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/merchant.png"));
             tbSprite[2][1] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/merchant/red.png"));
             tbSprite[2][2] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/merchant/blue.png"));
+            tbSprite[2][3] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/merchant/purple.png"));
+            tbSprite[2][4] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/merchant/yellow.png"));
+            tbSprite[2][5] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/merchant/green.png"));
 
             tbSprite[3][0] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/military.png"));
             tbSprite[3][1] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/military/red.png"));
             tbSprite[3][2] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/military/blue.png"));
+            tbSprite[3][3] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/military/purple.png"));
+            tbSprite[3][4] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/military/yellow.png"));
+            tbSprite[3][5] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/military/green.png"));
 
             tbSprite[4][0] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/harbor/harbor.png"));
             tbSprite[4][1] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/harbor/red.png"));
             tbSprite[4][2] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/harbor/blue.png"));
+            tbSprite[4][3] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/harbor/purple.png"));
+            tbSprite[4][4] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/harbor/yellow.png"));
+            tbSprite[4][5] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/harbor/green.png"));
 
             tbSprite[5][0] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/destroy/standard.png"));
             tbSprite[5][1] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/destroy/fodder.png"));
@@ -117,6 +132,22 @@ public class ImageStock {
                 j=2;
                 break;
             }
+            case "purple" :{
+                j=3;
+                break;
+            }
+            case "yellow" :{
+                j=4;
+                break;
+            }
+            case "green" :{
+                j=5;
+                break;
+            }
+            case "black" :{
+                j=0;
+                break;
+            }
             default : {
             }
         }
@@ -135,6 +166,22 @@ public class ImageStock {
             }
             case "blue" :{
                 j=2;
+                break;
+            }
+            case "purple" :{
+                j=3;
+                break;
+            }
+            case "yellow" :{
+                j=4;
+                break;
+            }
+            case "green" :{
+                j=5;
+                break;
+            }
+            case "black" :{
+                j=0;
                 break;
             }
             default : {
@@ -220,17 +267,36 @@ public class ImageStock {
         }
         return getTbFramesSprite(5,0);
     }
-
     /**
      * Allows you to choose the color to displayed
      */
     public static Color colorChoice(String color){
+        if (color.equals("black"))return colorChoice(color, 100);
+        else return colorChoice(color, 75);
+    }
+
+    /**
+     * Allows you to choose the color to displayed
+     */
+    public static Color colorChoice(String color,int alpha){
         switch (color) {
             case "red" :{
-                return new Color(255,0,0,75);
+                return new Color(255,0,0,alpha);
             }
             case "blue" :{
-                return new Color(0,0,255,75);
+                return new Color(0,0,255,alpha);
+            }
+            case "purple" :{
+                return new Color(125, 0, 255, alpha);
+            }
+            case "yellow" :{
+                return new Color(255, 255,0,alpha);
+            }
+            case "green" :{
+                return new Color(0,255,0,alpha);
+            }
+            case "black" :{
+                return new Color(0,0,0, alpha);
             }
             default : {
                 return new Color(0,0,0,0);
@@ -246,22 +312,76 @@ public class ImageStock {
             case "blue" :{
                 return 2;
             }
-            default : {
+            case "purple" :{
+                return 3;
+            }
+            case "yellow" :{
+                return 4;
+            }
+            case "green" :{
+                return 5;
+            }
+            case "black" :{
                 return 0;
             }
+            default : {
+            }
+            return 0;
         }
     }
 
+    public static Color mixColor(Color color1, Color color2, double ratio) {
+        double inverseRatio = 1.0 - ratio;
+        int r = (int) (color1.getRed() * inverseRatio + color2.getRed() * ratio);
+        int g = (int) (color1.getGreen() * inverseRatio + color2.getGreen() * ratio);
+        int b = (int) (color1.getBlue() * inverseRatio + color2.getBlue() * ratio);
+        int a = (int) (color1.getAlpha() * inverseRatio + color2.getAlpha() * ratio);
+        return new Color(r, g, b, a);
+    }
+
     public static BufferedImage getImages(int a) {
-        return getInstance().images[a];
+        BufferedImage bufferedImage = getInstance().images[a];
+        if (bufferedImage == null) {
+            bufferedImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2d = bufferedImage.createGraphics();
+            g2d.setColor(Color.magenta);
+            g2d.fillRect(0, 0, 100, 100);
+            g2d.setColor(Color.black);
+            g2d.fillRect(50, 0, 50, 50);
+            g2d.fillRect(0, 50, 50, 50);
+            g2d.dispose();
+        }
+        return bufferedImage;
     }
 
     public static BufferedImage getTbSprite(int a, int b) {
-        return getInstance().tbSprite[a][b];
+        BufferedImage bufferedImage = getInstance().tbSprite[a][b];
+        if (bufferedImage == null) {
+            bufferedImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2d = bufferedImage.createGraphics();
+            g2d.setColor(Color.magenta);
+            g2d.fillRect(0, 0, 100, 100);
+            g2d.setColor(Color.black);
+            g2d.fillRect(50, 0, 50, 50);
+            g2d.fillRect(0, 50, 50, 50);
+            g2d.dispose();
+        }
+        return bufferedImage;
     }
 
     public static BufferedImage getTbFramesSprite(int a ,int b) {
-        return getInstance().tbFramesSprite[a][b];
+        BufferedImage bufferedImage = getInstance().tbFramesSprite[a][b];
+        if (bufferedImage == null) {
+            bufferedImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2d = bufferedImage.createGraphics();
+            g2d.setColor(Color.magenta);
+            g2d.fillRect(0, 0, 100, 100);
+            g2d.setColor(Color.black);
+            g2d.fillRect(50, 0, 50, 50);
+            g2d.fillRect(0, 50, 50, 50);
+            g2d.dispose();
+        }
+        return bufferedImage;
     }
 
 }

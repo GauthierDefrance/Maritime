@@ -6,6 +6,8 @@ import engine.data.entity.boats.Boat;
 import engine.data.entity.boats.Standard;
 import engine.data.faction.Player;
 import engine.data.graph.GraphPoint;
+import gui.panel.menu.ChoicePathMenu;
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.AfterClass;
@@ -26,6 +28,7 @@ import java.util.ArrayList;
  * @version 0.1
  */
 public class TestSave {
+    private static final Logger logger = Logger.getLogger(TestSave.class);
     private MapGame game;
 
     private GameSave gameSave;
@@ -115,7 +118,7 @@ public class TestSave {
         if (file.exists()) {
             file.delete();
         } else {
-            System.out.println("File not found !");
+            logger.warn("File "+filename+" not found !");
         }
     }
 

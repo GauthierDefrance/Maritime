@@ -15,6 +15,9 @@ import gui.process.ImageStock;
 import gui.process.ListenerBehaviorManager;
 import gui.utilities.GUILoader;
 import gui.process.JComponentFactory;
+import log.LoggerUtility;
+import org.apache.log4j.Logger;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -29,6 +32,7 @@ import static gui.MainGUI.getWindow;
  */
 public class CombatMenu extends JPanel implements Runnable {
 
+    private static Logger logger = LoggerUtility.getLogger(CombatMenu.class);
     private JLayeredPane jLayeredPane;
     private JPanel dashboardJPanel;
     private JPanel jPanelATH;
@@ -61,6 +65,7 @@ public class CombatMenu extends JPanel implements Runnable {
         this.battle = battle;
         init();
     }
+
     private void init() {
         this.setLayout(new BorderLayout());
         jLayeredPane = JComponentFactory.JLayeredPane();
@@ -72,8 +77,8 @@ public class CombatMenu extends JPanel implements Runnable {
         jNorthATHPanel = JComponentFactory.borderMenuPanel();
         jNorthEastPanel = JComponentFactory.gridMenuPanel(1,4,0,0);
         jWestCenterPanel = JComponentFactory.gridMenuPanel(0,2);
-        jCancelButton = JComponentFactory.menuButton("Cancel",new cancelPlacingListener());
-        confirmBattle = JComponentFactory.menuButton("Battle",new confirmContinueBattleListener());
+        jCancelButton = JComponentFactory.menuButton("Cancel",new CancelPlacingListener());
+        confirmBattle = JComponentFactory.menuButton("Battle",new ConfirmContinueBattleListener());
 
         battle.setPlacingMode(true);
         dashboard = new BattleDisplay(battle);
@@ -86,9 +91,9 @@ public class CombatMenu extends JPanel implements Runnable {
         JScrollPane jScrollPane = new JScrollPane(jWestCenterPanel);
         jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        showLeftMenuButton = JComponentFactory.menuButton(">", new showMenu(jWestPanel,jWestATHPanel));
+        showLeftMenuButton = JComponentFactory.menuButton(">", new ShowMenu(jWestPanel,jWestATHPanel));
         jWestButtonPanel.add(showLeftMenuButton,BorderLayout.NORTH);
-        hideLeftMenuButton = JComponentFactory.menuButton("<", new showMenu(jWestButtonPanel,jWestATHPanel));
+        hideLeftMenuButton = JComponentFactory.menuButton("<", new ShowMenu(jWestButtonPanel,jWestATHPanel));
         hideLeftMenuPanel.add(hideLeftMenuButton,BorderLayout.NORTH);
 
         JPanel jWestTmpPanel = JComponentFactory.borderMenuPanel();
@@ -98,10 +103,10 @@ public class CombatMenu extends JPanel implements Runnable {
         jWestPanel.add(hideLeftMenuPanel,BorderLayout.EAST);
 
 
-        jButtonNorthMenu1 = JComponentFactory.menuButton("⏯",new flipTimeListener());
-        jButtonNorthMenu2 = JComponentFactory.menuButton(">",new setSpeedBoostListener(1));
-        jButtonNorthMenu3 = JComponentFactory.menuButton(">>",new setSpeedBoostListener(4));
-        jButtonNorthMenu4 = JComponentFactory.menuButton(">>>",new setSpeedBoostListener(8));
+        jButtonNorthMenu1 = JComponentFactory.menuButton("⏯",new FlipTimeListener());
+        jButtonNorthMenu2 = JComponentFactory.menuButton(">",new SetSpeedBoostListener(1));
+        jButtonNorthMenu3 = JComponentFactory.menuButton(">>",new SetSpeedBoostListener(4));
+        jButtonNorthMenu4 = JComponentFactory.menuButton(">>>",new SetSpeedBoostListener(8));
         switch (GameOptions.getInstance().getSpeedBoost()) {
             case 1 :{
                 jButtonNorthMenu2.setEnabled(false);
@@ -186,18 +191,18 @@ public class CombatMenu extends JPanel implements Runnable {
         if(battle.getFactionA().equals(MapGame.getInstance().getPlayer())) {
             jWestCenterPanel.removeAll();
             for (Boat boat : battle.getLstBoatsToPlace()) {
-                JButton tmp = JComponentFactory.menuButton(boat, new buttonMouseListener(boat));
-                tmp.addMouseMotionListener(new buttonMouseListener(boat));
+                JButton tmp = JComponentFactory.menuButton(boat, new ButtonMouseListener(boat));
+                tmp.addMouseMotionListener(new ButtonMouseListener(boat));
                 jWestCenterPanel.add(tmp);
             }
             sizeUpdate();
         }
     }
 
-    private class setSpeedBoostListener implements ActionListener {
+    private class SetSpeedBoostListener implements ActionListener {
         private int value;
 
-        public setSpeedBoostListener(int value) {
+        public SetSpeedBoostListener(int value) {
             this.value = value;
         }
 
@@ -213,7 +218,7 @@ public class CombatMenu extends JPanel implements Runnable {
 
     }
 
-    private class flipTimeListener implements ActionListener {
+    private class FlipTimeListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             MapGame.getInstance().setTimeStop(!MapGame.getInstance().isTimeStop());
@@ -225,11 +230,11 @@ public class CombatMenu extends JPanel implements Runnable {
         }
     }
 
-    private class showMenu implements ActionListener {
+    private class ShowMenu implements ActionListener {
         private final JPanel jPanel1;
         private final JPanel jPanel2;
 
-        public showMenu(JPanel jPanel1, JPanel jPanel2){
+        public ShowMenu(JPanel jPanel1, JPanel jPanel2){
             this.jPanel1 = jPanel1;
             this.jPanel2 = jPanel2;
         }
@@ -242,7 +247,7 @@ public class CombatMenu extends JPanel implements Runnable {
         }
     }
 
-    private class cancelPlacingListener implements ActionListener {
+    private class CancelPlacingListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             battleManager.getPlacingManager().cancelPlacing();
@@ -251,7 +256,7 @@ public class CombatMenu extends JPanel implements Runnable {
         }
     }
 
-    private class confirmContinueBattleListener implements ActionListener {
+    private class ConfirmContinueBattleListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(!battleManager.getPlacingManager().confirmContinueBattle()){
@@ -321,10 +326,10 @@ public class CombatMenu extends JPanel implements Runnable {
         }
     }
 
-    private class buttonMouseListener extends MouseAdapter {
+    private class ButtonMouseListener extends MouseAdapter {
         private Boat boat;
 
-        public buttonMouseListener(Boat boat) {
+        public ButtonMouseListener(Boat boat) {
             this.boat = boat;
         }
         @Override
@@ -404,7 +409,7 @@ public class CombatMenu extends JPanel implements Runnable {
                 Thread.sleep((long) GameConfiguration.GAME_SPEED/GameOptions.getInstance().getSpeedBoost());
 
             } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
+                logger.error(e.getMessage());
             }
             if (!MapGame.getInstance().isTimeStop()){
                 battleManager.tick();
