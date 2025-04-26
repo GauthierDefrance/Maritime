@@ -11,6 +11,7 @@ import gui.process.ListenerBehaviorManager;
 import test.TestMove;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -27,9 +28,10 @@ public class StartMenu extends JPanel implements Runnable {
     private JLayeredPane jLayeredPane;
     private JPanel dashboardJPanel;
     private JPanel jPanelATH;
-    private JPanel jNorthATHPanel;
     private JPanel NorthVoidpanel;
     private JPanel buttonDisplay;
+    private JPanel tmpButtonDisplay;
+    private JPanel titleDisplay;
     private JLabel title;
 
     private GameDisplay dashboard;
@@ -52,31 +54,21 @@ public class StartMenu extends JPanel implements Runnable {
         jLayeredPane = JComponentFactory.JLayeredPane();
         jPanelATH = JComponentFactory.borderMenuPanel();
         dashboardJPanel = JComponentFactory.borderMenuPanel();
-        jNorthATHPanel = JComponentFactory.borderMenuPanel();
         NorthVoidpanel = JComponentFactory.voidPanel();
         title = JComponentFactory.title(" Maritime ");
+        titleDisplay = JComponentFactory.flowMenuPanel(title);
         dashboard = new GameDisplay();
 
-        title.setOpaque(true);
-        title.setForeground(Color.black);
-        title.setBackground(Color.lightGray);
-
         JLabel credits = JComponentFactory.credits("A Game by Ammad Kenan, Defrance Gauthier & Zue Jack-Arthur");
-
         JButton newGame = JComponentFactory.menuButton("New Game", new StartGameListener());
-
         JButton loadGame = JComponentFactory.menuButton("Load Game", new LoadMenuListener());
-
         JButton options = JComponentFactory.menuButton("Options", new OptionsMenuListener());
-
         JButton exit = JComponentFactory.menuButton("Exit", new ExitListener());
-
-        JPanel titleDisplay = JComponentFactory.flowMenuPanel(title);
 
         JPanel creditsDisplay = JComponentFactory.flowMenuPanel(credits);
 
         buttonDisplay = JComponentFactory.gridMenuPanel(1,0,10,0,newGame, loadGame, options, exit);
-        JPanel tmpButtonDisplay = JComponentFactory.flowMenuPanel(buttonDisplay);
+        tmpButtonDisplay = JComponentFactory.flowMenuPanel(buttonDisplay);
 
         this.addKeyListener(new KeyControls());
         getWindow().addComponentListener(new ComponentControls());
@@ -87,16 +79,12 @@ public class StartMenu extends JPanel implements Runnable {
         dashboard.setBackground(GameConfiguration.WATER_BACKGROUND_COLOR);
 
         jPanelATH.setOpaque(false);
-        jNorthATHPanel.setOpaque(false);
         tmpButtonDisplay.setOpaque(false);
-        titleDisplay.setOpaque(false);
         creditsDisplay.setOpaque(true);
         buttonDisplay.setOpaque(false);
-        jNorthATHPanel.add(NorthVoidpanel,BorderLayout.NORTH);
-        jNorthATHPanel.add(titleDisplay,BorderLayout.CENTER);
 
         dashboardJPanel.add(dashboard,BorderLayout.CENTER);
-        jPanelATH.add(jNorthATHPanel, BorderLayout.NORTH);
+        jPanelATH.add(titleDisplay, BorderLayout.NORTH);
         jPanelATH.add(tmpButtonDisplay, BorderLayout.CENTER);
         jPanelATH.add(creditsDisplay, BorderLayout.SOUTH);
 
@@ -104,8 +92,15 @@ public class StartMenu extends JPanel implements Runnable {
         jLayeredPane.add(jPanelATH,JLayeredPane.PALETTE_LAYER);
 
         this.add(jLayeredPane);
-        sizeUpdate();
 
+        title.setOpaque(true);
+        title.setBackground(new Color(30, 30, 30,200));
+        titleDisplay.setBackground(new Color(64, 64, 64,100));
+        creditsDisplay.setBackground(new Color(64, 64, 64,100));
+        credits.setForeground(Color.lightGray);
+        title.setForeground(Color.lightGray);
+
+        sizeUpdate();
         ThreadStop = false;
         Thread gameThread = new Thread(this);
         gameThread.start();
@@ -113,9 +108,10 @@ public class StartMenu extends JPanel implements Runnable {
     private void sizeUpdate() {
         dashboardJPanel.setBounds(getWindow().getBounds());
         jPanelATH.setBounds(getWindow().getBounds());
+        tmpButtonDisplay.setBorder(new EmptyBorder((int) (getWindow().getHeight()*0.025),0,0,0));
         NorthVoidpanel.setPreferredSize(new Dimension(getWindow().getWidth(),(int) (getWindow().getHeight()*0.025)));
-        jNorthATHPanel.setPreferredSize(new Dimension(getWindow().getWidth(),(int) Math.max(75,(getWindow().getHeight()*0.10))));
         buttonDisplay.setPreferredSize(new Dimension((int) Math.max(600,getWindow().getWidth()*0.6),(int) (getWindow().getHeight()*0.08)));
+        titleDisplay.setBorder(new EmptyBorder((int) (getWindow().getHeight()*0.005),0,(int) (getWindow().getHeight()*0.005),0));
         title.setFont(new Font( "Noto Sans Display", Font.BOLD, Math.max(30,(int) (getWindow().getHeight()*0.05))));
 
         jLayeredPane.revalidate();
