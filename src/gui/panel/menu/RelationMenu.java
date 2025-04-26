@@ -120,6 +120,10 @@ public class RelationMenu extends JPanel {
                 tmp = JComponentFactory.menuButton(faction.getName(),new buttonObjectListener(faction));
                 gridPanel.add(tmp);
                 if(activeFaction.equals(faction))ChangeCurrentJButton(tmp);
+                if(faction.getLstHarbor().isEmpty()&&faction.getLstBoat().isEmpty()){
+                    tmp.setEnabled(false);
+                    tmp.setText("<html><strike>"+faction.getName()+"</strike></html>");
+                }
             }
 
         }

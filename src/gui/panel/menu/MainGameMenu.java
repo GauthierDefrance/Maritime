@@ -9,6 +9,7 @@ import engine.data.entity.Entity;
 import engine.data.Fleet;
 import engine.data.entity.Harbor;
 import engine.data.entity.boats.*;
+import engine.data.faction.Faction;
 import engine.data.graph.GraphPoint;
 import engine.data.trading.Resource;
 import engine.process.manager.FactionManager;
@@ -419,7 +420,7 @@ public class MainGameMenu extends JPanel implements Runnable {
 
             tmp = JComponentFactory.menuButton("attack", new setChaseListener(entity));
             tmp.setEnabled(false);
-            if(currentObject != null && currentObject instanceof Boat && FactionManager.getInstance().doIHaveFleet((Boat)currentObject)){
+            if(currentObject != null && currentObject instanceof Boat && !FactionManager.getInstance().doIHaveFleet((Boat)currentObject)){
                 tmp.setEnabled(true);
             }
             else if(currentObject != null && currentObject instanceof Fleet){
@@ -520,8 +521,13 @@ public class MainGameMenu extends JPanel implements Runnable {
     private class goFactionMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ThreadStop = true;
-            if(!MapGame.getInstance().getLstBotFaction().isEmpty()&&!MapGame.getInstance().getLstBotFaction().get(0).equals(MapGame.getInstance().getPirate()))GUILoader.loadRelationMenu(MapGame.getInstance().getLstBotFaction().get(0));
+            for (Faction faction : MapGame.getInstance().getLstBotFaction()){
+                if((!faction.getLstHarbor().isEmpty() || !faction.getLstBoat().isEmpty())&&!MapGame.getInstance().getLstBotFaction().get(0).equals(MapGame.getInstance().getPirate())){
+                    ThreadStop = true;
+                    GUILoader.loadRelationMenu(MapGame.getInstance().getLstBotFaction().get(0));
+                    break;
+                }
+            }
         }
     }
 
