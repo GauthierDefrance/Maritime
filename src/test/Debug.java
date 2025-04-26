@@ -3,6 +3,7 @@ package test;
 import engine.MapGame;
 import engine.process.creational.EngineBuilder;
 import gui.MainGUI;
+import gui.process.ImageStock;
 import gui.utilities.GUILoader;
 import gui.process.JComponentFactory;
 
@@ -35,6 +36,7 @@ public class Debug extends JFrame{
         if(MapGame.getInstance().isNoSpawnMode())noSpawnMode.setText("NoSpawnMode : true");
         else noSpawnMode.setText("NoSpawnMode : false");
 
+        setIconImage(ImageStock.getImages(0));
         contentPane.add(timeStop);
         contentPane.add(godMode);
         contentPane.add(noSpawnMode);

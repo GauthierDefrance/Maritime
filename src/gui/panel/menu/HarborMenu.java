@@ -64,7 +64,7 @@ public class HarborMenu extends JPanel {
         this.setLayout(new BorderLayout());
 
         jPanelWestGrid = JComponentFactory.gridMenuPanel(0, 1,GameConfiguration.BUTTON_SEPARATOR,GameConfiguration.BUTTON_SEPARATOR);
-        jPanelNorthResource = JComponentFactory.flowMenuPanel();
+        jPanelNorthResource = JComponentFactory.gridMenuPanel(1,1);
         currentCreatePanel = JComponentFactory.borderMenuPanel();
         jPanelCenterCenter = JComponentFactory.borderMenuPanel();
         jPanelCenterSouth = JComponentFactory.gridMenuPanel(2,1);
@@ -139,7 +139,7 @@ public class HarborMenu extends JPanel {
         jPanelCenterEastTmp.setBackground(Color.gray);
         jPanelEastButton.setBackground(Color.gray);
         gridPanel.setBackground(Color.gray);
-        jPanelNorthResource.setBackground(Color.lightGray);
+        jPanelNorthResource.setBackground(Color.gray);
         jPanelCenter.setBackground(Color.lightGray);
 
 
@@ -165,6 +165,7 @@ public class HarborMenu extends JPanel {
         jPanelWestGrid.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.25), (int) (getWindow().getHeight()*(0.08*jPanelWestGrid.getComponentCount()))));
         statsPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.25), (int) (getWindow().getHeight()*0.50)));
         jPanelCenterSouth.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.25), (int) (getWindow().getHeight()*0.1)));
+        jPanelNorthResource.setPreferredSize(new Dimension(getWindow().getWidth(),(int) (getWindow().getHeight()*0.05)));
 
         jComboBoxCurrent.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.045), getWindow().getHeight()));
         goBackButton.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.15), (int) (getWindow().getHeight()*0.08)));
@@ -232,8 +233,8 @@ public class HarborMenu extends JPanel {
 
         JLabel northResourceLabel = JComponentFactory.menuLabel(" "+MapGame.getInstance().getPlayer().getCurrency().getName()+" : "+MapGame.getInstance().getPlayer().getAmountCurrency()+"   "+"Resource : "+activeHarbor.getInventory().toString());
         northResourceLabel.setFont(new Font( "Noto Sans Display", Font.BOLD, 30));
-        northResourceLabel.setOpaque(true);
-        northResourceLabel.setBackground(Color.lightGray);
+        northResourceLabel.setForeground(Color.white);
+        northResourceLabel.setHorizontalAlignment(SwingConstants.CENTER);
         jPanelNorthResource.add(northResourceLabel);
 
         jPanelEastCenter.remove(jComboBoxHarbor);
