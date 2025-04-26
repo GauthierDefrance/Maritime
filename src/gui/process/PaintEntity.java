@@ -181,8 +181,12 @@ public class PaintEntity {
     }
 
     public void paintHITBOX(Point point,  Color color, Graphics2D g2d){
+        paintHITBOX(point,color, (int) GameConfiguration.HITBOX_BOAT,g2d);
+    }
+
+    public void paintHITBOX(Point point,  Color color,int hitBox, Graphics2D g2d){
         g2d.setColor(color);
-        g2d.fillOval((int)(point.getX())-((int)GameConfiguration.HITBOX_BOAT/2),(int)(point.getY())-((int)GameConfiguration.HITBOX_BOAT/2), (int) GameConfiguration.HITBOX_BOAT, (int) GameConfiguration.HITBOX_BOAT);
+        g2d.fillOval((int)(point.getX())-(hitBox/2),(int)(point.getY())-(hitBox/2), hitBox, hitBox);
         g2d.setColor(Color.black);
     }
 

@@ -24,20 +24,20 @@ public class Debug extends JFrame{
         contentPane.setLayout(new FlowLayout());
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        JButton timeStop = JComponentFactory.menuButton("timeStop",new TimeStop());
+        JButton timeStop = JComponentFactory.menuButton("TimeStop",new TimeStop());
         JButton godMode = JComponentFactory.menuButton("GodMode",new GodMode());
         JButton noSpawnMode = JComponentFactory.menuButton("NoSpawnMode",new NoSpawnMode());
-        JButton combatMenu = JComponentFactory.menuButton("CombatMenu",new CombatMenu());
-        JButton relationMenu = JComponentFactory.menuButton("RelationMenu", new RelationMenu());
-        JButton HarborMenu = JComponentFactory.menuButton("HarborMenu", new HarborMenu());
-        JButton FleetMenu = JComponentFactory.menuButton("FleetMenu", new FleetMenu());
+
+        if(MapGame.getInstance().isTimeStop())timeStop.setText("TimeStop : true");
+        else timeStop.setText("timeStop : false");
+        if(MapGame.getInstance().isGodMode())godMode.setText("GodMode : true");
+        else godMode.setText("GodMode : false");
+        if(MapGame.getInstance().isNoSpawnMode())noSpawnMode.setText("NoSpawnMode : true");
+        else noSpawnMode.setText("NoSpawnMode : false");
+
         contentPane.add(timeStop);
         contentPane.add(godMode);
         contentPane.add(noSpawnMode);
-        contentPane.add(combatMenu);
-        contentPane.add(relationMenu);
-        contentPane.add(HarborMenu);
-        contentPane.add(FleetMenu);
         setAlwaysOnTop(true);
         setFocusable(false);
         setLocationRelativeTo(null);
@@ -47,77 +47,24 @@ public class Debug extends JFrame{
     private class TimeStop implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             MapGame.getInstance().setTimeStop(!MapGame.getInstance().isTimeStop());
+            if(MapGame.getInstance().isTimeStop())((JButton)e.getSource()).setText("TimeStop : true");
+            else((JButton)e.getSource()).setText("timeStop : false");
         }
     }
 
     private class GodMode implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             MapGame.getInstance().setGodMode(!MapGame.getInstance().isGodMode());
+            if(MapGame.getInstance().isGodMode())((JButton)e.getSource()).setText("GodMode : true");
+            else((JButton)e.getSource()).setText("GodMode : false");
         }
     }
 
     private class NoSpawnMode implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             MapGame.getInstance().setNoSpawnMode(!MapGame.getInstance().isNoSpawnMode());
-        }
-    }
-
-    private class FleetMenu implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
-                case "gui.panel.menu.OptionsMenu" :
-                case "gui.panel.menu.PauseMenu" : {
-                    GUILoader.loadFleetMenu(MapGame.getInstance().getPlayer().getLstFleet().get(0));
-                    break;
-                }
-                default : {
-                }
-            }
-        }
-    }
-
-    private class HarborMenu implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
-                case "gui.panel.menu.OptionsMenu" :
-                case "gui.panel.menu.PauseMenu" : {
-                    GUILoader.loadHarborMenu(MapGame.getInstance().getPlayer().getLstHarbor().get(0));
-                    break;
-                }
-                default : {
-                }
-            }
-        }
-    }
-
-    private class RelationMenu implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
-                case "gui.panel.menu.OptionsMenu" :
-                case "gui.panel.menu.PauseMenu" : {
-                    GUILoader.loadRelationMenu(MapGame.getInstance().getLstBotFaction().get(0));
-                    break;
-                }
-                default : {
-                }
-            }
-        }
-    }
-    
-    private class CombatMenu implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            switch (MainGUI.getWindow().getComponent(0).getClass().getName()) {
-                case "gui.panel.menu.OptionsMenu" :
-                case "gui.panel.menu.PauseMenu" : {
-                    GUILoader.loadCombat(EngineBuilder.createBattle(MapGame.getInstance().getLstBotFaction().get(0),MapGame.getInstance().getLstBotFaction().get(0),MapGame.getInstance().getLstBotFaction().get(0).getLstFleet().get(0), MapGame.getInstance().getLstBotFaction().get(0).getLstFleet().get(0)));
-                    break;
-                }
-                default : {
-                }
-            }
+            if(MapGame.getInstance().isNoSpawnMode())((JButton)e.getSource()).setText("NoSpawnMode : true");
+            else((JButton)e.getSource()).setText("NoSpawnMode : false");
         }
     }
 }

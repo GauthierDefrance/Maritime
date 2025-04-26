@@ -6,6 +6,7 @@ import engine.data.Fleet;
 import engine.data.entity.Harbor;
 import engine.data.entity.boats.Boat;
 import engine.data.faction.Faction;
+import engine.data.graph.GraphPoint;
 import engine.data.trading.SeaRoad;
 import engine.process.manager.FactionManager;
 import gui.process.ImageStock;
@@ -26,6 +27,7 @@ public class GameDisplay extends JPanel {
     private final PaintEntity paintEntity;
     private final PaintBackGround paintBackGround;
     private Object currentObject;
+    private boolean fastPathMode;
 
     /**
      * Typical constructor generating an GameDisplay
@@ -34,6 +36,7 @@ public class GameDisplay extends JPanel {
         this.paintEntity = new PaintEntity();
         this.paintBackGround = new PaintBackGround();
         currentObject = null;
+        fastPathMode = false;
     }
     /**
      * It paints everything that has to be painted on graphics2D
@@ -77,16 +80,27 @@ public class GameDisplay extends JPanel {
         for(SeaRoad seaRoad: MapGame.getInstance().getPlayer().getLstSeaRouts()){
             paintEntity.paint(seaRoad,g2d);
         }
+        if(fastPathMode){
+            g2d.setColor(new Color(4, 4, 62,75));
+            for(GraphPoint graphPoint : MapGame.getInstance().getMapGraphPoint()){
+                g2d.fillOval(graphPoint.getX()-15, graphPoint.getY()-15,30,30);
+            }
+            g2d.setColor(Color.BLACK);
+        }
         if(currentObject!= null){
             if(currentObject instanceof Boat){
                 Boat currentBoat = (Boat) currentObject;
-                paintEntity.paintHITBOX(currentBoat.getPosition(), new Color(125, 130, 200,200),g2d);
+                ArrayList<GraphPoint> path = new ArrayList<>(currentBoat.getPath());
+                path.subList(0,currentBoat.getIPath()).clear();
+                path.add(0,new GraphPoint(currentBoat.getPosition(),"temp-GameDisplay"));
+                paintEntity.paintPath(path,ImageStock.colorChoice(currentBoat.getColor()),g2d);
+                paintEntity.paintHITBOX(currentBoat.getPosition(), new Color(125, 130, 200,200), (int) (GameConfiguration.HITBOX_BOAT+5),g2d);
                 paintEntity.paintSprite(currentBoat.getPosition(),ImageStock.getImage(currentBoat),g2d, currentBoat.getAngle());
             }
             else if(currentObject instanceof Fleet){
                 Fleet currentFleet = (Fleet) currentObject;
                 for (Boat boat : currentFleet.getArrayListBoat()){
-                    paintEntity.paintHITBOX(boat.getPosition(), new Color(125, 130, 200,150),g2d);
+                    paintEntity.paintHITBOX(boat.getPosition(), new Color(125, 130, 200,150),(int) (GameConfiguration.HITBOX_BOAT+5),g2d);
                 }
                 for (Boat boat : currentFleet.getArrayListBoat()){
                     paintEntity.paintSprite(boat.getPosition(),ImageStock.getImage(boat),g2d, boat.getAngle());
@@ -118,5 +132,13 @@ public class GameDisplay extends JPanel {
 
     public void setCurrentObject(Object currentObject) {
         this.currentObject = currentObject;
+    }
+
+    public boolean isFastPathMode() {
+        return fastPathMode;
+    }
+
+    public void setFastPathMode(boolean fastPathMode) {
+        this.fastPathMode = fastPathMode;
     }
 }

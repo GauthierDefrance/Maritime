@@ -9,6 +9,7 @@ import engine.data.entity.Entity;
 import engine.data.Fleet;
 import engine.data.entity.Harbor;
 import engine.data.entity.boats.*;
+import engine.data.graph.GraphPoint;
 import engine.data.trading.Resource;
 import engine.process.manager.FactionManager;
 import engine.data.trading.SeaRoad;
@@ -24,6 +25,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 import static gui.MainGUI.getWindow;
@@ -35,6 +38,7 @@ import static gui.MainGUI.getWindow;
  */
 public class MainGameMenu extends JPanel implements Runnable {
 
+    private boolean fastPathMode;
     private HashMap<Object, JButton> mapObject;
     private Object currentObject;
 
@@ -54,13 +58,11 @@ public class MainGameMenu extends JPanel implements Runnable {
     private JPanel jEastCenterChoice2CenterPanel;
     private JPanel jEastCenterChoice3CenterPanel1;
     private JPanel jEastCenterChoice3CenterPanel2;
-    private JPanel jEastPanel;
 
     private JPanel jEastCenterCenterPanel;
     private JPanel jEastCenterPanelChoice1;
     private JPanel jEastCenterPanelChoice2;
     private JPanel jEastCenterPanelChoice3;
-    private JPanel jEastCenterPanelChoice4;
 
 
     private JButton showLeftMenuButton;
@@ -69,7 +71,6 @@ public class MainGameMenu extends JPanel implements Runnable {
     private JButton jButtonLeftMenu1;
     private JButton jButtonLeftMenu2;
     private JButton jButtonLeftMenu3;
-    private JButton jButtonLeftMenu4;
 
     private JButton jButtonNorthMenu1;
     private JButton jButtonNorthMenu2;
@@ -91,15 +92,16 @@ public class MainGameMenu extends JPanel implements Runnable {
 
     private void init() {
         this.setLayout(new BorderLayout());
+        jPopupMenu = JComponentFactory.voidPopupMenu();
+        jPopupMenu.setLayout(new GridLayout(1, 0));
         jLayeredPane = JComponentFactory.JLayeredPane();
         jPanelATH = JComponentFactory.borderMenuPanel();
         jEastATHPanel = JComponentFactory.borderMenuPanel();
         dashboardJPanel = JComponentFactory.borderMenuPanel();
         jSouthATHPanel = JComponentFactory.borderMenuPanel();
-        jSouthEastPanel = JComponentFactory.gridMenuPanel(0,1,GameConfiguration.BUTTON_SEPARATOR,GameConfiguration.BUTTON_SEPARATOR);
+        jSouthEastPanel = JComponentFactory.gridMenuPanel(2,2,0,GameConfiguration.BUTTON_SEPARATOR);
         jNorthATHPanel = JComponentFactory.borderMenuPanel();
         jNorthEastPanel = JComponentFactory.gridMenuPanel(1,4,0,0);
-        jEastPanel = JComponentFactory.borderMenuPanel();
         jSouthATHPanelCenter = JComponentFactory.gridMenuPanel(2,0);
         jEastCenterChoice1CenterPanel = JComponentFactory.gridMenuPanel(0,2);
         jEastCenterChoice2CenterPanel = JComponentFactory.gridMenuPanel(0,2);
@@ -109,16 +111,16 @@ public class MainGameMenu extends JPanel implements Runnable {
         jEastCenterPanelChoice1 = JComponentFactory.borderMenuPanel();
         jEastCenterPanelChoice2 = JComponentFactory.borderMenuPanel();
         jEastCenterPanelChoice3 = JComponentFactory.borderMenuPanel();
-        jEastCenterPanelChoice4 = JComponentFactory.borderMenuPanel();
         jButtonLeftMenu1 = JComponentFactory.menuButton("1",new showMenu(jEastCenterPanelChoice1,jEastCenterCenterPanel));
         jButtonLeftMenu2 = JComponentFactory.menuButton("2",new showMenu(jEastCenterPanelChoice2,jEastCenterCenterPanel));
         jButtonLeftMenu3 = JComponentFactory.menuButton("3",new showMenu(jEastCenterPanelChoice3,jEastCenterCenterPanel));
-        jButtonLeftMenu4 = JComponentFactory.menuButton("4",new showMenu(jEastCenterPanelChoice4,jEastCenterCenterPanel));
         jNorthATHLabel = JComponentFactory.title("    "+MapGame.getInstance().getPlayer().getCurrency().getName()+" : "+MapGame.getInstance().getPlayer().getAmountCurrency()+"   Harbor : "+MapGame.getInstance().getPlayer().getLstHarbor().size()+"/"+MapGame.getInstance().getLstHarbor().size());
         dashboard = new GameDisplay();
         mapObject = new HashMap<>();
+        fastPathMode = false;
 
         //Window arrangement
+        JPanel jEastPanel = JComponentFactory.borderMenuPanel();
         JPanel jEastWestPanel = JComponentFactory.borderMenuPanel();
         JPanel jEastButtonPanel = JComponentFactory.borderMenuPanel();
         JPanel jEastCenterPanel = JComponentFactory.borderMenuPanel();
@@ -146,6 +148,8 @@ public class MainGameMenu extends JPanel implements Runnable {
         }
         jSouthEastPanel.add(JComponentFactory.menuButton("Harbor Menu",new goHarborMenuListener()));
         jSouthEastPanel.add(JComponentFactory.menuButton("Fleet Menu",new  goFleetMenuListener()));
+        jSouthEastPanel.add(JComponentFactory.menuButton("Faction Menu",new  goFactionMenuListener()));
+        jSouthEastPanel.add(JComponentFactory.menuButton("Pause Menu",new  goPauseMenuListener()));
 
         JScrollPane jScrollPane1 = JComponentFactory.ScrollPaneMenuPanel(jEastCenterChoice1CenterPanel);
         jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -214,7 +218,6 @@ public class MainGameMenu extends JPanel implements Runnable {
         jEastCenterChoice2CenterPanel.setBackground(Color.GRAY);
         jEastCenterChoice3CenterPanel1.setBackground(Color.GRAY);
         jEastCenterChoice3CenterPanel2.setBackground(Color.GRAY);
-        jNorthATHLabel.setHorizontalAlignment(SwingConstants.CENTER);
         jNorthATHLabel.setForeground(Color.lightGray);
 
         this.add(jLayeredPane);
@@ -238,6 +241,7 @@ public class MainGameMenu extends JPanel implements Runnable {
         jSouthATHPanel.setPreferredSize(new Dimension(getWindow().getWidth(),(int) (getWindow().getHeight()*0.15)));
         jSouthEastPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.20-Math.max(26,getWindow().getHeight()*0.04)),getWindow().getHeight()));
 
+        jPopupMenu.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.08), (int) (getWindow().getHeight()*0.03)));
         jEastATHPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.20),getWindow().getHeight()));
         if (jEastATHPanel.isAncestorOf(showLeftMenuButton))jEastATHPanel.setPreferredSize(new Dimension((int) Math.max(26,getWindow().getHeight()*0.04), (int) Math.max(26,getWindow().getHeight()*0.04)));
         showLeftMenuButton.setPreferredSize(new Dimension((int) Math.max(26,getWindow().getHeight()*0.04), (int) Math.max(26,getWindow().getHeight()*0.04)));
@@ -288,16 +292,48 @@ public class MainGameMenu extends JPanel implements Runnable {
         currentJButton = mapObject.get(object);
         if(currentJButton!=null) currentJButton.setBackground(new Color(125, 130, 200));
         currentObject = object;
+        fastPathMode = false;
+        dashboard.setFastPathMode(false);
         dashboard.setCurrentObject(currentObject);
         repaintUpdate();
     }
 
     private void repaintUpdate(){
         jSouthATHPanelCenter.removeAll();
+        jSouthATHPanelCenter.setLayout(new GridLayout(2,0));
         jNorthATHLabel.setText("    "+MapGame.getInstance().getPlayer().getCurrency().getName()+" : "+MapGame.getInstance().getPlayer().getAmountCurrency()+"   Harbor : "+MapGame.getInstance().getPlayer().getLstHarbor().size()+"/"+MapGame.getInstance().getLstHarbor().size());
         if(currentObject!= null){
             if (currentObject instanceof Boat){
                 Boat currentBoat = (Boat) currentObject;
+                JButton fastPath = JComponentFactory.menuButton("Fast path",new fastPathListenerListener());
+                JButton cancelChase = JComponentFactory.menuButton("Cancel the Chase",new  cancelChaseListener(currentBoat));
+                cancelChase.setEnabled(false);
+                if(MapGame.getInstance().getHunterPreyHashMap().containsKey(currentBoat))cancelChase.setEnabled(true);
+                JPanel tmpFastPath = JComponentFactory.borderMenuPanel();
+                tmpFastPath.setOpaque(false);
+                JPanel tmpCancelChase = JComponentFactory.borderMenuPanel();
+                tmpCancelChase.setOpaque(false);
+
+
+                Font font = new Font( "Noto Sans Display", Font.BOLD, 30);
+                JLabel tmpLabel1 = JComponentFactory.menuLabel("Level : " +currentBoat.getLevel());
+                tmpLabel1.setHorizontalAlignment(SwingConstants.CENTER);
+                tmpLabel1.setFont(font);
+                tmpLabel1.setForeground(Color.white);
+                JLabel tmpLabel2 = JComponentFactory.menuLabel("Health : "+currentBoat.getCurrentHp()+"/"+currentBoat.getMaxHp());
+                tmpLabel2.setHorizontalAlignment(SwingConstants.CENTER);
+                tmpLabel2.setFont(font);
+                tmpLabel2.setForeground(Color.white);
+
+                tmpFastPath.add(fastPath,BorderLayout.CENTER);
+                tmpFastPath.setBorder(new EmptyBorder((int)(getWindow().getHeight()*0.01),0,GameConfiguration.BUTTON_SEPARATOR/2,(int)(getWindow().getWidth()*0.22)));
+                tmpCancelChase.add(cancelChase,BorderLayout.CENTER);
+                tmpCancelChase.setBorder(new EmptyBorder(GameConfiguration.BUTTON_SEPARATOR/2,0,(int)(getWindow().getHeight()*0.01),(int)(getWindow().getWidth()*0.22)));
+
+                jSouthATHPanelCenter.add(tmpLabel1);
+                jSouthATHPanelCenter.add(tmpFastPath);
+                jSouthATHPanelCenter.add(tmpLabel2);
+                jSouthATHPanelCenter.add(tmpCancelChase);
             }
             else if (currentObject instanceof Harbor){
                 Harbor currentHarbor = (Harbor) currentObject;
@@ -314,10 +350,35 @@ public class MainGameMenu extends JPanel implements Runnable {
                     tmpLabel.setForeground(Color.white);
                     jSouthATHPanelCenter.add(tmpLabel);
                 }
-                jSouthATHPanel.add(jSouthATHPanelCenter,BorderLayout.CENTER);
             }
             else if (currentObject instanceof Fleet){
                 Fleet currentFleet = (Fleet) currentObject;
+                jSouthATHPanelCenter.setLayout(new GridLayout(1,1));
+                JPanel tmpBorderMenuPanel = JComponentFactory.gridMenuPanel(1,2);
+                JPanel tmpFastPath = JComponentFactory.borderMenuPanel();
+                tmpFastPath.setOpaque(false);
+                tmpBorderMenuPanel.setOpaque(false);
+
+
+                JLabel tmpLabel;
+                Font font = new Font( "Noto Sans Display", Font.BOLD, 30);
+                tmpLabel = JComponentFactory.menuLabel("Number of Boats : " +currentFleet.getArrayListBoat().size());
+                tmpLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                tmpLabel.setFont(font);
+                tmpLabel.setForeground(Color.white);
+
+                JButton fastPath = JComponentFactory.menuButton("Fast path",new fastPathListenerListener());
+                fastPath.setEnabled(true);
+                if(FactionManager.getInstance().getMySeaRoad(currentFleet) != null){
+                    fastPath.setEnabled(false);
+                    fastPath.setText("Fast path ( Is Combine with Sea-Road )");
+                }
+                tmpFastPath.add(fastPath,BorderLayout.CENTER);
+                tmpFastPath.setBorder(new EmptyBorder((int)(getWindow().getHeight()*0.03),0,(int)(getWindow().getHeight()*0.03),(int)(getWindow().getWidth()*0.22)));
+
+                tmpBorderMenuPanel.add(tmpLabel);
+                tmpBorderMenuPanel.add(tmpFastPath);
+                jSouthATHPanelCenter.add(tmpBorderMenuPanel);
             }
             else if (currentObject instanceof SeaRoad){
                 SeaRoad currentSeaRoad = (SeaRoad) currentObject;
@@ -332,7 +393,6 @@ public class MainGameMenu extends JPanel implements Runnable {
                     tmpLabel.setForeground(Color.white);
                     jSouthATHPanelCenter.add(tmpLabel);
                 }
-                jSouthATHPanel.add(jSouthATHPanelCenter,BorderLayout.CENTER);
             }
 
         }
@@ -340,9 +400,8 @@ public class MainGameMenu extends JPanel implements Runnable {
     }
 
 
-    private void ShowPopupMenu(int x, int y,Entity entity){
-        jPopupMenu = JComponentFactory.voidPopupMenu();
-        jPopupMenu.setLayout(new GridLayout(1, 0));
+    private void showPopupMenu(int x, int y, Entity entity){
+        jPopupMenu.removeAll();
         JButton tmp;
         if(entity instanceof Boat) {
             tmp = JComponentFactory.menuButton("attack", new setChaseListener(entity));
@@ -360,7 +419,7 @@ public class MainGameMenu extends JPanel implements Runnable {
 
             tmp = JComponentFactory.menuButton("attack", new setChaseListener(entity));
             tmp.setEnabled(false);
-            if(currentObject != null && currentObject instanceof Boat && !FactionManager.getInstance().doIHaveFleet((Boat)currentObject)){
+            if(currentObject != null && currentObject instanceof Boat && FactionManager.getInstance().doIHaveFleet((Boat)currentObject)){
                 tmp.setEnabled(true);
             }
             else if(currentObject != null && currentObject instanceof Fleet){
@@ -385,29 +444,6 @@ public class MainGameMenu extends JPanel implements Runnable {
             jPanel2.removeAll();
             jPanel2.add(jPanel1);
             sizeUpdate();
-        }
-    }
-
-    private class ComponentControls implements ComponentListener {
-
-        @Override
-        public void componentResized(ComponentEvent e) {
-            sizeUpdate();
-        }
-
-        @Override
-        public void componentMoved(ComponentEvent e) {
-
-        }
-
-        @Override
-        public void componentShown(ComponentEvent e) {
-
-        }
-
-        @Override
-        public void componentHidden(ComponentEvent e) {
-
         }
     }
 
@@ -451,6 +487,7 @@ public class MainGameMenu extends JPanel implements Runnable {
                     }
                 }
             }
+            repaintUpdate();
         }
     }
 
@@ -469,6 +506,22 @@ public class MainGameMenu extends JPanel implements Runnable {
             jButtonNorthMenu3.setEnabled(true);
             jButtonNorthMenu4.setEnabled(true);
             ((JButton)e.getSource()).setEnabled(false);
+        }
+    }
+
+    private class goPauseMenuListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ThreadStop = true;
+            GUILoader.loadPauseMenu(GameConfiguration.ROOT_MAIN_GAME,null);
+        }
+    }
+
+    private class goFactionMenuListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ThreadStop = true;
+            if(!MapGame.getInstance().getLstBotFaction().isEmpty()&&!MapGame.getInstance().getLstBotFaction().get(0).equals(MapGame.getInstance().getPirate()))GUILoader.loadRelationMenu(MapGame.getInstance().getLstBotFaction().get(0));
         }
     }
 
@@ -493,10 +546,34 @@ public class MainGameMenu extends JPanel implements Runnable {
         }
     }
 
+    private class fastPathListenerListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            fastPathMode = !fastPathMode;
+            dashboard.setFastPathMode(fastPathMode);
+        }
+    }
+
     private class flipTimeListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             MapGame.getInstance().setTimeStop(!MapGame.getInstance().isTimeStop());
+        }
+    }
+
+    private class cancelChaseListener implements ActionListener {
+        private Boat boat;
+
+        private cancelChaseListener(Boat boat) {
+            this.boat = boat;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(boat!=null){
+                MapGame.getInstance().getHunterPreyHashMap().remove(boat);
+                ((JButton)e.getSource()).setEnabled(false);
+            }
         }
     }
 
@@ -520,14 +597,28 @@ public class MainGameMenu extends JPanel implements Runnable {
             Point point = ListenerBehaviorManager.create().clickLogic(MainGameMenu.this, e.getPoint());
             Boat boat = FactionManager.getInstance().getBoatManager().pointCollisionToMapBoat(point);
             Harbor harbor = FactionManager.getInstance().getHarborManager().pointCollisionToMapHarbor(point);
-            if(harbor != null){
+            if(fastPathMode){
+                fastPathMode = false;
+                dashboard.setFastPathMode(false);
+                GraphPoint graphPoint = SearchInGraph.pointCollisionToMapGraphPoint(point);
+                if (e.getButton() == MouseEvent.BUTTON1 && graphPoint != null) {
+                    if(currentObject != null && currentObject instanceof Boat){
+                        ((Boat)currentObject).setContinuePath(false);
+                        ((Boat)currentObject).setPath(SearchInGraph.findPath(((Boat)currentObject), graphPoint));
+                    }
+                    if(currentObject != null && currentObject instanceof Fleet){
+                        FactionManager.getInstance().getFleetManager().setNewPath(((Fleet)currentObject),new ArrayList<>(Collections.singleton(graphPoint)),false);
+                    }
+                }
+            }
+            else if(harbor != null){
                 if(MapGame.getInstance().getPlayer().getLstHarbor().contains(harbor)){
                     jEastCenterCenterPanel.removeAll();
                     jEastCenterCenterPanel.add(jEastCenterPanelChoice2);
                     changeCurrentJButton(harbor);
                 }
                 else {
-                    ShowPopupMenu(e.getX(),e.getY(),harbor);
+                    showPopupMenu(e.getX(),e.getY(),harbor);
                 }
             }
             else if(boat != null){
@@ -537,10 +628,33 @@ public class MainGameMenu extends JPanel implements Runnable {
                     changeCurrentJButton(boat);
                 }
                 else if(MapGame.getInstance().getPlayer().getVision().contains(boat)){
-                    ShowPopupMenu(e.getX(),e.getY(),boat);
+                    showPopupMenu(e.getX(),e.getY(),boat);
                 }
             }
             sizeUpdate();
+        }
+    }
+
+    private class ComponentControls implements ComponentListener {
+
+        @Override
+        public void componentResized(ComponentEvent e) {
+            sizeUpdate();
+        }
+
+        @Override
+        public void componentMoved(ComponentEvent e) {
+
+        }
+
+        @Override
+        public void componentShown(ComponentEvent e) {
+
+        }
+
+        @Override
+        public void componentHidden(ComponentEvent e) {
+
         }
     }
 
