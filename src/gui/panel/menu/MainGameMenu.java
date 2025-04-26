@@ -431,6 +431,12 @@ public class MainGameMenu extends JPanel implements Runnable {
             jPopupMenu.add(tmp);
             jPopupMenu.show(jPanelATH,x,y);
         }
+        else if (entity instanceof Harbor && !entity.getColor().isEmpty() && MapGame.getInstance().getPlayer().getLstHarbor().contains((Harbor) entity)) {
+            tmp = JComponentFactory.menuButton("Go in the Harbor", new ReturnInHarborListener((Harbor) entity));
+            if(currentObject != null && currentObject instanceof Boat && FactionManager.getInstance().doIHaveFleet((Boat) currentObject))tmp.setEnabled(false);
+            jPopupMenu.add(tmp);
+            jPopupMenu.show(jPanelATH,x,y);
+        }
         else if (entity instanceof Harbor && !entity.getColor().isEmpty()) {
             tmp = JComponentFactory.menuButton("faction", new RelationListener(entity));
             jPopupMenu.add(tmp);
@@ -583,6 +589,25 @@ public class MainGameMenu extends JPanel implements Runnable {
         }
     }
 
+    private class ReturnInHarborListener implements ActionListener {
+        private final Harbor harbor;
+
+        private ReturnInHarborListener(Harbor harbor) {
+            this.harbor = harbor;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(currentObject != null && currentObject instanceof Boat){
+                FactionManager.getInstance().getHarborManager().addBoatInHarbor(harbor, (Boat) currentObject);
+            }
+            if(currentObject != null && currentObject instanceof Fleet){
+                FactionManager.getInstance().getHarborManager().addFleetInHarbor(harbor, (Fleet) currentObject);
+            }
+        }
+
+    }
+
     private class LoadPauseMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -682,6 +707,10 @@ public class MainGameMenu extends JPanel implements Runnable {
                 GraphPoint graphPoint = SearchInGraph.pointCollisionToMapGraphPoint(point);
                 if (e.getButton() == MouseEvent.BUTTON1 && graphPoint != null) {
                     if(currentObject != null && currentObject instanceof Boat){
+                        Harbor tmpHarbor = FactionManager.getInstance().getMyHarbor((Boat) currentObject);
+                        if(tmpHarbor != null && tmpHarbor.getHashMapBoat().get((Boat) currentObject)){
+                            FactionManager.getInstance().getHarborManager().removeBoatInHarbor(tmpHarbor,(Boat) currentObject);
+                        }
                         ((Boat)currentObject).setContinuePath(false);
                         ((Boat)currentObject).setPath(SearchInGraph.findPath(((Boat)currentObject), graphPoint));
                     }
@@ -692,11 +721,19 @@ public class MainGameMenu extends JPanel implements Runnable {
             }
             else if(harbor != null){
                 if(MapGame.getInstance().getPlayer().getLstHarbor().contains(harbor)){
-                    jEastCenterCenterPanel.removeAll();
-                    jEastCenterCenterPanel.add(jEastCenterPanelChoice2);
-                    changeCurrentJButton(harbor);
+                    if(e.getButton() == MouseEvent.BUTTON3  && currentObject != null && currentObject instanceof Boat && !harbor.getHashMapBoat().containsKey((Boat) currentObject)){
+                        showPopupMenu(e.getX(),e.getY(),harbor);
+                    }
+                    else if(e.getButton() == MouseEvent.BUTTON3  && currentObject != null && currentObject instanceof Fleet){
+                        showPopupMenu(e.getX(),e.getY(),harbor);
+                    }
+                    else {
+                        jEastCenterCenterPanel.removeAll();
+                        jEastCenterCenterPanel.add(jEastCenterPanelChoice2);
+                        changeCurrentJButton(harbor);
+                    }
                 }
-                else {
+                else if(e.getButton() == MouseEvent.BUTTON1){
                     showPopupMenu(e.getX(),e.getY(),harbor);
                 }
             }
@@ -706,7 +743,7 @@ public class MainGameMenu extends JPanel implements Runnable {
                     jEastCenterCenterPanel.add(jEastCenterPanelChoice1);
                     changeCurrentJButton(boat);
                 }
-                else if(MapGame.getInstance().getPlayer().getVision().contains(boat)){
+                else if(e.getButton() == MouseEvent.BUTTON3 && MapGame.getInstance().getPlayer().getVision().contains(boat)){
                     showPopupMenu(e.getX(),e.getY(),boat);
                 }
             }
