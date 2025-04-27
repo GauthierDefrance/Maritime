@@ -211,7 +211,7 @@ public class FleetMenu extends JPanel {
             JButton combineCurrent = JComponentFactory.menuButton("Combine",new CombineCurrentListener());
             combineCurrent.setEnabled(false);
             if(activeSeaRoad != null && activeFleet != null && !activeSeaRoad.getFleet().equals(activeFleet))combineCurrent.setEnabled(true);
-            SeaRoadButton.setText("Fleet");
+            SeaRoadButton.setText("Fleet Menu");
             jPanelGrid.add(removeCurrent);
             jPanelGrid.add(combineCurrent);
             JButton pathButton = JComponentFactory.menuButton("path",new SetPathListener(activeSeaRoad));
@@ -223,7 +223,7 @@ public class FleetMenu extends JPanel {
         }
         else {
             if(activeFleet!=null)removeCurrent.setEnabled(true);
-            SeaRoadButton.setText("Sea-Road");
+            SeaRoadButton.setText("Sea-Road Menu");
             JButton NewFleet = JComponentFactory.menuButton("New Fleet",new NewFleetListener());
             jPanelGrid.add(removeCurrent);
             jPanelGrid.add(NewFleet);
