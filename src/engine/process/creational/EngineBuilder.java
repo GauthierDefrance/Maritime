@@ -236,8 +236,6 @@ public class EngineBuilder {
         MapGame.getInstance().setLstBotFaction(lstBotFaction);
         MapGame.getInstance().setPlayer(player);
 
-        MusicManager.getInstance().actualizeMusicPlayers();
-
         return MapGame.getInstance();
     }
 
@@ -577,8 +575,6 @@ public class EngineBuilder {
             }
         }
 
-        MusicManager.getInstance().actualizeMusicPlayers();
-
         MapGame.getInstance();
     }
 
@@ -654,7 +650,8 @@ public class EngineBuilder {
             }
         }
 
-
+        MusicManager.getInstance().playerMusic(0);
+        MusicManager.getInstance().playerMusic(1);
     }
 
 }

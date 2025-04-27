@@ -7,6 +7,8 @@ import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 
+import static config.GameConfiguration.MUSIC_FILE_PATH;
+
 /**
  * This class manage one music played at a time.
  * This class is pretty generic and relay a lot on the javax.sound.sampled library.
@@ -15,15 +17,30 @@ import java.io.IOException;
  * @version 0.1
  */
 public class MusicPlayer {
+    private static Logger logger = LoggerUtility.getLogger(MusicPlayer.class);
     private Clip clip;
     private Boolean loop=false;
     private String filename;
 
-    private static Logger logger = LoggerUtility.getLogger(MusicPlayer.class);
+
+    /**
+     * Method that create an object MusicPlayer with a specific name like : my_music.wav
+     * @param filename the full name with extension of the file
+     * @param loop {@link Boolean} that indicate if the music player should be in looping mode.
+     */
+    public MusicPlayer(String filename, Boolean loop) {
+        File fichier = new File(MUSIC_FILE_PATH+filename);
+        if(fichier.exists()) {
+            this.load(MUSIC_FILE_PATH+filename);
+            this.loop = loop;
+        }
+        else {
+            logger.warn("The file couldn't be created : " + MUSIC_FILE_PATH+filename);
+        }
+    }
 
     /**
      * Method that load in memory a music .waw from a given path
-     * @param filePath
      */
     public void load(String filePath) {
         this.filename = null;
@@ -50,6 +67,7 @@ public class MusicPlayer {
         if (clip != null) {
             clip.setFramePosition(0);
             clip.start();
+            if (loop) doLoop();
         }
     }
 
@@ -114,7 +132,7 @@ public class MusicPlayer {
     /**
      * Set the player in the loop mode.
      */
-    public void loop() {
+    public void doLoop() {
         loop=true;
         if (clip != null) {
             clip.loop(Clip.LOOP_CONTINUOUSLY);

@@ -14,10 +14,12 @@ import java.util.HashMap;
  */
 public class MusicManager {
     private static MusicManager instance;
-    private HashMap<String, MusicPlayer> musicPlayersMap;
+    private MusicPlayer[] musicPlayers;
 
     private MusicManager() {
-        musicPlayersMap = new HashMap<>();
+        musicPlayers = new MusicPlayer[2];
+        musicPlayers[0] = new MusicPlayer("Killing_in_the_Name.wav",true);
+        musicPlayers[1] = new MusicPlayer("declare_war.wav", true);
     }
 
     /**
@@ -30,71 +32,27 @@ public class MusicManager {
         return instance;
     }
 
-
-    /**
-     * Method that add a music and play it.
-     * @param mp
-     */
-    public void addMusicPlayer(MusicPlayer mp) {
-        if(mp!=null) {
-            //Delete the old music with same name
-            if(musicPlayersMap.containsKey(mp.getFilename())){
-                MusicPlayer old = musicPlayersMap.get(mp.getFilename());
-                old.stop();
-                old.close();
-            }
-            //Create new music
-            musicPlayersMap.put(mp.getFilename(),mp);
-            if(!GameOptions.getInstance().getIsMuted()){
-                mp.setVolume(0);
-            } else {
-                mp.setVolume(((float) GameOptions.getInstance().getVolume() )/10);
-            }
-            mp.play();
-        }
-    }
-
-    /**
-     * Method that kill a specific music given a filename.
-     * @param filename
-     */
-    public void killMusicPlayer(String filename) {
-        MusicPlayer mp = musicPlayersMap.get(filename);
-        mp.stop();
-        mp.close();
-        musicPlayersMap.remove(filename);
-    }
-
     /**
      * Method that kill all the musics that has ended.
      * and actualize the volume of the remaining one.
      */
     public void actualizeMusicPlayers() {
-        ArrayList<MusicPlayer> copyLst = new ArrayList<MusicPlayer>();
-        copyLst.addAll(musicPlayersMap.values());
-        for (MusicPlayer mp : copyLst) {
-            if(mp.isFinished() && !mp.isLooping()) {
-                killMusicPlayer(mp.getFilename());
-            } else {
-                if(!GameOptions.getInstance().getIsMuted()){
-                    mp.setVolume(0);
-                } else {
-                    mp.setVolume(((float) GameOptions.getInstance().getVolume() )/10);
-                }
-
+        for (MusicPlayer mp : musicPlayers) {
+            if(mp != null) {
+                if (!GameOptions.getInstance().getIsMuted()) mp.setVolume(0);
+                else mp.setVolume(((float) GameOptions.getInstance().getVolume()) / 10);
             }
         }
     }
 
-
     /**
-     * Methode that kill all the existing music
+     * Methode that pause all the existing music that Loop
      */
-    public void killAllMusicPlayers() {
-        ArrayList<MusicPlayer> copyLst = new ArrayList<MusicPlayer>();
-        copyLst.addAll(musicPlayersMap.values());
-        for (MusicPlayer mp : copyLst) {
-            killMusicPlayer(mp.getFilename());
+    public void pauseAllMusicPlayersLoop() {
+        for (MusicPlayer mp : musicPlayers) {
+            if(mp != null && mp.isLooping()) {
+                mp.pause();
+            }
         }
     }
 
@@ -102,10 +60,10 @@ public class MusicManager {
      * Methode that pause all the existing music
      */
     public void pauseAllMusicPlayers() {
-        ArrayList<MusicPlayer> copyLst = new ArrayList<MusicPlayer>();
-        copyLst.addAll(musicPlayersMap.values());
-        for (MusicPlayer mp : copyLst) {
-            pauseMusicPlayer(mp.getFilename());
+        for (MusicPlayer mp : musicPlayers) {
+            if(mp != null) {
+                mp.pause();
+            }
         }
     }
 
@@ -113,30 +71,31 @@ public class MusicManager {
      * Methode that resume all the existing music
      */
     public void resumeAllMusicPlayers() {
-        ArrayList<MusicPlayer> copyLst = new ArrayList<MusicPlayer>();
-        copyLst.addAll(musicPlayersMap.values());
-        for (MusicPlayer mp : copyLst) {
-            resumeMusicPlayer(mp.getFilename());
+        for (MusicPlayer mp : musicPlayers) {
+            if(mp != null) {
+                mp.resume();
+            }
         }
     }
 
 
+    public void playerMusic(int i) {
+        if(musicPlayers[i] != null)musicPlayers[i].play();
+    }
 
     /**
      * Method that pause a specific music
-     * @param filename
      */
-    public void pauseMusicPlayer(String filename) {
-        musicPlayersMap.get(filename).pause();
+    public void pauseMusicPlayer(int i) {
+        if(musicPlayers[i] != null)musicPlayers[i].pause();
     }
 
 
     /**
      * Methode that unpause a specific music
-     * @param filename
      */
-    public void resumeMusicPlayer(String filename) {
-        musicPlayersMap.get(filename).resume();
+    public void resumeMusicPlayer(int i) {
+        if(musicPlayers[i] != null)musicPlayers[i].resume();
     }
 
 }

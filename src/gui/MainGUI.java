@@ -4,6 +4,7 @@ import config.GameConfiguration;
 import config.GameOptions;
 import gui.process.ImageStock;
 import gui.utilities.GUILoader;
+import music.MusicManager;
 import saveSystem.process.OptSaveManager;
 import test.Debug;
 
@@ -31,6 +32,7 @@ public class MainGUI extends JFrame {
         window = getContentPane();
         window.setLayout(new BorderLayout());
         GameOptions.setInstance(OptSaveManager.create().loadParamFile());
+        MusicManager.getInstance().actualizeMusicPlayers();
         setIconImage(ImageStock.getImages(0));
         setSize(GameConfiguration.WINDOW_SIZE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);

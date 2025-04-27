@@ -97,10 +97,6 @@ public class TestMove {
         MapGame.getInstance().getLstFaction().get(0).addSeaRoad(seaRoad2);
 
         MapGame.getInstance().setTimeStop(true);
-
-
-        MusicManager.getInstance().addMusicPlayer(MusicBuilder.createMusic("Killing_in_the_Name.wav",true));
-        MusicManager.getInstance().addMusicPlayer(MusicBuilder.createMusic("declare_war.wav", true));
     }
 
 }
