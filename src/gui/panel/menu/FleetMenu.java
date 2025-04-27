@@ -121,9 +121,9 @@ public class FleetMenu extends JPanel {
     }
 
     private void sizeUpdate() {
-        gridPanel1.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.17), (int) (getWindow().getHeight()*(0.09* (gridPanel1.getComponentCount())))));
-        gridPanel2.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.17), (int) (getWindow().getHeight()*(0.09* (gridPanel2.getComponentCount())))));
-        gridPanel3.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.17), (int) (getWindow().getHeight()*(0.09* (gridPanel3.getComponentCount())))));
+        gridPanel1.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.17), (int) (getWindow().getHeight()*(0.1* (gridPanel1.getComponentCount())))));
+        gridPanel2.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.17), (int) (getWindow().getHeight()*(0.1* (gridPanel2.getComponentCount())))));
+        gridPanel3.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.17), (int) (getWindow().getHeight()*(0.1* (gridPanel3.getComponentCount())))));
         jPanelCenter1.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.2), (int) (getWindow().getHeight()*0.8)));
         jPanelCenter2.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.2), (int) (getWindow().getHeight()*0.8)));
         jPanelCenter3.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.2), (int) (getWindow().getHeight()*0.8)));
