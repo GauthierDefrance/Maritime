@@ -33,7 +33,7 @@ public class FactionManager {
     private final FleetManager fleetManager;
     private final SeaRoadManager seaRoutManager;
     private boolean needUpdate;
-    private AbstractMap.SimpleEntry<Battle, Boolean> battleTime;
+    private AbstractMap.SimpleEntry<Battle, Boolean[]> battleTime;
 
 
     /**
@@ -75,9 +75,9 @@ public class FactionManager {
         return false;
     }
 
-    public AbstractMap.SimpleEntry<Battle, Boolean> needBattle(){
+    public AbstractMap.SimpleEntry<Battle, Boolean[]> needBattle(){
         if(battleTime != null){
-            AbstractMap.SimpleEntry<Battle, Boolean> tmp = battleTime;
+            AbstractMap.SimpleEntry<Battle, Boolean[]> tmp = battleTime;
             battleTime = null;
             return tmp;
         }
@@ -208,16 +208,14 @@ public class FactionManager {
     /**
      * Take two boats starts a fight if they are in contact cancels the chase if they are too far away
      */
-    public ArrayList<Boat> chaseUpdate(Boat hunter,Boat prey){
+    public AbstractMap.SimpleEntry<Battle, Boolean[]> chaseUpdate(Boat hunter, Boat prey){
         double distance = hunter.getPosition().distance(prey.getPosition());
         if(GameConfiguration.HITBOX_BOAT-5 >= distance){
             MapGame.getInstance().removeHunterPreyHashMap(hunter);
             hunter.clearPath();
             hunter.setNextGraphPoint(prey.getNextGraphPoint());
-            ArrayList<Boat> lst = new ArrayList<>();
-            lst.add(hunter);
-            lst.add(prey);
-            return lst;
+            playerManager.updatePlayerVision();
+            return new AbstractMap.SimpleEntry<>(startBattle(hunter,prey),new Boolean[]{MapGame.getInstance().getPlayer().getLstBoat().contains(hunter),(MapGame.getInstance().getPlayer().getVision().contains(hunter)||MapGame.getInstance().getPlayer().getVision().contains(prey))});
         }
         else{
             boolean flag = false;
@@ -238,12 +236,12 @@ public class FactionManager {
      * For all the boats that are on the chase starts a fight if they are in contact cancels the chase if they are too far away
      */
     public void allChaseUpdate(){
-        ArrayList<Boat> lst;
+        AbstractMap.SimpleEntry<Battle, Boolean[]> battle;
         HashMap<Boat, Boat> tmp = new HashMap<>(MapGame.getInstance().getHunterPreyHashMap());
         for (Boat boat : tmp.keySet()){
-            lst = chaseUpdate(boat,tmp.get(boat));
-            if(lst!=null){
-                battleTime = new AbstractMap.SimpleEntry<>(startBattle(lst.get(0),lst.get(1)),MapGame.getInstance().getPlayer().getLstBoat().contains(lst.get(0)));
+            battle = chaseUpdate(boat,tmp.get(boat));
+            if(battle!=null){
+                battleTime = battle;
                 break;
             }
         }
@@ -325,7 +323,7 @@ public class FactionManager {
                 break;
             }
         }
-        if(flag)battleTime = new AbstractMap.SimpleEntry<>(startBattle(boat,harbor),false);
+        if(flag)battleTime = new AbstractMap.SimpleEntry<>(startBattle(boat,harbor),new Boolean[]{false,true});
         else if((((int)(MapGame.getInstance().getTime()*10)) % (GameConfiguration.RELOAD_TIME_DAMAGE_HARBOR/boat.getDamageSpeed())) == 0){
             harbor.setCurrentHp(harbor.getCurrentHp() - GameConfiguration.DAMAGE_TAKEN);
             BufferedImage sprite = ImageStock.getImage(harbor);
@@ -469,7 +467,7 @@ public class FactionManager {
                 Boat newBoat = getRandomBoat(MapGame.getInstance().getPirate(), MapGame.getInstance().getMapGraphPoint().get(randomInt1),new ArrayList<>(Collections.singletonList(3)));
                 playerManager.updatePlayerVision();
                 int j = 0;
-                while (MapGame.getInstance().getPlayer().getVision().contains(newBoat) && j < 100) {
+                while (MapGame.getInstance().getPlayer().getVision().contains(newBoat) && j < 400) {
                     j++;
                     randomInt1 = random.nextInt(MapGame.getInstance().getMapGraphPoint().size() - 11) + 11;
                     newBoat.setPosition(MapGame.getInstance().getMapGraphPoint().get(randomInt1).getPoint());

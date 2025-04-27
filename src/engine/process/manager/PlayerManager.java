@@ -28,18 +28,22 @@ public class PlayerManager {
         for (Faction faction : MapGame.getInstance().getLstBotFaction()){
             for (Boat boat : faction.getLstBoat()){
                 for (Boat playerBoat : MapGame.getInstance().getPlayer().getLstBoat()){
-                    if(playerBoat.getVisionRadius() /2 >= boat.getPosition().distance(playerBoat.getPosition())){
-                        if(!vision.contains(boat)){vision.add(boat);}
+                    if(!vision.contains(boat)) {
+                        if (playerBoat.getVisionRadius() / 2 >= boat.getPosition().distance(playerBoat.getPosition())) {
+                            vision.add(boat);
+                            break;
+                        }
                     }
-                } /* Code Visibility can probably be improved but IDK */
-            }
-        }
-        for (Faction faction : MapGame.getInstance().getLstBotFaction()){
-            for (Boat boat : faction.getLstBoat()){
+                    else break;
+                }
                 for (Harbor harbor : MapGame.getInstance().getPlayer().getLstHarbor()){
-                    if(harbor.getVisionRadius() /2 >= boat.getPosition().distance(harbor.getPosition())){
-                        if(!vision.contains(boat)){vision.add(boat);}
+                    if(!vision.contains(boat)) {
+                        if (harbor.getVisionRadius() / 2 >= boat.getPosition().distance(harbor.getPosition())) {
+                            vision.add(boat);
+                            break;
+                        }
                     }
+                    else break;
                 }
             }
         }

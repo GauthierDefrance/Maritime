@@ -34,7 +34,7 @@ public class Debug extends JFrame{
         JButton giveResource = JComponentFactory.menuButton("GiveResource",new GiveResource());
 
         if(MapGame.getInstance().isTimeStop())timeStop.setText("TimeStop : true");
-        else timeStop.setText("timeStop : false");
+        else timeStop.setText("TimeStop : false");
         if(MapGame.getInstance().isGodMode())godMode.setText("GodMode : true");
         else godMode.setText("GodMode : false");
         if(MapGame.getInstance().isNoSpawnMode())noSpawnMode.setText("NoSpawnMode : true");
@@ -62,7 +62,7 @@ public class Debug extends JFrame{
             if(MapGame.getInstance().isTimeStop()) {
                 ((JButton)e.getSource()).setText("TimeStop : true");
             } else {
-                ((JButton)e.getSource()).setText("timeStop : false");
+                ((JButton)e.getSource()).setText("TimeStop : false");
             }
         }
     }

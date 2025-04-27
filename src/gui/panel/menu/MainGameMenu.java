@@ -296,10 +296,10 @@ public class MainGameMenu extends JPanel implements Runnable {
     private void needUpdate(){
         if(currentObject!= null){
             if (currentObject instanceof Harbor && !MapGame.getInstance().getPlayer().getLstHarbor().contains((Harbor)currentObject)){
-                currentObject = null;
+                changeCurrentJButton(null);
             }
             else if (currentObject instanceof SeaRoad && !MapGame.getInstance().getPlayer().getLstSeaRouts().contains((SeaRoad) currentObject)){
-                currentObject = null;
+                changeCurrentJButton(null);
             }
         }
         elementInPanelUpdate();
@@ -454,23 +454,10 @@ public class MainGameMenu extends JPanel implements Runnable {
         }
     }
 
-    private void wantFight(Battle battle,boolean ConfirmDialog){
+    private void wantFight(Battle battle,boolean ConfirmDialog ,boolean isFakeBattle){
         MapGame.getInstance().setTimeStop(true);
-        if(!battle.getFactionA().equals(MapGame.getInstance().getPlayer())&&!battle.getFactionA().equals(MapGame.getInstance().getPlayer())){
-            boolean flag = true;
-            for (Boat boat : battle.getTeamAOriginal().getArrayListBoat()){
-                if(MapGame.getInstance().getPlayer().getVision().contains(boat)){
-                    flag = false;
-                    break;
-                }
-            }
-            for (Boat boat : battle.getTeamBOriginal().getArrayListBoat()){
-                if(MapGame.getInstance().getPlayer().getVision().contains(boat)){
-                    flag = false;
-                    break;
-                }
-            }
-            if(flag){
+        if(!battle.getFactionA().equals(MapGame.getInstance().getPlayer())&&!battle.getFactionB().equals(MapGame.getInstance().getPlayer())){
+            if(!isFakeBattle){
                 BattleManager.fakeBattle(battle);
                 MapGame.getInstance().setTimeStop(false);
             }
@@ -494,6 +481,10 @@ public class MainGameMenu extends JPanel implements Runnable {
                 else {
                     BattleManager.fakeBattle(battle);
                     MapGame.getInstance().setTimeStop(false);
+                    elementInPanelUpdate();
+                    if(currentObject != null && currentObject instanceof Boat && !MapGame.getInstance().getPlayer().getLstBoat().contains((Boat) currentObject)){
+                        changeCurrentJButton(null);
+                    }
                 }
             }
             else {
@@ -802,7 +793,7 @@ public class MainGameMenu extends JPanel implements Runnable {
     @Override
     public void run() {
         while (!ThreadStop) {
-            AbstractMap.SimpleEntry<Battle, Boolean> tmp;
+            AbstractMap.SimpleEntry<Battle, Boolean[]> tmp;
             try {
                 Thread.sleep((long) GameConfiguration.GAME_SPEED/ GameOptions.getInstance().getSpeedBoost());
 
@@ -814,7 +805,7 @@ public class MainGameMenu extends JPanel implements Runnable {
                 if(FactionManager.getInstance().needUpdate())needUpdate();
                 else if((int)(MapGame.getInstance().getTime()*10)%10 == 1)repaintUpdate();
                 tmp = FactionManager.getInstance().needBattle();
-                if(tmp != null)wantFight(tmp.getKey(),tmp.getValue());
+                if(tmp != null)wantFight(tmp.getKey(),tmp.getValue()[0],tmp.getValue()[1]);
                 if(!endFlag&&FactionManager.getInstance().playerWin()){
                     endFlag = true;
                     JOptionPane.showMessageDialog(MainGameMenu.this,"You Win GG");
