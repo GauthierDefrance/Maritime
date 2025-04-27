@@ -160,7 +160,7 @@ public class FactionManager {
                 if(seaRoad.getTimer()<=0){
                     modifyRelationship(faction,getMyFaction(seaRoad.getTargetHarbor().getColor()),-10);
                 }
-                else if(seaRoad.getSelection().getValue()==-1||seaRoad.getDemand().getValue()==-1){
+                else if(seaRoad.getSelection().getValue()==-1&&seaRoad.getDemand().getValue()==-1){
                     modifyRelationship(getMyFaction(seaRoad.getTargetHarbor().getColor()),faction,-10);
                 }
                 else {
