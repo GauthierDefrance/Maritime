@@ -103,6 +103,14 @@ public class Inventory implements Serializable {
         this.content.put(elem, getNbResource(elem) - nb);
     }
 
+    /**
+     * Generates a string representation of the resource content.
+     * It iterates over the content and appends each resource's name and its quantity if the quantity is not zero.
+     * The output format is "resourceName quantity |", and the trailing " | " is removed before returning.
+     *
+     * @return {@link String} A formatted string representing the resource content.
+     */
+    @Override
     public String toString() {
         StringBuilder textResource = new StringBuilder();
         for (Resource resource : content.keySet()) {
@@ -113,7 +121,9 @@ public class Inventory implements Serializable {
                 textResource.append(" | ");
             }
         }
-        if(textResource.length()>2)textResource.delete(textResource.length()-2,textResource.length());
+        if (textResource.length() > 2) {
+            textResource.delete(textResource.length() - 2, textResource.length());
+        }
         return String.valueOf(textResource);
     }
     
