@@ -86,7 +86,6 @@ public class SeaRoadManager {
                     int temp = 0;
                     if(seaRoad.getRatio() < ((double)seaRoad.getDemand().getValue()) /((double)seaRoad.getSelection().getValue())) temp = 1;
                     double nbDemand = Math.min(seaRoad.getDemand().getValue(),Math.max(temp,NbResource * seaRoad.getRatio()));
-
                     seaRoad.addTime(2*(int) Math.max(NbResource, NbResource / seaRoad.getRatio()));
                     seaRoad.getSelection().setValue(seaRoad.getSelection().getValue()-NbResource);
                     seaRoad.getDemand().setValue(seaRoad.getDemand().getValue()-(int) nbDemand);
