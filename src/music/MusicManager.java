@@ -114,4 +114,8 @@ public class MusicManager {
         if(musicPlayers[i] != null && !musicPlayers[i].isPlaying())musicPlayers[i].resume();
     }
 
+    public MusicPlayer getMusicPlayer(int i) {
+        return musicPlayers[i];
+    }
+
 }

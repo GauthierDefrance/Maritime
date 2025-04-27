@@ -21,6 +21,7 @@ import gui.process.ListenerBehaviorManager;
 import gui.utilities.GUILoader;
 import gui.process.JComponentFactory;
 import log.LoggerUtility;
+import music.MusicManager;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -464,6 +465,7 @@ public class MainGameMenu extends JPanel implements Runnable {
             else if(JOptionPane.showConfirmDialog(MainGameMenu.this,"Do you want to watch the battle of "+battle.getFactionA().getName()+" VS "+battle.getFactionB().getName(),"confirmation Battle",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
                 FactionManager.getInstance().modifyRelationship(MapGame.getInstance().getPlayer(),battle.getFactionB(),-15);
                 ThreadStop = true;
+                MusicManager.getInstance().getMusicPlayer(4).getClip().setFramePosition(0);
                 GUILoader.loadCombat(battle);
             }
             else {
@@ -476,6 +478,7 @@ public class MainGameMenu extends JPanel implements Runnable {
                 if(JOptionPane.showConfirmDialog(MainGameMenu.this,"it's battle time ! (GodMode) ","confirmation Battle",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
                     FactionManager.getInstance().modifyRelationship(MapGame.getInstance().getPlayer(),battle.getFactionB(),-15);
                     ThreadStop = true;
+                    MusicManager.getInstance().getMusicPlayer(4).getClip().setFramePosition(0);
                     GUILoader.loadCombat(battle);
                 }
                 else {
@@ -490,12 +493,14 @@ public class MainGameMenu extends JPanel implements Runnable {
             else {
                 JOptionPane.showMessageDialog(MainGameMenu.this, "it's battle time !", "Battle", JOptionPane.PLAIN_MESSAGE);
                 ThreadStop = true;
+                MusicManager.getInstance().getMusicPlayer(4).getClip().setFramePosition(0);
                 GUILoader.loadCombat(battle);
             }
         }
         else if(JOptionPane.showConfirmDialog(MainGameMenu.this,"Do you want to start a battle ?","confirmation Battle",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
             FactionManager.getInstance().modifyRelationship(MapGame.getInstance().getPlayer(),battle.getFactionB(),-15);
             ThreadStop = true;
+            MusicManager.getInstance().getMusicPlayer(4).getClip().setFramePosition(0);
             GUILoader.loadCombat(battle);
         }
         else MapGame.getInstance().setTimeStop(false);

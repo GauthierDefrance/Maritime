@@ -14,6 +14,7 @@ import engine.data.trading.SeaRoad;
 import engine.utilities.SearchInGraph;
 import gui.PopUp;
 import gui.process.ImageStock;
+import music.MusicManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -598,6 +599,7 @@ public class FactionManager {
             if (uncheckedResult <= GameConfiguration.WAR_THRESHOLD) {
                 factionOwner.setRelationship(factionTarget, GameConfiguration.WAR_THRESHOLD);
                 warTime(factionTarget, factionOwner);
+                if(MapGame.getInstance().getPlayer().equals(factionTarget)) MusicManager.getInstance().playerMusic(5);
             }
             else factionOwner.setRelationship(factionTarget, Math.min(uncheckedResult, GameConfiguration.BFF_THRESHOLD));
         }
