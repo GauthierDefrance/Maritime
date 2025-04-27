@@ -4,7 +4,9 @@ import config.GameConfiguration;
 import engine.data.entity.Harbor;
 import engine.data.entity.boats.Boat;
 import engine.data.Fleet;
+import engine.data.faction.Faction;
 import engine.data.trading.SeaRoad;
+import engine.process.manager.FactionManager;
 import gui.PopUp;
 import log.LoggerUtility;
 import org.apache.log4j.Logger;
@@ -29,7 +31,7 @@ public class ImageStock {
 
     private ImageStock(){
         images = new BufferedImage[5];
-        tbSprite = new BufferedImage[6][6];
+        tbSprite = new BufferedImage[7][6];
         tbFramesSprite = new BufferedImage[6][GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES];
         try {
             images[0] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/fleet.png"));
@@ -75,6 +77,13 @@ public class ImageStock {
             tbSprite[5][1] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/destroy/fodder.png"));
             tbSprite[5][2] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/destroy/merchant.png"));
             tbSprite[5][3] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/boat/destroy/military.png"));
+
+            tbSprite[6][0] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/faction/faction.png"));
+            tbSprite[6][1] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/faction/red.png"));
+            tbSprite[6][2] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/faction/blue.png"));
+            tbSprite[6][3] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/faction/purple.png"));
+            tbSprite[6][4] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/faction/yellow.png"));
+            tbSprite[6][5] = ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/faction/green.png"));
 
             for (int i = 0; i < GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES; i++) {
                 tbFramesSprite[0][i] = (ImageIO.read(new File(GameConfiguration.IMG_FILE_PATH+"/background/background-"+i+".png")));
@@ -189,6 +198,43 @@ public class ImageStock {
         }
 
         return getTbSprite(4,j);
+    }
+
+    /**
+     * Allows you to choose the image to displayed
+     */
+    public static BufferedImage getImage(Faction faction){
+        int j = 0;
+        switch (faction.getColor()) {
+            case "red" :{
+                j=1;
+                break;
+            }
+            case "blue" :{
+                j=2;
+                break;
+            }
+            case "purple" :{
+                j=3;
+                break;
+            }
+            case "yellow" :{
+                j=4;
+                break;
+            }
+            case "green" :{
+                j=5;
+                break;
+            }
+            case "black" :{
+                j=0;
+                break;
+            }
+            default : {
+            }
+        }
+
+        return getTbSprite(6,j);
     }
 
     /**

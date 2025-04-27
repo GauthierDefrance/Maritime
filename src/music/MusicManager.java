@@ -45,7 +45,10 @@ public class MusicManager {
     public void actualizeMusicPlayers() {
         for (MusicPlayer mp : musicPlayers) {
             if(mp != null) {
-                if (!GameOptions.getInstance().getIsMuted()) mp.setVolume(0);
+                if (!GameOptions.getInstance().getIsMuted()) {
+                    mp.setVolume(0);
+                    mp.stop();
+                }
                 else mp.setVolume(((float) GameOptions.getInstance().getVolume()) / 10);
             }
         }

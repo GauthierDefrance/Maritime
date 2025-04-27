@@ -29,6 +29,8 @@ public class RelationMenu extends JPanel {
     private JButton declareWar;
     private JButton activeFactionButton;
 
+    private JLabel picture;
+
     public RelationMenu( Faction activeFaction ) {
         super();
         this.activeFaction = activeFaction;
@@ -45,6 +47,7 @@ public class RelationMenu extends JPanel {
         goBackButton = JComponentFactory.menuButton("Go back", new GoBackButtonListener());
         declareWar = JComponentFactory.menuButton("Declare War", new ProvokeListener());
         jButtonPanel = JComponentFactory.borderMenuPanel();
+        picture = JComponentFactory.title("");
 
         JPanel jPanelWest = JComponentFactory.borderMenuPanel();
         gridPanel = JComponentFactory.gridMenuPanel(0,1);
@@ -108,6 +111,7 @@ public class RelationMenu extends JPanel {
         declareWar.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.1), (int) (getWindow().getHeight()*0.08)));
         jButtonPanel.setPreferredSize(new Dimension((int) (getWindow().getWidth()*0.2), (int) (getWindow().getHeight()*0.08)));
         jButtonPanel.setBorder(new EmptyBorder((int) (getWindow().getHeight()*0.01),(int) (getWindow().getHeight()*0.015), (int) (getWindow().getHeight()*0.01),(int) (getWindow().getHeight()*0.015)));
+        picture.setBorder(new EmptyBorder((int) (getWindow().getHeight()*0.1),0, 0,0));
 
         getWindow().revalidate();
         getWindow().repaint();
@@ -138,14 +142,26 @@ public class RelationMenu extends JPanel {
     private void factionUpdate(){
         jPanelCenter.removeAll();
 
+        JPanel tmpGoBackButtonPanel = JComponentFactory.borderMenuPanel();
         JPanel goBackButtonPanel = JComponentFactory.voidPanel();
         goBackButtonPanel.add(goBackButton);
-        goBackButtonPanel.setBackground(Color.gray);
-        JLabel picture =JComponentFactory.title("Image Placeholder");
-         picture.setHorizontalAlignment(SwingConstants.CENTER);
+        goBackButtonPanel.setOpaque(false);
+        tmpGoBackButtonPanel.setOpaque(false);
+        tmpGoBackButtonPanel.add(goBackButtonPanel,BorderLayout.SOUTH);
+        picture = JComponentFactory.title("");
+        if(activeFaction != null){
+            picture = JComponentFactory.title(activeFaction.getName());
+            picture.setIcon( new ImageIcon(ImageStock.getImage(activeFaction)));
+        }
+        picture.setHorizontalAlignment(SwingConstants.CENTER);
+        picture.setHorizontalTextPosition(SwingConstants.CENTER);
+        picture.setVerticalTextPosition(SwingConstants.BOTTOM);
 
-        jPanelCenter.add(goBackButtonPanel,BorderLayout.SOUTH);
-        jPanelCenter.add(picture,BorderLayout.NORTH);
+        JPanel tmpPanelCenter = JComponentFactory.borderMenuPanel();
+        tmpPanelCenter.setOpaque(false);
+        tmpPanelCenter.add(picture,BorderLayout.CENTER);
+        jPanelCenter.add(tmpPanelCenter,BorderLayout.NORTH);
+        jPanelCenter.add(tmpGoBackButtonPanel,BorderLayout.CENTER);
         if(activeFaction.getRelationship(MapGame.getInstance().getPlayer()) <= GameConfiguration.WAR_THRESHOLD){
             declareWar.setText("it's war");
             declareWar.setEnabled(false);
@@ -153,10 +169,10 @@ public class RelationMenu extends JPanel {
         else {
             declareWar.setText("Declare War");
             declareWar.setEnabled(true);
-            JPanel tmpPanel = JComponentFactory.voidPanel();
+            JPanel tmpPanel = JComponentFactory.flowMenuPanel();
             tmpPanel.setBackground(Color.gray);
             tmpPanel.add(jButtonPanel);
-            jPanelCenter.add(tmpPanel,BorderLayout.CENTER);
+            tmpPanelCenter.add(tmpPanel,BorderLayout.SOUTH);
         }
         elementInPanelUpdate();
         sizeUpdate();
