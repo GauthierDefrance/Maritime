@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 /**
  * @author Kenan Ammad
- * @version 0.1
+ * @version 1.0
  */
 public class PopUp implements Serializable {
     private String name;

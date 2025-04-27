@@ -13,7 +13,7 @@ import java.util.HashMap;
  * Class representing Harbors : pivotal elements in gameplay serving as commercial and strategic points
  * @author Kenan Ammad
  * @author Zue Jack-Arthur
- * @version 0.2
+ * @version 1.0
  */
 public class Harbor implements Entity {
     private String name;

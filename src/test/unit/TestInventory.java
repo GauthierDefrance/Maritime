@@ -16,7 +16,7 @@ import java.awt.*;
  * Unit test that check if the inventory works as intended
  * @author Gauthier Defrance
  * Class TestInventory
- * @version 0.1
+ * @version 1.0
  */
 public class TestInventory {
     private Inventory inventory;

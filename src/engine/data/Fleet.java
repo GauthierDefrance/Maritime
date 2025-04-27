@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Class representing fleets : group of boats with common goals
  * @author Zue Jack-Arthur
  * @author Kenan Ammad
- * @version 0.2
+ * @version 1.0
  */
 public class Fleet implements Serializable {
     private ArrayList<Boat> lstBoats;

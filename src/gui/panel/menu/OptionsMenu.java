@@ -16,7 +16,7 @@ import static gui.MainGUI.getWindow;
 /**
  * options menu for the game
  * @author Zue Jack-Arthur
- * @version 0.6
+ * @version 1.0
  */
 public class OptionsMenu extends JPanel {
 

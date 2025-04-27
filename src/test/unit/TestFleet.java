@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
  * Unit test that check if a Fleet correctly receive moving order.
  * @author Gauthier Defrance
  * Class TestFleet
- * @version 0.1
+ * @version 1.0
  */
 public class TestFleet {
     private Fleet fleet;

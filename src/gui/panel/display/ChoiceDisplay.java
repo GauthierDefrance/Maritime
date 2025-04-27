@@ -17,8 +17,8 @@ import java.util.Map;
 
 /**
  * @author Kenan Ammad
- * Classe GameDisplay
- * @version 0.4
+ * Classe ChoiceDisplay
+ * @version 1.0
  */
 public class ChoiceDisplay extends JPanel {
 

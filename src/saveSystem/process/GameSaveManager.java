@@ -11,7 +11,7 @@ import java.io.*;
  * Class handling saving and loading Save Files
  * @see GameSave
  * @author Zue Jack-Arthur
- * @version 0.4
+ * @version 1.0
  */
 public class GameSaveManager {
 

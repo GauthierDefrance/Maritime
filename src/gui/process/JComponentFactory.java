@@ -20,7 +20,7 @@ import java.util.EventListener;
  * @author Zue Jack-Arthur
  * @author Kenan Ammad
  * @see Component
- * @version 0.6
+ * @version 1.0
  */
 public class JComponentFactory {
     private static Logger logger = LoggerUtility.getLogger(JComponentFactory.class);

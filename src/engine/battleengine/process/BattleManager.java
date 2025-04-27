@@ -8,7 +8,8 @@ import java.util.ArrayList;
 /**
  * Manager of the Battle class, manage how the battle go
  * @author Gauthier Defrance
- * @version 0.3
+ * @author Kenan Ammad
+ * @version 1.0
  */
 public class BattleManager {
 

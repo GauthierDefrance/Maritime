@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * @author Kenan Ammad
  * Classe SearchInGraph
- * @version 0.3
+ * @version 1.0
  */
 public final class SearchInGraph {
 

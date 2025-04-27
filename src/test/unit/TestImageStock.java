@@ -17,7 +17,7 @@ import java.awt.image.BufferedImage;
  * Unit test that check if some of the buffered Image from the ImageStock works.
  * @author Gauthier Defrance
  * Class TestImageStock
- * @version 0.1
+ * @version 1.0
  */
 public class TestImageStock {
     private ImageStock imageStock;

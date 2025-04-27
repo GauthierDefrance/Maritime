@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * @author Kenan Ammad
  * Classe PlayerManager
- * @version 0.1
+ * @version 1.0
  */
 public class PlayerManager {
 

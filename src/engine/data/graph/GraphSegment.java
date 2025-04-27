@@ -6,7 +6,7 @@ import java.io.Serializable;
  * @author Kenan Ammad
  * @author Gauthier Defrance
  * Classe GraphSegment
- * @version 0.2
+ * @version 1.0
  */
 public class GraphSegment implements Serializable {
     private final GraphPoint destination;

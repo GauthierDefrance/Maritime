@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 /**
  * @author Gauthier Defrance
- * @version 0.2
+ * @version 1
  */
 public final class DeepCopy {
     private static Logger logger = LoggerUtility.getLogger(DeepCopy.class);

@@ -9,7 +9,8 @@ import java.awt.*;
 /**
  * Manager of the hunting behavior
  * @author Gauthier Defrance
- * @version 0.3
+ * @author Kenan Ammad
+ * @version 1.0
  */
 public class HunterManager {
 

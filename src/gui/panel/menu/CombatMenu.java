@@ -26,9 +26,8 @@ import java.util.ArrayList;
 import static gui.MainGUI.getWindow;
 
 /**
- * Simple test start menu for the game, serves as the entrypoint of the program
  * @author Kenan Ammad
- * @version 0.2
+ * @version 1.0
  */
 public class CombatMenu extends JPanel implements Runnable {
 

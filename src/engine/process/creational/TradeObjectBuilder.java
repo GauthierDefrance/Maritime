@@ -2,6 +2,12 @@ package engine.process.creational;
 import engine.data.trading.Currency;
 import engine.data.trading.Resource;
 
+/**
+ * Class containing methods to build (TradeObject)
+ * @author Zue Jack-Arthur
+ * @author Kenan Ammad
+ * @version 1.0
+ */
 public class TradeObjectBuilder {
     private String name;
     private int value;

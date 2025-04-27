@@ -17,7 +17,7 @@ import static gui.MainGUI.getWindow;
 /**
  * A pause menu for the game
  * @author Zue Jack-Arthur
- * @version 0.2
+ * @version 1.0
  */
 public class PauseMenu extends JPanel {
 

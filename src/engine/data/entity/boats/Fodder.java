@@ -7,7 +7,7 @@ import engine.data.graph.GraphPoint;
  * class representing the extends type of Boats Fodder
  * @author Kenan Ammad
  * @author Zue Jack-Arthur
- * @version 0.2
+ * @version 1.0
  */
 public class Fodder extends Boat {
     public Fodder(String name,String color, GraphPoint position) {

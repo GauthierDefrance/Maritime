@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * A specific kind of Faction with specific information.
  * @author Kenan Ammad
  * Class Pirate
- * @version 0.1
+ * @version 1.0
  */
 public class Player extends Faction {
     private ArrayList<Boat> vision;

@@ -16,7 +16,7 @@ import java.util.HashMap;
  * @author Kenan Ammad
  * @author Zue Jack-Arthur
  * Classe Faction
- * @version 0.3
+ * @version 1.0
  */
 public class Faction implements Serializable {
     private ArrayList<Boat> lstBoat;

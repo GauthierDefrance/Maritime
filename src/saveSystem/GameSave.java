@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * In-game representation of a Save
  * @author Zue Jack-Arthur
- * @version 0.5
+ * @version 1.0
  */
 public class GameSave implements Serializable {
 

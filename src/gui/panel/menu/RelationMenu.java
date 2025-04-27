@@ -15,6 +15,10 @@ import java.awt.event.*;
 
 import static gui.MainGUI.getWindow;
 
+/**
+ * @author Kenan Ammad
+ * @version 1.0
+ */
 public class RelationMenu extends JPanel {
     private Faction activeFaction;
 

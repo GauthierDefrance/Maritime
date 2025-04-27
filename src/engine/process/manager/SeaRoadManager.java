@@ -17,7 +17,7 @@ import static java.lang.Math.min;
 
 /**
  * @author Kenan Ammad
- * @version 0.3
+ * @version 1.0
  */
 public class SeaRoadManager {
     private static final Logger log = Logger.getLogger(SeaRoadManager.class);

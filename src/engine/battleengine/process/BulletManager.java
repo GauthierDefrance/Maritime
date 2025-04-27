@@ -15,7 +15,8 @@ import java.util.Iterator;
 /**
  * Manager de classe utile pour gérer la partie déplacement et collisions des {@link Bullet}.
  * @author Gauthier Defrance
- * @version 0.3
+ * @author Kenan Ammad
+ * @version 1.0
  */
 public class BulletManager {
 

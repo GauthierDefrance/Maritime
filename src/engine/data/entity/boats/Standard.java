@@ -7,7 +7,7 @@ import engine.data.graph.GraphPoint;
  * class representing the extends type of Boats Standard
  * @author Kenan Ammad
  * @author Zue Jack-Arthur
- * @version 0.2
+ * @version 1.0
  */
 public class Standard extends Boat {
     public Standard(String name,String color, GraphPoint position) {

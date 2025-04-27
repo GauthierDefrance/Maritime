@@ -14,6 +14,10 @@ import java.awt.event.ActionListener;
 
 public class Debug extends JFrame{
 
+    /**
+     * @author Kenan Ammad
+     * @version 1.0
+     */
     public Debug(String title) {
         super(title);
         init();

@@ -38,7 +38,7 @@ import static gui.MainGUI.getWindow;
 /**
  * Simple test start menu for the game, serves as the entrypoint of the program
  * @author Kenan Ammad
- * @version 0.3
+ * @version 1.0
  */
 public class MainGameMenu extends JPanel implements Runnable {
 

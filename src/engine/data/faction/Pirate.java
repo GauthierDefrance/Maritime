@@ -5,7 +5,7 @@ package engine.data.faction;
  * @author Kenan Ammad
  * @author Zue Jack-Arthur
  * Class Pirate
- * @version 0.2
+ * @version 1.0
  */
 public class Pirate extends Faction {
 

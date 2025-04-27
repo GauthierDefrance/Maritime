@@ -15,7 +15,7 @@ import java.util.Collections;
  * @author Kenan Ammad
  * @author Zue Jack-Arthur
  * Classe BoatManager
- * @version 0.3
+ * @version 1.0
  */
 public class BoatManager {
 

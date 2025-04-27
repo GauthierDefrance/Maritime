@@ -16,7 +16,7 @@ import java.util.ArrayList;
 /**
  * @author Kenan Ammad
  * Classe BattleDisplay
- * @version 0.1
+ * @version 1.0
  */
 public class BattleDisplay extends JPanel {
 

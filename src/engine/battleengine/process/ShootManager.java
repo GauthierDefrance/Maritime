@@ -13,7 +13,8 @@ import java.util.ArrayList;
 /**
  * Class that manage the shoots of the {@link Boat}
  * @author Gauthier Defrance
- * @version 0.3
+ * @author Kenan Ammad
+ * @version 1.0
  */
 public class ShootManager {
 

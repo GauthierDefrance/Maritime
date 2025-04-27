@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * @author Kenan Ammad
  * @see FactionManager
- * @version 0.3
+ * @version 1.0
  */
 public class FleetManager {
 

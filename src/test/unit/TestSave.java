@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * Unit test that check if the save does indeed save data without loss
  * @author Gauthier Defrance
  * Class TestSave
- * @version 0.1
+ * @version 1.0
  */
 public class TestSave {
     private static final Logger logger = Logger.getLogger(TestSave.class);

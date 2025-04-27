@@ -7,7 +7,7 @@ import java.util.Objects;
  * Class relative to the notion of Resources : objects linked with the notion of inventory that can be transferred
  * @see Inventory
  * @author Zue Jack-Arthur
- * @version 0.3
+ * @version 1.0
  */
 public class Resource implements Serializable {
     private String name;

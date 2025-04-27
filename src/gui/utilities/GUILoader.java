@@ -16,7 +16,7 @@ import java.awt.*;
 /**
  * Handle changes between GUIs
  * @author Zue Jack-Arthur
- * @version 0.4
+ * @version 1.0
  */
 public class GUILoader {
 

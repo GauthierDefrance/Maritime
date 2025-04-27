@@ -29,8 +29,7 @@ import java.util.Random;
  * Class containing methods to build (Components)
  * @author Zue Jack-Arthur
  * @author Kenan Ammad
- * @see Component
- * @version 0.3
+ * @version 1.0
  */
 public class EngineBuilder {
     private static Logger logger = LoggerUtility.getLogger(EngineBuilder.class);

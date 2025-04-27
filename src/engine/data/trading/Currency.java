@@ -2,8 +2,9 @@ package engine.data.trading;
 
 /**
  * Class relative to the notion of Currency
- * @version 0.2
  * @author Zue Jack-Arthur
+ * @author Kenan Ammad
+ * @version 1.0
  */
 public class Currency extends Resource {
 

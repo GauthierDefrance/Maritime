@@ -5,8 +5,8 @@ import java.util.HashMap;
 
 /**
  * Class relative to the notion of Inventory : Managed Hashmap with (potentially) limited capacity
- * @version 0.2
  * @author Zue Jack-Arthur
+ * @version 1.0
  */
 public class Inventory implements Serializable {
 

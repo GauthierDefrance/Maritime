@@ -20,7 +20,7 @@ import java.util.ArrayList;
 /**
  * @author Kenan Ammad
  * Classe PaintEntity
- * @version 0.5
+ * @version 1.0
  */
 public class PaintEntity {
     /**

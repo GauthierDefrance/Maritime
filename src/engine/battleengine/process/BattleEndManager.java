@@ -14,7 +14,8 @@ import java.util.Iterator;
 /**
  * Manager of the BattleEnd class, manage the modification that may occur at the end of a battle.
  * @author Gauthier Defrance
- * @version 0.4
+ * @author Kenan Ammad
+ * @version 1.0
  */
 public class BattleEndManager {
 

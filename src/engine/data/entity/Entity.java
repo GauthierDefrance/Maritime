@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * Interface designed to handle interactions involving any kind of Entity indistinguishably when relevant
  * @author Zue Jack-Arthur
- * @version 0.2
+ * @version 1.0
  */
 public interface Entity extends Serializable {
 

@@ -28,7 +28,7 @@ import static gui.MainGUI.getWindow;
 /**
  * Thread based Menu allowing to select a Path or a couple of Harbor based on it's state
  * @author Kenan Ammad
- * @version 0.2
+ * @version 1.0
  */
 public class ChoicePathMenu extends JPanel implements Runnable {
 

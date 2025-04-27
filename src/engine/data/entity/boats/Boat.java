@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Abstract class representing boats without specificities
  * @author Kenan Ammad
  * @author Zue Jack-Arthur
- * @version 0.2
+ * @version 1.0
  */
 public abstract class Boat implements Entity {
     private String name;

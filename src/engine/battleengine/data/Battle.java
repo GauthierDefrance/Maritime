@@ -13,7 +13,7 @@ import java.util.HashMap;
  * Class that represents a Battle, it contains 2 Fleet that represent
  * the two team of enemy that will fight.
  * @author Gauthier Defrance
- * @version 0.4
+ * @version 1.0
  */
 public class Battle {
 

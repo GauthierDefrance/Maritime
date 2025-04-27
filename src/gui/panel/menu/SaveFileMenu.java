@@ -15,6 +15,10 @@ import java.util.ArrayList;
 
 import static gui.MainGUI.getWindow;
 
+/**
+ * @author Kenan Ammad
+ * @version 1.0
+ */
 public class SaveFileMenu extends JPanel {
 
     private final int state; //decide if we're in a loading (0) or saving (1) state

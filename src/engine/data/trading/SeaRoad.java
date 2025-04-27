@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 /**
  * @author Kenan Ammad
- * @version 0.2
+ * @version 1.0
  */
 public class SeaRoad implements Serializable {
     private String name;

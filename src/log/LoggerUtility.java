@@ -6,7 +6,7 @@ import org.apache.log4j.PropertyConfigurator;
 
 /**
  * Utility class used to generate Log4j logger.
- *
+ * @version 1.0
  */
 public class LoggerUtility {
 

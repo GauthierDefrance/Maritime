@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * Classe servant à la répresentation des boulets de canons tiré par les bateaux.
  * @author Gauthier Defrance
- * @version 0.3
+ * @version 1.0
  */
 public class Bullet {
 

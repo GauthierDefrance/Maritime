@@ -9,7 +9,8 @@ import java.awt.*;
 /**
  * Manager de classe utile pour gérer la partie placement des {@link Fleet}.
  * @author Gauthier Defrance
- * @version 0.3
+ * @author Kenan Ammad
+ * @version 1.0
  */
 public class PlacingManager {
 

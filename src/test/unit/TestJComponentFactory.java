@@ -11,7 +11,7 @@ import static org.junit.Assert.assertNotNull;
  * Unit test that check if the initialisation of JComponent works
  * @author Gauthier Defrance
  * Class TestJComponentFactory
- * @version 0.1
+ * @version 1.0
  */
 public class TestJComponentFactory {
 

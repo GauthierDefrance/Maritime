@@ -11,7 +11,8 @@ import java.util.Random;
 /**
  * A class handling how trades should work between Entities (and by extension Factions)
  * @author Zue Jack-Arthur
- * @version 0.4
+ * @author Kenan Ammad
+ * @version 1.0
  */
 public class TradeManager {
 

@@ -7,7 +7,7 @@ import java.awt.*;
 /**
  * @author Kenan Ammad
  * Classe PaintBackGround
- * @version 0.2
+ * @version 1.0
  */
 public class PaintBackGround {
     private int iFrame;

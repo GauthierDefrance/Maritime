@@ -12,7 +12,7 @@ import java.util.HashMap;
  * @author Kenan Ammad
  * @author Gauthier Defrance
  * @see GraphPoint
- * @version 0.2
+ * @version 1.0
  */
 public class GraphPoint implements Serializable {
     private final Point point;

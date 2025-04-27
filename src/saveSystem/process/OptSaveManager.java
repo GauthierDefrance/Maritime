@@ -9,7 +9,7 @@ import java.io.*;
 /**
  * Handle the loading and saving of GameOptions Objects for future use (ie user defined variable affecting game behaviors)
  * @author Zue Jack-Arthur
- * @version 0.3 -- logger may need fixes --
+ * @version 1.0
  */
 public class OptSaveManager {
 

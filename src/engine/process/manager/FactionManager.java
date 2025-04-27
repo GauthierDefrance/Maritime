@@ -24,7 +24,7 @@ import java.util.*;
  * Class Handling everything related directly to Factions in this game
  * @author Kenan Ammad
  * @author Zue Jack-Arthur
- * @version 0.6
+ * @version 1.0
  */
 public class FactionManager {
     public static FactionManager instance;

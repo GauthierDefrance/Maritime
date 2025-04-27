@@ -22,7 +22,7 @@ import static gui.MainGUI.getWindow;
  * Simple start menu for the game, serves as the visual entrypoint of the program
  * @author Zue Jack-Arthur
  * @author Kenan Ammad
- * @version 0.5
+ * @version 1.0
  */
 public class StartMenu extends JPanel implements Runnable {
 

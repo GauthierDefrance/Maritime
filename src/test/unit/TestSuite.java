@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
  * {@link TestJComponentFactory} and {@link TestSave}.
  * @author Gauthier Defrance
  * Class TestSuite
- * @version 0.1
+ * @version 1.0
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({TestFleet.class, TestGraph.class, TestImageStock.class, TestInventory.class, TestJComponentFactory.class, TestSave.class})

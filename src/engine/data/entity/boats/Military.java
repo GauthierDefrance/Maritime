@@ -7,7 +7,7 @@ import engine.data.graph.GraphPoint;
  * class representing the extends type of Boats Military
  * @author Kenan Ammad
  * @author Zue Jack-Arthur
- * @version 0.2
+ * @version 1.0
  */
 public class Military extends Boat {
     public Military(String name,String color, GraphPoint position) {

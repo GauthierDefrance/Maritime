@@ -16,6 +16,10 @@ import java.awt.event.*;
 
 import static gui.MainGUI.getWindow;
 
+/**
+ * @author Kenan Ammad
+ * @version 1.0
+ */
 public class FleetMenu extends JPanel {
 
     private boolean isInSeaRoadMode;

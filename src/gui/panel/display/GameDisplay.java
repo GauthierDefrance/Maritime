@@ -20,7 +20,7 @@ import java.util.ArrayList;
 /**
  * @author Kenan Ammad
  * Classe GameDisplay
- * @version 0.4
+ * @version 1.0
  */
 public class GameDisplay extends JPanel {
 

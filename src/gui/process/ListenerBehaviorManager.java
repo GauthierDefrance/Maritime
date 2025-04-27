@@ -17,7 +17,7 @@ import java.awt.*;
 /**
  * Store and allow the use of typical EventListener behaviors
  * @author Zue Jack-Arthur
- * @version 0.3
+ * @version 1.0
  */
 public class ListenerBehaviorManager {
     private static Logger logger = LoggerUtility.getLogger(JComponentFactory.class);
