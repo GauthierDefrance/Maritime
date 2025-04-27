@@ -1,7 +1,7 @@
 package gui.process;
 
 import config.GameConfiguration;
-import engine.MapGame;
+import engine.data.MapGame;
 import engine.battleengine.data.Bullet;
 import engine.data.entity.Harbor;
 import engine.data.entity.boats.Boat;
@@ -10,6 +10,7 @@ import engine.data.graph.GraphPoint;
 import engine.data.trading.SeaRoad;
 import gui.PopUp;
 import gui.panel.display.GameDisplay;
+import gui.utilities.ImageStock;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;

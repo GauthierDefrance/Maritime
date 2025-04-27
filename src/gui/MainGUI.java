@@ -2,7 +2,7 @@ package gui;
 
 import config.GameConfiguration;
 import config.GameOptions;
-import gui.process.ImageStock;
+import gui.utilities.ImageStock;
 import gui.utilities.GUILoader;
 import music.MusicManager;
 import saveSystem.process.OptSaveManager;

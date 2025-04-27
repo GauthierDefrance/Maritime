@@ -1,4 +1,4 @@
-package gui.process;
+package gui.utilities;
 
 import config.GameConfiguration;
 import engine.data.entity.Harbor;
@@ -6,8 +6,8 @@ import engine.data.entity.boats.Boat;
 import engine.data.Fleet;
 import engine.data.faction.Faction;
 import engine.data.trading.SeaRoad;
-import engine.process.manager.FactionManager;
 import gui.PopUp;
+import gui.process.PaintBackGround;
 import log.LoggerUtility;
 import org.apache.log4j.Logger;
 
@@ -19,7 +19,7 @@ import java.io.File;
 /**
  * @author Kenan Ammad
  * Classe ImageStock
- * @version 0.2
+ * @version 1.0
  */
 public class ImageStock {
 

@@ -4,7 +4,7 @@ import engine.battleengine.data.Battle;
 import engine.battleengine.data.Bullet;
 import engine.battleengine.utilities.BattlePlaceFleet;
 import config.GameConfiguration;
-import engine.MapGame;
+import engine.data.MapGame;
 import engine.data.Fleet;
 import engine.data.entity.Harbor;
 import engine.data.entity.boats.*;

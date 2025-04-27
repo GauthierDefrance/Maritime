@@ -1,7 +1,7 @@
 package gui.panel.menu;
 
 import config.GameConfiguration;
-import engine.MapGame;
+import engine.data.MapGame;
 import engine.data.entity.Harbor;
 import engine.data.entity.boats.*;
 import engine.data.trading.Resource;

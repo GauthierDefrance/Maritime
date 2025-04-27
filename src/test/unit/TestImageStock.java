@@ -6,7 +6,7 @@ import engine.data.entity.Harbor;
 import engine.data.entity.boats.Standard;
 import engine.data.graph.GraphPoint;
 import gui.PopUp;
-import gui.process.ImageStock;
+import gui.utilities.ImageStock;
 import org.junit.Before;
 import org.junit.Test;
 

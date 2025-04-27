@@ -1,5 +1,5 @@
 package engine.battleengine.data;
-import engine.MapGame;
+import engine.data.MapGame;
 import engine.battleengine.utilities.DeepCopy;
 import engine.data.entity.boats.Boat;
 import engine.data.Fleet;

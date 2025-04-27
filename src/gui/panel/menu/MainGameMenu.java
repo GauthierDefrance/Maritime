@@ -2,7 +2,7 @@ package gui.panel.menu;
 
 import config.GameConfiguration;
 import config.GameOptions;
-import engine.MapGame;
+import engine.data.MapGame;
 import engine.battleengine.data.Battle;
 import engine.battleengine.process.BattleManager;
 import engine.data.entity.Entity;

@@ -1,7 +1,7 @@
 package gui.panel.menu;
 
 import config.GameConfiguration;
-import engine.MapGame;
+import engine.data.MapGame;
 import engine.data.Fleet;
 import engine.data.entity.Harbor;
 import engine.data.faction.Faction;

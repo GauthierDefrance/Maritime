@@ -1,5 +1,7 @@
 package gui.process;
 
+import gui.utilities.ImageStock;
+
 import java.awt.*;
 
 /**

@@ -1,7 +1,7 @@
 package engine.utilities;
 
 import config.GameConfiguration;
-import engine.MapGame;
+import engine.data.MapGame;
 import engine.data.entity.boats.Boat;
 import engine.data.graph.GraphPoint;
 import engine.data.graph.GraphSegment;

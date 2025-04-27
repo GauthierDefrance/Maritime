@@ -6,7 +6,7 @@ import config.GameConfiguration;
 import engine.data.entity.boats.Boat;
 import engine.data.Fleet;
 import engine.process.manager.BoatManager;
-import engine.MapGame;
+import engine.data.MapGame;
 import gui.PopUp;
 
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package engine.process.manager;
 
 import config.GameConfiguration;
-import engine.MapGame;
+import engine.data.MapGame;
 import engine.data.entity.Harbor;
 import engine.data.entity.boats.Boat;
 import engine.data.faction.Faction;

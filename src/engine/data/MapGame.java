@@ -1,4 +1,4 @@
-package engine;
+package engine.data;
 
 import engine.data.entity.Harbor;
 import engine.data.entity.boats.Boat;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 /**
  * @author Kenan Ammad
- * @version 0.3
+ * @version 1.0
  */
 public class MapGame implements Serializable {
     private static MapGame instance;

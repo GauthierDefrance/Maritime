@@ -1,7 +1,7 @@
 package gui.panel.menu;
 
 import config.GameConfiguration;
-import engine.MapGame;
+import engine.data.MapGame;
 import engine.process.creational.EngineBuilder;
 import gui.PopUp;
 import gui.panel.display.GameDisplay;
@@ -10,7 +10,6 @@ import gui.process.JComponentFactory;
 import gui.process.ListenerBehaviorManager;
 import log.LoggerUtility;
 import org.apache.log4j.Logger;
-import test.TestMove;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
