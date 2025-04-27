@@ -248,12 +248,18 @@ public class FactionManager {
         }
     }
 
+    /**
+     * create a battle from two Boat by recovering their respective Fleet
+     */
     public Battle startBattle(Boat hunter, Boat prey){
         Fleet fleetHunter = getMyFleet(hunter);
         Fleet fleetPrey = getMyFleet(prey);
         return EngineBuilder.createBattle(getMyFaction(hunter.getColor()),getMyFaction(prey.getColor()),fleetHunter,fleetPrey);
     }
 
+    /**
+     * create a battle from a Boat and a Harbor by recovering their respective Fleet
+     */
     public Battle startBattle(Boat hunter, Harbor prey){
         Fleet fleetHunter = getMyFleet(hunter);
         ArrayList<Boat> lstBoat = new ArrayList<>();
@@ -262,6 +268,9 @@ public class FactionManager {
         return EngineBuilder.createBattle(getMyFaction(hunter.getColor()),getMyFaction(prey.getColor()),fleetHunter,fleetPrey);
     }
 
+    /**
+     * Starts Chase interactions for bot factions if needed
+     */
     public void startChase(){
         for(Faction hunterFaction : MapGame.getInstance().getLstBotFaction()){
             for(Boat hunter : hunterFaction.getLstBoat()) {
@@ -302,6 +311,9 @@ public class FactionManager {
         }
     }
 
+    /**
+     * performs all actions that must be done when declaring war
+     */
     public void warTime(Faction faction1,Faction faction2){
         for (SeaRoad seaRoad : faction1.getLstSeaRouts()){
             if(faction2.getLstHarbor().contains(seaRoad.getTargetHarbor()) || faction2.getLstHarbor().contains(seaRoad.getSellerHarbor())){
@@ -315,6 +327,9 @@ public class FactionManager {
         }
     }
 
+    /**
+     * Trying to damage a Harbor with a Boat and doing any actions accordingly can trigger a Battle
+     */
     public void dealDamageHarbor(Harbor harbor,Boat boat){
         Random random = new Random();
         boolean flag = false;
@@ -338,6 +353,9 @@ public class FactionManager {
         }
     }
 
+    /**
+     * manages all the actions that the bot need to take
+     */
     public void botsActions(){
         Random random = new Random();
         for(Faction botFaction : MapGame.getInstance().getLstBotFaction()){
@@ -458,7 +476,6 @@ public class FactionManager {
             }
         }
 
-
         if(MapGame.getInstance().getPirate().getLstBoat().size()<GameConfiguration.MAX_PIRATE_BOAT && (((int) (MapGame.getInstance().getTime() * 10)) % (GameConfiguration.GAME_FLEET_SPAWN_TIME/100)) == 1 && !MapGame.getInstance().isNoSpawnMode()){
             int randomInt1 = random.nextInt(MapGame.getInstance().getMapGraphPoint().size()-11)+11;
             int randomInt2 = random.nextInt(GameConfiguration.GAME_FLEET_PIRATE_SIZE)+1;
@@ -489,10 +506,16 @@ public class FactionManager {
         }
     }
 
+    /**
+     * return a random type Boat
+     */
     public Boat getRandomBoat(Faction faction, GraphPoint graphPoint){
         return getRandomBoat(faction,graphPoint,null);
     }
 
+    /**
+     * return a random type Boat
+     */
     public Boat getRandomBoat(Faction faction, GraphPoint graphPoint,ArrayList<Integer> nb){
         Random random = new Random();
         int randomInt = random.nextInt(4);
@@ -522,6 +545,9 @@ public class FactionManager {
         }
     }
 
+    /**
+     * removes all empty Fleet from a faction
+     */
     public void removeEmptyFleet(Faction faction){
         ArrayList<Fleet> tmp = new ArrayList<>(faction.getLstFleet());
         for (Fleet fleet : tmp){
@@ -567,6 +593,9 @@ public class FactionManager {
         return fleet;
     }
 
+    /**
+     * check if a Boat is in a Fleet
+     */
     public boolean doIHaveFleet(Boat boat){
         for(Fleet fleet : getMyFaction(boat.getColor()).getLstFleet()){
             if(fleet.getArrayListBoat().contains(boat)){
@@ -576,6 +605,9 @@ public class FactionManager {
         return false;
     }
 
+    /**
+     * check if Fleet associated with a SeaRoad
+     */
     public SeaRoad getMySeaRoad(Fleet fleet){
         for(SeaRoad seaRoad : getMyFaction(fleet).getLstSeaRouts()){
             if(seaRoad.getFleet().equals(fleet)){
@@ -585,6 +617,9 @@ public class FactionManager {
         return null;
     }
 
+    /**
+     * Gives the Harbor associated with a boat
+     */
     public Harbor getMyHarbor(Boat boat){
         Harbor harbor = null;
         for(Harbor harbor2 : getMyFaction(boat.getColor()).getLstHarbor()){
@@ -593,6 +628,9 @@ public class FactionManager {
         return harbor;
     }
 
+    /**
+     * change the relationship between two factions
+     */
     public void modifyRelationship(Faction factionTarget, Faction factionOwner, int value){
         if(!(factionTarget instanceof Pirate)) {
             int uncheckedResult = factionOwner.getRelationship(factionTarget) + value;
