@@ -1,6 +1,6 @@
 package engine.battleengine.process;
 
-import engine.MapGame;
+import engine.data.MapGame;
 import engine.battleengine.data.Battle;
 import engine.data.entity.boats.Boat;
 import engine.process.manager.FactionManager;

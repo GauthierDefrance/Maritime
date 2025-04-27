@@ -1,10 +1,10 @@
 package gui.panel.menu;
 
 import config.GameConfiguration;
-import engine.MapGame;
+import engine.data.MapGame;
 import engine.data.faction.Faction;
 import engine.process.manager.FactionManager;
-import gui.process.ImageStock;
+import gui.utilities.ImageStock;
 import gui.process.JComponentFactory;
 import gui.utilities.GUILoader;
 

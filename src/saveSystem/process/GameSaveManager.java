@@ -1,6 +1,6 @@
 package saveSystem.process;
 
-import engine.MapGame;
+import engine.data.MapGame;
 import gui.utilities.GUILoader;
 import org.apache.log4j.Logger;
 import saveSystem.GameSave;

@@ -1,12 +1,12 @@
 package gui.panel.display;
 
 import config.GameConfiguration;
-import engine.MapGame;
+import engine.data.MapGame;
 import engine.data.entity.Harbor;
 import engine.data.graph.GraphPoint;
 import engine.data.graph.GraphSegment;
 import gui.PopUp;
-import gui.process.ImageStock;
+import gui.utilities.ImageStock;
 import gui.process.PaintBackGround;
 import gui.process.PaintEntity;
 

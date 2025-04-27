@@ -6,14 +6,13 @@ import engine.data.entity.boats.Boat;
 import engine.data.entity.boats.Standard;
 import engine.data.faction.Player;
 import engine.data.graph.GraphPoint;
-import gui.panel.menu.ChoicePathMenu;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.AfterClass;
 
 import saveSystem.*;
-import engine.MapGame;
+import engine.data.MapGame;
 import saveSystem.process.GameSaveManager;
 
 import java.awt.*;

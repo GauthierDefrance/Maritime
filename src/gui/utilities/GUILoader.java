@@ -1,6 +1,6 @@
 package gui.utilities;
 
-import engine.MapGame;
+import engine.data.MapGame;
 import engine.battleengine.data.Battle;
 import engine.data.Fleet;
 import engine.data.entity.Harbor;

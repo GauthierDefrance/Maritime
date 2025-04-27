@@ -1,6 +1,6 @@
 package saveSystem;
 
-import engine.MapGame;
+import engine.data.MapGame;
 import java.io.Serializable;
 
 /**

@@ -3,10 +3,11 @@ package gui.panel.display;
 import engine.battleengine.data.Battle;
 import engine.battleengine.data.Bullet;
 import config.GameConfiguration;
-import engine.MapGame;
+import engine.data.MapGame;
 import engine.data.entity.boats.Boat;
 import gui.PopUp;
 import gui.process.*;
+import gui.utilities.ImageStock;
 
 import javax.swing.*;
 import java.awt.*;

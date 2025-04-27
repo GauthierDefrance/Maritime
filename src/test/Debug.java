@@ -1,10 +1,10 @@
 package test;
 
 import config.GameConfiguration;
-import engine.MapGame;
+import engine.data.MapGame;
 import engine.data.entity.Harbor;
 import engine.data.trading.Resource;
-import gui.process.ImageStock;
+import gui.utilities.ImageStock;
 import gui.process.JComponentFactory;
 
 import javax.swing.*;

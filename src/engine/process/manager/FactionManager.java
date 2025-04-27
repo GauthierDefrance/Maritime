@@ -1,7 +1,7 @@
 package engine.process.manager;
 
 import config.GameConfiguration;
-import engine.MapGame;
+import engine.data.MapGame;
 import engine.battleengine.data.Battle;
 import engine.data.entity.Harbor;
 import engine.data.entity.boats.*;
@@ -13,7 +13,7 @@ import engine.process.creational.EngineBuilder;
 import engine.data.trading.SeaRoad;
 import engine.utilities.SearchInGraph;
 import gui.PopUp;
-import gui.process.ImageStock;
+import gui.utilities.ImageStock;
 import music.MusicManager;
 
 import java.awt.*;
