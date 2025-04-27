@@ -638,8 +638,8 @@ public class EngineBuilder {
 
         for (Faction faction : MapGame.getInstance().getLstBotFaction()) {
             if(!faction.equals(MapGame.getInstance().getPirate())) {
-                if (faction.getAmountCurrency() < 1000) {
-                    faction.addAmountCurrency(100 * random.nextInt(50));
+                while (faction.getAmountCurrency() < 1000) {
+                    faction.addAmountCurrency(100 * (random.nextInt(50)+1));
                 }
                 for (Harbor harbor : faction.getLstHarbor()) {
                     while (TradeManager.getInstance().totalValue(harbor.getInventory()) < GameConfiguration.MAX_VALUE_IN_INVENTORY_BOT) {
