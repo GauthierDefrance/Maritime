@@ -161,7 +161,7 @@ public class SeaRoad implements Serializable {
      * @return {@link Boolean} True if the task is active, false otherwise.
      */
     public boolean isActive() {
-        return timer > 0 && (selection.getValue() > 0 || demand.getValue() > 0);
+        return timer >= 0 && (selection.getValue() >= 0 || demand.getValue() >=g 0);
     }
 
     /**
