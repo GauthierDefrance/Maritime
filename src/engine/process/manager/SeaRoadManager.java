@@ -83,13 +83,17 @@ public class SeaRoadManager {
             if(NbResource>max(0,(int)seaRoad.getRatio())){
                 if(TradeManager.getInstance().transfer(seaRoad.getSelection().getKey(),NbResource,boat, seaRoad.getTargetHarbor())) {
 
+                    int temp = 0;
+                    if(seaRoad.getRatio() < ((double)seaRoad.getDemand().getValue()) /((double)seaRoad.getSelection().getValue())) temp = 1;
+                    double nbDemand = Math.min(seaRoad.getDemand().getValue(),Math.max(temp,NbResource * seaRoad.getRatio()));
+
                     seaRoad.addTime(2*(int) Math.max(NbResource, NbResource / seaRoad.getRatio()));
                     seaRoad.getSelection().setValue(seaRoad.getSelection().getValue()-NbResource);
-                    seaRoad.getDemand().setValue(seaRoad.getDemand().getValue()-(int) (NbResource * seaRoad.getRatio()));
+                    seaRoad.getDemand().setValue(seaRoad.getDemand().getValue()-(int) nbDemand);
                     if (MapGame.getInstance().getPlayer().getLstBoat().contains(boat) || MapGame.getInstance().getPlayer().getLstHarbor().contains(seaRoad.getTargetHarbor())) MapGame.getInstance().addPopUp(new PopUp("+", new Point((int) boat.getPosition().getX(), (int) boat.getPosition().getY() - 10), GameConfiguration.NUMBER_OF_BACK_GROUND_FRAMES));
 
-                    if (!TradeManager.getInstance().transfer(seaRoad.getDemand().getKey(), (int) (NbResource * seaRoad.getRatio()), seaRoad.getTargetHarbor(), boat)) {
-                        if (TradeManager.getInstance().totalFreeSpace(boat.getInventory()) >= (int) (NbResource * seaRoad.getRatio())){
+                    if (!TradeManager.getInstance().transfer(seaRoad.getDemand().getKey(), (int) nbDemand, seaRoad.getTargetHarbor(), boat)) {
+                        if (TradeManager.getInstance().totalFreeSpace(boat.getInventory()) >= (int) nbDemand){
                             TradeManager.getInstance().transfer(seaRoad.getDemand().getKey(),seaRoad.getTargetHarbor().getInventory().getNbResource(seaRoad.getSelection().getKey()), seaRoad.getTargetHarbor(), boat);
                             TradeManager.getInstance().transfer(seaRoad.getSelection().getKey(),NbResource-seaRoad.getTargetHarbor().getInventory().getNbResource(seaRoad.getSelection().getKey()),seaRoad.getTargetHarbor(),boat);
                             seaRoad.abandonTask();
