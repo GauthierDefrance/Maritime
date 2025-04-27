@@ -10,6 +10,7 @@ import engine.process.manager.FactionManager;
 import engine.process.manager.TradeManager;
 import gui.process.JComponentFactory;
 import gui.utilities.GUILoader;
+import music.MusicManager;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -431,6 +432,7 @@ public class TradeMenu extends JPanel {
             SeaRoad seaRoad = new SeaRoad("",sellerHarbor,targetHarbor,sellerResource,targetResource,sellerResourceQuantity,targetResourceQuantity, GameConfiguration.SEAROAD_TIME+GameConfiguration.SEAROAD_TIME*(FactionManager.getInstance().getMyFaction(targetHarbor.getColor()).getRelationship(MapGame.getInstance().getPlayer()))/200);
             if(isMoveResource)seaRoad.setTime(GameConfiguration.SEAROAD_TIME*3);
             if(TradeManager.getInstance().conclude(seaRoad)||isMoveResource){
+                MusicManager.getInstance().playerMusic(6);
                 String name = JOptionPane.showInputDialog(TradeMenu.this,"      Success\nname the sea-Road");
                 if(name!=null && !name.isEmpty())seaRoad.setName(name);
                 else seaRoad.setName("SeaRoad"+MapGame.getInstance().getPlayer().getLstHarbor().size());
@@ -438,6 +440,7 @@ public class TradeMenu extends JPanel {
                 GUILoader.loadFleetMenu(seaRoad);
             }
             else {
+                MusicManager.getInstance().playerMusic(7);
                 JOptionPane.showMessageDialog(TradeMenu.this,"     Fail\nrelationship -10");
                 if(FactionManager.getInstance().getMyFaction(targetHarbor.getColor()).getRelationship(MapGame.getInstance().getPlayer()) <= GameConfiguration.WAR_THRESHOLD){
                     JOptionPane.showMessageDialog(TradeMenu.this,"GG it's War time");
