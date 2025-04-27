@@ -1,13 +1,12 @@
 package music;
 
+import config.GameConfiguration;
 import log.LoggerUtility;
 import org.apache.log4j.Logger;
 
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
-
-import static config.GameConfiguration.MUSIC_FILE_PATH;
 
 /**
  * This class manage one music played at a time.
@@ -29,13 +28,13 @@ public class MusicPlayer {
      * @param loop {@link Boolean} that indicate if the music player should be in looping mode.
      */
     public MusicPlayer(String filename, Boolean loop) {
-        File fichier = new File(MUSIC_FILE_PATH+filename);
+        File fichier = new File(GameConfiguration.MUSIC_FILE_PATH+filename);
         if(fichier.exists()) {
-            this.load(MUSIC_FILE_PATH+filename);
+            this.load(GameConfiguration.MUSIC_FILE_PATH+filename);
             this.loop = loop;
         }
         else {
-            logger.warn("The file couldn't be created : " + MUSIC_FILE_PATH+filename);
+            logger.warn("The file couldn't be created : " + GameConfiguration.MUSIC_FILE_PATH+filename);
         }
     }
 
