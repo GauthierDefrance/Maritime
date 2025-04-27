@@ -213,7 +213,7 @@ public final class GameConfiguration {
 
 
     //-------- Music Stats --------
-        public static final String MUSIC_FILE_PATH = "src/music/data/";
+        public static final String MUSIC_FILE_PATH = "src/music/files/";
 
     //--------------------------------
 
