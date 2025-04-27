@@ -33,52 +33,52 @@ public class GUILoader {
 
     public static void loadMainGame(){
         actualise(new MainGameMenu(),2);
-        MusicManager.getInstance().resumeMusicPlayer(2);
+        if(!MusicManager.getInstance().getMusicPlayer(2).isPlaying())MusicManager.getInstance().playerMusic(2);
     }
 
     public static void loadHarborMenu(Harbor harbor){
         actualise(new HarborMenu(harbor),3);
-        MusicManager.getInstance().resumeMusicPlayer(3);
+        if(!MusicManager.getInstance().getMusicPlayer(3).isPlaying())MusicManager.getInstance().playerMusic(3);
     }
 
     public static void loadFleetMenu(Fleet fleet){
         actualise(new FleetMenu(fleet),3);
-        MusicManager.getInstance().resumeMusicPlayer(3);
+        if(!MusicManager.getInstance().getMusicPlayer(3).isPlaying())MusicManager.getInstance().playerMusic(3);
     }
 
     public static void loadFleetMenu(SeaRoad seaRoad){
         actualise(new FleetMenu(seaRoad),3);
-        MusicManager.getInstance().resumeMusicPlayer(3);
+        if(!MusicManager.getInstance().getMusicPlayer(3).isPlaying())MusicManager.getInstance().playerMusic(3);
     }
 
     public static void loadPauseMenu(int token,Object object){
         actualise(new PauseMenu(token,object),1);
-        MusicManager.getInstance().resumeMusicPlayer(1);
+        if(!MusicManager.getInstance().getMusicPlayer(1).isPlaying())MusicManager.getInstance().playerMusic(1);
     }
 
     public static void loadStartMenu(){
         actualise(new StartMenu(),0);
-        MusicManager.getInstance().resumeMusicPlayer(0);
+        if(!MusicManager.getInstance().getMusicPlayer(0).isPlaying())MusicManager.getInstance().playerMusic(0);
     }
 
     public static void loadOptionsMenu(int token,Object object){
         actualise(new OptionsMenu(token,object),1);
-        MusicManager.getInstance().resumeMusicPlayer(1);
+        if(!MusicManager.getInstance().getMusicPlayer(1).isPlaying())MusicManager.getInstance().playerMusic(1);
     }
 
     public static void loadChargeGameMenu(int token, Object object){
         actualise(new SaveFileMenu(token, 0,object),1);
-        MusicManager.getInstance().resumeMusicPlayer(1);
+        if(!MusicManager.getInstance().getMusicPlayer(1).isPlaying())MusicManager.getInstance().playerMusic(1);
     }
 
     public static void loadSaveGameMenu(int token, Object object){
         actualise(new SaveFileMenu(token, 1,object),1);
-        MusicManager.getInstance().resumeMusicPlayer(1);
+        if(!MusicManager.getInstance().getMusicPlayer(1).isPlaying())MusicManager.getInstance().playerMusic(1);
     }
 
     public static void loadRelationMenu(Faction faction){
         actualise(new RelationMenu(faction),3);
-        MusicManager.getInstance().resumeMusicPlayer(3);
+        if(!MusicManager.getInstance().getMusicPlayer(3).isPlaying())MusicManager.getInstance().playerMusic(3);
     }
 
     public static void loadCombat(Battle battle){
@@ -89,21 +89,21 @@ public class GUILoader {
 
     public static void loadTradeMenu(Harbor sellerHarbor, Harbor targetHarbor){
         actualise(new TradeMenu(sellerHarbor,targetHarbor),3);
-        MusicManager.getInstance().resumeMusicPlayer(3);
+        if(!MusicManager.getInstance().getMusicPlayer(3).isPlaying())MusicManager.getInstance().playerMusic(3);
     }
 
     public static void loadChoicePathMenu(Faction faction){
         actualise(new ChoicePathMenu(faction),3);
-        MusicManager.getInstance().resumeMusicPlayer(3);
+        if(!MusicManager.getInstance().getMusicPlayer(3).isPlaying())MusicManager.getInstance().playerMusic(3);
     }
 
     public static void loadChoicePathMenu(SeaRoad seaRoad){
         actualise(new ChoicePathMenu(seaRoad),3);
-        MusicManager.getInstance().resumeMusicPlayer(3);
+        if(!MusicManager.getInstance().getMusicPlayer(3).isPlaying())MusicManager.getInstance().playerMusic(3);
     }
 
     public static void loadChoicePathMenu(Fleet fleet){
         actualise(new ChoicePathMenu(fleet),3);
-        MusicManager.getInstance().resumeMusicPlayer(3);
+        if(!MusicManager.getInstance().getMusicPlayer(3).isPlaying())MusicManager.getInstance().playerMusic(3);
     }
 }
