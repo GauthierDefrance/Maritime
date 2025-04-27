@@ -24,15 +24,7 @@ public class MusicBuilder {
      * @return {@link MusicPlayer} object that can play music and must be stopped
      */
     public static MusicPlayer createMusic(String filename) {
-        File fichier = new File(MUSIC_FILE_PATH+filename);
-        if(fichier.exists()) {
-            MusicPlayer mp = new MusicPlayer();
-            mp.load(MUSIC_FILE_PATH+filename);
-            return mp;
-        } else {
-            logger.warn("The file couldn't be created : " + MUSIC_FILE_PATH+filename);
-            return null;
-        }
+        return createMusic(filename, false);
     }
 
     /**
@@ -46,10 +38,7 @@ public class MusicBuilder {
         if(fichier.exists()) {
             MusicPlayer mp = new MusicPlayer();
             mp.load(MUSIC_FILE_PATH+filename);
-
-            if(loop) {
-                mp.loop();
-            }
+            if(loop) mp.loop();
             return mp;
         } else {
             logger.warn("The file couldn't be created : " + MUSIC_FILE_PATH+filename);

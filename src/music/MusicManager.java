@@ -17,7 +17,7 @@ public class MusicManager {
     private HashMap<String, MusicPlayer> musicPlayersMap;
 
     private MusicManager() {
-        musicPlayersMap = new HashMap<String, MusicPlayer>();
+        musicPlayersMap = new HashMap<>();
     }
 
     /**

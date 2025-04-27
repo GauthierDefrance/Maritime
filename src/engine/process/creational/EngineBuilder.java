@@ -593,6 +593,9 @@ public class EngineBuilder {
 
         MapGame.getInstance().getPlayer().addAmountCurrency(3000);
         MapGame.getInstance().getPlayer().addHarbor(MapGame.getInstance().getLstHarbor().get(0));
+        MapGame.getInstance().getLstHarbor().get(0).getInventory().add(GameConfiguration.WOOD,600);
+        MapGame.getInstance().getLstHarbor().get(0).getInventory().add(GameConfiguration.CLOTH,300);
+        MapGame.getInstance().getLstHarbor().get(0).getInventory().add(GameConfiguration.METAL,100);
         lstHarbor.remove(MapGame.getInstance().getLstHarbor().get(0));
 
         for (int i = 0 ; i < 2 ;i++) {
