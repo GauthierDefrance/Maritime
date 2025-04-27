@@ -215,8 +215,7 @@ public class FactionManager {
             MapGame.getInstance().removeHunterPreyHashMap(hunter);
             hunter.clearPath();
             hunter.setNextGraphPoint(prey.getNextGraphPoint());
-            playerManager.updatePlayerVision();
-            return new AbstractMap.SimpleEntry<>(startBattle(hunter,prey),new Boolean[]{MapGame.getInstance().getPlayer().getLstBoat().contains(hunter),(MapGame.getInstance().getPlayer().getVision().contains(hunter)||MapGame.getInstance().getPlayer().getVision().contains(prey))});
+            return new AbstractMap.SimpleEntry<>(startBattle(hunter,prey),new Boolean[]{MapGame.getInstance().getPlayer().getLstBoat().contains(hunter),(getPlayerManager().isInPlayerVision(hunter)||getPlayerManager().isInPlayerVision(prey))});
         }
         else{
             boolean flag = false;
@@ -476,21 +475,18 @@ public class FactionManager {
             }
         }
 
-        if(MapGame.getInstance().getPirate().getLstBoat().size()<GameConfiguration.MAX_PIRATE_BOAT && (((int) (MapGame.getInstance().getTime() * 10)) % (GameConfiguration.GAME_FLEET_SPAWN_TIME/100)) == 1 && !MapGame.getInstance().isNoSpawnMode()){
+        if(MapGame.getInstance().getPirate().getLstBoat().size()<GameConfiguration.MAX_PIRATE_BOAT && (((int) (MapGame.getInstance().getTime() * 10)) % (GameConfiguration.GAME_FLEET_SPAWN_TIME/50)) == 1 && !MapGame.getInstance().isNoSpawnMode()){
             int randomInt1 = random.nextInt(MapGame.getInstance().getMapGraphPoint().size()-11)+11;
             int randomInt2 = random.nextInt(GameConfiguration.GAME_FLEET_PIRATE_SIZE)+1;
             Fleet fleet = EngineBuilder.Fleet("");
             MapGame.getInstance().getPirate().addFleet(fleet);
             for(int i = 0 ; i < randomInt2 ;i++) {
                 Boat newBoat = getRandomBoat(MapGame.getInstance().getPirate(), MapGame.getInstance().getMapGraphPoint().get(randomInt1),new ArrayList<>(Collections.singletonList(3)));
-                playerManager.updatePlayerVision();
                 int j = 0;
-                while (MapGame.getInstance().getPlayer().getVision().contains(newBoat) && j < 400) {
+                while (getPlayerManager().isInPlayerVision(newBoat) && j < 400) {
                     j++;
                     randomInt1 = random.nextInt(MapGame.getInstance().getMapGraphPoint().size() - 11) + 11;
                     newBoat.setPosition(MapGame.getInstance().getMapGraphPoint().get(randomInt1).getPoint());
-                    playerManager.updatePlayerVision();
-
                 }
                 newBoat.setNextGraphPoint(SearchInGraph.getClosestMapGraphPoint(newBoat.getPosition()));
                 MapGame.getInstance().getPirate().addBoat(newBoat);

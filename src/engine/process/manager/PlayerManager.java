@@ -49,4 +49,18 @@ public class PlayerManager {
         }
         MapGame.getInstance().getPlayer().setVision(vision);
     }
+
+    public boolean isInPlayerVision(Boat boat){
+        for (Boat playerBoat : MapGame.getInstance().getPlayer().getLstBoat()){
+            if (playerBoat.getVisionRadius() / 2 >= boat.getPosition().distance(playerBoat.getPosition())) {
+                return true;
+            }
+        }
+        for (Harbor harbor : MapGame.getInstance().getPlayer().getLstHarbor()){
+            if (harbor.getVisionRadius() / 2 >= boat.getPosition().distance(harbor.getPosition())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
