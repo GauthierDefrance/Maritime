@@ -17,9 +17,13 @@ public class MusicManager {
     private MusicPlayer[] musicPlayers;
 
     private MusicManager() {
-        musicPlayers = new MusicPlayer[2];
-        musicPlayers[0] = new MusicPlayer("Killing_in_the_Name.wav",true);
-        musicPlayers[1] = new MusicPlayer("declare_war.wav", true);
+        musicPlayers = new MusicPlayer[6];
+        musicPlayers[0] = new MusicPlayer("startMenu.wav",true);
+        musicPlayers[1] = new MusicPlayer("optionsMenu.wav",true);
+        musicPlayers[2] = new MusicPlayer("mainGameMenu.wav",true);
+        musicPlayers[3] = new MusicPlayer("inGameMenu.wav",true);
+        musicPlayers[4] = new MusicPlayer("battle.wav",true);
+        musicPlayers[5] = new MusicPlayer("declareWar.wav", false);
     }
 
     /**
@@ -51,6 +55,18 @@ public class MusicManager {
     public void pauseAllMusicPlayersLoop() {
         for (MusicPlayer mp : musicPlayers) {
             if(mp != null && mp.isLooping()) {
+                mp.pause();
+            }
+        }
+    }
+
+    /**
+     * Methode that pause all the existing music that Loop
+     * @param i except musicPlayers[i]
+     */
+    public void pauseAllMusicPlayersLoop(int i) {
+        for (MusicPlayer mp : musicPlayers) {
+            if(mp != null && !mp.equals(musicPlayers[i]) && mp.isLooping()) {
                 mp.pause();
             }
         }
@@ -95,7 +111,7 @@ public class MusicManager {
      * Methode that unpause a specific music
      */
     public void resumeMusicPlayer(int i) {
-        if(musicPlayers[i] != null)musicPlayers[i].resume();
+        if(musicPlayers[i] != null && !musicPlayers[i].isPlaying())musicPlayers[i].resume();
     }
 
 }

@@ -8,6 +8,7 @@ import engine.data.faction.Faction;
 import engine.data.trading.SeaRoad;
 import gui.MainGUI;
 import gui.panel.menu.*;
+import music.MusicManager;
 
 import javax.swing.JPanel;
 import java.awt.*;
@@ -19,7 +20,8 @@ import java.awt.*;
  */
 public class GUILoader {
 
-    private static void actualise(JPanel menu){
+    private static void actualise(JPanel menu,int i){
+        MusicManager.getInstance().pauseAllMusicPlayersLoop(i);
         Container window = MainGUI.getWindow();
         window.removeAll();
         window.add(menu);
@@ -30,63 +32,78 @@ public class GUILoader {
     }
 
     public static void loadMainGame(){
-        actualise(new MainGameMenu());
+        actualise(new MainGameMenu(),2);
+        MusicManager.getInstance().resumeMusicPlayer(2);
     }
 
     public static void loadHarborMenu(Harbor harbor){
-        actualise(new HarborMenu(harbor));
+        actualise(new HarborMenu(harbor),3);
+        MusicManager.getInstance().resumeMusicPlayer(3);
     }
 
     public static void loadFleetMenu(Fleet fleet){
-        actualise(new FleetMenu(fleet));
+        actualise(new FleetMenu(fleet),3);
+        MusicManager.getInstance().resumeMusicPlayer(3);
     }
 
     public static void loadFleetMenu(SeaRoad seaRoad){
-        actualise(new FleetMenu(seaRoad));
+        actualise(new FleetMenu(seaRoad),3);
+        MusicManager.getInstance().resumeMusicPlayer(3);
     }
 
     public static void loadPauseMenu(int token,Object object){
-        actualise(new PauseMenu(token,object));
+        actualise(new PauseMenu(token,object),1);
+        MusicManager.getInstance().resumeMusicPlayer(1);
     }
 
     public static void loadStartMenu(){
-        actualise(new StartMenu());
+        actualise(new StartMenu(),0);
+        MusicManager.getInstance().resumeMusicPlayer(0);
     }
 
     public static void loadOptionsMenu(int token,Object object){
-        actualise(new OptionsMenu(token,object));
+        actualise(new OptionsMenu(token,object),1);
+        MusicManager.getInstance().resumeMusicPlayer(1);
     }
 
     public static void loadChargeGameMenu(int token, Object object){
-        actualise(new SaveFileMenu(token, 0,object));
+        actualise(new SaveFileMenu(token, 0,object),1);
+        MusicManager.getInstance().resumeMusicPlayer(1);
     }
 
     public static void loadSaveGameMenu(int token, Object object){
-        actualise(new SaveFileMenu(token, 1,object));
+        actualise(new SaveFileMenu(token, 1,object),1);
+        MusicManager.getInstance().resumeMusicPlayer(1);
     }
 
     public static void loadRelationMenu(Faction faction){
-        actualise(new RelationMenu(faction));
+        actualise(new RelationMenu(faction),3);
+        MusicManager.getInstance().resumeMusicPlayer(3);
     }
 
     public static void loadCombat(Battle battle){
         MapGame.getInstance().setTimeStop(true);
-        actualise(new CombatMenu(battle));
+        actualise(new CombatMenu(battle),4);
+        MusicManager.getInstance().resumeMusicPlayer(4);
     }
 
     public static void loadTradeMenu(Harbor sellerHarbor, Harbor targetHarbor){
-        actualise(new TradeMenu(sellerHarbor,targetHarbor));
+        actualise(new TradeMenu(sellerHarbor,targetHarbor),3);
+        MusicManager.getInstance().resumeMusicPlayer(3);
     }
 
     public static void loadChoicePathMenu(Faction faction){
-        actualise(new ChoicePathMenu(faction));
+        actualise(new ChoicePathMenu(faction),3);
+        MusicManager.getInstance().resumeMusicPlayer(3);
     }
 
     public static void loadChoicePathMenu(SeaRoad seaRoad){
-        actualise(new ChoicePathMenu(seaRoad));
+        actualise(new ChoicePathMenu(seaRoad),3);
+        MusicManager.getInstance().resumeMusicPlayer(3);
     }
 
     public static void loadChoicePathMenu(Fleet fleet){
-        actualise(new ChoicePathMenu(fleet));
+        actualise(new ChoicePathMenu(fleet),3);
+        MusicManager.getInstance().resumeMusicPlayer(3);
     }
 }

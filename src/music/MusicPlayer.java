@@ -86,6 +86,7 @@ public class MusicPlayer {
     public void resume() {
         if (clip != null && !clip.isRunning()) {
             clip.start();
+            if (loop) doLoop();
         }
     }
 
