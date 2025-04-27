@@ -17,13 +17,15 @@ public class MusicManager {
     private MusicPlayer[] musicPlayers;
 
     private MusicManager() {
-        musicPlayers = new MusicPlayer[6];
+        musicPlayers = new MusicPlayer[8];
         musicPlayers[0] = new MusicPlayer("startMenu.wav",true);
         musicPlayers[1] = new MusicPlayer("optionsMenu.wav",true);
         musicPlayers[2] = new MusicPlayer("mainGameMenu.wav",true);
         musicPlayers[3] = new MusicPlayer("inGameMenu.wav",true);
         musicPlayers[4] = new MusicPlayer("battle.wav",true);
         musicPlayers[5] = new MusicPlayer("declareWar.wav", false);
+        musicPlayers[6] = new MusicPlayer("success.wav", false);
+        musicPlayers[7] = new MusicPlayer("fail.wav", false);
     }
 
     /**
