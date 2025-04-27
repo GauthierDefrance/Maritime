@@ -9,6 +9,7 @@ import java.util.HashMap;
 /**
  * This class manage the music played.
  * @author Gauthier Defrance
+ * @author Kenan Ammad
  * Class MusicManager
  * @version 0.1
  */
