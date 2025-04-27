@@ -117,9 +117,9 @@ public class MainGameMenu extends JPanel implements Runnable {
         jEastCenterPanelChoice1 = JComponentFactory.borderMenuPanel();
         jEastCenterPanelChoice2 = JComponentFactory.borderMenuPanel();
         jEastCenterPanelChoice3 = JComponentFactory.borderMenuPanel();
-        jButtonLeftMenu1 = JComponentFactory.menuButton("1",new ShowMenu(jEastCenterPanelChoice1,jEastCenterCenterPanel));
-        jButtonLeftMenu2 = JComponentFactory.menuButton("2",new ShowMenu(jEastCenterPanelChoice2,jEastCenterCenterPanel));
-        jButtonLeftMenu3 = JComponentFactory.menuButton("3",new ShowMenu(jEastCenterPanelChoice3,jEastCenterCenterPanel));
+        jButtonLeftMenu1 = JComponentFactory.menuButton("Boat",new ShowMenu(jEastCenterPanelChoice1,jEastCenterCenterPanel));
+        jButtonLeftMenu2 = JComponentFactory.menuButton("Harbor",new ShowMenu(jEastCenterPanelChoice2,jEastCenterCenterPanel));
+        jButtonLeftMenu3 = JComponentFactory.menuButton("Fleet",new ShowMenu(jEastCenterPanelChoice3,jEastCenterCenterPanel));
         jNorthATHLabel = JComponentFactory.title("    "+MapGame.getInstance().getPlayer().getCurrency().getName()+" : "+MapGame.getInstance().getPlayer().getAmountCurrency()+"   Harbor : "+MapGame.getInstance().getPlayer().getLstHarbor().size()+"/"+MapGame.getInstance().getLstHarbor().size());
         dashboard = new GameDisplay();
         mapObject = new HashMap<>();
