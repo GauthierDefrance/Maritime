@@ -339,7 +339,7 @@ public class FactionManager {
             }
         }
         if(flag)battleTime = new AbstractMap.SimpleEntry<>(startBattle(boat,harbor),new Boolean[]{false,true});
-        else if((((int)(MapGame.getInstance().getTime()*10)) % (GameConfiguration.RELOAD_TIME_DAMAGE_HARBOR/boat.getDamageSpeed())) == 0){
+        else if((((int)(MapGame.getInstance().getTime()*10)) % (10+(GameConfiguration.RELOAD_TIME_DAMAGE_HARBOR/boat.getDamageSpeed()))) == 0){
             harbor.setCurrentHp(harbor.getCurrentHp() - GameConfiguration.DAMAGE_TAKEN);
             BufferedImage sprite = ImageStock.getImage(harbor);
             MapGame.getInstance().addPopUp(new PopUp("explosion",new Point((int) (harbor.getPosition().getX()+((random.nextInt(sprite.getWidth()/2)+1)-((double) sprite.getWidth() /4))),(int) (harbor.getPosition().getY()+((random.nextInt(sprite.getHeight())+1)-((double) sprite.getHeight() /2)))), 5));
@@ -475,7 +475,7 @@ public class FactionManager {
             }
         }
 
-        if(MapGame.getInstance().getPirate().getLstBoat().size()<GameConfiguration.MAX_PIRATE_BOAT && (((int) (MapGame.getInstance().getTime() * 10)) % (GameConfiguration.GAME_FLEET_SPAWN_TIME/50)) == 1 && !MapGame.getInstance().isNoSpawnMode()){
+        if(MapGame.getInstance().getPirate().getLstBoat().size()<GameConfiguration.MAX_PIRATE_BOAT && (((int) (MapGame.getInstance().getTime() * 10)) % (1+(GameConfiguration.GAME_FLEET_SPAWN_TIME/50))) == 1 && !MapGame.getInstance().isNoSpawnMode()){
             int randomInt1 = random.nextInt(MapGame.getInstance().getMapGraphPoint().size()-11)+11;
             int randomInt2 = random.nextInt(GameConfiguration.GAME_FLEET_PIRATE_SIZE)+1;
             Fleet fleet = EngineBuilder.Fleet("");
