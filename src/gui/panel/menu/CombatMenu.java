@@ -301,6 +301,7 @@ public class CombatMenu extends JPanel implements Runnable {
             if(boat == null)boat = BoatManager.boatCollisionToPoint(point,battle.getLstBoatsCurrentlyBeingPlaced());
             if (e.getButton() == MouseEvent.BUTTON1 && boat != null) {
                 battle.setCurrentBoat2(boat);
+                battle.setCurrentBoatPoint2(SwingUtilities.convertPoint((Component) e.getSource(),e.getPoint(),MainGUI.getWindow()));
             }
         }
         @Override
@@ -312,7 +313,7 @@ public class CombatMenu extends JPanel implements Runnable {
                     battle.getCurrentBoat2().setNextGraphPoint(new GraphPoint(point,""));
                 }
                 battle.setCurrentBoat2(null);
-                battle.setCurrentBoatPoint2(new Point(-1000,-1000));
+                battle.setCurrentBoatPoint2(null);
                 elementInPanelUpdate();
 
             }
@@ -326,7 +327,7 @@ public class CombatMenu extends JPanel implements Runnable {
     }
 
     private class ButtonMouseListener extends MouseAdapter {
-        private Boat boat;
+        private final Boat boat;
 
         public ButtonMouseListener(Boat boat) {
             this.boat = boat;
@@ -337,8 +338,6 @@ public class CombatMenu extends JPanel implements Runnable {
                 battle.setCurrentBoat(boat);
                 jWestATHPanel.setVisible(false);
             }
-            else if (e.getButton() == MouseEvent.BUTTON3) {
-            }
         }
 
         @Override
@@ -346,7 +345,7 @@ public class CombatMenu extends JPanel implements Runnable {
             if (e.getButton() == MouseEvent.BUTTON1 && battle.getCurrentBoat()!=null) {
                 Point point0 = SwingUtilities.convertPoint((Component) e.getSource(),e.getPoint(),dashboardJPanel);
                 Point point = ListenerBehaviorManager.create().clickLogic(CombatMenu.this, point0);
-                if(GameConfiguration.SPAWN_ZONE.contains(point)) {
+                if(GameConfiguration.SPAWN_ZONE.contains(point)&& GameConfiguration.SPAWN_ZONE_MIN_Y <= point.getY() && GameConfiguration.SPAWN_ZONE_MAX_Y >= point.getY()) {
                     battleManager.getPlacingManager().placeBoat(battle.getCurrentBoat(), point);
                 }
                 battle.setCurrentBoat(null);
