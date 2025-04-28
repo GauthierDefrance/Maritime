@@ -628,12 +628,12 @@ public class FactionManager {
      * change the relationship between two factions
      */
     public void modifyRelationship(Faction factionTarget, Faction factionOwner, int value){
-        if(!(factionTarget instanceof Pirate)) {
+        if(!(factionTarget instanceof Pirate)&&!(factionOwner instanceof Pirate)) {
             int uncheckedResult = factionOwner.getRelationship(factionTarget) + value;
             if (uncheckedResult <= GameConfiguration.WAR_THRESHOLD) {
+                if((factionOwner.getRelationship(factionTarget) > GameConfiguration.WAR_THRESHOLD) && MapGame.getInstance().getPlayer().equals(factionTarget)) MusicManager.getInstance().playerMusic(5);
                 factionOwner.setRelationship(factionTarget, GameConfiguration.WAR_THRESHOLD);
                 warTime(factionTarget, factionOwner);
-                if(MapGame.getInstance().getPlayer().equals(factionTarget)) MusicManager.getInstance().playerMusic(5);
             }
             else factionOwner.setRelationship(factionTarget, Math.min(uncheckedResult, GameConfiguration.BFF_THRESHOLD));
         }
