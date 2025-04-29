@@ -553,8 +553,13 @@ public class MainGameMenu extends JPanel implements Runnable {
                 if((FactionManager.getInstance().getMyFaction(((Harbor) object).getColor()).getRelationship(MapGame.getInstance().getPlayer()) <= -100) || JOptionPane.showConfirmDialog(MainGameMenu.this,"Do you want to declare war to "+FactionManager.getInstance().getMyFaction(((Harbor) object).getName()).getName()+"? This decision cannot be reversed","confirmation",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
                     FactionManager.getInstance().modifyRelationship(MapGame.getInstance().getPlayer(),FactionManager.getInstance().getMyFaction(((Harbor) object).getColor()),-100);
                     if (currentObject instanceof Boat) {
-                        ((Boat) currentObject).setContinuePath(false);
-                        ((Boat) currentObject).setPath(SearchInGraph.findPath((Boat) currentObject, ((Harbor) object).getGraphPosition()));
+                        Boat boat = (Boat) currentObject;
+                        Harbor harbor = FactionManager.getInstance().getMyHarbor(boat);
+                        if(harbor != null && harbor.getHashMapBoat().get(boat)){
+                            FactionManager.getInstance().getHarborManager().removeBoatInHarbor(harbor,boat);
+                        }
+                        else boat.setContinuePath(false);
+                        boat.setPath(SearchInGraph.findPath(boat, ((Harbor) object).getGraphPosition()));
                     } else if (currentObject instanceof Fleet) {
                         SeaRoad seaRoad = FactionManager.getInstance().getMySeaRoad((Fleet) currentObject);
                         if (seaRoad != null)
