@@ -41,6 +41,7 @@ public class HarborManager {
     }
 
     public void addFleetInHarbor(Harbor harbor, Fleet fleet){
+        FactionManager.getInstance().getFleetManager().removePath(fleet);
         for (Boat boat : fleet.getArrayListBoat()){
             addBoatInHarbor(harbor,boat);
         }
